@@ -189,8 +189,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>
-               
+              <li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>               
               <li><a class="fa fa-cube" href="#/Distribuidora"> Distribuidora</a></li> 
               <li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
               <li><a class="fa fa-bullhorn" href="#/Tipo_Contacto"> Tipo Contacto</a></li>
@@ -200,7 +199,11 @@
               <li><a class="fa fa-bookmark" href="#/Provincia"> Provincia</a></li>
               <li><a class="fa fa-child" href="#/Localidad"> Localidad</a></li>              
               <li><a class="fa fa-bank" href="#/Bancos"> Bancos</a></li>
+              <li><a class="fa fa-bolt" href="#/Tarifa_Electrica"> Tarifa Electrica</a></li>
+              <li><a class="fa fa-circle-o" href="#/Tarifa_Gas"> Tarifa Gas</a></li>
+              <li><a class="fa fa-thermometer" href="#/Tipo_Comision"> Tipo Comisión</a></li>
               <li><a class="fa fa-universal-access" href="#/Tipo_Vias"> Tipo Via</a></li>
+
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> Motivos Clientes</a></li>
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Actividades"> Motivos Actividades</a></li>                 
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Puntos_Suministros"> Motivos Puntos Sum</a></li>

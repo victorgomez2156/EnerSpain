@@ -68,6 +68,9 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comercializadora.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos_actividades.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_pum_sum.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifa_electrica.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifa_gas.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_comision.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>"></script>
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    

@@ -6,7 +6,7 @@ class Configuraciones_Generales extends REST_Controller
 	function __construct()
 	{
     	parent::__construct(); 
-		$this->load->database('default');
+		$this->load->database('default'); 
         $this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
 		$this->load->model('Configuraciones_generales_model');
@@ -218,10 +218,6 @@ class Configuraciones_Generales extends REST_Controller
 		{
 			$file='no';
 		}
-
-
-		
-
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','INSERT',0,$this->input->ip_address(),'Importando Archivo Excel');	
 		$this->db->trans_complete();
 		$this->response($file);
@@ -565,6 +561,231 @@ class Configuraciones_Generales extends REST_Controller
 		$this->response($objSalida);
     }
    	/// PARA LOS TIPOS DE VIAS END //////
+
+    ////PARA LAS TARIFAS ELECTRICAS START///////
+    public function get_list_tarifa_electricas_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Configuraciones_generales_model->list_tarifa_electricas();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',0,$this->input->ip_address(),'Cargando Lista de Tarifas Electricas');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function borrar_tarifa_electrica_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodTarEle=$this->get('CodTarEle');
+        $data = $this->Configuraciones_generales_model->borrar_tarifa_electrica($CodTarEle);
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','DELETE',$CodTarEle,$this->input->ip_address(),'Borrando Tarifa Electrica.');		
+    }
+    public function crear_tarifa_electrica_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodTarEle))
+		{		
+			$this->Configuraciones_generales_model->actualizar_tarifa_electrica($objSalida->CodTarEle,$objSalida->TipTen,$objSalida->NomTarEle,$objSalida->CanPerTar,$objSalida->MinPotCon,$objSalida->MaxPotCon);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','UPDATE',$objSalida->CodTarEle,$this->input->ip_address(),'Actualizando Tarifa Electrica');
+		}
+		else
+		{
+			$id = $this->Configuraciones_generales_model->agregar_tarifa_electrica($objSalida->TipTen,$objSalida->NomTarEle,$objSalida->CanPerTar,$objSalida->MinPotCon,$objSalida->MaxPotCon);		
+			$objSalida->CodTarEle=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','INSERT',$objSalida->CodTarEle,$this->input->ip_address(),'Creando Tarifa Electrica');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+    public function buscar_XID_TarEle_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodTarEle=$this->get('CodTarEle');		
+        $data = $this->Configuraciones_generales_model->get_tarifa_electrica($CodTarEle);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',$CodTarEle,$this->input->ip_address(),'Consultando datos de la Tarifa Electrica');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+
+     ////PARA LAS TARIFAS ELECTRICAS END///////
+     ////PARA LAS TARIFAS GAS START///////
+    public function get_list_tarifa_Gas_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Configuraciones_generales_model->get_list_tarifa_Gas();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'Cargando Lista de Tarifas Gas');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+   	public function borrar_tarifa_gas_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodTarGas=$this->get('CodTarGas');
+        $data = $this->Configuraciones_generales_model->borrar_tarifa_gas($CodTarGas);
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','DELETE',$CodTarGas,$this->input->ip_address(),'Borrando Tarifa Gas.');		
+    }
+     public function buscar_XID_TarGas_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodTarGas=$this->get('CodTarGas');		
+        $data = $this->Configuraciones_generales_model->get_tarifa_gas($CodTarGas);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',$CodTarGas,$this->input->ip_address(),'Consultando datos de la Tarifa Gas');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+   public function crear_tarifa_GAS_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodTarGas))
+		{		
+			$this->Configuraciones_generales_model->actualizar_tarifa_gas($objSalida->CodTarGas,$objSalida->NomTarGas,$objSalida->MinConAnu,$objSalida->MaxConAnu);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','UPDATE',$objSalida->CodTarGas,$this->input->ip_address(),'Actualizando Tarifa Gas');
+		}
+		else
+		{
+			$id = $this->Configuraciones_generales_model->agregar_tarifa_gas($objSalida->NomTarGas,$objSalida->MinConAnu,$objSalida->MaxConAnu);		
+			$objSalida->CodTarGas=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','INSERT',$objSalida->CodTarGas,$this->input->ip_address(),'Creando Tarifa Gas');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }  
+
+     ////PARA LAS TARIFAS GAS END///////
+
+
+   ////PARA LOS TIPO DE COMISIONES START///////
+    public function get_list_Tipo_Comision_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Configuraciones_generales_model->get_list_Tipo_Comision();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','GET',0,$this->input->ip_address(),'Cargando Lista de Tipos de Comisiones');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function buscar_XID_TipoComision_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodTipCom=$this->get('CodTipCom');		
+        $data = $this->Configuraciones_generales_model->get_tipo_comision($CodTipCom);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','GET',$CodTipCom,$this->input->ip_address(),'Consultando datos del tipo de comision');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+   public function borrar_tipo_comision_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodTipCom=$this->get('CodTipCom');
+        $data = $this->Configuraciones_generales_model->borrar_tipo_comision($CodTipCom);
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','DELETE',$CodTipCom,$this->input->ip_address(),'Borrando Tipo de Comision.');		
+    }	
+     
+   public function crear_Tipo_Comision_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodTipCom))
+		{		
+			$this->Configuraciones_generales_model->actualizar_tipo_comision($objSalida->CodTipCom,$objSalida->DesTipCom);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','UPDATE',$objSalida->CodTipCom,$this->input->ip_address(),'Actualizando Tipo de Comisión');
+		}
+		else
+		{
+			$id = $this->Configuraciones_generales_model->agregar_tipo_comision($objSalida->DesTipCom);		
+			$objSalida->CodTipCom=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','INSERT',$objSalida->CodTipCom,$this->input->ip_address(),'Creando Tipo de Comisión');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+     ////PARA LOS TIPO DE COMISIONES END///////
 
    	/// PARA LOS MOTIVOS DE BLOQUEOS START //////
    	  public function list_tMotivos_Bloqueos_get()
@@ -1081,15 +1302,22 @@ class Configuraciones_Generales extends REST_Controller
 		$this->response($data);		
     }
 
-     public function get_list_ComAct_get()
+     public function get_list_Actividades_get()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
-        $data = $this->Configuraciones_generales_model->get_list_ComAct();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',0,$this->input->ip_address(),'Cargando Comercializadora Activas');
+        $ComAct = $this->Configuraciones_generales_model->get_list_ComAct();
+       	$ProAct = $this->Configuraciones_generales_model->get_list_ProAct();
+       	$TioCom = $this->Configuraciones_generales_model->get_list_TipCom();
+       	$Tarifa_Gas= $this->Configuraciones_generales_model->get_list_tarifa_Gas();
+       	$Tarifa_Ele= $this->Configuraciones_generales_model->list_tarifa_electricas();
+
+
+       	$data=array('TProComercializadoras' =>$ComAct,'TProductosActivos' =>$ProAct,'Tipos_Comision' =>$TioCom,'Tarifa_Gas' =>$Tarifa_Gas,'Tarifa_Ele' =>$Tarifa_Ele );
+       	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',0,$this->input->ip_address(),'Cargando Lista de Activades Para Usar');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -1350,9 +1578,348 @@ public function get_list_anexos_get()
 	}		
 	$this->response($data);		
 }
+public function registrar_anexos_post()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	$objSalida = json_decode(file_get_contents("php://input"));				
+	$T_DetalleAnexoTarifaElecAlt=$objSalida->T_DetalleAnexoTarifaElecAlt;
+	$T_DetalleAnexoTarifaElecBaj=$objSalida->T_DetalleAnexoTarifaElecBaj;
+	$T_DetalleAnexoTarifaGas=$objSalida->T_DetalleAnexoTarifaGas;
+	$this->db->trans_start();	
+	if($objSalida->Fijo==true&&$objSalida->Indexado==false)
+	{
+		$TipPre=0;
+	}
+	elseif ($objSalida->Indexado==true&&$objSalida->Fijo==false) 
+	{
+		$TipPre=1;
+	}
+	else
+	{
+		$TipPre=2;
+	}
+	if(isset($objSalida->CodAnePro))
+	{
+		$this->Configuraciones_generales_model->eliminar_detalles_anexos($objSalida->CodAnePro);
+		$this->Configuraciones_generales_model->actualizar_anexos($objSalida->CodAnePro,$objSalida->CodPro,$objSalida->DesAnePro,$objSalida->SerGas,$objSalida->SerEle,$objSalida->DocAnePro,$objSalida->ObsAnePro,$objSalida->CodTipCom,0,$TipPre);
+		if($T_DetalleAnexoTarifaGas!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaGas as $T_DetalleAnexoTarifaGas => $record_Tarifa_Gas):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_gas($objSalida->CodAnePro,$record_Tarifa_Gas->CodTarGas);
+			}
+			endforeach;
+		}
+		if($T_DetalleAnexoTarifaElecBaj!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaElecBaj as $T_DetalleAnexoTarifaElecBaj => $record_Tarifa_Elec_Baja):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Baja($objSalida->CodAnePro,$record_Tarifa_Elec_Baja->CodTarEle);
+			}
+			endforeach;
+		}
+		if($T_DetalleAnexoTarifaElecAlt!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaElecAlt as $T_DetalleAnexoTarifaElecAlt => $record_Tarifa_Elec_Alta):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Alta($objSalida->CodAnePro,$record_Tarifa_Elec_Alta->CodTarEle);
+			}
+			endforeach;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_AnexoProducto','UPDATE',$objSalida->CodAnePro,$this->input->ip_address(),'Actualizando Productos.');	
+	}
+	else
+	{			
+		$id = $this->Configuraciones_generales_model->agregar_anexos($objSalida->CodPro,$objSalida->DesAnePro,$objSalida->SerGas,$objSalida->SerEle,$objSalida->DocAnePro,$objSalida->ObsAnePro,date('Y-m-d'),$objSalida->CodTipCom,0,1,$TipPre);		
+			$objSalida->CodAnePro=$id;
+		if($T_DetalleAnexoTarifaGas!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaGas as $T_DetalleAnexoTarifaGas => $record_Tarifa_Gas):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_gas($objSalida->CodAnePro,$record_Tarifa_Gas->CodTarGas);
+			}
+			endforeach;
+		}
+		if($T_DetalleAnexoTarifaElecBaj!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaElecBaj as $T_DetalleAnexoTarifaElecBaj => $record_Tarifa_Elec_Baja):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Baja($objSalida->CodAnePro,$record_Tarifa_Elec_Baja->CodTarEle);
+			}
+			endforeach;
+		}
+		if($T_DetalleAnexoTarifaElecAlt!=false)
+		{
+			foreach ($T_DetalleAnexoTarifaElecAlt as $T_DetalleAnexoTarifaElecAlt => $record_Tarifa_Elec_Alta):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Alta($objSalida->CodAnePro,$record_Tarifa_Elec_Alta->CodTarEle);
+			}
+			endforeach;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_AnexoProducto','INSERT',$objSalida->CodAnePro,$this->input->ip_address(),'Agregando Anexos.');
+	}			
+	$this->db->trans_complete();
+	$this->response($objSalida);
+}
+public function Buscar_xID_Anexos_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}		
+    $CodAnePro=$this->get('CodAnePro');
+    $data_anexos = $this->Configuraciones_generales_model->get_anexos_data($CodAnePro);
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_AnexoProducto','GET',$CodAnePro,$this->input->ip_address(),'Buscando Anexos Por CodAnePro');
+	if (empty($data_anexos))
+	{
+		$this->response(false);
+		return false;
+	}	
 
+	if($data_anexos->SerGas==1)
+	{
+		$data_detalle_tarifa_gas = $this->Configuraciones_generales_model->get_detalle_tarifa_gas($CodAnePro);
+		$data_anexos->T_DetalleAnexoTarifaGas=$data_detalle_tarifa_gas;
+	}
+	else
+	{
+		$data_anexos->T_DetalleAnexoTarifaGas=false;
+	}
+	if($data_anexos->SerEle==1)
+	{		
+		$data_anexos->T_DetalleAnexoTarifaElec = $this->obtener_detalle_tarifa_electrica($CodAnePro);		
+	}
+	else
+	{
+		$data_anexos->T_DetalleAnexoTarifaElec=false;
+		//$data_anexos->T_DetalleAnexoTarifaElecAlt=false;
+		//$data_anexos->T_DetalleAnexoTarifaElecBaj=false;
+	}
+	$this->response($data_anexos);		
+}
+	public function obtener_detalle_tarifa_electrica($CodAnePro)
+    {
+    	$detalleG = $this->Configuraciones_generales_model->obtener_detalle_tarifa_electrica($CodAnePro);
+		$detalleFinal = Array();
+		if (empty($detalleG))
+		{
+			return false;
+		}
+		return $detalleG;
+	}
+	public function cambiar_estatus_anexos_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		$resultado = $this->Configuraciones_generales_model->update_status_anexos($objSalida->CodAnePro,$objSalida->EstAne);
+		
+
+
+		if($objSalida->EstAne==2)
+		{
+			$CodMotBloPro=$this->Configuraciones_generales_model->agregar_bloqueo_anexos($objSalida->CodAnePro,date('Y-m-d'),$objSalida->MotBloAne,$objSalida->ObsMotBloAne);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoAnexo','INSERT',$CodMotBloPro,$this->input->ip_address(),'Bloqueo de Anexo.');
+		}
+		$objSalida->resultado=$resultado;
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_AnexoProducto','UPDATE',$objSalida->CodAnePro,$this->input->ip_address(),'Actualizando Estatus del Anexo');		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
 
 ///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START////////////////////////////////////////////////////////////////////////////////////
+
+public function get_list_servicos_especiales_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	//$CodCom=$this->get('CodCom');
+    $data = $this->Configuraciones_generales_model->get_list_servicos_especiales();
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','GET',0,$this->input->ip_address(),'Cargando Lista de Servicios Especiales.');
+	if (empty($data))
+	{
+		$this->response(false);
+		return false;
+	}		
+	$this->response($data);		
+}
+public function registrar_servicios_especiales_post()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	$objSalida = json_decode(file_get_contents("php://input"));				
+	$T_DetalleServicioEspecialTarifaElecBaj=$objSalida->T_DetalleServicioEspecialTarifaElecBaj;
+	$T_DetalleServicioEspecialTarifaElecAlt=$objSalida->T_DetalleServicioEspecialTarifaElecAlt;
+	$T_DetalleServicioEspecialTarifaGas=$objSalida->T_DetalleServicioEspecialTarifaGas;
+	$this->db->trans_start();	
+	
+
+	if($objSalida->SerEle==true&&$objSalida->SerGas==false)
+	{
+		$TipSumSerEsp=0;
+	}
+	elseif ($objSalida->SerEle==false&&$objSalida->SerGas==true)
+	{
+		$TipSumSerEsp=1;
+	}
+	else
+	{
+		$TipSumSerEsp=2;
+	}
+	if(isset($objSalida->CodSerEsp))
+	{
+		$this->Configuraciones_generales_model->eliminar_detalles_servicios_especiales($objSalida->CodSerEsp);
+		$this->Configuraciones_generales_model->actualizar_servicio_especial($objSalida->CodSerEsp,$objSalida->CodCom,$objSalida->DesSerEsp,$TipSumSerEsp,$objSalida->TipCli,$objSalida->CarSerEsp,$objSalida->CodTipCom,$objSalida->OsbSerEsp);		
+		if($T_DetalleServicioEspecialTarifaElecBaj!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaElecBaj as $T_DetalleServicioEspecialTarifaElecBaj => $record_Tarifa_Elec_Baja):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Baja_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Elec_Baja->CodTarEle);
+			}
+			endforeach;
+		}
+		if($T_DetalleServicioEspecialTarifaElecAlt!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaElecAlt as $T_DetalleServicioEspecialTarifaElecAlt => $record_Tarifa_Elec_Alta):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Alta_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Elec_Alta->CodTarEle);
+			}
+			endforeach;
+		}
+		if($T_DetalleServicioEspecialTarifaGas!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaGas as $T_DetalleServicioEspecialTarifaGas => $record_Tarifa_Gas):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_gas_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Gas->CodTarGas);
+			}
+			endforeach;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','UPDATE',$objSalida->CodSerEsp,$this->input->ip_address(),'Actualizando Servicio Especial.');	
+	}
+	else
+	{
+		$id = $this->Configuraciones_generales_model->agregar_servicio_especial($objSalida->CodCom,$objSalida->DesSerEsp,date('Y-m-d'),$TipSumSerEsp,$objSalida->TipCli,$objSalida->CarSerEsp,$objSalida->CodTipCom,$objSalida->OsbSerEsp);		
+			$objSalida->CodSerEsp=$id;
+	
+		if($T_DetalleServicioEspecialTarifaElecBaj!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaElecBaj as $T_DetalleServicioEspecialTarifaElecBaj => $record_Tarifa_Elec_Baja):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Baja_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Elec_Baja->CodTarEle);
+			}
+			endforeach;
+		}
+		if($T_DetalleServicioEspecialTarifaElecAlt!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaElecAlt as $T_DetalleServicioEspecialTarifaElecAlt => $record_Tarifa_Elec_Alta):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_Elec_Alta_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Elec_Alta->CodTarEle);
+			}
+			endforeach;
+		}
+			if($T_DetalleServicioEspecialTarifaGas!=false)
+		{
+			foreach ($T_DetalleServicioEspecialTarifaGas as $T_DetalleServicioEspecialTarifaGas => $record_Tarifa_Gas):
+			{
+				$this->Configuraciones_generales_model->agregar_detalle_tarifa_gas_SerEsp($objSalida->CodSerEsp,$record_Tarifa_Gas->CodTarGas);
+			}
+			endforeach;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','INSERT',$objSalida->CodSerEsp,$this->input->ip_address(),'Agregando Servicio Especial.');
+	}			
+	$this->db->trans_complete();
+	$this->response($objSalida);
+}
+public function Buscar_xID_ServicioEspecial_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}		
+    $CodSerEsp=$this->get('CodSerEsp');
+    $data_servicio_especial = $this->Configuraciones_generales_model->get_servicio_especial_data($CodSerEsp);
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','GET',$CodSerEsp,$this->input->ip_address(),'Buscando Servicio Especial Por CodSerEsp');
+	if (empty($data_servicio_especial))
+	{
+		$this->response(false);
+		return false;
+	}	
+
+	if($data_servicio_especial->SerGas=="SI")
+	{
+		$data_detalle_tarifa_gas = $this->Configuraciones_generales_model->get_detalle_tarifa_gas_SerEsp($CodSerEsp);
+		$data_servicio_especial->T_DetalleServicioEspecialTarifaGas=$data_detalle_tarifa_gas;
+	}
+	else
+	{
+		$data_servicio_especial->T_DetalleServicioEspecialTarifaGas=false;
+	}
+	if($data_servicio_especial->SerEle=="SI")
+	{		
+		$data_servicio_especial->T_DetalleServicioEspecialTarifaEle = $this->obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp);		
+	}
+	else
+	{
+		$data_servicio_especial->T_DetalleServicioEspecialTarifaEle=false;
+	}
+	$this->response($data_servicio_especial);		
+}
+public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
+    {
+    	$detalleG = $this->Configuraciones_generales_model->obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp);
+		$detalleFinal = Array();
+		if (empty($detalleG))
+		{
+			return false;
+		}
+		return $detalleG;
+	}
+	public function cambiar_estatus_servicio_especial_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		$resultado = $this->Configuraciones_generales_model->update_status_servicio_especial($objSalida->CodSerEsp,$objSalida->EstSerEsp);
+		
+
+
+		if($objSalida->EstSerEsp==2)
+		{
+			$CodMotBloPro=$this->Configuraciones_generales_model->agregar_bloqueo_servicio_especial($objSalida->CodSerEsp,date('Y-m-d'),$objSalida->MotBloSerEsp,$objSalida->ObsMotBloSerEsp);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoServicioEspecial','INSERT',$CodMotBloPro,$this->input->ip_address(),'Bloqueo de Servicio Especial.');
+		}
+		$objSalida->resultado=$resultado;
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','UPDATE',$objSalida->CodSerEsp,$this->input->ip_address(),'Actualizando Estatus del Servicio Especial');		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+
+
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END////////////////////////////////////////////////////////////////////////////////////
 
 }
 ?>

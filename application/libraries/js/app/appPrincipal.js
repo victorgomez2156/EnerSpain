@@ -201,6 +201,36 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Add_Motivos_Bloqueos_Comercializadora/', {
 			templateUrl: 'application/views/view_motivos_bloqueo_comercializadoras.php' 
 		})
+
+		.when('/Tarifa_Electrica/', {
+			templateUrl: 'application/views/view_grib_tarifa_electrica.php'
+		})
+		.when('/Edit_Tarifa_Electrica/:ID', {
+			templateUrl: 'application/views/view_add_tarifa_electrica.php'
+		})
+		.when('/Add_Tarifa_Electrica/', {
+			templateUrl: 'application/views/view_add_tarifa_electrica.php' 
+		})
+
+		.when('/Tarifa_Gas/', {
+			templateUrl: 'application/views/view_grib_tarifa_gas.php'
+		})
+		.when('/Edit_Tarifa_Gas/:ID', {
+			templateUrl: 'application/views/view_add_tarifa_gas.php'
+		})
+		.when('/Add_Tarifa_Gas/', {
+			templateUrl: 'application/views/view_add_tarifa_gas.php' 
+		})
+
+		.when('/Tipo_Comision/', {
+			templateUrl: 'application/views/view_grib_tipo_comision.php'
+		})
+		.when('/Edit_Tipo_Comision/:ID', {
+			templateUrl: 'application/views/view_add_tipo_comision.php'
+		})
+		.when('/Add_Tipo_Comision/', {
+			templateUrl: 'application/views/view_add_tipo_comision.php' 
+		})
 		
 
 

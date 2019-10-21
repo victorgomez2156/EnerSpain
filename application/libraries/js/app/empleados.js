@@ -1,5 +1,6 @@
 app.controller('Controlador_Empleados', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies', Controlador]);
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies){
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
+{
 	//declaramos una variable llamada scope donde tendremos a vm
 	/*inyectamos un controlador para acceder a sus variables y metodos*/
 	//$controller('ControladorArticuloExistencia as vmAE',{$scope:$scope});			

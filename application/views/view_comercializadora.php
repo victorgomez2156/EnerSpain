@@ -492,7 +492,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.AccTPro==true">
                       <div class="btn-group">
                         <select class="form-control" id="opciones_productos" name="opciones_productos" ng-model="vm.opciones_productos[$index]" ng-change="vm.validar_opcion_productos($index,vm.opciones_productos[$index],dato)">
-                          <option ng-repeat="opcion in vm.Topciones_productos" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                          <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>
                     </td>
@@ -651,7 +651,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodTProCom" name="CodTProCom" ng-model="vm.productos.CodTProCom">
+       <select class="form-control" id="CodTProCom" name="CodTProCom" ng-model="vm.productos.CodTProCom" ng-disabled="vm.validate_info_productos==1">
          <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
         </select>
        
@@ -663,7 +663,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Producto <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.productos.DesPro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Producto" maxlength="50"/>       
+       <input type="text" class="form-control" ng-model="vm.productos.DesPro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Producto" maxlength="50" ng-disabled="vm.validate_info_productos==1"/>       
        </div>
        </div>
        </div>
@@ -672,7 +672,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
-       <input type="text" class="form-control" ng-model="vm.FecIniPro" placeholder="* DD/MM/YYYY" maxlength="10" readonly ng-disabled="vm.validate_info==1"/>
+       <input type="text" class="form-control" ng-model="vm.FecIniPro" placeholder="* DD/MM/YYYY" maxlength="10" readonly ng-disabled="vm.validate_info_productos==1"/>
        </div>
        </div>
        </div>
@@ -684,7 +684,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
-        <input type="checkbox" class="form-control" ng-model="vm.productos.SerGas"/>
+        <input type="checkbox" class="form-control" ng-model="vm.productos.SerGas" ng-disabled="vm.validate_info_productos==1"/>
        </div>
        </div>
        </div>
@@ -692,7 +692,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
-        <input type="checkbox" class="form-control" ng-model="vm.productos.SerEle"/>
+        <input type="checkbox" class="form-control" ng-model="vm.productos.SerEle" ng-disabled="vm.validate_info_productos==1"/>
        </div>
        </div>
        </div>
@@ -700,7 +700,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsPro" name="ObsPro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.productos.ObsPro"></textarea>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsPro" name="ObsPro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.productos.ObsPro" ng-disabled="vm.validate_info_productos==1"></textarea>
         
        </div>
        </div>    
@@ -708,8 +708,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form-group" >
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined||vm.productos.CodTPro==null||vm.productos.CodTPro==''" ng-disabled="vm.disabled_button==1">REGISTRAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0">ACTUALIZAR</button>            
-            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar()">LIMPIAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos==1">ACTUALIZAR</button>            
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_productos()">LIMPIAR</button>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()">REGRESAR</button>
           </div>
         </div>
@@ -731,7 +731,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <!-- INICIO DE TABS 3-->
       <div id="tabs-3">
-  <div ng-show="vm.TvistaAnexos=1">                 
+  <div ng-show="vm.TvistaAnexos==1">                 
 	<div id="t-0002">
   		<div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
     		<div class="t-0029">
@@ -768,7 +768,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar_anexos" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Productos" ng-click="vm.agg_productos()"><i class="fa fa-plus-square"></i></button>
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Anexos" ng-click="vm.agg_anexos()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
             </div>
@@ -809,7 +809,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.AccTAne==true">
                       <div class="btn-group">
                         <select class="form-control" id="opciones_anexos" name="opciones_anexos" ng-model="vm.opciones_anexos[$index]" ng-change="vm.validar_opcion_anexos($index,vm.opciones_anexos[$index],dato)">
-                          <option ng-repeat="opcion in vm.Topciones_Anexos" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                          <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>
                     </td>
@@ -836,11 +836,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </pagination>
           </div>
         </div>
-
-      
-
-
-
 
  <!-- modal container section start -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_anexos" class="modal fade">
@@ -878,10 +873,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </select>   
      </div>
      </div>
-    </div>
- 
-
-   
+    </div>   
     <br ng-show="vm.tmodal_data.ttipofiltrosAnexos==1">
      <br ng-show="vm.tmodal_data.ttipofiltrosAnexos==1"> 
     <br>
@@ -898,19 +890,726 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--modal container section end -->
 
 
+<!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_motivo_bloqueo_anexos" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Anexos</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel"> 
+    <input type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.CodAnePro" required readonly />
+      <form class="form-validate" id="form_lock_Anexos" name="form_lock_Anexos" ng-submit="submitFormlockAnexos($event)">                 
+     
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">COMERCIALIZADORA</label>
+     <input type="text" class="form-control" ng-model="vm.RazSocCom_BloAne" required readonly/>     
+     </div>
+     </div>
+
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">PRODUCTO</label>
+      <input type="text" class="form-control" ng-model="vm.DesPro_BloAne" required readonly />     
+     </div>
+     </div>
+
+      <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">ANEXO</label>
+      <input type="text" class="form-control" ng-model="vm.DesAnePro_BloAne" required readonly />     
+     </div>
+     </div>
+<div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">MOTIVO DEL BLOQUEO</label>
+       <input type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.MotBloAne" required/> 
+     </div>
+     </div>
+    
+</div>
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <input type="text" class="form-control" ng-model="vm.FecBloAne" required readonly/>    
+     </div>
+     </div>
+     </div>
+
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <textarea type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.ObsMotBloAne" rows="5" maxlength="100"/></textarea>
+     </div>
+     </div>
+    
+    <br>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- modal container section end -->
+
+
+
+
 
 
 
 
 
  </div> 
+
+<div ng-show="vm.TvistaAnexos==2">
+
+<form id="register_form" name="register_form" ng-submit="submitFormAnexos($event)"> 
+     <div class='row'>              
+       <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodTProCom" name="CodTProCom" ng-model="vm.anexos.CodTProCom" ng-change="vm.filtrar_productos_com()" ng-disabled="vm.validate_info_anexos==1">
+         <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
+        </select>
+       
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Productos <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodPro" name="CodPro" ng-model="vm.anexos.CodPro" ng-disabled="vm.anexos.CodTProCom==undefined||vm.validate_info_anexos==1 " >
+         <option ng-repeat="dato in vm.TProductosActivosFiltrados" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                        
+        </select>
+       
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Anexo <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Anexo" maxlength="50" ng-disabled="vm.validate_info_anexos==1"/>       
+       </div>
+       </div>
+       </div>
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
+       <input type="text" class="form-control" ng-model="vm.FecIniAneA" placeholder="* DD/MM/YYYY" maxlength="10" readonly ng-disabled="vm.validate_info_anexos==1"/>
+       </div>
+       </div>
+       </div>
+
+      <div style="margin-top: 8px;">
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO DE SUMINISTROS</b></label></div></div>
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
+        <input type="checkbox" class="form-control" ng-model="vm.anexos.SerEle" ng-click="vm.limpiar_Servicio_Electrico(vm.anexos.SerEle)" ng-disabled="vm.validate_info_anexos==1"/>
+       </div>
+       </div>
+       </div>
+
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
+        <input type="checkbox" class="form-control" ng-model="vm.anexos.SerGas" ng-click="vm.limpiar_Servicio_Gas(vm.anexos.SerGas)" ng-disabled="vm.validate_info_anexos==1"/>
+       </div>
+       </div>
+       </div>
+        <div style="margin-top: 8px;">
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO DE PRECIOS</b></label></div></div>
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">FIJO</label>
+        <input type="checkbox" class="form-control" ng-model="vm.anexos.Fijo" ng-disabled="vm.validate_info_anexos==1"/>
+       </div>
+       </div>
+       </div>
+
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">INDEXADO</label>
+        <input type="checkbox" class="form-control" ng-model="vm.anexos.Indexado" ng-disabled="vm.validate_info_anexos==1"/>
+       </div>
+       </div>
+       </div>
+
+
+
+        <div style="margin-top: 8px;">
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TARIFA DE ACCESO ELÉCTRICO</b></label></div></div>
+        
+        <div class="col-lg-6">
+                <section class="panel">
+                  <header class="panel-heading">
+                   <div align="center"> <b>BAJA TENSIÓN</b> </div>
+                  </header>
+                   <div class="panel-body">
+                    <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
+                        
+                         <button type="button"  ng-click="vm.agregar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.anexos.SerEle==false ||vm.validate_info_anexos==1" ng-show="!vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
+                        
+
+                        <button type="button" ng-show="vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]" ng-click="vm.quitar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos==1"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_baja.NomTarEle}}" style="color:green;"></i></button>
+
+
+                        <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_baja.NomTarEle}}</label>
+                    </div>
+                     <div align="center">
+                    <label>
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-click="vm.agregar_todas_baja_tension(vm.Tarifa_Elec_Baja,vm.anexos.AggAllBaj)" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos==1" ng-model="vm.anexos.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+                  </div>
+                </section> 
+              </div>
+
+               <div class="col-lg-6">
+                <section class="panel">
+                  <header class="panel-heading">
+                   <div align="center"> <b>ALTA TENSIÓN</b> </div>
+                  </header>
+                   <div class="panel-body">
+                    <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
+
+                        <button type="button" ng-disabled="vm.validate_info==1||vm.disabled_all_alta==1||vm.anexos.SerEle==false||vm.validate_info_anexos==1 " ng-show="!vm.select_tarifa_Elec_Alt[opcion_tension_alta.CodTarEle]" ng-click="vm.agregar_tarifa_elec_alta($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" title="Agregar {{opcion_tension_alta.NomTarEle}}"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
+                        
+
+                        <button type="button" ng-show="vm.select_tarifa_Elec_Alt[opcion_tension_alta.CodTarEle]" ng-click="vm.quitar_tarifa_elec_alta($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos==1"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_alta.NomTarEle}}" style="color:green;"></i></button>
+
+
+
+                        <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_alta.NomTarEle}}</label>
+                    
+
+
+
+                    </div>
+                     <div align="center">
+                    <label>
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos==1" ng-model="vm.anexos.AggAllAlt" ng-click="vm.agregar_todas_alta_tension(vm.Tarifa_Elec_Alt,vm.anexos.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+                  </div>
+                </section> 
+              </div>
+
+
+
+  <div style="margin-top: 8px;">
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TARIFA DE ACCESO GAS</b></label></div></div>
+       
+       <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
+       <div class="form">                          
+       <div class="form-group">
+
+       <button type="button" name="tarifa_gas" id="tarifa_gas" ng-show="!vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.agregar_tarifa_gas_individual($index,tari_gas,tari_gas.CodTarGas)" ng-disabled="vm.validate_info==1||vm.disabled_all==1||vm.anexos.SerGas==false||vm.validate_info_anexos==1"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>   
+       
+       <button type="button" ng-show="vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.quitar_tarifa_gas($index,tari_gas.CodTarGas,tari_gas)" ng-disabled="vm.disabled_all==1||vm.validate_info_anexos==1"><i class="fa fa fa-check-circle" title="Quitar {{tari_gas.NomTarGas}}" style="color:green;"></i></button>
+       <label class="font-weight-bold nexa-dark" style="color:black;"><b>{{tari_gas.NomTarGas}}</b></label> 
+
+       </div>
+       </div>
+       </div>
+        
+        <div align="center">
+                    <label class="label_check" for="checkbox-01">
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-model="vm.Todas_Gas" ng-click="vm.agregar_todas_detalle(vm.Todas_Gas)" ng-disabled="vm.validate_info==1||vm.anexos.SerGas==false||vm.validate_info_anexos==1" /> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+      
+      <div class="form">                          
+        <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
+          <input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos==1">
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Comisión <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodTipCom" name="CodTipCom" ng-model="vm.anexos.CodTipCom" ng-disabled="vm.validate_info_anexos==1">
+         <option ng-repeat="dato in vm.Tipos_Comision" value="{{dato.CodTipCom}}">{{dato.DesTipCom}}</option>                        
+        </select>
+       
+       </div>
+       </div>
+       </div>
+
+
+      <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos==1"></textarea>
+        
+       </div>
+       </div>    
+      <input class="form-control" id="CodAnePro" name="CodAnePro" type="hidden" ng-model="vm.anexos.CodAnePro" readonly/>
+         <div class="form-group" >
+          <div class="col-12 col-sm-6">
+            <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1">REGISTRAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==0" ng-disabled="vm.validate_info_anexos==1">ACTUALIZAR</button>            
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()">LIMPIAR</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()">REGRESAR</button>
+          </div>
+        </div>
+         </div><!--FINAL ROW -->
+        </form>
+</div><!-- FINAL DE DIV NG-SHOW-->
+
+
+
+
    
       </div>
       <!-- FINAL DE TABS 3-->
        <!-- INICIO DE TABS 4-->
       <div id="tabs-4">
 
-         hola esto es tabs 4       
+
+
+
+
+
+
+
+  <div ng-show="vm.TvistaServiciosEspeciales==1">                 
+  <div id="t-0002">
+      <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+        <div class="t-0029">
+            <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.CodComSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">COMERCIALIZADORA</b></li>
+                        <li><input type="checkbox" ng-model="vm.DesSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">SERVICIO ESPECIAL</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TipCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO CLIENTE</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerElecSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ELECTRICIDAD</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">GAS</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ESTATUS</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a ><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a ><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>
+                    <div class="btn-group">
+                       <a data-toggle="modal" title='Filtrar Servicios Especiales' data-target="#modal_filtros_servicios_especiales" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
+                   </div>
+          </div>
+        </div>
+    </div>              
+        <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+            <div class="t-0029">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Servicio Especial" ng-click="vm.agg_servicio_especial()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+            </div>
+  </div>  
+<!--t-0002 end--> 
+<br><br><br><br>
+      <div class="table-responsive" ng-init="vm.cargar_lista_servicos_especiales()">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                    <th ng-show="vm.CodComSerEsp==true"><i class="icon_cogs"></i> COMERCIALIZADORA</th>
+                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> SERVICIO ESPECIAL</th>
+                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> TIPO CLIENTE</th>
+                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> ELECTRICIDAD</th>
+                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> GAS</th>
+                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> ESTATUS</th>
+                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr> 
+                  <tr ng-show="vm.TServicioEspeciales==undefined"> 
+                    <td colspan="10" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                  </tr>
+                  <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
+                    <td ng-show="vm.CodComSerEsp==true">{{dato.NumCifCom}} - {{dato.RazSocCom}}</td>
+                    <td ng-show="vm.DesSerEsp==true">{{dato.DesSerEsp}}</td>
+                    <td ng-show="vm.TipCli==true">{{dato.TipCli}}</td>
+                    <td ng-show="vm.SerElecSerEsp==true">{{dato.SerEle}}</td>
+                    <td ng-show="vm.SerGasSerEsp==true">{{dato.SerGas}}</td> 
+                    <td ng-show="vm.EstSerEsp==true">
+                      <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'"><i class="fa fa-check-circle"></i> {{dato.EstSerEsp}}</span>
+                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'"><i class="fa fa-ban"></i> {{dato.EstSerEsp}}</span>
+                    </td>
+                    <td ng-show="vm.AccSerEsp==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_servicio_especiales" name="opciones_servicio_especiales" ng-model="vm.opciones_servicio_especiales[$index]" ng-change="vm.validar_opcion_servicios_especiales($index,vm.opciones_servicio_especiales[$index],dato)">
+                          <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <th ng-show="vm.CodComSerEsp==true"><i class="icon_cogs"></i> COMERCIALIZADORA</th>
+                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> SERVICIO ESPECIAL</th>
+                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> TIPO CLIENTE</th>
+                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> ELECTRICIDAD</th>
+                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> GAS</th>
+                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> ESTATUS</th>
+                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+          <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_servicos_especiales()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems3" ng-model="currentPage3" max-size="5" boundary-links="true" items-per-page="numPerPage3" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+ <!-- modal container section start -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_servicios_especiales" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Tipos de Filtros</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel">                  
+      <form class="form-validate" id="frmFiltroServicioEspecial" name="frmFiltroServicioEspecial" ng-submit="SubmitFormFiltrosServiciosEspeciales($event)">                 
+     
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
+      <select class="form-control" id="ttipofiltrosServicioEspecial" name="ttipofiltrosServicioEspecial" required ng-model="vm.tmodal_data.ttipofiltrosServicioEspecial">
+          <option ng-repeat="dato in vm.ttipofiltrosServicioEspecial" value="{{dato.id}}">{{dato.nombre}}</option>
+        </select>     
+     </div>
+     </div>
+     </div>
+     <br>
+     <br>
+     <br>
+     <br> 
+
+     <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.ttipofiltrosServicioEspecial==1">
+     <div class="form">                          
+     <div class="form-group">
+     
+      <select class="form-control" id="TipServ" name="TipServ" ng-model="vm.tmodal_data.TipServ">
+        <option ng-repeat="dato in vm.TipServ" value="{{dato.id}}">{{dato.nom_serv}}</option>                        
+      </select>   
+     </div>
+     </div>
+    </div>   
+    <br ng-show="vm.tmodal_data.ttipofiltrosServicioEspecial==1">
+     <br ng-show="vm.tmodal_data.ttipofiltrosServicioEspecial==1"> 
+    <br>
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmFiltroServicioEspecial.$invalid">APLICAR</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro()">LIMPIAR</a>
+      </div>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!--modal container section end -->
+
+
+
+<!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_motivo_bloqueo_servicio_especial" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Servicio Especial</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel"> 
+    <input type="hidden" class="form-control" ng-model="vm.servicio_especial_bloqueo.CodSerEsp" required readonly />
+      <form class="form-validate" id="form_lock_servicio_especial" name="form_lock_servicio_especial" ng-submit="submitFormlockServicioEspecial($event)">                 
+     
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">COMERCIALIZADORA</label>
+     <input type="text" class="form-control" ng-model="vm.RazSocCom_BloSerEsp" required readonly/>     
+     </div>
+     </div>
+
+      <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">SERVICIO ESPECIAL</label>
+      <input type="text" class="form-control" ng-model="vm.DesSerEsp_Blo" required readonly />     
+     </div>
+     </div>
+<div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">MOTIVO DEL BLOQUEO</label>
+       <input type="text" class="form-control" ng-model="vm.servicio_especial_bloqueo.MotBloSerEsp" required/> 
+     </div>
+     </div>
+    
+</div>
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <input type="text" class="form-control" ng-model="vm.FecBloSerEsp" required readonly/>    
+     </div>
+     </div>
+     </div>
+
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <textarea type="text" class="form-control" ng-model="vm.servicio_especial_bloqueo.ObsMotBloSerEsp" rows="5" maxlength="100"/></textarea>
+     </div>
+     </div>
+    
+    <br>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- modal container section end -->
+
+
+
+ </div> 
+
+
+
+
+
+<div ng-show="vm.TvistaServiciosEspeciales==2">
+
+<form id="register_form" name="register_form" ng-submit="submitFormServiciosEspeciales($event)"> 
+     <div class='row'>              
+       <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodCom" name="CodCom" ng-model="vm.servicio_especial.CodCom" ng-disabled="vm.validate_info_servicio_especiales==1">
+         <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
+        </select>
+       
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Servicio Especial <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.servicio_especial.DesSerEsp" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Servicio Especial" maxlength="50" ng-disabled="vm.validate_info_servicio_especiales==1"/>       
+       </div>
+       </div>
+       </div>
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
+       <input type="text" class="form-control" ng-model="vm.FecIniSerEsp" placeholder="* DD/MM/YYYY" maxlength="10" readonly ng-disabled="vm.validate_info_servicio_especiales==1"/>
+       </div>
+       </div>
+       </div>
+
+      <div style="margin-top: 8px;">
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO DE SUMINISTROS</b></label></div></div>
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
+        <input type="checkbox" class="form-control" ng-model="vm.servicio_especial.SerEle" ng-click="vm.limpiar_Servicio_Electrico_SerEsp(vm.servicio_especial.SerEle)" ng-disabled="vm.validate_info_servicio_especiales==1"/>
+       </div>
+       </div>
+       </div>
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
+        <input type="checkbox" class="form-control" ng-model="vm.servicio_especial.SerGas" ng-click="vm.limpiar_Servicio_Gas_SerEsp(vm.servicio_especial.SerGas)" ng-disabled="vm.validate_info_servicio_especiales==1"/>
+       </div>
+       </div>
+       </div>
+        <div style="margin-top: 8px;">
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TARIFA DE ACCESO ELÉCTRICO</b></label></div></div>
+        
+        <div class="col-lg-6">
+                <section class="panel">
+                  <header class="panel-heading">
+                   <div align="center"> <b>BAJA TENSIÓN</b> </div>
+                  </header>
+                   <div class="panel-body">
+                    <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
+                       
+                         <button type="button"  ng-click="vm.agregar_tarifa_elec_baja_SerEsp($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.servicio_especial.SerEle==false ||vm.validate_info_servicio_especiales==1" ng-show="!vm.select_tarifa_Elec_Baj_SerEsp[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
+                        
+
+                        <button type="button" ng-show="vm.select_tarifa_Elec_Baj_SerEsp[opcion_tension_baja.CodTarEle]" ng-click="vm.quitar_tarifa_elec_baja_SerEsp($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" ng-disabled="vm.disabled_all_baja_SerEsp==1||vm.servicio_especial.AggAllBaj==true||vm.validate_info_servicio_especiales==1"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_baja.NomTarEle}}" style="color:green;"></i></button>
+
+
+                        <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_baja.NomTarEle}}</label>
+                    </div>
+                     <div align="center">
+                    <label>
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-click="vm.agregar_todas_baja_tension_SerEsp(vm.Tarifa_Elec_Baja,vm.servicio_especial.AggAllBaj)" ng-disabled="vm.validate_info==1||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales==1" ng-model="vm.servicio_especial.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+                  </div>
+                </section> 
+              </div>
+
+               <div class="col-lg-6">
+                <section class="panel">
+                  <header class="panel-heading">
+                   <div align="center"> <b>ALTA TENSIÓN</b> </div>
+                  </header>
+                   <div class="panel-body">
+                    <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
+
+                        <button type="button" ng-disabled="vm.validate_info==1||vm.disabled_all_alta==1||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales==1 " ng-show="!vm.select_tarifa_Elec_Alt_SerEsp[opcion_tension_alta.CodTarEle]" ng-click="vm.agregar_tarifa_elec_alta_SerEsp($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" title="Agregar {{opcion_tension_alta.NomTarEle}}"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                       
+
+                        <button type="button" ng-show="vm.select_tarifa_Elec_Alt_SerEsp[opcion_tension_alta.CodTarEle]" ng-click="vm.quitar_tarifa_elec_alta_SerEsp($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" ng-disabled="vm.disabled_all_alta_SerEsp==1||vm.servicio_especial.AggAllBaj==true||vm.validate_info_servicio_especiales==1"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_alta.NomTarEle}}" style="color:green;"></i></button>
+
+                        <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_alta.NomTarEle}}</label>
+
+                    </div>
+                     <div align="center">
+                    <label>
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-disabled="vm.validate_info==1||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales==1" ng-model="vm.servicio_especial.AggAllAlt" ng-click="vm.agregar_todas_alta_tension_SerEsp(vm.Tarifa_Elec_Alt,vm.servicio_especial.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+                  </div>
+                </section> 
+              </div>
+
+
+
+  <div style="margin-top: 8px;">
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TARIFA DE ACCESO GAS</b></label></div></div>
+       
+       <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
+       <div class="form">                          
+       <div class="form-group">
+
+       <button type="button" name="tarifa_gas_SerEsp" id="tarifa_gas_SerEsp" ng-show="!vm.select_tarifa_gas_SerEsp[tari_gas.CodTarGas]" ng-click="vm.agregar_tarifa_gas_individual_SerEsp($index,tari_gas,tari_gas.CodTarGas)" ng-disabled="vm.validate_info==1||vm.disabled_all_SerEsp==1||vm.servicio_especial.SerGas==false||vm.validate_info_servicio_especiales==1"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>   
+       
+       <button type="button" ng-show="vm.select_tarifa_gas_SerEsp[tari_gas.CodTarGas]" ng-click="vm.quitar_tarifa_gas_SerEsp($index,tari_gas.CodTarGas,tari_gas)" ng-disabled="vm.disabled_all_SerEsp==1||vm.validate_info_servicio_especiales==1"><i class="fa fa fa-check-circle" title="Quitar {{tari_gas.NomTarGas}}" style="color:green;"></i></button>
+       <label class="font-weight-bold nexa-dark" style="color:black;"><b>{{tari_gas.NomTarGas}}</b></label> 
+
+       </div>
+       </div>
+       </div>
+        
+        <div align="center">
+                    <label class="label_check" for="checkbox-01">
+                        <input name="sample-checkbox-01" id="checkbox-01" type="checkbox" ng-model="vm.Todas_Gas_SerEsp" ng-click="vm.agregar_todas_detalle_SerEsp(vm.Todas_Gas_SerEsp)" ng-disabled="vm.validate_info==1||vm.servicio_especial.SerGas==false||vm.validate_info_servicio_especiales==1" /> <b><i class="fa fa-check-circle"></i> Todas</b>
+                      </label></div>
+     <div style="margin-top: 8px;">
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO DE CLIENTE</b></label></div></div>
+
+      
+      <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       
+       <input type="radio" name="tipo_cliente" id="tipo_cliente" value="0" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales==1">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Particulares</label>
+
+       <input type="radio" name="tipo_cliente" id="tipo_cliente" value="1" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales==1">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Negocios</label> 
+       </div>
+       </div>
+       </div>
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Características principales del Servicio Especial</label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="CarSerEsp" name="CarSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.CarSerEsp" ng-disabled="vm.validate_info_servicio_especiales==1"></textarea>
+        
+       </div>
+       </div> 
+
+
+      <div class="col-12 col-sm-12">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Comisión <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodTipCom" name="CodTipCom" ng-model="vm.servicio_especial.CodTipCom" ng-disabled="vm.validate_info_servicio_especiales==1">
+         <option ng-repeat="dato in vm.Tipos_Comision" value="{{dato.CodTipCom}}">{{dato.DesTipCom}}</option>                        
+        </select>
+       
+       </div>
+       </div>
+       </div>
+
+
+      <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="OsbSerEsp" name="OsbSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.OsbSerEsp" ng-disabled="vm.validate_info_servicio_especiales==1"></textarea>
+        
+       </div>
+       </div>    
+      <input class="form-control" id="CodSerEsp" name="CodSerEsp" type="hidden" ng-model="vm.servicio_especial.CodSerEsp" readonly/>
+         <div class="form-group" >
+          <div class="col-12 col-sm-6">
+            <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1">REGISTRAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==0" ng-disabled="vm.validate_info_servicio_especiales==1">ACTUALIZAR</button>            
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_servicio_especial()">LIMPIAR</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()">REGRESAR</button>
+          </div>
+        </div>
+         </div><!--FINAL ROW -->
+        </form>
+</div><!-- FINAL DE DIV NG-SHOW-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <!-- FINAL DE TABS 4-->
 

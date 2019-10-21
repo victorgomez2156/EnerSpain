@@ -5,13 +5,13 @@ class Configuraciones_generales_model extends CI_Model
     public function get_list_provincias()
     {
         $this->db->select('*');
-        $this->db->from('T_Provincia');
+        $this->db->from('T_Provincia'); 
         $this->db->order_by('DesPro ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
             return $query->result();
-        }
+        } 
         else 
         {
             return false;
@@ -23,7 +23,7 @@ class Configuraciones_generales_model extends CI_Model
         return $this->db->insert_id();
     }
     public function actualizar($CodPro,$DesPro)
-    {   
+    {    
         $this->db->where('CodPro', $CodPro);        
         return $this->db->update('T_Provincia',array('DesPro'=>$DesPro));
     }
@@ -129,6 +129,148 @@ class Configuraciones_generales_model extends CI_Model
     }
     /////PARA LAS LOCALIDADES END////
 
+     /////PARA LAS TARIFAS ELECTRICAS START////   
+    public function list_tarifa_electricas()
+    {
+        $this->db->select('CodTarEle,case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon ',FALSE);
+        $this->db->from('T_TarifaElectrica');
+        $this->db->order_by('NomTarEle ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
+    public function borrar_tarifa_electrica($CodTarEle)
+    { 
+        return $this->db->delete('T_TarifaElectrica', array('CodTarEle' => $CodTarEle));
+    }
+    public function agregar_tarifa_electrica($TipTen,$NomTarEle,$CanPerTar,$MinPotCon,$MaxPotCon)
+    {
+        $this->db->insert('T_TarifaElectrica',array('TipTen'=>$TipTen,'NomTarEle'=>$NomTarEle,'CanPerTar'=>$CanPerTar,'MinPotCon'=>$MinPotCon,'MaxPotCon'=>$MaxPotCon));
+        return $this->db->insert_id();
+    }
+    public function actualizar_tarifa_electrica($CodTarEle,$TipTen,$NomTarEle,$CanPerTar,$MinPotCon,$MaxPotCon)
+    {   
+        $this->db->where('CodTarEle', $CodTarEle);        
+        return $this->db->update('T_TarifaElectrica',array('TipTen'=>$TipTen,'NomTarEle'=>$NomTarEle,'CanPerTar'=>$CanPerTar,'MinPotCon'=>$MinPotCon,'MaxPotCon'=>$MaxPotCon));
+    }
+     public function get_tarifa_electrica($CodTarEle)
+    {
+        $this->db->select('*');
+        $this->db->from('T_TarifaElectrica');  
+        $this->db->where('CodTarEle',$CodTarEle);            
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     
+    /////PARA LAS TARIFAS ELECTRICAS END////
+
+
+         /////PARA LAS TARIFAS GAS START////   
+    public function get_list_tarifa_Gas()
+    {
+        $this->db->select('*');
+        $this->db->from('T_TarifaGas');
+        $this->db->order_by('NomTarGas ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
+    public function borrar_tarifa_gas($CodTarGas)
+    { 
+        return $this->db->delete('T_TarifaGas', array('CodTarGas' => $CodTarGas));
+    }
+     public function get_tarifa_gas($CodTarGas)
+    {
+        $this->db->select('*');
+        $this->db->from('T_TarifaGas');  
+        $this->db->where('CodTarGas',$CodTarGas);            
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function agregar_tarifa_gas($NomTarGas,$MinConAnu,$MaxConAnu)
+    {
+        $this->db->insert('T_TarifaGas',array('NomTarGas'=>$NomTarGas,'MinConAnu'=>$MinConAnu,'MaxConAnu'=>$MaxConAnu));
+        return $this->db->insert_id();
+    }
+    public function actualizar_tarifa_gas($CodTarGas,$NomTarGas,$MinConAnu,$MaxConAnu)
+    {   
+        $this->db->where('CodTarGas', $CodTarGas);        
+        return $this->db->update('T_TarifaGas',array('NomTarGas'=>$NomTarGas,'MinConAnu'=>$MinConAnu,'MaxConAnu'=>$MaxConAnu));
+    } 
+    /////PARA LAS TARIFAS GAS END////
+
+          /////PARA  LOS TIPOS DE COMISIONES START////   
+    public function get_list_Tipo_Comision()
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoComision');
+        $this->db->order_by('DesTipCom ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
+    public function get_tipo_comision($CodTipCom)
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoComision');  
+        $this->db->where('CodTipCom',$CodTipCom);            
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+   public function borrar_tipo_comision($CodTipCom)
+    { 
+        return $this->db->delete('T_TipoComision', array('CodTipCom' => $CodTipCom));
+    }     
+    public function agregar_tipo_comision($DesTipCom)
+    {
+        $this->db->insert('T_TipoComision',array('DesTipCom'=>$DesTipCom));
+        return $this->db->insert_id();
+    }
+    public function actualizar_tipo_comision($CodTipCom,$DesTipCom)
+    {   
+        $this->db->where('CodTipCom', $CodTipCom);        
+        return $this->db->update('T_TipoComision',array('DesTipCom'=>$DesTipCom));
+    } 
+    /////PARA LOS TIPOS DE COMISIONES END////
 
     /////PARA COMERCIALES START////
     public function get_list_comerciales()
@@ -476,7 +618,7 @@ class Configuraciones_generales_model extends CI_Model
         $this->db->select('a.CodCol,a.TipCol,a.NumIdeFis,a.NomCol,a.CodTipVia,a.NomViaDir,a.NumViaDir,a.BloDir,a.EscDir,a.PlaDir,a.PueDir,b.CodPro,a.CodLoc,b.CPLoc,a.TelFijCol,a.TelCelCol,a.EmaCol,a.ObsCol,a.PorCol,a.EstCol');
         $this->db->from('T_Colaborador a');
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');  
-        $this->db->where('CodCol',$CodCol);
+        $this->db->where('a.CodCol',$CodCol);
         $query = $this->db->get(); 
         if($query->num_rows()==1)
         {
@@ -619,7 +761,7 @@ class Configuraciones_generales_model extends CI_Model
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
         $this->db->join('T_Provincia c','c.CodPro=b.CodPro');
          $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia');
-        $this->db->order_by('NomComCom DESC');
+        $this->db->order_by('a.NomComCom DESC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -647,7 +789,7 @@ class Configuraciones_generales_model extends CI_Model
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
         $this->db->join('T_Provincia c','c.CodPro=b.CodPro');
          $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia');
-        $this->db->where('CodCom',$CodCom);
+        $this->db->where('a.CodCom',$CodCom);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -692,7 +834,38 @@ class Configuraciones_generales_model extends CI_Model
         $this->db->select('*');
         $this->db->from('T_Comercializadora');
         $this->db->where('EstCom=1');
-        $this->db->order_by('RazSocCom  ASC');
+        $this->db->order_by('RazSocCom ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return  $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     public function get_list_ProAct()
+    {
+        $this->db->select('*');
+        $this->db->from('T_Producto');
+        $this->db->where('EstPro=1');
+        $this->db->order_by('DesPro ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return  $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     public function get_list_TipCom()
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoComision');
+        $this->db->order_by('DesTipCom ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -834,7 +1007,7 @@ public function get_list_productos()
     $this->db->from('T_Producto a');
     $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
    // $this->db->where('CodCom',$CodCom);
-    $this->db->order_by('DesPro ASC');          
+    $this->db->order_by('a.DesPro ASC');          
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {
@@ -845,7 +1018,7 @@ public function get_list_productos()
          return false;
     }       
 }
- public function actualizar_productos($CodTPro,$CodTProCom,$DesPro,$CodTProCom,$SerGas,$SerEle,$ObsPro)
+	public function actualizar_productos($CodTPro,$CodTProCom,$DesPro,$CodTProCom,$SerGas,$SerEle,$ObsPro)
     {   
         $this->db->where('CodPro', $CodTPro);        
         return $this->db->update('T_Producto',array('CodCom'=>$CodTProCom,'DesPro'=>$DesPro,'SerGas'=>$SerGas,'SerEle'=>$SerEle,'ObsPro'=>$ObsPro));
@@ -874,26 +1047,269 @@ public function get_list_productos()
 
 ///////////////////////////////////////////PARA LOS ANEXOS START////////////////////////////////////////////////////////////////////////////////////
 
-public function get_list_anexos()
-{
-    $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d-%m-%Y") as FecIniAne',FALSE);
-    $this->db->from('T_AnexoProducto a');
-    $this->db->join('T_Producto b','a.CodPro=b.CodPro');
-    $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
-    $this->db->order_by('DesAnePro ASC');          
-    $query = $this->db->get(); 
-    if($query->num_rows()>0)
+	public function get_list_anexos()
+	{
+	    $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d-%m-%Y") as FecIniAne',FALSE);
+	    $this->db->from('T_AnexoProducto a');
+	    $this->db->join('T_Producto b','a.CodPro=b.CodPro');
+	    $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
+	    $this->db->order_by('a.DesAnePro ASC');          
+	    $query = $this->db->get(); 
+	    if($query->num_rows()>0)
+	    {
+	        return $query->result();
+	    }
+	    else
+	    {
+	         return false;
+	    }       
+	}
+ 	public function agregar_anexos($CodPro,$DesAnePro,$SerGas,$SerEle,$DocAnePro,$ObsAnePro,$FecIniAne,$CodTipCom,$EstCom,$EstAne,$TipPre)
     {
-        return $query->result();
+        $this->db->insert('T_AnexoProducto',array('CodPro'=>$CodPro,'DesAnePro'=>$DesAnePro,'SerGas'=>$SerGas,'SerEle'=>$SerEle,'DocAnePro'=>$DocAnePro,'ObsAnePro'=>$ObsAnePro,'FecIniAne'=>$FecIniAne,'CodTipCom'=>$CodTipCom,'EstCom'=>$EstCom,'EstAne'=>$EstAne,'TipPre'=>$TipPre));
+        return $this->db->insert_id();
     }
-    else
+    public function actualizar_anexos($CodAnePro,$CodPro,$DesAnePro,$SerGas,$SerEle,$DocAnePro,$ObsAnePro,$CodTipCom,$EstCom,$TipPre)
+    {   
+        $this->db->where('CodAnePro', $CodAnePro);        
+        return $this->db->update('T_AnexoProducto',array('CodPro'=>$CodPro,'DesAnePro'=>$DesAnePro,'SerGas'=>$SerGas,'SerEle'=>$SerEle,'DocAnePro'=>$DocAnePro,'ObsAnePro'=>$ObsAnePro,'CodTipCom'=>$CodTipCom,'EstCom'=>$EstCom,'TipPre'=>$TipPre));
+    }
+    public function agregar_detalle_tarifa_gas($CodAnePro,$CodTarGas)
     {
-         return false;
-    }       
-}
-
+        $this->db->insert('T_DetalleAnexoTarifaGas',array('CodAnePro'=>$CodAnePro,'CodTarGas'=>$CodTarGas));
+        return $this->db->insert_id();
+    }
+    public function agregar_detalle_tarifa_Elec_Baja($CodAnePro,$CodTarEle)
+    {
+        $this->db->insert('T_DetalleAnexoTarifaElectrica',array('CodAnePro'=>$CodAnePro,'CodTarEle'=>$CodTarEle));
+        return $this->db->insert_id();
+    }
+    public function agregar_detalle_tarifa_Elec_Alta($CodAnePro,$CodTarEle)
+    {
+        $this->db->insert('T_DetalleAnexoTarifaElectrica',array('CodAnePro'=>$CodAnePro,'CodTarEle'=>$CodTarEle));
+        return $this->db->insert_id();
+    }
+      public function eliminar_detalles_anexos($CodAnePro)
+    { 			
+    		   $this->db->delete('T_DetalleAnexoTarifaGas', array('CodAnePro' => $CodAnePro));	
+        return $this->db->delete('T_DetalleAnexoTarifaElectrica', array('CodAnePro' => $CodAnePro));
+    }
+    public function get_anexos_data($CodAnePro)
+    {
+        $this->db->select('a.CodAnePro,a.CodPro,b.CodCom,a.DesAnePro,a.SerGas,a.SerEle,a.DocAnePro,a.ObsAnePro,DATE_FORMAT(a.FecIniAne,"%d/%m/%Y") as FecIniAne,a.CodTipCom,a.EstCom,a.EstAne,a.TipPre');
+        $this->db->from('T_AnexoProducto a');
+        $this->db->join('T_Producto b','a.CodPro=b.CodPro');   
+        $this->db->where('a.CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function get_select_data_tarifa_elec($CodAnePro)
+    {
+        $this->db->select('*');
+        $this->db->from('T_DetalleAnexoTarifaElectrica');  
+        $this->db->where('CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     public function get_detalle_tarifa_gas($CodAnePro)
+    {
+        $this->db->select('CodTarGas');
+        $this->db->from('T_DetalleAnexoTarifaGas');  
+        $this->db->where('CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+   
+     public function get_select_data_tarifa_elec_detalle($CodTarEle)
+    {
+       
+        $this->db->select('*');
+        $this->db->from('T_TarifaElectrica');  
+        $this->db->where('CodTarEle',$CodTarEle);   
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function obtener_detalle_tarifa_electrica($CodAnePro)
+    {
+        $this->db->select('a.CodTarEle,b.TipTen');
+        $this->db->from('T_DetalleAnexoTarifaElectrica a');
+        $this->db->join('T_TarifaElectrica b','a.CodTarEle=b.CodTarEle'); 
+        $this->db->where('a.CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function update_status_anexos($CodAnePro,$EstAne)
+    {   
+        $this->db->where('CodAnePro', $CodAnePro);        
+        return $this->db->update('T_AnexoProducto',array('EstAne'=>$EstAne));
+    }
+     public function agregar_bloqueo_anexos($CodAnePro,$FecBloAne,$MotBloAne,$ObsMotBloAne)
+    {
+        $this->db->insert('T_BloqueoAnexo',array('CodAnePro'=>$CodAnePro,'MotBloAne'=>$MotBloAne,'FecBloAne'=>$FecBloAne,'ObsMotBloAne'=>$ObsMotBloAne));
+        return $this->db->insert_id();
+    }
 
 
 
 ///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START////////////////////////////////////////////////////////////////////////////////////
+
+
+	public function get_list_servicos_especiales()
+	{
+	    $this->db->select('a.CodSerEsp,a.CodCom,b.RazSocCom,b.NumCifCom,a.DesSerEsp,case a.TipSumSerEsp when 0 then "SI" when 1 then "NO" WHEN 2 THEN "SI" end SerEle,
+case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGas,a.CarSerEsp,case a.TipCli when 0 then "PARTICULAR" when 1 then "NEGOCIO" end TipCli,date_format(a.FecIniSerEsp,"%d/%m/%Y") as FecIniSerEsp,c.DesTipCom,a.CodTipCom,a.OsbSerEsp,case a.EstSerEsp when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstSerEsp',FALSE);
+	    $this->db->from('T_ServicioEspecial a');
+	    $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
+	    $this->db->join('T_TipoComision c','a.CodTipCom=c.CodTipCom');	
+	    $this->db->order_by('a.DesSerEsp ASC');          
+	    $query = $this->db->get(); 
+	    if($query->num_rows()>0)
+	    {
+	        return $query->result();
+	    }
+	    else
+	    {
+	         return false;
+	    }       
+	}
+    public function agregar_servicio_especial($CodCom,$DesSerEsp,$FecIniSerEsp,$TipSumSerEsp,$TipCli,$CarSerEsp,$CodTipCom,$OsbSerEsp)
+    {
+        $this->db->insert('T_ServicioEspecial',array('CodCom'=>$CodCom,'DesSerEsp'=>$DesSerEsp,'TipSumSerEsp'=>$TipSumSerEsp,'CarSerEsp'=>$CarSerEsp,'TipCli'=>$TipCli,
+            'FecIniSerEsp'=>$FecIniSerEsp,'CodTipCom'=>$CodTipCom,'OsbSerEsp'=>$OsbSerEsp));
+        return $this->db->insert_id();
+    }
+    public function actualizar_servicio_especial($CodSerEsp,$CodCom,$DesSerEsp,$TipSumSerEsp,$TipCli,$CarSerEsp,$CodTipCom,$OsbSerEsp)
+    {   
+        $this->db->where('CodSerEsp', $CodSerEsp);        
+        return $this->db->update('T_ServicioEspecial',array('CodCom'=>$CodCom,'DesSerEsp'=>$DesSerEsp,'TipSumSerEsp'=>$TipSumSerEsp,'CarSerEsp'=>$CarSerEsp,'TipCli'=>$TipCli,'CodTipCom'=>$CodTipCom,'OsbSerEsp'=>$OsbSerEsp));
+    }
+
+    public function agregar_detalle_tarifa_Elec_Baja_SerEsp($CodSerEsp,$CodTarEle)
+    {
+        $this->db->insert('T_DetalleServicioTarifaElectrica',array('CodSerEsp'=>$CodSerEsp,'CodTarEle'=>$CodTarEle));
+        return $this->db->insert_id();
+    }
+    public function agregar_detalle_tarifa_Elec_Alta_SerEsp($CodSerEsp,$CodTarEle)
+    {
+        $this->db->insert('T_DetalleServicioTarifaElectrica',array('CodSerEsp'=>$CodSerEsp,'CodTarEle'=>$CodTarEle));
+        return $this->db->insert_id();
+    }
+     public function agregar_detalle_tarifa_gas_SerEsp($CodSerEsp,$CodTarGas)
+    {
+        $this->db->insert('T_DetalleServicioTarifaGas',array('CodSerEsp'=>$CodSerEsp,'CodTarGas'=>$CodTarGas));
+        return $this->db->insert_id();
+    }
+      public function eliminar_detalles_servicios_especiales($CodSerEsp)
+    {           
+               $this->db->delete('T_DetalleServicioTarifaGas', array('CodSerEsp' => $CodSerEsp));  
+        return $this->db->delete('T_DetalleServicioTarifaElectrica', array('CodSerEsp' => $CodSerEsp));
+    }
+
+     public function get_servicio_especial_data($CodSerEsp)
+    {
+        $this->db->select('CodSerEsp,CodCom,DesSerEsp,case TipSumSerEsp when 0 then "SI" when 1 then "NO" WHEN 2 THEN "SI" end SerEle,case TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGas,CarSerEsp,TipCli,DATE_FORMAT(FecIniSerEsp,"%d/%m/%Y") as FecIniSerEsp,CodTipCom,OsbSerEsp,EstSerEsp',FALSE);
+        $this->db->from('T_ServicioEspecial');
+        $this->db->where('CodSerEsp',$CodSerEsp);          
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+
+     public function get_detalle_tarifa_gas_SerEsp($CodSerEsp)
+    {
+        $this->db->select('*');
+        $this->db->from('T_DetalleServicioTarifaGas');  
+        $this->db->where('CodSerEsp',$CodSerEsp);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
+    {
+        $this->db->select('a.CodTarEle,b.TipTen');
+        $this->db->from('T_DetalleServicioTarifaElectrica a');
+        $this->db->join('T_TarifaElectrica b','a.CodTarEle=b.CodTarEle'); 
+        $this->db->where('a.CodSerEsp',$CodSerEsp);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function update_status_servicio_especial($CodSerEsp,$EstSerEsp)
+    {   
+        $this->db->where('CodSerEsp', $CodSerEsp);        
+        return $this->db->update('T_ServicioEspecial',array('EstSerEsp'=>$EstSerEsp));
+    }
+     public function agregar_bloqueo_servicio_especial($CodSerEsp,$FecBloSerEsp,$MotBloSerEsp,$ObsMotBloSerEsp)
+    {
+        $this->db->insert('T_BloqueoServicioEspecial',array('CodSerEsp'=>$CodSerEsp,'MotBloSerEsp'=>$MotBloSerEsp,'FecBloSerEsp'=>$FecBloSerEsp,'ObsMotBloSerEsp'=>$ObsMotBloSerEsp));
+        return $this->db->insert_id();
+    }
+
+
+
+
+
+
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END////////////////////////////////////////////////////////////////////////////////////
 }
