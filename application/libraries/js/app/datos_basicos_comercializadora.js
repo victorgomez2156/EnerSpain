@@ -77,6 +77,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	var fecha = dd+'/'+mm+'/'+yyyy;
 	scope.fdatos.misma_razon=false;
 	const $archivos = document.querySelector("#file");
+	scope.TProvincias=[];
+	scope.tLocalidades=[];
+	scope.tTiposVias=[];
 
 	console.log($route.current.$$route.originalPath);	
 	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")

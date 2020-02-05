@@ -9,7 +9,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.fdatos.detalle = [];
 	scope.nID = $route.current.params.ID;  //contiene el id del registro en caso de estarse consultando desde la grid
 	scope.Nivel = $cookies.get('nivel');
-	scope.Templeados=undefined;
+	scope.Templeados=[];
+	scope.TempleadosBack=[];
 	scope.select_controller=[];
 	scope.controladores_seleccionados=[];
 

@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
                     <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
-                  <tr ng-show="vm.TDistribuidora==undefined"> 
+                  <tr ng-show="vm.TDistribuidora.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TDistribuidora | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">

@@ -123,6 +123,7 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 	scope.tListaContactos=[];	
 	scope.Tabla_Contacto=[];
 	scope.Tabla_ContactoBack=[];
+	scope.Tclientes=[];
 	ServiceMaster.getAll().then(function(dato) 
 	{
 		

@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th><i class="icon_mobile"></i> Estatus</th>
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
-                  <tr ng-show="vm.Templeados==undefined"> 
+                  <tr ng-show="vm.Templeados.length==0"> 
                      <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Templeados | filter:paginate | filter:search" ng-class-odd="odd">

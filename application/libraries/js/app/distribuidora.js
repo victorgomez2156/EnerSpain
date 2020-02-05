@@ -10,8 +10,8 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 	scope.fdatos = {}; // datos del formulario
 	scope.nID = $route.current.params.ID;  //contiene el id del registro en caso de estarse consultando desde la grid
 	scope.Nivel = $cookies.get('nivel');	
-	scope.TDistribuidora=undefined;	
-	scope.TDistribuidoraBack=undefined;	
+	scope.TDistribuidora=[];	
+	scope.TDistribuidoraBack=[];	
 	var fecha = new Date();
 	var dd = fecha.getDate();
 	var mm = fecha.getMonth()+1; //January is 0!

@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.EstCom==true"><i class="fa fa-bolt"></i> Estatus</th>                    
                     <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
-                  <tr ng-show="vm.TComercial==undefined"> 
+                  <tr ng-show="vm.TComercial.length==0"> 
                      <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TComercial | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">

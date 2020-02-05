@@ -101,49 +101,8 @@ console.log($route.current.$$route.originalPath);
 	scope.tListBanc=[];
 	scope.CodEur="ES";
 	scope.numIBanValidado=false;
-	/*scope.tProvidencias=[];
-	scope.tTipoCliente=[];
-	scope.tLocalidades=[];
-	scope.tComerciales=[];
-	scope.tSectores=[];
-	scope.tColaboradores=[];
-	scope.tTiposVias=[];
-	scope.TtiposInmuebles=[];
-	
-	scope.tListBancBack=[];
-	scope.tListaContactos=[];
-	scope.tActividadesEconomicas=[];
-	scope.tActividadesEconomicasBack=[];
-	scope.tMotivosBloqueoContacto=[];		
-	
-	
-	scope.TclientesBack=[];
-	scope.TActividades=[];
-	scope.TActividadesBack=[];
-	scope.tPuntosSuminitros=[];
-	scope.tPuntosSuminitrosBack=[];
-	scope.Tabla_Contacto=[];
-	scope.Tabla_ContactoBack=[];
-	scope.tCuentaBan=[];
-	scope.tCuentaBanBack=[];
-	scope.T_Documentos=[];
-	scope.T_DocumentosBack=[];*/
 	ServiceMaster.getAll().then(function(dato) 
-	{
-		//scope.tProvidencias=dato.Provincias;
-		//scope.tLocalidades=dato.Localidades;		
-		//scope.tTipoCliente=dato.Tipo_Cliente;		
-		//scope.tComerciales=dato.Comerciales;
-		//scope.tSectores=dato.Sector_Cliente;
-		//scope.tColaboradores=dato.Colaborador;
-		//scope.tTiposVias = dato.Tipo_Vias;
-		//scope.TtiposInmuebles = dato.Tipo_Inmuebles;	
-			
-		//scope.tListaContactos = dato.Tipo_Contacto;
-		//scope.tListDocumentos = dato.Tipos_Documentos;
-		//scope.fdatos.FecIniCli=dato.Fecha_Server;
-		//scope.tActividadesEconomicas=dato.tActividadesEconomicas;
-		//scope.tActividadesEconomicasBack=dato.tActividadesEconomicas;		
+	{		
 		scope.tListBanc = dato.Bancos;
 		scope.fecha_server=dato.Fecha_Server;
 		scope.Tclientes=dato.Clientes;

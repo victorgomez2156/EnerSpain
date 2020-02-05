@@ -73,6 +73,10 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		mm='0'+mm
 	} 
 	var fecha = dd+'/'+mm+'/'+yyyy;
+	scope.TProvincias =[];
+	scope.tLocalidades=[];
+	scope.Tcomercializadoras=[];
+	scope.TcomercializadorasBack=[];
 	
 	console.log($route.current.$$route.originalPath);	
 //////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////
@@ -141,8 +145,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.tmodal_comercializadora={};		
 		scope.reporte_pdf_comercializadora=0;
 		scope.reporte_excel_comercializadora=0;
-		scope.Tcomercializadoras=[];
-		scope.TcomercializadorasBack=[];
+		
 		console.log(scope.Tcomercializadoras);
 
 		scope.modal_cif_comercializadora=function()

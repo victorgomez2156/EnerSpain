@@ -69,6 +69,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	} 
 	var fecha = dd+'-'+mm+'-'+yyyy;
 	scope.FecIniAct = fecha;
+	scope.tProvidencias =[];
+	scope.tTiposVias = [];
+	scope.tLocalidades =[];
 	ServiceColaboradores.getAll().then(function(dato) 
 	{		
 		scope.tProvidencias = dato.Provincias;

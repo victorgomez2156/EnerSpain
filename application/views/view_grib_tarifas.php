@@ -167,7 +167,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.MaxPotCom==true"><i class="fa fa-crosshairs"></i> Maximo Potencia</th> 
                     <th ng-show="vm.AccTarElec==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.T_TarifasEle==undefined"> 
+                  <tr ng-show="vm.T_TarifasEle.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_TarifasEle | filter:paginate | filter:vm.filtrar_tarifa_electrinca" ng-class-odd="odd">                    
@@ -381,7 +381,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.MaxConAnu==true"><i class="fa fa-crosshairs"></i> Maximo Consumo Anual</th> 
                     <th ng-show="vm.AccTarGas==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.T_TarifasGas==undefined"> 
+                  <tr ng-show="vm.T_TarifasGas.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_TarifasGas | filter:paginate1 | filter:vm.filtrar_gas" ng-class-odd="odd">

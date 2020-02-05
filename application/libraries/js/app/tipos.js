@@ -27,11 +27,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.AccCli=true;
 	scope.ruta_reportes_pdf_cliente=0;
 	scope.ruta_reportes_excel_cliente=0;
-	scope.Tipo_Cliente=undefined;
+	scope.Tipo_Cliente=[];
 	scope.fdatos_clientes={};
 	
 	scope.TVistaSector=1;
-	scope.Tipo_Sector=undefined;
+	scope.Tipo_Sector=[];
 	scope.DesSecCli=true;
 	scope.AccSecCli=true;
 	scope.fdatos_sector={};
@@ -39,7 +39,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.ruta_reportes_excel_sector=0;
 	
 	scope.TVistaContacto=1;
-	scope.Tipo_Contacto=undefined;
+	scope.Tipo_Contacto=[];
 	scope.DesTipCon=true;
 	scope.AccTipCon=true;
 	scope.fdatos_contacto={};
@@ -47,7 +47,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.ruta_reportes_excel_contacto=0;
 	
 	scope.TVistaDocumentos=1;
-	scope.Tipo_Documento=undefined;
+	scope.Tipo_Documento=[];
 	scope.DesTipDoc=true;
 	scope.EstReq=true;
 	scope.AccTipDoc=true;

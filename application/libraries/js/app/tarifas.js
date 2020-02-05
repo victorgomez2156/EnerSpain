@@ -16,8 +16,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.Nivel = $cookies.get('nivel');
 	//testCtrl1ViewModel.cargar_lista_clientes();
 	scope.TVistaTarEle=1;
-	scope.T_TarifasEle=undefined;	
-	scope.T_TarifasEleBack=undefined;	
+	scope.T_TarifasEle=[];	
+	scope.T_TarifasEleBack=[];	
 	scope.ruta_reportes_pdf_tarifas_electrica="AMBAS";
 	scope.ruta_reportes_excel_tarifas_electrica="AMBAS";
 	scope.TipTen=true;
@@ -28,8 +28,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.AccTarElec=true;
 	
 	scope.TVistaTarGas=1;
-	scope.T_TarifasGas=undefined;	
-	scope.T_TarifasGasBack=undefined;
+	scope.T_TarifasGas=[];	
+	scope.T_TarifasGasBack=[];
 	scope.ruta_reportes_pdf_tarifas_gas=0;
 	scope.ruta_reportes_excel_tarifas_gas=0;
 	scope.NomTarGas=true;

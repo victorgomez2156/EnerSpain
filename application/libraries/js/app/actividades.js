@@ -99,6 +99,18 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.fdatos_actividades={};
 	scope.TActividades=[];
 	scope.TActividadesBack=[];
+	scope.tProvidencias=[];
+	scope.tLocalidades=[];
+	scope.tTipoCliente=[];
+	scope.tComerciales=[];
+	scope.tSectores=[];
+	scope.tColaboradores=[];
+	scope.tTiposVias=[];
+	scope.TtiposInmuebles=[];
+	scope.tListBanc=[];
+	scope.tListaContactos=[];
+	scope.tListDocumentos=[];
+	scope.Tclientes=[];
 	////////////////////////////// PARA LAS ACTIVIDADES END //////////////////////////	
 
 	ServiceMaster.getAll().then(function(dato) 
@@ -137,28 +149,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			return (begin1 <= index1 && index1 < end1);  
 		};
 		scope.Tclientes=dato.Clientes;
-		/*scope.TclientesBack=dato.Clientes;
-
-		scope.tPuntosSuminitros=dato.Puntos_Suministros_Clientes;
-		scope.tPuntosSuminitrosBack=dato.Puntos_Suministros_Clientes;
-		
-		scope.TActividades=dato.Actividades_Clientes;
-		scope.TActividadesBack=dato.Actividades_Clientes;
-		
-		scope.Tabla_Contacto=dato.Contactos;
-		scope.Tabla_ContactoBack=dato.Contactos;
-		
-		scope.tCuentaBan=dato.Cuentas_Bancarias;
-		scope.tCuentaBanBack=dato.Cuentas_Bancarias;
-		
-		scope.T_Documentos=dato.Documentos;
-		scope.T_DocumentosBack=dato.Documentos;*/
-	
-
-
-
-
-
 	}).catch(function(err){console.log(err);});
 
 scope.mostrar_all_actividades=function()

@@ -27,7 +27,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.AccMotBloCli=true;
 	scope.ruta_reportes_pdf_bloqueo_cliente=0;
 	scope.ruta_reportes_excel_bloqueo_cliente=0;
-	scope.TMotivo_BloCliente=undefined;
+	scope.TMotivo_BloCliente=[];
 	scope.fdatos_mot_clientes={};
 
 

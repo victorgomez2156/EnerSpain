@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsTipCli==true"><i class="fa fa-building"></i> Observación</th>   
                     <th ng-show="vm.AccCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.Tipo_Cliente==undefined"> 
+                  <tr ng-show="vm.Tipo_Cliente.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tipo_Cliente | filter:paginate | filter:vm.filtrar_cliente" ng-class-odd="odd">
@@ -275,7 +275,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsSecCli==true"><i class="fa fa-building"></i> Observación</th>   
                     <th ng-show="vm.AccSecCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.Tipo_Sector==undefined"> 
+                  <tr ng-show="vm.Tipo_Sector.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tipo_Sector | filter:paginate1 | filter:vm.filtrar_sector" ng-class-odd="odd">
@@ -394,7 +394,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsTipCon==true"><i class="fa fa-building"></i> Observación</th>   
                     <th ng-show="vm.AccTipCon==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.Tipo_Contacto==undefined"> 
+                  <tr ng-show="vm.Tipo_Contacto.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tipo_Contacto | filter:paginate2 | filter:vm.filtrar_contacto" ng-class-odd="odd">
@@ -518,7 +518,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsTipDoc==true"><i class="fa fa-building"></i> OBSERVACIÓN</th>    
                     <th ng-show="vm.AccTipDoc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
-                  <tr ng-show="vm.Tipo_Documento==undefined"> 
+                  <tr ng-show="vm.Tipo_Documento.length==0"> 
                      <td colspan="4" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tipo_Documento | filter:paginate3 | filter:vm.filtro_documento" ng-class-odd="odd">
@@ -607,25 +607,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 <!-- FINAL DE TABS MAESTRO--> 
-                
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             </section><!-- page end-->

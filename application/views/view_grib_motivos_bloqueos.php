@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsMotBloCli==true"><i class="fa fa-building"></i> Observación</th>   
                     <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.TMotivo_BloCliente==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloCliente.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloCliente | filter:paginate | filter:vm.filtrar_bloqueo_cliente" ng-class-odd="odd">

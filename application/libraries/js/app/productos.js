@@ -16,6 +16,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.Nivel = $cookies.get('nivel');
 	scope.TProductos=[];
 	scope.TProductosBack=[];
+	scope.Tcomercializadoras =[];
+scope.TcomercializadorasBack =[];
+scope.TProComercializadoras =[];
 	
 	var fecha = new Date();
 	var dd = fecha.getDate();
@@ -262,13 +265,6 @@ $scope.SubmitFormFiltrosProductos = function(event)
 					}					
 				}
 			}
-
-
-
-
-
-
-
 			$scope.predicate1 = 'id';  
 			$scope.reverse1 = true;						
 			$scope.currentPage1 = 1;  
@@ -342,7 +338,6 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		scope.reporte_pdf_productos=0;
 		scope.reporte_excel_productos=0;
 	}
-
 	$scope.submitFormlockPro = function(event) 
 	{
 	 	if(scope.t_modal_data.ObsBloPro==undefined||scope.t_modal_data.ObsBloPro==null||scope.t_modal_data.ObsBloPro=='')
@@ -372,7 +367,6 @@ $scope.SubmitFormFiltrosProductos = function(event)
 	        }
 	        });		
 	};
-
 	scope.cambiar_estatus_productos=function(opciones_productos,CodPro,index)
 	{
 		scope.status_producto={};
@@ -440,7 +434,6 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			}
 		 });
 	}
-
 	scope.validar_opcion_productos=function(index,opciones_productos,dato)
 	{
 		console.log(index);
