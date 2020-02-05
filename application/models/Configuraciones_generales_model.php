@@ -11,7 +11,7 @@ class Configuraciones_generales_model extends CI_Model
         if($query->num_rows()>0)
         {
             return $query->result();
-        } 
+        }  
         else 
         {
             return false;
@@ -1003,7 +1003,7 @@ class Configuraciones_generales_model extends CI_Model
 
 public function get_list_productos()
 {
-    $this->db->select('a.CodPro,b.RazSocCom,b.NumCifCom,a.DesPro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,a.ObsPro,DATE_FORMAT(a.FecIniPro,"%d-%m-%Y")as FecIniPro,case a.EstPro when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstPro,a.CodCom',FALSE);
+    $this->db->select('a.CodPro,b.RazSocCom,b.NumCifCom,a.DesPro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,a.ObsPro,DATE_FORMAT(a.FecIniPro,"%d/%m/%Y")as FecIniPro,case a.EstPro when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstPro,a.CodCom',FALSE);
     $this->db->from('T_Producto a');
     $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
    // $this->db->where('CodCom',$CodCom);
@@ -1049,10 +1049,11 @@ public function get_list_productos()
 
 	public function get_list_anexos()
 	{
-	    $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d-%m-%Y") as FecIniAne',FALSE);
+	    $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,case a.TipPre when 0 then "FIJO" when 1 then "INDEXANDO" WHEN 2 THEN "AMBOS" end TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
 	    $this->db->from('T_AnexoProducto a');
 	    $this->db->join('T_Producto b','a.CodPro=b.CodPro');
 	    $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
+        $this->db->join('T_TipoComision d','a.CodTipCom=d.CodTipCom');
 	    $this->db->order_by('a.DesAnePro ASC');          
 	    $query = $this->db->get(); 
 	    if($query->num_rows()>0)
@@ -1312,4 +1313,110 @@ case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGa
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+    /////PARA EL REGISTRO DE CONTACTOS CLIENTES START////   
+    public function get_lista_contactos()
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoContacto'); 
+        $this->db->order_by('DesTipCon ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        } 
+        else 
+        {
+            return false;
+        }       
+    }
+    public function agregar_contacto($DesTipCon)
+    {
+        $this->db->insert('T_TipoContacto',array('DesTipCon'=>$DesTipCon));
+        return $this->db->insert_id();
+    }
+    public function actualizar_contacto($CodTipCon,$DesTipCon)
+    {    
+        $this->db->where('CodTipCon', $CodTipCon);        
+        return $this->db->update('T_TipoContacto',array('DesTipCon'=>$DesTipCon));
+    }
+    public function get_contacto_data($CodTipCon)
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoContacto');  
+        $this->db->where('CodTipCon',$CodTipCon);     
+        $this->db->order_by('DesTipCon DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     public function borrar_contacto_data($CodTipCon)
+    { 
+        return $this->db->delete('T_TipoContacto', array('CodTipCon' => $CodTipCon));
+    }
+    /////PARA EL REGISTRO DE CONTACTOS CLIENTES END////
+
+
+
+    /////PARA LOS MOTIVOS DE BLOQUEOS CONTACTOS START////   
+    public function get_lista_motivo_contactos()
+    {
+        $this->db->select('*');
+        $this->db->from('T_MotivoBloCon'); 
+        $this->db->order_by('DesMotBlocon ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        } 
+        else 
+        {
+            return false;
+        }       
+    }
+    public function agregar_motivo_bloqueo_contacto($DesMotBlocon)
+    {
+        $this->db->insert('T_MotivoBloCon',array('DesMotBlocon'=>$DesMotBlocon));
+        return $this->db->insert_id();
+    }
+    public function actualizar_motivo_bloqueo_contacto($CodMotBloCon,$DesMotBlocon)
+    {    
+        $this->db->where('CodMotBloCon', $CodMotBloCon);        
+        return $this->db->update('T_MotivoBloCon',array('DesMotBlocon'=>$DesMotBlocon));
+    }
+     public function get_motivo_bloqueo_contacto_data($CodMotBloCon)
+    {
+        $this->db->select('*');
+        $this->db->from('T_MotivoBloCon');  
+        $this->db->where('CodMotBloCon',$CodMotBloCon);       
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function borrar_motivo_bloqueo_contacto_data($CodMotBloCon)
+    { 
+        return $this->db->delete('T_MotivoBloCon', array('CodMotBloCon' => $CodMotBloCon));
+    }
+    /////PARA LOS MOTIVOS DE BLOQUEOS CONTACTOS END////
 }

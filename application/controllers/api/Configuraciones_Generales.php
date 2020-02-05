@@ -17,6 +17,39 @@ class Configuraciones_Generales extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     }
+    //////SERVICE MASTER FUNCITONS START///////////////////
+
+	public function get_all_functions_comercializadora_get()
+    { 
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $Provincias = $this->Configuraciones_generales_model->get_list_providencias();
+        $Localidades = $this->Configuraciones_generales_model->get_list_localidad();
+        $Tipos_Vias = $this->Configuraciones_generales_model->get_list_tipos_vias();
+        $Comercializadora = $this->Configuraciones_generales_model->get_list_comercializadora();
+        $Productos = $this->Configuraciones_generales_model->get_list_productos();
+        $Anexos = $this->Configuraciones_generales_model->get_list_anexos();
+        $Servicios_Especiales = $this->Configuraciones_generales_model->get_list_servicos_especiales();
+        $ComAct = $this->Configuraciones_generales_model->get_list_ComAct();
+       	$ProAct = $this->Configuraciones_generales_model->get_list_ProAct();
+       	$TioCom = $this->Configuraciones_generales_model->get_list_TipCom();
+       	$Tarifa_Gas= $this->Configuraciones_generales_model->get_list_tarifa_Gas();
+       	$Tarifa_Ele= $this->Configuraciones_generales_model->list_tarifa_electricas();
+
+        $data=array('Provincias'=>$Provincias,'Localidades'=>$Localidades,'Tipos_Vias'=>$Tipos_Vias,'Comercializadora'=>$Comercializadora,'Productos'=>$Productos,'Anexos'=>$Anexos,'Servicios_Especiales'=>$Servicios_Especiales,'TProComercializadoras' =>$ComAct,'TProductosActivos' =>$ProAct,'Tipos_Comision' =>$TioCom,'Tarifa_Gas' =>$Tarifa_Gas,'Tarifa_Ele' =>$Tarifa_Ele);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',0,$this->input->ip_address(),'Cargando Array de Consultas.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+
+   	/////////////SERVICE MASTER FUNCTIONS END////////////////// 	
+
     ////PARA LAS PROVINCIAS START///////
     public function list_provincias_get()
     {
@@ -83,11 +116,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_provincia_data($CodPro);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','DELETE',$hcliente,$this->input->ip_address(),'Borrando Cliente Fallido.');
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','DELETE',$hcliente,$this->input->ip_address(),'Borrando Cliente .');
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','DELETE',$hcliente,$this->input->ip_address(),'Borrando Cliente.');		
+				
     }
 
      ////PARA LAS PROVINCIAS END///////
@@ -172,7 +207,7 @@ class Configuraciones_Generales extends REST_Controller
 		{
 			$id = $this->Configuraciones_generales_model->agregar_localidad($objSalida->CodPro,$objSalida->DesLoc,$objSalida->CPLoc);		
 			$objSalida->CodLoc=$id;			
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','INSERT',$objSalida->CodLoc,$this->input->ip_address(),'Creando Localidad');			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','INSERT',$objSalida->CodLoc,$this->input->ip_address(),'Creando Localidad');	
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
@@ -188,11 +223,12 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_localidad_data($CodLoc);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','DELETE',$CodLoc,$this->input->ip_address(),'Borrando Localidad Fallido.');
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','DELETE',$CodLoc,$this->input->ip_address(),'Borrando Localidad.');		
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','DELETE',$CodLoc,$this->input->ip_address(),'Borrando Localidad.');	
+		$this->response($data);		
     }
      public function importar_excel_localidades_post()
     {
@@ -226,80 +262,7 @@ class Configuraciones_Generales extends REST_Controller
     ////PARA LAS LOCALIDADES END///////
 
 
-    /// PARA EL COMERCIAL START/////
-    public function list_comercial_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}		
-        $data = $this->Configuraciones_generales_model->get_list_comerciales();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','GET',0,$this->input->ip_address(),'Cargando Lista Comercial');
-		if (empty($data)){
-			$this->response(false);
-			return false;
-		}		
-		$this->response($data);		
-    }
-    public function buscar_xID_Comercial_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$CodCom=$this->get('CodCom');		
-        $data = $this->Configuraciones_generales_model->get_comercial_data($CodCom);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','GET',$CodCom,$this->input->ip_address(),'Consultando datos Comercial');
-		if (empty($data)){
-			$this->response(false);
-			return false;
-		}				
-		$this->response($data);		
-    }
-     public function crear_comercial_post()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();		
-		if (isset($objSalida->CodCom))
-		{		
-			$this->Configuraciones_generales_model->actualizar_comercial($objSalida->CodCom,$objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','UPDATE',$objSalida->CodCom,$this->input->ip_address(),'Actualizando La Comercial');
-		}
-		else
-		{
-			$id = $this->Configuraciones_generales_model->agregar_comercial($objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom);		
-			$objSalida->CodCom=$id;			
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','INSERT',$objSalida->CodCom,$this->input->ip_address(),'Creando Comercial');			
-		}		
-		$this->db->trans_complete();
-		$this->response($objSalida);
-    }
-     public function borrar_row_comercial_delete()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}	
-		$CodCom=$this->get('CodCom');
-        $data = $this->Configuraciones_generales_model->borrar_comercial_data($CodCom);
-		if (empty($data))
-		{
-			$this->response(false);
-			return false;
-		}		
-		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','DELETE',$CodCom,$this->input->ip_address(),'Borrando Comercial.');		
-    }
-
-    /// PARA EL COMERCIAL END//////
+   
 
     /// PARA TIPO DE CLIENTES START/////
      public function list_tipo_clientes_get()
@@ -367,11 +330,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tipo_cliente_data($CodTipCli);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','DELETE',$CodTipCli,$this->input->ip_address(),'Borrando Tipo Cliente Fallido.');
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','DELETE',$CodTipCli,$this->input->ip_address(),'Borrando Tipo Cliente.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','DELETE',$CodTipCli,$this->input->ip_address(),'Borrando Tipo Cliente.');		
+				
     }
 
 
@@ -441,11 +406,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_bancos($CodBan);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Banco','DELETE',$CodBan,$this->input->ip_address(),'Borrando Bancos Fallido.');
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Banco','DELETE',$CodBan,$this->input->ip_address(),'Borrando Bancos.');
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Banco','DELETE',$CodBan,$this->input->ip_address(),'Borrando Bancos.');		
+				
     }
     public function buscar_xID_Bancos_get()
     {
@@ -515,11 +482,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tipos_vias($hvia);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoVia','DELETE',$hvia,$this->input->ip_address(),'Borrando Tipo de Vias Fallido.');	
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoVia','DELETE',$hvia,$this->input->ip_address(),'Borrando Tipo de Vias.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoVia','DELETE',$hvia,$this->input->ip_address(),'Borrando Tipo de Vias.');		
+			
     }
       public function buscar_xID_tipo_via_get()
     {
@@ -589,11 +558,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tarifa_electrica($CodTarEle);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','DELETE',$CodTarEle,$this->input->ip_address(),'Borrando Tarifa Electrica Fallido.');
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','DELETE',$CodTarEle,$this->input->ip_address(),'Borrando Tarifa Electrica.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','DELETE',$CodTarEle,$this->input->ip_address(),'Borrando Tarifa Electrica.');		
+				
     }
     public function crear_tarifa_electrica_post()
     {
@@ -663,11 +634,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tarifa_gas($CodTarGas);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','DELETE',$CodTarGas,$this->input->ip_address(),'Borrando Tarifa Gas Fallido.');
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);
+		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','DELETE',$CodTarGas,$this->input->ip_address(),'Borrando Tarifa Gas.');		
+		$this->response($data);
+				
     }
      public function buscar_XID_TarGas_get()
     {
@@ -755,11 +728,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tipo_comision($CodTipCom);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','DELETE',$CodTipCom,$this->input->ip_address(),'Borrando Tipo de Comision Fallido.');
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','DELETE',$CodTipCom,$this->input->ip_address(),'Borrando Tipo de Comision.');
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoComision','DELETE',$CodTipCom,$this->input->ip_address(),'Borrando Tipo de Comision.');		
+				
     }	
      
    public function crear_Tipo_Comision_post()
@@ -814,11 +789,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tMotivos_Bloqueos($CodMotBloCli);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCli','DELETE',$CodMotBloCli,$this->input->ip_address(),'Borrando Motivo de Bloqueo Fallido.');
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);
+		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCli','DELETE',$CodMotBloCli,$this->input->ip_address(),'Borrando Motivo de Bloqueo.');		
+		$this->response($data);
+				
     }
      public function buscar_xID_tMotivo_Bloqueo_get()
     {
@@ -926,91 +903,18 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_tMotivos_Bloqueos_Actividades($CodMotBloAct);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','DELETE',$CodMotBloAct,$this->input->ip_address(),'Borrando Motivo de Bloqueo Actividades Fallido.');
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);
+		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','DELETE',$CodMotBloAct,$this->input->ip_address(),'Borrando Motivo de Bloqueo Actividades.');		
+		$this->response($data);
+				
     }
 
      ////PARA LOS MOTIVOS DE BLOQUEO DE LAS ACTIVIDADES END///////
 
-     ////PARA LAS COLABORADORES START///////
-    public function list_colaboradores_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}		
-        $data = $this->Configuraciones_generales_model->get_list_colaboradores();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Cargando Lista de Colaboradores');
-		if (empty($data)){
-			$this->response(false);
-			return false;
-		}		
-		$this->response($data);		
-    }
-     public function borrar_row_colaboradores_delete()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}	
-		$CodCol=$this->get('CodCol');
-        $data = $this->Configuraciones_generales_model->borrar_colaborador_data($CodCol);
-		if (empty($data))
-		{
-			$this->response(false);
-			return false;
-		}		
-		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','DELETE',$CodCol,$this->input->ip_address(),'Borrando Colaborador.');		
-    }
-    public function get_colaborador_data_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$CodCol=$this->get('CodCol');		
-        $data = $this->Configuraciones_generales_model->get_colaborador_data($CodCol);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',$CodCol,$this->input->ip_address(),'Consultando datos del Colaborador');
-		if (empty($data)){
-			$this->response(false);
-			return false;
-		}				
-		$this->response($data);		
-    }
-   public function crear_colaborador_post()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();		
-		if (isset($objSalida->CodCol))
-		{		
-			$this->Configuraciones_generales_model->actualizar_colaborador($objSalida->CodCol,$objSalida->BloDir,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->EmaCol,$objSalida->EscDir,$objSalida->EstCol,$objSalida->NomCol,$objSalida->NomViaDir,$objSalida->NumIdeFis,$objSalida->NumViaDir,$objSalida->ObsCol,$objSalida->PlaDir,$objSalida->PorCol,$objSalida->PueDir,$objSalida->TelCelCol,$objSalida->TelFijCol,$objSalida->TipCol);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','UPDATE',$objSalida->CodCol,$this->input->ip_address(),'Actualizando Colaborador');
-		}
-		else
-		{
-			$id = $this->Configuraciones_generales_model->agregar_colaborador($objSalida->BloDir,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->EmaCol,$objSalida->EscDir,$objSalida->EstCol,$objSalida->NomCol,$objSalida->NomViaDir,$objSalida->NumIdeFis,$objSalida->NumViaDir,$objSalida->ObsCol,$objSalida->PlaDir,$objSalida->PorCol,$objSalida->PueDir,$objSalida->TelCelCol,$objSalida->TelFijCol,$objSalida->TipCol);		
-			$objSalida->CodCol=$id;			
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','INSERT',$objSalida->CodCol,$this->input->ip_address(),'Creando Colaborador');			
-		}		
-		$this->db->trans_complete();
-		$this->response($objSalida);
-    }
-     
-   
-
-     ////PARA LAS COLABORADORES END///////
+    
 
      ////PARA LAS SECTORES START///////
     public function list_sectores_get()
@@ -1039,11 +943,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_sector_data($CodSecCli);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_SectorCliente','DELETE',$CodSecCli,$this->input->ip_address(),'Borrando Sector Fallido.');
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_SectorCliente','DELETE',$CodSecCli,$this->input->ip_address(),'Borrando Sector.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_SectorCliente','DELETE',$CodSecCli,$this->input->ip_address(),'Borrando Sector.');		
+				
     }
     public function buscar_xID_sectores_get()
     {
@@ -1152,11 +1058,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_inmueble_data($CodTipInm);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoInmueble','DELETE',$CodTipInm,$this->input->ip_address(),'Borrando Tipo Inmueble Fallido.');
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoInmueble','DELETE',$CodTipInm,$this->input->ip_address(),'Borrando Tipo Inmueble.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoInmueble','DELETE',$CodTipInm,$this->input->ip_address(),'Borrando Tipo Inmueble.');		
+				
     }
 
      ////PARA LAS TIPOS DE INMUEBLES END///////
@@ -1280,11 +1188,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->delete_comercializadora($CodCom);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','DELETE',$CodCom,$this->input->ip_address(),'Borrando Comercializadora Fallido.');
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','DELETE',$CodCom,$this->input->ip_address(),'Borrando Comercializadora.');
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','DELETE',$CodCom,$this->input->ip_address(),'Borrando Comercializadora.');		
+				
     }
     public function list_MotBloCom_get()
     {
@@ -1406,11 +1316,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_MotBloPumSum($CodMotBloPun);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','DELETE',$CodMotBloPun,$this->input->ip_address(),'Borrando Motivo Bloqueo Punto Sumninistro Fallido.');
 			$this->response(false);
 			return false;
 		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','DELETE',$CodMotBloPun,$this->input->ip_address(),'Borrando Motivo Bloqueo Punto Sumninistro.');
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','DELETE',$CodMotBloPun,$this->input->ip_address(),'Borrando Motivo Bloqueo Punto Sumninistro.');		
+				
     }
     /////PARA LOS BLOQUEOS DEL PUNTO DE SUMINISTRO  END////
 
@@ -1482,11 +1394,13 @@ class Configuraciones_Generales extends REST_Controller
         $data = $this->Configuraciones_generales_model->borrar_MotBloCom($CodMotBloCom);
 		if (empty($data))
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','DELETE',$CodMotBloCom,$this->input->ip_address(),'Borrando Motivo Bloqueo Comercializadora Fallido.');
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','DELETE',$CodMotBloCom,$this->input->ip_address(),'Borrando Motivo Bloqueo Comercializadora.');	
 		$this->response($data);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','DELETE',$CodMotBloCom,$this->input->ip_address(),'Borrando Motivo Bloqueo Comercializadora.');		
+				
     }
    
     /////PARA LOS BLOQUEOS DE LAS COMERCIALIZADORAS END////
@@ -1920,6 +1834,165 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////PARA LOS TIPOS DE CONTACTOS START///////
+    public function lista_contactos_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Configuraciones_generales_model->get_lista_contactos();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','GET',0,$this->input->ip_address(),'Cargando Lista de Tipos de Contactos.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+   public function crear_tipo_contacto_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodTipCon))
+		{		
+			$this->Configuraciones_generales_model->actualizar_contacto($objSalida->CodTipCon,$objSalida->DesTipCon);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','UPDATE',$objSalida->CodTipCon,$this->input->ip_address(),'Actualizando El Tipo de Contacto.');
+		}
+		else
+		{
+			$id = $this->Configuraciones_generales_model->agregar_contacto($objSalida->DesTipCon);		
+			$objSalida->CodTipCon=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','INSERT',$objSalida->CodTipCon,$this->input->ip_address(),'Creando El Tipo de Contacto.');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+    public function buscar_xID_Contacto_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodTipCon=$this->get('CodTipCon');		
+        $data = $this->Configuraciones_generales_model->get_contacto_data($CodTipCon);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','GET',$CodTipCon,$this->input->ip_address(),'Consultando datos del Tipo de Contacto.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+     public function borrar_row_contacto_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodTipCon=$this->get('CodTipCon');
+        $data = $this->Configuraciones_generales_model->borrar_contacto_data($CodTipCon);
+		if (empty($data))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','DELETE',$CodTipCon,$this->input->ip_address(),'Borrando Tipo de Contacto Fallido.');
+			$this->response(false);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoContacto','DELETE',$CodTipCon,$this->input->ip_address(),'Borrando Tipo de Contacto.');
+		$this->response($data);
+				
+    }
+
+     ////PARA LOS TIPOS DE CONTACTOS END///////
+
+     ////PARA LOS MOTIVOS DE BLOQUEO DE CONTACTOS START///////
+    public function lista_motivo_contactos_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Configuraciones_generales_model->get_lista_motivo_contactos();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','GET',0,$this->input->ip_address(),'Cargando Lista de Motivos de Bloqueos');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+   public function crear_motivo_BloContacto_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodMotBloCon))
+		{		
+			$this->Configuraciones_generales_model->actualizar_motivo_bloqueo_contacto($objSalida->CodMotBloCon,$objSalida->DesMotBlocon);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','UPDATE',$objSalida->CodMotBloCon,$this->input->ip_address(),'Actualizando Motivo de Bloqueo Contacto.');
+		}
+		else
+		{
+			$id = $this->Configuraciones_generales_model->agregar_motivo_bloqueo_contacto($objSalida->DesMotBlocon);		
+			$objSalida->CodMotBloCon=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','INSERT',$objSalida->CodMotBloCon,$this->input->ip_address(),'Creando Motivo de Bloqueo Contacto.');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+     public function buscar_xID_MotBloContactos_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodMotBloCon=$this->get('CodMotBloCon');		
+        $data = $this->Configuraciones_generales_model->get_motivo_bloqueo_contacto_data($CodMotBloCon);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','GET',$CodMotBloCon,$this->input->ip_address(),'Consultando Datos del Motivo de Bloqueo de Contacto.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+     public function borrar_row_MotBloContactos_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodMotBloCon=$this->get('CodMotBloCon');
+        $data = $this->Configuraciones_generales_model->borrar_motivo_bloqueo_contacto_data($CodMotBloCon);
+		if (empty($data))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','DELETE',$CodMotBloCon,$this->input->ip_address(),'Borrando Motivo de Bloqueo Contacto Fallido.');
+			$this->response(false);
+			return false;
+		}	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','DELETE',$CodMotBloCon,$this->input->ip_address(),'Borrando Motivo de Bloqueo Contacto.');	
+		$this->response($data);
+				
+    }
+
+     ////PARA LOS MOTIVOS DE BLOQUEO DE CONTACTOS END///////
+
+
 
 }
 ?>

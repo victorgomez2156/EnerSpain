@@ -93,30 +93,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.fdatos.CodCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CodCol</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.TipCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Colaborador</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.NumIdeFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.NomCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.DirCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.TelFijCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Fijo</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.TelCelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Movil</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.EmaCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.ObsCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.PorCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Porcentaje</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.EstCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.fdatos.AccCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumIdeFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TipCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Colaborador</b></li>
+                        <li><input type="checkbox" ng-model="vm.PorCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Porcentaje</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelCelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Movil</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Fijo</b></li>
+                        <li><input type="checkbox" ng-model="vm.EmaCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li> 
                       </ul> 
                     </div>                    
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a ><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a ><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Colaboradores/{{vm.ruta_reportes_pdf_colaboradores}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Colaboradores/{{vm.ruta_reportes_excel_colaboradores}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
                       </ul>
                     </div>
 
                     <div class="btn-group">
-                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtros" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
+                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_colaboradores" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
                     </div>
     </div>
   </div>
@@ -137,56 +134,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_colaboradores()">
                 <tbody>
-                  <tr>
-                    <th ng-show="vm.fdatos.CodCol==true"><i class="fa fa-asterisk"></i> Código</th>
-                    <th ng-show="vm.fdatos.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
-                    <th ng-show="vm.fdatos.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF O NIF</th>
-                    <th ng-show="vm.fdatos.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
-                    <th ng-show="vm.fdatos.DirCol==true"><i class="fa fa-location-arrow"></i> Dirección</th>
-                    <th ng-show="vm.fdatos.TelFijCol==true"><i class="fa fa-volume-control-phone"></i> Teléfono Fijo</th>
-                    <th ng-show="vm.fdatos.TelCelCol==true"><i class="fa fa-phone"></i> Teléfono</th>
-                    <th ng-show="vm.fdatos.EmaCol==true"><i class="fa fa-crosshairs"></i> Email</th>
-                    <th ng-show="vm.fdatos.ObsCol==true"><i class="fa fa-question-circle-o"></i> Observación</th>
-                    <th ng-show="vm.fdatos.PorCol==true"><i class="fa fa-bar-chart"></i> Porcentaje</th>
-                    <th ng-show="vm.fdatos.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.fdatos.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>
+                  <tr>                                       
+                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
+                    <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
+                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> TIPO</th>
+                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % BENEFICIO</th>
+                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> TEL. CELULAR</th>
+                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> TEL. FIJO</th>
+                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> ESTATUS</th>
+                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> ACCIÓN</th>                   
                   </tr>
                   <tr ng-show="vm.tColaboradores==undefined"> 
-                     <td colspan="12" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                   </tr>
-                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.fdatos.filtrar" ng-class-odd="odd">
-                    
-                    <td ng-show="vm.fdatos.CodCol==true">{{dato.CodCol}}</td>
-                    <td ng-show="vm.fdatos.TipCol==true">{{dato.TipCol}}</td>
-                    <td ng-show="vm.fdatos.NumIdeFis==true">{{dato.NumIdeFis}}</td>
-                    <td ng-show="vm.fdatos.NomCol==true">{{dato.NomCol}}</td>
-                    <td ng-show="vm.fdatos.DirCol==true">{{dato.NomViaDir}}</td> 
-                    <td ng-show="vm.fdatos.TelFijCol==true">{{dato.TelFijCol}}</td> 
-                    <td ng-show="vm.fdatos.TelCelCol==true">{{dato.TelCelCol}}</td> 
-                    <td ng-show="vm.fdatos.EmaCol==true">{{dato.EmaCol}}</td> 
-                    <td ng-show="vm.fdatos.ObsCol==true">{{dato.ObsCol}}</td>  
-                    <td ng-show="vm.fdatos.PorCol==true">{{dato.PorCol}}</td>
-                    <td ng-show="vm.fdatos.EstCol==true">{{dato.EstCol}}</td>                    
-                    <td ng-show="vm.fdatos.AccCol==true">
-                      <a href="#/Editar_Colaborador/{{dato.CodCol}}" title='Editar Colaborador {{dato.NomCol}}' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-edit" style="color:white;"></i></div></a>
-
-                      <a ng-click="vm.borrar_row($index,dato.CodCol)" title='Eliminar Colaborador {{dato.NomCol}}' class="btn btn-danger btn-icon mg-r-5"><div><i class="fa fa-trash" style="color:white;"></i></div></a>
+                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.fdatos.filtrar" ng-class-odd="odd">                    
+                    <td ng-show="vm.NomCol==true">{{dato.NomCol}}</td>
+                    <td ng-show="vm.NumIdeFis==true">{{dato.NumIdeFis}}</td>
+                    <td ng-show="vm.TipCol==true"><div ng-show="dato.TipCol==1">Persona Física</div><div ng-show="dato.TipCol==2">Empresa</div></td>
+                    <td ng-show="vm.PorCol==true">{{dato.PorCol}}</td>
+                    <td ng-show="vm.TelCelCol==true">{{dato.TelCelCol}}</td>
+                    <td ng-show="vm.TelFijCol==true">{{dato.TelFijCol}}</td>
+                    <td ng-show="vm.EmaCol==true">{{dato.EmaCol}}</td>
+                    <td ng-show="vm.EstCol==true">
+                      <span class="label label-info" ng-show="dato.EstCol==1"><i class="fa fa-check-circle"></i> ACTIVO</span>
+                      <span class="label label-danger" ng-show="dato.EstCol==2"><i class="fa fa-ban"></i> BLOQUEADO</span>
+                    </td>                                       
+                    <td ng-show="vm.AccCol==true">
+                      <!--a href="#/Editar_Colaborador/{{dato.CodCol}}" title='Editar Colaborador {{dato.NomCol}}' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-edit" style="color:white;"></i></div></a>
+                      <a ng-click="vm.borrar_row($index,dato.CodCol)" title='Eliminar Colaborador {{dato.NomCol}}' class="btn btn-danger btn-icon mg-r-5"><div><i class="fa fa-trash" style="color:white;"></i></div></a-->
+                      <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                      </select>
                     </td>
                   </tr>
                 </tbody>
                 <tfoot>                 
-                     <th ng-show="vm.fdatos.CodCol==true"><i class="fa fa-asterisk"></i> Código</th>
-                    <th ng-show="vm.fdatos.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
-                    <th ng-show="vm.fdatos.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF O NIF</th>
-                    <th ng-show="vm.fdatos.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
-                    <th ng-show="vm.fdatos.DirCol==true"><i class="fa fa-location-arrow"></i> Dirección</th>
-                    <th ng-show="vm.fdatos.TelFijCol==true"><i class="fa fa-volume-control-phone"></i> Teléfono Fijo</th>
-                    <th ng-show="vm.fdatos.TelCelCol==true"><i class="fa fa-phone"></i> Teléfono</th>
-                    <th ng-show="vm.fdatos.EmaCol==true"><i class="fa fa-crosshairs"></i> Email</th>
-                    <th ng-show="vm.fdatos.ObsCol==true"><i class="fa fa-question-circle-o"></i> Observación</th>
-                    <th ng-show="vm.fdatos.PorCol==true"><i class="fa fa-bar-chart"></i> Porcentaje</th>
-                    <th ng-show="vm.fdatos.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.fdatos.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>
+                   <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
+                    <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
+                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> TIPO</th>
+                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % BENEFICIO</th>
+                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> TEL. CELULAR</th>
+                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> TEL. FIJO</th>
+                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> ESTATUS</th>
+                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> ACCIÓN</th>
                 </tfoot>
               </table>
         </div> 
@@ -212,9 +204,141 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </section>
 
+<!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_colaboradores" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Tipos de Filtros</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel">                  
+      <form class="form-validate" id="frmfiltrocolaboradores" name="frmfiltrocolaboradores" ng-submit="SubmitFormFiltrosColaboradores($event)">                 
+     
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
+      <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.tmodal_colaboradores.tipo_filtro">
+          <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
+        </select>     
+     </div>
+     </div>
+     </div>
+     <br>
+     <br>
+     <br>
+     <br> 
+
+     <div class="col-12 col-sm-6" ng-show="vm.tmodal_colaboradores.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+     
+      <select class="form-control" id="TipColFil" name="TipColFil" ng-model="vm.tmodal_colaboradores.TipColFil">
+        <option value="1">Persona Física</option> 
+        <option value="2">Empresa</option>                       
+      </select>   
+     </div>
+     </div>
+    </div>
+
+       <div class="col-12 col-sm-6" ng-show="vm.tmodal_colaboradores.tipo_filtro==2">
+     <div class="form">                          
+     <div class="form-group">     
+      <select class="form-control" id="EstColFil" name="EstColFil" ng-model="vm.tmodal_colaboradores.EstColFil">
+        <option value="1">ACTIVO</option> 
+        <option value="2">BLOQUEADO</option>                         
+      </select>     
+     </div> 
+     </div>
+     </div>     
+    <br ng-show="vm.tmodal_colaboradores.tipo_filtro==1 || vm.tmodal_colaboradores.tipo_filtro==2">
+     <br ng-show="vm.tmodal_colaboradores.tipo_filtro==1 || vm.tmodal_colaboradores.tipo_filtro==2"> 
+    <br>
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltrocolaboradores.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_colaboradores()" ng-show="vm.tmodal_colaboradores.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR FILTRO</a>
+      </div>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!--modal container section end -->
+
+
+
+  <!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_motivo_bloqueo" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Colaborador</h4>
+          </div>
+          <div class="modal-body">
+      <div class="panel"> 
+      <input type="hidden" class="form-control" ng-model="vm.t_modal_data.CodCol" required readonly />
+      <form class="form-validate" id="form_lock" name="form_lock" ng-submit="submitFormlockCol($event)">                 
+     <div class="col-12 col-sm-4">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">NIF/CIF</label>
+     <input type="text" class="form-control" ng-model="vm.NumIdeFisBlo" required readonly/>     
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-4">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Colaborador</label>
+      <input type="text" class="form-control" ng-model="vm.NomColBlo" required readonly />     
+     </div>
+     </div>
+     </div>
+   
+
+    <div class="col-12 col-sm-4">
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <input type="text" class="form-control" ng-model="vm.FecBloColBlo" required readonly/>    
+     </div>
+     </div>
+     </div>
+      
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>          
+      <input type="text" class="form-control" id="MotBloqCol" name="MotBloqCol" required ng-model="vm.t_modal_data.MotBloqColBlo" required/>
+     </div>
+     </div>
+     
+
+     <div class="form">                          
+     <div class="form-group">
+     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <textarea type="text" class="form-control" ng-model="vm.t_modal_data.ObsBloColBlo" rows="5" maxlength="100"/></textarea>
+     </div>
+     </div>
+    
+    <br>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- modal container section end -->
+
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Clientes, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Colaboradores, Por Favor Espere..."></div>
 <div id="borrando" class="loader loader-default"  data-text="Borrando Colaborador, Por Favor Espere..."></div>
 <div id="NumCifCli" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
 </html>

@@ -53,7 +53,28 @@ class Login extends CI_Controller
 			$os=$this->agent->platform();			
 			$cookie_sesion=$this->input->cookie('EnerSpain');
 			$hora_nueva=date('Y-m-d G:i:s');
-			if($cookie_sesion==NULL)
+			$datausuario=$this->session->all_userdata();	
+			
+
+			if (!isset($datausuario['sesion_clientes']))
+			{
+				$this->session->sess_destroy();
+				$this->load->view('view_login');
+			}
+			else
+			{
+				redirect(base_url("Principal#/Dashboard/"), 'location', 301);
+			}
+			/*if (!isset($datausuario['sesion_clientes']))
+			{
+				//$this->session->sess_destroy();
+				redirect(base_url(), 'location', 301);
+			}
+			else 
+			{
+				redirect(base_url("Principal#/Dashboard/"), 'location', 301);
+			}*/
+			/*if($cookie_sesion==NULL)
 			{
 				redirect(base_url());	
 			}
@@ -96,7 +117,7 @@ class Login extends CI_Controller
 					$this->Usuarios_model->sesion_cookies($this->input->ip_address(),$agent,$version,$os,$cookie_sesion,$hora_nueva);					
 					$this->load->view('view_login');
 				}			
-			}
+			}*/
 		}
 	}
 	 

@@ -228,7 +228,7 @@ class Usuarios_model extends CI_Model
     {
         $this->db->select('id,controller');
         $this->db->from('controllers');
-        $this->db->order_by('controller DESC');        
+        $this->db->order_by('controller ASC');        
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

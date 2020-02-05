@@ -1,4 +1,4 @@
-app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceCodPro','ServiceTipoVias','ServiceCodLoc', Controlador])
+app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceColaboradores', Controlador])
 .directive('stringToNumber', function() 
 {
   return {
@@ -13,7 +13,7 @@ app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$rout
     }
   };
 })
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceCodPro,ServiceTipoVias,ServiceCodLoc)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceColaboradores)
 {
 	//declaramos una variable llamada scope donde tendremos a vm
 	/*inyectamos un controlador para acceder a sus variables y metodos*/
@@ -26,17 +26,33 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.tColaboradores=undefined;
 	scope.tColaboradoresBack=undefined;	
 	scope.index=0;
-	scope.tTipoColaborador = [{CodTipCol: 1, DesTipCol: 'Persona'},{CodTipCol: 2, DesTipCol: 'Empresa'}];
+	scope.tTipoColaborador = [{CodTipCol: 1, DesTipCol: 'Persona Física'},{CodTipCol: 2, DesTipCol: 'Empresa'}];
 	scope.tEstColaborador = [{id: 1, nombre: 'Activo'},{id: 2, nombre: 'Bloqueado'}];
+	scope.habilitar_button=0;
 	resultado = false;
+	console.log($route.current.$$route.originalPath);
+	if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID/:INF")
+	{
+		scope.validate_info = $route.current.params.INF;
+		if(scope.validate_info!=1)
+		{
+			location.href="#/Colaboradores/";
+		}
+		//scope.
+	}
 	if($route.current.$$route.originalPath=="/Colaboradores/")
 	{
-		scope.fdatos.NumIdeFis=true;
-		scope.fdatos.NomCol=true;
-		scope.fdatos.TelCelCol=true;
-		scope.fdatos.EmaCol=true;
-		scope.fdatos.EstCol=true;
-		scope.fdatos.AccCol=true;	
+		scope.NomCol=true;
+		scope.NumIdeFis=true;
+		scope.TipCol=true;
+		scope.PorCol=true;
+		scope.TelCelCol=true;
+		scope.EstCol=true;
+		scope.AccCol=true;
+		scope.ruta_reportes_pdf_colaboradores=0;
+		scope.ruta_reportes_excel_colaboradores=0;
+		scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
+		scope.ttipofiltros = [{id: 1, nombre: 'Tipo Colaborador'},{id: 2, nombre: 'Estatus'}];
 	}
 	
 	var fecha = new Date();
@@ -53,29 +69,35 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	} 
 	var fecha = dd+'-'+mm+'-'+yyyy;
 	scope.FecIniAct = fecha;
-	ServiceCodPro.getAll().then(function(dato) 
+	ServiceColaboradores.getAll().then(function(dato) 
+	{		
+		scope.tProvidencias = dato.Provincias;
+		scope.tTiposVias = dato.Tipo_Vias;
+		scope.tLocalidades = dato.Localidades;
+	}).catch(function(error) 
 	{
-		scope.tProvidencias = dato;
-	}).catch(function(err) 
-	{
-		console.log(err); //Tratar el error
-	});	
-	ServiceTipoVias.getAll().then(function(dato) 
-	{
-		scope.tTiposVias = dato;			
-	}).catch(function(err) 
-	{
-		console.log(err); //Tratar el error
+		console.log(error); //Tratar el error
+		if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+		{
+			Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unknown method.")
+		{
+			Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Invalid API Key.")
+		{
+			Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+		}
 	});
-	ServiceCodLoc.getAll().then(function(dato) 
-	{
-		scope.tLocalidades = dato;
-		scope.tLocalidadesBack = dato;								
-	}).catch(function(err) 
-	{
-		console.log(err); //Tratar el error
-	});	
-
 	$scope.submitForm = function(event) 
 	{      
 	 	//console.log(scope.fdatos);
@@ -116,19 +138,24 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.validar_campos = function()
 	{
 		resultado = true;
+		if (scope.fdatos.NumIdeFis==null || scope.fdatos.NumIdeFis==undefined || scope.fdatos.NumIdeFis=='')
+		{
+			Swal.fire({title:"El Número de DNI/NIE es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		    
+			return false;
+		}
 		if (!scope.fdatos.TipCol > 0)
 		{
 			Swal.fire({title:"Debe Seleccionar un Tipo de Colaborador.",type:"error",confirmButtonColor:"#188ae2"});	       
 			return false;
-		}
-		if (scope.fdatos.NumIdeFis==null || scope.fdatos.NumIdeFis==undefined || scope.fdatos.NumIdeFis=='')
-		{
-			Swal.fire({title:"El Campo CIF o NIF es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		    
-			return false;
-		}
+		}		
 		if (scope.fdatos.NomCol==null || scope.fdatos.NomCol==undefined || scope.fdatos.NomCol=='')
 		{
-			Swal.fire({title:"El Campo Nombre es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		   
+			Swal.fire({title:"El Nombre del Colaborador es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		   
+			return false;
+		}
+		if (scope.fdatos.PorCol==null || scope.fdatos.PorCol==undefined || scope.fdatos.PorCol=='')
+		{
+			Swal.fire({title:"Debe Indicar el % de Beneficio.",type:"error",confirmButtonColor:"#188ae2"});		   
 			return false;
 		}
 		if (!scope.fdatos.CodTipVia > 0)
@@ -138,12 +165,12 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		}
 		if (scope.fdatos.NomViaDir==null || scope.fdatos.NomViaDir==undefined || scope.fdatos.NomViaDir=='')
 		{
-			Swal.fire({title:"El Campo Nombre del Domicilio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		  
+			Swal.fire({title:"El Nombre de la Vía es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		  
 			return false;
 		}		
 		if (scope.fdatos.NumViaDir==null || scope.fdatos.NumViaDir==undefined || scope.fdatos.NumViaDir=='')
 		{
-			Swal.fire({title:"El Campo Número del Domicilio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		    
+			Swal.fire({title:"El Número de la Vía es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		    
 			return false;
 		}
 		if (!scope.fdatos.CodPro > 0)
@@ -160,12 +187,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			Swal.fire({title:"El Campo Teléfono es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
-		}
-		if (!scope.fdatos.EstCol > 0)
-		{
-			Swal.fire({title:"Debe Asignarle un Estatus al Colaborador.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
+		}		
 		if (resultado == false)
 		{
 			return false;
@@ -240,112 +262,87 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.fdatos.PueDir=scope.fdatos.PueDir;
 		}
 		console.log(scope.fdatos);
-		var url=base_urlHome()+"api/Configuraciones_Generales/crear_colaborador/";
+		if(scope.fdatos.CodCol>0)
+		{
+			var title='Actualizando';
+			var text='¿Esta Seguro de Actualizar Este Colaborador?';
+			var response="Los Datos del Colaborador Fueron Actualizados Correctamente.";
+		}
+		if(scope.fdatos.CodCol==undefined)
+		{
+			var title='Guardando';
+			var text='¿Esta Seguro de Incluir Este Colaborador?';
+			var response="El Colaborador Fue Registrado Correctamente.";
+		}
+		var url=base_urlHome()+"api/Colaboradores/crear_colaborador/";
 		$http.post(url,scope.fdatos).then(function(result)
 		{
+			$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			scope.nID=result.data.CodCol;
 			if(scope.nID>0)
-			{			
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				
-				
-				bootbox.alert({
-				message: "Colaborador Creado satisfactoriamente.",				
-				size: 'middle'});
+			{
+				Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
 				scope.buscarXID();				
 			}
 			else
 			{
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "ha ocurrido un error intentando guardar por favor intente nuevamente.",
-				size: 'middle'});				
+				Swal.fire({title:"Error",text:"ha ocurrido un error intentando guardar por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});							
 			}
 		},function(error)
 		{
+			$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "El método que esté intentando usar no puede ser localizado.",
-				size: 'middle'});
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",
-				size: 'middle'});
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Está intentando usar un APIKEY inválido.",
-				size: 'middle'});
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				bootbox.alert({
-				message: "Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",
-				size: 'middle'});
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
 	scope.buscarXID=function()
 	{		
 		$("#cargando").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");			
-		var url=base_urlHome()+"api/Configuraciones_Generales/get_colaborador_data/CodCol/"+scope.nID;
+		var url=base_urlHome()+"api/Colaboradores/get_colaborador_data/CodCol/"+scope.nID;
 		$http.get(url).then(function(result)
 		{
+			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(result.data!=false)
-			{			
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+			{
 				scope.fdatos=result.data;
-				scope.filtrarLocalidad();
-				/*$("#crear_colaborador").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Colaborador Creado satisfactoriamente.",				
-				size: 'middle'});
-				scope.buscarXID();*/				
+				scope.filtrarLocalidad();		
 			}
 			else
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Ha ocurrido un error al cargar los datos.",
-				size: 'middle'});				
+				Swal.fire({title:"Error",text:"Ha ocurrido un error al cargar los datos.",type:"error",confirmButtonColor:"#188ae2"});			
 			}
 		},function(error)
 		{
+			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "El método que esté intentando usar no puede ser localizado.",
-				size: 'middle'});
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",
-				size: 'middle'});
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Está intentando usar un APIKEY inválido.",
-				size: 'middle'});
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				bootbox.alert({
-				message: "Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",
-				size: 'middle'});
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -357,6 +354,56 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			letras=object;		
 			if(!/^([0-9a-zA-Z])*$/.test(letras))
 			scope.fdatos.NumIdeFis=letras.substring(0,letras.length-1);
+		}
+	}
+	scope.comprobar_cif=function()
+	{
+		if(scope.fdatos.NumIdeFis==undefined||scope.fdatos.NumIdeFis==null||scope.fdatos.NumIdeFis=="")
+		{
+			scope.fdatos.NumIdeFis=undefined;
+			scope.habilitar_button=0;
+		}
+		else
+		{
+			$("#comprobar_cif").removeClass( "loader loader-default" ).addClass("loader loader-default is-active");
+			var url = base_urlHome()+"api/Colaboradores/comprobar_cif/NumIdeFis/"+scope.fdatos.NumIdeFis;
+			$http.get(url).then(function(result)
+			{
+				$("#comprobar_cif").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");
+				if(result.data!=false)
+				{
+					scope.habilitar_button=1;
+					Swal.fire({title:"Error",text:"El Número de DNI/NIE no se encuentra disponible.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				else
+				{
+					Swal.fire({title:"Disponible",text:"El Número de DNI/NIE se encuentra disponible.",type:"success",confirmButtonColor:"#188ae2"});
+					scope.habilitar_button=2;	
+				}
+				scope.fdatos.habilitar_button=scope.habilitar_button;
+			},function(error)
+			{
+				console.log(error);
+				$("#comprobar_cif").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");
+				if(error.status==404 && error.statusText=="Not Found")
+				{
+					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==401 && error.statusText=="Unauthorized")
+				{
+					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==403 && error.statusText=="Forbidden")
+				{
+					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==500 && error.statusText=="Internal Server Error")
+				{
+					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+
+			});
+			console.log(scope.fdatos.NumIdeFis);
 		}
 	}
 
@@ -391,7 +438,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.cargar_lista_colaboradores=function()
 	{
 		$("#cargando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
-		var url = base_urlHome()+"api/Configuraciones_Generales/list_colaboradores/";
+		var url = base_urlHome()+"api/Colaboradores/list_colaboradores/";
 		$http.get(url).then(function(result)
 		{
 			if(result.data!=false)
@@ -421,40 +468,27 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			else
 			{
 				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "No hemos encontrado colaboradores registrados.",
-				size: 'middle'});
+				Swal.fire({title:"Error",text:"No hemos encontrado colaboradores registrados.",type:"info",confirmButtonColor:"#188ae2"});
 				scope.tColaboradores=undefined;
 			}
 		},function(error)
 		{
+			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "El método que esté intentando usar no puede ser localizado.",
-				size: 'middle'});
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",
-				size: 'middle'});
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Está intentando usar un APIKEY inválido.",
-				size: 'middle'});
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				bootbox.alert({
-				message: "Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",
-				size: 'middle'});
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -465,78 +499,56 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			Swal.fire({title:"Nivel no Autorizado.",text:"Su nivel no esta autorizado para esta operación.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
-		bootbox.confirm({
-	    title:"Confirmación",
-	    message: "¿Está seguro que desea eliminar este registro?",
-	    buttons: {
-	    cancel: {
-	    label: '<i class="fa fa-times"></i> Cancelar'
-	    },
-	    confirm: {
-		label: '<i class="fa fa-check"></i> Confirmar'
-		}
-		},
-		callback: function (result) 
-		{
-			if (result==false) 
-			{ 
-				console.log('Cancelando Ando...');
-			}     
-			else
-			{					
-				$("#borrando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
-				var url = base_urlHome()+"api/Configuraciones_Generales/borrar_row_colaboradores/CodCol/"+id;
+			Swal.fire({title:"¿Está seguro que desea eliminar este registro?",
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"CONFIRMAR"}).then(function(t)
+			{
+	            if(t.value==true)
+	            {
+	               $("#borrando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+				var url = base_urlHome()+"api/Colaboradores/borrar_row_colaboradores/CodCol/"+id;
 				$http.delete(url).then(function(result)
 				{
+					$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					if(result.data!=false)
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Registro Eliminado Correctamente.",
-						size: 'middle'});
+					{			
+						Swal.fire({title:"Exito!!",text:"Registro Eliminado Correctamente..",type:"success",confirmButtonColor:"#188ae2"});	
 						scope.tColaboradores.splice(index,1);
 					}
 					else
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "No hemos podido borrar el registro intente nuevamente.",
-						size: 'middle'});	
+					{												
+						Swal.fire({title:"Error",text:"No hemos podido borrar el registro intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});	
 					}
 
 				},function(error)
 				{
+					$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 					if(error.status==404 && error.statusText=="Not Found")
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "El método que esté intentando usar no puede ser localizado.",
-						size: 'middle'});
+						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==401 && error.statusText=="Unauthorized")
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",
-						size: 'middle'});
+						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==403 && error.statusText=="Forbidden")
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Está intentando usar un APIKEY inválido.",
-						size: 'middle'});
+						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==500 && error.statusText=="Internal Server Error")
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-						bootbox.alert({
-						message: "Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",
-						size: 'middle'});
+						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 				});
-			}
-		}});
+	            }
+	            else
+	            {
+	               console.log('Cancelando Ando...');
+	            }
+	    });
 	}
 	scope.borrar=function()
 	{
@@ -545,77 +557,345 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			Swal.fire({title:"Nivel no Autorizado.",text:"Su nivel no esta autorizado para esta operación.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
-		bootbox.confirm({
-	    title:"Confirmación",
-	    message: "¿Está seguro que desea eliminar este registro?",
-	    buttons: {
-	    cancel: {
-	    label: '<i class="fa fa-times"></i> Cancelar'
-	    },
-	    confirm: {
-		label: '<i class="fa fa-check"></i> Confirmar'
-		}
-		},
-		callback: function (result) 
+			Swal.fire({title:"¿Está seguro que desea eliminar este registro?",
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"CONFIRMAR"}).then(function(t)
+			{
+	            if(t.value==true)
+	            {
+	              $("#borrando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+					var url = base_urlHome()+"api/Colaboradores/borrar_row_colaboradores/CodCol/"+scope.fdatos.CodCol;
+					$http.delete(url).then(function(result)
+					{
+						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+						if(result.data!=false)
+						{
+							Swal.fire({title:"Exito!!",text:"Registro Eliminado Correctamente..",type:"success",confirmButtonColor:"#188ae2"});	
+							location.href="#/Colaboradores";
+						}
+						else
+						{
+							Swal.fire({title:"Error",text:"No hemos podido borrar el registro intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});	
+						}
+					},function(error)
+					{
+						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
+						if(error.status==404 && error.statusText=="Not Found")
+						{
+							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==401 && error.statusText=="Unauthorized")
+						{
+							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==403 && error.statusText=="Forbidden")
+						{
+							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==500 && error.statusText=="Internal Server Error")
+						{
+							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+					}); 
+	            }
+	            else
+	            {
+	                console.log('Cancelando ando...');
+	            }
+	        });
+	}
+	scope.validar_opcion=function(index,opcion,datos)
+	{
+		console.log(index);
+		console.log(opcion);
+		console.log(datos);
+		if(opcion==1)
 		{
-			if (result==false) 
-			{ 
-				console.log('Cancelando Ando...');
-			}     
-			else
-			{					
-				$("#borrando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
-				var url = base_urlHome()+"api/Configuraciones_Generales/borrar_row_colaboradores/CodCol/"+scope.fdatos.CodCol;
-				$http.delete(url).then(function(result)
+			location.href ="#/Editar_Colaborador/"+datos.CodCol+"/"+1;
+		}
+		if(opcion==2)
+		{
+	        location.href ="#/Editar_Colaborador/"+datos.CodCol;
+		}
+		if(opcion==3)
+		{
+			if(datos.EstCol==1)
+			{
+				scope.opciones_colaboradores[index]=undefined;
+				Swal.fire({title:"Error!.",text:"Ya este Colaborador se encuentra activo.",type:"error",confirmButtonColor:"#188ae2"});
+				return false;
+			}
+			Swal.fire({title:"¿Esta Seguro de Activar Este Colaborador?",
+			type:"info",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"Activar"}).then(function(t)
+			{
+	            if(t.value==true)
+	            {
+	               	scope.datos_update={};
+					scope.datos_update.opcion=1;
+					scope.datos_update.CodCol=datos.CodCol;
+					var url = base_urlHome()+"api/Colaboradores/update_status/";
+					$http.post(url,scope.datos_update).then(function(result)
+					{
+						if(result.data!=false)
+						{
+							Swal.fire({title:"Exito!.",text:"El Colaborador a sido activado correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+							scope.cargar_lista_colaboradores();
+							scope.opciones_colaboradores[index]=undefined;
+						}
+						else
+						{
+							Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+							scope.cargar_lista_colaboradores();
+						}
+					},function(error)
+					{						
+						if(error.status==404 && error.statusText=="Not Found")
+						{
+							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==401 && error.statusText=="Unauthorized")
+						{
+							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==403 && error.statusText=="Forbidden")
+						{						
+							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==500 && error.statusText=="Internal Server Error")
+						{
+							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+					});
+	            }
+	            else
+	            {
+	                console.log('Cancelando ando...');
+	                scope.opciones_colaboradores[index]=undefined;
+	            }
+	        });
+
+		}
+		if(opcion==4)
+		{	
+			if(datos.EstCol==2)
+			{
+				scope.opciones_colaboradores[index]=undefined;
+				Swal.fire({title:"Error!.",text:"Ya este Colaborador se encuentra bloqueado.",type:"error",confirmButtonColor:"#188ae2"});
+				return false;
+			}
+			
+			scope.t_modal_data={};
+			scope.t_modal_data.CodCol=datos.CodCol;
+			scope.NumIdeFisBlo=datos.NumIdeFis;	
+			scope.NomColBlo=datos.NomCol;		
+			scope.FecBloColBlo=fecha;			
+	        scope.opciones_colaboradores[index]=undefined;         	
+	        $("#modal_motivo_bloqueo").modal('show'); 
+		}	
+	}
+	scope.regresar=function()
+	{
+		if(scope.fdatos.CodCol!=undefined)
+		{			
+			/*Swal.fire({title:"¿Esta Seguro de Regresar?",
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"OK"}).then(function(t)
+			{
+	            if(t.value==true)
+	            {
+	               	scope.fdatos={};	               
+	               	
+	            }
+	            else
+	            {
+	                console.log('Cancelando ando...');	               
+	            }
+	        });*/
+	        location.href="#/Colaboradores/";
+		}
+		else
+		{
+			Swal.fire({title:"¿Esta Seguro de Regresar y no completar el proceso?",
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"OK"}).then(function(t)
+			{
+	            if(t.value==true)
+	            {
+	               	scope.fdatos={};	               
+	               	location.href="#/Colaboradores/";
+	            }
+	            else
+	            {
+	                console.log('Cancelando ando...');	               
+	            }
+	        });
+
+		}
+	}
+	$scope.submitFormlockCol = function(event) 
+	{
+	 	if(scope.t_modal_data.ObsBloColBlo==undefined||scope.t_modal_data.ObsBloColBlo==null||scope.t_modal_data.ObsBloColBlo=='')
+	 	{
+	 		scope.t_modal_data.ObsBloColBlo=null;
+	 	}
+	 	else
+	 	{
+	 		scope.t_modal_data.ObsBloColBlo=scope.t_modal_data.ObsBloColBlo;
+	 	}
+	 	scope.t_modal_data.opcion=2;
+	 	console.log(scope.t_modal_data);
+	 	Swal.fire({title:"¿Esta Seguro de Bloquear Este Colaborador?",
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"Bloquear"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {	           
+				
+				var url = base_urlHome()+"api/Colaboradores/update_status/";
+				$http.post(url,scope.t_modal_data).then(function(result)
 				{
 					if(result.data!=false)
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Registro Eliminado Correctamente.",
-						size: 'middle'});						
+						Swal.fire({title:"Exito!.",text:"El Colaborador a sido Bloqueado correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+						$("#modal_motivo_bloqueo").modal('hide');
+						scope.t_modal_data={};
+						scope.NumIdeFisBlo=undefined;
+						scope.NomColBlo=undefined;
+						scope.FecBloColBlo=undefined;
+						scope.cargar_lista_colaboradores();
 					}
 					else
 					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "No hemos podido borrar el registro intente nuevamente.",
-						size: 'middle'});	
+						Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+						scope.cargar_lista_colaboradores();
 					}
-
-				},function(error)
-				{
-					if(error.status==404 && error.statusText=="Not Found")
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "El método que esté intentando usar no puede ser localizado.",
-						size: 'middle'});
-					}
-					if(error.status==401 && error.statusText=="Unauthorized")
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",
-						size: 'middle'});
-					}
-					if(error.status==403 && error.statusText=="Forbidden")
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-						bootbox.alert({
-						message: "Está intentando usar un APIKEY inválido.",
-						size: 'middle'});
-					}
-					if(error.status==500 && error.statusText=="Internal Server Error")
-					{
-						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-						bootbox.alert({
-						message: "Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",
-						size: 'middle'});
+					},function(error)
+					{						
+						if(error.status==404 && error.statusText=="Not Found")
+						{
+							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==401 && error.statusText=="Unauthorized")
+						{
+							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==403 && error.statusText=="Forbidden")
+						{						
+							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==500 && error.statusText=="Internal Server Error")
+						{
+							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 				});
-			}
-		}});
+	        }
+	        else
+	        {
+	            event.preventDefault();
+	            console.log('Cancelando ando...');
+	        }
+	        });		
+	};
+	//scope.ruta_reportes_pdf_colaboradores=
+	//scope.ruta_reportes_excel_colaboradores=
+	$scope.SubmitFormFiltrosColaboradores = function(event) 
+	{
+		if(scope.tmodal_colaboradores.tipo_filtro==1)
+		{
+			$scope.predicate = 'id';  
+			$scope.reverse = true;						
+			$scope.currentPage = 1;  
+			$scope.order = function (predicate) 
+			{  
+				$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;  
+				$scope.predicate = predicate;  
+			}; 						
+			scope.tColaboradores =$filter('filter')(scope.tColaboradoresBack, {TipCol: scope.tmodal_colaboradores.TipColFil}, true);	 //scope.tColaboradoresBack;		
+			console.log(scope.tColaboradores);
+			console.log(scope.tColaboradoresBack);					
+			$scope.totalItems = scope.tColaboradores.length; 
+			$scope.numPerPage = 50;  
+			$scope.paginate = function (value) 
+			{  
+				var begin, end, index;  
+				begin = ($scope.currentPage - 1) * $scope.numPerPage;  
+				end = begin + $scope.numPerPage;  
+				index = scope.tColaboradores.indexOf(value);  
+				return (begin <= index && index < end);  
+			};
+			scope.ruta_reportes_pdf_colaboradores=scope.tmodal_colaboradores.tipo_filtro+"/"+scope.tmodal_colaboradores.TipColFil;
+			scope.ruta_reportes_excel_colaboradores=scope.tmodal_colaboradores.tipo_filtro+"/"+scope.tmodal_colaboradores.TipColFil;
+
+		}
+		if(scope.tmodal_colaboradores.tipo_filtro==2)
+		{
+			$scope.predicate = 'id';  
+			$scope.reverse = true;						
+			$scope.currentPage = 1;  
+			$scope.order = function (predicate) 
+			{  
+				$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;  
+				$scope.predicate = predicate;  
+			}; 						
+			scope.tColaboradores =$filter('filter')(scope.tColaboradoresBack, {EstCol: scope.tmodal_colaboradores.EstColFil}, true);	 //scope.tColaboradoresBack;		
+			console.log(scope.tColaboradores);
+			console.log(scope.tColaboradoresBack);					
+			$scope.totalItems = scope.tColaboradores.length; 
+			$scope.numPerPage = 50;  
+			$scope.paginate = function (value) 
+			{  
+				var begin, end, index;  
+				begin = ($scope.currentPage - 1) * $scope.numPerPage;  
+				end = begin + $scope.numPerPage;  
+				index = scope.tColaboradores.indexOf(value);  
+				return (begin <= index && index < end);  
+			};
+			scope.ruta_reportes_pdf_colaboradores=scope.tmodal_colaboradores.tipo_filtro+"/"+scope.tmodal_colaboradores.EstColFil;
+			scope.ruta_reportes_excel_colaboradores=scope.tmodal_colaboradores.tipo_filtro+"/"+scope.tmodal_colaboradores.EstColFil;
+
+		}
+	 		
+	};
+	scope.regresar_filtro_colaboradores=function()
+	{		
+		$scope.predicate = 'id';  
+		$scope.reverse = true;						
+		$scope.currentPage = 1;  
+		$scope.order = function (predicate) 
+		{  
+			$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;  
+			$scope.predicate = predicate;  
+		}; 						
+		scope.tColaboradores =scope.tColaboradoresBack;
+		$scope.totalItems = scope.tColaboradores.length; 
+		$scope.numPerPage = 50;  
+		$scope.paginate = function (value) 
+		{  
+			var begin, end, index;  
+			begin = ($scope.currentPage - 1) * $scope.numPerPage;  
+			end = begin + $scope.numPerPage;  
+			index = scope.tColaboradores.indexOf(value);  
+			return (begin <= index && index < end);  
+		};
+		scope.tmodal_colaboradores={};
+		scope.ruta_reportes_pdf_colaboradores=0;
+		scope.ruta_reportes_excel_colaboradores=0;
 	}
 	scope.filtrarLocalidad =  function()
 	{

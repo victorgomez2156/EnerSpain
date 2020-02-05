@@ -14,17 +14,147 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Dashboard/', {
 			templateUrl: 'application/views/view_dashboard.php'
 		})
-		.when('/Usuarios/', {
-			templateUrl: 'application/views/view_grib_empleados.php'
+		
+		.when('/Comercializadora/', {
+		templateUrl: 'application/views/view_grib_comercializadora.php'
 		})
-		.when('/Agregar_Usuarios/', 
-		{
-			templateUrl: 'application/views/view_add_empleados.php'
+		.when('/Datos_Basicos_Comercializadora/', {
+		templateUrl: 'application/views/view_comercializadora.php'
 		})
-		.when('/Editar_Usuarios/:ID', 
-		{
-			templateUrl: 'application/views/view_add_empleados.php'
-		})			
+		.when('/Datos_Basicos_Comercializadora/:ID', {
+		templateUrl: 'application/views/view_comercializadora.php'
+		})
+		.when('/Datos_Basicos_Comercializadora/:ID/:INF', {
+		templateUrl: 'application/views/view_comercializadora.php'
+		})
+		.when('/Productos/', {
+		templateUrl: 'application/views/view_grib_productos.php'
+		})
+		.when('/Add_Productos/', {
+		templateUrl: 'application/views/view_add_productos.php'
+		})
+		.when('/Edit_Productos/:ID', {
+		templateUrl: 'application/views/view_add_productos.php'
+		})
+		.when('/Ver_Productos/:ID/:INF', {
+		templateUrl: 'application/views/view_add_productos.php'
+		})
+		.when('/Anexos/', {
+		templateUrl: 'application/views/view_grib_anexos.php'
+		})
+		.when('/Add_Anexos/', {
+		templateUrl: 'application/views/view_add_anexos.php'
+		})
+		.when('/Edit_Anexos/:ID', {
+		templateUrl: 'application/views/view_add_anexos.php'
+		})
+		.when('/Ver_Anexos/:ID/:INF', {
+		templateUrl: 'application/views/view_add_anexos.php'
+		})
+		.when('/Servicios_Adicionales/', {
+		templateUrl: 'application/views/view_grib_servicios_especiales.php'
+		})
+		.when('/Add_Servicios_Adicionales/', {
+		templateUrl: 'application/views/view_add_servicios_especiales.php'
+		})
+		.when('/Edit_Servicios_Adicionales/:ID', {
+		templateUrl: 'application/views/view_add_servicios_especiales.php'
+		})
+		.when('/Ver_Servicios_Adicionales/:ID/:INF', {
+		templateUrl: 'application/views/view_add_servicios_especiales.php'
+		})
+
+		.when('/Datos_Basicos_Clientes/', {
+		templateUrl: 'application/views/view_datos_basicos_clientes.php'
+		})		
+		.when('/Edit_Datos_Basicos_Clientes/:ID', {
+		templateUrl: 'application/views/view_datos_basicos_clientes.php'
+		})
+		.when('/Edit_Datos_Basicos_Clientes/:ID/:INF', {
+		templateUrl: 'application/views/view_datos_basicos_clientes.php'
+		})
+		.when('/Actividades/', {
+		templateUrl: 'application/views/view_grib_actividad.php'
+		})	
+		.when('/Add_Actividades/', {
+		templateUrl: 'application/views/view_add_actividad.php'
+		})	
+		.when('/Puntos_Suministros/', {
+		templateUrl: 'application/views/view_grib_punto_suministros.php'
+		})
+		.when('/Add_Puntos_Suministros/', {
+		templateUrl: 'application/views/view_add_punto_suministros.php'
+		})
+		.when('/Edit_Punto_Suministros/:ID', {
+		templateUrl: 'application/views/view_add_punto_suministros.php'
+		})
+		.when('/Edit_Punto_Suministros/:ID/:INF', {
+		templateUrl: 'application/views/view_add_punto_suministros.php'
+		})
+		.when('/Contactos/', {
+		templateUrl: 'application/views/view_grib_contactos.php'
+		})
+		.when('/Add_Contactos/', {
+		templateUrl: 'application/views/view_add_contactos.php'
+		})
+		.when('/Edit_Contactos/:ID', {
+		templateUrl: 'application/views/view_add_contactos.php'
+		})
+		.when('/Edit_Contactos/:ID/:INF', {
+		templateUrl: 'application/views/view_add_contactos.php'
+		})
+		.when('/Cuentas_Bancarias/', {
+		templateUrl: 'application/views/view_grib_cuentas_bancarias.php'
+		})
+		.when('/Add_Cuentas_Bancarias/', {
+		templateUrl: 'application/views/view_add_cuentas_bancarias.php'
+		})
+		.when('/Edit_Cuenta_Bancaria/:ID', {
+		templateUrl: 'application/views/view_add_cuentas_bancarias.php'
+		})
+		.when('/Documentos/', {
+		templateUrl: 'application/views/view_grib_documentos.php'
+		})
+		.when('/Add_Documentos/', {
+		templateUrl: 'application/views/view_add_documentos.php'
+		})
+		.when('/Edit_Documentos/:ID', {
+		templateUrl: 'application/views/view_add_documentos.php'
+		})
+
+		/*.when('/Comercializadora/', {
+			templateUrl: 'application/views/view_grib_comercializadora.php'
+		})
+		.when('/Edit_Comercializadora/:ID', {
+			templateUrl: 'application/views/view_comercializadora.php'
+		})
+		.when('/Edit_Comercializadora/:ID/:INF', {
+			templateUrl: 'application/views/view_comercializadora.php'
+		})
+		.when('/Add_Comercializadora/', {
+			templateUrl: 'application/views/view_comercializadora.php'
+		})
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		.when('/Clientes/', 
 		{		
 			templateUrl: 'application/views/view_grib_clientes.php'			
@@ -39,6 +169,27 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Editar_Clientes/:ID/:MET', {
 			templateUrl: 'application/views/view_add_clientes.php'
 		})
+		////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  START//////////////////////////////////////////////////////////////////////////
+		.when('/Distribuidora/', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_distribuidora.php'
+		})
+		.when('/Add_Distribuidora/', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_add_distribuidora.php'
+		})
+		.when('/Edit_Distribuidora/:ID', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_add_distribuidora.php'
+		})
+		.when('/Edit_Distribuidora/:ID/:FORM', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_add_distribuidora.php'
+		})
+		.when('/Tarifas/', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_tarifas.php'
+		})
 		.when('/Colaboradores/', 
 		{		
 			templateUrl: 'application/views/view_grib_colaboradores.php'			
@@ -50,6 +201,56 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Editar_Colaborador/:ID', {
 			templateUrl: 'application/views/view_add_colaborador.php'
 		})
+		.when('/Editar_Colaborador/:ID/:INF', {
+			templateUrl: 'application/views/view_add_colaborador.php'
+		})
+		.when('/Comercial/', {
+			templateUrl: 'application/views/view_grib_comercial.php'
+		})
+		.when('/Agregar_Comercial/', {
+			templateUrl: 'application/views/view_add_comercial.php'
+		})
+		.when('/Editar_Comercial/:ID', {
+			templateUrl: 'application/views/view_add_comercial.php'
+		})
+		.when('/Editar_Comercial/:ID/:INF', {
+			templateUrl: 'application/views/view_add_comercial.php'
+		})
+		.when('/Tipos/', {
+			templateUrl: 'application/views/view_grib_tipos.php'
+		})
+		.when('/Motivos_Bloqueos/', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_motivos_bloqueos.php'
+		})
+		.when('/Gestionar_Cups/:CodPunSum', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_cups.php'
+		})	
+		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_consumo_cups.php'
+		})	
+
+
+
+		////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  END/////////////////////////////////////////////////////////////////////////////
+		.when('/Usuarios/', {
+			templateUrl: 'application/views/view_grib_usuarios.php'
+		})
+		.when('/Agregar_Usuarios/', 
+		{
+			templateUrl: 'application/views/view_add_usuarios.php'
+		})
+		.when('/Editar_Usuarios/:ID', 
+		{
+			templateUrl: 'application/views/view_add_usuarios.php'
+		})			
+		
+		.when('/Bancos/', {
+			templateUrl: 'application/views/view_grib_bancos.php'
+		})
+		/*
 		.when('/Provincia/', {
 			templateUrl: 'application/views/view_grib_provincias.php'
 		})
@@ -67,16 +268,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		})
 		.when('/Editar_Localidad/:ID', {
 			templateUrl: 'application/views/view_add_localidad.php'
-		})	
-		.when('/Comercial/', {
-			templateUrl: 'application/views/view_grib_comercial.php'
-		})
-		.when('/Agregar_Comercial/', {
-			templateUrl: 'application/views/view_add_comercial.php'
-		})
-		.when('/Editar_Comercial/:ID', {
-			templateUrl: 'application/views/view_add_comercial.php'
-		})	
+		})			
 		.when('/Tipo_Clientes/', {
 			templateUrl: 'application/views/view_grib_tipo_clientes.php'
 		})
@@ -171,18 +363,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Registro_Suministros/', {
 			templateUrl: 'application/views/view_contruccion.php'
 		})
-		.when('/Comercializadora/', {
-			templateUrl: 'application/views/view_grib_comercializadora.php'
-		})
-		.when('/Edit_Comercializadora/:ID', {
-			templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Edit_Comercializadora/:ID/:INF', {
-			templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Add_Comercializadora/', {
-			templateUrl: 'application/views/view_comercializadora.php'
-		})
+		
 		.when('/Motivos_Bloqueos_Puntos_Suministros/', {
 			templateUrl: 'application/views/view_grib_motivos_bloqueo_puntos_suministros.php'
 		})
@@ -231,6 +412,25 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Add_Tipo_Comision/', {
 			templateUrl: 'application/views/view_add_tipo_comision.php' 
 		})
+		.when('/Tipo_Contacto/', {
+			templateUrl: 'application/views/view_grib_tipo_contacto.php'
+		})
+		.when('/Editar_Tipo_Contacto/:ID', {
+			templateUrl: 'application/views/view_add_tipo_contacto.php'
+		})
+		.when('/Agregar_Tipo_Contacto/', {
+			templateUrl: 'application/views/view_add_tipo_contacto.php' 
+		})
+
+		.when('/Motivos_Bloqueos_Contacto/', {
+			templateUrl: 'application/views/view_grib_motivos_bloqueos_contactos.php'
+		})
+		.when('/Edit_Motivos_Bloqueos_Contactos/:ID', {
+			templateUrl: 'application/views/view_add_motivos_bloqueos_contactos.php'
+		})
+		.when('/Add_Motivos_Bloqueos_Contactos/', {
+			templateUrl: 'application/views/view_add_motivos_bloqueos_contactos.php' 
+		})*/
 		
 
 

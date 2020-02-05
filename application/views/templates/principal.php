@@ -2,8 +2,51 @@
 <html lang="en">
 <head>
  <?php $this->load->view('view_header');?>
+   <script type="text/javascript">
+      /*  window.oncontextmenu = function () 
+        {
+            return false;
+        }
+        $(document).keydown(function (event)
+        {
+          if (event.keyCode == 123)
+          {
+            return false;
+          }
+          else if ((event.ctrlKey && event.shiftKey && event.keyCode == 73) || (event.ctrlKey && event.shiftKey && event.keyCode == 74)) 
+          {
+            return false;
+          }
+        });
+         function right(e) {    
+     var ano=new Date().getFullYear();
+      var msg = "Esta Prohibido Usar el Click Derecho En Esta Pagina !!! ";
+      if (navigator.appName == 'Netscape' && e.which == 3) 
+      {
+        //Swal.fire({title:"Error",text:msg,type:"error",confirmButtonColor:"#188ae2"});
+          bootbox.alert({
+          title:'Seguridad',
+            message: "<b></b>"+msg+" <br><b>Copyright &copy; 2019 Todos los Derechos Reservados | Este Sistema Fue Desarrollado <i class='fa fa-heart-o' aria-text='true'></i> Por <a href='https://www.sistemasonline2018.com.ve' target='_blank'>Tsu. Victor Gómez</a> </b>" ,
+            size: 'middle'
+        });
+         return false;
+      }
+      else if (navigator.appName == 'Microsoft Internet Explorer' && event.button==2) {
+      bootbox.alert({
+          title:'Seguridad',
+            message: "<b></b>"+msg+" <br><b>Copyright &copy; 2019 Todos los Derechos Reservados | Este Sistema Fue Desarrollado <i class='fa fa-heart-o' aria-text='true'></i> Por <a href='https://www.sistemasonline2018.com.ve' target='_blank'>Tsu. Victor Gómez</a> </b>" ,
+            size: 'middle'
+        });
+      return false;
+      }
+   return true;
+}
+document.onmousedown = right;*/
+    </script>
 </head>
-<body>
+
+<body>  
+
 <div ng-app="appPrincipal">
   
  
@@ -13,16 +56,15 @@
   	<!--header start-->
   	<?php $this->load->view('templates/side_menu');?>
     <!--header end-->
-<section id="main-content" ng-hide="!layout.loading">
-      <section class="wrapper">
+      <section class="wrapper" ng-hide="!layout.loading">
         <!--overview start-->
          <!--overview start-->
-        <div class="row">
+        <div class="row" align="center">
           <div class="col-lg-12">
             <h3><img src="application/libraries/estilos/img/ajax-loader.gif" /><b style="color:black;"> Cargando Vista, Por Favor Espere...</b></h3>
             
           </div>
-        </div></section></section>
+        </div></section>
  <div>
  	<ng-view/>
  </div>
@@ -30,10 +72,10 @@
    
   </section>
   <!-- container section start -->
-  	<input id="IdUsers" type='hidden' value="<?php echo $this->session->userdata('id');?>" readonly></input>
+  <input id="IdUsers" type='hidden' value="<?php echo $this->session->userdata('id');?>" readonly></input>
 	<input id="NivelUsers" type='hidden' value="<?php echo $this->session->userdata('nivel');?>" readonly></input> 
 	<input id="ApiKey" type='hidden' value="<?php echo $this->session->userdata('key');?>" readonly></input> 
-<input id="correo_electronico" type='hidden' value="<?php echo $this->session->userdata('correo_electronico');?>" readonly></input>  
+  <input id="correo_electronico" type='hidden' value="<?php echo $this->session->userdata('correo_electronico');?>" readonly></input>  
 </div>
   <!-- javascripts -->
   <script src="<?php echo ESTILOS;?>js/jquery.js"></script>

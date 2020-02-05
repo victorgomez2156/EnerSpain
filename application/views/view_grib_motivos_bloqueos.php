@@ -10,51 +10,59 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <style>
   #sinborde {
     border: 0;
-	background: inherit;
-	background-color:transparent;
-	width: 120px;
+  background: inherit;
+  background-color:transparent;
+  width: 120px;
   }
   #sinbordeAJUST {
     border: 0;
-	background: inherit;
-	background-color:transparent;
+  background: inherit;
+  background-color:transparent;
   }
+  .table-responsive {
+    min-height: .01%;
+    overflow-x: auto
+}
 
-  input[type="file"]#importar {
- width: 0.1px;
- height: 0.1px;
- opacity: 0;
- overflow: hidden;
- position: absolute;
- z-index: -1;
- }
+@media screen and (max-width:767px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd
+    }
 
+    .table-responsive > .table {
+        margin-bottom: 0
+    }
 
-label[for="importar"] {
- font-size: 14px;
- font-weight: 600;
- color: #fff;
- background-color: #106BA0;
- display: inline-block;
- transition: all .5s;
- cursor: pointer;
- padding: 7px 20px !important;
- width: fit-content;
- text-align: center;
- height: 34px;
- margin-left: 5px;
- margin-bottom: -2px;
- border-radius: 3px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border: 1px solid transparent;
- }
+    .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tfoot > tr > td, .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > thead > tr > td, .table-responsive > .table > thead > tr > th {
+        white-space: nowrap
+    }
 
+    .table-responsive > .table-bordered {
+        border: 0
+    }
 
-label[for="importar"]:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+    .table-responsive > .table-bordered > tbody > tr > td:first-child, .table-responsive > .table-bordered > tbody > tr > th:first-child,
+    .table-responsive > .table-bordered > tfoot > tr > td:first-child, .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+    .table-responsive > .table-bordered > thead > tr > td:first-child, .table-responsive > .table-bordered > thead > tr > th:first-child {
+        border-left: 0
+    }
+
+    .table-responsive > .table-bordered > tbody > tr > td:last-child, .table-responsive > .table-bordered > tbody > tr > th:last-child,
+    .table-responsive > .table-bordered > tfoot > tr > td:last-child, .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+    .table-responsive > .table-bordered > thead > tr > td:last-child, .table-responsive > .table-bordered > thead > tr > th:last-child {
+        border-right: 0
+    }
+
+    .table-responsive > .table-bordered > tbody > tr:last-child > td, .table-responsive > .table-bordered > tbody > tr:last-child > th,
+    .table-responsive > .table-bordered > tfoot > tr:last-child > td, .table-responsive > .table-bordered > tfoot > tr:last-child > th {
+        border-bottom: 0
+    }
 }
 </style>
 <body>
@@ -64,10 +72,10 @@ label[for="importar"]:hover {
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-ban"></i> Motivos de Bloqueos Clientes</h3>
+            <h3 class="page-header"><i class="fa fa-ban"></i> Motivos Bloqueos</h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-              <li><i class="fa fa-ban"></i>Motivos de Bloqueos Clientes</li>
+              <li><i class="fa fa-ban"></i>Motivos Bloqueos</li>
             </ol>
           </div>
         </div>
@@ -75,37 +83,657 @@ label[for="importar"]:hover {
         <div class="row">
           <div class="col-lg-12">
             <section class="panel">
-              <table class="table table-striped table-advance table-hover" ng-init="vm.cargar_lista_tMotivos_Bloqueos()">
+
+                <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading" style="color:black;">
+                <b>MOTIVOS DE BLOQUEOS</b>
+              </header>
+              <div class="panel-body">              
+             
+
+<div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
+    <ul >
+      <li>
+        <a href="#tabs-1"><i class="fa fa-users"></i> CLIENTE</a>
+      </li>       
+      <li>
+        <a href="#tabs-2"><i class="fa fa-bandcamp"></i> ACTIVIDAD</a>
+      </li>
+      <li>
+        <a href="#tabs-3"><i class="fa fa-bolt"></i> PUNTO DE SUMINISTRO</a>
+      </li>
+      <li>
+        <a href="#tabs-4"><i class="fa fa-fax"></i> CONTACTO</a>
+      </li>
+       <li>
+        <a href="#tabs-5"><i class="fa fa-bus"></i> COMERCIALIZADORA</a>
+      </li>    
+      <li>
+        <a href="#tabs-6"><i class="fa fa-cube"></i> CUPs</a>
+      </li>
+    </ul>
+
+    <!--INICIO TABS 1 MOTIVO BLOQUEO CLIENTE -->
+  <div id="tabs-1"> 
+    
+    <!--INICIO DIV NG-SHOW TVistaMotCliente 1-->
+    <div ng-show="vm.TVistaMotCliente==1">
+      <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBloCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AccMotBloCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Cliente/{{vm.ruta_reportes_pdf_bloqueo_cliente}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_Cliente/{{vm.ruta_reportes_excel_bloqueo_cliente}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_bloqueo_cliente" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Bloqueo Cliente" ng-click="vm.agg_bloqueo_cliente()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div><!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_clientes()">
                 <tbody>
-                  <tr>
-                    <th><i class="fa fa-ban"></i> Descripción del Motivo</th>
-                    <th><i class="icon_cogs"></i> Action</th>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBloCli==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCli==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
-                  <tr ng-show="vm.tMotivos_Bloqueos==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloCliente==undefined"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.tMotivos_Bloqueos | filter:paginate | filter:search" ng-class-odd="odd">                   
-                    <td>{{dato.DesMotBloCli}}</td>
-                    <td>
+                  <tr ng-repeat="dato in vm.TMotivo_BloCliente | filter:paginate | filter:vm.filtrar_bloqueo_cliente" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBloCli==true">{{dato.DesMotBloCli}}</td>
+                     <td ng-show="vm.ObsMotBloCli==true">{{dato.ObsMotBloCli}}</td>
+                    <td ng-show="vm.AccMotBloCli==true">
                       <div class="btn-group">
-                       <a class="btn btn-primary" href="#/Edit_Motivos_Bloqueos/{{dato.CodMotBloCli}}" ng-disabled="vm.Nivel==3"><i class="icon_pencil-edit_alt"></i></a>
-                        <button class="btn btn-danger" type="button" ng-click="vm.borrar_row($index,dato.CodMotBloCli)" ng-disabled="vm.Nivel==3"><i class="icon_close_alt2"></i></button> 
+                        <select class="form-control" id="opciones_motivo_cliente" name="opciones_clientes" ng-model="vm.opciones_motivo_cliente[$index]" ng-change="vm.validar_opcion_MotBloCli($index,vm.opciones_motivo_cliente[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
                       </div>
                     </td>
                   </tr>
-                 
                 </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBloCli==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCli==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
               </table>
-              <div align="center">
-              <span class="store-qty"> <a title='Agregar Motivo' href="#/Add_Motivos_Bloqueos" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a> </span> 
-              <span class="store-qty"> <a ng-click="vm.cargar_lista_tMotivos_Bloqueos()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivos_clientes()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+    </div>
+    <!--FINAL DIV NG-SHOW TVistaMotCliente 1-->
 
-            <div class='btn-group' align="center">
-              <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
-              </pagination>
-                    </div>
+
+    <!--INICIO DIV NG-SHOW TVistaMotCliente 2-->
+    <div ng-show="vm.TVistaMotCliente==2">
+
+      <form class="form-validate form-horizontal " id="form_bloqueo_clientes" name="form_bloqueo_clientes" ng-submit="submitFormMotClientes($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBloCli" name="DesMotBloCli" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_clientes.DesMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1"/>
             </div>
-            </section>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloCli" name="ObsMotBloCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_clientes.ObsMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined||vm.fdatos_mot_clientes.CodMotBloCli==null||vm.fdatos_mot_clientes.CodMotBloCli==''" ng-disabled="form_bloqueo_clientes.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="form_bloqueo_clientes.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_cliente()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloCli" name="CodMotBloCli" type="hidden" ng-model="vm.fdatos_mot_clientes.CodMotBloCli" readonly />
+      </form>
+    </div>
+    <!--FINAL DIV NG-SHOW TVISTACLIENTE 2-->
+           
+  </div>
+  <!--FINAL TABS 1 MOTIVO BLOQUEO CLIENTE -->
+
+    <!--INICIO TABS 2 MOTIVO BLOQUEO ACTIVIDAD-->
+    <div id="tabs-2">
+    
+    <!--INICIO DIV NG-SHOW TVistaMotBloAct 1-->
+    <div ng-show="vm.TVistaMotBloAct==1">
+<!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBloAct"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloAct"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AcctMotBloAct"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Actividad/{{vm.ruta_reportes_pdf_MotBloAct}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_Actividad/{{vm.ruta_reportes_excel_MotBloAct}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_actividad" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Actividad" ng-click="vm.agg_bloqueo_actividad()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_actividades()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBloAct==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloAct==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloAct==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TMotivo_BloActividad==undefined"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TMotivo_BloActividad | filter:paginate2 | filter:vm.filtrar_actividad" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBloAct==true">{{dato.DesMotBloAct}}</td>
+                     <td ng-show="vm.ObsMotBloAct==true">{{dato.ObsMotBloAct}}</td>
+                    <td ng-show="vm.AcctMotBloAct==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_actividad" name="opciones_actividad" ng-model="vm.opciones_actividad[$index]" ng-change="vm.validar_opcion_activadad($index,vm.opciones_actividad[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBloAct==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloAct==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloAct==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivos_actividades()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems2" ng-model="currentPage2" max-size="5" boundary-links="true" items-per-page="numPerPage2" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+    </div>
+    <!--FINAL DIV NG-SHOW TVistaMotBloAct 1-->
+
+
+
+    <!--INICIO DIV NG-SHOW TVistaMotBloAct 2-->
+    <div ng-show="vm.TVistaMotBloAct==2">
+      <form class="form-validate form-horizontal " id="form_bloqueo_actividad" name="form_bloqueo_actividad" ng-submit="submitFormActividad($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBloAct" name="DesMotBloAct" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_actividad.DesMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1"/>
+            </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloAct" name="ObsMotBloAct" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_actividad.ObsMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined||vm.fdatos_mot_actividad.CodMotBloAct==null||vm.fdatos_mot_actividad.CodMotBloAct==''" ng-disabled="form_bloqueo_actividad.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="form_bloqueo_actividad.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_actividad()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloAct" name="CodMotBloAct" type="hidden" ng-model="vm.fdatos_mot_actividad.CodMotBloAct" readonly />
+      </form>
+    </div><!--FINAL DIV NG-SHOW TVistaMotBloAct 2-->
+
+    </div><!-- FINAL DE TABS 2 MOTIVO BLOQUEO ACTIVIDAD-->
+
+
+
+    <!--INICIO TABS 3 BLOQUEO PUNTOS DE SUMINISTROS-->
+  <div id="tabs-3">  
+  <div ng-show="vm.TvistaMotBloPunSum==1"><!--INICIO DIV NG-SHOW TvistaMotBloPunSum 1-->      
+   <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBloPun"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloPun"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AcctMotBloPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Punto_Suministro/{{vm.ruta_reportes_pdf_MotBloPunSum}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_Punto_Suministro/{{vm.ruta_reportes_excel_MotBloPunSum}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_PunSum" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Punto Suministro" ng-click="vm.agg_bloqueo_PunSum()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_punto_sumininistro()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBloPun==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloPun==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloPunSum==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TMotivo_BloPunSum==undefined"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TMotivo_BloPunSum | filter:paginate3 | filter:vm.filtrar_PunSum" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBloPun==true">{{dato.DesMotBloPun}}</td>
+                     <td ng-show="vm.ObsMotBloPun==true">{{dato.ObsMotBloPun}}</td>
+                    <td ng-show="vm.AcctMotBloPunSum==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_PunSum" name="opciones_PunSum" ng-model="vm.opciones_PunSum[$index]" ng-change="vm.validar_opcion_PunSum($index,vm.opciones_PunSum[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBloPun==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloPun==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloPunSum==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivos_punto_sumininistro()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems3" ng-model="currentPage3" max-size="5" boundary-links="true" items-per-page="numPerPage3" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+  </div><!--FINAL DIV NG-SHOW TvistaMotBloPunSum 1-->
+
+
+
+    <!--INICIO DIV NG-SHOW TvistaMotBloPunSum 2-->
+    <div ng-show="vm.TvistaMotBloPunSum==2">
+       <form class="form-validate form-horizontal " id="form_bloqueo_PunSum" name="form_bloqueo_PunSum" ng-submit="submitFormPunSum($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBloPun" name="DesMotBloPun" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_PunSum.DesMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1"/>
+            </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloPun" name="ObsMotBloPun" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_PunSum.ObsMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined||vm.fdatos_mot_PunSum.CodMotBloPun==null||vm.fdatos_mot_PunSum.CodMotBloPun==''" ng-disabled="form_bloqueo_PunSum.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="form_bloqueo_PunSum.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_PunSum()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloPun" name="CodMotBloPun" type="hidden" ng-model="vm.fdatos_mot_PunSum.CodMotBloPun" readonly />
+      </form>
+     
+      
+      
+    </div>
+    <!--FINAL DIV NG-SHOW TvistaMotBloPunSum 2-->
+
+    </div>
+    <!-- FINAL DE TABS 3 MOTIVO BLOQUEO PUNTOS DE SUMINISTROS-->
+
+
+
+  <!--INICIO TABS 4 MOTIVO BLOQUEO CONTACTO-->
+  <div id="tabs-4">
+    <!--INICIO DIV NG-SHOW TVistaBloqueoContacto 1-->
+    <div ng-show="vm.TVistaBloqueoContacto==1">
+
+      <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBlocon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AcctMotBloCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Contacto/{{vm.ruta_reportes_pdf_MotBloContacto}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_Contacto/{{vm.ruta_reportes_excel_MotBloContacto}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_Contacto" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo Contacto" ng-click="vm.agg_bloqueo_Contacto()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_contactos()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBlocon==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCon==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCon==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TMotivo_BloContacto==undefined"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TMotivo_BloContacto | filter:paginate4 | filter:vm.filtrar_Contacto" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBlocon==true">{{dato.DesMotBlocon}}</td>
+                     <td ng-show="vm.ObsMotBloCon==true">{{dato.ObsMotBloCon}}</td>
+                    <td ng-show="vm.AcctMotBloCon==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_contacto" name="opciones_contacto" ng-model="vm.opciones_contacto[$index]" ng-change="vm.validar_opcion_contacto($index,vm.opciones_contacto[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBlocon==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCon==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCon==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivo_contactos()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems4" ng-model="currentPage4" max-size="5" boundary-links="true" items-per-page="numPerPage4" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+
+          
+
+      
+    </div><!--FINAL DIV NG-SHOW TVistaBloqueoContacto 1-->
+
+    <!--INICIO DIV NG-SHOW TVistaBloqueoContacto 2-->
+    <div ng-show="vm.TVistaBloqueoContacto==2">
+
+      <form class="form-validate form-horizontal " id="form_bloqueo_contacto" name="form_bloqueo_contacto" ng-submit="submitFormContactos($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBlocon" name="DesMotBlocon" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_contacto.DesMotBlocon" ng-disabled="vm.validate_mot_contacto==1"/>
+            </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloCon" name="ObsMotBloCon" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_contacto.ObsMotBloCon" ng-disabled="vm.validate_mot_contacto==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined||vm.fdatos_mot_contacto.CodMotBloCon==null||vm.fdatos_mot_contacto.CodMotBloCon==''" ng-disabled="form_bloqueo_contacto.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="form_bloqueo_contacto.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_Contacto()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloCon" name="CodMotBloCon" type="hidden" ng-model="vm.fdatos_mot_contacto.CodMotBloCon" readonly />
+      </form>
+    </div>
+    <!--FINAL DIV NG-SHOW TVistaBloqueoContacto 2-->
+  </div>
+  <!-- FINAL DE TABS 4 MOTIVO BLOQUEO CONTACTO-->
+
+
+
+
+
+    <!--INICIO TABS 5 BLOQUEO COMERCIALIZADORA-->
+  <div id="tabs-5">
+    <!--INICIO DIV NG-SHOW TVistaBloqueoComercializadora 1-->
+    <div ng-show="vm.TVistaBloqueoComercializadora==1">
+        <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBloCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AcctMotBloCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Comercializadora/{{vm.ruta_reportes_pdf_MotBloComercializadora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_Comercializadora/{{vm.ruta_reportes_excel_MotBloComercializadora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_comercializadora" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo Comercializadora" ng-click="vm.agg_bloqueo_Comercializadora()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_comercializadora()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBloCom==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCom==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCom==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TMotivo_BloComercializadora==undefined"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TMotivo_BloComercializadora | filter:paginate5 | filter:vm.filtrar_comercializadora" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBloCom==true">{{dato.DesMotBloCom}}</td>
+                     <td ng-show="vm.ObsMotBloCom==true">{{dato.ObsMotBloCom}}</td>
+                    <td ng-show="vm.AcctMotBloCom==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_comercializadora" name="opciones_comercializadora" ng-model="vm.opciones_comercializadora[$index]" ng-change="vm.validar_opcion_comercializadora($index,vm.opciones_comercializadora[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBloCom==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCom==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCom==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivo_comercializadora()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems5" ng-model="currentPage5" max-size="5" boundary-links="true" items-per-page="numPerPage5" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+      
+    </div><!--FINAL DIV NG-SHOW TVistaBloqueoComercializadora 1-->
+
+    <!--INICIO DIV NG-SHOW TVistaBloqueoComercializadora 2-->
+    <div ng-show="vm.TVistaBloqueoComercializadora==2">
+   
+      <form class="form-validate form-horizontal " id="form_bloqueo_comercializadora" name="form_bloqueo_comercializadora" ng-submit="submitFormComercializadora($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBloCom" name="DesMotBloCom" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_comercializadora.DesMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1"/>
+            </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloCom" name="ObsMotBloCom" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_comercializadora.ObsMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined||vm.fdatos_mot_comercializadora.CodMotBloCom==null||vm.fdatos_mot_comercializadora.CodMotBloCom==''" ng-disabled="form_bloqueo_comercializadora.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="form_bloqueo_comercializadora.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_Comercializadora()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloCom" name="CodMotBloCom" type="hidden" ng-model="vm.fdatos_mot_comercializadora.CodMotBloCom" readonly />
+      </form>
+
+
+
+
+    </div>
+    <!--FINAL DIV NG-SHOW TVistaBloqueoComercializadora 2-->
+  </div>
+  <!-- FINAL DE TABS 5 BLOQUEO COMERCIALIZADORA-->
+
+</div>
+<!-- FINAL DE TABS MAESTRO--> 
+                
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section><!-- page end-->
           </div>
         </div>
         <!-- page end-->
@@ -124,8 +752,29 @@ label[for="importar"]:hover {
         </div>
     </div>
   </section>
+    <script>
+      $(function(){
+        'use strict'
+        jQuery(function($) 
+        {
+          $( "#tabs_clientes" ).tabs(); 
+          $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            //mixDate: "<?php echo date("m/d/Y")?>"
+            maxDate: "<?php echo date("m/d/Y")?>"
+        });
+      });
+
+
+      });
+    </script>
   <!-- container section end -->
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Motivos, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Motivo de Bloqueo, Por Favor Espere..."></div></html>
+<div id="cargando_lista" class="loader loader-default"  data-text="Cargando Lista, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, Por Favor Espere..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Borrando Registro, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Datos, Por Favor Espere..."></div>
+</html>

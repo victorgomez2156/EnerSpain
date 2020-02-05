@@ -122,7 +122,7 @@ $config['auth_library_function'] = '';
 |	array('admin' => '1234')
 |
 */
-$config['rest_valid_logins'] = array('admin' => '1234');
+$config['rest_valid_logins'] = array('SomosWebMaster' => 'SomosWebMaster123452019');
 
 /*
 |--------------------------------------------------------------------------

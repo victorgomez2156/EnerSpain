@@ -53,7 +53,7 @@ $("#sesion").removeClass( "loader loader-default" ).addClass( "loader loader-def
       if (data == 1)
       {
           $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-        bootbox.alert({
+          bootbox.alert({
             title:'Datos Incorrectos',
             message: "El usuario o clave son incorrectas. Inténtelo de Nuevo",
             size: 'large'

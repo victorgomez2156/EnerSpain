@@ -21,7 +21,7 @@
         <ul class="nav pull-right top-menu">
 
           <!-- task notificatoin start -->
-          <li id="task_notificatoin_bar" class="dropdown">
+          <!--li id="task_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-task-l"></i>
                             <span class="badge bg-important">0</span>
@@ -30,7 +30,7 @@
               <div class="notify-arrow notify-arrow-blue"></div>
               <li>
                 <p class="blue">Sin Cartas</p>
-              </li>
+              </li-->
               <!--li>
                 <a href="#">
                   <div class="task-info">
@@ -44,14 +44,14 @@
                   </div>
                 </a>
               </li-->           
-              <li class="external">
+              <!--li class="external">
                 <a href="#">Ver Todas las Cartas</a>
               </li>
             </ul>
-          </li>
+          </li-->
           <!-- task notificatoin end -->
           <!-- inbox notificatoin start-->
-          <li id="mail_notificatoin_bar" class="dropdown">
+          <!--li id="mail_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope-l"></i>
                             <span class="badge bg-important">0</span>
@@ -60,7 +60,7 @@
               <div class="notify-arrow notify-arrow-blue"></div>
               <li>
                 <p class="blue">No tienes mensajes</p>
-              </li>
+              </li-->
               <!--li>
                 <a href="#">
                 <span class="photo"><img alt="avatar" src="<?php echo ESTILOS;?>/img/avatar-mini.jpg"></span>
@@ -73,14 +73,14 @@
                                     </span>
                                 </a>
               </li-->              
-              <li>
+              <!--li>
                 <a href="#">Ver todos los mensajes</a>
               </li>
             </ul>
-          </li>
+          </li-->
           <!-- inbox notificatoin end -->
           <!-- alert notification start-->
-          <li id="alert_notificatoin_bar" class="dropdown">
+          <!--li id="alert_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
                             <i class="icon-bell-l"></i>
@@ -90,7 +90,7 @@
               <div class="notify-arrow notify-arrow-blue"></div>
               <li>
                 <p class="blue">Sin notificaciones</p>
-              </li>
+              </li-->
               <!--li>
                 <a href="#">
                                     <span class="label label-primary"><i class="icon_profile"></i></span>
@@ -98,11 +98,11 @@
                                     <span class="small italic pull-right">5 mins</span>
                                 </a>
               </li-->
-              <li>
+              <!--li>
                 <a href="#">Ver todas las notificaciones</a>
               </li>
             </ul>
-          </li>
+          </li-->
           <!-- alert notification end-->
           <!-- user login dropdown start-->
           <li class="dropdown">
@@ -144,20 +144,58 @@
                       </a>
           </li>
           
-            <li>
+            <!--li>
             <a class="" href="#/Comercializadora">
               <i class="fa fa-bus"></i>
               <span>Comercializadora</span>
             </a>
+          </li-->
+
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
+              <i class="fa fa-bus"></i>
+              <span>Comercializadora</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub">
+            	<li><a class="fa fa-list" href="#/Comercializadora"> Lista</a></li>
+              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Comercializadora"> Datos Basicos</a></li>
+              <li><a class="fa fa-briefcase" href="#/Productos"> Productos</a></li>
+              <li><a class="fa fa-bullseye" href="#/Anexos"> Anexos</a></li>
+              <li><a class="fa fa-child" href="#/Servicios_Adicionales"> Ser. Adicionales</a></li>         
+            </ul>
           </li>
-          <li>
+
+             <li class="sub-menu">
+            <a href="javascript:;" class="">
+              <i class="fa fa-users"></i>
+              <span>Clientes</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub">
+             <li><a class="fa fa-list" href="#/Clientes"> Lista</a></li>
+              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> Datos Basicos</a></li>
+              <li><a class="fa fa-briefcase" href="#/Actividades"> Actividad</a></li>
+              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> Pun. Suministros</a></li>
+              <li><a class="fa fa-child" href="#/Contactos"> Contactos</a></li>  
+              <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
+              <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li>     
+            </ul>
+          </li>
+
+
+
+
+
+
+          <!--li>
             <a class="" href="#/Clientes">
               <i class="fa fa-users"></i>
               <span>Clientes</span>
             </a>
-          </li>
+          </li-->
 
-          <li class="sub-menu">
+          <!--li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-thermometer"></i>
               <span>Suministros</span>
@@ -169,9 +207,9 @@
               <li><a class="fa fa-dollar" href="#/Impuestos_Especiales"> Optimizar Impuestos Especiales</a></li>
              
             </ul>
-          </li>
+          </li-->
 
-          <li class="sub-menu">
+          <!--li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-handshake-o"></i>
               <span>Contratos</span>
@@ -181,7 +219,8 @@
               <li><a class="fa fa-plus-square" href="#/Generar_Contrato"> Generar</a></li>
               <li><a class="fa fa-circle-o" href="#/Renovar_Contrato"> Renovar</a></li>
             </ul>
-          </li>
+          </li-->
+          
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="icon_cogs"></i>
@@ -189,12 +228,18 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>               
-              <li><a class="fa fa-cube" href="#/Distribuidora"> Distribuidora</a></li> 
+            	<li><a class="fa fa-cube" href="#/Distribuidora"> Distribuidora</a></li>
+            	<li><a class="fa fa-area-chart" href="#/Tarifas"> Tarifas</a></li>
+            	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> Colaboradores</a></li>
+            	<li><a class="fa fa-cc" href="#/Comercial"> Comercial</a></li>
+            	<li><a class="fa fa-certificate" href="#/Tipos"> Tipos</a></li>
+            	<li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> Motivos</a></li>
+              <!--li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>            
+              
               <li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
               <li><a class="fa fa-bullhorn" href="#/Tipo_Contacto"> Tipo Contacto</a></li>
               <li><a class="fa fa-flag" href="#/Tipo_Inmueble"> Tipo Inmueble</a></li>
-              <li><a class="fa fa-bullseye" href="#/Comercial"> Comercial</a></li>
+             
               <li><a class="fa fa-industry" href="#/Sector_Cliente"> Sector Cliente</a></li> 
               <li><a class="fa fa-bookmark" href="#/Provincia"> Provincia</a></li>
               <li><a class="fa fa-child" href="#/Localidad"> Localidad</a></li>              
@@ -203,26 +248,26 @@
               <li><a class="fa fa-circle-o" href="#/Tarifa_Gas"> Tarifa Gas</a></li>
               <li><a class="fa fa-thermometer" href="#/Tipo_Comision"> Tipo Comisión</a></li>
               <li><a class="fa fa-universal-access" href="#/Tipo_Vias"> Tipo Via</a></li>
-
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> Motivos Clientes</a></li>
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Actividades"> Motivos Actividades</a></li>                 
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Puntos_Suministros"> Motivos Puntos Sum</a></li>
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Comercializadora"> Motivos Comerci</a></li>
-              <li><a class="fa fa-gears" href="#/Configuracion_Sistema"> Configuraciones Sistema</a></li>
+              <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Contacto"> Motivos Contacto</a></li>
+              <li><a class="fa fa-gears" href="#/Configuracion_Sistema"> Configuraciones Sistema</a></li-->
             </ul>
           </li>
-          <li>
+          <!--li>
             <a class="" href="#/Colaboradores">
               <i class="fa fa-handshake-o"></i>
               <span>Colaboradores</span>
             </a>
-          </li>
-            <li>
+          </li-->
+            <!--li>
             <a class="" href="#/Control_Incidencias">
               <i class="fa fa-balance-scale"></i>
               <span>Control Incidencias</span>
             </a>
-          </li>
+          </li-->
           <!--li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-balance-scale"></i>
@@ -234,12 +279,12 @@
              
             </ul>
           </li-->
-           <li>
+           <!--li>
             <a class="" href="#/Proyeccón_Ingresos">
               <i class="fa fa-money"></i>
               <span>Proyección Ingresos</span>
             </a>
-          </li>
+          </li-->
            <!--li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-money"></i>
@@ -252,12 +297,12 @@
             </ul>
           </li-->
 
-           <li>
+           <!--li>
             <a class="" href="#/Reportes">
               <i class="fa fa-area-chart"></i>
               <span>Reportes</span>
             </a>
-          </li>
+          </li-->
           
 
           

@@ -93,35 +93,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.CodCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CodCom</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razon Social</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre Comercial</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
                         <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodTipVia"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Vía</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomViaDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre de la Vía</b></li>
-                        <li><input type="checkbox" ng-model="vm.NumViaDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Número</b></li>
-                        <li><input type="checkbox" ng-model="vm.BloDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Bloque</b></li>
-                        <li><input type="checkbox" ng-model="vm.EscDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Escalera</b></li>
-                        <li><input type="checkbox" ng-model="vm.PlaDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Planta</b></li>
-                        <li><input type="checkbox" ng-model="vm.PueDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Puerta</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre Comercial</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>
                         <li><input type="checkbox" ng-model="vm.ProDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Provincia</b></li>
                         <li><input type="checkbox" ng-model="vm.CodLoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Localidad</b></li>
                         <li><input type="checkbox" ng-model="vm.TelFijCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
                         <li><input type="checkbox" ng-model="vm.EmaCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-                        <li><input type="checkbox" ng-model="vm.PagWebCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Página Web</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre Contacto</b></li>
-                        <li><input type="checkbox" ng-model="vm.CarConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Cargo Persona</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerGas"/> <i class="fa fa-plus-square"></i> <b style="color:black;">O. Ser Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerEle"/> <i class="fa fa-plus-square"></i> <b style="color:black;">O. Ser Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">O. Ser Especiales</b></li>
-                        <li><input type="checkbox" ng-model="vm.DocConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Contrato</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha Inicio Contrato</b></li>
-                        <li><input type="checkbox" ng-model="vm.DurConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Duración del Contrato</b></li>
-                        <li><input type="checkbox" ng-model="vm.RenAutConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Renovación Automatica</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecVenConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha Vencimiento Contrato</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha Inicio Comercializadora</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>                      
+                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Persona Contacto</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>                     
                         <li><input type="checkbox" ng-model="vm.Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Accion</b></li>
                       </ul> 
                     </div>
@@ -129,9 +110,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a ><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a ><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
-                      </ul>
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Comercializadora/{{vm.reporte_pdf_comercializadora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Comercializadora/{{vm.reporte_excel_comercializadora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                    </ul>
                     </div>
 
                     <div class="btn-group">
@@ -148,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i></button>
+                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -156,78 +137,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
    
 <br><br><br><br>
       <div class="table-responsive">
-          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_comercializadoras()">
+          <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.CodCom==true"><i class="icon_cogs"></i> CodCom</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razon Social</th>
-                    <th ng-show="vm.NomComCom==true"><i class="icon_cogs"></i> Nombre Comercial</th>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.CodTipVia==true"><i class="icon_cogs"></i> Tipo Vía</th>
-                    <th ng-show="vm.NomViaDirCom==true"><i class="icon_cogs"></i> Nombre Vía</th>
-                    <th ng-show="vm.NumViaDirCom==true"><i class="icon_cogs"></i> Número</th>
-                    <th ng-show="vm.BloDirCom==true"><i class="icon_cogs"></i> Bloque</th>
-                    <th ng-show="vm.EscDirCom==true"><i class="icon_cogs"></i> Escalera</th>
-                    <th ng-show="vm.PlaDirCom==true"><i class="icon_cogs"></i> Planta</th>
-                    <th ng-show="vm.PueDirCom==true"><i class="icon_cogs"></i> Puerta</th>
-                    <th ng-show="vm.ProDirCom==true"><i class="icon_cogs"></i> Provincia</th>
-                    <th ng-show="vm.CodLoc==true"><i class="icon_cogs"></i> Localidad</th>
-                    <th ng-show="vm.TelFijCom==true"><i class="icon_cogs"></i> Teléfono</th>
-                    <th ng-show="vm.EmaCom==true"><i class="icon_cogs"></i> Email</th>
-                    <th ng-show="vm.PagWebCom==true"><i class="icon_cogs"></i> Página Web</th>
-                    <th ng-show="vm.NomConCom==true"><i class="icon_cogs"></i> Nombre Contacto</th>
-                    <th ng-show="vm.CarConCom==true"><i class="icon_cogs"></i> Cargo Persona</th>
-                    <th ng-show="vm.SerGas==true"><i class="icon_cogs"></i> O. Servicio Gas</th>
-                    <th ng-show="vm.SerEle==true"><i class="icon_cogs"></i> O. Servicio Eléctrico</th>
-                    <th ng-show="vm.SerEsp==true"><i class="icon_cogs"></i> O. Servicio Especial</th>
-                    <th ng-show="vm.DocConCom==true"><i class="icon_cogs"></i> Contrato</th>
-                    <th ng-show="vm.FecConCom==true"><i class="icon_cogs"></i> Fecha Inicio Contrato</th>
-                    <th ng-show="vm.DurConCom==true"><i class="icon_cogs"></i> Duración Contrato</th>
-                    <th ng-show="vm.RenAutConCom==true"><i class="icon_cogs"></i> Renovación Automatica</th>
-                    <th ng-show="vm.FecVenConCom==true"><i class="icon_cogs"></i> Fecha Vencimiento Contrato</th>
-                    <th ng-show="vm.FecIniCom==true"><i class="icon_cogs"></i> Fecha Inicio</th>
-                    <th ng-show="vm.ObsCom==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.EstCom==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.Acc==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true"> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"> Razón Social</th>                    
+                    <th ng-show="vm.NomComCom==true"> Nombre Comercial</th>
+                    <th ng-show="vm.DirCom==true"> Dirección</th>
+                    <th ng-show="vm.ProDirCom==true"> Provincia</th>
+                    <th ng-show="vm.CodLoc==true"> Localidad</th>
+                    <th ng-show="vm.TelFijCom==true"> Teléfono</th>
+                    <th ng-show="vm.EmaCom==true"> Email</th>
+                    <th ng-show="vm.NomConCom==true"> Persona Contacto</th>
+                    <th ng-show="vm.EstCom==true"> Estatus</th>
+                    <th ng-show="vm.Acc==true"> Acción</th>
                   </tr>  
 
-                   <tr ng-show="vm.Tcomercializadoras==undefined"> 
+                   <tr ng-show="vm.Tcomercializadoras.length==0"> 
                      <td colspan="29" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
-                  </tr>               
-                  
-
+                  </tr>
                   <tr ng-repeat="dato in vm.Tcomercializadoras | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
-                    <td ng-show="vm.CodCom==true">{{dato.CodCom}}</td>
-                    <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>                  
-                    <td ng-show="vm.NomComCom==true">{{dato.NomComCom}}</td>
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
-                    <td ng-show="vm.CodTipVia==true">{{dato.DesTipVia}}</td>
-                    <td ng-show="vm.NomViaDirCom==true">{{dato.NomViaDirCom}}</td>
-                    <td ng-show="vm.NumViaDirCom==true">{{dato.NumViaDirCom}}</td>
-                    <td ng-show="vm.BloDirCom==true">{{dato.BloDirCom}}</td>
-                    <td ng-show="vm.EscDirCom==true">{{dato.EscDirCom}}</td>
-                    <td ng-show="vm.PlaDirCom==true">{{dato.PlaDirCom}}</td>
-                    <td ng-show="vm.PueDirCom==true">{{dato.PueDirCom}}</td>
+                    <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>
+                    <td ng-show="vm.NomComCom==true">{{dato.NomComCom}}</td>  
+                    <td ng-show="vm.DirCom==true">{{dato.DesTipVia}}, {{dato.NomViaDirCom}}, {{dato.NumViaDirCom}}, {{dato.BloDirCom}}, {{dato.EscDirCom}}, {{dato.PlaDirCom}}, {{dato.PueDirCom}}</td>
                     <td ng-show="vm.ProDirCom==true">{{dato.ProDirCom}}</td>
                     <td ng-show="vm.CodLoc==true">{{dato.CodLoc}}</td>
                     <td ng-show="vm.TelFijCom==true">{{dato.TelFijCom}}</td>
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>
-                    <td ng-show="vm.PagWebCom==true">{{dato.PagWebCom}}</td>
                     <td ng-show="vm.NomConCom==true">{{dato.NomConCom}}</td>
-                    <td ng-show="vm.CarConCom==true">{{dato.CarConCom}}</td>
-                    <td ng-show="vm.SerGas==true">{{dato.SerGas}}</td>
-                    <td ng-show="vm.SerEle==true">{{dato.SerEle}}</td>
-                    <td ng-show="vm.SerEsp==true">{{dato.SerEsp}}</td>
-                    <td ng-show="vm.DocConCom==true">{{dato.DocConCom}}</td>
-                    <td ng-show="vm.FecConCom==true">{{dato.FecConCom}}</td>
-                    <td ng-show="vm.DurConCom==true">{{dato.DurConCom}}</td>
-                    <td ng-show="vm.RenAutConCom==true">{{dato.RenAutConCom}}</td>
-                    <td ng-show="vm.FecVenConCom==true">{{dato.FecVenConCom}}</td>
-                    <td ng-show="vm.FecIniCom==true">{{dato.FecIniCom}}</td>
-                    <td ng-show="vm.ObsCom==true">{{dato.ObsCom}}</td>
-                    
-
-
                     <td ng-show="vm.EstCom==true">
                       <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'"><i class="fa fa-check-circle"></i> {{dato.EstCom}}</span>
                       <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'"><i class="fa fa-ban"></i> {{dato.EstCom}}</span>
@@ -242,36 +180,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.CodCom==true"><i class="icon_cogs"></i> CodCom</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razon Social</th>
-                    <th ng-show="vm.NomComCom==true"><i class="icon_cogs"></i> Nombre Comercial</th>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.CodTipVia==true"><i class="icon_cogs"></i> Tipo Vía</th>
-                    <th ng-show="vm.NomViaDirCom==true"><i class="icon_cogs"></i> Nombre Vía</th>
-                    <th ng-show="vm.NumViaDirCom==true"><i class="icon_cogs"></i> Número</th>
-                    <th ng-show="vm.BloDirCom==true"><i class="icon_cogs"></i> Bloque</th>
-                    <th ng-show="vm.EscDirCom==true"><i class="icon_cogs"></i> Escalera</th>
-                    <th ng-show="vm.PlaDirCom==true"><i class="icon_cogs"></i> Planta</th>
-                    <th ng-show="vm.PueDirCom==true"><i class="icon_cogs"></i> Puerta</th>
-                    <th ng-show="vm.ProDirCom==true"><i class="icon_cogs"></i> Provincia</th>
-                    <th ng-show="vm.CodLoc==true"><i class="icon_cogs"></i> Localidad</th>
-                    <th ng-show="vm.TelFijCom==true"><i class="icon_cogs"></i> Teléfono</th>
-                    <th ng-show="vm.EmaCom==true"><i class="icon_cogs"></i> Email</th>
-                    <th ng-show="vm.PagWebCom==true"><i class="icon_cogs"></i> Página Web</th>
-                    <th ng-show="vm.NomConCom==true"><i class="icon_cogs"></i> Nombre Contacto</th>
-                    <th ng-show="vm.CarConCom==true"><i class="icon_cogs"></i> Cargo Persona</th>
-                    <th ng-show="vm.SerGas==true"><i class="icon_cogs"></i> O. Servicio Gas</th>
-                    <th ng-show="vm.SerEle==true"><i class="icon_cogs"></i> O. Servicio Eléctrico</th>
-                    <th ng-show="vm.SerEsp==true"><i class="icon_cogs"></i> O. Servicio Especial</th>
-                    <th ng-show="vm.DocConCom==true"><i class="icon_cogs"></i> Contrato</th>
-                    <th ng-show="vm.FecConCom==true"><i class="icon_cogs"></i> Fecha Inicio Contrato</th>
-                    <th ng-show="vm.DurConCom==true"><i class="icon_cogs"></i> Duración Contrato</th>
-                    <th ng-show="vm.RenAutConCom==true"><i class="icon_cogs"></i> Renovación Automatica</th>
-                    <th ng-show="vm.FecVenConCom==true"><i class="icon_cogs"></i> Fecha Vencimiento Contrato</th>
-                    <th ng-show="vm.FecIniCom==true"><i class="icon_cogs"></i> Fecha Inicio</th>
-                    <th ng-show="vm.ObsCom==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.EstCom==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.Acc==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true"> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"> Razón Social</th>                    
+                    <th ng-show="vm.NomComCom==true"> Nombre Comercial</th>
+                    <th ng-show="vm.DirCom==true"> Dirección</th>
+                    <th ng-show="vm.ProDirCom==true"> Provincia</th>
+                    <th ng-show="vm.CodLoc==true"> Localidad</th>
+                    <th ng-show="vm.TelFijCom==true"> Teléfono</th>
+                    <th ng-show="vm.EmaCom==true"> Email</th>
+                    <th ng-show="vm.NomConCom==true"> Persona Contacto</th>
+                    <th ng-show="vm.EstCom==true"> Estatus</th>
+                    <th ng-show="vm.Acc==true"> Acción</th>
 
                 </tfoot>
               </table>
@@ -324,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-     <input type="text" class="form-control" ng-model="vm.NumCifCom" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.NumCifComBlo" required readonly/>     
      </div>
      </div>
      </div>
@@ -333,7 +252,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Razon Social Comercializadora</label>
-      <input type="text" class="form-control" ng-model="vm.RazSocCom" required readonly />     
+      <input type="text" class="form-control" ng-model="vm.RazSocComBlo" required readonly />     
      </div>
      </div>
      </div>
@@ -384,35 +303,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
                         <div class="panel">                  
-      <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltrosClientes($event)">                 
+      <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltrosComercializadoras($event)">                 
      
-     <div class="col-12 col-sm-6">
+     <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
-      <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_data.tipo_filtro">
+      <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_comercializadora.tipo_filtro">
           <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
      </div>
      </div>
-     <br>
-     <br>
-     <br>
-     <br> 
 
-     <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.tipo_filtro==1">
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">
      
-      <select class="form-control" id="TipServ" name="TipServ" ng-model="vm.tmodal_data.TipServ">
+      <select class="form-control" id="TipServ" name="TipServ" ng-model="vm.tmodal_comercializadora.TipServ">
         <option ng-repeat="dato in vm.TipServ" value="{{dato.id}}">{{dato.nom_serv}}</option>                        
       </select>   
      </div>
      </div>
     </div>
+    
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.TipServ!=undefined && vm.tmodal_comercializadora.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+     
+      <select class="form-control" id="Selec" name="Selec" ng-model="vm.tmodal_comercializadora.Selec">
+        <option value="SI">SI</option> 
+         <option value="NO">NO</option>                            
+      </select>   
+     </div>
+     </div>
+    </div>
 
-     <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.tipo_filtro==2 || vm.tmodal_data.tipo_filtro==3">
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==2 || vm.tmodal_comercializadora.tipo_filtro==3">
      <div class="form">                          
      <div class="form-group">
      
@@ -423,35 +350,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     </div>
 
-    <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.tipo_filtro==3">
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==3">
      <div class="form">                          
      <div class="form-group">
      
-      <select class="form-control" id="CodLocFil" name="CodLocFil" ng-model="vm.tmodal_data.CodLocFil" ng-disabled="vm.tmodal_data.CodPro==undefined || vm.tmodal_data.CodPro==null">
+      <select class="form-control" id="CodLocFil" name="CodLocFil" ng-model="vm.tmodal_comercializadora.CodLocFil" ng-disabled="vm.tmodal_data.CodPro==undefined || vm.tmodal_data.CodPro==null">
         <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.DesLoc}}">{{dato.DesLoc}}</option>                         
       </select>     
      </div>
      </div>
      </div> 
     
-    <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.tipo_filtro==4">
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==4">
      <div class="form">                          
      <div class="form-group">
      
-      <select class="form-control" id="EstCom" name="EstCom" ng-model="vm.tmodal_data.EstCom">
+      <select class="form-control" id="EstCom" name="EstCom" ng-model="vm.tmodal_comercializadora.EstCom">
         <option ng-repeat="dato in vm.EstComFil" value="{{dato.nombre}}">{{dato.nombre}}</option>                        
       </select>   
      </div>
      </div>
     </div>   
 
-   
-    <br ng-show="vm.tmodal_data.tipo_filtro==1 || vm.tmodal_data.tipo_filtro==2 || vm.tmodal_data.tipo_filtro==3|| vm.tmodal_data.tipo_filtro==4">
-     <br ng-show="vm.tmodal_data.tipo_filtro==1 || vm.tmodal_data.tipo_filtro==2|| vm.tmodal_data.tipo_filtro==3|| vm.tmodal_data.tipo_filtro==4"> 
-    <br>
+  
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid">APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro()">LIMPIAR</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()"><i class="fa fa-trash"></i> LIMPIAR</a>
       </div>
 </form>
    </div>
@@ -489,6 +413,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
 <div id="List_Comer" class="loader loader-default"  data-text="Cargando lista de Comercializadoras, Por Favor Espere..."></div>
 <div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
 <div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>

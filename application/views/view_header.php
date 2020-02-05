@@ -47,32 +47,68 @@
   <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
+  <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
   
   <!--Final de Principales de ANGULARJS-->
   <!--Inicio de Librerias del sistema con ANGULARJS-->
   <script src="<?php echo PATH_ESTILOS_JS_APP.'appPrincipal.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'funciones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'servicios.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'empleados.js'?>"></script>
+  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'empleados.js'?>"></script>  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'distribuidora.js'?>"></script>  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'colaboradores.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'cups.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'consumo_cups.js'?>"></script>
+  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'comercializadora.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'datos_basicos_comercializadora.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'productos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'anexos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'servicios_especiales.js'?>"></script>
+  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'clientes.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'localidad.js'?>"></script>  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'datos_basicos_clientes.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'actividades.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'puntos_suministros.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'contactos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'cuentas_bancarias.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'documentos.js'?>"></script>
+
+
+
+
+
+
+
+  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifas.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tipos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comercial.js'?>"></script>
+  
+  
+    
+ 
+  <!--script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script-->
+  <!--script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'clientes.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'localidad.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_cliente.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bancos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tipos_vias.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'colaboradores.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos.js'?>"></script>  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'sectores.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_inmueble.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'comercializadora.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_inmueble.js'?>"></script>  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos_actividades.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_pum_sum.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_contacto.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifa_electrica.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifa_gas.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_comision.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'tipo_contacto.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>"></script-->
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    
   <title><?php echo TITULO;?> | Principal</title>
   <style>
