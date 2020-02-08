@@ -59,13 +59,13 @@ function initializeJS() {
                 'margin-left': '0px'
             });
             jQuery('#sidebar').css({
-                'margin-left': '-180px'
+                'margin-left': '-186px'
             });
             jQuery('#sidebar > ul').hide();
             jQuery("#container").addClass("sidebar-closed");
         } else {
             jQuery('#main-content').css({
-                'margin-left': '180px'
+                'margin-left': '186px'
             });
             jQuery('#sidebar > ul').show();
             jQuery('#sidebar').css({
