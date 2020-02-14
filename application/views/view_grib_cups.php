@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--/TABS 1 START-->
     <div id="tabs-1">  
 
-    	<div ng-show="vm.TVistaCups==true">
+    	
       <!--t-0002 start-->                  
 <div id="t-0002">
   <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
@@ -107,6 +107,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
+            <li><input type="checkbox" ng-model="vm.Cif"/> <i class="fa fa-vcard"></i> <b style="color:black;">CIF</b></li>
+            <li><input type="checkbox" ng-model="vm.RazSoc"/> <i class="fa fa-user"></i> <b style="color:black;">RAZÓN SOCIAL</b></li>
             <li><input type="checkbox" ng-model="vm.Cups"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CUPS</b></li>
             <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SERVICIO</b></li></li>
             <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
@@ -144,6 +146,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
+                    <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
+                    <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
                     <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                                            
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
@@ -151,9 +155,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups.length==0"> 
-                     <td colspan="14" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                     <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TCups | filter:paginate | filter:vm.filtrar_cups" ng-class-odd="odd">                    
+                    <td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td>
+                    <td ng-show="vm.RazSoc==true">{{dato.Cups_RazSocCli}}</td>
                     <td ng-show="vm.Cups==true">{{dato.CupsGas}}</td>
                     <td ng-show="vm.Cups_Ser==true">{{dato.TipServ}}</td>
                     <td ng-show="vm.Cups_Tar==true">{{dato.NomTarGas}}</td> 
@@ -171,7 +177,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
+                   <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
+                    <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
+                    <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
                     <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                                            
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
                     <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
@@ -263,8 +271,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
     <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Baja</label>     
-      <input type="text" class="form-control" ng-model="vm.tmodal_data.FecBaj" readonly />
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Baja <b style="color:red;">DD/MM/YYYY</b></label>     
+      <input type="text" class="form-control" ng-model="vm.tmodal_data.FecBaj" maxlength="10" ng-change="vm.validar_fecha_inputs(22,vm.tmodal_data.FecBaj)"/>
       </div>
      </div>
     </div>
@@ -368,365 +376,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 <!--modal container section end -->
-
-
-
-
-    </div><!--NG SHOWW FINAL-->
-
-
-
-
-
-
-    <!--NG SHOWW FALSE START-->
-    <div ng-show="vm.TVistaCups==false">
-	
-<form id="register_form" name="register_form" ng-submit="submitFormCups($event)"> 
-     <div class='row'>              
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-       <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" readonly placeholder="* Número del CIF del Cliente"/>
-       
-       </div>
-       </div>
-       </div>       
-       <div class="col-12 col-sm-8">
-       <div class="form"> 
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>       
-        <div class="input-append date">
-          <input class="form-control" size="16" type="text" readonly ng-model="vm.Cups_RazSocCli" placeholder="* Razón Social del Cliente">      
-      </div>
-      
-       </div>
-       </div>
-       </div>
-        <br><br><br><br>
-
-       <div class="col-12 col-sm-12">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro</label>
-       <input type="text" class="form-control" ng-model="vm.Cups_Dir" onkeyup="this.value=this.value.toUpperCase();" readonly maxlength="100"/>       
-       </div>
-       </div>
-       </div>
-      <div class="col-12 col-sm-2">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">CUPS <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.cups" onkeyup="this.value=this.value.toUpperCase();" placeholder="* ES" maxlength="2" ng-disabled=" vm.validate_info==1"/>
-       </div>
-       </div>
-       </div>    
-
-      <div class="col-12 col-sm-6">
-       <div class="form">                          
-       <div class="form-group">  
-       <label class="font-weight-bold nexa-dark" style="color:white;">.</label>     
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.cups1" onkeyup="this.value=this.value.toUpperCase();" maxlength="16" ng-disabled="vm.validate_info==1"/>
-       </div>
-       </div>
-       </div>  
-        <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.cups2" onkeyup="this.value=this.value.toUpperCase();" maxlength="2" ng-disabled=" vm.validate_info==1"/>
-       </div>
-       </div>
-       </div>      
-      <div style="margin-top: 8px;">
-       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO SERVICIO</b></label></div></div>
-      
-      <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Eléctrico</label>
-       <input type="radio" ng-model="vm.fdatos_cups.TipServ" ng-disabled=" vm.validate_info==1" value="1" ng-click="vm.por_servicios(vm.fdatos_cups.TipServ)"/>
-       <label class="font-weight-bold nexa-dark" style="color:black;">Gas</label>
-       <input type="radio" ng-model="vm.fdatos_cups.TipServ" ng-disabled=" vm.validate_info==1" value="2" ng-click="vm.por_servicios(vm.fdatos_cups.TipServ)"/>
-       </div>
-       </div>
-       </div>
-
-     <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodDis" name="CodDis"  ng-model="vm.fdatos_cups.CodDis" ng-disabled="vm.fdatos_cups.TipServ==0 || vm.validate_info==1||vm.sin_data==1">
-        <option ng-repeat="dato in vm.T_Distribuidoras" value="{{dato.CodDist}}">{{dato.NumCifDis}} - {{dato.RazSocDis}}</option>                          
-        </select>
-       </div>
-       </div>
-       </div>
-
-      <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodTar" name="CodTar"  ng-model="vm.fdatos_cups.CodTar" ng-disabled="vm.fdatos_cups.TipServ==0|| vm.validate_info==1||vm.sin_data==1">
-        <option ng-repeat="dato in vm.T_Tarifas" value="{{dato.CodTar}}">{{dato.NomTar}}</option>                          
-        </select>
-       </div>
-       </div>
-       </div>
-
-
-<div ng-show="vm.fdatos_cups.TipServ==1">		
-	<div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Potencia </label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
-       </div>
-       </div>
-       </div>
-
-
-	<div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;"> Contratada </label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
-       </div>
-       </div>
-    </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;">  (Kw)</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
-       </div>
-       </div>
-       </div>
-
-        <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP6" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P6" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.PotConP6)"/>
-       </div>
-       </div>
-       </div>
-
-        <div class="col-12 col-sm-6">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Consumo (Kw) <b style="color:red;">(*)</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.ConAnuCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.ConAnuCup)"/>
-       </div>
-       </div>
-       </div>
-	</div> 
-
-	<div ng-show="vm.fdatos_cups.TipServ==2">		
-	     <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Consumo (kWh) <b style="color:red;">(*)</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.ConAnuCup" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.ConAnuCup)" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1"/>
-       </div>
-       </div>
-       </div>
-	</div>
-  <input type="text" class="form-control" ng-model="vm.fdatos_cups.CodCup" readonly />      
-         <div class="form-group" >
-          <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos_cups.CodCup==undefined||vm.fdatos_cups.CodCup==null||vm.fdatos_cups.CodCup==''" >CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_cups.CodCup>0">ACTUALIZAR</button>            
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">REGRESAR</button>
-          </div>
-        </div>
-         </div><!--FINAL ROW -->
-        </form>
-</div>
-
-    <!--NG SHOWW FALSE END-->
-
-
-    <div ng-show="vm.TVistaCups==undefined">
-      
-
-
-<form id="historial_form" name="historial_form" ng-submit="submitFormHistorial($event)"> 
- <input type="hidden" class="form-control" ng-model="vm.historial.CodCup" readonly />
-      <div class="col-12 col-sm-6">
-       <div class="form">                          
-       <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.historial.desde" required="required" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(20,vm.historial.desde)" maxlength="10" />
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-6">
-       <div class="form">                          
-       <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.historial.hasta" required="required" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(21,vm.historial.hasta)" maxlength="10" />
-       </div>
-       </div>
-       </div>
-     <div align="center" >
-          
-            <button class="btn btn-info" type="submit" ng-disabled="historial_form.$invalid">CONSULTAR</button>       
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">REGRESAR</button>
-         
-        </div>
-</form> 
-<div ng-show="vm.result_his==true">
-<div class="table-responsive">
-          <table class="table table-striped table-advance table-hover table-responsive">
-                <tbody>
-                  <tr>
-                    <th ng-show="vm.PotCon1==true"><i class="fa fa-bolt"></i> PotCon1</th>
-                    <th ng-show="vm.PotCon2==true"><i class="fa fa-bolt"></i> PotCon2</th>                                        
-                    <th ng-show="vm.PotCon3==true"><i class="fa fa-bolt"></i> PotCon3</th>
-                    <th ng-show="vm.PotCon4==true"><i class="fa fa-bolt"></i> PotCon4</th>
-                    <th ng-show="vm.PotCon5==true"><i class="fa fa-bolt"></i> PotCon5</th>
-                    <th ng-show="vm.PotCon6==true"><i class="fa fa-bolt"></i> PotCon6</th>
-                    <th ng-show="vm.FecIniConHis==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
-                    <th ng-show="vm.FecFinConHis==true"><i class="fa fa-calendar"></i> Fecha Final</th>
-                    <th ng-show="vm.ConCupHis==true"><i class="fa fa-bolt"></i> Consumo</th>
-                  </tr>
-                  <tr ng-show="vm.T_Historial_Consumo.length==0"> 
-                     <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No ahi datos disponibles.</div></td>
-                  </tr>
-                  <tr ng-repeat="dato in vm.T_Historial_Consumo | filter:paginate1250" ng-class-odd="odd">                    
-                    <td ng-show="vm.PotCon1==true">{{dato.PotCon1}}</td>
-                    <td ng-show="vm.PotCon2==true">{{dato.PotCon2}}</td>
-                    <td ng-show="vm.PotCon3==true">{{dato.PotCon3}}</td>
-                    <td ng-show="vm.PotCon4==true">{{dato.PotCon4}}</td>  
-                    <td ng-show="vm.PotCon5==true">{{dato.PotCon5}}</td>  
-                    <td ng-show="vm.PotCon6==true">{{dato.PotCon6}}</td>
-                    <td ng-show="vm.FecIniConHis==true">{{dato.FecIniCon}}</td>
-                    <td ng-show="vm.FecFinConHis==true">{{dato.FecFinCon}}</td>
-                    <td ng-show="vm.ConCupHis==true">{{dato.ConCup}}</td>
-                  </tr>
-                  <tr>                    
-                    <td><b><i class="fa fa-bolt"></i> Total Consumo:</b> </td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td ng-show="vm.PotCon1==true"></td>
-                    <td></td>
-                    <td>{{vm.Total_Consumo}}</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                    <th ng-show="vm.PotCon1==true"><i class="fa fa-bolt"></i> PotCon1</th>
-                    <th ng-show="vm.PotCon2==true"><i class="fa fa-bolt"></i> PotCon2</th>                                        
-                    <th ng-show="vm.PotCon3==true"><i class="fa fa-bolt"></i> PotCon3</th>
-                    <th ng-show="vm.PotCon4==true"><i class="fa fa-bolt"></i> PotCon4</th>
-                    <th ng-show="vm.PotCon5==true"><i class="fa fa-bolt"></i> PotCon5</th>
-                    <th ng-show="vm.PotCon6==true"><i class="fa fa-bolt"></i> PotCon6</th>
-                    <th ng-show="vm.FecIniConHis==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
-                    <th ng-show="vm.FecFinConHis==true"><i class="fa fa-calendar"></i> Fecha Final</th>
-                    <th ng-show="vm.ConCupHis==true"><i class="fa fa-bolt"></i> Consumo</th>
-                </tfoot>
-              </table>               
-        </div>
-        
-        <div align="center">
-          <span class="store-qty"> <a href="reportes/Exportar_Documentos/Historial_Consumo_CUPs_PDF/{{vm.desde}}/{{vm.hasta}}/{{vm.CodCup}}/{{vm.historial.TipServ}}" target="_black" title='Descargar PDF' class="btn btn-info"><div><i class="fa fa-file" style="color:white;"></i></div></a> </span>
-           <span class="store-qty"> <a href="reportes/Exportar_Documentos/Historial_Consumo_CUPs_Excel/{{vm.desde}}/{{vm.hasta}}/{{vm.CodCup}}/{{vm.historial.TipServ}}" target="_black" title='Descargar EXCEL' class="btn btn-info"><div><i class="fa fa-file-excel-o" style="color:white;"></i></div></a> </span>       
-          <div class='btn-group' align="center">
-            <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
-            </pagination>
-          </div>
-        </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    <!--/TABS 1 FINAL-->
-
-
+   <!--/TABS 1 FINAL-->
    </div>
  </div>
        

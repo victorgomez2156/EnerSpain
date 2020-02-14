@@ -44,42 +44,11 @@ class Cups extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}        
-       	 	$CodPunSum=$this->get('CodPunSum');
-       	 	$Fecha=date('Y/m/d');        	 	
-       	 	$Cups = $this->Cups_model->get_list_cups_PunSum($CodPunSum);
-       	 	$Result = $this->Cups_model->get_data_PunSum($CodPunSum);
-       	 	/*if($Result==false)
-       	 	{       	 		
-       	 		$NumCifCli=null;
-				$RazSocCli=null;
-				$DesTipVia=null;
-				$NomViaPunSum=null;
-				$NumViaPunSum=null;
-				$BloPunSum=null;
-				$EscPunSum=null;
-				$PlaPunSum=null;
-				$PuePunSum=null;
-				$DesPro=null;
-				$DesLoc=null;
-				$CPLoc=null;
-       	 	}
-       	 	else
-       	 	{
-       	 		$NumCifCli=$Result->NumCifCli;
-				$RazSocCli=$Result->RazSocCli;
-				$DesTipVia=$Result->DesTipVia;
-				$NomViaPunSum=$Result->NomViaPunSum;
-				$NumViaPunSum=$Result->NumViaPunSum;
-				$BloPunSum=$Result->BloPunSum;
-				$EscPunSum=$Result->EscPunSum;
-				$PlaPunSum=$Result->PlaPunSum;
-				$PuePunSum=$Result->PuePunSum;
-				$DesPro=$Result->DesPro;
-				$DesLoc=$Result->DesLoc;
-				$CPLoc=$Result->CPLoc;
-       	 	}*/
-       	 	$arrayName = array('Cups' => $Cups,'Datos_Puntos' => $Result,'Fecha' => $Fecha);
-	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',0,$this->input->ip_address(),'Cargando Lista de Cups');
+       	 	//$CodPunSum=$this->get('CodPunSum');
+       	 	$Fecha=date('d/m/Y');        	 	
+       	 	$Cups = $this->Cups_model->get_list_cups_PunSum();
+       	 	$arrayName = array('Cups' => $Cups,'Fecha' => $Fecha);
+	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cups','GET',0,$this->input->ip_address(),'Cargando Lista de Cups');
 			if (empty($arrayName))
 			{
 				$this->response(false);
@@ -237,17 +206,17 @@ public function Buscar_XID_Servicio_get()
        	 	$CodCup=$this->get('CodCup');
        	 	if($TipServ==1)
        	 	{
-       	 		$Select="CodCupsEle as CodCup,CodPunSum,SUBSTRING(CUPsEle,1,2)AS cups,SUBSTRING(CUPsEle,3,16)AS cups1,SUBSTRING(CUPsEle,19,20)AS cups2,CodTarElec as CodTar,PotConP1,PotConP2,PotConP3,PotConP4,PotConP5,PotConP6,PotMaxBie,CodDis,DATE_FORMAT(FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(FecUltLec,'%d/%m/%Y') as FecUltLec,TipServ,ConAnuCup,TipServ AS TipServAnt";
-       	 		$Tabla="T_CUPsElectrico";
-       	 		$Where="CodCupsEle";
+       	 		$Select="a.CodCupsEle as CodCup,a.CodPunSum,SUBSTRING(a.CUPsEle,1,2)AS cups,SUBSTRING(a.CUPsEle,3,16)AS cups1,SUBSTRING(a.CUPsEle,19,20)AS cups2,a.CodTarElec as CodTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.PotMaxBie,a.CodDis,DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt";
+       	 		$Tabla="T_CUPsElectrico a";
+       	 		$Where="a.CodCupsEle";
        	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup); 
        	 	}
        	 	elseif ($TipServ==2) 
        	 	{
-       	 		$Select="CodCupGas as CodCup,CodPunSum,SUBSTRING(CupsGas,1,2)AS cups,SUBSTRING(CupsGas,3,16)AS cups1,SUBSTRING(CupsGas,19,20)AS cups2,CodTarGas as CodTar,CodDis,
-				DATE_FORMAT(FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(FecUltLec,'%d/%m/%Y') as FecUltLec,TipServ,ConAnuCup,TipServ AS TipServAnt";
-       	 		$Tabla="T_CUPsGas";
-       	 		$Where="CodCupGas";
+       	 		$Select="a.CodCupGas as CodCup,a.CodPunSum,SUBSTRING(a.CupsGas,1,2)AS cups,SUBSTRING(a.CupsGas,3,16)AS cups1,SUBSTRING(a.CupsGas,19,20)AS cups2,a.CodTarGas as CodTar,a.CodDis,
+				DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt";
+       	 		$Tabla="T_CUPsGas a";
+       	 		$Where="a.CodCupGas";
        	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup);
        	 	}
        	 	else
@@ -262,6 +231,22 @@ public function Buscar_XID_Servicio_get()
 			}		
 			$this->response($Result);		
     }
+     public function search_PunSum_Data_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Result = $this->Cups_model->get_PumSum_for_cups(); 
+	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Puntos de Suministros');
+		if (empty($Result))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($Result);	
+    }
     public function list_motivos_bloqueo_CUPs_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -270,7 +255,7 @@ public function Buscar_XID_Servicio_get()
 			redirect(base_url(), 'location', 301);
 		}
 		$Result = $this->Cups_model->get_motivo_cups(); 
-	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',0,$this->input->ip_address(),'Cargando Lista de Motivos de Bloqueo de CUPs');
+	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de Bloqueo de CUPs');
 		if (empty($Result))
 		{
 			$this->response(false);
@@ -288,7 +273,8 @@ public function Buscar_XID_Servicio_get()
 	$objSalida = json_decode(file_get_contents("php://input"));				
 	$this->db->trans_start();
 	//$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
-	
+	$fecha_volteada=explode("/",$objSalida->FecBaj);
+	$fecha_final_volteada=$fecha_volteada[2]."-".$fecha_volteada[1]."-".$fecha_volteada[0];
 	if($objSalida->TipServ=="Gas")
 	{
 		
@@ -297,8 +283,8 @@ public function Buscar_XID_Servicio_get()
 		$Tabla_Insert="T_BloqueoCUPsGas";
 		$Estatus="EstCUPs";
 		$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',0,$this->input->ip_address(),'Actualizando Estatus CUPs Gas');
-		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,date('Y-m-d'));
+		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Gas');
+		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Gas');
 	}
 	elseif ($objSalida->TipServ=="Eléctrico") 
@@ -308,8 +294,8 @@ public function Buscar_XID_Servicio_get()
 		$Tabla_Insert="T_BloqueoCUPsElectrico";
 		$Estatus="EstCUPs";
 		$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',0,$this->input->ip_address(),'Actualizando Estatus CUPs Eléctrico');
-		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,date('Y-m-d'));
+		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Eléctrico');
+		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Eléctrico');
 	}
 	else

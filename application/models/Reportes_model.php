@@ -675,11 +675,11 @@ class Reportes_model extends CI_Model
             return false;
         }          
     }
-     public function get_all_cups($Where,$Variable)
+     public function get_all_cups()
     {
-       $this->db->select('*',false);
-       $this->db->from('V_CupsGrib');
-       $this->db->where($Where,$Variable);
+        $this->db->select('*',false);
+        $this->db->from('V_CupsGrib');
+        //$this->db->where($Where,$Variable);
         $this->db->order_by('CupsGas ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -691,12 +691,12 @@ class Reportes_model extends CI_Model
             return false;
         }          
     }
-    public function get_all_cups_filtro_busqueda($Where,$TipServ,$AND,$CodPunSum)
+    public function get_all_cups_filtro_busqueda($Where,$TipServ)
     {
         $this->db->select('*',false);
         $this->db->from('V_CupsGrib');
         $this->db->where($Where,$TipServ);
-        $this->db->where($AND,$CodPunSum);
+        //$this->db->where($AND,$CodPunSum);
         $this->db->order_by('CupsGas ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -708,13 +708,13 @@ class Reportes_model extends CI_Model
             return false;
         }          
     }
-     public function get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Variable,$Order_BY)
+     public function get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Variable,$Order_BY)
     {
         $this->db->select($Select,false);
         $this->db->from($Tabla);
         $this->db->join($Join,$ON);
         $this->db->where($Where,$Variable);
-        $this->db->where($AND,$CodPunSum);
+        //$this->db->where($AND,$CodPunSum);
         $this->db->order_by($Order_BY);
         $query = $this->db->get(); 
         if($query->num_rows()>0)

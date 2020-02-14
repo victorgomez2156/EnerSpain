@@ -122,6 +122,27 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		templateUrl: 'application/views/view_add_documentos.php'
 		})
 
+		.when('/Gestionar_Cups/', {
+		templateUrl: 'application/views/view_grib_cups.php'
+		})
+		.when('/Add_Cups/', {
+		templateUrl: 'application/views/view_add_cups.php'
+		})
+		.when('/Edit_Cups/:CodCups/:TipServ', 
+		{
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_add_cups.php'
+		})
+		.when('/Edit_Cups/:CodCups/:TipServ/:INF', 
+		{
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_add_cups.php'
+		})		
+		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_consumo_cups.php'
+		})	
+
 		/*.when('/Comercializadora/', {
 			templateUrl: 'application/views/view_grib_comercializadora.php'
 		})
@@ -223,14 +244,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			mytext:"This is angular",
 			templateUrl: 'application/views/view_grib_motivos_bloqueos.php'
 		})
-		.when('/Gestionar_Cups/:CodPunSum', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_grib_cups.php'
-		})	
-		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_grib_consumo_cups.php'
-		})	
+		
 
 
 

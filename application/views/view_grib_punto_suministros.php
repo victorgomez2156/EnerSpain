@@ -73,10 +73,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Puntos de Suministros</h3>
+            <h3 class="page-header"><i class="fa fa-bullseye"></i> Dirección Suministro</h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-              <li><i class="fa fa-bullseye"></i>Puntos de Suministros</li>
+              <li><i class="fa fa-bullseye"></i>Dirección Suministro</li>
             </ol>
           </div>
         </div>

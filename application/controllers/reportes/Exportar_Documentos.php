@@ -9622,7 +9622,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $nombre_filtro="TODOS LOS CUPS";
             $Tipo_Cliente="";
-            $Resultado=$this->Reportes_model->get_all_cups('CodPunSum',$CodPunSum);
+            $Resultado=$this->Reportes_model->get_all_cups();
         }
        elseif($tipo_filtro==1)
         {
@@ -9635,7 +9635,7 @@ class Exportar_Documentos extends CI_Controller
                 $Where="TipServ";
                 $AND="CodPunSum";
 
-                $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$TipServ,$AND,$CodPunSum);
+                $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$TipServ);
             }
             elseif($TipServ=="Eléctrico")
             {
@@ -9643,7 +9643,7 @@ class Exportar_Documentos extends CI_Controller
                 $Tipo_Cliente=$TipServ;
                 $Where="TipServ";
                 $AND="CodPunSum";
-                $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$TipServ,$AND,$CodPunSum);
+                $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$TipServ);
             }
             else
             {
@@ -9671,7 +9671,7 @@ class Exportar_Documentos extends CI_Controller
                     $Where='a.CodTarGas';
                     $AND="a.CodPunSum";
                     $Tipo_Cliente=$Tarifa->NomTarGas;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tarifa->CodTarGas,$Order_BY);
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarGas,$Order_BY);
                 }
                 else
                 {
@@ -9693,7 +9693,7 @@ class Exportar_Documentos extends CI_Controller
                     $Where='a.CodTarElec';
                     $AND="a.CodPunSum";
                     $Tipo_Cliente=$Tarifa->NomTarEle;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tarifa->CodTarEle,$Order_BY);
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarEle,$Order_BY);
                 }
                 else
                 {
@@ -9715,7 +9715,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente=$Estatus;
             $Where="EstCUPs";
             $AND="CodPunSum";
-            $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$Estatus,$AND,$CodPunSum);       
+            $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda($Where,$Estatus);       
         }     
         else
         {

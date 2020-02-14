@@ -100,7 +100,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		}
 		else
 		{
-			Swal.fire({title:"Error",text:"El Número de CIF No Estar Vacio, Por Favor Intente Nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
 			location.href="#/Clientes/";
 		}
 	}

@@ -91,7 +91,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.ActPunSum=true;
 	scope.ruta_reportes_pdf_puntos_suministros=0;
 	scope.ruta_reportes_excel_puntos_suministros=0;
-	scope.topcionesPunSum = [{id: 1, nombre: 'GESTIONAR CUPS'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'VER'},{id: 4, nombre: 'BLOQUEAR'},{id: 5, nombre: 'ACTIVAR'},];
+	scope.topcionesPunSum = [{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'VER'},{id: 4, nombre: 'BLOQUEAR'},{id: 5, nombre: 'ACTIVAR'},];
 	scope.ttipofiltrosPunSum = [{id: 1, nombre: 'CLIENTES'},{id: 2, nombre: 'LOCALIDAD'},{id: 3, nombre: 'PROVINCIA'},{id: 4, nombre: 'TIPO INMUEBLE'},{id: 5, nombre: 'ESTATUS'}];	
 	scope.fpuntosuministro={};
 	scope.tPuntosSuminitros=[];

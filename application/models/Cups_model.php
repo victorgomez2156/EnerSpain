@@ -11,21 +11,30 @@ class Cups_model extends CI_Model
         return false;      
     }    
 
-    public function get_list_cups_PunSum($CodPunSum) 
+    public function get_list_cups_PunSum() 
     {
-        $this->db->select('*',FALSE);
-        $this->db->from('V_CupsGrib'); 
-        $this->db->where('CodPunSum',$CodPunSum); 
-        $this->db->order_by('CupsGas ASC');              
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        { 
-            return $query->result();
-        }
-        else
-        {
-            return false;
-        }       
+        $sql = $this->db->query("SELECT a.CodCupGas AS CodCupGas,a.CupsGas AS CupsGas, case a.TipServ when 2 then 'Gas' end AS TipServ,b.NomTarGas AS NomTarGas,
+a.CodPunSum AS CodPunSum,a.CodDis AS CodDis,c.CodCli AS CodCli, case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJA' END
+AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,f.CPLoc,g.DesPro FROM T_CUPsGas a 
+join T_TarifaGas b on a.CodTarGas = b.CodTarGas
+join T_PuntoSuministro c on a.CodPunSum = c.CodPunSum
+join T_Cliente d ON c.CodCli = d.CodCli
+join T_TipoVia e ON c.CodTipVia = e.CodTipVia
+join T_Localidad f ON c.CodLoc = f.CodLoc
+JOIN T_Provincia g ON f.CodPro=g.CodPro
+UNION 
+select a.CodCupsEle AS CodCupsEle,a.CUPsEle AS CUPsEle, case a.TipServ when 1 then 'Eléctrico' end AS TipServ,
+b.NomTarEle AS NomTarEle,a.CodPunSum AS CodPunSum,a.CodDis AS CodDis,c.CodCli AS CodCli, case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJA' end AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,f.CPLoc,g.DesPro 
+from  T_CUPsElectrico a join T_TarifaElectrica b on a.CodTarElec = b.CodTarEle 
+join T_PuntoSuministro c on a.CodPunSum = c.CodPunSum
+join T_Cliente d ON c.CodCli = d.CodCli
+join T_TipoVia e ON c.CodTipVia = e.CodTipVia
+join T_Localidad f ON c.CodLoc = f.CodLoc
+JOIN T_Provincia g ON f.CodPro=g.CodPro ORDER BY CupsGas ASC");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else  
+        return false;        
     }
     public function get_data_PunSum($CodPunSum) 
     {
@@ -41,6 +50,26 @@ class Cups_model extends CI_Model
         if($query->num_rows()>0)
         { 
             return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function get_PumSum_for_cups() 
+    {
+        $this->db->select('a.CodPunSum,b.NumCifCli,b.RazSocCli,e.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,c.DesLoc,d.DesPro,c.CPLoc',FALSE);
+        $this->db->from('T_PuntoSuministro a'); 
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
+        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
+        //$this->db->where('a.CodPunSum',$CodPunSum); 
+        $this->db->order_by('b.RazSocCli ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
         }
         else
         {
@@ -115,6 +144,7 @@ class Cups_model extends CI_Model
     {
         $this->db->select($Select,FALSE);
         $this->db->from($Tabla);
+        //$this->db->join("$Tabla");    
         $this->db->where($Where,$CodCup);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

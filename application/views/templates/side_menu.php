@@ -157,8 +157,7 @@
               <span>Comercializadora</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
-            <ul class="sub">
-            	<li><a class="fa fa-list" href="#/Comercializadora"> Lista</a></li>
+            <ul class="sub">            	
               <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Comercializadora"> Datos Basicos</a></li>
               <li><a class="fa fa-briefcase" href="#/Productos"> Productos</a></li>
               <li><a class="fa fa-bullseye" href="#/Anexos"> Anexos</a></li>
@@ -173,13 +172,13 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-             <li><a class="fa fa-list" href="#/Clientes"> Lista</a></li>
               <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> Datos Basicos</a></li>
               <li><a class="fa fa-briefcase" href="#/Actividades"> Actividad</a></li>
-              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> Pun. Suministros</a></li>
+              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> Dir. Suministros</a></li>
               <li><a class="fa fa-child" href="#/Contactos"> Contactos</a></li>  
               <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
-              <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li>     
+              <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li> 
+              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>    
             </ul>
           </li>
 

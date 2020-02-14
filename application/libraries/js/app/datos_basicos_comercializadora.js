@@ -86,9 +86,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	{
 		if(scope.CIF_COM==undefined)
 		{
-			Swal.fire({title:'Error',text:"El Número de CIF No Puede Estar Vacio.",type:"error",confirmButtonColor:"#188ae2"});
 			location.href="#/Comercializadora";
-			$("#btn_modal_cif_com").removeClass( "btn btn-info").addClass("btn btn-danger");
+			$("#btn_modal_cif_com").removeClass("btn btn-info").addClass("btn btn-danger");
 		}
 		else
 		{

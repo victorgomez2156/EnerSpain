@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div align="center">
           <span class="store-qty"> <a ng-click="vm.cargar_lista_consumo_CUPs()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>
-           <span class="store-qty"> <a href="#/Gestionar_Cups/{{vm.CodPunSum}}" title='Regresar' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span>       
+           <span class="store-qty"> <a href="#/Gestionar_Cups" title='Regresar' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>
@@ -572,7 +572,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Cups, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Consumo Cups, Por Favor Espere..."></div>
 <div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del Cups, Por Favor Espere..."></div>
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUPs, Por Favor Espere..."></div>
 <div id="Guardando" class="loader loader-default"  data-text="Guardando CUPs, Por Favor Espere..."></div>                 
