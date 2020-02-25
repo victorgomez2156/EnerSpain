@@ -66,7 +66,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	///////////////////////////// DOCUMENTOS CLIENTES START ///////////////////////////	
 	scope.ruta_reportes_pdf_Documentos=0;
 	scope.ruta_reportes_excel_Documentos=0;
-	scope.DocClie=true;
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
 	scope.CodTipDoc=true;
 	scope.DesDoc=true;
 	scope.TieVen=true;

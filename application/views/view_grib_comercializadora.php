@@ -195,11 +195,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tfoot>
               </table>
         </div> 
-        
-
-
-
-
         <div align="center">
           <span class="store-qty"> <a ng-click="vm.cargar_lista_comercializadoras()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
@@ -272,7 +267,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.fecha_bloqueo" required readonly/>    
+     <input type="text" class="form-control" ng-model="vm.fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
      </div>
      </div>
      </div>

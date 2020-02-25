@@ -43,11 +43,6 @@ class Clientes extends REST_Controller
         $Cuentas_Bancarias = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
         $Documentos = $this->Clientes_model->get_all_documentos();
         $Fecha=date('d/m/Y');
-        
-        //$tActividadesEconomicas=$this->Clientes_model->get_all_activity_clientes();
-         //$Motivo_Bloqueo_Cliente = $this->Clientes_model->get_list_motivos_bloqueos();
-        //, 'Motivo_Bloqueo_Cliente' =>$Motivo_Bloqueo_Cliente
-        // $tMotivosBloqueoContacto=$this->Clientes_model->get_all_list_contactos();,'tMotivosBloqueoContacto'=>$tMotivosBloqueoContacto,'tActividadesEconomicas'=>$tActividadesEconomicas
         $data= array('Provincias' =>$Provincias , 'Localidades' =>$Localidades  , 'Tipo_Cliente' =>$Tipo_Cliente , 'Comerciales' =>$Comerciales ,'Sector_Cliente' =>$Sector_Cliente,'Colaborador' =>$Colaborador,'Tipo_Vias' =>$Tipo_Vias,'Tipo_Inmuebles' =>$Tipo_Inmuebles,'Bancos' =>$Bancos,'Tipo_Contacto' =>$Tipo_Contacto,'Tipos_Documentos' =>$Tipos_Documentos,'Fecha_Server'=>$Fecha
         	,
         	'Clientes'=>$Clientes,'Actividades_Clientes'=>$Actividades_Clientes,'Puntos_Suministros_Clientes'=>$Puntos_Suministros_Clientes,'Contactos'=>$Contactos,'Cuentas_Bancarias'=>$Cuentas_Bancarias,'Documentos'=>$Documentos );
@@ -140,16 +135,7 @@ protected function buscar_xID_get()
 	{
 		$this->response(false);
 		return false;
-	}
-	//$buscar_actividades=$this->Clientes_model->get_activity_clientes($huser);
-	//$data->activity_clientes=$buscar_actividades;
-	//$tPuntosSuminitros=$this->Clientes_model->get_all_Puntos_Suministros_clientes($huser);		
-	//$data->tPuntosSuminitros=$tPuntosSuminitros;
-	//$tCuentasBancarias=$this->Clientes_model->get_all_Cuentas_Bancarias_clientes($huser);		
-	//$data->tCuentasBancarias=$tCuentasBancarias;
-	//$tContactos=$this->Clientes_model->get_lista_contactos($huser);		
-	//$data->tContactos=$tContactos;
-	
+	}	
 	$this->response($data);		
 } 
  public function crear_clientes_post()
@@ -208,7 +194,6 @@ protected function buscar_xID_get()
 		{
 			redirect(base_url(), 'location', 301);
 		}
-		//$objSalida = json_decode(file_get_contents("php://input"));
 		$CodActCNAE=$this->get('CodActCNAE');				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->Buscar_CNAECod($CodActCNAE);							
@@ -259,7 +244,7 @@ protected function buscar_xID_get()
 
 		if($objSalida->opcion==2)
 		{
-			$CodBloAct=$this->Clientes_model->agregar_motivo_bloqueo_actividad($objSalida->CodCli,$objSalida->CodTActCli,date('Y-m-d'),$objSalida->MotBloq,$objSalida->ObsBloAct);
+			$CodBloAct=$this->Clientes_model->agregar_motivo_bloqueo_actividad($objSalida->CodCli,$objSalida->CodTActCli,$objSalida->FecBloAct,$objSalida->MotBloq,$objSalida->ObsBloAct);
 			$objSalida->CodBloAct=$CodBloAct;
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','INSERT',$CodBloAct,$this->input->ip_address(),'Agregando Motivo de Bloqueo de Actividad');
 		}
@@ -405,7 +390,7 @@ protected function buscar_xID_get()
 		{
 			$this->Clientes_model->update_status_PumSum($objSalida->CodCli,$objSalida->CodPunSum,2);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Estatus del Punto de Suministros');
-			$CodBloq=$this->Clientes_model->agregar_motivo_bloqueo_PunSum(date('Y-m-d'),$objSalida->CodPunSum,$objSalida->MotBloPunSum,$objSalida->ObsBloPunSum);			
+			$CodBloq=$this->Clientes_model->agregar_motivo_bloqueo_PunSum($objSalida->FecBloPun,$objSalida->CodPunSum,$objSalida->MotBloPunSum,$objSalida->ObsBloPunSum);			
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoPunto','INSERT',$objSalida->CodPunSum,$this->input->ip_address(),'Agregando Bloqueo De Punto de Suministro');
 		}
 		if($objSalida->opcion==5)
@@ -503,7 +488,7 @@ protected function buscar_xID_get()
 
 		if($objSalida->EstConCli==2)
 		{
-			$CodBloCont=$this->Clientes_model->agregar_motivo_bloqueo_T_contacto($objSalida->CodConCli,date('Y-m-d'),$objSalida->MotBloqcontacto,$objSalida->ObsBloContacto);
+			$CodBloCont=$this->Clientes_model->agregar_motivo_bloqueo_T_contacto($objSalida->CodConCli,$objSalida->FechBlo,$objSalida->MotBloqcontacto,$objSalida->ObsBloContacto);
 			$objSalida->CodBloCont=$CodBloCont;
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoContacto','INSERT',$CodBloCont,$this->input->ip_address(),'Agregando Motivo de Bloqueo de Contacto.');
 		}

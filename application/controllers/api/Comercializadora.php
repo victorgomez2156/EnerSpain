@@ -74,12 +74,12 @@ class Comercializadora extends REST_Controller
 		$this->db->trans_start();		
 		if (isset($objSalida->CodCom))
 		{		
-			$this->Comercializadora_model->actualizar_comercializadora($objSalida->CodCom,$objSalida->BloDirCom,$objSalida->CarConCom,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->DurConCom,$objSalida->EmaCom,$objSalida->EscDirCom,$objSalida->FecConCom,$objSalida->FecVenConCom,$objSalida->NomComCom,$objSalida->NomConCom,$objSalida->NomViaDirCom,$objSalida->NumCifCom,$objSalida->NumViaDirCom,$objSalida->ObsCom,$objSalida->PagWebCom,$objSalida->PlaDirCom,$objSalida->PueDirCom,$objSalida->RazSocCom,$objSalida->RenAutConCom,$objSalida->SerEle,$objSalida->SerEsp,$objSalida->SerGas,$objSalida->TelFijCom,$objSalida->DocConCom,$objSalida->FecIniCom);
+			$this->Comercializadora_model->actualizar_comercializadora($objSalida->CodCom,$objSalida->BloDirCom,$objSalida->CarConCom,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->DurConCom,$objSalida->EmaCom,$objSalida->EscDirCom,$objSalida->FecConCom,$objSalida->FecVenConCom,$objSalida->NomComCom,$objSalida->NomConCom,$objSalida->NomViaDirCom,$objSalida->NumCifCom,$objSalida->NumViaDirCom,$objSalida->ObsCom,$objSalida->PagWebCom,$objSalida->PlaDirCom,$objSalida->PueDirCom,$objSalida->RazSocCom,$objSalida->RenAutConCom,$objSalida->SerEle,$objSalida->SerEsp,$objSalida->SerGas,$objSalida->TelFijCom,$objSalida->DocConCom,$objSalida->FecIniCom,$objSalida->ZonPos);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','UPDATE',$objSalida->CodCom,$this->input->ip_address(),'Actualizando Comercializadora');
 		}
 		else
 		{
-			$id = $this->Comercializadora_model->agregar_comercializadora($objSalida->BloDirCom,$objSalida->CarConCom,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->DurConCom,$objSalida->EmaCom,$objSalida->EscDirCom,$objSalida->FecConCom,$objSalida->FecVenConCom,$objSalida->NomComCom,$objSalida->NomConCom,$objSalida->NomViaDirCom,$objSalida->NumCifCom,$objSalida->NumViaDirCom,$objSalida->ObsCom,$objSalida->PagWebCom,$objSalida->PlaDirCom,$objSalida->PueDirCom,$objSalida->RazSocCom,$objSalida->RenAutConCom,$objSalida->SerEle,$objSalida->SerEsp,$objSalida->SerGas,$objSalida->TelFijCom,$objSalida->FecIniCom,$objSalida->DocConCom);		
+			$id = $this->Comercializadora_model->agregar_comercializadora($objSalida->BloDirCom,$objSalida->CarConCom,$objSalida->CodLoc,$objSalida->CodTipVia,$objSalida->DurConCom,$objSalida->EmaCom,$objSalida->EscDirCom,$objSalida->FecConCom,$objSalida->FecVenConCom,$objSalida->NomComCom,$objSalida->NomConCom,$objSalida->NomViaDirCom,$objSalida->NumCifCom,$objSalida->NumViaDirCom,$objSalida->ObsCom,$objSalida->PagWebCom,$objSalida->PlaDirCom,$objSalida->PueDirCom,$objSalida->RazSocCom,$objSalida->RenAutConCom,$objSalida->SerEle,$objSalida->SerEsp,$objSalida->SerGas,$objSalida->TelFijCom,$objSalida->FecIniCom,$objSalida->DocConCom,$objSalida->ZonPos);		
 			$objSalida->CodCom=$id;			
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','INSERT',$objSalida->CodCom,$this->input->ip_address(),'Creando Comercializadora');			
 		}		
@@ -95,7 +95,7 @@ class Comercializadora extends REST_Controller
 		}		
         $CodCom=$this->get('CodCom');
         $data = $this->Comercializadora_model->get_CodCom($CodCom);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',0,$this->input->ip_address(),'Consultando Datos de la Comercializadora');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',$CodCom,$this->input->ip_address(),'Consultando Datos de la Comercializadora');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -146,7 +146,8 @@ class Comercializadora extends REST_Controller
 
 		if($objSalida->EstCom==2)
 		{
-			$CodBloCom=$this->Comercializadora_model->agregar_bloqueo_Com($objSalida->CodCom,date('Y-m-d'),$objSalida->MotBloq,$objSalida->ObsBloCom);
+			
+			$CodBloCom=$this->Comercializadora_model->agregar_bloqueo_Com($objSalida->CodCom,$objSalida->FecBlo,$objSalida->MotBloq,$objSalida->ObsBloCom);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoComercializadora','INSERT',$CodBloCom,$this->input->ip_address(),'Bloqueo de Comercializadora.');
 		}
 		$objSalida->resultado=$resultado;
@@ -251,7 +252,7 @@ public function registrar_productos_post()
 
 		if($objSalida->EstPro==2)
 		{
-			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_productos($objSalida->CodPro,date('Y-m-d'),$objSalida->MotBloqPro,$objSalida->ObsBloPro);
+			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_productos($objSalida->CodPro,$objSalida->FecBlo,$objSalida->MotBloqPro,$objSalida->ObsBloPro);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoProducto','INSERT',$CodMotBloPro,$this->input->ip_address(),'Bloqueo de Producto.');
 		}
 		$objSalida->resultado=$resultado;
@@ -430,7 +431,7 @@ public function Buscar_xID_Anexos_get()
 
 		if($objSalida->EstAne==2)
 		{
-			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_anexos($objSalida->CodAnePro,date('Y-m-d'),$objSalida->MotBloAne,$objSalida->ObsMotBloAne);
+			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_anexos($objSalida->CodAnePro,$objSalida->FecBlo,$objSalida->MotBloAne,$objSalida->ObsMotBloAne);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoAnexo','INSERT',$CodMotBloPro,$this->input->ip_address(),'Bloqueo de Anexo.');
 		}
 		$objSalida->resultado=$resultado;
@@ -612,7 +613,7 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 
 		if($objSalida->EstSerEsp==2)
 		{
-			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_servicio_especial($objSalida->CodSerEsp,date('Y-m-d'),$objSalida->MotBloSerEsp,$objSalida->ObsMotBloSerEsp);
+			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_servicio_especial($objSalida->CodSerEsp,$objSalida->FecBlo,$objSalida->MotBloSerEsp,$objSalida->ObsMotBloSerEsp);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoServicioEspecial','INSERT',$CodMotBloPro,$this->input->ip_address(),'Bloqueo de Servicio Especial.');
 		}
 		$objSalida->resultado=$resultado;

@@ -331,6 +331,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">REGRESAR</button>
           </div>
         </div>
+
+
+
+
+
+
+
+
+        
+
+        
          </div><!--FINAL ROW -->
         </form>
 

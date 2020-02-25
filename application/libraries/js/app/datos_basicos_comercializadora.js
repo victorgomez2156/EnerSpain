@@ -80,7 +80,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.TProvincias=[];
 	scope.tLocalidades=[];
 	scope.tTiposVias=[];
-
+	scope.myDate = new Date();
+  	scope.isOpen = false;
 	console.log($route.current.$$route.originalPath);	
 	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
 	{
@@ -253,6 +254,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 
 	$scope.submitForm = function(event) 
 	{ 	
+	 	console.log(scope);
 	 	if(scope.fdatos.CodCom==undefined)
 	 	{
 	 		var titulo='Guardando';
@@ -268,8 +270,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		if (!scope.validar_campos_datos_basicos())
 		{
 			return false;
-		}
-		
+		}		
 		let archivos = $archivos.files;
 	 	if($archivos.files.length>0)
 	 	{	
@@ -355,8 +356,8 @@ scope.validar_campos_datos_basicos = function()
 		resultado = true;
 		if (scope.FecIniCom==null || scope.FecIniCom==undefined || scope.FecIniCom=='')
 		{
-			Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
+			//Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			//return false;
 		}
 		else
 		{

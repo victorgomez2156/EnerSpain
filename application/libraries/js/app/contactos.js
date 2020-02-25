@@ -53,13 +53,6 @@
 }])
 function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceMaster,upload)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('Controlador_Clientes as vmAE',{$scope:$scope});
-	//var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.	
-	//$controller('Controlador_Clientes',{$scope : testCtrl1ViewModel });		
-	//var testCtrl1ViewModel = $controller('Controlador_Clientes');
-   	//testCtrl1ViewModel.cargar_lista_clientes();
 	var scope = this;
 	scope.fdatos = {};
 	scope.tContacto_data_modal={};
@@ -103,7 +96,8 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 ///////////////////////////// CONTACTOS CLIENTES START ///////////////////////////	
 	scope.ruta_reportes_pdf_Contactos=0;
 	scope.ruta_reportes_excel_Contactos=0;
-	scope.ClieCont=true;
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
 	scope.NomConCli=true;
 	scope.NIFConCli=true;
 	scope.CodTipCon=true;
@@ -418,6 +412,16 @@ $scope.SubmitFormFiltrosContactos = function(event)
 		}
 
 	}
+	scope.validar_fecha_blo=function(object)
+{
+	console.log(object);
+	if(object!=undefined)
+	{
+		numero=object;		
+		if(!/^([/0-9])*$/.test(numero))
+		scope.FechBlo=numero.substring(0,numero.length-1);
+	}		
+}
 	scope.cargar_lista_motivos_bloqueos_contactos=function()
 	{
 		var url= base_urlHome()+"api/Clientes/list_motivos_bloqueos_contactos";
@@ -461,7 +465,8 @@ $scope.SubmitFormFiltrosContactos = function(event)
 		if(validar_OpcCont==2)
 		{
 			scope.status_comer.MotBloqcontacto=scope.tmodal_data.MotBloqcontacto;
-			scope.status_comer.ObsBloContacto=scope.tmodal_data.ObsBloContacto;			
+			scope.status_comer.ObsBloContacto=scope.tmodal_data.ObsBloContacto;	
+			scope.status_comer.FechBlo=scope.tmodal_data.FechBlo;			
 		}
 		$("#estatus_contactos").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
 		 var url= base_urlHome()+"api/Clientes/cambiar_estatus_contactos/";
@@ -516,6 +521,54 @@ $scope.SubmitFormFiltrosContactos = function(event)
 	}
 	$scope.submitFormlockContactos = function(event) 
 	{
+	 	if(scope.FechBlo==undefined || scope.FechBlo==null || scope.FechBlo=='') 
+	{
+		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+		event.preventDefault();	
+		return false;
+	}	
+	else
+	{
+		var FechBlo= (scope.FechBlo).split("/");
+		if(FechBlo.length<3)
+		{
+			Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+			event.preventDefault();	
+			return false;
+		}
+		else
+		{		
+			if(FechBlo[0].length>2 || FechBlo[0].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+				}
+			if(FechBlo[1].length>2 || FechBlo[1].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			if(FechBlo[2].length<4 || FechBlo[2].length>4)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			valuesStart=scope.FechBlo.split("/");
+	        valuesEnd=scope.fecha_server.split("/"); 
+	        // Verificamos que la fecha no sea posterior a la actual
+	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+	        if(dateStart>dateEnd)
+	        {
+	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            return false;
+	        }
+	        scope.tmodal_data.FechBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];	
+		}
+	}
 	 	if(scope.tmodal_data.ObsBloContacto==undefined||scope.tmodal_data.ObsBloContacto==null||scope.tmodal_data.ObsBloContacto=='')
 	 	{
 	 		scope.tmodal_data.ObsBloContacto=null;

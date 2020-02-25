@@ -144,7 +144,49 @@ scope.asignar_a_nombre_comercial=function()
 }
 scope.regresar=function()
 {
-	if(scope.fdatos.CodCli==undefined)
+	if(scope.validate_info==undefined)
+	{
+		if(scope.fdatos.CodCli==undefined)
+		{
+			var title="Guardando";
+			var text="¿Estás seguro de regresar y no guardar los datos?";
+		}
+		else
+		{
+			var title="Actualizando";
+			var text="¿Estás seguro de regresar y no actualizar los datos?";
+		}
+		Swal.fire({title:title,text:text,		
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"OK"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+	            $cookies.remove('CIF');
+	            location.href="#/Clientes";
+	            scope.fdatos={};
+	        }
+	        else
+	        {
+	            console.log('Cancelando ando...');
+	        }
+	    });	
+
+	}
+	else
+	{
+		$cookies.remove('CIF');
+		location.href="#/Clientes";	
+		scope.fdatos={};
+	}
+
+
+
+	
+	/*if(scope.fdatos.CodCli==undefined)
 	{
 		Swal.fire({title:"¿Esta seguro de regresar?",			
 		type:"question",
@@ -170,7 +212,7 @@ scope.regresar=function()
 		$cookies.remove('CIF');
 		location.href="#/Clientes";	
 		scope.fdatos={};
-	}
+	}*/
 }
 
 scope.asignar_tipo_via=function()

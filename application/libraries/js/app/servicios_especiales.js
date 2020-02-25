@@ -79,7 +79,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		mm='0'+mm
 	} 
 	var fecha = dd+'/'+mm+'/'+yyyy;	
-	scope.CodComSerEsp=true;
+	scope.NumCifCom=true;
+	scope.RazSocCom=true;
 	scope.DesSerEsp=true;
 	scope.TipCli=true;
 	scope.SerElecSerEsp=true;
@@ -509,13 +510,19 @@ scope.cargar_lista_servicos_especiales=function()
 		};
 		console.log(scope.TServicioEspeciales);
 	}
-	scope.validarsifechaserespe=function(object)
+	scope.validarsifechaserespe=function(object,metodo)
 	{
-		if(object!=undefined)
+		if(object!=undefined && metodo==1)
 		{
 			numero=object;		
 			if(!/^([/0-9])*$/.test(numero))
 			scope.tmodal_servicio_especiales.FecIniSerEsp=numero.substring(0,numero.length-1);
+		}
+		if(object!=undefined && metodo==2)
+		{
+			numero=object;		
+			if(!/^([/0-9])*$/.test(numero))
+			scope.FecBloSerEsp=numero.substring(0,numero.length-1);
 		}
 	}
 
@@ -583,6 +590,7 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	{
 		scope.status_servicio_especial.MotBloSerEsp=scope.servicio_especial_bloqueo.MotBloSerEsp;
 		scope.status_servicio_especial.ObsMotBloSerEsp=scope.servicio_especial_bloqueo.ObsMotBloSerEsp;
+		scope.status_servicio_especial.FecBlo=scope.servicio_especial_bloqueo.FecBlo;
 		console.log(scope.status_servicio_especial);
 	}
 	console.log(scope.status_servicio_especial);
@@ -649,6 +657,54 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	 	{
 	 		scope.servicio_especial_bloqueo.ObsMotBloSerEsp=scope.servicio_especial_bloqueo.ObsMotBloSerEsp;
 	 	}
+	 	if(scope.FecBloSerEsp==undefined||scope.FecBloSerEsp==null||scope.FecBloSerEsp=='')
+	 	{
+	 		Swal.fire({title:"Fecha Bloqueo",text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+	 		return false;
+	 	}
+	 	else
+	 	{
+	 		var FecBlo= (scope.FecBloSerEsp).split("/");
+			if(FecBlo.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FecBlo[0].length>2 || FecBlo[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+					}
+				if(FecBlo[1].length>2 || FecBlo[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecBlo[2].length<4 || FecBlo[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.FecBloSerEsp.split("/");
+		        valuesEnd=scope.Fecha_Server.split("/"); 
+		        // Verificamos que la fecha no sea posterior a la actual
+		        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+		        if(dateStart>dateEnd)
+		        {
+		            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+		            return false;
+		        }
+		        scope.servicio_especial_bloqueo.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
+	        }	
+	 	}
+	 	console.log(scope.servicio_especial_bloqueo);
 	 	Swal.fire({title:"¿Esta Seguro de Bloquear Este Servicio Especial?",
 		type:"question",
 		showCancelButton:!0,

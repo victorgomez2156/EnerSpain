@@ -17,8 +17,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.TProductos=[];
 	scope.TProductosBack=[];
 	scope.Tcomercializadoras =[];
-scope.TcomercializadorasBack =[];
-scope.TProComercializadoras =[];
+	scope.TcomercializadorasBack =[];
+	scope.TProComercializadoras =[];
 	
 	var fecha = new Date();
 	var dd = fecha.getDate();
@@ -45,7 +45,8 @@ scope.TProComercializadoras =[];
 ////////////////////////////////////////////////////////////PARA LA LISTA Y CONFIGURACIONES DE PRODUCTOS START///////////////////////////////////////////////////
 
 		scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
-		scope.CodTCom=true;
+		scope.NumCifCom=true;
+		scope.RazSocCom=true;
 		scope.DesTPro=true;
 		scope.SerTGas=true;
 		scope.SerTEle=true;
@@ -348,6 +349,53 @@ $scope.SubmitFormFiltrosProductos = function(event)
 	 	{
 	 		scope.t_modal_data.ObsBloPro=scope.t_modal_data.ObsBloPro;
 	 	}
+	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
+	 	{
+	 		Swal.fire({title:'Fecha de Bloqueo',text:'Este Campo no estar vacio.',type:"success",confirmButtonColor:"#188ae2"});
+	 		return	false;
+	 	}
+	 	else
+	 	{
+	 		var FecBlo= (scope.fecha_bloqueo).split("/");
+			if(FecBlo.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+			if(FecBlo[0].length>2 || FecBlo[0].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+				}
+			if(FecBlo[1].length>2 || FecBlo[1].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			if(FecBlo[2].length<4 || FecBlo[2].length>4)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			valuesStart=scope.fecha_bloqueo.split("/");
+	        valuesEnd=scope.Fecha_Server.split("/"); 
+	        // Verificamos que la fecha no sea posterior a la actual
+	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+	        if(dateStart>dateEnd)
+	        {
+	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            return false;
+	        }
+	        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
+	    }
+	 	}
 	 	Swal.fire({title:"¿Esta Seguro de Bloquear Este Producto?",
 		type:"question",
 		showCancelButton:!0,
@@ -377,6 +425,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		{
 			scope.status_producto.MotBloqPro=scope.t_modal_data.MotBloPro;
 			scope.status_producto.ObsBloPro=scope.t_modal_data.ObsBloPro;
+			scope.status_producto.FecBlo=scope.t_modal_data.FecBlo;
 			console.log(scope.status_producto);
 		}
 		console.log(scope.status_producto);
@@ -476,7 +525,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			scope.t_modal_data.CodPro=dato.CodPro;
 			scope.Comercializadora=dato.NumCifCom+" - "+dato.RazSocCom;
 			scope.Producto=dato.DesPro;
-			scope.fecha_bloqueo=fecha;
+			scope.fecha_bloqueo=scope.Fecha_Server;
 			scope.t_modal_data.OpcPro=opciones_productos;
 			$("#modal_motivo_bloqueo_productos").modal('show');
 		}
@@ -748,13 +797,19 @@ scope.validar_campos_productos = function()
 		} 
 			return true;
 	} 
-	scope.validarsifechaproductos=function(object)
+	scope.validarsifechaproductos=function(object,metodo)
 	{
-		if(object!=undefined)
+		if(object!=undefined && metodo==1)
 		{
 			numero=object;		
 			if(!/^([/0-9])*$/.test(numero))
 			scope.tmodal_productos.FecIniPro=numero.substring(0,numero.length-1);
+		}
+		if(object!=undefined && metodo==2)
+		{
+			numero=object;		
+			if(!/^([/0-9])*$/.test(numero))
+			scope.fecha_bloqueo=numero.substring(0,numero.length-1);
 		}
 	}
 

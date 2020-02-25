@@ -1,4 +1,4 @@
-var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCookies','ui.bootstrap','angular.ping','ngRoute'])
+var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCookies','ui.bootstrap','angular.ping','ngRoute','ngMaterial'])
 .config(function ($httpProvider,$routeProvider) 
 {
 		$httpProvider.defaults.useXDomain = true;
@@ -141,6 +141,10 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {
 			mytext:"This is angular",
 			templateUrl: 'application/views/view_grib_consumo_cups.php'
+		})
+		.when('/Historial_Consumo_Cups/:CodCup/:TipServ', {
+			mytext:"This is angular",
+			templateUrl: 'application/views/view_grib_historial_cups.php'
 		})	
 
 		/*.when('/Comercializadora/', {

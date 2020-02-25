@@ -53,13 +53,6 @@ app.controller('Controlador_Anexos', ['$http', '$scope', '$filter','$route','$in
 }])
 function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('Controlador_Clientes as vmAE',{$scope:$scope});
-	//var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.	
-	//$controller('Controlador_Clientes',{$scope : testCtrl1ViewModel });		
-	//var testCtrl1ViewModel = $controller('Controlador_Clientes');
-   	//testCtrl1ViewModel.cargar_lista_clientes();
 	var scope = this;
 	scope.fdatos = {};	
 	scope.anexos = {};	
@@ -88,7 +81,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.tmodal_anexos={};
 	scope.reporte_pdf_anexos=0;
 	scope.reporte_excel_anexos=0;
-	scope.CodAnePro=true;
+	scope.NumCifCom=true;
+	scope.RazSocCom=true;
 	scope.CodAneTPro=true;
 	scope.DesAnePro=true;
 	scope.SerGasAne=true;
@@ -130,6 +124,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.TProductos =dato.Productos;
 			scope.Tarifa_Gas_Anexos =dato.Tarifa_Gas;
 			scope.Tarifa_Ele_Anexos =dato.Tarifa_Ele;
+
 			if(scope.nIDAnexos==undefined)
 			{
 				scope.FecIniAneA=dato.fecha;
@@ -202,13 +197,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});	
-scope.validarsifechaanexos=function(object)
+scope.validarsifechaanexos=function(object,metodo)
 	{
-		if(object!=undefined)
+		if(object!=undefined && metodo==1)
 		{
 			numero=object;		
 			if(!/^([/0-9])*$/.test(numero))
 			scope.tmodal_anexos.FecIniAne=numero.substring(0,numero.length-1);
+		}
+		if(object!=undefined && metodo==2)
+		{
+			numero=object;		
+			if(!/^([/0-9])*$/.test(numero))
+			scope.FecBloAne=numero.substring(0,numero.length-1);
 		}
 	}
 	$scope.SubmitFormFiltrosAnexos = function(event) 
@@ -580,26 +581,11 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		}
 		if(opciones_anexos==3)
 		{
-			/*scope.anexos={};
-			scope.TvistaAnexos=2;
-			scope.validate_info_anexos=0;
-			scope.nIDAnexos=dato.CodAnePro;
-			scope.validate_info_anexos=0;
-			scope.buscarXIDAnexos();
-			scope.filtrar_productos_com();*/
 			location.href ="#/Edit_Anexos/"+dato.CodAnePro;
 		}
 		if(opciones_anexos==4)
-		{
-			/*scope.anexos={};
-			scope.opciones_anexos[index]=undefined;
-			scope.TvistaAnexos=2;
-			scope.nIDAnexos=dato.CodAnePro;
-			scope.buscarXIDAnexos();
-			scope.filtrar_productos_com();
-			scope.validate_info_anexos=1;*/
-			location.href ="#/Ver_Anexos/"+dato.CodAnePro+"/"+1;
-			//
+		{		
+			location.href ="#/Ver_Anexos/"+dato.CodAnePro+"/"+1;		
 		}
 	}
 
@@ -612,6 +598,53 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	 	else
 	 	{
 	 		scope.anexos_motivo_bloqueos.ObsMotBloAne=scope.anexos_motivo_bloqueos.ObsMotBloAne;
+	 	}
+	 	if(scope.FecBloAne==undefined||scope.FecBloAne==null||scope.FecBloAne=='')
+	 	{
+	 		Swal.fire({title:"Fecha Bloqueo",text:"Debe ingresar una fecha de bloqueo para el anexo..",type:"error",confirmButtonColor:"#188ae2"});				
+			return false;
+	 	}
+	 	else
+	 	{
+	 		var FecBlo= (scope.FecBloAne).split("/");
+			if(FecBlo.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+			if(FecBlo[0].length>2 || FecBlo[0].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+				}
+			if(FecBlo[1].length>2 || FecBlo[1].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			if(FecBlo[2].length<4 || FecBlo[2].length>4)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			valuesStart=scope.FecBloAne.split("/");
+	        valuesEnd=scope.Fecha_Server.split("/"); 
+	        // Verificamos que la fecha no sea posterior a la actual
+	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+	        if(dateStart>dateEnd)
+	        {
+	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            return false;
+	        }
+	        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
+	    }
 	 	}
 	 	Swal.fire({title:"¿Esta Seguro de Bloquear Este Anexo?",
 		type:"question",
@@ -643,6 +676,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		{
 			scope.status_anexos.MotBloAne=scope.anexos_motivo_bloqueos.MotBloAne;
 			scope.status_anexos.ObsMotBloAne=scope.anexos_motivo_bloqueos.ObsMotBloAne;
+			scope.status_anexos.FecBlo=scope.t_modal_data.FecBlo;
 			console.log(scope.status_anexos);
 		}
 		console.log(scope.status_anexos);

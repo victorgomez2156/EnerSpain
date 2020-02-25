@@ -34,15 +34,26 @@
   <link href="<?php echo ESTILOS;?>css/jquery-ui-1.10.4.min.css" rel="stylesheet">
   <link href="<?php echo ESTILOS;?>css-loader-master/dist/css-loader.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css/sweetalert2.min.css" rel="stylesheet" />
-  
+  <link href="<?php echo ESTILOS;?>css/angular-material.css"  rel="stylesheet">
   <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
 
-  <script data-require="angular.js@*" data-semver="1.5.0" src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.js'?>"></script> 
+  
+
+   <script src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.min.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-aria.min.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-material.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>"></script>
+    
+
+
+  <!--script data-require="angular.js@*" data-semver="1.5.0" src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.js'?>"></script--> 
   <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>"></script> 
   <script src="<?php echo PATH_ESTILOS_JS.'checklist-model.js'?>"></script> 
   <script src="<?php echo PATH_ESTILOS_JS.'angular-resource.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'angular-ping.js'?>"></script> 
+
   <script src="<?php echo PATH_ESTILOS_JS.'angular-route.js'?>"></script> 
   <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>

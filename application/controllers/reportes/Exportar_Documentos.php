@@ -20,8 +20,7 @@ class Exportar_Documentos extends CI_Controller
 		/*if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
-        }*/
-       
+        }*/       
     } 
     function index()
     {

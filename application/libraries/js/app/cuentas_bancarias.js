@@ -87,7 +87,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 console.log($route.current.$$route.originalPath);
 ///////////////////////////// CUENTAS BANCARIAS CLIENTES START ///////////////////////////	
 	scope.agregar_cuentas=true;
-	scope.ClieCueBan=true;
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
 	scope.CodBan1=true;
 	scope.NumIBan1=true;
 	scope.EstCue=true;

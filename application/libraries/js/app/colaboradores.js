@@ -15,9 +15,6 @@ app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$rout
 })
 function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceColaboradores)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('ControladorArticuloExistencia as vmAE',{$scope:$scope});			
 	var scope = this;
 	scope.fdatos = {}; // datos del formulario
 	scope.nID = $route.current.params.ID;	//contiene el id del registro en caso de estarse consultando desde la grid	
@@ -38,7 +35,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			location.href="#/Colaboradores/";
 		}
-		//scope.
 	}
 	if($route.current.$$route.originalPath=="/Colaboradores/")
 	{

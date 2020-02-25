@@ -14,11 +14,15 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.CodCups = $route.current.params.CodCups;
 	scope.TipServ = $route.current.params.TipServ;
 	scope.validate_info= $route.current.params.INF;
+	scope.CodCup = $route.current.params.CodCup;
 	scope.Nivel = $cookies.get('nivel');
 	scope.TCups=[];
 	scope.TCupsBack=[];
 	scope.fdatos_cups.TipServ="0";
-	
+	scope.historial={};
+	scope.FecIniConHis=true;
+	scope.FecFinConHis=true;
+	scope.ConCupHis=true;
 	var fecha = new Date();
 	var dd = fecha.getDate();
 	var mm = fecha.getMonth()+1; //January is 0!
@@ -43,6 +47,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	console.log(scope.TipServ);
 	console.log(scope.Nivel);
 	console.log(fecha);
+	console.log(scope.CodCup);
 	scope.Cif=true;
 	scope.RazSoc=true;
 	scope.Cups=true;
@@ -191,106 +196,11 @@ scope.validar_opcion_cups=function(index,opciones_cups,dato)
 			}
 		});
 	}
-
-
-
-	/*if(opciones_cups==2)
-	{
-		scope.validate_info=1;		
-		if(dato.TipServ=="Eléctrico")
-		{		
-			$("#cargandos_cups").removeClass( "loader loader-defaul").addClass( "loader loader-default is-active");
-			var url = base_urlHome()+"api/Cups/Buscar_XID_Servicio/TipServ/"+1+"/CodCup/"+dato.CodCupGas;
-			$http.get(url).then(function(result)
-			{
-				$("#cargandos_cups").removeClass( "loader loader-defaul is-active").addClass("loader loader-default");
-				if(result.data!=false)
-				{
-					scope.fdatos_cups_cups=result.data;
-					scope.TVistaCups=false;
-					scope.por_servicios(1);
-					console.log(result.data);
-				}
-				else
-				{
-					Swal.fire({title:"Error",text:"No se encontraron datos intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-					scope.fdatos_cups_cups={};
-					scope.TVistaCups=true;
-				}
-
-			},function(error)
-			{
-				$("#cargandos_cups").removeClass( "loader loader-defaul is-active" ).addClass( "loader loader-default" );
-	            if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-
-
-			});
-
-		}
-		if(dato.TipServ=="Gas")
-		{
-			$("#cargandos_cups").removeClass( "loader loader-defaul").addClass( "loader loader-default is-active");
-			var url = base_urlHome()+"api/Cups/Buscar_XID_Servicio/TipServ/"+2+"/CodCup/"+dato.CodCupGas;
-			$http.get(url).then(function(result)
-			{
-				$("#cargandos_cups").removeClass( "loader loader-defaul is-active").addClass("loader loader-default");
-				if(result.data!=false)
-				{
-					scope.fdatos_cups_cups=result.data;
-					scope.TVistaCups=false;
-					scope.por_servicios(2);
-					console.log(result.data);
-				}
-				else
-				{
-					Swal.fire({title:"Error",text:"No se encontraron datos intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-					scope.fdatos_cups_cups={};
-					scope.TVistaCups=true;
-				}
-			},function(error)
-			{
-				$("#cargandos_cups").removeClass( "loader loader-defaul is-active" ).addClass( "loader loader-default" );
-	            if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-			});
-		}
-		
-	}
-	
-	
 	if(opciones_cups==5)
 	{
 		//$("#modal_motivo_bloqueo").modal('show');
-		scope.TVistaCups=undefined;
+		location.href="#/Historial_Consumo_Cups/"+dato.CodCupGas+"/"+dato.TipServ;
+		/*scope.TVistaCups=undefined;
 		scope.historial={};
 		scope.historial.CodCup=dato.CodCupGas;
 		scope.historial.TipServ=dato.TipServ;
@@ -298,8 +208,8 @@ scope.validar_opcion_cups=function(index,opciones_cups,dato)
 		scope.T_Historial_Consumo=[];
 		scope.FecIniConHis=true;
 		scope.FecFinConHis=true;
-		scope.ConCupHis=true;
-	}*/
+		scope.ConCupHis=true;*/
+	}
 }
 scope.regresar_cups=function()
 {
@@ -337,6 +247,10 @@ scope.regresar_cups=function()
 	{
 		location.href="#/Gestionar_Cups";
 	}    
+}
+scope.regresar_a_cups=function()
+{
+	location.href="#/Gestionar_Cups";	
 }
 	scope.validar_fecha_inputs=function(metodo,object)
 {
@@ -1364,6 +1278,159 @@ scope.buscar_tarifa=function()
 		}
 	});
 }
+
+scope.validar_fechas=function()
+{
+	resultado = true;	
+	var desde= (scope.historial.desde).split("/");
+	if(desde.length<3)
+	{
+		Swal.fire({text:"El Formato de Fecha DESDE Debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	else
+	{		
+		if(desde[0].length>2 || desde[0].length<2)
+		{
+			Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if(desde[1].length>2 || desde[1].length<2)
+		{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					//event.preventDefault();	
+					return false;
+		}
+		if(desde[2].length<4 || desde[2].length>4)
+		{
+			Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+			//event.preventDefault();	
+			return false;
+		}
+		var h1=new Date();			
+		var final = desde[0]+"/"+desde[1]+"/"+desde[2];
+		scope.historial.desde=final;
+	}
+	var hasta= (scope.historial.hasta).split("/");
+	if(hasta.length<3)
+	{
+		Swal.fire({text:"El Formato de Fecha HASTA Debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	else
+	{		
+		if(hasta[0].length>2 || hasta[0].length<2)
+		{
+			Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if(hasta[1].length>2 || hasta[1].length<2)
+		{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					//event.preventDefault();	
+					return false;
+		}
+		if(hasta[2].length<4 || hasta[2].length>4)
+		{
+			Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+			//event.preventDefault();	
+			return false;
+		}
+		var h1=new Date();			
+		var final2 = hasta[0]+"/"+hasta[1]+"/"+hasta[2];
+		scope.historial.hasta=final2;
+	}
+	if (resultado == false)
+	{
+		return false;
+	} 
+	return true;
+}
+$scope.submitFormHistorial = function(event) 
+{ 
+	scope.historial.TipServ=scope.TipServ
+    scope.historial.CodCup= scope.CodCup
+	console.log(scope.historial);	
+	if (!scope.validar_fechas())
+	{
+		return false;
+	}
+	Swal.fire({title:'Historial CUPs',
+	text:'Generar Historial de Consumo CUPs',
+	type:"question",
+	showCancelButton:!0,
+	confirmButtonColor:"#31ce77",
+	cancelButtonColor:"#f34943",
+	confirmButtonText:"Generar"}).then(function(t)
+	{
+	    if(t.value==true)
+	    { 
+	      	$("#Generar_Consumo").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
+	        var url = base_urlHome()+"api/Cups/Historial_Consumo_CUPs/";
+	        $http.post(url,scope.historial).then(function(result)
+	        {
+	            $("#Generar_Consumo").removeClass( "loader loader-default is-active").addClass( "loader loader-default");
+	            if(result.data!=false)
+	            {
+	            	scope.result_his=true;
+	            	scope.T_Historial_Consumo=result.data.result;
+	            	scope.Total_Consumo=result.data.total_consumo;
+	            	scope.desde=result.data.desde;
+	            	scope.hasta=result.data.hasta;
+	            	scope.CodCup=result.data.CodCup;
+	            	if(scope.historial.TipServ=="Eléctrico")
+	            	{
+	            		scope.PotCon1=true;
+						scope.PotCon2=true;
+						scope.PotCon3=true;
+						scope.PotCon4=true;
+						scope.PotCon5=true;
+						scope.PotCon6=true;
+	            	}
+	            	else
+	            	{
+	            		scope.PotCon1=false;
+						scope.PotCon2=false;
+						scope.PotCon3=false;
+						scope.PotCon4=false;
+						scope.PotCon5=false;
+						scope.PotCon6=false;
+	            	}
+	            }
+	            else
+	            {
+	            	Swal.fire({title:"Error",text:"No se encontraron datos en el rango de busqueda.",type:"info",confirmButtonColor:"#188ae2"});
+	            	scope.result_his=false;
+					scope.T_Historial_Consumo=[];
+	            	//scope.cargar_lista_consumo_CUPs();
+	            }
+	        },function(error)
+	        {
+				$("#Generar_Consumo").removeClass( "loader loader-default is-active").addClass( "loader loader-default");
+	            if(error.status==404 && error.statusText=="Not Found")
+				{
+					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==401 && error.statusText=="Unauthorized")
+				{
+					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==403 && error.statusText=="Forbidden")
+				{
+					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==500 && error.statusText=="Internal Server Error")
+				{
+					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+            });
+	    }
+	    else
+	    {
+			event.preventDefault();							
+	    }
+	});		
+};
 
 	if(scope.CodCups!=undefined)
 	{

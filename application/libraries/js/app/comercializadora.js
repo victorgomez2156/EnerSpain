@@ -57,8 +57,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.fdatos = {}; // datos del formulario
 	scope.nID = $route.current.params.ID;	  //contiene el id del registro en caso de estarse consultando desde la grid
 	scope.Nivel = $cookies.get('nivel');
-	scope.Tcomercializadoras=undefined;
-	scope.TcomercializadorasBack=undefined;
 	scope.index=0;
 	var fecha = new Date();
 	var dd = fecha.getDate();
@@ -103,7 +101,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				end = begin + $scope.numPerPage;  
 				index = scope.Tcomercializadoras.indexOf(value);  
 				return (begin <= index && index < end);  
-			};			
+			};	
+			scope.fecha_server=dato.fecha;
+			console.log(scope.fecha_server);
 		}).catch(function(error) 
 		{
 			console.log(error);//Tratar el error
@@ -452,10 +452,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.NumCifComBlo=dato.NumCifCom;
 			scope.RazSocComBlo=dato.RazSocCom;
 			scope.t_modal_data.OpcCom=opciones_comercializadoras;
-			scope.fecha_bloqueo=fecha;
-			scope.cargar_lista_MotBloCom(index);			
-			//
-			//scope.cambiar_estatus_comercializadora(opciones_comercializadoras,dato.CodCom);
+			scope.fecha_bloqueo=scope.fecha_server;
+			scope.cargar_lista_MotBloCom(index);
 		}
 		if(opciones_comercializadoras==3)
 		{
@@ -518,6 +516,54 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	 	{
 	 		scope.t_modal_data.ObsBloCom=scope.t_modal_data.ObsBloCom;
 	 	}
+	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
+	 	{
+	 		Swal.fire({title:"Error",text:"El Campo Fecha de Bloqueo no puedar estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+	 		return false;
+		}
+	 	else
+	 	{
+		 	var FecBlo= (scope.fecha_bloqueo).split("/");
+			if(FecBlo.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FecBlo[0].length>2 || FecBlo[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+					}
+				if(FecBlo[1].length>2 || FecBlo[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecBlo[2].length<4 || FecBlo[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.fecha_bloqueo.split("/");
+		        valuesEnd=scope.fecha_server.split("/"); 
+		        // Verificamos que la fecha no sea posterior a la actual
+		        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+		        if(dateStart>dateEnd)
+		        {
+		            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+		            return false;
+		        }
+		        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];		
+			}
+	 		
+	 	}
 	 	Swal.fire({title:"¿Esta Seguro de Bloquear Esta Comercializadora?",
 		type:"question",
 		showCancelButton:!0,
@@ -546,6 +592,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			scope.status_comer.MotBloq=scope.t_modal_data.MotBloq;
 			scope.status_comer.ObsBloCom=scope.t_modal_data.ObsBloCom;
+			scope.status_comer.FecBlo=scope.t_modal_data.FecBlo;
 			console.log(scope.status_comer);
 		}
 		$("#estatus").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");

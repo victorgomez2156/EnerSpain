@@ -147,7 +147,7 @@ class Comercializadora_model extends CI_Model
     }
     public function get_CodCom($CodCom)
     {
-        $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,a.CodTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.CodPro,a.CodLoc,,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,a.SerGas,a.SerEle,a.SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,a.RenAutConCom,,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,a.ObsCom,b.CPLoc as ZonPos',false);
+        $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,a.CodTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.CodPro,a.CodLoc,,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,a.SerGas,a.SerEle,a.SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,a.RenAutConCom,,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,a.ObsCom,a.CPLoc as ZonPos',false);
         $this->db->from('T_Comercializadora a');
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
         $this->db->join('T_Provincia c','c.CodPro=b.CodPro');
@@ -163,14 +163,14 @@ class Comercializadora_model extends CI_Model
             return false;
         }       
     }
-     public function actualizar_comercializadora($CodCom,$BloDirCom,$CarConCom,$CodLoc,$CodTipVia,$DurConCom,$EmaCom,$EscDirCom,$FecConCom,$FecVenConCom,$NomComCom,$NomConCom,$NomViaDirCom,$NumCifCom,$NumViaDirCom,$ObsCom,$PagWebCom,$PlaDirCom,$PueDirCom,$RazSocCom,$RenAutConCom,$SerEle,$SerEsp,$SerGas,$TelFijCom,$DocConCom,$fecha)
+     public function actualizar_comercializadora($CodCom,$BloDirCom,$CarConCom,$CodLoc,$CodTipVia,$DurConCom,$EmaCom,$EscDirCom,$FecConCom,$FecVenConCom,$NomComCom,$NomConCom,$NomViaDirCom,$NumCifCom,$NumViaDirCom,$ObsCom,$PagWebCom,$PlaDirCom,$PueDirCom,$RazSocCom,$RenAutConCom,$SerEle,$SerEsp,$SerGas,$TelFijCom,$DocConCom,$fecha,$ZonPos)
     {   
         $this->db->where('CodCom', $CodCom);        
-        return $this->db->update('T_Comercializadora',array('BloDirCom'=>$BloDirCom,'CarConCom'=>$CarConCom,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'DurConCom'=>$DurConCom,'EmaCom'=>$EmaCom,'EscDirCom'=>$EscDirCom,'FecConCom'=>$FecConCom,'FecVenConCom'=>$FecVenConCom,'NomComCom'=>$NomComCom,'NomConCom'=>$NomConCom,'NomViaDirCom'=>$NomViaDirCom,'NumViaDirCom'=>$NumViaDirCom,'ObsCom'=>$ObsCom,'PagWebCom'=>$PagWebCom,'PlaDirCom'=>$PlaDirCom,'PueDirCom'=>$PueDirCom,'RazSocCom'=>$RazSocCom,'RenAutConCom'=>$RenAutConCom,'SerEle'=>$SerEle,'SerEsp'=>$SerEsp,'SerGas'=>$SerGas,'TelFijCom'=>$TelFijCom,'DocConCom'=>$DocConCom,'FecIniCom'=>$fecha));
+        return $this->db->update('T_Comercializadora',array('BloDirCom'=>$BloDirCom,'CarConCom'=>$CarConCom,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'DurConCom'=>$DurConCom,'EmaCom'=>$EmaCom,'EscDirCom'=>$EscDirCom,'FecConCom'=>$FecConCom,'FecVenConCom'=>$FecVenConCom,'NomComCom'=>$NomComCom,'NomConCom'=>$NomConCom,'NomViaDirCom'=>$NomViaDirCom,'NumViaDirCom'=>$NumViaDirCom,'ObsCom'=>$ObsCom,'PagWebCom'=>$PagWebCom,'PlaDirCom'=>$PlaDirCom,'PueDirCom'=>$PueDirCom,'RazSocCom'=>$RazSocCom,'RenAutConCom'=>$RenAutConCom,'SerEle'=>$SerEle,'SerEsp'=>$SerEsp,'SerGas'=>$SerGas,'TelFijCom'=>$TelFijCom,'DocConCom'=>$DocConCom,'FecIniCom'=>$fecha,'CPLoc'=>$ZonPos));
     }
-    public function agregar_comercializadora($BloDirCom,$CarConCom,$CodLoc,$CodTipVia,$DurConCom,$EmaCom,$EscDirCom,$FecConCom,$FecVenConCom,$NomComCom,$NomConCom,$NomViaDirCom,$NumCifCom,$NumViaDirCom,$ObsCom,$PagWebCom,$PlaDirCom,$PueDirCom,$RazSocCom,$RenAutConCom,$SerEle,$SerEsp,$SerGas,$TelFijCom,$fecha,$DocConCom)
+    public function agregar_comercializadora($BloDirCom,$CarConCom,$CodLoc,$CodTipVia,$DurConCom,$EmaCom,$EscDirCom,$FecConCom,$FecVenConCom,$NomComCom,$NomConCom,$NomViaDirCom,$NumCifCom,$NumViaDirCom,$ObsCom,$PagWebCom,$PlaDirCom,$PueDirCom,$RazSocCom,$RenAutConCom,$SerEle,$SerEsp,$SerGas,$TelFijCom,$fecha,$DocConCom,$ZonPos)
     {
-        $this->db->insert('T_Comercializadora',array('BloDirCom'=>$BloDirCom,'CarConCom'=>$CarConCom,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'DurConCom'=>$DurConCom,'EmaCom'=>$EmaCom,'EscDirCom'=>$EscDirCom,'FecConCom'=>$FecConCom,'FecVenConCom'=>$FecVenConCom,'NomComCom'=>$NomComCom,'NomConCom'=>$NomConCom,'NomViaDirCom'=>$NomViaDirCom,'NumCifCom'=>$NumCifCom,'NumViaDirCom'=>$NumViaDirCom,'ObsCom'=>$ObsCom,'PagWebCom'=>$PagWebCom,'PlaDirCom'=>$PlaDirCom,'PueDirCom'=>$PueDirCom,'RazSocCom'=>$RazSocCom,'RenAutConCom'=>$RenAutConCom,'SerEle'=>$SerEle,'SerEsp'=>$SerEsp,'SerGas'=>$SerGas,'TelFijCom'=>$TelFijCom,'FecIniCom'=>$fecha,'DocConCom'=>$DocConCom));
+        $this->db->insert('T_Comercializadora',array('BloDirCom'=>$BloDirCom,'CarConCom'=>$CarConCom,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'DurConCom'=>$DurConCom,'EmaCom'=>$EmaCom,'EscDirCom'=>$EscDirCom,'FecConCom'=>$FecConCom,'FecVenConCom'=>$FecVenConCom,'NomComCom'=>$NomComCom,'NomConCom'=>$NomConCom,'NomViaDirCom'=>$NomViaDirCom,'NumCifCom'=>$NumCifCom,'NumViaDirCom'=>$NumViaDirCom,'ObsCom'=>$ObsCom,'PagWebCom'=>$PagWebCom,'PlaDirCom'=>$PlaDirCom,'PueDirCom'=>$PueDirCom,'RazSocCom'=>$RazSocCom,'RenAutConCom'=>$RenAutConCom,'SerEle'=>$SerEle,'SerEsp'=>$SerEsp,'SerGas'=>$SerGas,'TelFijCom'=>$TelFijCom,'FecIniCom'=>$fecha,'DocConCom'=>$DocConCom,'CPLoc'=>$ZonPos));
         return $this->db->insert_id();
     }
       public function consultar_cif_comercializadora($NumCifCom)

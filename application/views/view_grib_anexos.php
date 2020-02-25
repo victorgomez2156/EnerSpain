@@ -91,7 +91,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.CodAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Comercializadora</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
                         <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Producto</b></li></li>
                         <li><input type="checkbox" ng-model="vm.DesAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción Anexo</b></li></li>
                         <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
@@ -133,7 +134,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.CodAnePro==true"><i class="icon_cogs"></i> Comercializadora</th>
+                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Producto</th>
                     <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Anexos</th>
                     <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Ser. Gas</th>
@@ -146,10 +148,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TAnexos.length==0"> 
-                    <td colspan="10" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="12" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.TAnexos | filter:paginate2 | filter:vm.filtrar_anexos" ng-class-odd="odd">
-                    <td ng-show="vm.CodAnePro==true">{{dato.NumCifCom}} - {{dato.RazSocCom}}</td>
+                  <tr ng-repeat="dato in vm.TAnexos | filter:paginate2 | filter:vm.filtrar_anexos" ng-class-odd="odd">                    
+                    <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
+                    <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>
                     <td ng-show="vm.CodAneTPro==true">{{dato.DesPro}}</td>                  
                     <td ng-show="vm.DesAnePro==true">{{dato.DesAnePro}}</td>
                     <td ng-show="vm.SerGasAne==true">{{dato.SerGas}}</td>
@@ -175,7 +178,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.CodAnePro==true"><i class="icon_cogs"></i> Comercializadora</th>
+                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Producto</th>
                     <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Anexos</th>
                     <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Ser. Gas</th>
@@ -279,7 +283,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       
-      <input type="text" name="FecIniAne" id="FecIniAne" class="form-control" ng-model="vm.tmodal_anexos.FecIniAne" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaanexos(vm.tmodal_anexos.FecIniAne)" maxlength="10">  
+      <input type="text" name="FecIniAne" id="FecIniAne" class="form-control" ng-model="vm.tmodal_anexos.FecIniAne" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaanexos(vm.tmodal_anexos.FecIniAne,1)" maxlength="10">  
 
 
      </div>
@@ -356,7 +360,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FecBloAne" required readonly/>    
+     <input type="text" class="form-control" ng-model="vm.FecBloAne" required maxlength="10" ng-change="vm.validarsifechaanexos(vm.FecBloAne,2)" />    
      </div>
      </div>
      </div>

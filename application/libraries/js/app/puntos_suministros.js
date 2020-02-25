@@ -82,8 +82,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 ////////////////////////////////////////////////// PARA LOS PUNTOS DE SUMINISTROS START ////////////////////////////////////////////////////////
 
 ///////////////////////////// PUNTOS DE SUMINISTROS START ///////////////////////////
-	console.log()
-	scope.CodCliPunSum=true;
+	
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
 	scope.DirPunSum=true;
 	scope.CodProPunSum=true;
 	scope.CodLocPunSum=true;
@@ -469,7 +470,7 @@ ServiceMaster.getAll().then(function(dato)
 			scope.tPunSum.CodCli=dato.CodCli;
 			scope.tPunSum.NumCifCli=dato.NumCifCli;
 			scope.tPunSum.RazSocCli=dato.RazSocCli;			
-			scope.tPunSum.FecBloPun=scope.fecha_server;
+			scope.FecBloPun=scope.fecha_server;
 			scope.tPunSum.opcion=opciones_PunSum;
 			scope.cargar_lista_motivos_bloqueos_puntos_suministros();
 			$("#modal_motivo_bloqueo_punto_suministro").modal('show');
@@ -573,9 +574,67 @@ ServiceMaster.getAll().then(function(dato)
 			}
 		});
 	}
+	scope.validar_fecha_blo=function(object)
+{
+	console.log(object);
+	if(object!=undefined)
+	{
+		numero=object;		
+		if(!/^([/0-9])*$/.test(numero))
+		scope.FecBloPun=numero.substring(0,numero.length-1);
+	}		
+}
 	$scope.submitFormlockPunSum = function(event) 
 	{ 
-		if(scope.tPunSum.ObsBloPunSum==undefined||scope.tPunSum.ObsBloPunSum==null||scope.tPunSum.ObsBloPunSum=='')
+		if(scope.FecBloPun==undefined || scope.FecBloPun==null || scope.FecBloPun=='') 
+	{
+		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+		event.preventDefault();	
+		return false;
+	}	
+	else
+	{
+		var FecBloPun= (scope.FecBloPun).split("/");
+		if(FecBloPun.length<3)
+		{
+			Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+			event.preventDefault();	
+			return false;
+		}
+		else
+		{		
+			if(FecBloPun[0].length>2 || FecBloPun[0].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+				}
+			if(FecBloPun[1].length>2 || FecBloPun[1].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			if(FecBloPun[2].length<4 || FecBloPun[2].length>4)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			valuesStart=scope.FecBloPun.split("/");
+	        valuesEnd=scope.fecha_server.split("/"); 
+	        // Verificamos que la fecha no sea posterior a la actual
+	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+	        if(dateStart>dateEnd)
+	        {
+	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            return false;
+	        }
+	        scope.tPunSum.FecBloPun=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];	
+		}
+	}
+	if(scope.tPunSum.ObsBloPunSum==undefined||scope.tPunSum.ObsBloPunSum==null||scope.tPunSum.ObsBloPunSum=='')
 		{
 			scope.tPunSum.ObsBloPunSum=null;
 		}
@@ -583,6 +642,7 @@ ServiceMaster.getAll().then(function(dato)
 		{
 			scope.tPunSum.ObsBloPunSum=scope.tPunSum.ObsBloPunSum;
 		}
+
 	 	Swal.fire({title:"¿Esta Seguro de Bloquear esta Punto de Suministro?",
 			type:"question",
 			showCancelButton:!0,

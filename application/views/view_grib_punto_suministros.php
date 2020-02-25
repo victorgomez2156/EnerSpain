@@ -94,7 +94,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   
-                  <li><input type="checkbox" ng-model="vm.CodCliPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Clientes</b></li>
+                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
                   <li><input type="checkbox" ng-model="vm.DirPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>                  
                   <li><input type="checkbox" ng-model="vm.CodProPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Provincia</b></li></li>
                   <li><input type="checkbox" ng-model="vm.CodLocPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Localidad</b></li></li>
@@ -133,7 +134,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
             <tbody>
                   <tr>
-                  <th ng-show="vm.CodCliPunSum==true"><i class="fa fa-asterisk"></i> Clientes</th>
+                   <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
+                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
                   <th ng-show="vm.DirPunSum==true"><i class="fa fa-vcard"></i> Dirección</th>
                   <th ng-show="vm.CodProPunSum==true"><i class="fa fa-building"></i> Provincia</th>
                   <th ng-show="vm.CodLocPunSum==true"><i class="fa fa-building"></i> Localidad</th>
@@ -144,7 +146,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay puntos de suministros asignados.</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2 | filter:vm.filtrar" ng-class-odd="odd">
-                    <td ng-show="vm.CodCliPunSum==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
+                    <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
+                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.DirPunSum==true">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</td>
                     <td ng-show="vm.CodProPunSum==true">{{dato.DesPro}}</td>
                     <td ng-show="vm.CodLocPunSum==true">{{dato.DesLoc}}</td>                    
@@ -162,7 +165,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th ng-show="vm.CodCliPunSum==true"><i class="fa fa-asterisk"></i> Clientes</th>
+                  <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
+                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
                   <th ng-show="vm.DirPunSum==true"><i class="fa fa-vcard"></i> Dirección</th>
                   <th ng-show="vm.CodProPunSum==true"><i class="fa fa-building"></i> Provincia</th>
                   <th ng-show="vm.CodLocPunSum==true"><i class="fa fa-building"></i> Localidad</th>
@@ -305,8 +309,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.tPunSum.FecBloPun" required readonly/>    
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo <b style="color:red;">DD/MM/YYYY</b></label>
+     <input type="text" class="form-control" ng-model="vm.FecBloPun" required ng-change="validar_fecha_blo(vm.FecBloPun)" maxlength="10"/>    
      </div>
      </div>
      </div>

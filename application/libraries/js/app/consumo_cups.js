@@ -1,13 +1,6 @@
 app.controller('Controlador_Consumo_Cups', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceCups', Controlador]);
 function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceCups)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('Controlador_Clientes as vmAE',{$scope:$scope});
-	//var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.	
-	//$controller('Controlador_Clientes',{$scope : testCtrl1ViewModel });		
-	//var testCtrl1ViewModel = $controller('Controlador_Clientes');
-   	//testCtrl1ViewModel.cargar_lista_clientes();
 	var scope = this;
 	scope.fdatos = {};
 	scope.fdatos_cups={};	
@@ -97,13 +90,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				scope.TCups_Consumo=[];
 				scope.TCups_ConsumoBack=[];
 			}
-			/*else
-			{
-				Swal.fire({title:"Error",text:"No se han encontrado historicos de CUPs registradoss.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.TCups_Consumo=[];
-				scope.TCups_ConsumoBack=[];	
-			}*/
-
 		},function(error)
 		{
 			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );

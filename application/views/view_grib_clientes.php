@@ -354,7 +354,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.tmodal_data.FechBlo" required ng-change="vm.validar_fecha_blo(vm.tmodal_data.FechBlo)" maxlength="10" />    
+     <input type="text" class="form-control" ng-model="vm.FechBlo" required ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
      </div>
      </div>
      </div>

@@ -53,19 +53,11 @@
 }])
 function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceMaster,upload)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('Controlador_Clientes as vmAE',{$scope:$scope});
-	//var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.	
-	//$controller('Controlador_Clientes',{$scope : testCtrl1ViewModel });		
-	//var testCtrl1ViewModel = $controller('Controlador_Clientes');
-   	//testCtrl1ViewModel.cargar_lista_clientes();
 	var scope = this;
 	scope.fdatos = {};
 	scope.nID = $route.current.params.ID;
 	scope.INF = $route.current.params.INF;
 	scope.Nivel = $cookies.get('nivel');
-	//const $archivosanexos = document.querySelector("#file_anexo");
 	var fecha = new Date();
 	var dd = fecha.getDate();
 	var mm = fecha.getMonth()+1; //January is 0!
@@ -82,13 +74,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB START /////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////// PARA LAS ACTIVIDADES START //////////////////////////////////////////////////////////
-	scope.CifCliAct=true;
+	
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
 	scope.DesSec=true;
 	scope.DesGru=true;
 	scope.DesEpi=true;
 	scope.EstAct=true;
 	scope.FecIniAct1=true;
 	scope.AccAct=true;
+
+
+
+
 	scope.ttipofiltrosact = [{id: 1, nombre: 'FECHA DE INICIO'},{id: 2, nombre: 'ESTATUS ACTIVIDAD'},{id: 3, nombre: 'CLIENTE'}];
 	scope.topcionesactividades = [{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
 	scope.ttipofiltrosEstAct = [{id: 1, nombre: 'Activa'},{id: 2, nombre: 'Bloqueada'}];
@@ -380,6 +378,12 @@ scope.validar_fecha_act=function(metodo,object)
 		if(!/^([/0-9])*$/.test(numero))
 		scope.FecIniActFil=numero.substring(0,numero.length-1);
 	}
+	if(object!=undefined && metodo==3)
+	{
+		numero=object;		
+		if(!/^([/0-9])*$/.test(numero))
+		scope.FecBloAct=numero.substring(0,numero.length-1);
+	}
 }
 scope.validar_actividad=function(index,opcion,datos)
 	{	
@@ -478,7 +482,7 @@ scope.validar_actividad=function(index,opcion,datos)
 				
 				scope.tmodal_data.CodCli=datos.CodCli;
 				scope.tmodal_data.CodTActCli=datos.CodTActCli;
-				scope.tmodal_data.FecBloAct=scope.fecha_server;
+				scope.FecBloAct=scope.fecha_server;
 				scope.tmodal_data.NumCif=datos.NumCifCli;
 				scope.tmodal_data.RazSoc=datos.RazSocCli;
 				scope.tmodal_data.DesActCNAE=datos.DesActCNAE;
@@ -528,7 +532,57 @@ scope.validar_actividad=function(index,opcion,datos)
 
 	$scope.submitFormlockActividades = function(event) 
 	{ 
-		Swal.fire({title:"¿Esta Seguro de Bloquear Esta Actividad?",
+		
+		if(scope.FecBloAct==undefined || scope.FecBloAct==null || scope.FecBloAct=='') 
+	{
+		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+		event.preventDefault();	
+		return false;
+	}	
+	else
+	{
+		var FecBloAct= (scope.FecBloAct).split("/");
+		if(FecBloAct.length<3)
+		{
+			Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+			event.preventDefault();	
+			return false;
+		}
+		else
+		{		
+			if(FecBloAct[0].length>2 || FecBloAct[0].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+				}
+			if(FecBloAct[1].length>2 || FecBloAct[1].length<2)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			if(FecBloAct[2].length<4 || FecBloAct[2].length>4)
+			{
+				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			valuesStart=scope.FecBloAct.split("/");
+	        valuesEnd=scope.fecha_server.split("/"); 
+	        // Verificamos que la fecha no sea posterior a la actual
+	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+	        if(dateStart>dateEnd)
+	        {
+	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            return false;
+	        }
+	        scope.tmodal_data.FecBloAct=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];	
+		}
+	}
+	console.log(scope.tmodal_data.FecBloAct);	
+	Swal.fire({title:"¿Esta Seguro de Bloquear Esta Actividad?",
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
