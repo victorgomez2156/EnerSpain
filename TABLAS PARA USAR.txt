@@ -1,0 +1,21 @@
+TABLAS PARA USAR 
+
+T_Colaborador
+T_Cliente
+T_ActividadCliente
+T_ContactoCliente
+T_CUPsElectrico
+T_CUPsGas
+T_PuntoSuministro
+V_CupsGrib
+
+
+Datos De Acceso FTP EnerSpain
+host: www.sistemasonline2018.com.ve
+puerto:21
+usuario: enerspain
+clave: energia2020..
+Datos De Acceso MYSQL 
+host: https://www.sistemasonline2018.com.ve/phpmyadmin
+usuario: enerspain
+clave: energia2020..
