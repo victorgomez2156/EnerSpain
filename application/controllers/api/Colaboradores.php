@@ -17,7 +17,16 @@ class Colaboradores extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     }
-    ////PARA LAS COLABORADORES START///////
+	////PARA LAS COLABORADORES START///////
+	public function get_only_colaboradores_get(){
+		$data = $this->Colaboradores_model->get_list_colaboradores();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
     public function get_all_functions_colaboradores_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -150,7 +159,22 @@ class Colaboradores extends REST_Controller
     }
      
    
-
+	public function clientes_colaboradores_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodCol=$this->get('CodCol');		
+        $data = $this->Colaboradores_model->get_clientes_x_colaborador($CodCol);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',$CodCol,$this->input->ip_address(),'Consultando datos de Clientes por Colaborador');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
      ////PARA LAS COLABORADORES END///////
    
 	

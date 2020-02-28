@@ -1,4 +1,4 @@
-app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceColaboradores', Controlador])
+app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceColaboradores','ServiceOnlyColaboradores', Controlador])
 .directive('stringToNumber', function() 
 {
   return {
@@ -13,7 +13,7 @@ app.controller('Controlador_Colaboradores', ['$http', '$scope', '$filter','$rout
     }
   };
 })
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceColaboradores)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceColaboradores,ServiceOnlyColaboradores)
 {
 	var scope = this;
 	scope.fdatos = {}; // datos del formulario
@@ -25,17 +25,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.index=0;
 	scope.tTipoColaborador = [{CodTipCol: 1, DesTipCol: 'Persona Física'},{CodTipCol: 2, DesTipCol: 'Empresa'}];
 	scope.tEstColaborador = [{id: 1, nombre: 'Activo'},{id: 2, nombre: 'Bloqueado'}];
+	scope.vColaboradorSeleccionado = null;
 	scope.habilitar_button=0;
 	resultado = false;
+	
 	console.log($route.current.$$route.originalPath);
-	if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID/:INF")
+	/*if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID/:INF")
 	{
 		scope.validate_info = $route.current.params.INF;
 		if(scope.validate_info!=1)
 		{
 			location.href="#/Colaboradores/";
 		}
-	}
+	}*/
 	if($route.current.$$route.originalPath=="/Colaboradores/")
 	{
 		scope.NomCol=true;
@@ -47,7 +49,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.AccCol=true;
 		scope.ruta_reportes_pdf_colaboradores=0;
 		scope.ruta_reportes_excel_colaboradores=0;
-		scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
+		//scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
 		scope.ttipofiltros = [{id: 1, nombre: 'Tipo Colaborador'},{id: 2, nombre: 'Estatus'}];
 	}
 	
@@ -68,6 +70,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.tProvidencias =[];
 	scope.tTiposVias = [];
 	scope.tLocalidades =[];
+	scope.tOnlyColaboradores =[];
+	scope.tClientes_x_Colaboradores =[];
 	ServiceColaboradores.getAll().then(function(dato) 
 	{		
 		scope.tProvidencias = dato.Provincias;
@@ -97,6 +101,33 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});
+	ServiceOnlyColaboradores.getAll().then(function(dato) {
+		scope.tOnlyColaboradores = dato;	
+	}).catch(function(error) 
+	{
+		console.log(error); //Tratar el error
+		if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+		{
+			Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unknown method.")
+		{
+			Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Invalid API Key.")
+		{
+			Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+	});
+
 	$scope.submitForm = function(event) 
 	{      
 	 	//console.log(scope.fdatos);
@@ -914,4 +945,14 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.buscarXID();
 		//scope.funcion_services();
 	}	
+	scope.Clientes_x_Colaboradores = function(cod){
+		var url = base_urlHome()+"api/Colaboradores/clientes_colaboradores/CodCol/"+cod;
+		$http.get(url).then(function(result)
+		{
+			if(result.data!=false)
+			{
+				scope.tClientes_x_Colaboradores = result.data;	
+			}
+		});
+	}
 }			

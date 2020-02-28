@@ -165,7 +165,7 @@
             </ul>
           </li>
 
-             <li class="sub-menu">
+        <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-users"></i>
               <span>Clientes</span>
@@ -180,7 +180,18 @@
               <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li> 
               <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>    
             </ul>
-          </li>
+        </li>
+
+        <li class="sub-menu">
+            <a href="javascript:;" class="">
+              <i class="fa fa-users"></i>
+              <span>Reportes</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub">
+              <li><a class="fa fa-user-circle" href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
+            </ul>
+        </li>
 
 
 

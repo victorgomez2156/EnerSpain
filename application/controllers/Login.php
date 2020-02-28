@@ -1,7 +1,7 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 class Login extends CI_Controller
 
 {
@@ -55,7 +55,7 @@ class Login extends CI_Controller
 			$hora_nueva=date('Y-m-d G:i:s');
 			$datausuario=$this->session->all_userdata();	
 			
-
+			
 			if (!isset($datausuario['sesion_clientes']))
 			{
 				$this->session->sess_destroy();
@@ -124,6 +124,7 @@ class Login extends CI_Controller
 
 	public function accesando()
 	{
+		
 		if ($this->agent->is_browser())
 		{
 
@@ -149,6 +150,7 @@ class Login extends CI_Controller
 		$ano=date('Y');
 		#Buscaremos en la base de datos si el usuario esta registrado 
 		$FuncionBuscarUsuarios=$this->Usuarios_model->get_usuarios_buscar($userid);
+		
 		if($FuncionBuscarUsuarios!=false)
 		{
 			$FuncionBloqueadoUser=$this->Usuarios_model->get_usuarios_bloqueado($userid);

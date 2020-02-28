@@ -80,6 +80,25 @@ function ServiceColaboradores ($http, $q, $cookies) {
     }
 };
 
+function ServiceOnlyColaboradores ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        var url = base_urlHome()+"api/Colaboradores/get_only_colaboradores";
+        $http.get(url)
+            .success(function(data) {
+                defered.resolve(data);
+            })
+            .error(function(err) {
+                defered.reject(err)
+            });
+        return promise;
+    }
+};
+
 function ServiceCups ($http, $q, $cookies) {  
     return {
         getAll: getAll
@@ -106,3 +125,4 @@ app.service('ServiceMaster',ServiceMaster);
 app.service('ServiceComercializadora',ServiceComercializadora);
 app.service('ServiceColaboradores',ServiceColaboradores);
 app.service('ServiceCups',ServiceCups);
+app.service('ServiceOnlyColaboradores',ServiceOnlyColaboradores);

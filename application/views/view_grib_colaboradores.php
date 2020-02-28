@@ -205,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </section>
 
 <!-- modal container section end -->
-   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_colaboradores" class="modal fade">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_colaboradores" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -241,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </select>   
      </div>
      </div>
-    </div>
+</div>
 
        <div class="col-12 col-sm-6" ng-show="vm.tmodal_colaboradores.tipo_filtro==2">
      <div class="form">                          
