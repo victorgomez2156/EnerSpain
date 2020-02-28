@@ -65,6 +65,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
 }
 </style>
+<style>
+.datepicker{z-index:1151 !important;}
+</style>
 <body>
  <div ng-controller="Controlador_Productos as vm">
  <!--main content start-->
@@ -250,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.fecha_bloqueo" maxlength="10" ng-change="vm.validarsifechaproductos(vm.fecha_bloqueo,2)" />    
+     <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" name="fecha_bloqueo" id="fecha_bloqueo" maxlength="10" ng-change="vm.validarsifechaproductos(vm.fecha_bloqueo,2)" />    
      </div>
      </div>
      </div>
@@ -330,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_productos.ttipofiltrosProductos==3">
      <div class="form">                          
      <div class="form-group">     
-      <input type="text" name="FecIniPro" id="FecIniPro" class="form-control" ng-model="vm.tmodal_productos.FecIniPro" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaproductos(vm.tmodal_productos.FecIniPro,1)" maxlength="10">  
+      <input type="text" name="FecIniPro" id="FecIniPro" class="form-control datepicker2" ng-model="vm.tmodal_productos.FecIniPro" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaproductos(vm.tmodal_productos.FecIniPro,1)" maxlength="10">  
      </div>
      </div>
     </div>
@@ -347,11 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     </div>
 
-   
-    <!--br ng-show="vm.tmodal_productos.ttipofiltrosProductos==1||vm.tmodal_productos.ttipofiltrosProductos==2||vm.tmodal_productos.ttipofiltrosProductos==3||vm.tmodal_productos.ttipofiltrosProductos==4">
-    <br ng-show="vm.tmodal_productos.ttipofiltrosProductos==1||vm.tmodal_productos.ttipofiltrosProductos==2||vm.tmodal_productos.ttipofiltrosProductos==3||vm.tmodal_productos.ttipofiltrosProductos==4"> 
-    <br ng-show="vm.tmodal_productos.ttipofiltrosProductos==1||vm.tmodal_productos.ttipofiltrosProductos==2||vm.tmodal_productos.ttipofiltrosProductos==3||vm.tmodal_productos.ttipofiltrosProductos==4"-->
-    <div style="margin-left:15px; ">
+      <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltroproductos.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
       <a class="btn btn-danger" ng-click="vm.regresar_filtro_productos()"><i class="fa fa-trash"></i> QUITAR</a>
       </div>
@@ -361,12 +360,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 </div>
+
 <!--modal container section end -->
 
 
 
 
 </div>
+
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#fecha_bloqueo').on('changeDate', function() 
+  {
+     var fecha_bloqueo=document.getElementById("fecha_bloqueo").value;
+     console.log("fecha_bloqueo: "+fecha_bloqueo);
+  });
+
+  $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecIniPro').on('changeDate', function() 
+  {
+     var FecIniPro=document.getElementById("FecIniPro").value;
+     console.log("FecIniPro: "+FecIniPro);
+  });
+
+</script>
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
 <div id="List_Produc" class="loader loader-default"  data-text="Cargando lista de Productos, Por Favor Espere..."></div>

@@ -65,6 +65,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
 }
 </style>
+
+<style>
+.datepicker{z-index:1151 !important;}
+</style>
 <body>
  <div ng-controller="Controlador_Comercializadora as vm">
  <!--main content start-->
@@ -267,7 +271,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
+     <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" id="fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
      </div>
      </div>
      </div>
@@ -288,6 +292,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 </div>
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#fecha_bloqueo').on('changeDate', function() 
+  {
+     var fecha_bloqueo=document.getElementById("fecha_bloqueo").value;
+     console.log("fecha_bloqueo: "+fecha_bloqueo);
+  });
+
+
+  
+ jQuery('.soloNumeros').keypress(function (tecla) {
+  if ((tecla.charCode == 46 )) return true;
+  if ((tecla.charCode < 48 || tecla.charCode > 57)) return false;
+  
+});
+
+jQuery('.soloValidFecha').keypress(function (tecla) {
+  
+  if ((tecla.charCode == 45 )) return true;
+  if ((tecla.charCode < 48 || tecla.charCode > 57)) return false;
+  
+});
+
+</script>
 <!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_comercializadora" class="modal fade">
       <div class="modal-dialog">
@@ -407,6 +437,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </div>
+
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
 <div id="List_Comer" class="loader loader-default"  data-text="Cargando lista de Comercializadoras, Por Favor Espere..."></div>

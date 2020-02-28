@@ -71,7 +71,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.tTiposVias = [];
 	scope.tLocalidades =[];
 	scope.tOnlyColaboradores =[];
-	scope.tClientes_x_Colaboradores =[];
+	scope.tClientes_x_Colaboradores =[];	
 	ServiceColaboradores.getAll().then(function(dato) 
 	{		
 		scope.tProvidencias = dato.Provincias;
@@ -101,8 +101,16 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});
-	ServiceOnlyColaboradores.getAll().then(function(dato) {
-		scope.tOnlyColaboradores = dato;	
+	ServiceOnlyColaboradores.getAll().then(function(dato) 
+	{
+		scope.tOnlyColaboradores = dato;		
+		scope.NomComCli=true;
+		scope.NumCifCli=true;
+		scope.RazSocCli=true;
+		scope.CupsCol=true;
+		scope.DireccionCol=true;
+		scope.EmailCol=true;
+		scope.TelCol	=true;
 	}).catch(function(error) 
 	{
 		console.log(error); //Tratar el error
@@ -945,13 +953,18 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.buscarXID();
 		//scope.funcion_services();
 	}	
-	scope.Clientes_x_Colaboradores = function(cod){
+	scope.Clientes_x_Colaboradores = function(cod)
+	{
 		var url = base_urlHome()+"api/Colaboradores/clientes_colaboradores/CodCol/"+cod;
 		$http.get(url).then(function(result)
 		{
 			if(result.data!=false)
 			{
 				scope.tClientes_x_Colaboradores = result.data;	
+			}
+			else
+			{
+				scope.tClientes_x_Colaboradores=[];
 			}
 		});
 	}

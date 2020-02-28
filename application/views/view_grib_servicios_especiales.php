@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Servicios_Especiales as vm">
@@ -267,7 +268,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-12" ng-show="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial==5">
      <div class="form">                          
      <div class="form-group"> 
-      <input type="text" name="FecIniSerEsp" id="FecIniSerEsp" class="form-control" ng-model="vm.tmodal_servicio_especiales.FecIniSerEsp" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaserespe(vm.tmodal_servicio_especiales.FecIniSerEsp,1)" maxlength="10"> 
+      <input type="text" name="FecIniSerEsp" id="FecIniSerEsp" class="form-control datepicker" ng-model="vm.tmodal_servicio_especiales.FecIniSerEsp" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaserespe(vm.tmodal_servicio_especiales.FecIniSerEsp,1)" maxlength="10"> 
      </div>
      </div>
     </div> 
@@ -335,7 +336,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FecBloSerEsp" required maxlength="10" ng-change="vm.validarsifechaserespe(vm.FecBloSerEsp,2)" />    
+     <input type="text" class="form-control datepicker2" name="FecBloSerEsp" id="FecBloSerEsp" ng-model="vm.FecBloSerEsp" required maxlength="10" ng-change="vm.validarsifechaserespe(vm.FecBloSerEsp,2)" />    
      </div>
      </div>
      </div>
@@ -357,9 +358,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 <!-- modal container section end -->
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecIniSerEsp').on('changeDate', function() 
+  {
+     var FecIniSerEsp=document.getElementById("FecIniSerEsp").value;
+     console.log("FecIniSerEsp: "+FecIniSerEsp);
+  });
+  $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecBloSerEsp').on('changeDate', function() 
+  {
+     var FecBloSerEsp=document.getElementById("FecBloSerEsp").value;
+     console.log("FecBloSerEsp: "+FecBloSerEsp);
+  });
 
-              </section>
-            </div>
+</script>
+            </section>
+          </div>
         </div>
       </section>
     </section>

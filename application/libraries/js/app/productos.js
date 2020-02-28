@@ -66,6 +66,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.TcomercializadorasBack =dato.Comercializadora;
 			scope.TProComercializadoras =dato.TProComercializadoras;
 			scope.Fecha_Server=dato.fecha;
+			if(scope.nID==undefined)
+			{
+				scope.FecIniPro=scope.Fecha_Server;
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniPro);
+			}
 			$scope.predicate1 = 'id';  
 			$scope.reverse1 = true;						
 			$scope.currentPage1 = 1;  
@@ -145,7 +150,8 @@ scope.cargar_lista_productos=function()
 		else
 		{
 			console.log('No hemos encontrado Productos registrados.');
-			scope.TProductos=undefined;
+			scope.TProductos=[];
+			scope.TProductosBack=[];
 		}
 	},function(error)
 	{
@@ -233,38 +239,35 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		}
 		if(scope.tmodal_productos.ttipofiltrosProductos==3)
 		{
-			
-			if(scope.tmodal_productos.FecIniPro.length==10)
+			var FecIniPro1=document.getElementById("FecIniPro").value;
+			scope.tmodal_productos.FecIniPro=FecIniPro1;
+			var FecIniPro= (scope.tmodal_productos.FecIniPro).split("/");
+			if(FecIniPro.length<3)
 			{
-				var FecIniPro= (scope.tmodal_productos.FecIniPro).split("/");
-				if(FecIniPro.length<3)
+				Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FecIniPro[0].length>2 || FecIniPro[0].length<2)
 				{
-					Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
-				else
-				{		
-					if(FecIniPro[0].length>2 || FecIniPro[0].length<2)
-					{
-						Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-						event.preventDefault();	
-						return false;
-
-					}
-					if(FecIniPro[1].length>2 || FecIniPro[1].length<2)
-					{
-						Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-						event.preventDefault();	
-						return false;
-					}
-					if(FecIniPro[2].length<4 || FecIniPro[2].length>4)
-					{
-						Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-						event.preventDefault();	
-						return false;
-					}					
+				if(FecIniPro[1].length>2 || FecIniPro[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
 				}
+				if(FecIniPro[2].length<4 || FecIniPro[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}					
 			}
 			$scope.predicate1 = 'id';  
 			$scope.reverse1 = true;						
@@ -349,9 +352,11 @@ $scope.SubmitFormFiltrosProductos = function(event)
 	 	{
 	 		scope.t_modal_data.ObsBloPro=scope.t_modal_data.ObsBloPro;
 	 	}
+	 	var fecha_bloqueo=document.getElementById("fecha_bloqueo").value;
+		scope.fecha_bloqueo=fecha_bloqueo;
 	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
 	 	{
-	 		Swal.fire({title:'Fecha de Bloqueo',text:'Este Campo no estar vacio.',type:"success",confirmButtonColor:"#188ae2"});
+	 		Swal.fire({title:'Fecha de Bloqueo',text:'Este Campo no estar vacio.',type:"error",confirmButtonColor:"#188ae2"});
 	 		return	false;
 	 	}
 	 	else
@@ -526,6 +531,8 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			scope.Comercializadora=dato.NumCifCom+" - "+dato.RazSocCom;
 			scope.Producto=dato.DesPro;
 			scope.fecha_bloqueo=scope.Fecha_Server;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.fecha_bloqueo);
+
 			scope.t_modal_data.OpcPro=opciones_productos;
 			$("#modal_motivo_bloqueo_productos").modal('show');
 		}
@@ -552,7 +559,19 @@ $scope.SubmitFormFiltrosProductos = function(event)
 
 scope.regresar_productos=function()
 {
-	Swal.fire({title:"Esta seguro de regresar.?",			
+	if(scope.INF==undefined)
+	{
+		if(scope.productos.CodTPro==undefined)
+		{
+			var title="Guardando";
+			var text="¿Estás seguro de regresar y no guardar los datos?";
+		}
+		else
+		{
+			var title="Actualizando";
+			var text="¿Estás seguro de regresar y no actualizar los datos?";
+		}
+		Swal.fire({title:title,text:text,		
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
@@ -560,18 +579,21 @@ scope.regresar_productos=function()
 		confirmButtonText:"OK"}).then(function(t)
 		{
 	        if(t.value==true)
-	    	{
-	          	//scope.TvistaProductos=1;
-	          	scope.productos={};
-	          	scope.validate_info_productos=0;
-	          	location.href="#/Productos";
-	          	//scope.cargar_lista_productos();
+	        {	            
+	            location.href="#/Productos";
+	            scope.productos={};
 	        }
 	        else
 	        {
-	            console.log('Cancelando ando...');	                
+	            console.log('Cancelando ando...');
 	        }
-	    });		
+	    });	
+	}
+	else
+	{
+		location.href="#/Productos";
+	    scope.productos={};
+	}	
 }
 scope.limpiar_productos=function()
 	{
@@ -595,6 +617,7 @@ scope.BuscarxID=function()
 			scope.productos.CodTProCom=result.data.CodCom;
 			scope.productos.DesPro=result.data.DesPro;
 			scope.FecIniPro=result.data.FecIniPro;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniPro);  		 		
 			scope.productos.CodTPro=result.data.CodPro;			
 			scope.productos.ObsPro=result.data.ObsPro;
 			if(result.data.SerGas==0)
@@ -693,7 +716,7 @@ $scope.submitFormProductos = function(event)
 	           	{
 	           	    $("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					Swal.fire({title:titulo,text:response,type:"success",confirmButtonColor:"#188ae2"});
-	           	    scope.productos=result.data;
+	           	    scope.productos=result.data; 		 						
 	           	}
 	           	else
 	           	{
@@ -744,6 +767,8 @@ scope.validar_campos_productos = function()
 			Swal.fire({title:"El Campo Nombre del Producto es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
+		var FecIniPro1=document.getElementById("FecIniPro").value;
+		scope.FecIniPro=FecIniPro1;
 		if (scope.FecIniPro==null || scope.FecIniPro==undefined || scope.FecIniPro=='')
 		{
 			Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -779,17 +804,18 @@ scope.validar_campos_productos = function()
 					event.preventDefault();	
 					return false;
 				}
-				var h1=new Date();			
-				var final = FecIniPro[2]+"/"+FecIniPro[1]+"/"+FecIniPro[0];
-				scope.productos.FecIniPro=final;
-				if(scope.productos.FecIniPro>scope.Fecha_Server)
-				{
-					Swal.fire({text:"La Fecha de Inicio no puede ser mayor a la actual, por favor verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-					event.preventDefault();	
-					return false;
-				}
+				valuesStart=scope.FecIniPro.split("/");
+			    valuesEnd=scope.Fecha_Server.split("/"); 
+			        // Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({title:"Fecha de Inicio",text:"La Fecha de Inicio no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.productos.FecIniPro=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];			
 			}
-
 		}
 		if (resultado == false)
 		{

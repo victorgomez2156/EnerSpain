@@ -43,60 +43,88 @@ $(document).ready(function()
   
   $('#formulario').submit(function()
   {
-$("#sesion").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
-  $.ajax({
+    $("#sesion").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
+    $("#login").prop('disabled', true);
+    $.ajax({
     type: 'POST',
      url: $(this).attr('action'),
     data: $(this).serialize(),
-    success: function(data) {
-      //alert(data);
-      if (data == 1)
+    success: function(data) 
+    {
+      $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+      console.log(data);
+       var datax = JSON.parse(data)
+      console.log(datax);
+      if(datax.status==false && datax.data==1)
       {
-          $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-          bootbox.alert({
-            title:'Datos Incorrectos',
-            message: "El usuario o clave son incorrectas. Inténtelo de Nuevo",
-            size: 'large'
-        });
-      }
-
-      if(data==7){
-         $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+        $("#login").prop('disabled', false);
         bootbox.alert({
-          title:'Usuario no encontrado',
-            message: "El usuario no se encuentra registrado en la base de datos",
-            size: 'large'
-        });
-        
+        title:'¡Usuario no registrado!',
+        message: "<i class='fa fa-close' ></i> "+datax.message+"",
+        size: 'large'});
       }
-      
-      if(data == 6){
-        
-       $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-        bootbox.alert({
-          title:'Seguridad',
-            message: "El usuario ha sido bloqueado por seguridad",
-            size: 'large'
-        });
-      }
-       if (data == 9)
+      if(datax.status==false && datax.data==2)
       {
-          $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+        $("#login").prop('disabled', false);
         bootbox.alert({
-          title:'Oficina',
-            message: "Actualmente la oficina no se encuentra disponible por lo que no es posible iniciar sesión",
-            size: 'large'
-        });
-      }         
-      
-      if (data == 2)
-      {
-          $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-      url = "<?php echo base_url('Principal#/Dashboard/') ?>";
-      $(location).attr('href',url);
+        title:'¡Usuario Bloqueado!',
+        message: "<i class='fa fa-close' ></i> "+datax.message+"",
+        size: 'large'});
       }
-      
-      
+      if(datax.status==false && datax.data==3)
+      {
+       $("#login").prop('disabled', false);
+        bootbox.alert({
+        title:'¡Error en datos!',
+        message: "<i class='fa fa-close' ></i> "+datax.message+"",
+        size: 'large'});
+      }
+      if(datax.status==true && datax.data!=false)
+      {
+        $("#login").prop('disabled', false);
+        bootbox.alert({
+        title:'¡Iniciando Sesión!',
+        message: "<i class='fa fa-check-circle' ></i> "+datax.message+"",
+        size: 'large'});        
+        url = "<?php echo base_url('Principal#/Dashboard/')?>";
+        $(location).attr('href',url);
+      }      
+    },error:function(error)
+    {
+      $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );    
+        console.log(error);
+       if(error.status==401 && error.statusText=="Unauthorized")
+          {
+           $("#login").prop('disabled', false);
+            bootbox.alert({
+            title:'¡Api-Key!',
+            message: "Usted no tiene un api asignado para poder realizar esta acción.",
+            size: 'large'});
+          }
+          if(error.status==500 && error.statusText=="Internal Server Error")
+          {
+           $("#login").prop('disabled', false);
+             bootbox.alert({
+            title:'¡Error-Interno!',
+            message: "Un error a ocurrido al intentar iniciar sesión por favor intente nuevamente.",
+            size: 'large'});
+          }
+           if(error.status==404 && error.statusText=="Not Found")
+          {
+           $("#login").prop('disabled', false);
+             bootbox.alert({
+            title:'¡Metodo Invalido!',
+            message: "No hemos podido localizar el metodo por favor intente nuevamente.",
+            size: 'large'});
+          }
+           if(error.status==403 && error.statusText=="Forbidden")
+          {
+            $("#login").prop('disabled', false);
+            bootbox.alert({
+            title:'¡Seguridad!',
+            message: "No esta autorizado.",
+            size: 'large'});
+          }
     }
     })
       return false;
@@ -122,10 +150,10 @@ $("#sesion").removeClass( "loader loader-default" ).addClass( "loader loader-def
           <input type="password" name="password" id="password" class="form-control" placeholder="Clave o Contraseña">
         </div>
         <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
-                <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+                <input type="checkbox" value="remember-me" name="remember-me" id="remember-me"> Remember me
+                <span class="pull-right"> <a href="forgot_password"> Forgot Password?</a></span>
             </label>
-        <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fa fa-sign-in"></i> Iniciar Sesión</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit" id="login"><i class="fa fa-sign-in"></i> Iniciar Sesión</button>
         <!--button class="btn btn-info btn-lg btn-block" type="submit">Signup</button-->
       </div>
     </form>

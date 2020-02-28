@@ -453,6 +453,9 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.RazSocComBlo=dato.RazSocCom;
 			scope.t_modal_data.OpcCom=opciones_comercializadoras;
 			scope.fecha_bloqueo=scope.fecha_server;
+
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.fecha_bloqueo);  		 		
+				
 			scope.cargar_lista_MotBloCom(index);
 		}
 		if(opciones_comercializadoras==3)
@@ -516,6 +519,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	 	{
 	 		scope.t_modal_data.ObsBloCom=scope.t_modal_data.ObsBloCom;
 	 	}
+	 	var fecha_bloqueo=document.getElementById("fecha_bloqueo").value;
+		scope.fecha_bloqueo=fecha_bloqueo;
 	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
 	 	{
 	 		Swal.fire({title:"Error",text:"El Campo Fecha de Bloqueo no puedar estar vacio.",type:"error",confirmButtonColor:"#188ae2"});

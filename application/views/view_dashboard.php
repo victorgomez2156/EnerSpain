@@ -48,56 +48,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     </section>
         <!--main content end-->
-        <script>
-      //knob
-      $(function() {
-        $(".knob").knob({
-          'draw': function() {
-            $(this.i).val(this.cv + '%')
-          }
-        })
-      });
-
-      //carousel
-      $(document).ready(function() {
-        $("#owl-slider").owlCarousel({
-          navigation: true,
-          slideSpeed: 300,
-          paginationSpeed: 400,
-          singleItem: true
-
-        });
-      });
-
-      //custom select box
-
-      $(function() {
-        $('select.styled').customSelect();
-      });
-
-      /* ---------- Map ---------- */
-      $(function() {
-        $('#map').vectorMap({
-          map: 'world_mill_en',
-          series: {
-            regions: [{
-              values: gdpData,
-              scale: ['#000', '#000'],
-              normalizeFunction: 'polynomial'
-            }]
-          },
-          backgroundColor: '#eef3f7',
-          onLabelShow: function(e, el, code) {
-            el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-          }
-        });
-      });
-    </script>
-<script src="application/libraries/estilos/js/charts.js"></script>
-<script src="application/libraries/estilos/js/fullcalendar.min.js"></script>
-<!-- Full Google Calendar - Calendar -->
-<script src="application/libraries/estilos/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
-<!--script for this page only-->
-<script src="application/libraries/estilos/js/calendar-custom.js"></script>
+   
 </body>
 </html>

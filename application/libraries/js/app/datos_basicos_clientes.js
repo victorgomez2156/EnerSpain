@@ -182,37 +182,6 @@ scope.regresar=function()
 		location.href="#/Clientes";	
 		scope.fdatos={};
 	}
-
-
-
-	
-	/*if(scope.fdatos.CodCli==undefined)
-	{
-		Swal.fire({title:"¿Esta seguro de regresar?",			
-		type:"question",
-		showCancelButton:!0,
-		confirmButtonColor:"#31ce77",
-		cancelButtonColor:"#f34943",
-		confirmButtonText:"OK"}).then(function(t)
-		{
-	        if(t.value==true)
-	        {
-	            $cookies.remove('CIF');
-	            location.href="#/Clientes";
-	            scope.fdatos={};
-	        }
-	        else
-	        {
-	            console.log('Cancelando ando...');
-	        }
-	    });	
-	}
-	else
-	{
-		$cookies.remove('CIF');
-		location.href="#/Clientes";	
-		scope.fdatos={};
-	}*/
 }
 
 scope.asignar_tipo_via=function()

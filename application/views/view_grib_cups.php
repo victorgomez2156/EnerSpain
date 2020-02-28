@@ -417,12 +417,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         {      
           //jquery tabs
           $( "#tabs_clientes" ).tabs(); 
-          $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true,
-            //mixDate: "<?php echo date("m/d/Y")?>"
-            //maxDate: "<?php echo date("m/d/Y")?>"
-        });
+         
       });
 
         function mayus(e)

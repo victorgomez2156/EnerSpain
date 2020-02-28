@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Anexos as vm">
@@ -283,7 +284,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       
-      <input type="text" name="FecIniAne" id="FecIniAne" class="form-control" ng-model="vm.tmodal_anexos.FecIniAne" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaanexos(vm.tmodal_anexos.FecIniAne,1)" maxlength="10">  
+      <input type="text" name="FecIniAne" id="FecIniAne" class="form-control datepicker" ng-model="vm.tmodal_anexos.FecIniAne" placeholder="EJ: DD/MM/YYYY" ng-change="vm.validarsifechaanexos(vm.tmodal_anexos.FecIniAne,1)" maxlength="10">  
 
 
      </div>
@@ -360,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FecBloAne" required maxlength="10" ng-change="vm.validarsifechaanexos(vm.FecBloAne,2)" />    
+     <input type="text" class="form-control datepicker2" id="FecBloAne" name="FecBloAne" ng-model="vm.FecBloAne" required maxlength="10" ng-change="vm.validarsifechaanexos(vm.FecBloAne,2)" />    
      </div>
      </div>
      </div>
@@ -384,6 +385,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- modal container section end -->
 
 
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecIniAne').on('changeDate', function() 
+  {
+     var FecIniAne=document.getElementById("FecIniAne").value;
+     console.log("FecIniAne: "+FecIniAne);
+  });
+
+  $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecBloAne').on('changeDate', function() 
+  {
+     var FecBloAne=document.getElementById("FecBloAne").value;
+     console.log("FecBloAne: "+FecBloAne);
+  });
+
+</script>
 
 
 </div>

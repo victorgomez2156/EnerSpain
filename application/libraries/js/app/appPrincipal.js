@@ -151,6 +151,8 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			templateUrl: 'application/views/view_reporte_cups_colaboradores.php'
 		})	
 
+
+		
 		/*.when('/Comercializadora/', {
 			templateUrl: 'application/views/view_grib_comercializadora.php'
 		})

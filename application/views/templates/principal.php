@@ -61,7 +61,7 @@ document.onmousedown = right;*/
          <!--overview start-->
         <div class="row" align="center">
           <div class="col-lg-12">
-            <h3><img src="application/libraries/estilos/img/ajax-loader.gif" /><b style="color:black;"> Cargando Vista, Por Favor Espere...</b></h3>
+            <h3><img src="<?php echo ESTILOS;?>img/ajax-loader.gif" /><b style="color:black;"> Cargando Vista, Por Favor Espere...</b></h3>
             
           </div>
         </div></section>
@@ -77,48 +77,53 @@ document.onmousedown = right;*/
 	<input id="ApiKey" type='hidden' value="<?php echo $this->session->userdata('key');?>" readonly></input> 
   <input id="correo_electronico" type='hidden' value="<?php echo $this->session->userdata('correo_electronico');?>" readonly></input>  
 </div>
+ 
+
   <!-- javascripts -->
-  <script src="<?php echo ESTILOS;?>js/jquery.js"></script>
+ 
   <script src="<?php echo ESTILOS;?>js/jquery-ui-1.10.4.min.js"></script>
   <script src="<?php echo ESTILOS;?>js/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="<?php echo ESTILOS;?>js/jquery-ui-1.9.2.custom.min.js"></script>
-  <!-- bootstrap -->
-  <script src="<?php echo ESTILOS.'js/bootbox.js'?>"></script>
+  
+  <script src="<?php echo ESTILOS;?>js/jquery.js"></script>
   <script src="<?php echo ESTILOS;?>js/bootstrap.min.js"></script>
   <!-- nice scroll -->
   <script src="<?php echo ESTILOS;?>js/jquery.scrollTo.min.js"></script>
   <script src="<?php echo ESTILOS;?>js/jquery.nicescroll.js" type="text/javascript"></script>
-  <!-- charts scripts -->
-  <script src="<?php echo ESTILOS;?>assets/jquery-knob/js/jquery.knob.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery.sparkline.js" type="text/javascript"></script>
-  <script src="<?php echo ESTILOS;?>assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-  <script src="<?php echo ESTILOS;?>js/owl.carousel.js"></script>
-  <!-- jQuery full calendar -->
-  <script src="<?php echo ESTILOS;?>js/fullcalendar.min.js"></script>
-  <!-- Full Google Calendar - Calendar -->
-  <script src="<?php echo ESTILOS;?>assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
-  <!--script for this page only-->
-  <script src="<?php echo ESTILOS;?>js/calendar-custom.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery.rateit.min.js"></script>
-  <!-- custom select -->
-  <script src="<?php echo ESTILOS;?>js/jquery.customSelect.min.js"></script>
-  <script src="<?php echo ESTILOS;?>assets/chart-master/Chart.js"></script>
-  <!--custome script for all page-->
+
+  <!-- jquery ui -->
+  <script src="<?php echo ESTILOS;?>js/jquery-ui-1.9.2.custom.min.js"></script>
+
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="<?php echo ESTILOS;?>js/ga.js"></script>
+  <!--custom switch-->
+  <script src="<?php echo ESTILOS;?>js/bootstrap-switch.js"></script>
+  <!--custom tagsinput-->
+  <script src="<?php echo ESTILOS;?>js/jquery.tagsinput.js"></script>
+
+  <!-- colorpicker -->
+
+  <!-- bootstrap-wysiwyg -->
+  <script src="<?php echo ESTILOS;?>js/jquery.hotkeys.js"></script>
+  <script src="<?php echo ESTILOS;?>js/bootstrap-wysiwyg.js"></script>
+  <script src="<?php echo ESTILOS;?>js/bootstrap-wysiwyg-custom.js"></script>
+
+  <script src="<?php echo ESTILOS;?>js/bootstrap-datepicker.js"></script>
+  <script src="<?php echo ESTILOS;?>js/bootstrap-timepicker.js"></script>
+  <script src="<?php echo ESTILOS;?>js/moment.js"></script>
+  <script src="<?php echo ESTILOS;?>js/daterangepicker.js"></script>
+  <script src="<?php echo ESTILOS;?>js/bootstrap-datetimepicker.js"></script>
+  <script src="<?php echo ESTILOS;?>js/bootstrap-colorpicker.js"></script>
+  <!-- ck editor -->
+  <script type="text/javascript" src="<?php echo ESTILOS;?>assets/ckeditor/ckeditor.js"></script>
+  <!-- custom form component script for this page-->
+  <!-- custome script for all page -->
   <script src="<?php echo ESTILOS;?>js/scripts.js"></script>
-  <!-- custom script for this page-->
-  <script src="<?php echo ESTILOS;?>js/sparkline-chart.js"></script>
-  <script src="<?php echo ESTILOS;?>js/easy-pie-chart.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery-jvectormap-1.2.2.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery-jvectormap-world-mill-en.js"></script>
-  <script src="<?php echo ESTILOS;?>js/xcharts.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery.autosize.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery.placeholder.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/gdp-data.js"></script>
-  <script src="<?php echo ESTILOS;?>js/morris.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/sparklines.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery.slimscroll.min.js"></script>
+  
+
   <script src="<?php echo ESTILOS;?>js/sweetalert2.min.js"></script>  
   <script src="<?php echo ESTILOS;?>js/jquery.maskedinput.js"></script>
+
+
 <script type="text/javascript">
 /*var contador = 0;
 var fin_contador = 10; // Tiempo en en el que deseas que redireccione la funcion.

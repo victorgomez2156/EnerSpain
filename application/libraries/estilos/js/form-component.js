@@ -83,7 +83,7 @@ var Script = function() {
   $(function() {
     window.prettyPrint && prettyPrint();
     $('#dp1').datepicker({
-      format: 'mm-dd-yyyy'
+      format: 'dd-mm-yyyy'
     });
     $('#dp2').datepicker();
     $('#dp3').datepicker();
@@ -167,14 +167,14 @@ var Script = function() {
         })]
       },
       opens: 'left',
-      format: 'MM/dd/yyyy',
+      format: 'dd/MM/yyyy',
       separator: ' to ',
       startDate: Date.today().add({
         days: -29
       }),
       endDate: Date.today(),
       minDate: '01/01/2012',
-      maxDate: '12/31/2013',
+      maxDate: '31/12/2013',
       locale: {
         applyLabel: 'Submit',
         fromLabel: 'From',
@@ -188,14 +188,14 @@ var Script = function() {
       buttonClasses: ['btn-danger']
     },
     function(start, end) {
-      $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+      $('#reportrange span').html(start.toString('d MMMM, yyyy') + ' - ' + end.toString('d MMMM, yyyy'));
     }
   );
 
   //Set the initial state of the picker label
   $('#reportrange span').html(Date.today().add({
     days: -29
-  }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
+  }).toString('d MMMM, yyyy') + ' - ' + Date.today().toString('d MMMM , yyyy'));
 
 
 }();

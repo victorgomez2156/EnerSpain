@@ -165,7 +165,7 @@
             </ul>
           </li>
 
-        <li class="sub-menu">
+             <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-users"></i>
               <span>Clientes</span>
@@ -180,22 +180,20 @@
               <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li> 
               <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>    
             </ul>
-        </li>
+          </li>
 
-        <li class="sub-menu">
+
+
+          <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="fa fa-users"></i>
+              <i class="fa fa-file"></i>
               <span>Reportes</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-user-circle" href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
+              <li><a class="fa fa-handshake-o" href="#/Reporte_Cups_Colaboradores"> Colaboradores</a></li>
             </ul>
         </li>
-
-
-
-
 
 
           <!--li>
@@ -326,13 +324,22 @@ $(function(){
     var username = "<?php echo $this->usuario;?>";
  
   $("#cerrar-sesion").on('click', function(){
-    bootbox.confirm( "<b>" + username + "</b> ¿Estás seguro que quieres cerrar sesi&oacute;n? ", function(result)
-    { 
-      if( result == true ){ 
-       
-        document.location.href = 'Login/desconectar';    
-      } 
-    });       
+    Swal.fire({title:"Cerrar Sesión",text:"Estimado Usuario: "+username+" Desea cerar su sesión?",		
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"OK"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+	           document.location.href = 'Login/desconectar';
+	        }
+	        else
+	        {
+	            console.log('Cancelando ando...');
+	        }
+	    });
   });
 }); 
  

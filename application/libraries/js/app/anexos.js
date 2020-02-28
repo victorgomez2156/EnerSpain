@@ -128,6 +128,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			if(scope.nIDAnexos==undefined)
 			{
 				scope.FecIniAneA=dato.fecha;
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniAneA);  		 		
+				
 			}			
 			scope.Fecha_Server=dato.fecha;
 			angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica)
@@ -350,6 +352,8 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	}
 	 	if(scope.tmodal_anexos.ttipofiltrosAnexos==5)
 	 	{ 		
+	 		var FecIniAne1=document.getElementById("FecIniAne").value;
+			scope.tmodal_anexos.FecIniAne=FecIniAne1;
 	 		if(scope.tmodal_anexos.FecIniAne==undefined||scope.tmodal_anexos.FecIniAne==null||scope.tmodal_anexos.FecIniAne=="")
 	 		{
 	 			Swal.fire({title:"Error",text:"Debe Colocar Una Fecha en Formato EJ: DD/MM/YYYY Para Poder Aplicar El Filtro.",type:"error",confirmButtonColor:"#188ae2"});
@@ -357,7 +361,8 @@ scope.validarsifechaanexos=function(object,metodo)
 	 		}
 	 		else
 	 		{
-	 			var FecIniAne= (scope.tmodal_anexos.FecIniAne).split("/");
+	 			
+	 			var FecIniAne= (scope.tmodal_anexos.FecIniAne).split("/");	 			
 				if(FecIniAne.length<3)
 				{
 					Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
@@ -574,7 +579,8 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			scope.RazSocCom_BloAne=dato.NumCifCom+" - "+dato.RazSocCom;
 			scope.DesPro_BloAne=dato.DesPro;
 			scope.DesAnePro_BloAne=dato.DesAnePro;
-			scope.FecBloAne=fecha;
+			scope.FecBloAne=scope.Fecha_Server;
+			$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecBloAne);  		 		
 			scope.anexos_motivo_bloqueos.CodAnePro=dato.CodAnePro;
 			scope.anexos_motivo_bloqueos.EstAne=opciones_anexos;
 			$("#modal_motivo_bloqueo_anexos").modal('show');
@@ -599,6 +605,8 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	 	{
 	 		scope.anexos_motivo_bloqueos.ObsMotBloAne=scope.anexos_motivo_bloqueos.ObsMotBloAne;
 	 	}
+	 	var FecBloAne=document.getElementById("FecBloAne").value;
+		scope.FecBloAne=FecBloAne;
 	 	if(scope.FecBloAne==undefined||scope.FecBloAne==null||scope.FecBloAne=='')
 	 	{
 	 		Swal.fire({title:"Fecha Bloqueo",text:"Debe ingresar una fecha de bloqueo para el anexo..",type:"error",confirmButtonColor:"#188ae2"});				
@@ -755,14 +763,14 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			numero=object;		
 			if(!/^([/0-9])*$/.test(numero))
 			scope.FecIniAneA=numero.substring(0,numero.length-1);
-			if(scope.FecIniAneA.length==10)
+			/*if(scope.FecIniAneA.length==10)
 			{
 				if(scope.FecIniAneA>scope.Fecha_Server)
 				{
 					Swal.fire({title:"Error",text:"La Fecha de Inicio no puede ser mayor a la fecha actual, Por Favor intente nuevamente.",type:"info",confirmButtonColor:"#188ae2"});
 					scope.FecIniAneA=scope.Fecha_Server;
 				}
-			}
+			}*/
 		}
 	}
 
@@ -968,6 +976,8 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			Swal.fire({title:"Debe Seleccionar un Producto.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
+		var FecIniAneA1=document.getElementById("FecIniAneA").value;
+		scope.FecIniAneA=FecIniAneA1;
 		if (scope.FecIniAneA==null || scope.FecIniAneA==undefined || scope.FecIniAneA=='')
 		{
 			Swal.fire({title:"La Fecha de Inicio Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});		           
@@ -1003,9 +1013,17 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 					event.preventDefault();	
 					return false;
 				}
-				var h1=new Date();			
-				var final = FecIniAneA[2]+"/"+FecIniAneA[1]+"/"+FecIniAneA[0];
-				scope.anexos.FecIniAneA=final;
+				valuesStart=scope.FecIniAneA.split("/");
+			    valuesEnd=scope.Fecha_Server.split("/"); 
+			    // Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({title:"Fecha de Inicio",text:"La Fecha de Inicio no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.anexos.FecIniAneA=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
 			}
 
 		}				
@@ -1330,6 +1348,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 				scope.anexos.CodAnePro=result.data.CodAnePro;				
 				scope.anexos.DesAnePro=result.data.DesAnePro;
 				scope.FecIniAneA=result.data.FecIniAne;
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniAneA);			
 				if(result.data.SerEle==0)
 				{
 					scope.anexos.SerEle=false;
@@ -1457,7 +1476,59 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	}
 	scope.regresar_anexos=function()
 	{
-		Swal.fire({title:"Regresar",
+		if(scope.INF==undefined)
+		{
+			if(scope.anexos.CodAnePro==undefined)
+			{
+				var title="Guardando";
+				var text="¿Estás seguro de regresar y no guardar los datos?";
+			}
+			else
+			{
+				var title="Actualizando";
+				var text="¿Estás seguro de regresar y no actualizar los datos?";
+			}
+			Swal.fire({title:title,text:text,		
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"OK"}).then(function(t)
+			{
+		        if(t.value==true)
+		        {
+		            scope.cargar_lista_anexos();
+					scope.anexos={};		
+					scope.select_tarifa_gas=[];
+					scope.select_tarifa_Elec_Baj=[];
+					scope.select_tarifa_Elec_Alt=[];
+					scope.anexos.T_DetalleAnexoTarifaGas=[];
+					scope.anexos.T_DetalleAnexoTarifaElecBaj =[]; 
+					scope.anexos.T_DetalleAnexoTarifaElecAlt =[]; 
+					scope.anexos.SerGas=false;
+					scope.anexos.SerEle=false;
+					scope.anexos.Fijo=false;
+					scope.anexos.Indexado=false;
+					scope.anexos.AggAllBaj=false;
+					scope.anexos.AggAllAlt=false;	
+					location.href="#/Anexos";	
+		        }
+		        else
+		        {
+		            console.log('Cancelando ando...');
+		        }
+		    });	
+
+		}
+		else
+		{
+			location.href="#/Anexos";
+		}	
+
+
+
+
+		/*Swal.fire({title:"Regresar",
 		text:"Esta Seguro de Regresar?",
 		type:"question",
 		showCancelButton:!0,
@@ -1488,7 +1559,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 					console.log('Cancelando Ando...');
 					//event.preventDefault();						
 	        }
-	    });			
+	    });	*/		
 	}
 
 	if(scope.nIDAnexos!=undefined) 
@@ -1497,7 +1568,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		var promise = $interval(function() 
 		{			
 			scope.filtrar_productos_com();
-			},7000);	
+			},5000);	
 			$scope.$on('$destroy', function () 
 			{ 
 			$interval.cancel(promise); 

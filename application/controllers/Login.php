@@ -1,7 +1,7 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 class Login extends CI_Controller
 
 {
@@ -53,9 +53,8 @@ class Login extends CI_Controller
 			$os=$this->agent->platform();			
 			$cookie_sesion=$this->input->cookie('EnerSpain');
 			$hora_nueva=date('Y-m-d G:i:s');
-			$datausuario=$this->session->all_userdata();	
-			
-			
+			$datausuario=$this->session->all_userdata();			
+
 			if (!isset($datausuario['sesion_clientes']))
 			{
 				$this->session->sess_destroy();
@@ -124,7 +123,6 @@ class Login extends CI_Controller
 
 	public function accesando()
 	{
-		
 		if ($this->agent->is_browser())
 		{
 
@@ -147,10 +145,12 @@ class Login extends CI_Controller
 		$os=$this->agent->platform();
 		$userid = $this->input->post('usuario');
 		$password = md5($this->input->post('password'));
+		$remember = $this->input->post('remember-me');
 		$ano=date('Y');
+
+		/**/
 		#Buscaremos en la base de datos si el usuario esta registrado 
 		$FuncionBuscarUsuarios=$this->Usuarios_model->get_usuarios_buscar($userid);
-		
 		if($FuncionBuscarUsuarios!=false)
 		{
 			$FuncionBloqueadoUser=$this->Usuarios_model->get_usuarios_bloqueado($userid);
@@ -158,18 +158,13 @@ class Login extends CI_Controller
 			{
 				$datausuario = $this->Usuarios_model->get_usuario($userid,$password);
 				if($datausuario!=false)
-				{
-					//$oficina = $this->Usuarios_model->get_oficina($datausuario->hoficina);				
-					//if($oficina->estatus!=1)
-					//{
-					//	echo 9;
-					//}
-					//else
-					//{
-						$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
-						$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico);									
-						$this->session->set_userdata($newdata);
-						echo 2;
+				{	
+					$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
+					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico);
+					$this->session->set_userdata($newdata);
+					//echo 2;
+					$respuesta = array('status'=>TRUE,'message'=>'Iniciando Sesión Por favor Espere...','data'=>$datausuario);
+        			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				  	/*$sender = $configuraciones->smtp_user;        // Your name and email address 
 				    $recipient = $datausuario->correo_electronico;// The Recipients name and email address 
 				    $subject = "Alerta de Seguridad";           // Subject for the email 
@@ -190,23 +185,25 @@ class Login extends CI_Controller
 					$params["username"] = $configuraciones->smtp_user;				
 					$params["password"] = $configuraciones->smtp_pass;
 				    $mail = Mail::factory($configuraciones->protocol, $params); 
-				    $mail->send($recipient, $headers, $body);*/			
-				//	}
-	}
-	else
-	{
-		echo 1;
-	}
-	}
-	else
-	{
-		echo 6;
-	}
-	}
-	else
-	{
-		echo 7;
-	}
+				    $mail->send($recipient, $headers, $body);*/
+				}
+				else
+				{
+					$respuesta = array('status'=>$datausuario,'message'=>'Error en los datos suministrados. Intente nuevamente.','data'=>3);
+        			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+				}
+			}
+			else
+			{
+				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>'Este usuario se encuentra bloqueado.','data'=>2);
+        		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+			}
+		}
+			else
+			{
+				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>'Este usuario no se encuentra registrado.','data'=>1);
+        		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+			}
 	}
 
 	public function desconectar()

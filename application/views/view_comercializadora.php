@@ -67,6 +67,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
 }
 </style>
+
+  
 </head>
 
 <body>
@@ -106,18 +108,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>       
-       <div class="col-12 col-sm-4">
+       
+       <div class="col-12 col-sm-6">
        <div class="form"> 
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-calendar"></i> Fecha de Inicio <b style="color:red;">(*)</b></label>       
-        <div class="input-append date" id="dpYears" data-date="18-06-2013" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-          <input class="form-control" size="16" type="text" placeholder="DD/MM/YYYY" ng-change="vm.validar_fecha(3,vm.FecIniCom)" maxlength="10" ng-model="vm.FecIniCom" ng-disabled="vm.validate_info!=undefined">      
-      </div>
+        <input class="form-control selectSimple datepicker" id="FecIniCom" type="text" placeholder="DD/MM/YYYY" ng-change="vm.validar_fecha(3,vm.FecIniCom)" maxlength="10" ng-model="vm.FecIniCom" ng-disabled="vm.validate_info!=undefined">   
+        <!--input type="text" id="fecha_pago" class="selectSimple soloValidFecha datepicker" style="width: 100px;height: 37px;border-radius: 5px;  text-align: center;" placeholder="dd-mm-yyyy" ng-model="vm.FecIniCom"--> 
       
        </div>
        </div>
        </div>
-        <br><br><br><br>
+       <br><br><br>
 
        <div class="col-12 col-sm-12">
        <div class="form">                          
@@ -247,7 +249,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo<b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCom" ng-change="vm.validarsinuermo(vm.fdatos.TelFijCom)" placeholder="* Telefono de la Comercializadora" maxlength="9"  ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCom" ng-change="vm.validar_fecha(5,vm.fdatos.TelFijCom)" placeholder="* Telefono de la Comercializadora" maxlength="9"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
@@ -332,7 +334,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-calendar"></i> Fecha de Contrato</label>
-       <input type="text" class="form-control" ng-model="vm.FecConCom" id="FechaInCont" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha(1,vm.FecConCom)" ng-blur="vm.calcular_anos()" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10" />
+       <input type="text" class="form-control selectSimple datepicker2" ng-model="vm.FecConCom" id="FecConCom" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha(1,vm.FecConCom)" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10" />
        </div>
        </div>
        </div>
@@ -350,7 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-ban"></i> Vencimiento</label>
-       <input type="text" class="form-control" ng-model="vm.FecVenConCom" id="FecVenConCom" ng-change="vm.validar_fecha(2,vm.FecVenConCom)" ng-blur="vm.calcular_anos()" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10"/>
+       <input type="text" class="form-control selectSimple datepicker3" ng-model="vm.FecVenConCom" id="FecVenConCom" ng-change="vm.validar_fecha(2,vm.FecVenConCom)" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10"/>
        </div>
        </div>
        </div>
@@ -412,25 +414,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
   <!-- container section end -->
-   <script>
+
+   <!--script>
       $(function(){
         'use strict'
 
         // Input Masks
-        $('#FecIniAct').mask('9999/99/99');
-        $('#FecIniActFil').mask('99-99-9999');
-        //$('#FechaInCont').mask('99-99-9999');
-        //$('#FecVenConCom').mask('99-99-9999'); 
+        $('#FecIniAct').mask('99/99/9999');
         jQuery(function($) 
         {      
           //jquery tabs
           $( "#tabs_clientes" ).tabs(); 
-          $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true,
-            //mixDate: "<?php echo date("m/d/Y")?>"
-            maxDate: "<?php echo date("m/d/Y")?>"
-        });
+            $('.datepicker').datepicker({
+          autoclose: true,
+          todayHighlight: true,
+          maxDate: "<?php echo date("m/d/Y")?>"
+        })
       });
 
         function mayus(e)
@@ -441,7 +440,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
       });
-    </script>
+    </script-->
+  
+    <script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('.datepicker3').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+
+  $('#FecIniCom').on('changeDate', function() 
+  {
+     var FecIniCom=document.getElementById("FecIniCom").value;
+     console.log("FecIniCom: "+FecIniCom);
+  });
+  $('#FecConCom').on('changeDate', function() 
+  {
+     var FecConCom=document.getElementById("FecConCom").value;
+     console.log("FecConCom: "+FecConCom);
+  });
+  $('#FecVenConCom').on('changeDate', function() 
+  {
+     var FecVenConCom=document.getElementById("FecVenConCom").value;
+     console.log("FecVenConCom: "+FecVenConCom);
+  });
+jQuery('.soloNumeros').keypress(function (tecla) {
+  if ((tecla.charCode == 46 )) return true;
+  if ((tecla.charCode < 48 || tecla.charCode > 57)) return false;
+  
+});
+
+jQuery('.soloValidFecha').keypress(function (tecla) {
+  
+  if ((tecla.charCode == 45 )) return true;
+  if ((tecla.charCode < 48 || tecla.charCode > 57)) return false;
+  
+});
+
+</script>
 </body>
 <div id="estatus_actividad" class="loader loader-default"  data-text="Actualizando Estatus de la Actividad, Por Favor Espere..."></div>
 <div id="cargando" class="loader loader-default"  data-text="Cargando Listado de Clientes, Por Favor Espere..."></div>

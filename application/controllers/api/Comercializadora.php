@@ -247,9 +247,6 @@ public function registrar_productos_post()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$resultado = $this->Comercializadora_model->update_status_productos($objSalida->CodPro,$objSalida->EstPro);
-		
-
-
 		if($objSalida->EstPro==2)
 		{
 			$CodMotBloPro=$this->Comercializadora_model->agregar_bloqueo_productos($objSalida->CodPro,$objSalida->FecBlo,$objSalida->MotBloqPro,$objSalida->ObsBloPro);
@@ -260,7 +257,7 @@ public function registrar_productos_post()
 		$this->db->trans_complete();
 		$this->response($objSalida);
     }
-//////////////////////////////////////////////////////////////////////// PRODUCTOS END ////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////// PRODUCTOS END ////////////////////////////////////////////////////////////
 
 
     

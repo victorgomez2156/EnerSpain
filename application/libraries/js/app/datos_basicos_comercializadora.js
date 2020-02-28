@@ -82,9 +82,49 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.tTiposVias=[];
 	scope.myDate = new Date();
   	scope.isOpen = false;
-	console.log($route.current.$$route.originalPath);	
-	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
+	console.log($route.current.$$route.originalPath);
+	ServiceComercializadora.getAll().then(function(dato) 
 	{
+		scope.TProvincias = dato.Provincias;
+		scope.tLocalidades= dato.Localidades;
+		scope.tTiposVias=dato.Tipos_Vias;
+		scope.fecha_server=dato.fecha;
+		if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
+		{	
+				scope.FecIniCom=scope.fecha_server;
+				console.log(scope.FecIniCom);
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCom);  		 		
+				
+				
+		}
+
+		//scope.FecIniCom=scope.fecha_server;
+	}).catch(function(error) 
+	{
+		console.log(error);//Tratar el error
+		if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+		{
+			Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unknown method.")
+		{
+			Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Invalid API Key.")
+		{
+			Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==false && error.error=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+	});		
+	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
+	{		
 		if(scope.CIF_COM==undefined)
 		{
 			location.href="#/Comercializadora";
@@ -97,6 +137,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.fdatos.SerEle=false;
 			scope.fdatos.SerGas=false;
 			scope.fdatos.SerEsp=false;
+			scope.FecIniCom=scope.fecha_server;
+			console.log(scope.FecIniCom);
 		}		
 	}
 	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID");
@@ -107,39 +149,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	{
 		scope.validate_info=scope.INF;
 	}
-	/**/
 	console.log(scope.validate_info);
-	ServiceComercializadora.getAll().then(function(dato) 
-		{
-			scope.TProvincias = dato.Provincias;
-			scope.tLocalidades= dato.Localidades;
-			scope.tTiposVias=dato.Tipos_Vias;
-			scope.fecha_server=dato.fecha;		
-		}).catch(function(error) 
-		{
-			console.log(error);//Tratar el error
-			if(error.status==false && error.error=="This API key does not have access to the requested controller.")
-			{
-				Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==false && error.error=="Unknown method.")
-			{
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==false && error.error=="Unauthorized")
-			{
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==false && error.error=="Invalid API Key.")
-			{
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==false && error.error=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-
-		});	
+	
 	scope.validar_fecha=function(metodo,object)
 	{		
 		if(metodo==1)
@@ -149,7 +160,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				numero=object;		
 				if(!/^([/0-9])*$/.test(numero))
 				scope.FecConCom=numero.substring(0,numero.length-1);
-			}	
+			}
 		}
 		if(metodo==2)
 		{
@@ -158,7 +169,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				numero=object;		
 				if(!/^([/0-9])*$/.test(numero))
 				scope.FecVenConCom=numero.substring(0,numero.length-1);
-			}
+			}			
 		}
 		if(metodo==3)
 		{
@@ -166,15 +177,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			{
 				numero=object;		
 				if(!/^([/0-9])*$/.test(numero))
-				scope.FecIniCom=numero.substring(0,numero.length-1);
-				if(scope.FecIniCom.length==10)
-				{
-					if(scope.FecIniCom>scope.fecha_server)
-					{
-						Swal.fire({title:"Error",text:"La fecha que esta colocando no puede ser mayor a la actual por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-						scope.FecIniCom=undefined;
-					}
-				}				
+				scope.FecIniCom=numero.substring(0,numero.length-1);							
 			}
 		}
 		if(metodo==4)
@@ -185,10 +188,26 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				if(!/^([0-9])*$/.test(numero))
 				scope.fdatos.NumViaDirCom=numero.substring(0,numero.length-1);
 			}
-		}	
+		}
+		if(metodo==5)
+		{
+			if(object!=undefined)
+			{
+				numero=object;		
+				if(!/^([+0-9])*$/.test(numero))
+				scope.fdatos.TelFijCom=numero.substring(0,numero.length-1);
+			}
+		}		
 	}
 	scope.calcular_anos=function()
 	{		
+		
+		var FecConCom=document.getElementById("FecConCom").value;
+		scope.FecConCom=FecConCom;
+
+		var FecVenConCom=document.getElementById("FecVenConCom").value;
+		scope.FecVenConCom=FecVenConCom;
+
 		if(scope.FecConCom!=undefined && scope.FecVenConCom!=undefined)
 		{
 			if(new Date(scope.FecVenConCom)<new Date(scope.FecConCom))
@@ -270,7 +289,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		if (!scope.validar_campos_datos_basicos())
 		{
 			return false;
-		}		
+		}
+		scope.calcular_anos();		
 		let archivos = $archivos.files;
 	 	if($archivos.files.length>0)
 	 	{	
@@ -354,10 +374,12 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 scope.validar_campos_datos_basicos = function()
 	{
 		resultado = true;
+		var FecIniCom=document.getElementById("FecIniCom").value;
+		scope.FecIniCom=FecIniCom;
 		if (scope.FecIniCom==null || scope.FecIniCom==undefined || scope.FecIniCom=='')
 		{
-			//Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			//return false;
+			Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
 		}
 		else
 		{
@@ -389,9 +411,17 @@ scope.validar_campos_datos_basicos = function()
 					event.preventDefault();	
 					return false;
 				}
-				var h1=new Date();			
-				var final = FecIniCom[2]+"/"+FecIniCom[1]+"/"+FecIniCom[0];
-				scope.fdatos.FecIniCom=final;
+				valuesStart=scope.FecIniCom.split("/");
+			    valuesEnd=scope.fecha_server.split("/"); 
+			        // Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({title:"Fecha de Inicio",text:"La Fecha de Inicio no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.fdatos.FecIniCom=	valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
 			}
 		}
 		if (scope.fdatos.RazSocCom==null || scope.fdatos.RazSocCom==undefined || scope.fdatos.RazSocCom=='')
@@ -449,12 +479,14 @@ scope.validar_campos_datos_basicos = function()
 			Swal.fire({title:"El Campo Cargo Persona es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
+		var FecConCom1=document.getElementById("FecConCom").value;
+		scope.FecConCom=FecConCom1;
 		if (scope.FecConCom==undefined || scope.FecConCom==null || scope.FecConCom=='')
 		{
 			scope.fdatos.FecConCom=null;
 		}
 		else
-		{			
+		{	
 			var FecConCom= (scope.FecConCom).split("/");
 			console.log(FecConCom);
 			if(FecConCom.length<3)
@@ -489,6 +521,8 @@ scope.validar_campos_datos_basicos = function()
 				scope.fdatos.FecConCom=final2;
 			}
 		}
+		var FecVenConCom1=document.getElementById("FecVenConCom").value;
+		scope.FecVenConCom=FecVenConCom1;
 		if (scope.FecVenConCom==undefined || scope.FecVenConCom==null || scope.FecVenConCom=='')
 		{
 			scope.fdatos.FecVenConCom=null;
@@ -602,6 +636,15 @@ scope.validar_campos_datos_basicos = function()
 		{
 			scope.fdatos.DocConCom=scope.fdatos.DocConCom;
 		}
+		if (scope.fdatos.ZonPos==undefined || scope.fdatos.ZonPos==null || scope.fdatos.ZonPos=='')
+		{
+			scope.fdatos.ZonPos=null;
+		}
+		else
+		{
+			scope.fdatos.ZonPos=scope.fdatos.ZonPos;
+		}
+		
 	}
 	$scope.uploadFile = function()
 	{
@@ -631,30 +674,45 @@ scope.validar_campos_datos_basicos = function()
 	}
 	scope.regresar=function()
 	{
-		if(scope.fdatos.CodCom==undefined)
-		{		
-			Swal.fire({title:"Esta seguro de no completar el registro de la Comercializadora?",			
+		
+		if(scope.INF==undefined)
+		{
+			if(scope.fdatos.CodCom==undefined)
+			{
+				var title="Guardando";
+				var text="¿Estás seguro de regresar y no guardar los datos?";
+			}
+			else
+			{
+				var title="Actualizando";
+				var text="¿Estás seguro de regresar y no actualizar los datos?";
+			}
+			Swal.fire({title:title,text:text,		
 			type:"question",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
 			confirmButtonText:"OK"}).then(function(t)
 			{
-	          if(t.value==true)
-	          {
-	              	$cookies.remove('CIF_COM');
-	              	location.href="#/Comercializadora/";
-	          }
-	          else
-	          {
-	               console.log('Cancelando ando...');	                
-	          }
-	       });	
+		        if(t.value==true)
+		        {
+		            $cookies.remove('CIF_COM');
+		            location.href="#/Comercializadora";
+		            scope.fdatos={};
+		        }
+		        else
+		        {
+		            console.log('Cancelando ando...');
+		        }
+		    });	
+
 		}
 		else
 		{
-			location.href="#/Comercializadora/";	
-		}
+			$cookies.remove('CIF_COM');
+		    location.href="#/Comercializadora";
+		    scope.fdatos={};
+		}		
 	}
 	scope.buscarXID=function()
 	{
@@ -668,7 +726,13 @@ scope.validar_campos_datos_basicos = function()
 		 		scope.fdatos=result.data;
 		 		scope.FecIniCom=result.data.FecIniCom;
 		 		scope.FecConCom=result.data.FecConCom;
-				scope.FecVenConCom=result.data.FecVenConCom;		 		
+				scope.FecVenConCom=result.data.FecVenConCom;
+
+				console.log(scope.FecIniCom);
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCom);  		 		
+				$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecConCom);  		 		
+				$('.datepicker3').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecVenConCom);  		 		
+				
 				if(result.data.RenAutConCom==0)
 				{
 					scope.fdatos.RenAutConCom=false;
@@ -736,7 +800,18 @@ scope.validar_campos_datos_basicos = function()
 
 	}
 
-
+scope.misma_razon=function(opcion)
+	{
+		if(opcion==true)
+		{
+			scope.fdatos.NomComCom=undefined;
+		}
+		else
+		{
+			scope.fdatos.NomComCom=scope.fdatos.RazSocCom;
+		}
+		
+	}
 
 
 

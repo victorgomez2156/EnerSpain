@@ -390,7 +390,9 @@ scope.cargar_lista_servicos_especiales=function()
 			scope.reporte_excel_servicio_especiales=scope.tmodal_servicio_especiales.ttipofiltrosServicioEspecial+"/"+scope.tmodal_servicio_especiales.DesTipCom;
 	 	}
 	 	if(scope.tmodal_servicio_especiales.ttipofiltrosServicioEspecial==5)
-	 	{ 		
+	 	{
+	 		var FecIniSerEsp=document.getElementById("FecIniSerEsp").value;
+			scope.tmodal_servicio_especiales.FecIniSerEsp=FecIniSerEsp;
 	 		if(scope.tmodal_servicio_especiales.FecIniSerEsp==undefined||scope.tmodal_servicio_especiales.FecIniSerEsp==null||scope.tmodal_servicio_especiales.FecIniSerEsp=="")
 	 		{
 	 			Swal.fire({title:"Error",text:"Debe Colocar Una Fecha en Formato EJ: DD/MM/YYYY Para Poder Aplicar El Filtro.",type:"error",confirmButtonColor:"#188ae2"});
@@ -567,6 +569,7 @@ scope.validar_opcion_servicios_especiales=function(index,opciones_servicio_espec
 			scope.RazSocCom_BloSerEsp=dato.NumCifCom+" - "+dato.RazSocCom;
 			scope.DesSerEsp_Blo=dato.DesSerEsp;
 			scope.FecBloSerEsp=scope.Fecha_Server;
+			$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecBloSerEsp);
 			scope.servicio_especial_bloqueo.CodSerEsp=dato.CodSerEsp;
 			scope.servicio_especial_bloqueo.EstSerEsp=opciones_servicio_especiales;
 			$("#modal_motivo_bloqueo_servicio_especial").modal('show');
@@ -657,6 +660,8 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	 	{
 	 		scope.servicio_especial_bloqueo.ObsMotBloSerEsp=scope.servicio_especial_bloqueo.ObsMotBloSerEsp;
 	 	}
+	 	var FecBloSerEsp1=document.getElementById("FecBloSerEsp").value;
+		scope.FecBloSerEsp=FecBloSerEsp1;
 	 	if(scope.FecBloSerEsp==undefined||scope.FecBloSerEsp==null||scope.FecBloSerEsp=='')
 	 	{
 	 		Swal.fire({title:"Fecha Bloqueo",text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});

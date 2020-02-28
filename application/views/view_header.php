@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width" />
   <meta name="csrf-token" content="35s4o9Bjow5OU2qha7E5cEWHIRif31AHQa44IYEQ">
   <link rel="shortcut icon" href="<?php echo ESTILOS;?>img/logo-big.png" >
-  <!-- Fonts and icons -->
-  <!-- CSS Files -->
+  
+   <!-- Bootstrap CSS -->
   <link href="<?php echo ESTILOS;?>css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
   <link href="<?php echo ESTILOS;?>css/bootstrap-theme.css" rel="stylesheet">
@@ -17,24 +17,22 @@
   <!-- font icon -->
   <link href="<?php echo ESTILOS;?>css/elegant-icons-style.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css/font-awesome.min.css" rel="stylesheet" />
-  <!-- full calendar css-->
-  <link href="<?php echo ESTILOS;?>assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="<?php echo ESTILOS;?>assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-  <!-- easy pie chart-->
-  <link href="<?php echo ESTILOS;?>assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
-  <!-- owl carousel -->
-  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/owl.carousel.css" type="text/css">
-  <link href="<?php echo ESTILOS;?>css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+
   <!-- Custom styles -->
-  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/fullcalendar.css">
-  <link href="<?php echo ESTILOS;?>css/widgets.css" rel="stylesheet">
   <link href="<?php echo ESTILOS;?>css/style.css" rel="stylesheet">
   <link href="<?php echo ESTILOS;?>css/style-responsive.css" rel="stylesheet" />
-  <link href="<?php echo ESTILOS;?>css/xcharts.min.css" rel=" stylesheet">
-  <link href="<?php echo ESTILOS;?>css/jquery-ui-1.10.4.min.css" rel="stylesheet">
   <link href="<?php echo ESTILOS;?>css-loader-master/dist/css-loader.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css/sweetalert2.min.css" rel="stylesheet" />
-  <link href="<?php echo ESTILOS;?>css/angular-material.css"  rel="stylesheet">
+
+
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/datepicker.css" />
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/bootstrap-timepicker.css" />
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/daterangepicker.css" />
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/bootstrap-datetimepicker.css" />
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/colorpicker.css" />  
+  <link href="<?php echo ESTILOS;?>css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+
+
   <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
 
   
@@ -47,8 +45,6 @@
     
 
 
-  <!--script data-require="angular.js@*" data-semver="1.5.0" src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.js'?>"></script--> 
   <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>"></script> 
   <script src="<?php echo PATH_ESTILOS_JS.'checklist-model.js'?>"></script> 
   <script src="<?php echo PATH_ESTILOS_JS.'angular-resource.js'?>"></script>
