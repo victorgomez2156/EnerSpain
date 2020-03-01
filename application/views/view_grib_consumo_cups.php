@@ -89,15 +89,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="panel-body"> 
 
-  <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
-      <ul>
-      <li>
-        <a href="#tabs-1"><i class="fa fa-cube"></i> Consumo Cups</a>
-      </li>      
-     </ul>
-    <!--/TABS 1 START-->
-    <div id="tabs-1">  
-
+ 
     	<div ng-show="vm.TVistaConCups==true">
       <!--t-0002 start-->                  
 <div id="t-0002">
@@ -200,13 +192,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
 
-
-
-
-
-
-
-
 <!-- modal container section start -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_motivo_bloqueo" class="modal fade">
       <div class="modal-dialog">
@@ -284,8 +269,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
      </div>
     </div>
-
-
 
      <div class="form">                          
      <div class="form-group">
@@ -431,62 +414,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>       
 
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecIniCon" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.FecIniCon)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecFinCon" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.FecFinCon)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Consumo (Kw) <b style="color:red;">(*)</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.ConCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.ConCup)"/>
-       </div>
-       </div>
-       </div>
+      
 	</div> 
-
-	<div ng-show="vm.fdatos_cups.TipServ==2">		
-	       <div class="col-12 col-sm-4">
+ <div class="col-12 col-sm-4">
        <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecIniCon" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.FecIniCon)"/>
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
+        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecIniCon" name="desde" id="desde" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.FecIniCon)"/>
        </div>
        </div>
        </div>
 
        <div class="col-12 col-sm-4">
        <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.FecFinCon" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.FecFinCon)"/>
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
+        <input type="text" class="form-control datepicker2" ng-model="vm.fdatos_cups.FecFinCon" name="hasta" id="hasta" maxlength="10" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.FecFinCon)"/>
        </div>
        </div>
        </div>
 
        <div class="col-12 col-sm-4">
        <div class="form">                          
-       <div class="form-group">       	
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Consumo (kWh) <b style="color:red;">(*)</b></label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.ConCup" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.ConCup)" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1"/>
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Consumo (Kw) <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.ConCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.ConCup)"/>
        </div>
        </div>
        </div>
-	</div>        
+
+     
 
         <!--input type="text" class="form-control" ng-model="vm.fdatos_cups.CodConCupsEle" readonly /-->
         <input type="hidden" class="form-control" ng-model="vm.fdatos_cups.TipServAnt" readonly />
@@ -506,11 +463,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--NG SHOWW FALSE END-->
 
 
-</div>
-    <!--/TABS 1 FINAL-->
-
-
-   </div>
  </div>
        
         
@@ -550,13 +502,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         {      
           //jquery tabs
           $( "#tabs_clientes" ).tabs(); 
-          $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true,
-            //mixDate: "<?php echo date("m/d/Y")?>"
-            //maxDate: "<?php echo date("m/d/Y")?>"
-        });
+         
       });
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+        $('#desde').on('changeDate', function() 
+        {
+           var desde=document.getElementById("desde").value;
+           console.log("desde: "+desde);
+        });
+         $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+        $('#hasta').on('changeDate', function() 
+        {
+           var hasta=document.getElementById("hasta").value;
+           console.log("hasta: "+hasta);
+        });
 
         function mayus(e)
         {

@@ -1523,43 +1523,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		else
 		{
 			location.href="#/Anexos";
-		}	
-
-
-
-
-		/*Swal.fire({title:"Regresar",
-		text:"Esta Seguro de Regresar?",
-		type:"question",
-		showCancelButton:!0,
-		confirmButtonColor:"#31ce77",
-		cancelButtonColor:"#f34943",
-		confirmButtonText:"Confirmar!"}).then(function(t)
-		{
-	        if(t.value==true)
-	        {
-	           	scope.cargar_lista_anexos();
-				scope.anexos={};		
-				scope.select_tarifa_gas=[];
-				scope.select_tarifa_Elec_Baj=[];
-				scope.select_tarifa_Elec_Alt=[];
-				scope.anexos.T_DetalleAnexoTarifaGas=[];
-				scope.anexos.T_DetalleAnexoTarifaElecBaj =[]; 
-				scope.anexos.T_DetalleAnexoTarifaElecAlt =[]; 
-				scope.anexos.SerGas=false;
-				scope.anexos.SerEle=false;
-				scope.anexos.Fijo=false;
-				scope.anexos.Indexado=false;
-				scope.anexos.AggAllBaj=false;
-				scope.anexos.AggAllAlt=false;	
-				location.href="#/Anexos";	   
-	        }
-	        else
-	        {
-					console.log('Cancelando Ando...');
-					//event.preventDefault();						
-	        }
-	    });	*/		
+		}
 	}
 
 	if(scope.nIDAnexos!=undefined) 

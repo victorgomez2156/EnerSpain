@@ -710,6 +710,131 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- FINAL DE TABS 5 BLOQUEO COMERCIALIZADORA-->
 
+  <!-- INICIO DE TABS 6 BLOQUEO CUPS-->
+  <div id="tabs-6">
+<!--INICIO DIV NG-SHOW TVistaBloqueoCUPs 1-->
+    <div ng-show="vm.TVistaBloqueoCUPs==1">
+        <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesMotBloCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DESCRIPCION</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">OBSERVACIÓN</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AcctMotBloCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_CUPs/{{vm.ruta_reportes_pdf_MotBloCUPs}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Motivo_Bloqueo_CUPs/{{vm.ruta_reportes_excel_MotBloCUPs}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo CUPs" ng-click="vm.agg_bloqueo_CUPs()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_cups()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesMotBloCUPs==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCUPs==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCUPs==true"><i class="icon_cogs"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TMotivo_BloCUPs.length==0"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TMotivo_BloCUPs | filter:paginate6 | filter:vm.filtrar_cups" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesMotBloCUPs==true">{{dato.DesMotBloCUPs}}</td>
+                     <td ng-show="vm.ObsMotBloCUPs==true">{{dato.ObsMotBloCUPs}}</td>
+                    <td ng-show="vm.AcctMotBloCUPs==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_cups" name="opciones_cups" ng-model="vm.opciones_cups[$index]" ng-change="vm.validar_opcion_cups($index,vm.opciones_cups[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th ng-show="vm.DesMotBloCUPs==true"><i class="fa fa-building"></i> Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCUPs==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.AcctMotBloCUPs==true"><i class="icon_cogs"></i> Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_motivo_cups()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems6" ng-model="currentPage6" max-size="5" boundary-links="true" items-per-page="numPerPage6" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+      
+    </div><!--FINAL DIV NG-SHOW TVistaBloqueoCUPs 1-->
+
+    <!--INICIO DIV NG-SHOW TVistaBloqueoCUPs 2-->
+    <div ng-show="vm.TVistaBloqueoCUPs==2">
+   
+      <form class="form-validate form-horizontal " id="form_bloqueo_cups" name="form_bloqueo_cups" ng-submit="submitFormCUPs($event)">
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Descripción del Motivo <span class="required">*</span></label>
+            
+            <div class="col-lg-10">
+              <input class=" form-control" id="DesMotBloCUPs" name="DesMotBloCUPs" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_cups.DesMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1"/>
+            </div>
+        </div>
+
+        <div class="form-group ">
+          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+            <div class="col-lg-10">
+              <textarea class="form-control" id="ObsMotBloCUPs" name="ObsMotBloCUPs" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_cups.ObsMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1" rows="5" maxlength="50"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined||vm.fdatos_mot_cups.CodMotBloCUPs==null||vm.fdatos_mot_cups.CodMotBloCUPs==''" ng-disabled="form_bloqueo_cups.$invalid"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="form_bloqueo_cups.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_CUPs()"><i class="fa fa-backward"></i> REGRESAR</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodMotBloCUPs" name="CodMotBloCUPs" type="hidden" ng-model="vm.fdatos_mot_cups.CodMotBloCUPs" readonly />
+      </form>
+
+
+
+
+    </div>
+    <!--FINAL DIV NG-SHOW TVistaBloqueoComercializadora 2-->
+  </div>
+  <!-- FINAL DE TABS 6 BLOQUEO CUPS-->
+
+
+
+
+
+
+
+
 </div>
 <!-- FINAL DE TABS MAESTRO--> 
                 

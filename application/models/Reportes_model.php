@@ -639,6 +639,21 @@ class Reportes_model extends CI_Model
             return false;
         }       
     }
+     public function get_data_all_motivos_CUPs()
+    {
+        $this->db->select('*');
+        $this->db->from('T_MotivoBloCUPs');
+        $this->db->order_by('DesMotBloCUPs ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
      public function get_all_documentos()
     {
        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d-%m-%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes',false);

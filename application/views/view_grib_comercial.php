@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Comercial as vm">
@@ -235,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FechBloCom" required readonly/>    
+     <input type="text" class="form-control datepicker" ng-model="vm.FechBloCom" name="FechBloCom" id="FechBloCom"/>    
      </div>
      </div>
      </div>
@@ -263,6 +264,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 <!-- modal container section end -->
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#FechBloCom').on('changeDate', function() 
+  {
+     var FechBloCom=document.getElementById("FechBloCom").value;
+     console.log("FechBloCom: "+FechBloCom);
+  });
+</script>
 
   <!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtro_comercial" class="modal fade">

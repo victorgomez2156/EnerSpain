@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Colaboradores as vm">
@@ -122,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.fdatos.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>
 
                     <a style="margin-right: 10px;" href="#/Add_Colaborador" title='Agregar Colaborador' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-plus-square" style="color:white;"></i></div></a>
@@ -145,10 +146,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> ESTATUS</th>
                     <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> ACCIÓN</th>                   
                   </tr>
-                  <tr ng-show="vm.tColaboradores==undefined"> 
+                  <tr ng-show="vm.tColaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                   </tr>
-                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.fdatos.filtrar" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">                    
                     <td ng-show="vm.NomCol==true">{{dato.NomCol}}</td>
                     <td ng-show="vm.NumIdeFis==true">{{dato.NumIdeFis}}</td>
                     <td ng-show="vm.TipCol==true"><div ng-show="dato.TipCol==1">Persona Física</div><div ng-show="dato.TipCol==2">Empresa</div></td>
@@ -286,7 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">NIF/CIF</label>
-     <input type="text" class="form-control" ng-model="vm.NumIdeFisBlo" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.NumIdeFisBlo" readonly/>     
      </div>
      </div>
      </div>
@@ -295,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Colaborador</label>
-      <input type="text" class="form-control" ng-model="vm.NomColBlo" required readonly />     
+      <input type="text" class="form-control" ng-model="vm.NomColBlo" readonly />     
      </div>
      </div>
      </div>
@@ -305,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FecBloColBlo" required readonly/>    
+     <input type="text" class="form-control datepicker" ng-model="vm.FecBloColBlo" name="FecBloColBlo" id="FecBloColBlo"  />    
      </div>
      </div>
      </div>
@@ -336,6 +337,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- modal container section end -->
 
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#FecBloColBlo').on('changeDate', function() 
+  {
+     var FecBloColBlo=document.getElementById("FecBloColBlo").value;
+     console.log("FecBloColBlo: "+FecBloColBlo);
+  });
+</script>
 </div>
 </body>
 <div id="cargando" class="loader loader-default"  data-text="Cargando lista de Colaboradores, Por Favor Espere..."></div>

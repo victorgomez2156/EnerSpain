@@ -19,7 +19,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	{
 		mm='0'+mm
 	} 
-	var fecha = dd+'-'+mm+'-'+yyyy;
+	var fecha = dd+'/'+mm+'/'+yyyy;
 
 
 	scope.ruta_reportes_pdf_comercial=0;
@@ -57,7 +57,12 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	
 	$scope.submitForm = function(event) 
 	{      
-	 	console.log(scope.fdatos);
+	 	
+		if (!scope.validar_campos_datos_basicos())
+		{
+			return false;
+		}
+		console.log(scope.fdatos);
 	 	if(scope.fdatos.CodCom>0)
 		{
 			var title='Actualizando';
@@ -125,6 +130,164 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	        }
 	    });					
 	};
+	scope.validar_campos_datos_basicos = function()
+{
+	resultado = true;	
+	if (scope.fdatos.NomCom==null || scope.fdatos.NomCom==undefined || scope.fdatos.NomCom=='')
+	{
+		Swal.fire({title:"El Campo Nombre Comercial es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	if (scope.fdatos.CarCom==null || scope.fdatos.CarCom==undefined || scope.fdatos.CarCom=='')
+	{
+		Swal.fire({title:"El Campo Cargo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	var FecIniCom=document.getElementById("FecIniCom").value;
+		scope.fdatos.FecIniCom=FecIniCom;
+		if (scope.fdatos.FecIniCom==null || scope.fdatos.FecIniCom==undefined || scope.fdatos.FecIniCom=='')
+		{
+			Swal.fire({title:"El Campo Fecha de Inicio Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		else
+		{
+			var FecIniCom= (scope.fdatos.FecIniCom).split("/");
+			if(FecIniCom.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FecIniCom[0].length>2 || FecIniCom[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecIniCom[1].length>2 || FecIniCom[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecIniCom[2].length<4 || FecIniCom[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.fdatos.FecIniCom.split("/");
+			    valuesEnd=fecha.split("/"); 
+			        // Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({text:"La Fecha de Inicio no puede ser mayor al "+fecha+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.fdatos.FecIniCom=	valuesStart[0]+"/"+valuesStart[1]+"/"+valuesStart[2];
+			}
+		}
+	if (scope.fdatos.PorComCom==null || scope.fdatos.PorComCom==undefined || scope.fdatos.PorComCom=='')
+	{
+		Swal.fire({title:"El Campo Porcentaje del Beneficio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	if (scope.fdatos.TelFijCom==null || scope.fdatos.TelFijCom==undefined || scope.fdatos.TelFijCom=='')
+	{
+		Swal.fire({title:"El Campo Teléfono Fijo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	if (scope.fdatos.TelCelCom==null || scope.fdatos.TelCelCom==undefined || scope.fdatos.TelCelCom=='')
+	{
+		Swal.fire({title:"El Campo Teléfono Celular es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	if (scope.fdatos.EmaCom==null || scope.fdatos.EmaCom==undefined || scope.fdatos.EmaCom=='')
+	{
+		Swal.fire({title:"El Campo Email es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	if (scope.fdatos.ObsCom==null || scope.fdatos.ObsCom==undefined || scope.fdatos.ObsCom=='')
+	{
+		scope.fdatos.ObsCom=null;
+	}
+	else
+	{
+		scope.fdatos.ObsCom=scope.fdatos.ObsCom;
+	}
+
+
+	if (resultado == false)
+	{
+					//quiere decir que al menos un renglon no paso la validacion
+		return false;
+	} 
+	return true;
+}
+	scope.validar_inputs=function(metodo,object)
+	{
+		console.log(object);
+		console.log(metodo);
+		if(metodo==1)
+		{
+			if(object!=undefined)
+			{
+				numero=object;		
+				if(!/^([/0-9])*$/.test(numero))
+				scope.fdatos.FecIniCom=numero.substring(0,numero.length-1);
+			}	
+		}
+		if(metodo==2)
+		{
+			if(object!=undefined)
+			{
+				numero=object;		
+				if(!/^([.0-9])*$/.test(numero))
+				scope.fdatos.PorComCom=numero.substring(0,numero.length-1);
+			}	
+		}
+		if(metodo==3)
+		{
+			if(object!=undefined)
+			{
+				numero=object;		
+				if(!/^([0-9])*$/.test(numero))
+				scope.fdatos.TelFijCom=numero.substring(0,numero.length-1);
+			}	
+		}
+		if(metodo==4)
+		{
+			if(object!=undefined)
+			{
+				numero=object;		
+				if(!/^([/0-9])*$/.test(numero))
+				scope.fdatos.TelCelCom=numero.substring(0,numero.length-1);
+			}	
+		}			
+	}
+	scope.validar_email=function()
+	{
+		document.getElementById('EmaCli').addEventListener('input', function() {
+		campo = event.target;
+		valido = document.getElementById('emailOK');		
+		emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+		//Se muestra un texto a modo de ejemplo, luego va a ser un icono
+		if (emailRegex.test(campo.value)) 
+		{
+			valido.innerText = "";
+			scope.disabled_button_by_email=false;
+		} 
+		else 
+		{
+			valido.innerText = "Email Incorrecto.";
+			scope.disabled_button_by_email=true;
+		}});
+	}
 	$scope.Consultar_DNI_NIE= function(event) 
 	{ 	
 		$("#comprobando_dni").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
@@ -251,7 +414,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 			else
 			{
 				Swal.fire({title:"Error",text:"No hemos encontrado Comerciales Registrados.",type:"error",confirmButtonColor:"#188ae2"});				
-				scope.TComercial=undefined;
+				scope.TComercial=[];
+				scope.TComercialBack=[];
 			}
 		},function(error)
 		{
@@ -331,6 +495,7 @@ scope.modal_agg_comercial=function()
 			if(result.data!=false)
 			{
 				scope.fdatos=result.data;				
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecIniCom);
 				console.log(scope.fdatos);
 			}
 			else
@@ -496,7 +661,6 @@ scope.modal_agg_comercial=function()
 		}
 		if(opcion==3)
 		{
-			//console.log(datos);
 			scope.opciones_comercial[index]=undefined;
 			if(datos.EstCom==1)
 			{				
@@ -571,13 +735,71 @@ scope.modal_agg_comercial=function()
 			scope.datos_update.CodCom=datos.CodCom;
 			scope.NIFCom=datos.NIFCom;			
 			scope.NomCom=datos.NomCom;  
-			scope.FechBloCom=fecha;   
+			scope.FechBloCom=fecha; 
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FechBloCom);  
 			scope.datos_update.EstCom=2;      	
 	        $("#modal_motivo_bloqueo").modal('show'); 
 		}	
 	}
 	$scope.submitFormlock = function(event) 
 	{      
+		var FechBloCom=document.getElementById("FechBloCom").value;
+		scope.FechBloCom=FechBloCom;
+		if (scope.FechBloCom==null || scope.FechBloCom==undefined || scope.FechBloCom=='')
+		{
+			Swal.fire({title:"El Campo Fecha de Bloqueo Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		else
+		{
+			var FechBloCom= (scope.FechBloCom).split("/");
+			if(FechBloCom.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FechBloCom[0].length>2 || FechBloCom[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FechBloCom[1].length>2 || FechBloCom[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FechBloCom[2].length<4 || FechBloCom[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.FechBloCom.split("/");
+			    valuesEnd=fecha.split("/"); 
+			        // Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+fecha+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.datos_update.FechBloCom=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
+			}
+		}
+		if (scope.datos_update.ObsBloCom==null || scope.datos_update.ObsBloCom==undefined || scope.datos_update.ObsBloCom=='')
+		{
+			scope.datos_update.ObsBloCom=null;
+		}
+		else
+		{
+			scope.datos_update.ObsBloCom=scope.datos_update.ObsBloCom;
+		}
 	 	console.log(scope.datos_update);	 	
 	 	Swal.fire({title:'BLOQUEAR',text:"¿Está Seguro de Bloquear Este Comercial?",
 		type:"question",

@@ -34,7 +34,7 @@ class Comercial_model extends CI_Model
     }
     public function get_comercial_data($CodCom)
     {
-        $this->db->select('*');
+        $this->db->select('CodCom,NIFCom,NomCom,TelFijCom,TelCelCom,EmaCom,CarCom,DATE_FORMAT(FecIniCom,"%d/%m/%Y") as FecIniCom,PorComCom,ObsCom,EstCom');
         $this->db->from('T_Comercial');  
         $this->db->where('CodCom',$CodCom);     
         $this->db->order_by('NomCom DESC');              
@@ -48,16 +48,16 @@ class Comercial_model extends CI_Model
             return false;
         }       
     }
-    public function agregar_comercial($NomCom,$NIFCom,$TelCelCom,$TelFijCom,$EmaCom,$CarCom,$PorComCom,$ObsCom)
+    public function agregar_comercial($NomCom,$NIFCom,$TelCelCom,$TelFijCom,$EmaCom,$CarCom,$PorComCom,$ObsCom,$FecIniCom)
     {
-        $this->db->insert('T_Comercial',array('NomCom'=>$NomCom,'NIFCom'=>$NIFCom,'TelCelCom'=>$TelCelCom,'TelFijCom'=>$TelFijCom,'EmaCom'=>$EmaCom,'CarCom'=>$CarCom,'FecIniCom'=>date('Y-m-d'),'PorComCom'=>$PorComCom,'ObsCom'=>$ObsCom));
+        $this->db->insert('T_Comercial',array('NomCom'=>$NomCom,'NIFCom'=>$NIFCom,'TelCelCom'=>$TelCelCom,'TelFijCom'=>$TelFijCom,'EmaCom'=>$EmaCom,'CarCom'=>$CarCom,'FecIniCom'=>$FecIniCom,'PorComCom'=>$PorComCom,'ObsCom'=>$ObsCom));
         return $this->db->insert_id();
     }
-    public function actualizar_comercial($CodCom,$NomCom,$NIFCom,$TelCelCom,$TelFijCom,$EmaCom,$CarCom,$PorComCom,$ObsCom)
+    public function actualizar_comercial($CodCom,$NomCom,$NIFCom,$TelCelCom,$TelFijCom,$EmaCom,$CarCom,$PorComCom,$ObsCom,$FecIniCom)
     {   
         $this->db->where('CodCom', $CodCom);
         $this->db->where('NIFCom', $NIFCom);        
-        return $this->db->update('T_Comercial',array('NomCom'=>$NomCom,'TelCelCom'=>$TelCelCom,'TelFijCom'=>$TelFijCom,'EmaCom'=>$EmaCom,'CarCom'=>$CarCom,'PorComCom'=>$PorComCom,'ObsCom'=>$ObsCom));
+        return $this->db->update('T_Comercial',array('NomCom'=>$NomCom,'TelCelCom'=>$TelCelCom,'TelFijCom'=>$TelFijCom,'EmaCom'=>$EmaCom,'CarCom'=>$CarCom,'PorComCom'=>$PorComCom,'ObsCom'=>$ObsCom,'FecIniCom'=>$FecIniCom));
     }
      public function borrar_comercial_data($CodCom)
     { 

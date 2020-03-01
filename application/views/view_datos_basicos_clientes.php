@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>       
         <div class="input-append date" id="dpYears" data-date="18-06-2013" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-          <input class="form-control" size="16" type="text" placeholder="mm/dd/yyyy" ng-model="vm.FecIniCli" maxlength="10" ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_fecha_blo(4,vm.FecIniCli)">      
+          <input class="form-control datepicker" size="16" type="text" placeholder="mm/dd/yyyy" name="FecIniCli" id="FecIniCli" ng-model="vm.FecIniCli" maxlength="10" ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_fecha_blo(4,vm.FecIniCli)">      
       </div>
       
        </div>
@@ -211,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.ZonPosSoc" placeholder="* Zona Postal" readonly ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocSoc" placeholder="* Zona Postal Social" ng-change="vm.asignar_CPLoc()" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -311,7 +311,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.ZonPosFis" placeholder="* Zona Postal" readonly ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
        </div>
        </div>
        </div>
@@ -396,6 +396,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#FecIniCli').on('changeDate', function() 
+  {
+     var FecIniCli=document.getElementById("FecIniCli").value;
+     console.log("FecIniCli: "+FecIniCli);
+  });
+</script>
 
 
 

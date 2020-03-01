@@ -34,7 +34,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.TVistaMotBloAct=1;
 	scope.DesMotBloAct=true;
 	scope.AcctMotBloAct=true;
-	scope.TMotivo_BloActividad=undefined;
+	scope.TMotivo_BloActividad=[];
 	scope.ruta_reportes_pdf_MotBloAct=0;
 	scope.ruta_reportes_excel_MotBloAct=0;	
 	scope.fdatos_mot_actividad={};
@@ -43,7 +43,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.TvistaMotBloPunSum=1;
 	scope.DesMotBloPun=true;
 	scope.AcctMotBloPunSum=true;
-	scope.TMotivo_BloPunSum=undefined;
+	scope.TMotivo_BloPunSum=[];
 	scope.ruta_reportes_pdf_MotBloPunSum=0;
 	scope.ruta_reportes_excel_MotBloPunSum=0;
 	scope.fdatos_mot_PunSum={};
@@ -51,7 +51,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.TVistaBloqueoContacto=1;
 	scope.DesMotBlocon=true;
 	scope.AcctMotBloCon=true;
-	scope.TMotivo_BloContacto=undefined;
+	scope.TMotivo_BloContacto=[];
 	scope.ruta_reportes_pdf_MotBloContacto=0;
 	scope.ruta_reportes_excel_MotBloContacto=0;
 	scope.fdatos_mot_contacto={};
@@ -59,10 +59,18 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 	scope.TVistaBloqueoComercializadora=1;
 	scope.DesMotBloCom=true;
 	scope.AcctMotBloCom=true;
-	scope.TMotivo_BloComercializadora=undefined;
+	scope.TMotivo_BloComercializadora=[];
 	scope.ruta_reportes_pdf_MotBloComercializadora=0;
 	scope.ruta_reportes_excel_MotBloComercializadora=0;
 	scope.fdatos_mot_comercializadora={};
+
+	scope.TVistaBloqueoCUPs=1;
+	scope.DesMotBloCUPs=true;
+	scope.AcctMotBloCUPs=true;
+	scope.TMotivo_BloCUPs=[];
+	scope.ruta_reportes_pdf_MotBloCUPs=0;
+	scope.ruta_reportes_excel_MotBloCUPs=0;
+	scope.fdatos_mot_cups={};
 
 
 //////////////////////////////////////////////////////////////////MOTIVOS BLOQUEOS CLIENTES START//////////////////////////////////////////////////////////////////////////////
@@ -1355,7 +1363,6 @@ scope.regresar_Comercializadora=function()
 		scope.cargar_lista_motivo_comercializadora();
 	}		
 }
-
 $scope.submitFormComercializadora = function(event) 
 {      
 	console.log(scope.fdatos_mot_comercializadora);
@@ -1552,11 +1559,306 @@ scope.validar_opcion_comercializadora=function(index,opciones_comercializadora,d
 		scope.validate_mot_comercializadora=undefined;
 	}
 }
-
-
-
-
-
 //////////////////////////////////////////////////////////////MOTIVOS BLOQUEOS COMERCIALIZADORAS END//////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////MOTIVOS BLOQUEOS CUPS START//////////////////////////////////////////////////////////////////////////////
+scope.cargar_lista_motivo_cups=function()
+{
+	$("#cargando_lista").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+	var url = base_urlHome()+"api/Motivos_Bloqueos/list_motivo_CUPS/";
+	$http.get(url).then(function(result)
+	{
+		$("#cargando_lista").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
+		if(result.data!=false)
+		{
+			$scope.predicate6 = 'id';  
+			$scope.reverse6 = true;						
+			$scope.currentPage6 = 1;  
+			$scope.order6 = function (predicate6) 
+			{  
+				$scope.reverse6 = ($scope.predicate6 === predicate6) ? !$scope.reverse6 : false;  
+				$scope.predicate6 = predicate6;  
+			}; 						
+			scope.TMotivo_BloCUPs=result.data;					
+			$scope.totalItems6 = scope.TMotivo_BloCUPs.length; 
+			$scope.numPerPage6 = 50;  
+			$scope.paginate6 = function (value6) 
+			{  
+				var begin6, end6, index6;  
+				begin6 = ($scope.currentPage6 - 1) * $scope.numPerPage6;  
+				end6 = begin6 + $scope.numPerPage6;  
+				index6 = scope.TMotivo_BloCUPs.indexOf(value6);  
+				return (begin6 <= index6 && index6 < end6);  
+			};				
+			console.log(scope.TMotivo_BloCUPs);
+		}
+		else
+		{
+			Swal.fire({title:"Error.",text:"No hemos encontrado motivos de CUPs registrados.",type:"error",confirmButtonColor:"#188ae2"});
+			scope.TMotivo_BloCUPs=[];
+		}
+	},function(error)
+	{
+		$("#cargando_lista").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+		if(error.status==404 && error.statusText=="Not Found")
+		{
+			Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==401 && error.statusText=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==403 && error.statusText=="Forbidden")
+		{
+			Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==500 && error.statusText=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+	});
+}
+
+scope.agg_bloqueo_CUPs=function()
+{
+	scope.fdatos_mot_cups={};
+	scope.TVistaBloqueoCUPs=2;
+	scope.validate_mot_bloqueo_cups=undefined;
+}
+scope.validar_opcion_cups=function(index,opciones_cups,datos)
+{
+	scope.opciones_cups[index]=undefined;
+	if(opciones_cups==1)
+	{
+		scope.TVistaBloqueoCUPs=2;
+		scope.fdatos_mot_cups=datos;
+		scope.validate_mot_bloqueo_cups=1;
+	}
+	if(opciones_cups==2)
+	{
+		scope.TVistaBloqueoCUPs=2;
+		scope.fdatos_mot_cups=datos;
+		scope.validate_mot_bloqueo_cups=undefined;
+	}
+}
+scope.limpiar_CUPs=function()
+{
+	scope.fdatos_mot_cups={};
+}
+
+scope.regresar_CUPs=function()
+{
+	if(scope.validate_mot_bloqueo_cups==undefined)
+	{
+		Swal.fire({title:"Regresar",
+		text:"¿Está Seguro de Regresar y no completar el Proceso?",
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"Si, Deseo continuar!"}).then(function(t)
+		{
+		    if(t.value==true)
+		    {
+		        scope.fdatos_mot_cups={};
+				scope.TVistaBloqueoCUPs=1;
+				scope.validate_mot_bloqueo_cups=undefined;
+				scope.cargar_lista_motivo_cups();
+				return false;
+		    }
+		    else
+		    {
+				console.log('Cancelando Ando...');
+				return false;							
+		    }
+		});	
+	}
+	else
+	{
+		scope.fdatos_mot_cups={};
+		scope.TVistaBloqueoCUPs=1;
+		scope.validate_mot_bloqueo_cups=undefined;
+		scope.cargar_lista_motivo_cups();
+	}		
+}
+
+scope.buscarXID_MotBloCUPs=function()
+{
+	$("#cargando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active" );
+	var url = base_urlHome()+"api/Motivos_Bloqueos/buscar_xID_MotBloCUPs/CodMotBloCUPs/"+scope.nIDMotBloCUPs;
+	$http.get(url).then(function(result)
+	{
+		$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+		if(result.data!=false)
+		{
+			scope.fdatos_mot_cups=result.data;				
+			console.log(scope.fdatos_mot_cups);
+		}
+		else
+		{
+			Swal.fire({title:"Error",text:"Hubo un error al intentar cargar los datos.",type:"error",confirmButtonColor:"#188ae2"});				
+		}
+		},function(error)
+	{
+		console.log(error);
+		$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+		if(error.status==404 && error.statusText=="Not Found")
+		{
+			Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==401 && error.statusText=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==403 && error.statusText=="Forbidden")
+		{
+			Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==500 && error.statusText=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+		}			
+	});
+}
+$scope.submitFormCUPs = function(event) 
+{      
+	console.log(scope.fdatos_mot_cups);
+ 	if(scope.fdatos_mot_cups.CodMotBloCUPs>0)
+	{
+	 	var title='Actualizando';
+	 	var text='¿Esta Seguro de Actualizar el Motivo?';
+	 	var response="Motivo Bloqueo Comercializadora modificado satisfactoriamente.";
+	}
+	if(scope.fdatos_mot_cups.CodMotBloCUPs==undefined)
+	{
+	 	var title='Guardando';
+	 	var text='¿Está Seguro de Guardar el Motivo?';
+	 	var response="Motivo Bloqueo Comercializadora creado satisfactoriamente.";
+	}
+	if(scope.fdatos_mot_cups.ObsMotBloCUPs==undefined||scope.fdatos_mot_cups.ObsMotBloCUPs==null||scope.fdatos_mot_cups.ObsMotBloCUPs=="")
+	{
+		scope.fdatos_mot_cups.ObsMotBloCUPs=null;
+	}
+	else
+	{
+		scope.fdatos_mot_cups.ObsMotBloCUPs=scope.fdatos_mot_cups.ObsMotBloCUPs;
+	}
+ 	Swal.fire({title:title,
+	text:text,
+	type:"question",
+	showCancelButton:!0,
+	confirmButtonColor:"#31ce77",
+	cancelButtonColor:"#f34943",
+	confirmButtonText:"Si, Deseo continuar!"}).then(function(t)
+	{
+        if(t.value==true)
+        {
+        	$("#"+title).removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");				
+			var url=base_urlHome()+"api/Motivos_Bloqueos/crear_motivo_bloqueo_CUPs/";
+			$http.post(url,scope.fdatos_mot_cups).then(function(result)
+			{
+				scope.nIDMotBloCUPs=result.data.CodMotBloCUPs;
+				$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+				if(scope.nIDMotBloCUPs>0)
+				{
+					console.log(result.data);
+					Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
+					scope.buscarXID_MotBloCUPs();										
+				}
+				else
+				{
+					Swal.fire({title:"Error",text:"Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .",type:"error",confirmButtonColor:"#188ae2"});															
+				}
+			},function(error)
+			{
+				console.log(error);
+				$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+				if(error.status==404 && error.statusText=="Not Found")
+				{
+					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==401 && error.statusText=="Unauthorized")
+				{
+					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==403 && error.statusText=="Forbidden")
+				{
+					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==500 && error.statusText=="Internal Server Error")
+				{
+					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				}					
+			});	           
+	    }
+	    else
+	    {
+			event.preventDefault();				
+	    }
+	});					
+};
+scope.borrar_CUPs=function()
+{
+	var event=true;
+	if(scope.Nivel==3)
+	{
+		Swal.fire({title:"Nivel no Autorizado.",text:"Su nivel no esta autorizado para esta operación.",type:"error",confirmButtonColor:"#188ae2"});
+		return false;
+	}
+	Swal.fire({title:"Borrar",
+	text:"¿Está Seguro de Eliminar Este Registro?",
+	type:"question",
+	showCancelButton:!0,
+	confirmButtonColor:"#31ce77",
+	cancelButtonColor:"#f34943",
+	confirmButtonText:"Si, Deseo continuar!"}).then(function(t)
+	{
+	    if(t.value==true)
+	    {
+	     	$("#borrando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+			var url = base_urlHome()+"api/Motivos_Bloqueos/borrar_row_MotBloCUPs/CodMotBloCUPs/"+scope.fdatos_mot_cups.CodMotBloCUPs;
+			$http.delete(url).then(function(result)
+			{
+				$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				if(result.data!=false)
+				{
+					Swal.fire({title:"Exito!!",text:"Registro Eliminado Correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+					scope.TVistaBloqueoCUPs=1;
+					scope.cargar_lista_motivo_cups();						
+				}
+				else
+				{
+					Swal.fire({title:"Error",text:"No hemos podido borrar el registro intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});	
+				}
+			},function(error)
+			{
+				$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				if(error.status==404 && error.statusText=="Not Found")
+				{
+					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==401 && error.statusText=="Unauthorized")
+				{
+					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==403 && error.statusText=="Forbidden")
+				{
+					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==500 && error.statusText=="Internal Server Error")
+				{
+					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				}	
+			});	          
+		}
+		else
+		{
+			event.preventDefault();				
+		}
+	});
+}
+//////////////////////////////////////////////////////////////////MOTIVOS BLOQUEOS CUPS END//////////////////////////////////////////////////////////////////////////////
+
 
 }			

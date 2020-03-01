@@ -80,11 +80,9 @@ document.onmousedown = right;*/
  
 
   <!-- javascripts -->
- 
-  <script src="<?php echo ESTILOS;?>js/jquery-ui-1.10.4.min.js"></script>
-  <script src="<?php echo ESTILOS;?>js/jquery-1.8.3.min.js"></script>
-  
   <script src="<?php echo ESTILOS;?>js/jquery.js"></script>
+  <script src="<?php echo ESTILOS;?>js/jquery-ui-1.10.4.min.js"></script>
+  <script src="<?php echo ESTILOS;?>js/jquery-1.8.3.min.js"></script>  
   <script src="<?php echo ESTILOS;?>js/bootstrap.min.js"></script>
   <!-- nice scroll -->
   <script src="<?php echo ESTILOS;?>js/jquery.scrollTo.min.js"></script>

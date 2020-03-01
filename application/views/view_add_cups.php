@@ -212,7 +212,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-
   <div class="col-12 col-sm-1">
        <div class="form">                          
        <div class="form-group">
@@ -267,11 +266,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-       <div class="col-12 col-sm-4">
+       
+  </div> 
+<div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
+        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
        </div>
        </div>
        </div>
@@ -280,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
+        <input type="text" class="form-control datepicker2" ng-model="vm.fdatos_cups.FecUltLec"  name="FecUltLec" id="FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
        </div>
        </div>
        </div>
@@ -293,36 +294,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-  </div> 
-
-  <div ng-show="vm.fdatos_cups.TipServ==2">   
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Consumo (kWh) <b style="color:red;">(*)</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.ConAnuCup" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.ConAnuCup)" onkeyup="this.value=this.value.toUpperCase();" ng-disabled="vm.validate_info!=undefined"/>
-       </div>
-       </div>
-       </div>
-  </div>
   <input type="hidden" class="form-control" ng-model="vm.fdatos_cups.CodCup" readonly />      
          <div class="form-group" >
           <div class="col-12 col-sm-6">
@@ -374,7 +345,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </section>
 
 
+ <script>
+      $(function(){
+        jQuery(function($) 
+        {      
+          //jquery tabs
+          $( "#tabs_clientes" ).tabs(); 
+         /*FecAltCup
+*/
+      });
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+        $('#FecAltCup').on('changeDate', function() 
+        {
+          var FecAltCup=document.getElementById("FecAltCup").value;
+          console.log("FecAltCup: "+FecAltCup);
+        });
+        $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+        $('#FecUltLec').on('changeDate', function() 
+        {
+          var FecUltLec=document.getElementById("FecUltLec").value;
+          console.log("FecUltLec: "+FecUltLec);
+        });
+       
+        function mayus(e)
+        {
+          var tecla=e.value;
+          var tecla2=tecla.toUpperCase();
+        }
 
+
+      });
+    </script>
 </div>
 </body>
 <div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del CUPs, Por Favor Espere..."></div>

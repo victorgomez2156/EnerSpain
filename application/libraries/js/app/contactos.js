@@ -144,6 +144,11 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 			index4 = scope.Tabla_Contacto.indexOf(value4);  
 			return (begin4 <= index4 && index4 < end4);  
 		};
+		if(scope.Tabla_Contacto==false)
+		{
+			scope.Tabla_Contacto=[];
+			scope.Tabla_ContactoBack=[];
+		}
 	}).catch(function(err){console.log(err);});
 
 
@@ -404,6 +409,7 @@ $scope.SubmitFormFiltrosContactos = function(event)
 			scope.tmodal_data={};
 			scope.NumCif=dato.NIFConCli;
 			scope.FechBlo=scope.fecha_server;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FechBlo);
 			scope.RazSocCli=dato.NomConCli;
 			scope.tmodal_data.CodCli=dato.CodCli;
 			scope.tmodal_data.index=index;
@@ -521,7 +527,9 @@ $scope.SubmitFormFiltrosContactos = function(event)
 	}
 	$scope.submitFormlockContactos = function(event) 
 	{
-	 	if(scope.FechBlo==undefined || scope.FechBlo==null || scope.FechBlo=='') 
+		var FechBlo1=document.getElementById("FechBlo").value;
+		scope.FechBlo=FechBlo1;
+	if(scope.FechBlo==undefined || scope.FechBlo==null || scope.FechBlo=='') 
 	{
 		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
 		event.preventDefault();	
@@ -653,7 +661,19 @@ $scope.Consultar_CIF_Contacto = function(event)
 	};	
 scope.regresar_contacto=function()
 	{
-		Swal.fire({title:"Esta Seguro de Regresar?",			
+		if(scope.no_editable==undefined)
+	{
+		if(scope.tContacto_data_modal.CodConCli==undefined)
+		{
+			var title="Guardando";
+			var text="¿Estás seguro de regresar y no guardar los datos?";
+		}
+		else
+		{
+			var title="Actualizando";
+			var text="¿Estás seguro de regresar y no actualizar los datos?";
+		}
+		Swal.fire({title:title,text:text,		
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
@@ -662,15 +682,19 @@ scope.regresar_contacto=function()
 		{
 	        if(t.value==true)
 	        {
-	           	$cookies.remove('CIF_Contacto');
-	           	location.href="#/Contactos";
+	        	location.href="#/Contactos";
 	        }
 	        else
 	        {
-	            console.log('Cancelando ando...');	                
+	            console.log('Cancelando ando...');
 	        }
 	    });	
-		
+
+	}
+	else
+	{
+		location.href="#/Contactos";
+	}
 	}
 	scope.BuscarXIDContactos=function()
 	{

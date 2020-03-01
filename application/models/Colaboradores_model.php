@@ -38,9 +38,9 @@ class Colaboradores_model extends CI_Model
     }
     public function get_colaborador_data($CodCol)
     {
-        $this->db->select('a.CodCol,a.TipCol,a.NumIdeFis,a.NomCol,a.CodTipVia,a.NomViaDir,a.NumViaDir,a.BloDir,a.EscDir,a.PlaDir,a.PueDir,b.CodPro,a.CodLoc,b.CPLoc,a.TelFijCol,a.TelCelCol,a.EmaCol,a.ObsCol,a.PorCol,a.EstCol');
+        $this->db->select('a.CodCol,a.TipCol,a.NumIdeFis,a.NomCol,a.CodTipVia,a.NomViaDir,a.NumViaDir,a.BloDir,a.EscDir,a.PlaDir,a.PueDir,b.CodPro,a.CodLoc,a.CPLoc,a.TelFijCol,a.TelCelCol,a.EmaCol,a.ObsCol,a.PorCol,a.EstCol');
         $this->db->from('T_Colaborador a');
-        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');  
+        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc','left');  
         $this->db->where('a.CodCol',$CodCol);
         $query = $this->db->get(); 
         if($query->num_rows()==1)
@@ -52,15 +52,15 @@ class Colaboradores_model extends CI_Model
             return false;
         }       
     }
-   public function agregar_colaborador($BloDir,$CodLoc,$CodTipVia,$EmaCol,$EscDir,$NomCol,$NomViaDir,$NumIdeFis,$NumViaDir,$ObsCol,$PlaDir,$PorCol,$PueDir,$TelCelCol,$TelFijCol,$TipCol)
+   public function agregar_colaborador($BloDir,$CodLoc,$CodTipVia,$EmaCol,$EscDir,$NomCol,$NomViaDir,$NumIdeFis,$NumViaDir,$ObsCol,$PlaDir,$PorCol,$PueDir,$TelCelCol,$TelFijCol,$TipCol,$CPLoc)
     {
-        $this->db->insert('T_Colaborador',array('BloDir'=>$BloDir,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'EmaCol'=>$EmaCol,'EscDir'=>$EscDir,'NomCol'=>$NomCol,'NomViaDir'=>$NomViaDir,'NumIdeFis'=>$NumIdeFis,'NumViaDir'=>$NumViaDir,'ObsCol'=>$ObsCol,'PlaDir'=>$PlaDir,'PorCol'=>$PorCol,'PueDir'=>$PueDir,'TelCelCol'=>$TelCelCol,'TelFijCol'=>$TelFijCol,'TipCol'=>$TipCol));
+        $this->db->insert('T_Colaborador',array('BloDir'=>$BloDir,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'EmaCol'=>$EmaCol,'EscDir'=>$EscDir,'NomCol'=>$NomCol,'NomViaDir'=>$NomViaDir,'NumIdeFis'=>$NumIdeFis,'NumViaDir'=>$NumViaDir,'ObsCol'=>$ObsCol,'PlaDir'=>$PlaDir,'PorCol'=>$PorCol,'PueDir'=>$PueDir,'TelCelCol'=>$TelCelCol,'TelFijCol'=>$TelFijCol,'TipCol'=>$TipCol,'CPLoc'=>$CPLoc));
         return $this->db->insert_id();
     }
-    public function actualizar_colaborador($CodCol,$BloDir,$CodLoc,$CodTipVia,$EmaCol,$EscDir,$NomCol,$NomViaDir,$NumIdeFis,$NumViaDir,$ObsCol,$PlaDir,$PorCol,$PueDir,$TelCelCol,$TelFijCol,$TipCol)
+    public function actualizar_colaborador($CodCol,$BloDir,$CodLoc,$CodTipVia,$EmaCol,$EscDir,$NomCol,$NomViaDir,$NumIdeFis,$NumViaDir,$ObsCol,$PlaDir,$PorCol,$PueDir,$TelCelCol,$TelFijCol,$TipCol,$CPLoc)
     {   
         $this->db->where('CodCol', $CodCol);        
-        return $this->db->update('T_Colaborador',array('BloDir'=>$BloDir,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'EmaCol'=>$EmaCol,'EscDir'=>$EscDir,'NomCol'=>$NomCol,'NomViaDir'=>$NomViaDir,'NumViaDir'=>$NumViaDir,'ObsCol'=>$ObsCol,'PlaDir'=>$PlaDir,'PorCol'=>$PorCol,'PueDir'=>$PueDir,'TelCelCol'=>$TelCelCol,'TelFijCol'=>$TelFijCol,'TipCol'=>$TipCol));
+        return $this->db->update('T_Colaborador',array('BloDir'=>$BloDir,'CodLoc'=>$CodLoc,'CodTipVia'=>$CodTipVia,'EmaCol'=>$EmaCol,'EscDir'=>$EscDir,'NomCol'=>$NomCol,'NomViaDir'=>$NomViaDir,'NumViaDir'=>$NumViaDir,'ObsCol'=>$ObsCol,'PlaDir'=>$PlaDir,'PorCol'=>$PorCol,'PueDir'=>$PueDir,'TelCelCol'=>$TelCelCol,'TelFijCol'=>$TelFijCol,'TipCol'=>$TipCol,'CPLoc'=>$CPLoc));
     }   
      public function get_list_localidad()
     {

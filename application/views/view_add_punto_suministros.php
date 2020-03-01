@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliPunSum" name="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum" required ng-disabled="vm.validate_info_PunSum!=undefined"> 
+       <select class="form-control" id="CodCliPunSum" name="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum" required ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.CodPunSum>0"> 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
         </select>       
        </div>
@@ -83,13 +83,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:blue;"><b>DIRECCIÓN</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;;"><b>DIRECCIÓN</b></label></div></div>
       
       <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodTipVia" name="CodTipVia"  placeholder="* Tipo de Via" ng-model="vm.fpuntosuministro.CodTipVia" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.TipRegDir==undefined" required>
+       <select class="form-control" id="CodTipVia" name="CodTipVia"  placeholder="* Tipo de Via" ng-model="vm.fpuntosuministro.CodTipVia" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.TipRegDir==undefined " required>
          <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
         </select>
        </div>
@@ -173,7 +173,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodLocPunSum" name="CodLocPunSum" ng-change="vm.filtrar_zona_postalPunSum()"  ng-model="vm.fpuntosuministro.CodLocPunSum" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined || vm.fpuntosuministro.CodProPunSum==undefined" required>
+       <select class="form-control" id="CodLocPunSum" name="CodLocPunSum" ng-model="vm.fpuntosuministro.CodLocPunSum" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined || vm.fpuntosuministro.CodProPunSum==undefined" required>
         <option ng-repeat="dato in vm.TLocalidadesfiltradaPunSum" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
         </select>
        </div>
@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.ZonPosPunSum" placeholder="Zona Postal" readonly ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.CPLocSoc" placeholder="Zona Postal" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
        </div>      

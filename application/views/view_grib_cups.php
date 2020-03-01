@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Cups as vm">
@@ -149,8 +150,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
                     <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                                            
+                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
+                    <th ng-show="vm.Dir_Cups==true"><i class="fa fa-archive"></i> DIRECCÓN</th> 
                     <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
@@ -162,7 +164,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.RazSoc==true">{{dato.Cups_RazSocCli}}</td>
                     <td ng-show="vm.Cups==true">{{dato.CupsGas}}</td>
                     <td ng-show="vm.Cups_Ser==true">{{dato.TipServ}}</td>
-                    <td ng-show="vm.Cups_Tar==true">{{dato.NomTarGas}}</td> 
+                    <td ng-show="vm.Cups_Tar==true">{{dato.NomTarGas}}</td>
+                    <td ng-show="vm.Dir_Cups==true">{{dato.TipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}} {{dato.DesPro}} {{dato.DesLoc}} {{dato.CPLocSoc}}</td>  
                     <td ng-show="vm.EstCUPs==true">
                       <span class="label label-info" ng-show="dato.EstCUPs=='ACTIVO'"><i class="fa fa-check-circle"></i> {{dato.EstCUPs}}</span>
                       <span class="label label-danger" ng-show="dato.EstCUPs=='DADO DE BAJA'"><i class="fa fa-ban"></i> {{dato.EstCUPs}}</span>
@@ -180,8 +183,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
                     <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                                            
+                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
+                    <th ng-show="vm.Dir_Cups==true"><i class="fa fa-archive"></i> DIRECCÓN</th> 
                     <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                 </tfoot>
@@ -190,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div align="center">
           <span class="store-qty"> <a ng-click="vm.cargar_lista_cups()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span> 
 
-          <span class="store-qty"> <a href="#/Puntos_Suministros" title='Regresar' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span>      
+          <!--span class="store-qty"> <a href="#/Puntos_Suministros" title='Regresar' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span-->      
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>
@@ -272,7 +276,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Baja <b style="color:red;">DD/MM/YYYY</b></label>     
-      <input type="text" class="form-control" ng-model="vm.tmodal_data.FecBaj" maxlength="10" ng-change="vm.validar_fecha_inputs(22,vm.tmodal_data.FecBaj)"/>
+      <input type="text" class="form-control datepicker" name="FecBaj" id="FecBaj" ng-model="vm.tmodal_data.FecBaj" maxlength="10" ng-change="vm.validar_fecha_inputs(22,vm.tmodal_data.FecBaj)"/>
       </div>
      </div>
     </div>
@@ -419,7 +423,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $( "#tabs_clientes" ).tabs(); 
          
       });
-
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+        $('#FecBaj').on('changeDate', function() 
+        {
+          var FecBaj=document.getElementById("FecBaj").value;
+          console.log("FecBaj: "+FecBaj);
+        });
         function mayus(e)
         {
           var tecla=e.value;

@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
       <div class="form-group">
       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>
-      <input type="text" class="form-control" ng-model="vm.FecIniAct" required ng-change="vm.validar_fecha_act(1,vm.FecIniAct)" name="FecIniAct" id="FecIniAct" placeholder="* EJ: DD/MM/YYYY"/>
+      <input type="text" class="form-control datepicker" id="FecIniAct" name="FecIniAct" ng-model="vm.FecIniAct" ng-change="vm.validar_fecha_act(1,vm.FecIniAct)" placeholder="* EJ: DD/MM/YYYY"/>
       </div>
       </div>
       </div>
@@ -133,7 +133,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
   </form>
 
-
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('#FecIniAct').on('changeDate', function() 
+  {
+     var FecIniAct=document.getElementById("FecIniAct").value;
+     console.log("FecIniAct: "+FecIniAct);
+  });
+</script>
 
 
 

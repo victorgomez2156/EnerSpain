@@ -53,10 +53,10 @@ class Clientes_model extends CI_Model
             return $this->db->insert_id();
         }*/
     }
-    public function actualizar($CodCli,$BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$FecIniCli)
+    public function actualizar($CodCli,$BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$FecIniCli,$CPLocSoc,$CPLocFis)
     {   
         $this->db->where('CodCli', $CodCli);        
-        return $this->db->update('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'FecIniCli'=>$FecIniCli));
+        return $this->db->update('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'FecIniCli'=>$FecIniCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis));
     }
 
 
@@ -176,7 +176,7 @@ class Clientes_model extends CI_Model
     }*/
     public function get_xID_puntos_suministros($CodPunSum)
     {
-        $this->db->select('a.CodPunSum,a.CodCli as CodCliPunSum,a.TipRegDir,a.CodTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,b.CodPro as CodProPunSum,b.CodLoc as CodLocPunSum,b.CPLoc as ZonPosPunSum,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,a.AclPunSum as Aclarador',FALSE);
+        $this->db->select('a.CodPunSum,a.CodCli as CodCliPunSum,a.TipRegDir,a.CodTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,b.CodPro as CodProPunSum,b.CodLoc as CodLocPunSum,a.CPLocSoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,a.AclPunSum as Aclarador',FALSE);
         $this->db->from('T_PuntoSuministro a');   
         //$this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
@@ -232,16 +232,16 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
-    public function agregar_punto_suministro_cliente($CodCliPunSum,$TipRegDir,$CodTipVia,$NomViaPunSum,$NumViaPunSum,$BloPunSum,$EscPunSum,$PlaPunSum,$PuePunSum,$CodProPunSum,$CodLocPunSum,$CodTipInm,$Aclarador,$RefCasPunSum,$DimPunSum,$ObsPunSum,$TelPunSum)
+    public function agregar_punto_suministro_cliente($CodCliPunSum,$TipRegDir,$CodTipVia,$NomViaPunSum,$NumViaPunSum,$BloPunSum,$EscPunSum,$PlaPunSum,$PuePunSum,$CodProPunSum,$CodLocPunSum,$CodTipInm,$Aclarador,$RefCasPunSum,$DimPunSum,$ObsPunSum,$TelPunSum,$CPLocSoc)
     {
-        $this->db->insert('T_PuntoSuministro',array('CodCli'=>$CodCliPunSum,'TipRegDir'=>$TipRegDir,'CodTipVia'=>$CodTipVia,'NomViaPunSum'=>$NomViaPunSum,'NumViaPunSum'=>$NumViaPunSum,'BloPunSum'=>$BloPunSum,'EscPunSum'=>$EscPunSum,'PlaPunSum'=>$PlaPunSum,'PuePunSum'=>$PuePunSum,'AclPunSum'=>$Aclarador,'CodLoc'=>$CodLocPunSum,'TelPunSum'=>$TelPunSum,'CodTipInm'=>$CodTipInm,'RefCasPunSum'=>$RefCasPunSum,'DimPunSum'=>$DimPunSum,'ObsPunSum'=>$ObsPunSum,'EstPunSum'=>1));
+        $this->db->insert('T_PuntoSuministro',array('CodCli'=>$CodCliPunSum,'TipRegDir'=>$TipRegDir,'CodTipVia'=>$CodTipVia,'NomViaPunSum'=>$NomViaPunSum,'NumViaPunSum'=>$NumViaPunSum,'BloPunSum'=>$BloPunSum,'EscPunSum'=>$EscPunSum,'PlaPunSum'=>$PlaPunSum,'PuePunSum'=>$PuePunSum,'AclPunSum'=>$Aclarador,'CodLoc'=>$CodLocPunSum,'TelPunSum'=>$TelPunSum,'CodTipInm'=>$CodTipInm,'RefCasPunSum'=>$RefCasPunSum,'DimPunSum'=>$DimPunSum,'ObsPunSum'=>$ObsPunSum,'EstPunSum'=>1,'CPLocSoc'=>$CPLocSoc));
         return $this->db->insert_id();
     }
-      public function actualizar_punto_suministro_cliente($CodPunSum,$CodCliPunSum,$TipRegDir,$CodTipVia,$NomViaPunSum,$NumViaPunSum,$BloPunSum,$EscPunSum,$PlaPunSum,$PuePunSum,$CodProPunSum,$CodLocPunSum,$CodTipInm,$Aclarador,$RefCasPunSum,$DimPunSum,$ObsPunSum,$TelPunSum)
+      public function actualizar_punto_suministro_cliente($CodPunSum,$CodCliPunSum,$TipRegDir,$CodTipVia,$NomViaPunSum,$NumViaPunSum,$BloPunSum,$EscPunSum,$PlaPunSum,$PuePunSum,$CodProPunSum,$CodLocPunSum,$CodTipInm,$Aclarador,$RefCasPunSum,$DimPunSum,$ObsPunSum,$TelPunSum,$CPLocSoc)
     {   
         $this->db->where('CodPunSum', $CodPunSum);
         $this->db->where('CodCli', $CodCliPunSum);                   
-        return $this->db->update('T_PuntoSuministro',array('TipRegDir'=>$TipRegDir,'CodTipVia'=>$CodTipVia,'NomViaPunSum'=>$NomViaPunSum,'NumViaPunSum'=>$NumViaPunSum,'BloPunSum'=>$BloPunSum,'EscPunSum'=>$EscPunSum,'PlaPunSum'=>$PlaPunSum,'PuePunSum'=>$PuePunSum,'AclPunSum'=>$Aclarador,'CodLoc'=>$CodLocPunSum,'TelPunSum'=>$TelPunSum,'CodTipInm'=>$CodTipInm,'RefCasPunSum'=>$RefCasPunSum,'DimPunSum'=>$DimPunSum,'ObsPunSum'=>$ObsPunSum));
+        return $this->db->update('T_PuntoSuministro',array('TipRegDir'=>$TipRegDir,'CodTipVia'=>$CodTipVia,'NomViaPunSum'=>$NomViaPunSum,'NumViaPunSum'=>$NumViaPunSum,'BloPunSum'=>$BloPunSum,'EscPunSum'=>$EscPunSum,'PlaPunSum'=>$PlaPunSum,'PuePunSum'=>$PuePunSum,'AclPunSum'=>$Aclarador,'CodLoc'=>$CodLocPunSum,'TelPunSum'=>$TelPunSum,'CodTipInm'=>$CodTipInm,'RefCasPunSum'=>$RefCasPunSum,'DimPunSum'=>$DimPunSum,'ObsPunSum'=>$ObsPunSum,'CPLocSoc'=>$CPLocSoc));
     }
   
      public function get_list_motivos_bloqueos_PunSum()
@@ -571,7 +571,7 @@ class Clientes_model extends CI_Model
     
     public function get_clientes_data($huser)
     {
-        $this->db->select('a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc as CodLocSoc,a.TelFijCli,a.EmaCli,a.WebCli,a.CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,a.CodCom,a.ObsCli,a.EstCli,b.CPLoc as ZonPosSoc,b.CodPro as CodProSoc,a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,a.CodSecCli,a.CodCol,c.CodPro as CodProFis,c.CPLoc as ZonPosFis');
+        $this->db->select('a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc as CodLocSoc,a.TelFijCli,a.EmaCli,a.WebCli,a.CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,a.CodCom,a.ObsCli,a.EstCli,a.CPLocSoc,b.CodPro as CodProSoc,a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,a.CodSecCli,a.CodCol,c.CodPro as CodProFis,a.CPLocFis');
         $this->db->from('T_Cliente a'); 
         $this->db->join('T_Localidad b','a.CodLocSoc=b.CodLoc');
         $this->db->join('T_Localidad c','a.CodLocFis=c.CodLoc');         

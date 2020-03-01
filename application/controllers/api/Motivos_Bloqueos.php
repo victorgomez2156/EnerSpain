@@ -17,7 +17,7 @@ class Motivos_Bloqueos extends REST_Controller
 			redirect(base_url(), 'location', 301); 
 		}
     }
-///////////////////////////////////////////////////////////// PARA MOTIVOS BLOQUEOS CLIENTES START///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// PARA MOTIVOS BLOQUEOS CLIENTES START/////////////////////////////////////////////////////////////////
 public function list_motivo_clientes_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -408,8 +408,87 @@ public function borrar_row_MotBloComercializadora_delete()
 	$this->response($data);
 }
 
-////////////////////////////////////////////////// PARA MOTIVOS COMERCIALIZADORA END////////////////////////////////////////////////////////////////////////
-	
-}
+///////////////////////////////////// PARA MOTIVOS COMERCIALIZADORA END////////////////////////////////////////////////////////////////////////
 
-?>
+////////////////////////////////////////// PARA MOTIVOS BLOQUEOS CUPS START/////////////////////////////////////////////////////////////////
+public function list_motivo_CUPS_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}		
+	$data = $this->Motivos_bloqueos_model->get_list_motivos_bloqueos_CUPs();
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',null,$this->input->ip_address(),'Cargando Lista Motivos Bloqueos CUPs');
+	if (empty($data)){
+		$this->response(false);
+		return false;
+	}		
+	$this->response($data);
+}
+public function crear_motivo_bloqueo_CUPs_post()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	$objSalida = json_decode(file_get_contents("php://input"));				
+	$this->db->trans_start();		
+	if (isset($objSalida->CodMotBloCUPs))
+	{		
+		$this->Motivos_bloqueos_model->actualizar_motivo_bloqueo_CUPs($objSalida->CodMotBloCUPs,$objSalida->DesMotBloCUPs,$objSalida->ObsMotBloCUPs);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','UPDATE',$objSalida->CodMotBloCon,$this->input->ip_address(),'Actualizando Motivo Bloqueo CUPs.');
+	}
+	else
+	{
+		$id = $this->Motivos_bloqueos_model->agregar_motivo_bloqueo_CUPs($objSalida->DesMotBloCUPs,$objSalida->ObsMotBloCUPs);		
+		$objSalida->CodMotBloCUPs=$id;			
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','INSERT',$objSalida->CodMotBloCUPs,$this->input->ip_address(),'Creando Motivo Bloqueo CUPs.');
+	}		
+	$this->db->trans_complete();
+	$this->response($objSalida);
+}
+public function buscar_xID_MotBloCUPs_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	$CodMotBloCUPs=$this->get('CodMotBloCUPs');		
+    $data = $this->Motivos_bloqueos_model->get_tipo_motivo_bloqueo_CUPs($CodMotBloCUPs);
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',$CodMotBloCUPs,$this->input->ip_address(),'Consultando Motivo Bloqueo CUPs.');
+	if (empty($data))
+	{
+		$this->response(false);
+		return false;
+	}				
+	$this->response($data);		
+} 
+public function borrar_row_MotBloCUPs_delete()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}	
+	$CodMotBloCUPs=$this->get('CodMotBloCUPs');
+    $data = $this->Motivos_bloqueos_model->borrar_MotBloCUPs($CodMotBloCUPs);
+	if (empty($data))
+	{
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','DELETE',$CodMotBloCUPs,$this->input->ip_address(),'Borrando Motivo Bloqueo CUPs Fallido.');
+		$this->response(false);
+		return false;
+	}
+	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','DELETE',$CodMotBloCUPs,$this->input->ip_address(),'Borrando Motivo Bloqueo CUPs.');		
+	$this->response($data);
+}	
+
+////////////////////////////////////////// PARA MOTIVOS BLOQUEOS CUPS END/////////////////////////////////////////////////////////////////
+
+
+
+
+
+}?>

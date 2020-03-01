@@ -84,9 +84,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.FecIniAct1=true;
 	scope.AccAct=true;
 
-
-
-
 	scope.ttipofiltrosact = [{id: 1, nombre: 'FECHA DE INICIO'},{id: 2, nombre: 'ESTATUS ACTIVIDAD'},{id: 3, nombre: 'CLIENTE'}];
 	scope.topcionesactividades = [{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
 	scope.ttipofiltrosEstAct = [{id: 1, nombre: 'Activa'},{id: 2, nombre: 'Bloqueada'}];
@@ -146,6 +143,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			index1 = scope.TActividades.indexOf(value1);  
 			return (begin1 <= index1 && index1 < end1);  
 		};
+		if(scope.TActividades==false)
+		{
+			scope.TActividades=[];
+			scope.TActividadesBack=[];
+		}
 		scope.Tclientes=dato.Clientes;
 	}).catch(function(err){console.log(err);});
 
@@ -211,6 +213,8 @@ $scope.SubmitFormFiltrosAct = function(event)
 {
 	if(scope.tmodal_filtroAct.tipo_filtro_actividad==1)
 	 {
+	 	var FecIniActFil=document.getElementById("FecIniActFil").value;
+		scope.FecIniActFil=FecIniActFil;
 	 	if(scope.FecIniActFil==undefined || scope.FecIniActFil==null || scope.FecIniActFil=='')
 	 	{
 	 		Swal.fire({title:"Debe Ingresar la Fecha para Poder Aplicar el Filtro.",type:"error",confirmButtonColor:"#188ae2"});
@@ -483,6 +487,7 @@ scope.validar_actividad=function(index,opcion,datos)
 				scope.tmodal_data.CodCli=datos.CodCli;
 				scope.tmodal_data.CodTActCli=datos.CodTActCli;
 				scope.FecBloAct=scope.fecha_server;
+				$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecBloAct); 
 				scope.tmodal_data.NumCif=datos.NumCifCli;
 				scope.tmodal_data.RazSoc=datos.RazSocCli;
 				scope.tmodal_data.DesActCNAE=datos.DesActCNAE;
@@ -532,7 +537,8 @@ scope.validar_actividad=function(index,opcion,datos)
 
 	$scope.submitFormlockActividades = function(event) 
 	{ 
-		
+		var FecBloAct=document.getElementById("FecBloAct").value;
+		scope.FecBloAct=FecBloAct;
 		if(scope.FecBloAct==undefined || scope.FecBloAct==null || scope.FecBloAct=='') 
 	{
 		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
@@ -685,7 +691,7 @@ scope.validar_actividad=function(index,opcion,datos)
 }
 $scope.submitFormActividades = function(event) 
 	{
-		scope.fdatos_actividades.CodCli=scope.CodCliAct;
+	scope.fdatos_actividades.CodCli=scope.CodCliAct;
  	if(scope.nIDAct>0 && scope.Nivel==3)
 	{
 		Swal.fire({title:"Nivel no Autorizado.",text:"Su nivel no esta autorizado para esta operación.",type:"error",confirmButtonColor:"#188ae2"});
@@ -706,6 +712,14 @@ $scope.submitFormActividades = function(event)
 		var title='Guardando';
 		var text='¿Está seguro de incluir esta actividad??';
 		var response="Actividad asignada satisfactoriamente.";
+	}
+	var FecIniAct=document.getElementById("FecIniAct").value;
+	scope.FecIniAct=FecIniAct;
+	if(scope.FecIniAct==undefined || scope.FecIniAct==null || scope.FecIniAct=='') 
+	{
+		Swal.fire({text:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+		event.preventDefault();	
+		return false;
 	}
 	var FecActCon= (scope.FecIniAct).split("/");
 	if(FecActCon.length<3)
@@ -748,11 +762,7 @@ $scope.submitFormActividades = function(event)
 		{
 			Swal.fire({text:"La Fecha de Inicio no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
 			return false;
-		}			
-
-
-
-
+		}
 	}
 	Swal.fire({title:title,
 	text:text,
@@ -812,11 +822,40 @@ scope.regresar_actividad=function()
 {
 	//scope.T_ActEcoGrib=1;
 	//scope.mostrar_all_actividades();
-	scope.fdatos_actividades={};
+	/*scope.fdatos_actividades={};
 	scope.FecIniAct=undefined;
 	scope.resultado_actividad=0;
 	scope.CodActCNAE=undefined;
-	location.href="#/Actividades";
+	location.href="#/Actividades";*/
+	
+	if(scope.fdatos_actividades.CodTActCli==undefined)
+		{
+			var title="Guardando";
+			var text="¿Estás seguro de regresar y no guardar los datos?";
+		}
+		else
+		{
+			var title="Actualizando";
+			var text="¿Estás seguro de regresar y no actualizar los datos?";
+		}
+		Swal.fire({title:title,text:text,		
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"OK"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+	        	location.href="#/Actividades";
+	        }
+	        else
+	        {
+	            console.log('Cancelando ando...');
+	        }
+	    });	
+
+	
 }
 
 ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB END //////////////////////////////////////////////////////////

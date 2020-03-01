@@ -101,7 +101,8 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			{
 				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				Swal.fire({title:"Error",text:"No hemos encontrado distribuidoras registradas.",type:"info",confirmButtonColor:"#188ae2"});
-				scope.TDistribuidora=undefined;
+				scope.TDistribuidora=[];
+				scope.TDistribuidoraBack=[];
 			}
 		},function(error)
 		{
@@ -129,23 +130,18 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		console.log(index);
 		console.log(opciones_distribuidoras);
 		console.log(dato);
+		scope.opciones_distribuidoras[index]=undefined;			
 		if(opciones_distribuidoras==1)
 		{
-			scope.opciones_distribuidoras[index]=undefined;
-			//scope.disabled_form=1;
 			location.href ="#/Edit_Distribuidora/"+dato.CodDist+"/"+1;
-			
-
 		}
 		if(opciones_distribuidoras==2)
 		{
-			scope.opciones_distribuidoras[index]=undefined;
 			location.href ="#/Edit_Distribuidora/"+dato.CodDist;
 			scope.disabled_form=undefined;
 		}
 		if(opciones_distribuidoras==3)
 		{
-			scope.opciones_distribuidoras[index]=undefined;
 			if(dato.EstDist=="ACTIVO")
 			{
 				Swal.fire({title:"Error",text:"La Distribuidora se encuentra Activa ya.",type:"error",confirmButtonColor:"#188ae2"});
@@ -205,18 +201,19 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		}	
 		if(opciones_distribuidoras==4)
 		{
-			scope.opciones_distribuidoras[index]=undefined;
 			if(dato.EstDist=="BLOQUEADO")
 			{
 				Swal.fire({title:"Error",text:"La Distribuidora ya se encuentra Bloqueada.",type:"error",confirmButtonColor:"#188ae2"});
 				return false;
 			}
-			scope.tmodal_distribuidora={};
-			scope.tmodal_distribuidora.CodDist=dato.CodDist;
-			scope.tmodal_distribuidora.NumCifDis=dato.NumCifDis;
+			scope.tmodal_data={};
+			scope.tmodal_data.CodDist=dato.CodDist;
+			scope.tmodal_data.NumCifDis=dato.NumCifDis;
 			scope.FechBlo=fecha;
-			scope.tmodal_distribuidora.RazSocDis=dato.RazSocDis;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FechBlo);
+			scope.tmodal_data.RazSocDis=dato.RazSocDis;
 			$("#modal_motivo_bloqueo").modal('show'); 
+			console.log(scope.tmodal_data);
 			
 		}
 
@@ -685,69 +682,117 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 	$scope.submitFormlock = function(event) 
 	{      
 	 	//console.log(scope.tmodal_distribuidora);
-	 		Swal.fire({title:"¿Esta Seguro de Bloquear Esta Distribuidora?",
-			type:"info",
-			showCancelButton:!0,
-			confirmButtonColor:"#31ce77",
-			cancelButtonColor:"#f34943",
-			confirmButtonText:"Bloquear"}).then(function(t)
+	 	var FechBlo=document.getElementById("FechBlo").value;
+			scope.FechBlo=FechBlo;
+		if (scope.FechBlo==null || scope.FechBlo==undefined || scope.FechBlo=='')
+		{
+			Swal.fire({title:"El Campo Fecha de Bloqueo Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		else
+		{
+			var FechBlo= (scope.FechBlo).split("/");
+			if(FechBlo.length<3)
 			{
-	            if(t.value==true)
-	            {
-	             	scope.datos_update={};
-					scope.datos_update.opcion=2;
-					scope.datos_update.CodDist=scope.tmodal_distribuidora.CodDist;
-					scope.datos_update.MotBloq=scope.tmodal_distribuidora.MotBloq;
-					
-					if(scope.tmodal_distribuidora.ObsBloDis==undefined|| scope.tmodal_distribuidora.ObsBloDis==null||scope.tmodal_distribuidora.ObsBloDis=='')
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FechBlo[0].length>2 || FechBlo[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FechBlo[1].length>2 || FechBlo[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FechBlo[2].length<4 || FechBlo[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.FechBlo.split("/");
+			    valuesEnd=fecha.split("/"); 
+			    //Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+fecha+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.tmodal_data.FechBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
+			}
+		}
+	 	Swal.fire({title:"¿Esta Seguro de Bloquear Esta Distribuidora?",
+		type:"info",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"Bloquear"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+	           	scope.datos_update={};
+				scope.datos_update.opcion=2;
+				scope.datos_update.CodDist=scope.tmodal_data.CodDist;
+				scope.datos_update.FechBlo=scope.tmodal_data.FechBlo;
+				scope.datos_update.MotBloq=scope.tmodal_data.MotBloq;	
+				if(scope.tmodal_data.ObsBloDis==undefined|| scope.tmodal_data.ObsBloDis==null||scope.tmodal_data.ObsBloDis=='')
+				{
+					scope.datos_update.ObsBloDis=null;
+				}
+				else
+				{
+					scope.datos_update.ObsBloDis=scope.tmodal_data.ObsBloDis;
+				}
+				console.log(scope.datos_update);										
+				var url = base_urlHome()+"api/Distribuidoras/update_status/";
+				$http.post(url,scope.datos_update).then(function(result)
+				{
+					if(result.data!=false)
 					{
-						scope.datos_update.ObsBloDis=null;
+						$("#modal_motivo_bloqueo").modal('hide');
+						Swal.fire({title:"Exito!.",text:"La Distribuidora fue bloqueada correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+						scope.cargar_lista_distribuidoras();							
 					}
 					else
 					{
-						scope.datos_update.ObsBloDis=scope.tmodal_distribuidora.ObsBloDis;
-					}										
-					var url = base_urlHome()+"api/Distribuidoras/update_status/";
-					$http.post(url,scope.datos_update).then(function(result)
+						Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+						scope.cargar_lista_distribuidoras();
+					}
+				},function(error)
+				{
+					if(error.status==404 && error.statusText=="Not Found")
 					{
-						if(result.data!=false)
-						{
-							$("#modal_motivo_bloqueo").modal('hide');
-							Swal.fire({title:"Exito!.",text:"La Distribuidora fue bloqueada correctamente.",type:"success",confirmButtonColor:"#188ae2"});
-							scope.cargar_lista_distribuidoras();							
-						}
-						else
-						{
-							Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-							scope.cargar_lista_distribuidoras();
-						}
-					},function(error)
+						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==401 && error.statusText=="Unauthorized")
 					{
-						if(error.status==404 && error.statusText=="Not Found")
-						{
-							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==401 && error.statusText=="Unauthorized")
-						{
-							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==403 && error.statusText=="Forbidden")
-						{
-							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==500 && error.statusText=="Internal Server Error")
-						{
-							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-					}); 
-	              
-	            }
-	            else
-	            {
-	                console.log('Cancelando ando...');
-	                
-	            }
-	        });		
+						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==403 && error.statusText=="Forbidden")
+					{
+						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==500 && error.statusText=="Internal Server Error")
+					{
+						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+				});     
+	        }
+	        else
+	        {
+	            console.log('Cancelando ando...');
+	        }
+	    });		
 	};
 	$scope.SubmitFormFiltrosDistribuidora = function(event) 
 	{

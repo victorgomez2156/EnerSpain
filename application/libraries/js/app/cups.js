@@ -53,6 +53,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.Cups=true;
 	scope.Cups_Ser=true;
 	scope.Cups_Tar=true;
+	scope.Dir_Cups=true;
 	scope.Cups_Acc=true;
 	scope.EstCUPs=true;
 	scope.ruta_reportes_pdf_cups=0;
@@ -94,7 +95,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			else
 			{
 				Swal.fire({title:"Cups",text:"No se Encontraron Cups Registrados.",type:"error",confirmButtonColor:"#188ae2"});				
-				scope.disabled_button_add_punt=false;
+				//scope.disabled_button_add_punt=false;
 				scope.TCups=[];
 				scope.TCupsBack=[];	
 			}
@@ -163,6 +164,7 @@ scope.validar_opcion_cups=function(index,opciones_cups,dato)
 				scope.tMotivosBloqueos=result.data;
 				scope.tmodal_data={};
 				scope.tmodal_data.FecBaj=scope.fecha_server;
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate",scope.tmodal_data.FecBaj);
 				scope.tmodal_data.TipServ=dato.TipServ;
 				scope.CupsNom =dato.CupsGas;
 				scope.NumCifCUPs =dato.Cups_Cif;
@@ -385,6 +387,8 @@ $scope.submitFormlockCUPs = function(event)
 	{
 		scope.tmodal_data.ObsMotCUPs=scope.tmodal_data.ObsMotCUPs;
 	}
+	var FecBaj=document.getElementById("FecBaj").value;
+	scope.tmodal_data.FecBaj=FecBaj;
 	if(scope.tmodal_data.FecBaj==undefined || scope.tmodal_data.FecBaj==null || scope.tmodal_data.FecBaj=='') 
 	{
 		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
@@ -607,6 +611,8 @@ $scope.submitFormlockCUPs = function(event)
 				if(result.data!=false)
 				{
 					scope.fdatos_cups=result.data;
+					$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecAltCup);
+	            	$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecUltLec);
 					//scope.TVistaCups=false;
 					scope.por_servicios(1);
 					console.log(result.data);
@@ -648,6 +654,8 @@ $scope.submitFormlockCUPs = function(event)
 				if(result.data!=false)
 				{
 					scope.fdatos_cups=result.data;
+					$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecAltCup);
+	            	$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecUltLec);
 					//scope.TVistaCups=false;
 					scope.por_servicios(2);
 					console.log(result.data);
@@ -757,6 +765,8 @@ $scope.submitFormlockCUPs = function(event)
 	            	if(result.data!=false)
 	            	{
 	            		scope.fdatos_cups=result.data;
+	            		$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecAltCup);
+	            		$('.datepicker`2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", result.data.FecUltLec);
 	            		Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
 
 	            	}
@@ -893,7 +903,42 @@ $scope.submitFormlockCUPs = function(event)
 		{
 			Swal.fire({title:"El Campo Potencia Máxima Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
+		}		
+		if (scope.fdatos_cups.ConAnuCup==null || scope.fdatos_cups.ConAnuCup==undefined || scope.fdatos_cups.ConAnuCup=='')
+		{
+			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
 		}
+	}
+	if(scope.fdatos_cups.TipServ==2)
+	{
+		if (!scope.fdatos_cups.CodDis > 0)
+		{
+			Swal.fire({title:"Debe Seleccionar una Distribuidora de Gas de la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if (!scope.fdatos_cups.CodTar > 0)
+		{
+			Swal.fire({title:"Debe Seleccionar una Tarifa de Gas la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		
+		if (scope.fdatos_cups.ConAnuCup==null || scope.fdatos_cups.ConAnuCup==undefined || scope.fdatos_cups.ConAnuCup=='')
+		{
+			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		scope.fdatos_cups.PotConP1=null;
+		scope.fdatos_cups.PotConP2=null;
+		scope.fdatos_cups.PotConP3=null;
+		scope.fdatos_cups.PotConP4=null;
+		scope.fdatos_cups.PotConP5=null;
+		scope.fdatos_cups.PotConP6=null;
+		scope.fdatos_cups.PotMaxBie=null;
+
+	}
+	var FecAltCup=document.getElementById("FecAltCup").value;
+		scope.fdatos_cups.FecAltCup=FecAltCup;
 		if (scope.fdatos_cups.FecAltCup==null || scope.fdatos_cups.FecAltCup==undefined || scope.fdatos_cups.FecAltCup=='')
 		{
 			Swal.fire({title:"El Campo Fecha de Alta Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -935,6 +980,8 @@ $scope.submitFormlockCUPs = function(event)
 			}
 
 		}
+		var FecUltLec=document.getElementById("FecUltLec").value;
+		scope.fdatos_cups.FecUltLec=FecUltLec;
 		if (scope.fdatos_cups.FecUltLec==null || scope.fdatos_cups.FecUltLec==undefined || scope.fdatos_cups.FecUltLec=='')
 		{
 			Swal.fire({title:"El Campo Fecha de Última Lectura es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -975,119 +1022,6 @@ $scope.submitFormlockCUPs = function(event)
 				scope.fdatos_cups.FecUltLec=final_UltFec;
 			}
 		}
-		if (scope.fdatos_cups.ConAnuCup==null || scope.fdatos_cups.ConAnuCup==undefined || scope.fdatos_cups.ConAnuCup=='')
-		{
-			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-	}
-	if(scope.fdatos_cups.TipServ==2)
-	{
-		if (!scope.fdatos_cups.CodDis > 0)
-		{
-			Swal.fire({title:"Debe Seleccionar una Distribuidora de Gas de la lista.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (!scope.fdatos_cups.CodTar > 0)
-		{
-			Swal.fire({title:"Debe Seleccionar una Tarifa de Gas la lista.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.FecAltCup==null || scope.fdatos_cups.FecAltCup==undefined || scope.fdatos_cups.FecAltCup=='')
-		{
-			Swal.fire({title:"El Campo Fecha de Alta Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		else
-		{
-			var FecAltCup= (scope.fdatos_cups.FecAltCup).split("/");
-			if(FecAltCup.length<3)
-			{
-				Swal.fire({text:"El Formato de Fecha de Alta debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
-				//event.preventDefault();	
-				return false;
-			}
-			else
-			{		
-				if(FecAltCup[0].length>2 || FecAltCup[0].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-
-				}
-				if(FecAltCup[1].length>2 || FecAltCup[1].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				if(FecAltCup[2].length<4 || FecAltCup[2].length>4)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				var h1=new Date();			
-				var final = FecAltCup[0]+"/"+FecAltCup[1]+"/"+FecAltCup[2];
-				scope.fdatos_cups.FecAltCup=final;
-			}
-
-		}
-		if (scope.fdatos_cups.FecUltLec==null || scope.fdatos_cups.FecUltLec==undefined || scope.fdatos_cups.FecUltLec=='')
-		{
-			Swal.fire({title:"El Campo Fecha de Última Lectura es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		else
-		{
-			var FecUltLec= (scope.fdatos_cups.FecUltLec).split("/");
-			if(FecUltLec.length<3)
-			{
-				Swal.fire({text:"El Formato de Fecha debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
-				//event.preventDefault();	
-				return false;
-			}
-			else
-			{		
-				if(FecUltLec[0].length>2 || FecUltLec[0].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-
-				}
-				if(FecUltLec[1].length>2 || FecUltLec[1].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				if(FecUltLec[2].length<4 || FecUltLec[2].length>4)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				var h1=new Date();			
-				var final_UltFec = FecUltLec[0]+"/"+FecUltLec[1]+"/"+FecUltLec[2];
-				scope.fdatos_cups.FecUltLec=final_UltFec;
-			}
-		}
-		if (scope.fdatos_cups.ConAnuCup==null || scope.fdatos_cups.ConAnuCup==undefined || scope.fdatos_cups.ConAnuCup=='')
-		{
-			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		scope.fdatos_cups.PotConP1=null;
-		scope.fdatos_cups.PotConP2=null;
-		scope.fdatos_cups.PotConP3=null;
-		scope.fdatos_cups.PotConP4=null;
-		scope.fdatos_cups.PotConP5=null;
-		scope.fdatos_cups.PotConP6=null;
-		scope.fdatos_cups.PotMaxBie=null;
-
-	}
 	if (resultado == false)
 	{
 		return false;
@@ -1350,6 +1284,12 @@ $scope.submitFormHistorial = function(event)
 { 
 	scope.historial.TipServ=scope.TipServ
     scope.historial.CodCup= scope.CodCup
+    var desde=document.getElementById("desde").value;
+	scope.historial.desde=desde;
+	var hasta=document.getElementById("hasta").value;
+	scope.historial.hasta=hasta;
+	scope.result_his=false;
+	scope.T_Historial_Consumo=[];
 	console.log(scope.historial);	
 	if (!scope.validar_fechas())
 	{
@@ -1438,8 +1378,11 @@ $scope.submitFormHistorial = function(event)
 		scope.BuscarxIDCups();
 	}
 	else
-	{
-		scope.cargar_lista_cups();
+	{		
+		if($route.current.$$route.originalPath=="/Gestionar_Cups/")	
+		{
+			scope.cargar_lista_cups();
+		}
 	}
 
 }			

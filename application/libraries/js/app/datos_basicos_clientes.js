@@ -241,6 +241,13 @@ scope.asignar_tipo_via=function()
 			scope.fdatos.PueDomFis=scope.fdatos.PueDomSoc;	
 		}		
 	}
+	scope.asignar_CPLoc=function()
+	{
+		if(scope.fdatos.distinto_a_social==false)
+		{
+			scope.fdatos.CPLocFis=scope.fdatos.CPLocSoc;	
+		}		
+	}
 	scope.distinto_a_social=function()
 	{
 		if(scope.fdatos.distinto_a_social==true)
@@ -254,7 +261,8 @@ scope.asignar_tipo_via=function()
 			scope.fdatos.PueDomFis=undefined;
 			scope.fdatos.CodProFis=undefined;
 			scope.fdatos.CodLocFis=undefined;
-			scope.fdatos.ZonPosFis=undefined;
+			scope.fdatos.CPLocFis=undefined;
+			scope.TLocalidadesfiltradaFisc=[];
 		}
 		else
 		{
@@ -267,7 +275,8 @@ scope.asignar_tipo_via=function()
 			scope.fdatos.PueDomFis=scope.fdatos.PueDomSoc;
 			scope.fdatos.CodProFis=scope.fdatos.CodProSoc;			
 			scope.fdatos.CodLocFis=scope.fdatos.CodLocSoc;
-			scope.fdatos.ZonPosFis=scope.fdatos.ZonPosSoc;
+			scope.fdatos.CPLocFis=scope.fdatos.CPLocSoc;
+			scope.TLocalidadesfiltradaFisc=[];
 			scope.filtrarLocalidadFisc();
 		}
 	}
@@ -275,15 +284,19 @@ scope.asignar_tipo_via=function()
 	scope.filtrarLocalidad =  function()
 	{
 		scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, {CodPro: scope.fdatos.CodProSoc}, true);
-		if(scope.fdatos.distinto_a_social==false && scope.nID==undefined)
+		if(scope.fdatos.distinto_a_social==false)
 		{
 			scope.fdatos.CodProFis=scope.fdatos.CodProSoc;
 			scope.filtrarLocalidadFisc();	
 		}
-		if($route.current.$$route.originalPath=="/Editar_Clientes/:ID/:INF" || $route.current.$$route.originalPath=="/Editar_Clientes/:ID")
+		if($route.current.$$route.originalPath=="/Edit_Datos_Basicos_Clientes/:ID/:INF" || $route.current.$$route.originalPath=="/Edit_Datos_Basicos_Clientes/:ID")
 		{
 			scope.contador=0;
 			scope.contador=scope.contador+1;
+			if(scope.fdatos.distinto_a_social==true)
+			{
+				scope.filtrarLocalidadFisc();				
+			}
 		}		
 		if(scope.contador==1)
 		{
@@ -404,6 +417,8 @@ $scope.submitForm = function(event)
 scope.validar_campos_datos_basicos = function()
 {
 	resultado = true;
+	var FecIniCli1=document.getElementById("FecIniCli").value;
+		scope.FecIniCli=FecIniCli1;
 	if (scope.FecIniCli==null || scope.FecIniCli==undefined || scope.FecIniCli=='')
 	{
 		Swal.fire({title:"El Campo Fecha de Inicio Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
@@ -638,6 +653,22 @@ scope.guardar=function()
 		{
 			scope.fdatos.CodCol=scope.fdatos.CodCol;
 		}
+		if(scope.fdatos.CPLocSoc==undefined||scope.fdatos.CPLocSoc==null||scope.fdatos.CPLocSoc=='')
+		{
+			scope.fdatos.CPLocSoc=null;
+		}
+		else
+		{
+			scope.fdatos.CPLocSoc=scope.fdatos.CPLocSoc;
+		}
+		if(scope.fdatos.CPLocFis==undefined||scope.fdatos.CPLocFis==null||scope.fdatos.CPLocFis=='')
+		{
+			scope.fdatos.CPLocFis=null;
+		}
+		else
+		{
+			scope.fdatos.CPLocFis=scope.fdatos.CPLocFis;
+		}
 		if(scope.fdatos.CodCli>0)
 		{
 			var title='Actualizando';
@@ -727,36 +758,44 @@ scope.buscarXID=function()
 	$("#cargando_I").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active" );
 	var url = base_urlHome()+"api/Clientes/buscar_xID/huser/"+scope.nID;
 	$http.get(url).then(function(result)
-	{
+	{		
+		$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		if(result.data!=false)
 		{
-			$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			scope.fdatos=result.data;
 			scope.FecIniCli=undefined;
-			if(result.data.CodLocSoc!=result.data.CodLocFis)
-			{
-				scope.fdatos.distinto_a_social=true;
-			}
-			else
+			if(result.data.CodLocSoc==result.data.CodLocFis)
 			{
 				scope.fdatos.distinto_a_social=false;
 			}
-			if(result.data.RazSocCli!=result.data.NomComCli)
-			{
-				scope.fdatos.misma_razon=true;
-			}
 			else
+			{
+				scope.fdatos.distinto_a_social=true;
+			}
+			if(result.data.RazSocCli==result.data.NomComCli)
 			{
 				scope.fdatos.misma_razon=false;
 			}
-			scope.FecIniCli=result.data.FecIniCli;			
+			else
+			{
+				scope.fdatos.misma_razon=true;
+			}
+			scope.FecIniCli=result.data.FecIniCli;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCli);
+
 		}
 		else
 		{
-			$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+			Swal.fire({title:"Error",text:"No se encontraron datos asociados con el código del cliente.",type:"error",confirmButtonColor:"#188ae2"});
+			$interval.cancel(promise);
+			/*scope.fdatos={};
+			scope.FecIniCli=fecha;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCli);*/
+			location.href="#/Clientes";
+			/*$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			bootbox.alert({
 			message: "Hubo un error al intentar cargar los datos.",
-			size: 'middle'});
+			size: 'middle'});*/
 		}
 	},function(error)
 	{
@@ -785,10 +824,10 @@ if(scope.nID!=undefined)
 	var promise = $interval(function() 
 	{			
 		scope.filtrarLocalidad()
-		scope.filtrar_zona_postal();
-		scope.filtrarLocalidadFisc();
-		scope.filtrar_zona_postalFis();
-	},7000);	
+		//scope.filtrar_zona_postal();
+		//scope.filtrarLocalidadFisc();
+		//scope.filtrar_zona_postalFis();
+	},5000);	
 	$scope.$on('$destroy', function () 
 	{ 
 		$interval.cancel(promise); 

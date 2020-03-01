@@ -116,6 +116,7 @@ ServiceComercializadora.getAll().then(function(dato)
 			scope.Tarifa_Gas_Anexos =dato.Tarifa_Gas;
 			scope.Tarifa_Ele_Anexos =dato.Tarifa_Ele;
 			scope.FecIniSerEspForm=dato.fecha;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniSerEspForm);
 			scope.Fecha_Server=dato.fecha;
 			$scope.predicate3 = 'id';  
 			$scope.reverse3 = true;						
@@ -819,6 +820,8 @@ $scope.submitFormServiciosEspeciales = function(event)
 			Swal.fire({title:"El Nombre del Servicio Especial es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
+		var FecIniSerEspForm1=document.getElementById("FecIniSerEspForm").value;
+		scope.FecIniSerEspForm=FecIniSerEspForm1;
 		if (scope.FecIniSerEspForm==null || scope.FecIniSerEspForm==undefined || scope.FecIniSerEspForm=='')
 		{
 			Swal.fire({title:"La Fecha de Inicio Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});		           
@@ -1238,40 +1241,55 @@ scope.agregar_tarifa_elec_baja_SerEsp=function(index,CodTarEle,opcion_tension_ba
 
 scope.regresar_servicios_especiales=function()
 {
-	Swal.fire({title:"Regresar",
-		text:"Esta Seguro de Regresar?",
-		type:"question",
-		showCancelButton:!0,
-		confirmButtonColor:"#31ce77",
-		cancelButtonColor:"#f34943",
-		confirmButtonText:"Confirmar!"}).then(function(t)
+	if(scope.INF==undefined)
 		{
-	        if(t.value==true)
-	        {
-	           	//scope.TvistaServiciosEspeciales=1;
-				scope.servicio_especial={};
-				scope.select_tarifa_Elec_Baj_SerEsp=[];
-				scope.select_tarifa_Elec_Alt_SerEsp=[];
-				scope.select_tarifa_gas_SerEsp=[];
-				scope.servicio_especial.T_DetalleServicioEspecialTarifaGas=[];
-				scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj =[]; 
-				scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt =[]; 
-				scope.servicio_especial.SerGas=false;
-				scope.servicio_especial.SerEle=false;
-				scope.servicio_especial.AggAllBaj=false;
-				scope.servicio_especial.AggAllAlt=false;
-				location.href="#/Servicios_Adicionales";
-				//scope.cargar_lista_servicos_especiales();
-				console.log(scope.TvistaServiciosEspeciales);	   
-	        }
-	        else
-	        {
-					console.log('Cancelando Ando...');
-					//event.preventDefault();						
-	        }
-	    });	
+			if(scope.servicio_especial.CodSerEsp==undefined)
+			{
+				var title="Guardando";
+				var text="¿Estás seguro de regresar y no guardar los datos?";
+			}
+			else
+			{
+				var title="Actualizando";
+				var text="¿Estás seguro de regresar y no actualizar los datos?";
+			}
+			Swal.fire({title:title,text:text,		
+			type:"question",
+			showCancelButton:!0,
+			confirmButtonColor:"#31ce77",
+			cancelButtonColor:"#f34943",
+			confirmButtonText:"OK"}).then(function(t)
+			{
+		        if(t.value==true)
+		        {
+			      	//scope.TvistaServiciosEspeciales=1;
+					scope.servicio_especial={};
+					scope.select_tarifa_Elec_Baj_SerEsp=[];
+					scope.select_tarifa_Elec_Alt_SerEsp=[];
+					scope.select_tarifa_gas_SerEsp=[];
+					scope.servicio_especial.T_DetalleServicioEspecialTarifaGas=[];
+					scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj =[]; 
+					scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt =[]; 
+					scope.servicio_especial.SerGas=false;
+					scope.servicio_especial.SerEle=false;
+					scope.servicio_especial.AggAllBaj=false;
+					scope.servicio_especial.AggAllAlt=false;
+					location.href="#/Servicios_Adicionales";
+					//scope.cargar_lista_servicos_especiales();
+					console.log(scope.TvistaServiciosEspeciales);	   
+		        }
+		        else
+		        {
+		            console.log('Cancelando ando...');
+		        }
+		    });	
 
-}
+		}
+		else
+		{
+			location.href="#/Servicios_Adicionales";
+		}
+	}
 scope.buscarXIDServicioEspecial=function()
 	{
 		 $("#buscando").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");

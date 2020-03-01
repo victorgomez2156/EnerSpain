@@ -18,10 +18,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	var scope = this;
 	scope.fdatos = {}; // datos del formulario
 	scope.nID = $route.current.params.ID;	//contiene el id del registro en caso de estarse consultando desde la grid	
+	scope.validate_info=$route.current.params.INF
 	scope.Nivel = $cookies.get('nivel');
 	scope.CIF = $cookies.get('CIF');
-	scope.tColaboradores=undefined;
-	scope.tColaboradoresBack=undefined;	
+	scope.tColaboradores=[];
+	scope.tColaboradoresBack=[];	
 	scope.index=0;
 	scope.tTipoColaborador = [{CodTipCol: 1, DesTipCol: 'Persona Física'},{CodTipCol: 2, DesTipCol: 'Empresa'}];
 	scope.tEstColaborador = [{id: 1, nombre: 'Activo'},{id: 2, nombre: 'Bloqueado'}];
@@ -29,6 +30,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.habilitar_button=0;
 	resultado = false;
 	
+	scope.NomComCli=true;
+	scope.NumCifCli=true;
+	scope.RazSocCli=true;
+	scope.CupsCol=true;
+	scope.DireccionCol=true;
+	scope.EmailCol=true;
+	scope.TelCol=true;
 	console.log($route.current.$$route.originalPath);
 	/*if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID/:INF")
 	{
@@ -49,7 +57,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.AccCol=true;
 		scope.ruta_reportes_pdf_colaboradores=0;
 		scope.ruta_reportes_excel_colaboradores=0;
-		//scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
+		scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
 		scope.ttipofiltros = [{id: 1, nombre: 'Tipo Colaborador'},{id: 2, nombre: 'Estatus'}];
 	}
 	
@@ -65,7 +73,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	{
 		mm='0'+mm
 	} 
-	var fecha = dd+'-'+mm+'-'+yyyy;
+	var fecha = dd+'/'+mm+'/'+yyyy;
 	scope.FecIniAct = fecha;
 	scope.tProvidencias =[];
 	scope.tTiposVias = [];
@@ -104,13 +112,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	ServiceOnlyColaboradores.getAll().then(function(dato) 
 	{
 		scope.tOnlyColaboradores = dato;		
-		scope.NomComCli=true;
-		scope.NumCifCli=true;
-		scope.RazSocCli=true;
-		scope.CupsCol=true;
-		scope.DireccionCol=true;
-		scope.EmailCol=true;
-		scope.TelCol	=true;
+		
 	}).catch(function(error) 
 	{
 		console.log(error); //Tratar el error
@@ -148,29 +150,23 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			return false;
 		}
-	 	bootbox.confirm({
-	    title:"Confirmación",
-	    message: "¿Está seguro que desea incluir este nuevo registro?",
-	    buttons: {
-	    cancel: {
-	    label: '<i class="fa fa-times"></i> Cancelar'
-	    },
-	    confirm: {
-		label: '<i class="fa fa-check"></i> Confirmar'
-		}
-		},
-		callback: function (result) 
+		Swal.fire({title:"Confirmación",text:"¿Está seguro que desea incluir este nuevo registro?",			
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"OK"}).then(function(t)
 		{
-			if (result==false) 
-			{ 
-				event.preventDefault();
-			}     
-			else
-			{
-				scope.guardar();	
-			}
-		}});
-					
+			if(t.value==true)
+		    {
+		       scope.guardar();
+		    }
+		    else
+		    {
+		        event.preventDefault();
+		        console.log('Cancelando ando...');
+		    }
+		});					
 	};
 
 	scope.validar_campos = function()
@@ -179,6 +175,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		if (scope.fdatos.NumIdeFis==null || scope.fdatos.NumIdeFis==undefined || scope.fdatos.NumIdeFis=='')
 		{
 			Swal.fire({title:"El Número de DNI/NIE es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		    
+			/*console.log($route.current.$$route.originalPath);
+			if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID")	
+			{
+				document.getElementById('NumIdeFis').removeAttribute('readonly');
+			}*/
 			return false;
 		}
 		if (!scope.fdatos.TipCol > 0)
@@ -221,6 +222,14 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			Swal.fire({title:"Debe Seleccionar una Localidad.",type:"error",confirmButtonColor:"#188ae2"});	       
 			return false;
 		}
+		if (scope.fdatos.CPLoc==null || scope.fdatos.CPLoc==undefined || scope.fdatos.CPLoc=='')
+		{
+			scope.fdatos.CPLoc=null;
+		}
+		else
+		{
+			scope.fdatos.CPLoc=scope.fdatos.CPLoc;	
+		}		
 		if (scope.fdatos.TelCelCol==null || scope.fdatos.TelCelCol==undefined || scope.fdatos.TelCelCol=='')
 		{
 			Swal.fire({title:"El Campo Teléfono es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -507,7 +516,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			{
 				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				Swal.fire({title:"Error",text:"No hemos encontrado colaboradores registrados.",type:"info",confirmButtonColor:"#188ae2"});
-				scope.tColaboradores=undefined;
+				scope.tColaboradores=[];
+				scope.tColaboradoresBack=[];
 			}
 		},function(error)
 		{
@@ -650,6 +660,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		console.log(index);
 		console.log(opcion);
 		console.log(datos);
+		scope.opciones_colaboradores[index]=undefined;				
 		if(opcion==1)
 		{
 			location.href ="#/Editar_Colaborador/"+datos.CodCol+"/"+1;
@@ -662,7 +673,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			if(datos.EstCol==1)
 			{
-				scope.opciones_colaboradores[index]=undefined;
 				Swal.fire({title:"Error!.",text:"Ya este Colaborador se encuentra activo.",type:"error",confirmButtonColor:"#188ae2"});
 				return false;
 			}
@@ -685,7 +695,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 						{
 							Swal.fire({title:"Exito!.",text:"El Colaborador a sido activado correctamente.",type:"success",confirmButtonColor:"#188ae2"});
 							scope.cargar_lista_colaboradores();
-							scope.opciones_colaboradores[index]=undefined;
 						}
 						else
 						{
@@ -715,7 +724,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	            else
 	            {
 	                console.log('Cancelando ando...');
-	                scope.opciones_colaboradores[index]=undefined;
 	            }
 	        });
 
@@ -724,67 +732,106 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{	
 			if(datos.EstCol==2)
 			{
-				scope.opciones_colaboradores[index]=undefined;
 				Swal.fire({title:"Error!.",text:"Ya este Colaborador se encuentra bloqueado.",type:"error",confirmButtonColor:"#188ae2"});
 				return false;
-			}
-			
+			}			
 			scope.t_modal_data={};
 			scope.t_modal_data.CodCol=datos.CodCol;
 			scope.NumIdeFisBlo=datos.NumIdeFis;	
 			scope.NomColBlo=datos.NomCol;		
-			scope.FecBloColBlo=fecha;			
-	        scope.opciones_colaboradores[index]=undefined;         	
+			scope.FecBloColBlo=fecha;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecBloColBlo);			
 	        $("#modal_motivo_bloqueo").modal('show'); 
 		}	
 	}
 	scope.regresar=function()
 	{
-		if(scope.fdatos.CodCol!=undefined)
-		{			
-			/*Swal.fire({title:"¿Esta Seguro de Regresar?",
+		if(scope.validate_info==undefined)
+		{
+			if(scope.fdatos.CodCol==undefined)
+			{
+				var title="Guardando";
+				var text="¿Estás seguro de regresar y no guardar los datos?";
+			}
+			else
+			{
+				var title="Actualizando";
+				var text="¿Estás seguro de regresar y no actualizar los datos?";
+			}
+			Swal.fire({title:title,text:text,		
 			type:"question",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
 			confirmButtonText:"OK"}).then(function(t)
 			{
-	            if(t.value==true)
-	            {
-	               	scope.fdatos={};	               
-	               	
-	            }
-	            else
-	            {
-	                console.log('Cancelando ando...');	               
-	            }
-	        });*/
-	        location.href="#/Colaboradores/";
+		        if(t.value==true)
+		        {
+		        	location.href="#/Colaboradores";
+		        }
+		        else
+		        {
+		            console.log('Cancelando ando...');
+		        }
+		    });	
+
 		}
 		else
 		{
-			Swal.fire({title:"¿Esta Seguro de Regresar y no completar el proceso?",
-			type:"question",
-			showCancelButton:!0,
-			confirmButtonColor:"#31ce77",
-			cancelButtonColor:"#f34943",
-			confirmButtonText:"OK"}).then(function(t)
-			{
-	            if(t.value==true)
-	            {
-	               	scope.fdatos={};	               
-	               	location.href="#/Colaboradores/";
-	            }
-	            else
-	            {
-	                console.log('Cancelando ando...');	               
-	            }
-	        });
-
-		}
+			location.href="#/Colaboradores/";
+		}		
 	}
 	$scope.submitFormlockCol = function(event) 
 	{
+	 	var FecBloColBlo=document.getElementById("FecBloColBlo").value;
+		scope.FecBloColBlo=FecBloColBlo;
+		if (scope.FecBloColBlo==null || scope.FecBloColBlo==undefined || scope.FecBloColBlo=='')
+		{
+			Swal.fire({title:"El Campo Fecha de Bloqueo Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		else
+		{
+			var FecBloColBlo= (scope.FecBloColBlo).split("/");
+			if(FecBloColBlo.length<3)
+			{
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				event.preventDefault();	
+				return false;
+			}
+			else
+			{		
+				if(FecBloColBlo[0].length>2 || FecBloColBlo[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecBloColBlo[1].length>2 || FecBloColBlo[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				if(FecBloColBlo[2].length<4 || FecBloColBlo[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.FecBloColBlo.split("/");
+			    valuesEnd=fecha.split("/"); 
+			    //Verificamos que la fecha no sea posterior a la actual
+			    var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+			    if(dateStart>dateEnd)
+			    {
+			        Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+fecha+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        return false;
+			    }
+				scope.t_modal_data.FecBloColBlo=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
+			}
+		}
 	 	if(scope.t_modal_data.ObsBloColBlo==undefined||scope.t_modal_data.ObsBloColBlo==null||scope.t_modal_data.ObsBloColBlo=='')
 	 	{
 	 		scope.t_modal_data.ObsBloColBlo=null;

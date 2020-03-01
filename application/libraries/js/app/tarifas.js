@@ -90,7 +90,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			{
 				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				Swal.fire({title:"Tarifas Electrica.",text:"No hemos encontrado Tarifas Electrica Registradas Actualmente.",type:"info",confirmButtonColor:"#188ae2"});
-				scope.T_TarifasEle=undefined;
+				scope.T_TarifasEle=[];
+				scope.T_TarifasEleBack =[];
 			}
 		},function(error)
 		{
@@ -577,7 +578,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				{
 					$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					Swal.fire({title:"Tarifas Gas.",text:"No hemos encontrado Tarifas Gas Registradas Actualmente.",type:"info",confirmButtonColor:"#188ae2"});
-					scope.T_TarifasGas=undefined;
+					scope.T_TarifasGas=[];
+					scope.T_TarifasGasBack=[];
 				}
 			},function(error)
 			{

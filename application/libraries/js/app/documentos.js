@@ -90,54 +90,12 @@ if($route.current.$$route.originalPath=="/Add_Documentos/")
 }
 
 ////////////////////////////////////////////////////////////// MODULO DOCUMENTOS START ////////////////////////////////////////////////////////////////////
-	/*scope.tProvidencias=[];
-	scope.tTipoCliente=[];
-	scope.tLocalidades=[];
-	scope.tComerciales=[];
-	scope.tSectores=[];
-	scope.tColaboradores=[];
-	scope.tTiposVias=[];
-	scope.TtiposInmuebles=[];
-	scope.tListBanc=[];
-	scope.tListBancBack=[];
-	scope.tListaContactos=[];
-	scope.tActividadesEconomicas=[];
-	scope.tActividadesEconomicasBack=[];
-	scope.tMotivosBloqueoContacto=[];		
-	
-	scope.Tclientes=[];
-	scope.TclientesBack=[];
-	scope.TActividades=[];
-	scope.TActividadesBack=[];
-	scope.tPuntosSuminitros=[];
-	scope.tPuntosSuminitrosBack=[];
-	scope.Tabla_Contacto=[];
-	scope.Tabla_ContactoBack=[];
-	scope.tCuentaBan=[];
-	scope.tCuentaBanBack=[];
-	scope.T_Documentos=[];
-	scope.T_DocumentosBack=[];*/
+
 	scope.tListDocumentos =[];
 	scope.Tclientes=[];
 	ServiceMaster.getAll().then(function(dato) 
 	{
-		/*scope.tProvidencias=dato.Provincias;
-		scope.tLocalidades=dato.Localidades;		
-		scope.tTipoCliente=dato.Tipo_Cliente;		
-		scope.tComerciales=dato.Comerciales;
-		scope.tSectores=dato.Sector_Cliente;
-		scope.tColaboradores=dato.Colaborador;
-		scope.tTiposVias = dato.Tipo_Vias;
-		scope.TtiposInmuebles = dato.Tipo_Inmuebles;	
-		scope.tListBanc = dato.Bancos;	
-		scope.tListaContactos = dato.Tipo_Contacto;
-		scope.tListDocumentos = dato.Tipos_Documentos;
-		scope.fdatos.FecIniCli=dato.Fecha_Server;*/
-		//scope.tActividadesEconomicas=dato.tActividadesEconomicas;
-		//scope.tActividadesEconomicasBack=dato.tActividadesEconomicas;		
-		scope.fecha_server=dato.Fecha_Server;
-
-			
+		scope.fecha_server=dato.Fecha_Server;			
 		scope.tListDocumentos = dato.Tipos_Documentos;
 		scope.Tclientes=dato.Clientes;
 		$scope.predicate7 = 'id';  
@@ -160,16 +118,11 @@ if($route.current.$$route.originalPath=="/Add_Documentos/")
 			index7 = scope.T_Documentos.indexOf(value7);  
 			return (begin7 <= index7 && index7 < end7);
 		}
-
-		
-
-		
-	
-
-
-
-
-
+		if(scope.T_Documentos==false)
+		{
+			scope.T_Documentos=[];
+			scope.T_DocumentosBack=[];
+		}
 	}).catch(function(err){console.log(err);});
 scope.cargar_documentos=function()
 {
@@ -203,7 +156,9 @@ scope.cargar_documentos=function()
 		}
 		else
 		{
-			Swal.fire({title:"No se Encontraron Cuentas Bancarias Registradas.",type:"error",confirmButtonColor:"#188ae2"});		
+			Swal.fire({title:"No se Encontraron Documentos Registrados.",type:"error",confirmButtonColor:"#188ae2"});
+			scope.T_Documentos=[];
+			scope.T_DocumentosBack=[];		
 		}
 	},function(error)
 	{	
@@ -656,6 +611,7 @@ scope.validar_campos_documentos_null=function()
 		 	{
 		 		scope.fagregar_documentos=result.data;
 		 		scope.FecVenDocAco=result.data.FecVenDoc;
+		 		$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecVenDocAco);
 		 		console.log(result.data);
 			}
 		 	else

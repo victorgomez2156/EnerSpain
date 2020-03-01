@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Puntos_Suministros as vm">
@@ -310,7 +311,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo <b style="color:red;">DD/MM/YYYY</b></label>
-     <input type="text" class="form-control" ng-model="vm.FecBloPun" required ng-change="validar_fecha_blo(vm.FecBloPun)" maxlength="10"/>    
+     <input type="text" class="form-control datepicker" name="FecBloPun" id="FecBloPun" ng-model="vm.FecBloPun" required ng-change="validar_fecha_blo(vm.FecBloPun)" maxlength="10"/>    
      </div>
      </div>
      </div>
@@ -329,18 +330,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <select class="form-control" id="MotBloPunSum" name="MotBloPunSum" required ng-model="vm.tPunSum.MotBloPunSum">
           <option ng-repeat="dato in vm.tMotivosBloqueosPunSum" value="{{dato.CodMotBloPun}}">{{dato.DesMotBloPun}}</option>
         </select>
-
-
      </div>
      </div>
-
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
      <textarea type="text" class="form-control" ng-model="vm.tPunSum.ObsBloPunSum" rows="5" maxlength="100"/></textarea>
      </div>
-     </div>
-    
+     </div>    
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock_PunSum.$invalid">Bloquear</button>
       <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
@@ -353,12 +350,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- modal container section end -->
 
 
-
-
-              </section>
-            </div>
-        </div>
-      </section>
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+  $('#FecBloPun').on('changeDate', function() 
+  {
+    var FecBloPun=document.getElementById("FecBloPun").value;
+    console.log("FecBloPun: "+FecBloPun);
+  });
+</script>
+    </section>
+    </div>
+    </div>
+    </section>
     </section>
 
 </div>

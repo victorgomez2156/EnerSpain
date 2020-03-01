@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento <b style="color:red;">DD/MM/YYYY</b>  </label>
-             <input type="text" class="form-control" ng-model="vm.FecVenDocAco" ng-change="vm.validarfechadocumento(vm.FecVenDocAco)" maxlength="10" ng-disabled="vm.fagregar_documentos.TieVen!=1" />     
+             <input type="text" class="form-control datepicker" ng-model="vm.FecVenDocAco" name="FecVenDocAco" id="FecVenDocAco" ng-change="vm.validarfechadocumento(vm.FecVenDocAco)" maxlength="10" ng-disabled="vm.fagregar_documentos.TieVen!=1" />     
              </div>
              </div>
           </div>
@@ -114,6 +114,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#FecVenDocAco').on('changeDate', function() 
+  {
+     var FecVenDocAco=document.getElementById("FecVenDocAco").value;
+     console.log("FecVenDocAco: "+FecVenDocAco);
+  });
+</script>
 
 
 

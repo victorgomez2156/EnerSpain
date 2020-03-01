@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Distribuidora as vm">
@@ -205,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
                         <div class="panel"> 
-                 <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodDist" required readonly />
+                 <input type="text" class="form-control" ng-model="vm.tmodal_data.CodDist" required readonly />
       <form class="form-validate" id="form_lock" name="form_lock" ng-submit="submitFormlock($event)">                 
      <div class="col-12 col-sm-4">
      <div class="form">                          
@@ -220,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FechBlo" required readonly/>    
+     <input type="text" class="form-control datepicker" ng-model="vm.FechBlo" name="FechBlo" id="FechBlo"/>    
      </div>
      </div>
      </div>
@@ -256,6 +257,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 </div>
+
+<script>
+
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FechBlo').on('changeDate', function() 
+  {
+     var FechBlo=document.getElementById("FechBlo").value;
+     console.log("FechBlo: "+FechBlo);
+  });
+</script>
 <!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtro_distribuidoras" class="modal fade">
       <div class="modal-dialog">

@@ -63,7 +63,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     .table-responsive > .table-bordered > tfoot > tr:last-child > td, .table-responsive > .table-bordered > tfoot > tr:last-child > th {
         border-bottom: 0
     }
+
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Clientes as vm">
@@ -354,7 +356,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FechBlo" required ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
+     <input type="text" class="form-control datepicker" ng-model="vm.FechBlo" id="FechBlo" name="FechBlo" required ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
      </div>
      </div>
      </div>
@@ -420,6 +422,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
 <!--modal modal_cif_cliente section END -->
 
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#FechBlo').on('changeDate', function() 
+  {
+     var FechBlo=document.getElementById("FechBlo").value;
+     console.log("FechBlo: "+FechBlo);
+  });
+</script>
 
 <!-- FINAL SECCION PARA MODALES-->
               </section>

@@ -128,6 +128,11 @@ console.log($route.current.$$route.originalPath);
 			index3 = scope.tCuentaBan.indexOf(value3);  
 			return (begin3 <= index3 && index3 < end3);  
 		};
+		if(scope.tCuentaBan==false)
+		{
+			scope.tCuentaBan=[];
+			scope.tCuentaBanBack=[];
+		}
 	}).catch(function(err){console.log(err);});
 	///////////////////////////// CUENTAS BANCARIAS CLIENTES END ///////////////////////////
 scope.cargar_cuentas_bancarias=function()

@@ -89,18 +89,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="panel-body"> 
 
-  <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
-      <ul>
-      <li>
-        <a href="#tabs-1"><i class="fa fa-cube"></i> Historial Consumo Cups</a>
-      </li>      
-     </ul>
-    <!--/TABS 1 START-->
-    <div id="tabs-1">  
-
-
-
-
 <form id="historial_form" name="historial_form" ng-submit="submitFormHistorial($event)"> 
  
  <input type="hidden" class="form-control" ng-model="vm.historial.CodCup" readonly />
@@ -108,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.historial.desde" required="required" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(20,vm.historial.desde)" maxlength="10" />
+        <input type="text" class="form-control datepicker" name="desde" id="desde" ng-model="vm.historial.desde" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(20,vm.historial.desde)" maxlength="10" />
        </div>
        </div>
        </div>
@@ -117,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control" ng-model="vm.historial.hasta" required="required" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(21,vm.historial.hasta)" maxlength="10" />
+        <input type="text" class="form-control datepicker2" name="hasta" id="hasta" ng-model="vm.historial.hasta" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(21,vm.historial.hasta)" maxlength="10" />
        </div>
        </div>
        </div>
@@ -193,27 +181,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-   <!--/TABS 1 FINAL-->
-   </div>
- </div>
-       
-        
-
-
-
-        <!--/section-->
+ <!--/section-->
         </div>
         </div>
         <!-- page end-->
@@ -235,32 +203,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </section>
 
 </div>
+
  <script>
       $(function(){
         'use strict'
-
-        // Input Masks
-        //$('#FecIniAct').mask('99/99/9999');
-        //$('#FecIniActFil').mask('99-99-9999');
         jQuery(function($) 
         {      
           //jquery tabs
-          $( "#tabs_clientes" ).tabs(); 
-          $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true,
-            //mixDate: "<?php echo date("m/d/Y")?>"
-            //maxDate: "<?php echo date("m/d/Y")?>"
-        });
+          $( "#tabs_clientes").tabs(); 
+         
       });
+      });
+    </script>
+     <script>
+      $(function(){
+        'use strict'
 
-        function mayus(e)
+        $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+        $('#desde').on('changeDate', function() 
         {
-          var tecla=e.value;
-          var tecla2=tecla.toUpperCase();
-        }
+           var desde=document.getElementById("desde").value;
+           console.log("desde: "+desde);
+        });
+        $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
 
-
+        $('#hasta').on('changeDate', function() 
+        {
+           var hasta=document.getElementById("hasta").value;
+           console.log("hasta: "+hasta);
+        });
       });
     </script>
 </body>

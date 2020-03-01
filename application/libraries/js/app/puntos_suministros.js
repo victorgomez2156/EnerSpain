@@ -147,6 +147,11 @@ ServiceMaster.getAll().then(function(dato)
 			index2 = scope.tPuntosSuminitros.indexOf(value2);  
 			return (begin2 <= index2 && index2 < end2);  
 		};
+		if(scope.tPuntosSuminitros==false)
+		{
+			scope.tPuntosSuminitros=[];
+			scope.tPuntosSuminitrosBack=[];
+		}
 		scope.Tclientes=dato.Clientes;
 	}).catch(function(err){console.log(err);});
 	
@@ -366,8 +371,11 @@ ServiceMaster.getAll().then(function(dato)
 			}
 			else
 			{
-				Swal.fire({title:"Error",text:"No hemos encontrados puntos de suministros registrados.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.tPuntosSuminitros=[];
+				if($route.current.$$route.originalPath!="/Add_Puntos_Suministros/")
+				{	
+					Swal.fire({title:"Error",text:"No hemos encontrados puntos de suministros registrados.",type:"error",confirmButtonColor:"#188ae2"});
+					scope.tPuntosSuminitros=[];					
+				}				
 			}
 
 		},function(error)
@@ -398,65 +406,16 @@ ServiceMaster.getAll().then(function(dato)
 		console.log(dato);
 		if(opciones_PunSum==1)
 		{
-			//console.log('se gestionan los cups en construcción');
-			
 			location.href="#/Gestionar_Cups/"+dato.CodPunSum;
 		}
 		if(opciones_PunSum==2)
 		{
-			location.href="#/Edit_Punto_Suministros/"+dato.CodPunSum;
-			//console.log(opciones_PunSum);
-			/*scope.opciones_PunSum[index]=undefined;
-			scope.agregar_puntos_suministros=false;
-			scope.fpuntosuministro.CodPunSum=dato.CodPunSum;
-			scope.fpuntosuministro.CodCliPunSum=dato.CodCli;
-			scope.fpuntosuministro.TipRegDir=dato.TipRegDir;
-			scope.fpuntosuministro.CodTipVia=dato.CodTipVia;
-			scope.fpuntosuministro.NomViaPunSum=dato.NomViaPunSum;
-			scope.fpuntosuministro.NumViaPunSum=dato.NumViaPunSum;
-			scope.fpuntosuministro.BloPunSum=dato.BloPunSum;
-			scope.fpuntosuministro.EscPunSum=dato.EscPunSum;
-			scope.fpuntosuministro.PlaPunSum=dato.PlaPunSum;
-			scope.fpuntosuministro.PuePunSum=dato.PuePunSum;
-			scope.fpuntosuministro.CodProPunSum=dato.CodPro;
-			scope.fpuntosuministro.CodLocPunSum=dato.CodLoc;			
-			scope.filtrarLocalidadPunSum();
-			scope.ZonPosPunSum=dato.CPLoc;
-			scope.fpuntosuministro.CodTipInm=dato.CodTipInm;
-			scope.fpuntosuministro.RefCasPunSum=dato.RefCasPunSum;
-			scope.fpuntosuministro.DimPunSum=dato.DimPunSum;
-			scope.fpuntosuministro.ObsPunSum=dato.ObsPunSum;
-			scope.validate_info_PunSum=undefined;
-				if(dato.TipRegDir==1 || dato.TipRegDir==2)
-				{
-				scope.restringir_input=1;
-					}*/
+			location.href="#/Edit_Punto_Suministros/"+dato.CodPunSum;			
 		}
 		if(opciones_PunSum==3)
 		{
 			location.href="#/Edit_Punto_Suministros/"+dato.CodPunSum+"/"+1;
 			console.log(opciones_PunSum);
-			/*scope.opciones_PunSum[index]=undefined;
-			scope.agregar_puntos_suministros=false;
-			scope.fpuntosuministro.CodPunSum=dato.CodPunSum;
-			scope.fpuntosuministro.CodCliPunSum=dato.CodCli;
-			scope.fpuntosuministro.TipRegDir=dato.TipRegDir;
-			scope.fpuntosuministro.CodTipVia=dato.CodTipVia;
-			scope.fpuntosuministro.NomViaPunSum=dato.NomViaPunSum;
-			scope.fpuntosuministro.NumViaPunSum=dato.NumViaPunSum;
-			scope.fpuntosuministro.BloPunSum=dato.BloPunSum;
-			scope.fpuntosuministro.EscPunSum=dato.EscPunSum;
-			scope.fpuntosuministro.PlaPunSum=dato.PlaPunSum;
-			scope.fpuntosuministro.PuePunSum=dato.PuePunSum;
-			scope.fpuntosuministro.CodProPunSum=dato.CodPro;
-			scope.fpuntosuministro.CodLocPunSum=dato.CodLoc;			
-			scope.filtrarLocalidadPunSum();
-			scope.ZonPosPunSum=dato.CPLoc;
-			scope.fpuntosuministro.CodTipInm=dato.CodTipInm;
-			scope.fpuntosuministro.RefCasPunSum=dato.RefCasPunSum;
-			scope.fpuntosuministro.DimPunSum=dato.DimPunSum;
-			scope.fpuntosuministro.ObsPunSum=dato.ObsPunSum;
-			scope.validate_info_PunSum=1;*/
 		}
 		if(opciones_PunSum==4)
 		{
@@ -471,6 +430,7 @@ ServiceMaster.getAll().then(function(dato)
 			scope.tPunSum.NumCifCli=dato.NumCifCli;
 			scope.tPunSum.RazSocCli=dato.RazSocCli;			
 			scope.FecBloPun=scope.fecha_server;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecBloPun);
 			scope.tPunSum.opcion=opciones_PunSum;
 			scope.cargar_lista_motivos_bloqueos_puntos_suministros();
 			$("#modal_motivo_bloqueo_punto_suministro").modal('show');
@@ -586,54 +546,56 @@ ServiceMaster.getAll().then(function(dato)
 }
 	$scope.submitFormlockPunSum = function(event) 
 	{ 
+		var FecBloPun=document.getElementById("FecBloPun").value;
+		scope.FecBloPun=FecBloPun;
 		if(scope.FecBloPun==undefined || scope.FecBloPun==null || scope.FecBloPun=='') 
-	{
-		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
-		event.preventDefault();	
-		return false;
-	}	
-	else
-	{
-		var FecBloPun= (scope.FecBloPun).split("/");
-		if(FecBloPun.length<3)
 		{
-			Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
 			event.preventDefault();	
 			return false;
-		}
+		}	
 		else
-		{		
-			if(FecBloPun[0].length>2 || FecBloPun[0].length<2)
+		{
+			var FecBloPun= (scope.FecBloPun).split("/");
+			if(FecBloPun.length<3)
 			{
-				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
+			}
+			else
+			{		
+				if(FecBloPun[0].length>2 || FecBloPun[0].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+					}
+				if(FecBloPun[1].length>2 || FecBloPun[1].length<2)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
 				}
-			if(FecBloPun[1].length>2 || FecBloPun[1].length<2)
-			{
-				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-				event.preventDefault();	
-				return false;
+				if(FecBloPun[2].length<4 || FecBloPun[2].length>4)
+				{
+					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					event.preventDefault();	
+					return false;
+				}
+				valuesStart=scope.FecBloPun.split("/");
+		        valuesEnd=scope.fecha_server.split("/"); 
+		        // Verificamos que la fecha no sea posterior a la actual
+		        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
+		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
+		        if(dateStart>dateEnd)
+		        {
+		            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+		            return false;
+		        }
+		        scope.tPunSum.FecBloPun=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];	
 			}
-			if(FecBloPun[2].length<4 || FecBloPun[2].length>4)
-			{
-				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-				event.preventDefault();	
-				return false;
-			}
-			valuesStart=scope.FecBloPun.split("/");
-	        valuesEnd=scope.fecha_server.split("/"); 
-	        // Verificamos que la fecha no sea posterior a la actual
-	        var dateStart=new Date(valuesStart[2],(valuesStart[1]-1),valuesStart[0]);
-	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
-	        if(dateStart>dateEnd)
-	        {
-	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
-	            return false;
-	        }
-	        scope.tPunSum.FecBloPun=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];	
 		}
-	}
 	if(scope.tPunSum.ObsBloPunSum==undefined||scope.tPunSum.ObsBloPunSum==null||scope.tPunSum.ObsBloPunSum=='')
 		{
 			scope.tPunSum.ObsBloPunSum=null;
@@ -717,7 +679,7 @@ scope.punto_suministro=function()
 			scope.fpuntosuministro.Aclarador=undefined;
 			scope.fpuntosuministro.CodProPunSum=undefined;
 			scope.fpuntosuministro.CodLocPunSum=undefined;
-			scope.ZonPosPunSum=undefined;
+			scope.fpuntosuministro.CpLocSoc=undefined;
 			scope.fpuntosuministro.TelPunSum=undefined;
 			scope.fpuntosuministro.CodTipInm=undefined;
 			scope.fpuntosuministro.RefCasPunSum=undefined;
@@ -743,13 +705,14 @@ scope.punto_suministro=function()
 					scope.fpuntosuministro.PuePunSum=result.data.PueDomSoc;
 					scope.fpuntosuministro.CodProPunSum=result.data.CodProSoc;
 					scope.fpuntosuministro.CodLocPunSum=result.data.CodLocSoc;
-					scope.ZonPosPunSum=result.data.CPLocSoc;
+					scope.fpuntosuministro.CPLocSoc=result.data.CPLocSoc;
+					scope.TLocalidadesfiltradaPunSum=[];
 					setTimeout(function()
 					{
 						scope.filtrarLocalidadPunSum();
 						scope.mostrar_all_puntos();
 						console.log('Pasando por Timeout');
-					},3000);
+					},1000);
 										
 				}
 				else
@@ -797,13 +760,14 @@ scope.punto_suministro=function()
 					scope.fpuntosuministro.PuePunSum=result.data.PueDomFis;
 					scope.fpuntosuministro.CodProPunSum=result.data.CodProFis;
 					scope.fpuntosuministro.CodLocPunSum=result.data.CodLocFis;
-					scope.ZonPosPunSum=result.data.CPLocFis;
+					scope.fpuntosuministro.CPLocSoc=result.data.CPLocFis;
+					scope.TLocalidadesfiltradaPunSum=[];
 					setTimeout(function()
 					{
 						scope.filtrarLocalidadPunSum();
 						scope.mostrar_all_puntos();
 						console.log('Pasando por Timeout');
-					},3000);
+					},1000);
 										
 				}
 				else
@@ -890,6 +854,14 @@ scope.punto_suministro=function()
 		else
 		{
 			scope.fpuntosuministro.Aclarador=scope.fpuntosuministro.Aclarador;
+		}
+		if(scope.fpuntosuministro.CPLocSoc==undefined||scope.fpuntosuministro.CPLocSoc==null||scope.fpuntosuministro.CPLocSoc=='')
+		{
+			scope.fpuntosuministro.CPLocSoc=null;
+		}
+		else
+		{
+			scope.fpuntosuministro.CPLocSoc=scope.fpuntosuministro.CPLocSoc;
 		}
 		if(scope.fpuntosuministro.RefCasPunSum==undefined||scope.fpuntosuministro.RefCasPunSum==null||scope.fpuntosuministro.RefCasPunSum=='')
 		{
@@ -1038,22 +1010,17 @@ scope.punto_suministro=function()
 	}
 	scope.regresar_punto_suministro=function()
 	{
-		if(scope.fpuntosuministro.CodPunSum>0 && scope.validate_info_PunSum==undefined)
+		if(scope.fpuntosuministro.CodPunSum==undefined)
 		{
-		 	var title='Actualizando';
-		 	var text='¿Esta Seguro de Regresar y no Actualizar el Punto de Suministro?';
+			var title="Guardando";
+			var text="¿Estás seguro de regresar y no guardar los datos?";
 		}
 		else
 		{
-			var title='Regresar';
-			var text='Esta Seguro de Regresar';
+			var title="Actualizando";
+			var text="¿Estás seguro de regresar y no actualizar los datos?";
 		}
-		if(scope.fpuntosuministro.CodPunSum==undefined)
-		{
-		 	var title='Guardando';
-		 	var text='¿Esta Seguro de Regresar y no guardar los datos?';
-		}
-		Swal.fire({title:text,
+		Swal.fire({title:title,text:text,
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
@@ -1091,11 +1058,7 @@ scope.punto_suministro=function()
 					scope.filtrarLocalidadPunSum();
 					scope.mostrar_all_puntos();
 					console.log('Pasando por Timeout');
-				},3000);
-				//scope.fpuntosuministro.CodCliPunSum=result.data.CodCli;
-
-				//Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
-				//scope.buscarXCodPunSum();							
+				},1300);						
 			}
 			else
 			{

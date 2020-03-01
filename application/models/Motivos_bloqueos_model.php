@@ -243,6 +243,49 @@ public function borrar_MotBlocomercializadora($CodMotBloCom)
 ///////////////////////////////////////////////////////// PARA LOS MOTIVOS BLOQUEOS CONTACTOS END////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////// PARA LOS MOTIVOS BLOQUEOS CUPs start START/////////////////////////////////////
+public function get_list_motivos_bloqueos_CUPs()
+{
+    $this->db->select('*');
+    $this->db->from('T_MotivoBloCUPs');
+    $this->db->order_by('DesMotBloCUPs ASC');              
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }else
+    {
+        return false;
+    }       
+}
+public function agregar_motivo_bloqueo_CUPs($DesMotBloCUPs,$ObsMotBloCUPs)
+{
+    $this->db->insert('T_MotivoBloCUPs',array('DesMotBloCUPs'=>$DesMotBloCUPs,'ObsMotBloCUPs'=>$ObsMotBloCUPs));
+    return $this->db->insert_id();
+}
+public function actualizar_motivo_bloqueo_CUPs($CodMotBloCUPs,$DesMotBloCUPs,$ObsMotBloCUPs)
+{   
+    $this->db->where('CodMotBloCUPs', $CodMotBloCUPs);        
+    return $this->db->update('T_MotivoBloCUPs',array('DesMotBloCUPs'=>$DesMotBloCUPs,'ObsMotBloCUPs'=>$ObsMotBloCUPs));
+}
+public function get_tipo_motivo_bloqueo_CUPs($CodMotBloCUPs)
+{
+    $this->db->select('*');
+    $this->db->from('T_MotivoBloCUPs');
+    $this->db->where('CodMotBloCUPs',$CodMotBloCUPs);              
+    $query = $this->db->get(); 
+    if($query->num_rows()==1)
+    {
+        return $query->row();
+    }else
+    {
+        return false;
+    }       
+}
+public function borrar_MotBloCUPs($CodMotBloCUPs)
+{ 
+    return $this->db->delete('T_MotivoBloCUPs', array('CodMotBloCUPs' => $CodMotBloCUPs));
+}
 
-
+////////////////////////////////////////////// PARA LOS MOTIVOS BLOQUEOS CUPs start end/////////////////////////////////////
 }

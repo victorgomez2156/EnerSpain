@@ -8917,7 +8917,7 @@ class Exportar_Documentos extends CI_Controller
         $objWriter->save('php://output');
         exit;   
     }
-     public function Doc_PDF_Motivo_Bloqueo_Comercializadora()
+    public function Doc_PDF_Motivo_Bloqueo_Comercializadora()
     {
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
@@ -9182,6 +9182,274 @@ class Exportar_Documentos extends CI_Controller
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL MOTIVOS BLOQUEOS COMERCIALIZADORAS FILTRADOS');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_PDF_Motivo_Bloqueo_CUPs()
+    {
+        $tipo_filtro = urldecode($this->uri->segment(4));        
+        if($tipo_filtro==null)
+        {
+            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            return false; 
+        }
+        if($tipo_filtro==0)
+        {
+            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO CUPs";
+            $Tipo_Cliente="";
+            $Resultado=$this->Reportes_model->get_data_all_motivos_CUPs();
+        }   
+        else
+        {
+          echo "El Número de filtro es incorrecto"; 
+          return false; 
+        }  
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Lista de Motivos CUPs PDF '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Doc_Pdf_Motivos_CUPs');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="3"><h4>LISTADO MOTIVOS BLOQUEO COMERCIALIZADORA</h4></td>
+                
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left">Filtro Aplicado</td>
+                <td border="0" colspan="2">'.$nombre_filtro.' '.$Tipo_Cliente.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;        
+        $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">';
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">DESCRIPCIÓN</td>
+            <td style="color:white;">OBSERVACIÓN</td>
+        </tr>';
+        if($Resultado!=false)
+        {
+            foreach ($Resultado as $record): 
+            {
+                $html.='<tr>
+                        <td>'.$record->DesMotBloCUPs.'</td>
+                        <td>'.$record->ObsMotBloCUPs.'</td>
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ;
+        $nombre_reporte_salida=urldecode("Doc%20Pdf%20Motivos%20Bloqueos%20CUPs");
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF MOTIVOS BLOQUEOS CUPs FILTRADOS');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output($nombre_reporte_salida.'.pdf', 'I');
+    }
+    public function Doc_Excel_Motivo_Bloqueo_CUPs()
+    {
+        $tipo_filtro = urldecode($this->uri->segment(4));        
+        if($tipo_filtro==null)
+        {
+            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            return false; 
+        }
+        if($tipo_filtro==0)
+        {
+            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO CUPs";
+            $Tipo_Cliente="";
+            $Resultado=$this->Reportes_model->get_data_all_motivos_CUPs();
+        }   
+        else
+        {
+          echo "El Número de filtro es incorrecto"; 
+          return false; 
+        }  
+       
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc_Excel_Motivos_Bloqueos_CUPs_'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Motivos CUPs"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Motivos CUPs"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE MOTIVOS BLOQUEOS CUPs");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $fila=9;
+        for($i=0; $i<count($Resultado); $i++) 
+        {
+            $fila+=1;
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->DesMotBloCUPs);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->ObsMotBloCUPs);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:B$fila");  
+        } 
+        $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Filtro Aplicado:");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B7", $nombre_filtro);
+        $objPHPExcel->getActiveSheet()->SetCellValue("C7", $Tipo_Cliente);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A7:C7");                 
+        $objPHPExcel->getActiveSheet()->SetCellValue("D2", "FECHA:");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "D2");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D3", "HORA:");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "D3");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E2", date('d/m/Y'));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "E2");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E3", date('G:i:s'));
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "E3"); 
+              
+        foreach (range('A', 'F') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(30);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL MOTIVOS BLOQUEOS CUPs FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }

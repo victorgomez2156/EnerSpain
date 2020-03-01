@@ -137,6 +137,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	{
 		scope.TVistaConCups=false;
 		scope.regresar="#/Consumo_CUPs/"+scope.CodCup+"/"+scope.TipServ+"/"+scope.CodPunSum;
+		$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate");
+		$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate");
 		if(scope.TipServ=="Eléctrico")
 		{
 			scope.fdatos_cups.TipServ=1;
@@ -159,6 +161,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.fdatos_cups.CodConCup=dato.CodConCup;
 			scope.fdatos_cups.FecIniCon=dato.FecIniCon;
 			scope.fdatos_cups.FecFinCon=dato.FecFinCon;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate",scope.fdatos_cups.FecIniCon);
+			$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate",scope.fdatos_cups.FecFinCon);
 			scope.fdatos_cups.ConCup=dato.ConCup;
 			if(scope.TipServ=="Eléctrico")
 			{
@@ -215,6 +219,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.fdatos_cups.CodConCup=dato.CodConCup;
 			scope.fdatos_cups.FecIniCon=dato.FecIniCon;
 			scope.fdatos_cups.FecFinCon=dato.FecFinCon;
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate",scope.fdatos_cups.FecIniCon);
+			$('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate",scope.fdatos_cups.FecFinCon);
 			scope.fdatos_cups.ConCup=dato.ConCup;
 			if(scope.TipServ=="Eléctrico")
 			{
@@ -481,39 +487,9 @@ $scope.submitFormCups = function(event)
 	};
 	scope.validar_campos_cups = function()
 {
-	resultado = true;		
-	if(scope.fdatos_cups.TipServ==1)
-	{
-		if (scope.fdatos_cups.PotCon1==null || scope.fdatos_cups.PotCon1==undefined || scope.fdatos_cups.PotCon1=='')
-		{
-			Swal.fire({title:"El Campo P1 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.PotCon2==null || scope.fdatos_cups.PotCon2==undefined || scope.fdatos_cups.PotCon2=='')
-		{
-			Swal.fire({title:"El Campo P2 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.PotCon3==null || scope.fdatos_cups.PotCon3==undefined || scope.fdatos_cups.PotCon3=='')
-		{
-			Swal.fire({title:"El Campo P3 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.PotCon4==null || scope.fdatos_cups.PotCon4==undefined || scope.fdatos_cups.PotCon4=='')
-		{
-			Swal.fire({title:"El Campo P4 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.PotCon5==null || scope.fdatos_cups.PotCon5==undefined || scope.fdatos_cups.PotCon5=='')
-		{
-			Swal.fire({title:"El CampoP5 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		if (scope.fdatos_cups.PotCon6==null || scope.fdatos_cups.PotCon6==undefined || scope.fdatos_cups.PotCon6=='')
-		{
-			Swal.fire({title:"El Campo P6 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}		
+	resultado = true;	
+	var desde=document.getElementById("desde").value;
+		scope.fdatos_cups.FecIniCon=desde;		
 		if (scope.fdatos_cups.FecIniCon==null || scope.fdatos_cups.FecIniCon==undefined || scope.fdatos_cups.FecIniCon=='')
 		{
 			Swal.fire({title:"El Campo Fecha Desde Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -555,6 +531,8 @@ $scope.submitFormCups = function(event)
 			}
 
 		}
+		var hasta=document.getElementById("hasta").value;
+		scope.fdatos_cups.FecFinCon=hasta;	
 		if (scope.fdatos_cups.FecFinCon==null || scope.fdatos_cups.FecFinCon==undefined || scope.fdatos_cups.FecFinCon=='')
 		{
 			Swal.fire({title:"El Campo Fecha de Hasta es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -594,7 +572,39 @@ $scope.submitFormCups = function(event)
 				var final_UltFec = FecFinCon[0]+"/"+FecFinCon[1]+"/"+FecFinCon[2];
 				scope.fdatos_cups.FecFinCon=final_UltFec;
 			}
+		}	
+	if(scope.fdatos_cups.TipServ==1)
+	{
+		if (scope.fdatos_cups.PotCon1==null || scope.fdatos_cups.PotCon1==undefined || scope.fdatos_cups.PotCon1=='')
+		{
+			Swal.fire({title:"El Campo P1 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
 		}
+		if (scope.fdatos_cups.PotCon2==null || scope.fdatos_cups.PotCon2==undefined || scope.fdatos_cups.PotCon2=='')
+		{
+			Swal.fire({title:"El Campo P2 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if (scope.fdatos_cups.PotCon3==null || scope.fdatos_cups.PotCon3==undefined || scope.fdatos_cups.PotCon3=='')
+		{
+			Swal.fire({title:"El Campo P3 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if (scope.fdatos_cups.PotCon4==null || scope.fdatos_cups.PotCon4==undefined || scope.fdatos_cups.PotCon4=='')
+		{
+			Swal.fire({title:"El Campo P4 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if (scope.fdatos_cups.PotCon5==null || scope.fdatos_cups.PotCon5==undefined || scope.fdatos_cups.PotCon5=='')
+		{
+			Swal.fire({title:"El CampoP5 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}
+		if (scope.fdatos_cups.PotCon6==null || scope.fdatos_cups.PotCon6==undefined || scope.fdatos_cups.PotCon6=='')
+		{
+			Swal.fire({title:"El Campo P6 Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			return false;
+		}		
 		if (scope.fdatos_cups.ConCup==null || scope.fdatos_cups.ConCup==undefined || scope.fdatos_cups.ConCup=='')
 		{
 			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
@@ -602,88 +612,7 @@ $scope.submitFormCups = function(event)
 		}
 	}
 	if(scope.fdatos_cups.TipServ==2)
-	{
-		if (scope.fdatos_cups.FecIniCon==null || scope.fdatos_cups.FecIniCon==undefined || scope.fdatos_cups.FecIniCon=='')
-		{
-			Swal.fire({title:"El Campo Fecha Desde Es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		else
-		{
-			var FecIniCon= (scope.fdatos_cups.FecIniCon).split("/");
-			if(FecIniCon.length<3)
-			{
-				Swal.fire({text:"El Formato de Fecha de Alta debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
-				//event.preventDefault();	
-				return false;
-			}
-			else
-			{		
-				if(FecIniCon[0].length>2 || FecIniCon[0].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-
-				}
-				if(FecIniCon[1].length>2 || FecIniCon[1].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				if(FecIniCon[2].length<4 || FecIniCon[2].length>4)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				var h1=new Date();			
-				var final = FecIniCon[0]+"/"+FecIniCon[1]+"/"+FecIniCon[2];
-				scope.fdatos_cups.FecIniCon=final;
-			}
-
-		}
-		if (scope.fdatos_cups.FecFinCon==null || scope.fdatos_cups.FecFinCon==undefined || scope.fdatos_cups.FecFinCon=='')
-		{
-			Swal.fire({title:"El Campo Fecha de Hasta es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
-			return false;
-		}
-		else
-		{
-			var FecFinCon= (scope.fdatos_cups.FecFinCon).split("/");
-			if(FecFinCon.length<3)
-			{
-				Swal.fire({text:"El Formato de Fecha Última Lectura debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
-				//event.preventDefault();	
-				return false;
-			}
-			else
-			{		
-				if(FecFinCon[0].length>2 || FecFinCon[0].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-
-				}
-				if(FecFinCon[1].length>2 || FecFinCon[1].length<2)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				if(FecFinCon[2].length<4 || FecFinCon[2].length>4)
-				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
-					//event.preventDefault();	
-					return false;
-				}
-				var h1=new Date();			
-				var final_UltFec = FecFinCon[0]+"/"+FecFinCon[1]+"/"+FecFinCon[2];
-				scope.fdatos_cups.FecFinCon=final_UltFec;
-			}
-		}
+	{	
 		if (scope.fdatos_cups.ConCup==null || scope.fdatos_cups.ConCup==undefined || scope.fdatos_cups.ConCup=='')
 		{
 			Swal.fire({title:"El Campo Consumo es Requerido.",type:"error",confirmButtonColor:"#188ae2"});

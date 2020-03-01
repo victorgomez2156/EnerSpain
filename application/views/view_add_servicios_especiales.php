@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>
-       <input type="text" class="form-control" ng-model="vm.FecIniSerEspForm" placeholder="* DD/MM/YYYY" maxlength="10" ng-disabled="vm.validate_info_servicio_especiales!=undefined" ng-change="vm.validarfecini(vm.FecIniSerEspForm)"/>
+       <input type="text" class="form-control datepicker" id="FecIniSerEspForm" name="FecIniSerEspForm" ng-model="vm.FecIniSerEspForm" placeholder="* DD/MM/YYYY" maxlength="10" ng-disabled="vm.validate_info_servicio_especiales!=undefined" ng-change="vm.validarfecini(vm.FecIniSerEspForm)"/>
        </div>
        </div>
        </div>
@@ -254,6 +254,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </section>
 </div>
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecIniSerEspForm').on('changeDate', function() 
+  {
+     var FecIniSerEspForm=document.getElementById("FecIniSerEspForm").value;
+     console.log("FecIniSerEspForm: "+FecIniSerEspForm);
+  });
+</script>
   <!-- container section end -->
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <!-- custom form validation script for this page-->

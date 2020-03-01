@@ -88,7 +88,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 			else
 			{
 				Swal.fire({title:"Error.",text:"No hemos encontrado tipos de cliente registrados.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.Tipo_Cliente=undefined;
+				scope.Tipo_Cliente=[];
 			}
 		},function(error)
 		{
@@ -375,7 +375,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies)
 			else
 			{
 				Swal.fire({title:"Error.",text:"No hemos encontrado tipos de sectores registrados.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.Tipo_Sector=undefined;
+				scope.Tipo_Sector=[];
 			}
 		},function(error)
 		{
@@ -673,7 +673,7 @@ scope.cargar_lista_tipo_contacto=function()
 			else
 			{
 				Swal.fire({title:"Error.",text:"No hemos encontrado tipos de contactos registrados.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.Tipo_Contacto=undefined;
+				scope.Tipo_Contacto=[];
 			}
 		},function(error)
 		{
@@ -970,7 +970,7 @@ scope.cargar_lista_tipo_documentos=function()
 			else
 			{
 				Swal.fire({title:"Error.",text:"No hemos encontrado documentos registrados.",type:"info",confirmButtonColor:"#188ae2"});
-				scope.Tipo_Documento=undefined;
+				scope.Tipo_Documento=[];
 			}
 		},function(error)
 		{
@@ -1254,15 +1254,6 @@ scope.cargar_lista_tipo_documentos=function()
 			scope.validate_documento=undefined;
 		}
 	}
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////TIPO DOCUMENTOS END///////////////////////////////////////////////////////////////////////////
 	

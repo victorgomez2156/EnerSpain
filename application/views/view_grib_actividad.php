@@ -64,6 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Actividades as vm">
@@ -211,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
       <label class="font-weight-bold nexa-dark" style="color:red;">EJ: DD/MM/YYYY</label> 
-      <input class="form-control" type="text" ng-change="vm.validar_fecha_act(2,vm.FecIniActFil)" ng-model="vm.FecIniActFil" maxlength="10" placeholder="DD/MM/YYYY"> 
+      <input class="form-control datepicker" name="FecIniActFil" id="FecIniActFil" type="text" ng-change="vm.validar_fecha_act(2,vm.FecIniActFil)" ng-model="vm.FecIniActFil" maxlength="10" placeholder="DD/MM/YYYY"> 
      </div>
      </div>    
     </div>
@@ -277,7 +278,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
-     <input type="text" class="form-control" ng-model="vm.FecBloAct" required ng-change="vm.validar_fecha_act(3,vm.FecBloAct)" maxlength="10" />    
+     <input type="text" class="form-control datepicker2" name="FecBloAct" id="FecBloAct" ng-model="vm.FecBloAct" required ng-change="vm.validar_fecha_act(3,vm.FecBloAct)" maxlength="10" />    
      </div>
      </div>
      </div>
@@ -361,6 +362,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </section>
     </section>
 
+<script>
+  $('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('#FecIniActFil').on('changeDate', function() 
+  {
+     var FecIniActFil=document.getElementById("FecIniActFil").value;
+     console.log("FecIniActFil: "+FecIniActFil);
+  });
+
+  $('.datepicker2').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('#FecBloAct').on('changeDate', function() 
+  {
+     var FecBloAct=document.getElementById("FecBloAct").value;
+     console.log("FecBloAct: "+FecBloAct);
+  });
+</script>
 </div>
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>

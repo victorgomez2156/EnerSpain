@@ -1,6 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-/*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class Distribuidoras extends REST_Controller
 {
 	function __construct()
@@ -118,7 +117,7 @@ class Distribuidoras extends REST_Controller
 		
 		if($objSalida->opcion==2)
 		{
-			$CodBloq=$this->Distribuidoras_model->agregar_motivo_bloqueo($objSalida->CodDist,date('Y-m-d'),$objSalida->MotBloq,$objSalida->ObsBloDis);
+			$CodBloq=$this->Distribuidoras_model->agregar_motivo_bloqueo($objSalida->CodDist,$objSalida->FechBlo,$objSalida->MotBloq,$objSalida->ObsBloDis);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoDistribuidora','INSERT',$CodBloq,$this->input->ip_address(),'Agregando Motivo Bloqueo de Distribuidora');
 		}		
 		$this->db->trans_complete();

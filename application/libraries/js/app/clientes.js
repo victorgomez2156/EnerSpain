@@ -141,6 +141,11 @@ ServiceMaster.getAll().then(function(dato)
 			index = scope.Tclientes.indexOf(value);  
 			return (begin <= index && index < end);  
 		};
+		if(scope.Tclientes==false)
+		{
+			scope.Tclientes=[];
+			scope.TclientesBack=[];
+		}
 	}).catch(function(err){console.log(err);});
 
 ////////////////////////////////////////////////////////////// MODULO CLIENTES DATOS BASICOS START ////////////////////////////////////////////////////////////////////
@@ -229,7 +234,7 @@ $scope.Consultar_CIF_Clientes = function(event)
 			else
 			{
 				$("#modal_cif_cliente").modal('hide');
-				Swal.fire({title:"Disponible.",text:"El Número de CIF se encuentra disponible.",type:"success",confirmButtonColor:"#188ae2"});
+				//Swal.fire({title:"Disponible.",text:"El Número de CIF se encuentra disponible.",type:"success",confirmButtonColor:"#188ae2"});
 				$cookies.put('CIF', scope.fdatos.Clientes_CIF);
 				location.href ="#/Datos_Basicos_Clientes/";
 			}
@@ -582,6 +587,7 @@ scope.validar_opcion=function(index,opcion,datos)
 		scope.tmodal_data.CodCli=datos.CodCli;
 		scope.tmodal_data.NumCif=datos.NumCifCli;
 		scope.FechBlo=scope.fecha_server;
+		$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FechBlo); 
 		scope.tmodal_data.RazSoc=datos.RazSocCli;	
         scope.cargar_lista_motivos_bloqueos();        
 	}	
@@ -624,6 +630,8 @@ scope.cargar_lista_motivos_bloqueos=function()
 
 $scope.submitFormlock = function(event) 
 { 	
+	var FechBlo=document.getElementById("FechBlo").value;
+	scope.FechBlo=FechBlo;
 	if(scope.FechBlo==undefined || scope.FechBlo==null || scope.FechBlo=='') 
 	{
 		Swal.fire({text:"El Campo Fecha de Bloqueo no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});

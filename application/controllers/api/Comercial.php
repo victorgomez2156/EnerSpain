@@ -73,15 +73,17 @@ class Comercial extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();		
+		$this->db->trans_start();
+		$convertir_fec_ini=explode("/", $objSalida->FecIniCom);
+		$new_fec_ini=$convertir_fec_ini[2]."-".$convertir_fec_ini[1]."-".$convertir_fec_ini[0];		
 		if (isset($objSalida->CodCom))
 		{		
-			$this->Comercial_model->actualizar_comercial($objSalida->CodCom,$objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom);
+			$this->Comercial_model->actualizar_comercial($objSalida->CodCom,$objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','UPDATE',$objSalida->CodCom,$this->input->ip_address(),'Actualizando La Comercial');
 		}
 		else
 		{
-			$id = $this->Comercial_model->agregar_comercial($objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom);		
+			$id = $this->Comercial_model->agregar_comercial($objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini);		
 			$objSalida->CodCom=$id;			
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','INSERT',$objSalida->CodCom,$this->input->ip_address(),'Creando Comercial');			
 		}		
@@ -119,7 +121,7 @@ class Comercial extends REST_Controller
 		$resultado = $this->Comercial_model->update_status_comercial($objSalida->CodCom,$objSalida->EstCom);
 		if($objSalida->EstCom==2)
 		{
-			$CodBloCom=$this->Comercial_model->agregar_bloqueo_Comercial($objSalida->CodCom,date('Y-m-d'),$objSalida->MotBloqCom,$objSalida->ObsBloCom);
+			$CodBloCom=$this->Comercial_model->agregar_bloqueo_Comercial($objSalida->CodCom,$objSalida->FechBloCom,$objSalida->MotBloqCom,$objSalida->ObsBloCom);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoComercial','INSERT',$CodBloCom,$this->input->ip_address(),'Bloqueando Comercial');
 			$objSalida->CodBloCom=$CodBloCom;
 		}

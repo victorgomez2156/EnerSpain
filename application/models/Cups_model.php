@@ -15,7 +15,7 @@ class Cups_model extends CI_Model
     {
         $sql = $this->db->query("SELECT a.CodCupGas AS CodCupGas,a.CupsGas AS CupsGas, case a.TipServ when 2 then 'Gas' end AS TipServ,b.NomTarGas AS NomTarGas,
 a.CodPunSum AS CodPunSum,a.CodDis AS CodDis,c.CodCli AS CodCli, case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJA' END
-AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,f.CPLoc,g.DesPro FROM T_CUPsGas a 
+AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,c.CPLocSoc,g.DesPro FROM T_CUPsGas a 
 join T_TarifaGas b on a.CodTarGas = b.CodTarGas
 join T_PuntoSuministro c on a.CodPunSum = c.CodPunSum
 join T_Cliente d ON c.CodCli = d.CodCli
@@ -24,7 +24,7 @@ join T_Localidad f ON c.CodLoc = f.CodLoc
 JOIN T_Provincia g ON f.CodPro=g.CodPro
 UNION 
 select a.CodCupsEle AS CodCupsEle,a.CUPsEle AS CUPsEle, case a.TipServ when 1 then 'Eléctrico' end AS TipServ,
-b.NomTarEle AS NomTarEle,a.CodPunSum AS CodPunSum,a.CodDis AS CodDis,c.CodCli AS CodCli, case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJA' end AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,f.CPLoc,g.DesPro 
+b.NomTarEle AS NomTarEle,a.CodPunSum AS CodPunSum,a.CodDis AS CodDis,c.CodCli AS CodCli, case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJA' end AS EstCUPs, d.RazSocCli AS Cups_RazSocCli,d.NumCifCli AS Cups_Cif,CONCAT(e.IniTipVia, ' - ',e.DesTipVia) AS TipVia,c.NomViaPunSum,c.NumViaPunSum,c.BloPunSum,c.EscPunSum,c.PlaPunSum,c.PuePunSum,f.DesLoc,c.CPLocSoc,g.DesPro 
 from  T_CUPsElectrico a join T_TarifaElectrica b on a.CodTarElec = b.CodTarEle 
 join T_PuntoSuministro c on a.CodPunSum = c.CodPunSum
 join T_Cliente d ON c.CodCli = d.CodCli
@@ -246,7 +246,8 @@ public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc
         $this->db->from($Tabla);
         $this->db->join($Join,$Joinb);
         $this->db->join($Join2,$Joinc);
-        $this->db->where($Where,$CodCup);              
+        $this->db->where($Where,$CodCup);
+        $this->db->order_by('a.FecIniCon DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         { 
