@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         </div>        
         <!--fin t-0002 start--> 
-         
+         <br>
         <!--INICIO DE TABLA-->
         <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
@@ -136,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
                     <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÊFONO</th>
                   </tr>
-                  <tr ng-show="vm.tClientes_x_Colaboradores==undefined"> 
+                  <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tClientes_x_Colaboradores | filter:paginate" ng-class-odd="odd">                    
@@ -150,9 +150,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                   <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
-                    <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i>RAZÓN SOCIAL</th>
+                   <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
+                    <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
+                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i>CUPS</th>
                     <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÖN</th>
                     <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
