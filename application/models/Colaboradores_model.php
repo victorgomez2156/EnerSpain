@@ -126,7 +126,7 @@ class Colaboradores_model extends CI_Model
                             a.ObsCli,d.CUPsEle,d.CodTarElec,d.PotConP1,d.PotConP2,d.PotConP3,d.PotConP4,d.PotConP5,d.PotConP6,
                             d.PotMaxBie,e.CupsGas,e.CodTarGas,e.TipServ,
                             (CASE WHEN e.TipServ =2 THEN CONCAT('Gas: ',e.CupsGas) 
-                            ELSE CONCAT('Eléctrico: ',d.CUPsEle) END) AS Cups");
+                            ELSE CONCAT('Eléctrico: ',d.CUPsEle) END) AS Cups,a.DireccionBBDD");
 		$this->db->from('T_Cliente a');
         $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol');
         $this->db->join('T_PuntoSuministro b', 'a.CodCli = b.CodCli','left');

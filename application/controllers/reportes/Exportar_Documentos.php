@@ -11201,7 +11201,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">CIF/NIF</td>
             <td style="color:white;">RAZÓN SOCIAL</td>
             <td style="color:white;">CUPS</td>
-            <td style="color:white;">DIRECCION</td>
+            <td style="color:white;">DIRECCION FISCAL</td>
             <td style="color:white;">EMAIL</td>
             <td style="color:white;">TELÉFONO</td>
         </tr>';
@@ -11210,12 +11210,17 @@ class Exportar_Documentos extends CI_Controller
 
             foreach ($Resultado as $record): 
             {
+                //VAR_DUMP($record->NomViaDomFis);
+                $CONCATENADA = $record->NomViaDomFis+ ' '+$record->NumViaDomFis+' '+$record->BloDomFis+' '
+                +$record->EscDomFis+' '+$record->PlaDomFis+' '+$record->PueDomFis+' '+$record->DesLocFis;
+                
+                $DIRECCION = ($record->DireccionBBDD!='') ? $record->DireccionBBDD : $CONCATENADA;
                 $html.='<tr>
                         <td>'.$record->NomComCli.'</td>
                         <td>'.$record->NumCifCli.'</td>
                         <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->Cups.'</td>
-                        <td>'.$record->NomViaDomSoc.'</td>
+                        <td>'.$DIRECCION.'</td>
                         <td>'.$record->EmaCli.'</td>
                         <td>'.$record->TelFijCli.'</td>
                     </tr>';     
@@ -11388,12 +11393,17 @@ class Exportar_Documentos extends CI_Controller
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
         {
+            $CONCATENADA = $Resultado[$i]->NomViaDomFis+ ' '+$Resultado[$i]->NumViaDomFis+' '+$Resultado[$i]->BloDomFis+' '
+            +$Resultado[$i]->EscDomFis+' '+$Resultado[$i]->PlaDomFis+' '+$Resultado[$i]->PueDomFis+' '+$Resultado[$i]->DesLocFis;
+            
+            $DIRECCION = ($Resultado[$i]->DireccionBBDD!='') ? $Resultado[$i]->DireccionBBDD : $CONCATENADA;
+
             $fila+=1;
             $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->NomComCli);
             $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->NumCifCli);
             $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->RazSocCli);
             $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->Cups);
-            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->NomViaDomSoc);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $DIRECCION);
             $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado[$i]->EmaCli);            
             $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado[$i]->TelFijCli);
             $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:G$fila");  

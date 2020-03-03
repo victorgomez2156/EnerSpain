@@ -80,49 +80,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ol>
           </div>
     </div>
-    <!-- page start-->
+
+
+
+
     <div class="row">
-      
-      <div class="col-lg-12">
-        <div class="col-lg-4">
-              <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" 
-                  ng-model="vm.vColaboradorSeleccionado"
-                  ng-change="vm.Clientes_x_Colaboradores(vm.vColaboradorSeleccionado)">
-                  <option ng-repeat="opcion in vm.tOnlyColaboradores" value="{{opcion.CodCol}}">{{opcion.NomCol}}</option>                          
-              </select>  
+            <div class="col-lg-12">
+              <!--panel start-->
+              <section class="panel">
+             
+          <div id="t-0002"><!--t-0002 start-->   
+          <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
+            <div class="t-0029"><!--t-0029 start--> 
+              <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
+                <div class="btn-group">
+                  <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                         <li><input type="checkbox" ng-model="vm.NomComCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
+                         <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
+                         <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
+                         <li><input type="checkbox" ng-model="vm.CupsCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Cups</b></li>
+                         <li><input type="checkbox" ng-model="vm.NomVia"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección Social</b></li>
+                         <li><input type="checkbox" ng-model="vm.NomViaFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección Fiscal</b></li>
+                         <li><input type="checkbox" ng-model="vm.DireccionCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección BBDD</b></li>
+                         <li><input type="checkbox" ng-model="vm.EmailCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
+                         <li><input type="checkbox" ng-model="vm.TelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
+                  </ul> 
+              </div>
+              <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
+                </ul>
+              </div>
+              
+            </div><!--t-0031 end--> 
+          </div><!--t-0029 end--> 
+        </div><!--DIV removeformobile end-->
+          <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+              <div class="t-0029">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                  <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" 
+                      ng-model="vm.vColaboradorSeleccionado"
+                      ng-change="vm.Clientes_x_Colaboradores(vm.vColaboradorSeleccionado)">
+                      <option ng-repeat="opcion in vm.tOnlyColaboradores" value="{{opcion.CodCol}}">{{opcion.NomCol}}</option>                          
+                  </select>  
+                  </div>  
+                </form>                    
+            </div>
+          </div>
+        </div>  <!--t-0002 end-->
+
+        <div class="row">
+          <br>
         </div>
-       <!--t-0002 start-->                  
-            <div id="t-0002">
-              <div class="removeForMobile">                   
-                <div class="t-0029">
-                  <div class="t-0031" style="margin-top: -8px;">
-                                <div class="btn-group">
-                                  <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
-                                  <ul class="dropdown-menu">
-                                    <li><input type="checkbox" ng-model="vm.NomComCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
-                                    <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
-                                    <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                                    <li><input type="checkbox" ng-model="vm.CupsCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Cups</b></li>
-                                    <li><input type="checkbox" ng-model="vm.DireccionCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>
-                                    <li><input type="checkbox" ng-model="vm.EmailCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-                                    <li><input type="checkbox" ng-model="vm.TelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
-                                  </ul> 
-                                </div>                    
-                                <div class="btn-group">
-                                  <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
-                                  <ul class="dropdown-menu">
-                                    <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                                    <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
-                                  </ul>
-                                </div>
-                  </div>
-                </div>
-              </div>   
-           </div>
-        </div>
-        </div>        
-        <!--fin t-0002 start--> 
-         <br>
+        <br>
         <!--INICIO DE TABLA-->
         <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
@@ -132,9 +146,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i>CUPS</th>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÖN</th>
+                    <td ng-show="vm.NomVia==true">DIRECCIÓN SOCIAL</td>
+                    <td ng-show="vm.NomViaFis==true">DIRECCIÓN FISCAL</td>
+                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÓN BBDD</th>
                     <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÊFONO</th>
+                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÉFONO</th>
                   </tr>
                   <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
@@ -144,7 +160,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.CupsCol==true">{{dato.Cups}}</td>
-                    <td ng-show="vm.DireccionCol==true">{{dato.NomViaDomSoc}}</td>
+                    <td ng-show="vm.NomVia==true">{{dato.NomViaDomSoc}} {{dato.NumViaDomSoc}} {{dato.BloDomSoc}} {{dato.EscDomSoc}} {{dato.PlaDomSoc}} {{dato.PueDomSoc}} {{dato.CodPro}} {{dato.CodLoc}}</td>                   
+                    <td ng-show="vm.NomViaFis==true">{{dato.NomViaDomFis}} {{dato.NumViaDomFis}} {{dato.BloDomFis}} {{dato.EscDomFis}} {{dato.PlaDomFis}} {{dato.PueDomFis}} {{dato.CodProFis}} {{dato.CodLocFis}}</td>
+                    <td ng-show="vm.DireccionCol==true">{{dato.DireccionBBDD}}</td>
                     <td ng-show="vm.EmailCol==true">{{dato.EmaCli}}</td>
                     <td ng-show="vm.TelCol==true">{{dato.TelFijCli}}</td>
                   </tr>
@@ -154,9 +172,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
                     <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i>CUPS</th>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÖN</th>
+                    <td ng-show="vm.NomVia==true">DIRECCIÓN SOCIAL</td>
+                    <td ng-show="vm.NomViaFis==true">DIRECCIÓN FISCAL</td>
+                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÓN</th>
                     <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÊFONO</th>
+                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÉFONO</th>
                 </tfoot>
               </table>
         </div> 

@@ -571,7 +571,12 @@ class Clientes_model extends CI_Model
     
     public function get_clientes_data($huser)
     {
-        $this->db->select('a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc as CodLocSoc,a.TelFijCli,a.EmaCli,a.WebCli,a.CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,a.CodCom,a.ObsCli,a.EstCli,a.CPLocSoc,b.CodPro as CodProSoc,a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,a.CodSecCli,a.CodCol,c.CodPro as CodProFis,a.CPLocFis');
+        $this->db->select(  'a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,
+                            a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc as CodLocSoc,a.TelFijCli,a.EmaCli,
+                            a.WebCli,a.CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,a.CodCom,a.ObsCli,a.EstCli,
+                            a.CPLocSoc,b.CodPro as CodProSoc,a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,
+                            a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,a.CodSecCli,a.CodCol,c.CodPro as CodProFis,
+                            a.CPLocFis,a.DireccionBBDD');
         $this->db->from('T_Cliente a'); 
         $this->db->join('T_Localidad b','a.CodLocSoc=b.CodLoc');
         $this->db->join('T_Localidad c','a.CodLocFis=c.CodLoc');         

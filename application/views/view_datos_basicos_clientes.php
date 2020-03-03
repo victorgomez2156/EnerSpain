@@ -119,8 +119,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>      
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>DOMICILIO SOCIAL</b></label></div></div>
-      
+      <div align="center">
+        <label ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" class="font-weight-bold nexa-dark" style="color:#394a59;"><b>DOMICILIO SOCIAL</b></label>
+      </div>
+      </div>
+            
+
+      <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">DIRECCIÓN BBDD<b style="color:red;">(*)</b></label>
+            <input ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" style="border:none; background:transparent" type="text" class="form-control" ng-model="vm.fdatos.DireccionBBDD" readonly/>        
+       </div>
+       </div>
+
+
       <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
