@@ -177,8 +177,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td ng-show="vm.FechRe==true">{{dato.FecIniCli}}</td>
                     <td ng-show="vm.Est==true">
-                      <span class="label label-info" ng-show="dato.EstCli==3"><i class="fa fa-check-circle"></i> {{dato.EstCliN}}</span>
-                      <span class="label label-danger" ng-show="dato.EstCli==4"><i class="fa fa-ban"></i> {{dato.EstCliN}}</span>
+                      <span class="label label-info" ng-show="dato.EstCli==1"><i class="fa fa-check-circle"></i> {{dato.EstCliN}}</span>
+                      <span class="label label-danger" ng-show="dato.EstCli==2"><i class="fa fa-ban"></i> {{dato.EstCliN}}</span>
                     </td> 
                     <td ng-show="vm.Acc==true">
                       <div class="btn-group">

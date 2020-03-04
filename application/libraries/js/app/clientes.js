@@ -519,7 +519,7 @@ scope.validar_opcion=function(index,opcion,datos)
 	}
 	if(opcion==3)
 	{
-		if(datos.EstCli==3)
+		if(datos.EstCli==1)
 		{			
 			Swal.fire({title:"Error!.",text:"Ya este cliente se encuentra activo.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
@@ -534,7 +534,7 @@ scope.validar_opcion=function(index,opcion,datos)
             if(t.value==true)
             {
                	scope.datos_update={};
-				scope.datos_update.opcion=opcion;
+				scope.datos_update.opcion=1;
 				scope.datos_update.hcliente=datos.CodCli;
 				var url = base_urlHome()+"api/Clientes/update_status/";
 				$http.post(url,scope.datos_update).then(function(result)
@@ -578,7 +578,7 @@ scope.validar_opcion=function(index,opcion,datos)
 	}
 	if(opcion==4)
 	{
-		if(datos.EstCli==4)
+		if(datos.EstCli==2)
 		{
 			Swal.fire({title:"Error!.",text:"Ya este cliente se encuentra bloqueado.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
@@ -690,7 +690,7 @@ $scope.submitFormlock = function(event)
         if(t.value==true)
         {
            	scope.datos_update={};
-			scope.datos_update.opcion=4;
+			scope.datos_update.opcion=2;
 			scope.datos_update.hcliente=scope.tmodal_data.CodCli;
 			scope.datos_update.CodMotBloCli=scope.tmodal_data.MotBloq;
 			scope.datos_update.FechBlo=scope.tmodal_data.FechBlo;
