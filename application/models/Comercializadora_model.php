@@ -276,12 +276,9 @@ public function get_list_productos()
             return false;
         }       
     }
-///////////////////////////////////////////PARA LOS PRODUCTOS END////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS PRODUCTOS END /////////////////////////////////////////////////////
 
-
-
-
-///////////////////////////////////////////PARA LOS ANEXOS START////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS ANEXOS START///////////////////////////////////////////////////////
 
     public function get_list_anexos()
     {
@@ -419,6 +416,21 @@ public function get_list_productos()
     {
         $this->db->insert('T_BloqueoAnexo',array('CodAnePro'=>$CodAnePro,'MotBloAne'=>$MotBloAne,'FecBloAne'=>$FecBloAne,'ObsMotBloAne'=>$ObsMotBloAne));
         return $this->db->insert_id();
+    }
+    public function get_detalle_anexo($CodAnePro)
+    {
+        $this->db->select('*');
+        $this->db->from('V_DetAneTar');
+        $this->db->where('CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }      
     }
 ///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
 

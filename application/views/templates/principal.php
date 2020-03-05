@@ -90,7 +90,7 @@ document.onmousedown = right;*/
 
   <!-- jquery ui -->
   <script src="<?php echo ESTILOS;?>js/jquery-ui-1.9.2.custom.min.js"></script>
-
+<script src="<?php echo ESTILOS.'js/bootbox.js'?>"></script>
   <!--custom checkbox & radio-->
   <script type="text/javascript" src="<?php echo ESTILOS;?>js/ga.js"></script>
   <!--custom switch-->

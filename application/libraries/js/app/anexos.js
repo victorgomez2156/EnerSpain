@@ -93,8 +93,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.EstAne=true;
 	scope.AccTAne=true;
 	scope.ttipofiltrosAnexos = [{id: 1, nombre: 'Comercializadora'},{id: 2, nombre: 'Producto'},{id: 3, nombre: 'Tipo de Servicio'},{id: 4, nombre: 'Tipo de Comisión'},{id: 5, nombre: 'Fecha de Inicio'},{id: 6, nombre: 'Estatus del Anexo'}];
-	scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
-
+	scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'},{id: 5, nombre: 'COMISIONES'}];
+	scope.comisiones=false;
 	scope.anexos.SerEle=false;
 	scope.anexos.SerGas=false;
 	scope.anexos.Fijo=false;
@@ -128,8 +128,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			if(scope.nIDAnexos==undefined)
 			{
 				scope.FecIniAneA=dato.fecha;
-				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniAneA);  		 		
-				
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniAneA);			
 			}			
 			scope.Fecha_Server=dato.fecha;
 			angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica)
@@ -593,8 +592,109 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		{		
 			location.href ="#/Ver_Anexos/"+dato.CodAnePro+"/"+1;		
 		}
+		if(opciones_anexos==5)
+		{		
+			$("#Car_Det").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
+			var url =base_urlHome()+"api/Comercializadora/buscar_detalle_anexos_comision/CodAnePro/"+dato.CodAnePro;
+			$http.get(url).then(function(result)
+			{
+				$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				if(result.data!=false)
+				{
+					scope.comisiones=true;
+					scope.TComisionesRangoGrib=[];	
+					scope.TComisionesRango=[];
+					scope.select_det_com=[];
+					scope.CIFComision=dato.NumCifCom;
+					scope.ComerComision=dato.RazSocCom;
+					scope.ProComision=dato.DesPro;
+					scope.AneComision=dato.DesAnePro;
+					$scope.predicate3 = 'id';  
+					$scope.reverse3 = true;						
+					$scope.currentPage3 = 1;  
+					$scope.order3 = function (predicate3) 
+					{  
+						$scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;  
+						$scope.predicate3 = predicate3;  
+					}; 						
+					scope.TComisionesDet=result.data;	 								
+					$scope.totalItems3 = scope.TComisionesDet.length; 
+					$scope.numPerPage3 = 50;  
+					$scope.paginate3 = function (value3) 
+					{  
+						var begin3, end3, index3;  
+						begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;  
+						end3 = begin3 + $scope.numPerPage3;  
+						index3 = scope.TComisionesDet.indexOf(value3);  
+						return (begin3 <= index3 && index3 < end3);  
+					};
+				}
+				else
+				{
+					Swal.fire({title:"Error",text:"No se encontraron detalles asignados a este anexo.",type:"error",confirmButtonColor:"#188ae2"});
+					scope.comisiones=false;
+					scope.TComisionesDet=[];
+				}
+			},function(error)
+			{
+				$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				if(error.status==404 && error.statusText=="Not Found")
+				{
+					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==401 && error.statusText=="Unauthorized")
+				{
+					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==403 && error.statusText=="Forbidden")
+				{
+					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+				if(error.status==500 && error.statusText=="Internal Server Error")
+				{
+					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
+					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				}
+			});			
+		}
 	}
-
+	scope.agregar_detalle_comision=function(index,CodDetAneTarEle,dato)
+	{
+		console.log('Index: '+index);
+		console.log('CodDetAneTarEle: '+CodDetAneTarEle);		
+		console.log(dato);
+		
+		var ObjDetCom = new Object();	
+		scope.select_det_com[CodDetAneTarEle]=dato;
+		if (scope.TComisionesRangoGrib==undefined || scope.TComisionesRangoGrib==false)
+		{
+			scope.TComisionesRangoGrib = []; 
+		}
+		scope.TComisionesRangoGrib.push({CodDetAneTarEle:dato.CodDetAneTarEle,CodAnePro:dato.CodAnePro,CodTarEle:dato.CodTarEle,TipServ:dato.TipServ,NomTarEle:dato.NomTarEle,TipPre:dato.TipPre});
+		console.log(scope.TComisionesRangoGrib);
+	}
+	scope.agregardetalle = function()
+	{
+		var ObjDetCom = new Object();
+		ObjDetCom.RanConsu = 0;
+		ObjDetCom.ConMinAn=0
+		ObjDetCom.ConMaxAn=0
+		ObjDetCom.ConServ=0
+		ObjDetCom.ConCerVer=0
+		console.log(scope.TComisionesRangoGrib);
+		if (scope.TComisionesRangoGrib==undefined || scope.TComisionesRangoGrib==false)
+		{
+			scope.TComisionesRangoGrib = []; 
+		}
+			scope.TComisionesRangoGrib.push({ });
+			console.log(scope.TComisionesRangoGrib);
+	}
+	scope.datos_finales=function()
+	{
+		console.log(scope.TComisionesRangoGrib);
+	}
 	$scope.submitFormlockAnexos = function(event) 
 	{
 	 	if(scope.anexos_motivo_bloqueos.ObsMotBloAne==undefined||scope.anexos_motivo_bloqueos.ObsMotBloAne==null||scope.anexos_motivo_bloqueos.ObsMotBloAne=='')
@@ -763,14 +863,6 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			numero=object;		
 			if(!/^([/0-9])*$/.test(numero))
 			scope.FecIniAneA=numero.substring(0,numero.length-1);
-			/*if(scope.FecIniAneA.length==10)
-			{
-				if(scope.FecIniAneA>scope.Fecha_Server)
-				{
-					Swal.fire({title:"Error",text:"La Fecha de Inicio no puede ser mayor a la fecha actual, Por Favor intente nuevamente.",type:"info",confirmButtonColor:"#188ae2"});
-					scope.FecIniAneA=scope.Fecha_Server;
-				}
-			}*/
 		}
 	}
 
@@ -1087,7 +1179,6 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		console.log(CodTarEle);
 		var ObjTarifaElecBaja = new Object();	
 		scope.select_tarifa_Elec_Baj[CodTarEle]=opcion_tension_baja;
-		var ObjTarifaGas = new Object();	
 			if (scope.anexos.T_DetalleAnexoTarifaElecBaj==undefined || scope.anexos.T_DetalleAnexoTarifaElecBaj==false)
 			{
 				scope.anexos.T_DetalleAnexoTarifaElecBaj = []; 
@@ -1525,7 +1616,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			location.href="#/Anexos";
 		}
 	}
-
+	
 	if(scope.nIDAnexos!=undefined) 
 	{
 		scope.buscarXIDAnexos();

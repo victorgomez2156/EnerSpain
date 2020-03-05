@@ -85,7 +85,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-lg-12">
             <!--panel start-->
-            <section class="panel"><div id="t-0002">
+            <section class="panel">
+              <div id="t-0002">
       <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
         <div class="t-0029">
             <div class="t-0031" style="margin-top: -8px; ">
@@ -202,6 +203,146 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
 
+    <div ng-show="vm.comisiones==true">
+
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>COMISIONES</b></label></div>
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">CIF <b style="color:red;">(*)</b></label>
+        <input type="text" name="CIFComision" id="CIFComision" class="form-control" ng-model="vm.CIFComision" readonly="readonly">       
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+        <input type="text" name="ComerComision" id="ComerComision" class="form-control" ng-model="vm.ComerComision" readonly="readonly">     
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Producto <b style="color:red;">(*)</b></label>
+        <input type="text" name="ProComision" id="ProComision" class="form-control" ng-model="vm.ProComision" readonly="readonly">     
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Anexo <b style="color:red;">(*)</b></label>
+        <input type="text" name="AneComision" id="AneComision" class="form-control" ng-model="vm.AneComision" readonly="readonly">     
+       </div>
+       </div>
+       </div>
+       <br>
+           
+           <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                    <th><i class="fa fa-arrow-down"></i></th>
+                    <th><i class="fa fa-arrow-down"></i> Tipo de Servicio</th>
+                    <th><i class="fa fa-arrow-down"></i> Tipo de Precio</th>
+                    <th><i class="fa fa-arrow-down"></i> Tarifa</th>
+                  </tr> 
+                  <tr ng-show="vm.TComisionesDet.length==0"> 
+                    <td colspan="4" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                  </tr>
+                  <tr ng-repeat="dato in vm.TComisionesDet | filter:paginate3" ng-class-odd="odd">                    
+                    <td>
+                      <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" title="Agregar {{dato.NomTarEle}}" style="color:black;"></i></button>                        
+
+                        <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
+
+
+
+                      <!--input type="checkbox" name="checkbox" id="checkbox" ng-model="vm.TComisionesDet.checkbox[$index]" ng-click="vm.agregar_detalle_comision(vm.TComisionesDet.checkbox[$index],$index,dato)"--></td>
+                    <td>{{dato.TipServ}}</td>
+                    <td>{{dato.TipPre}}</td>                  
+                    <td>{{dato.NomTarEle}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <th><i class="fa fa-arrow-up"></i></th>
+                    <th><i class="fa fa-arrow-up"></i> Tipo de Servicio</th>
+                    <th><i class="fa fa-arrow-up"></i> Tipo de Precio</th>
+                    <th><i class="fa fa-arrow-up"></i> Tarifa</th>
+                </tfoot>
+              </table>
+        <div align="center">
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems3" ng-model="currentPage3" max-size="5" boundary-links="true" items-per-page="numPerPage3" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+<br>  
+
+   <div align="right" style="margin-right: 50px;">
+         <span class="store-qty"> <a title='Quitar' class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title='Agregar' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
+        </div> <br>
+        <div class="table-responsive">
+        <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                    <th><i class="fa fa-arrow-down"></i>Rango de Consumo</th>
+                    <th><i class="fa fa-arrow-down"></i> Consumo Mínimo Anual</th>
+                    <th><i class="fa fa-arrow-down"></i> Consumo Máximo Anual</th>
+                    <th><i class="fa fa-arrow-down"></i> Comisión Servicio</th>
+                    <th><i class="fa fa-arrow-down"></i> Comisión Certificado Verde</th>
+                  </tr> 
+                  <tr ng-show="vm.TComisionesRangoGrib.length==0"> 
+                    <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                  </tr>
+                  <tr ng-repeat="dato in vm.TComisionesRangoGrib | filter:paginate4" ng-class-odd="odd">                    
+                    <td><input type="text" name="RanConsu" id="RanConsu[$index]" ng-model="vm.TComisionesRangoGrib[$index].RanConsu"></td>
+                    <td><input type="text" name="ConMinAn" id="ConMinAn[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConMinAn"></td>
+                    <td><input type="text" name="ConMaxAn" id="ConMaxAn[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConMaxAn"></td>                  
+                    <td><input type="text" name="ConServ" id="ConServ[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConServ"></td>
+                    <td><input type="text" name="ConCerVer" id="ConCerVer[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConCerVer"></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <th><i class="fa fa-arrow-up"></i>Rango de Consumo</th>
+                    <th><i class="fa fa-arrow-up"></i> Consumo Mínimo Anual</th>
+                    <th><i class="fa fa-arrow-up"></i> Consumo Máximo Anual</th>
+                    <th><i class="fa fa-arrow-up"></i> Comisión Servicio</th>
+                    <th><i class="fa fa-arrow-up"></i> Comisión Certificado Verde</th>
+                </tfoot>
+              </table></div>
+
+
+               <div class="form-group" >
+          <div align="right">
+            <button class="btn btn-info" ng-click="vm.datos_finales()" ><i class="fa fa-save"></i> GUARDAR</button>           
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i> REGRESAR</button>
+          </div>
+        </div>
+
+
+        <div align="center">
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems4" ng-model="currentPage4" max-size="5" boundary-links="true" items-per-page="numPerPage4" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+        </div>
  <!-- modal container section start -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_anexos" class="modal fade">
       <div class="modal-dialog">
@@ -213,10 +354,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="modal-body">
                         <div class="panel">                  
       <form class="form-validate" id="frmfiltroAnexos" name="frmfiltroAnexos" ng-submit="SubmitFormFiltrosAnexos($event)">                 
-     <!--- -
-
--->
-     <div class="col-12 col-sm-12">
+ 
+      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
@@ -408,7 +547,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
 <div id="List_Anex" class="loader loader-default"  data-text="Cargando lista de Anexos, Por Favor Espere..."></div>
-
+<div id="Car_Det" class="loader loader-default"  data-text="Cargando Detalles, Por Favor Espere..."></div>
 <div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
 <div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
 

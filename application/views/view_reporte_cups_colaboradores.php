@@ -132,7 +132,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
           </div>
         </div>  <!--t-0002 end-->
-
+        
+        <div align="center">
+        	<br>
+        	 <span class="material-input" ng-show="vm.spinner_loader==1" style="margin-left: 235px;"><img src="application/libraries/estilos/img/ajax-loader.gif"> <b style="color:black;">Buscando, Por Favor Espere...</b> </span>
+            <span class="material-input" ng-show="vm.data_result==1" style="color:green;"><i class="fa fa-check-circle"></i> Datos encontrados...</span>
+            <span class="material-input" ng-show="vm.data_result==2" style="color:red;"><i class="fa fa-close"></i> No se encontraron datos...</span>
+            <br>
+        </div>
+        
         <div class="row">
           <br>
         </div>
@@ -145,12 +153,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
                     <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i>CUPS</th>
-                    <td ng-show="vm.NomVia==true">DIRECCIÓN SOCIAL</td>
-                    <td ng-show="vm.NomViaFis==true">DIRECCIÓN FISCAL</td>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÓN BBDD</th>
-                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÉFONO</th>
+                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
+                    <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
+                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>
+                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i> DIRECCIÓN BBDD</th>
+                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i> TELÉFONO</th>
                   </tr>
                   <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
@@ -171,21 +179,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
                     <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i>CUPS</th>
-                    <td ng-show="vm.NomVia==true">DIRECCIÓN SOCIAL</td>
-                    <td ng-show="vm.NomViaFis==true">DIRECCIÓN FISCAL</td>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i>DIRECCIÓN</th>
-                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i>EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i>TELÉFONO</th>
+                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
+                    <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
+                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>
+                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i> DIRECCIÓN BBDD</th>
+                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i> TELÉFONO</th>
                 </tfoot>
               </table>
-        </div> 
-      
+        </div>       
         <!--FIN DE TABLA-->
-        
-        
-
-
      </div>
 
     <!-- page end-->

@@ -999,20 +999,46 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	{
 		scope.buscarXID();
 		//scope.funcion_services();
-	}	
+	}
+	scope.search=1;	
 	scope.Clientes_x_Colaboradores = function(cod)
 	{
+		scope.spinner_loader=1;
+		scope.data_result=0;
 		var url = base_urlHome()+"api/Colaboradores/clientes_colaboradores/CodCol/"+cod;
 		$http.get(url).then(function(result)
 		{
+			scope.spinner_loader=0;
 			if(result.data!=false)
 			{
+				scope.data_result=1;
 				scope.tClientes_x_Colaboradores = result.data;	
 			}
 			else
 			{
+				scope.data_result=2;
 				scope.tClientes_x_Colaboradores=[];
 			}
+		},function(error)
+		{
+			scope.spinner_loader=0;
+			scope.data_result=0;
+			if(error.status==404 && error.statusText=="Not Found")
+			{
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{						
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}	
 		});
 	}
 }			

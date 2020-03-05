@@ -102,6 +102,22 @@ class Comercializadora extends REST_Controller
 		}		
 		$this->response($data);		
     }
+     public function buscar_detalle_anexos_comision_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $CodAnePro=$this->get('CodAnePro');
+        $data = $this->Comercializadora_model->get_detalle_anexo($CodAnePro);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'V_DetAneTar','GET',$CodAnePro,$this->input->ip_address(),'Consultando Detalles de Tarifas del Anexo');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
      public function comprobar_cif_comercializadora_post()
     {
 		$datausuario=$this->session->all_userdata();	
