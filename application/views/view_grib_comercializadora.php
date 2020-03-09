@@ -122,7 +122,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                        <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_comercializadora" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
                     </div>
-
     </div>
   </div>
 </div>

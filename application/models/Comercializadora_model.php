@@ -417,6 +417,7 @@ public function get_list_productos()
         $this->db->insert('T_BloqueoAnexo',array('CodAnePro'=>$CodAnePro,'MotBloAne'=>$MotBloAne,'FecBloAne'=>$FecBloAne,'ObsMotBloAne'=>$ObsMotBloAne));
         return $this->db->insert_id();
     }
+    
     public function get_detalle_anexo($CodAnePro)
     {
         $this->db->select('*');
@@ -432,13 +433,37 @@ public function get_list_productos()
             return false;
         }      
     }
+    public function agregar_comisiones($CodDetAneTarEle,$CodAnePro,$RanConsu,$ConMinAn,$ConMaxAn,$ConServ,$ConCerVer)
+    {
+       $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAneTarEle,'RanCon'=>$RanConsu,'ConMinAnu'=>$ConMinAn,'ConMaxAnu'=>$ConMaxAn,'ConSer'=>$ConServ,'ConCerVer'=>$ConCerVer));
+        return $this->db->insert_id();   
+    }
+    public function get_detalle_comisiones($CodAnePro)
+    {
+        $this->db->select('*');
+        $this->db->from('T_DetalleComisionesAnexos');
+        $this->db->where('CodAnePro',$CodAnePro);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }      
+    }
+    public function eliminar_detalles_comisiones($CodAnePro)
+    {
+        return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro));
+    }
 ///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
-///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START ////////////////////////////////////////////////////////////////////
 
 
     public function get_list_servicos_especiales()
@@ -549,13 +574,50 @@ case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGa
         $this->db->insert('T_BloqueoServicioEspecial',array('CodSerEsp'=>$CodSerEsp,'MotBloSerEsp'=>$MotBloSerEsp,'FecBloSerEsp'=>$FecBloSerEsp,'ObsMotBloSerEsp'=>$ObsMotBloSerEsp));
         return $this->db->insert_id();
     }
+    public function get_detalle_servicio_especial($CodSerEsp)
+    {
+        $this->db->select('*');
+        $this->db->from('V_DetSerEsp');
+        $this->db->where('CodSerEsp',$CodSerEsp);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }      
+    }
+    public function get_detalle_comisiones_especiales($CodSerEsp)
+    {
+        $this->db->select('*');
+        $this->db->from('T_DetalleComisionesServiciosEspeciales');
+        $this->db->where('CodSerEsp',$CodSerEsp);          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }      
+    }
+     public function eliminar_detalles_comisiones_servicios_especial($CodSerEsp)
+    {
+        return $this->db->delete('T_DetalleComisionesServiciosEspeciales', array('CodSerEsp' => $CodSerEsp));
+    }
+     public function agregar_comisiones_servicios_especial($CodDetSer,$CodSerEsp,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer)
+    {
+       $this->db->insert('T_DetalleComisionesServiciosEspeciales',array('CodSerEsp'=>$CodSerEsp,'CodDetSerEsp'=>$CodDetSer,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer));
+        return $this->db->insert_id();   
+    }
 
 
 
 
-
-
-///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END ////////////////////////////////////////////////
 
 
 

@@ -65,6 +65,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
 }
 .datepicker{z-index:1151 !important;}
+
+.input-required
+{
+  border:2px solid red;
+}
 </style>
 <body>
  <div ng-controller="Controlador_Anexos as vm">
@@ -206,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div ng-show="vm.comisiones==true">
 
       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>COMISIONES</b></label></div>
-      
+
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
@@ -260,10 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" title="Agregar {{dato.NomTarEle}}" style="color:black;"></i></button>                        
 
                         <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
-
-
-
-                      <!--input type="checkbox" name="checkbox" id="checkbox" ng-model="vm.TComisionesDet.checkbox[$index]" ng-click="vm.agregar_detalle_comision(vm.TComisionesDet.checkbox[$index],$index,dato)"--></td>
+                      </td>
                     <td>{{dato.TipServ}}</td>
                     <td>{{dato.TipPre}}</td>                  
                     <td>{{dato.NomTarEle}}</td>
@@ -286,14 +288,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <br>  
 
    <div align="right" style="margin-right: 50px;">
-         <span class="store-qty"> <a title='Quitar' class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
-         <span class="store-qty"> <a title='Agregar' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title='Quitar Detalle de Comisión' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
+         <!--span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span-->
         </div> <br>
         <div class="table-responsive">
         <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th><i class="fa fa-arrow-down"></i>Rango de Consumo</th>
+                    <th><i class="fa fa-arrow-down"></i> Rango de Consumo</th>
                     <th><i class="fa fa-arrow-down"></i> Consumo Mínimo Anual</th>
                     <th><i class="fa fa-arrow-down"></i> Consumo Máximo Anual</th>
                     <th><i class="fa fa-arrow-down"></i> Comisión Servicio</th>
@@ -303,15 +305,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesRangoGrib | filter:paginate4" ng-class-odd="odd">                    
-                    <td><input type="text" name="RanConsu" id="RanConsu[$index]" ng-model="vm.TComisionesRangoGrib[$index].RanConsu"></td>
-                    <td><input type="text" name="ConMinAn" id="ConMinAn[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConMinAn"></td>
-                    <td><input type="text" name="ConMaxAn" id="ConMaxAn[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConMaxAn"></td>                  
-                    <td><input type="text" name="ConServ" id="ConServ[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConServ"></td>
-                    <td><input type="text" name="ConCerVer" id="ConCerVer[$index]" ng-model="vm.TComisionesRangoGrib[$index].ConCerVer"></td>
+                    <td><input type="text" name="RanCon" ng-model="vm.TComisionesRangoGrib[$index].RanCon" ng-change="vm.validar_inputs(1,vm.TComisionesRangoGrib[$index].RanCon,$index)" class="form-control"></td>
+                    
+                    <td><input type="text" name="ConMinAnu" ng-model="vm.TComisionesRangoGrib[$index].ConMinAnu" ng-change="vm.validar_inputs(2,vm.TComisionesRangoGrib[$index].ConMinAnu,$index)" class="form-control"></td>
+                   
+                    <td><input type="text" name="ConMaxAnu" ng-model="vm.TComisionesRangoGrib[$index].ConMaxAnu" ng-change="vm.validar_inputs(3,vm.TComisionesRangoGrib[$index].ConMaxAnu,$index)" class="form-control"></td>
+                    
+                    <td><input type="text" name="ConSer" ng-model="vm.TComisionesRangoGrib[$index].ConSer" ng-change="vm.validar_inputs(4,vm.TComisionesRangoGrib[$index].ConSer,$index)" class="form-control"></td>
+                    
+                    <td><input type="text" name="ConCerVer" ng-model="vm.TComisionesRangoGrib[$index].ConCerVer" ng-change="vm.validar_inputs(5,vm.TComisionesRangoGrib[$index].ConCerVer,$index)" class="form-control"></td>
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th><i class="fa fa-arrow-up"></i>Rango de Consumo</th>
+                    <th><i class="fa fa-arrow-up"></i> Rango de Consumo</th>
                     <th><i class="fa fa-arrow-up"></i> Consumo Mínimo Anual</th>
                     <th><i class="fa fa-arrow-up"></i> Consumo Máximo Anual</th>
                     <th><i class="fa fa-arrow-up"></i> Comisión Servicio</th>
@@ -322,11 +328,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                <div class="form-group" >
           <div align="right">
-            <button class="btn btn-info" ng-click="vm.datos_finales()" ><i class="fa fa-save"></i> GUARDAR</button>           
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i> REGRESAR</button>
+            <button class="btn btn-success" ng-click="vm.guardar_comisiones()" ><i class="fa fa-save"></i> GUARDAR</button>           
+            <button class="btn btn-info" type="button" style="margin-top: 10px;" ng-click="vm.regresar_comisiones()"><i class="fa fa-arrow-left"></i> REGRESAR</button>
           </div>
         </div>
-
 
         <div align="center">
           <div class='btn-group' align="center">
@@ -334,13 +339,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </pagination>
           </div>
         </div>
-
-
-
-
-
-
-
 
         </div>
  <!-- modal container section start -->

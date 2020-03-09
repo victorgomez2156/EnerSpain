@@ -556,13 +556,11 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			{
 	            if(t.value==true)
 	            {
-	              	scope.opciones_anexos[index]=undefined;
-					scope.cambiar_estatus_anexos(opciones_anexos,dato.CodAnePro,index); 
+	            	scope.cambiar_estatus_anexos(opciones_anexos,dato.CodAnePro,index); 
 	            }
 	            else
 	            {
 	                console.log('Cancelando ando...');
-	                scope.opciones_anexos[index]=undefined;
 	            }
 	        });			
 		}
@@ -594,17 +592,19 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		}
 		if(opciones_anexos==5)
 		{		
+			scope.comisiones=false;
+			scope.TComisionesRangoGrib=[];	
+			scope.TComisionesRango=[];
+			scope.select_det_com=[];
+			scope.CodDetAne=dato.CodAnePro;
 			$("#Car_Det").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
 			var url =base_urlHome()+"api/Comercializadora/buscar_detalle_anexos_comision/CodAnePro/"+dato.CodAnePro;
 			$http.get(url).then(function(result)
 			{
 				$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				if(result.data!=false)
+				if(result.data.data!=false)
 				{
 					scope.comisiones=true;
-					scope.TComisionesRangoGrib=[];	
-					scope.TComisionesRango=[];
-					scope.select_det_com=[];
 					scope.CIFComision=dato.NumCifCom;
 					scope.ComerComision=dato.RazSocCom;
 					scope.ProComision=dato.DesPro;
@@ -617,7 +617,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 						$scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;  
 						$scope.predicate3 = predicate3;  
 					}; 						
-					scope.TComisionesDet=result.data;	 								
+					scope.TComisionesDet=result.data.data;	 								
 					$scope.totalItems3 = scope.TComisionesDet.length; 
 					$scope.numPerPage3 = 50;  
 					$scope.paginate3 = function (value3) 
@@ -628,10 +628,24 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 						index3 = scope.TComisionesDet.indexOf(value3);  
 						return (begin3 <= index3 && index3 < end3);  
 					};
+					if(result.data.detalle_comisiones!=false)
+					{
+						scope.TComisionesRangoGrib=result.data.detalle_comisiones;
+						angular.forEach(scope.TComisionesRangoGrib, function(Comisiones)
+						{					
+							scope.select_det_com[Comisiones.CodDetAne]=Comisiones;						
+						});
+					}
+					else
+					{
+						Swal.fire({title:"Error",text:"No se encontraron comisiones asignadas a este anexo.",type:"info",confirmButtonColor:"#188ae2"});
+						scope.TComisionesRangoGrib=[];
+						scope.select_det_com=[];
+					}
 				}
 				else
 				{
-					Swal.fire({title:"Error",text:"No se encontraron detalles asignados a este anexo.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error",text:"No se encontraron detalles asignados a este anexo.",type:"info",confirmButtonColor:"#188ae2"});
 					scope.comisiones=false;
 					scope.TComisionesDet=[];
 				}
@@ -644,17 +658,14 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 				}
 				if(error.status==401 && error.statusText=="Unauthorized")
 				{
-					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==403 && error.statusText=="Forbidden")
 				{
-					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==500 && error.statusText=="Internal Server Error")
 				{
-					//$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 				}
 			});			
@@ -665,15 +676,90 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		console.log('Index: '+index);
 		console.log('CodDetAneTarEle: '+CodDetAneTarEle);		
 		console.log(dato);
-		
+		scope.CodDetAne=dato.CodAnePro;
 		var ObjDetCom = new Object();	
 		scope.select_det_com[CodDetAneTarEle]=dato;
 		if (scope.TComisionesRangoGrib==undefined || scope.TComisionesRangoGrib==false)
 		{
 			scope.TComisionesRangoGrib = []; 
 		}
-		scope.TComisionesRangoGrib.push({CodDetAneTarEle:dato.CodDetAneTarEle,CodAnePro:dato.CodAnePro,CodTarEle:dato.CodTarEle,TipServ:dato.TipServ,NomTarEle:dato.NomTarEle,TipPre:dato.TipPre});
+		scope.TComisionesRangoGrib.push({CodDetAne:dato.CodDetAneTarEle,CodAnePro:dato.CodAnePro,CodTarEle:dato.CodTarEle,TipServ:dato.TipServ,NomTarEle:dato.NomTarEle,TipPre:dato.TipPre});
 		console.log(scope.TComisionesRangoGrib);
+	}
+	scope.quitar_detalle_comision=function(index,CodDetAneTarEle,dato)
+	{
+		scope.select_det_com[CodDetAneTarEle]=false;
+		i=0;
+		for (var i = 0; i < scope.TComisionesRangoGrib.length; i++) 
+	    {
+	      	if(scope.TComisionesRangoGrib[i].CodDetAne==CodDetAneTarEle)
+	      	{
+		   		scope.TComisionesRangoGrib.splice(i,1);
+	       	}
+	    }
+	}
+	scope.quitar_detalle_comision_length=function()
+	{
+		if(scope.TComisionesRangoGrib.length>0)
+		{
+			var a =scope.TComisionesRangoGrib;
+			var b= a.pop();
+			for(var i=0;i<=a.length-1;i++)
+			{
+				 console.log(i+" "+a[i]);
+
+			}
+			console.log(b);
+			scope.select_det_com[b.CodDetAne]=false;
+			console.log(scope.select_det_com);
+			console.log(scope.TComisionesRangoGrib);
+
+		}
+		
+	}
+	scope.regresar_comisiones=function()
+	{
+		scope.TComisionesRangoGrib=[];
+		scope.TComisionesDet=[];
+		scope.select_det_com=[];
+		scope.comisiones=false;
+	}
+
+	scope.validar_inputs=function(metodo,object,index)
+	{
+		console.log(metodo);
+		console.log(object);
+		console.log(index);
+		if(metodo==1 && object!=undefined)
+		{
+			numero=object;		
+			if(!/^([.0-9])*$/.test(numero))
+			scope.TComisionesRangoGrib[index].RanCon=numero.substring(0,numero.length-1);
+		}
+		if(metodo==2 && object!=undefined)
+		{
+			numero=object;		
+			if(!/^([.0-9])*$/.test(numero))
+			scope.TComisionesRangoGrib[index].ConMinAnu=numero.substring(0,numero.length-1);
+		}
+		if(metodo==3 && object!=undefined)
+		{
+			numero=object;		
+			if(!/^([.0-9])*$/.test(numero))
+			scope.TComisionesRangoGrib[index].ConMaxAnu=numero.substring(0,numero.length-1);
+		}
+		if(metodo==4 && object!=undefined)
+		{
+			numero=object;		
+			if(!/^([.0-9])*$/.test(numero))
+			scope.TComisionesRangoGrib[index].ConSer=numero.substring(0,numero.length-1);
+		}
+		if(metodo==5 && object!=undefined)
+		{
+			numero=object;		
+			if(!/^([.0-9])*$/.test(numero))
+			scope.TComisionesRangoGrib[index].ConCerVer=numero.substring(0,numero.length-1);
+		}
 	}
 	scope.agregardetalle = function()
 	{
@@ -691,9 +777,120 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			scope.TComisionesRangoGrib.push({ });
 			console.log(scope.TComisionesRangoGrib);
 	}
-	scope.datos_finales=function()
+	scope.guardar_comisiones=function()
 	{
 		console.log(scope.TComisionesRangoGrib);
+		if (!scope.validar_campos_detalles_comisiones())
+		{
+			return false;
+		}
+		scope.datos_enviar={};
+		scope.datos_enviar.CodDetAne=scope.CodDetAne;
+		scope.datos_enviar.Detalles=scope.TComisionesRangoGrib;
+		Swal.fire({title:'Procesando Comisiones',
+		text:'Esta Seguro de Continuar con el Procedimiento.',
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"Confirmar!"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+	           	var url=base_urlHome()+"api/Comercializadora/guardar_comisiones_detalles/";
+	         	$http.post(url,scope.datos_enviar).then(function(result)
+	         	{
+	         		if(result.data!=false)
+	         		{
+	         			Swal.fire({title:"Exito",text:"Comisiones Registradas Correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+	         			//scope.TComisionesRangoGrib = [];
+	         			//scope.TComisionesDet=[];
+	         			//scope.comisiones=false;	
+	         		}
+	         		else
+	         		{
+	         			Swal.fire({title:"Error",text:"hubo un error en el proceso intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});	
+	         		}
+
+	         	},function(error)
+	         	{
+	         		//$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+					if(error.status==404 && error.statusText=="Not Found")
+					{
+						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==401 && error.statusText=="Unauthorized")
+					{
+						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==403 && error.statusText=="Forbidden")
+					{
+						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==500 && error.statusText=="Internal Server Error")
+					{
+						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+	         	});  	   
+	        }
+	        else
+	        {
+				console.log('Cancelando Ando...');
+				event.preventDefault();						
+	        }
+	    });
+
+		/**/
+	}
+	scope.validar_campos_detalles_comisiones = function()
+	{
+		resultado = true;
+		if (!scope.TComisionesRangoGrib.length>0)
+		{
+			Swal.fire({title:"Error",text:"Debe indicar al menos un renglon de comisión para poder guardar los registros.",type:"error",confirmButtonColor:"#188ae2"});			
+			return false;
+		}
+		for(var i=0; i<scope.TComisionesRangoGrib.length; i++) 
+		{
+			if (scope.TComisionesRangoGrib[i].RanCon==undefined || scope.TComisionesRangoGrib[i].RanCon==null || scope.TComisionesRangoGrib[i].RanCon=='') 
+			{
+		        Swal.fire({title:"Error",text:"El Campo Rango de Consumo no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+				i=scope.TComisionesRangoGrib.length;
+				resultado = false;
+			}
+			if (scope.TComisionesRangoGrib[i].ConMinAnu==undefined || scope.TComisionesRangoGrib[i].ConMinAnu==null || scope.TComisionesRangoGrib[i].ConMinAnu=='') 
+			{
+		        Swal.fire({title:"Error",text:"El Campo Consumo Mínimo Anual no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+				i=scope.TComisionesRangoGrib.length;
+				resultado = false;
+			}
+			if (scope.TComisionesRangoGrib[i].ConMaxAnu==undefined || scope.TComisionesRangoGrib[i].ConMaxAnu==null || scope.TComisionesRangoGrib[i].ConMaxAnu=='') 
+			{
+		        Swal.fire({title:"Error",text:"El Campo Consumo Máximo Anual no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+				i=scope.TComisionesRangoGrib.length;
+				resultado = false;
+			}
+			if (scope.TComisionesRangoGrib[i].ConSer==undefined || scope.TComisionesRangoGrib[i].ConSer==null || scope.TComisionesRangoGrib[i].ConSer=='') 
+			{
+		        Swal.fire({title:"Error",text:"El Campo Comisión de Servicio no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+				i=scope.TComisionesRangoGrib.length;
+				resultado = false;
+			}
+			if (scope.TComisionesRangoGrib[i].ConCerVer==undefined || scope.TComisionesRangoGrib[i].ConCerVer==null || scope.TComisionesRangoGrib[i].ConCerVer=='') 
+			{
+		        Swal.fire({title:"Error",text:"El Campo Comisión Certificado Verde no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+				i=scope.TComisionesRangoGrib.length;
+				resultado = false;
+			}				
+		}
+
+
+
+		if (resultado == false)
+		{
+			return false;
+		} 
+		return true;
 	}
 	$scope.submitFormlockAnexos = function(event) 
 	{
