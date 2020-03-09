@@ -428,9 +428,27 @@ protected function buscar_xID_get()
 		{
 			redirect(base_url(), 'location', 301);
 		}
-		$CodConCli=$this->get('CodConCli');		
-        $data = $this->Clientes_model->get_xID_Contactos($CodConCli);
+		$CodConCli=$this->get('CodConCli');	
+		$select="a.*";	
+        $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Datos del Contacto.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function search_contact_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$NIFConCli=$this->get('NIFConCli');
+		$select="a.*";		
+        $data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Datos del Contacto.');
 		if (empty($data)){
 			$this->response(false);
 			return false;

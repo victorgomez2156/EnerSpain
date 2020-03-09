@@ -288,9 +288,9 @@ class Clientes_model extends CI_Model
         else
         return false;        
     }
-    public function get_xID_Contactos($CodConCli)
+    public function get_xID_Contactos($CodConCli,$select)
     {
-        $this->db->select('a.*',FALSE);
+        $this->db->select($select,FALSE);
         $this->db->from('T_ContactoCliente a');   
         //$this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
        // $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
@@ -308,9 +308,29 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
+    public function get_xID_Contactos_Otro_Cliente($NIFConCli,$select)
+    {
+        $this->db->select($select,FALSE);
+        $this->db->from('T_ContactoCliente a');   
+        //$this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
+       // $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
+        //$this->db->join('T_Provincia d','c.CodPro=d.CodPro');
+        //$this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
+        $this->db->where('a.NIFConCli',$NIFConCli);    
+        //$this->db->order_by('b.RazSocCli ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
      public function comprobar_cif_contacto_existencia($NIFConCli)
     {
-        $this->db->select('NIFConCli,CodConCli');
+        $this->db->select('NIFConCli');
         $this->db->from('T_ContactoCliente');
         $this->db->where('NIFConCli',$NIFConCli);              
         $query = $this->db->get(); 

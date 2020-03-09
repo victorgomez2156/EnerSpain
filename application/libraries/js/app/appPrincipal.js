@@ -103,6 +103,9 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Edit_Contactos/:ID/:INF', {
 		templateUrl: 'application/views/view_add_contactos.php'
 		})
+		.when('/Contacto_Otro_Cliente/:NIFConCli', {
+		templateUrl: 'application/views/view_add_contactos.php'
+		})
 		.when('/Cuentas_Bancarias/', {
 		templateUrl: 'application/views/view_grib_cuentas_bancarias.php'
 		})

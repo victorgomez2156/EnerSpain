@@ -93,6 +93,13 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 		scope.tContacto_data_modal.TipRepr="1";
 	}
 }
+if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
+{
+	scope.tContacto_data_modal.NIFConCli=$route.current.params.NIFConCli;
+	scope.tContacto_data_modal.TipRepr="1";
+	scope.tContacto_data_modal.CanMinRep=1;
+	console.log(scope.tContacto_data_modal.NIFConCli);	
+}
 ///////////////////////////// CONTACTOS CLIENTES START ///////////////////////////	
 	scope.ruta_reportes_pdf_Contactos=0;
 	scope.ruta_reportes_excel_Contactos=0;
@@ -120,7 +127,6 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 	scope.Tclientes=[];
 	ServiceMaster.getAll().then(function(dato) 
 	{
-		
 		scope.tListaContactos = dato.Tipo_Contacto;
 		scope.Tclientes=dato.Clientes;	
 		scope.fecha_server=dato.Fecha_Server;
@@ -617,28 +623,41 @@ $scope.Consultar_CIF_Contacto = function(event)
 		}
 		else
 		{
-	        $("#NIFConCli").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+	        $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
 	        var url=base_urlHome()+"api/Clientes/comprobar_cif_contacto/";
 			$http.post(url,scope.tContacto_data_modal).then(function(result)
 			{
+				$("#NIFConCli").removeClass("loader loader-default is-active").addClass("loader loader-default");					
 				if(result.data!=false)
 				{
-					$("#NIFConCli").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"DNI/NIE.",text:"El Número de DNI/NIE del Contacto ya se encuentra registrado.",type:"info",confirmButtonColor:"#188ae2"});					
+					Swal.fire({title:"DNI/NIE Encontrado",text:"¿El Número DNI/NIE se encuentra registrado si desea asignarlo a otro cliente presione continuar?",
+					type:"question",
+					showCancelButton:!0,
+					confirmButtonColor:"#31ce77",
+					cancelButtonColor:"#f34943",
+					confirmButtonText:"CONTINUAR"}).then(function(t)
+					{
+				        if(t.value==true)
+				        {
+				           $("#modal_cif_cliente_contacto").modal('hide');
+				           location.href="#/Contacto_Otro_Cliente/"+result.data.NIFConCli;
+				        }
+				        else
+				        {
+				            event.preventDefault();
+				            console.log('Cancelando ando...');
+				        }
+				        });				
 				}
 				else
 				{
-					$("#NIFConCli").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					$("#modal_cif_cliente_contacto").modal('hide');
 					location.href="#/Add_Contactos";
 					$cookies.put('CIF_Contacto', scope.tContacto_data_modal.NIFConCli);
-					
-
-					//scope.TVistaContactos=2;
 				}
 			},function(error)
 			{
-				$("#NIFConCli").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );					
+				$("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");					
 				if(error.status==404 && error.statusText=="Not Found")
 				{
 					Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
@@ -814,6 +833,13 @@ $scope.submitFormRegistroContacto = function(event)
 	 	if (!scope.validar_campos_contactos_null())
 		{
 			return false;
+		}
+		if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
+		{
+			
+			console.log(scope.tContacto_data_modal.NIFConCli);
+
+			return false;	
 		}
 		if(scope.tContacto_data_modal.CodConCli>0)
 		{
