@@ -433,12 +433,12 @@ public function get_list_productos()
             return false;
         }      
     }
-    public function agregar_comisiones($CodDetAneTarEle,$CodAnePro,$RanConsu,$ConMinAn,$ConMaxAn,$ConServ,$ConCerVer)
+    public function agregar_comisiones_anexos($CodDetAneTarEle,$CodAnePro,$RanConsu,$ConMinAn,$ConMaxAn,$ConServ,$ConCerVer)
     {
        $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAneTarEle,'RanCon'=>$RanConsu,'ConMinAnu'=>$ConMinAn,'ConMaxAnu'=>$ConMaxAn,'ConSer'=>$ConServ,'ConCerVer'=>$ConCerVer));
         return $this->db->insert_id();   
     }
-    public function get_detalle_comisiones($CodAnePro)
+    public function get_detalle_comisiones_anexos($CodAnePro)
     {
         $this->db->select('*');
         $this->db->from('T_DetalleComisionesAnexos');
@@ -453,7 +453,7 @@ public function get_list_productos()
             return false;
         }      
     }
-    public function eliminar_detalles_comisiones($CodAnePro)
+    public function eliminar_detalles_comisiones_anexos($CodAnePro)
     {
         return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro));
     }

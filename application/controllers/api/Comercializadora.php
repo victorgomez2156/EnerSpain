@@ -444,7 +444,7 @@ public function Buscar_xID_Anexos_get()
 		}		
         $CodAnePro=$this->get('CodAnePro');
         $data = $this->Comercializadora_model->get_detalle_anexo($CodAnePro);
-        $detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones($CodAnePro);
+        $detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'V_DetAneTar','GET',$CodAnePro,$this->input->ip_address(),'Consultando Detalles de Tarifas del Anexo');
 		if (empty($data)){
 			$this->response(false);
@@ -453,7 +453,7 @@ public function Buscar_xID_Anexos_get()
 		$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
 		$this->response($data_comisiones);		
     }
-    public function guardar_comisiones_detalles_post()
+    public function guardar_comisiones_detalles_anexos_post()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -463,10 +463,10 @@ public function Buscar_xID_Anexos_get()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$detalle=$objSalida->Detalles;		
-		$this->Comercializadora_model->eliminar_detalles_comisiones($objSalida->CodDetAne);
+		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodDetAne);
 		foreach ($detalle as $record):
 		{
-			$this->Comercializadora_model->agregar_comisiones($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer);
+			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer);
 		}	
 		endforeach;	
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','POST',null,$this->input->ip_address(),'Registrando Comisiones.');	

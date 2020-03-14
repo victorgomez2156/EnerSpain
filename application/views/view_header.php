@@ -81,8 +81,8 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'contactos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'cuentas_bancarias.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'documentos.js'?>"></script>
-
-
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'comisiones.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'comisiones_servicios_adicionales.js'?>"></script>
 
 
 

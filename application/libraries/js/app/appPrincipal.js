@@ -13,8 +13,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		//Se debe colocar  para cada uno de los controladores que desea para el acceso todos los formularios
 		.when('/Dashboard/', {
 			templateUrl: 'application/views/view_dashboard.php'
-		})
-		
+		})		
 		.when('/Comercializadora/', {
 		templateUrl: 'application/views/view_grib_comercializadora.php'
 		})
@@ -51,6 +50,9 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Ver_Anexos/:ID/:INF', {
 		templateUrl: 'application/views/view_add_anexos.php'
 		})
+		.when('/Comisiones_Anexos/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro', {
+		templateUrl: 'application/views/view_add_comisiones_anexos.php'
+		})
 		.when('/Servicios_Adicionales/', {
 		templateUrl: 'application/views/view_grib_servicios_especiales.php'
 		})
@@ -63,6 +65,11 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Ver_Servicios_Adicionales/:ID/:INF', {
 		templateUrl: 'application/views/view_add_servicios_especiales.php'
 		})
+		.when('/Comisiones_Servicios_Adicionales/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp', {
+		templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php'
+		})
+
+
 
 		.when('/Datos_Basicos_Clientes/', {
 		templateUrl: 'application/views/view_datos_basicos_clientes.php'

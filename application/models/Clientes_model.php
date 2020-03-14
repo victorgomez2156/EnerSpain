@@ -270,15 +270,39 @@ class Clientes_model extends CI_Model
         $this->db->insert('T_BloqueoPunto',array('CodPunSum'=>$CodPunSum,'FecBloPun'=>$fecha,'CodMotBloPun'=>$MotBloPunSum,'ObsBloPun'=>$ObsBloPun));
         return true;//$this->db->insert_id();
     }
-    ///////////////////////////////////////////////////////////////////// PUNTOS DE SUMINISTROS END /////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////// PUNTOS DE SUMINISTROS END ///////////////////////////////////////////////
 
 
 
 
 
 
- ///////////////////////////////////////////////////////////////////// CONTACTOS START /////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////////////////////////// CONTACTOS START ////////////////////////////////////////////
+public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
+    {
+        $this->db->select('*',FALSE);
+        $this->db->from('T_ContactoCliente');
+        $this->db->where('NIFConCli',$NIFConCli); 
+        $this->db->where('CodCli',$CodCli);
+        $this->db->limit('1');           
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function validar_CIF_NIF_Existente_UPDATE($CodConCli)
+    {
+       $sql = $this->db->query("SELECT * FROM T_ContactoCliente WHERE CodConCli=".$CodConCli."");
+        if ($sql->num_rows() > 0)
+          return $sql->row();
+        else
+        return false;      
+    }
 
  public function get_lista_contactos()
     {
@@ -328,7 +352,7 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
-     public function comprobar_cif_contacto_existencia($NIFConCli)
+    public function comprobar_cif_contacto_existencia($NIFConCli)
     {
         $this->db->select('NIFConCli');
         $this->db->from('T_ContactoCliente');
@@ -341,7 +365,7 @@ class Clientes_model extends CI_Model
         else
         {
             return false;
-        }       
+        }      
     }
      public function agregar_contacto($NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod)
     {
@@ -378,11 +402,11 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
-///////////////////////////////////////////////////////////////////// CONTACTOS END /////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////// CONTACTOS END ////////////////////////////////////////
 
 
 
-///////////////////////////////////////////////////////////////////// CUENTAS BANCARIAS START /////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////// CUENTAS BANCARIAS START //////////////////////////////////////////////
 
     public function get_all_Cuentas_Bancarias_clientes()
     {

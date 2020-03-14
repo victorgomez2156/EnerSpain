@@ -93,13 +93,13 @@ if($route.current.$$route.originalPath=="/Add_Contactos/")
 		scope.tContacto_data_modal.TipRepr="1";
 	}
 }
-if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
+/*if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
 {
 	scope.tContacto_data_modal.NIFConCli=$route.current.params.NIFConCli;
 	scope.tContacto_data_modal.TipRepr="1";
 	scope.tContacto_data_modal.CanMinRep=1;
 	console.log(scope.tContacto_data_modal.NIFConCli);	
-}
+}*/
 ///////////////////////////// CONTACTOS CLIENTES START ///////////////////////////	
 	scope.ruta_reportes_pdf_Contactos=0;
 	scope.ruta_reportes_excel_Contactos=0;
@@ -618,7 +618,7 @@ $scope.Consultar_CIF_Contacto = function(event)
 	{      
 	 	if(scope.tContacto_data_modal.NIFConCli==undefined || scope.tContacto_data_modal.NIFConCli==null || scope.tContacto_data_modal.NIFConCli=='')
 		{
-			Swal.fire({title:"Error.",text:"El número de CIF no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:"El Número de CIF no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -640,7 +640,8 @@ $scope.Consultar_CIF_Contacto = function(event)
 				        if(t.value==true)
 				        {
 				           $("#modal_cif_cliente_contacto").modal('hide');
-				           location.href="#/Contacto_Otro_Cliente/"+result.data.NIFConCli;
+				           $cookies.put('CIF_Contacto', scope.tContacto_data_modal.NIFConCli);
+				           location.href="#/Add_Contactos/";
 				        }
 				        else
 				        {
@@ -833,26 +834,17 @@ $scope.submitFormRegistroContacto = function(event)
 	 	if (!scope.validar_campos_contactos_null())
 		{
 			return false;
-		}
-		if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
-		{
-			
-			console.log(scope.tContacto_data_modal.NIFConCli);
-
-			return false;	
-		}
+		}		
 		if(scope.tContacto_data_modal.CodConCli>0)
 		{
 		 	var title='Actualizando';
 		 	var text='¿Esta Seguro de Actualizar Este Contacto?';
-		 	var response="Contacto modificado satisfactoriamente.";
 		}
 		if(scope.tContacto_data_modal.CodConCli==undefined)
 		{
 		 	var title='Guardando';
 		 	var text='¿Esta Seguro de Incluir Un Nuevo Registro?';
-		 	var response="Contacto creado satisfactoriamente.";
-		}
+		 }
 	 	Swal.fire({title:text,
 		type:"question",
 		showCancelButton:!0,
@@ -874,22 +866,21 @@ $scope.submitFormRegistroContacto = function(event)
 	            var url = base_urlHome()+"api/Clientes/Registro_Contacto";
 	            $http.post(url,scope.tContacto_data_modal).then(function(result)
 	            {
-	            	scope.nIDCodCon=result.data.CodConCli;
-	            	if(result.data!=false)
+	            	console.log(result);
+	            	if(result.data.status==false && result.data.response==false)
 	            	{
 	            		$("#"+title).removeClass("loader loader-default  is-active" ).addClass( "loader loader-default");
-	            		Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
-	            		scope.restringir_cliente_cont=1;
+	            		Swal.fire({title:title,text:result.data.menssage,type:"error",confirmButtonColor:"#188ae2"});	            		
+	            	}
+	            	if(result.data.status==true && result.data.response==true)
+	            	{
+	            		$cookies.remove('CIF_Contacto');
+	            		$("#"+title).removeClass("loader loader-default  is-active" ).addClass( "loader loader-default");
+	            		Swal.fire({title:title,text:result.data.menssage,type:"success",confirmButtonColor:"#188ae2"});	
 	            		document.getElementById('DocNIF').value ='';
 	            		document.getElementById('DocPod').value ='';
-	            		scope.tContacto_data_modal=result.data;
-	            	}
-	            	else
-	            	{
-	            		$("#"+title).removeClass("loader loader-default  is-active" ).addClass( "loader loader-default");
-	            		Swal.fire({title:"Error",text:"Hubo un error en la operación intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
-	            	}
-	
+	            		location.href="#/Edit_Contactos/"+result.data.objSalida.CodConCli;           		
+	            	}	            	
 	            },function(error)
 	            {
 			    	$("#"+title).removeClass("loader loader-default  is-active" ).addClass( "loader loader-default");
