@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td>
                       <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" title="Agregar {{dato.NomTarEle}}" style="color:black;"></i></button>                        
 
-                        <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
+                      <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
                       </td>
                     <td>{{dato.TipServ}}</td>
                     <td>{{dato.TipPre}}</td>                  
@@ -165,10 +165,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
 <br>  
-
-   <div align="right" style="margin-right: 50px;">
+  <div ng-show="vm.TComisionesRangoGrib.length>0">
+      <div align="right" style="margin-right: 50px;">
          <span class="store-qty"> <a title='Quitar Detalle de Comisión' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
-         <!--span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span-->
+         <span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
         </div> <br>
         <div class="table-responsive">
         <table class="table table-striped table-advance table-hover table-responsive">
@@ -219,7 +219,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
                                
-                                
+        </div>                        
 
 
             

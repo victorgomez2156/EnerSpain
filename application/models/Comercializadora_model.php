@@ -433,16 +433,18 @@ public function get_list_productos()
             return false;
         }      
     }
-    public function agregar_comisiones_anexos($CodDetAneTarEle,$CodAnePro,$RanConsu,$ConMinAn,$ConMaxAn,$ConServ,$ConCerVer)
+    public function agregar_comisiones_anexos($CodDetAne,$CodAnePro,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer,$CodTarEle,$TipServ)
     {
-       $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAneTarEle,'RanCon'=>$RanConsu,'ConMinAnu'=>$ConMinAn,'ConMaxAnu'=>$ConMaxAn,'ConSer'=>$ConServ,'ConCerVer'=>$ConCerVer));
+       $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAne,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer,'CodTar'=>$CodTarEle,'TipServ'=>$TipServ));
         return $this->db->insert_id();   
     }
-    public function get_detalle_comisiones_anexos($CodAnePro)
+    public function get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar)
     {
-        $this->db->select('*');
+        $this->db->select('CodDetCom,CodAnePro,CodDetAne,CodTar as CodTarEle,RanCon,ConMinAnu,ConMaxAnu,ConSer,ConCerVer,case TipServ when 1 then "Eléctrico" when 2 then "Gas" end TipServ,Factor,Formula',FALSE);
         $this->db->from('T_DetalleComisionesAnexos');
-        $this->db->where('CodAnePro',$CodAnePro);          
+        $this->db->where('CodAnePro',$CodAnePro);
+        $this->db->where('CodDetAne',$CodDetAneTarEle); 
+        $this->db->where('CodTar',$CodTar);           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -453,9 +455,9 @@ public function get_list_productos()
             return false;
         }      
     }
-    public function eliminar_detalles_comisiones_anexos($CodAnePro)
+    public function eliminar_detalles_comisiones_anexos($CodAnePro,$CodTarEle,$CodDetAne)
     {
-        return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro));
+        return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro,'CodTar' => $CodTarEle,'CodDetAne' => $CodDetAne));
     }
 ///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
 
@@ -604,17 +606,33 @@ case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGa
             return false;
         }      
     }
-     public function eliminar_detalles_comisiones_servicios_especial($CodSerEsp)
+     public function eliminar_detalles_comisiones_servicios_especial($CodSerEsp,$CodTarEle,$CodDetSerEsp)
     {
-        return $this->db->delete('T_DetalleComisionesServiciosEspeciales', array('CodSerEsp' => $CodSerEsp));
+        return $this->db->delete('T_DetalleComisionesServiciosEspeciales', array('CodSerEsp' => $CodSerEsp,'CodTarEle' => $CodTarEle,'CodDetSerEsp' => $CodDetSerEsp));
     }
-     public function agregar_comisiones_servicios_especial($CodDetSer,$CodSerEsp,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer)
+     public function agregar_comisiones_servicios_especial($CodDetSer,$CodSerEsp,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer,$CodTarEle,$TipServ)
     {
-       $this->db->insert('T_DetalleComisionesServiciosEspeciales',array('CodSerEsp'=>$CodSerEsp,'CodDetSerEsp'=>$CodDetSer,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer));
+       $this->db->insert('T_DetalleComisionesServiciosEspeciales',array('CodSerEsp'=>$CodSerEsp,'CodDetSerEsp'=>$CodDetSer,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer,'CodTarEle'=>$CodTarEle,'TipServ'=>$TipServ));
         return $this->db->insert_id();   
     }
 
-
+    public function get_detalle_comisiones_servicios_especiales($CodSerEsp,$CodDetSerEsp,$CodTarEle)
+    {
+        $this->db->select('CodDetCom,CodSerEsp,CodDetSerEsp,CodTarEle,RanCon,ConMinAnu,ConMaxAnu,ConSer,ConCerVer,case TipServ when 1 then "Eléctrico" when 2 then "Gas" end TipServ,Factor,Formula',FALSE);
+        $this->db->from('T_DetalleComisionesServiciosEspeciales');
+        $this->db->where('CodSerEsp',$CodSerEsp);
+        $this->db->where('CodDetSerEsp',$CodDetSerEsp); 
+        $this->db->where('CodTarEle',$CodTarEle);           
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }      
+    }
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END ////////////////////////////////////////////////

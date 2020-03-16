@@ -154,10 +154,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
 <br>  
-
+<div ng-show="vm.TComisionesRangoGrib.length>0">
    <div align="right" style="margin-right: 50px;">
          <span class="store-qty"> <a title='Quitar Detalle de Comisión' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
-         <!--span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span-->
+         <span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
         </div> <br>
         <div class="table-responsive">
         <table class="table table-striped table-advance table-hover table-responsive">
@@ -207,7 +207,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </pagination>
           </div>
         </div>
-                 
+        </div>         
                                 
 
 
@@ -244,5 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div> 
 </div>
-</body><div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas para las Comisiones, Por Favor Espere..."></div>
+</body>
+<div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas para las Comisiones, Por Favor Espere..."></div>
+<div id="Guar_Deta" class="loader loader-default"  data-text="Realizando Proceso de Comisiones, Por Favor Espere..."></div>
 </html>

@@ -444,16 +444,34 @@ public function Buscar_xID_Anexos_get()
 		}		
         $CodAnePro=$this->get('CodAnePro');
         $data = $this->Comercializadora_model->get_detalle_anexo($CodAnePro);
-        $detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro);
+        //$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'V_DetAneTar','GET',$CodAnePro,$this->input->ip_address(),'Consultando Detalles de Tarifas del Anexo');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
-		$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
-		$this->response($data_comisiones);		
+		//$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
+		$this->response($data);		
+    }   
+    public function buscar_comisiones_detalles_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		//$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();			
+		
+		$CodAnePro=$this->get('CodAnePro');
+		$CodDetAneTarEle=$this->get('CodDetAneTarEle');
+		$CodTar=$this->get('CodTar');
+		$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','GET',$CodAnePro,$this->input->ip_address(),'Registrando Comisiones.');	
+		$this->db->trans_complete();
+		$this->response($detalle_comisiones);
     }
-    public function guardar_comisiones_detalles_anexos_post()
+     public function guardar_comisiones_detalles_anexos_post()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -463,13 +481,13 @@ public function Buscar_xID_Anexos_get()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$detalle=$objSalida->Detalles;		
-		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodDetAne);
+		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodAnePro,$objSalida->CodTarEle,$objSalida->CodDetAne);
 		foreach ($detalle as $record):
 		{
-			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer);
+			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ);
 		}	
 		endforeach;	
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','POST',null,$this->input->ip_address(),'Registrando Comisiones.');	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','INSERT',$objSalida->CodDetAne,$this->input->ip_address(),'Registrando Comisiones.');	
 		$this->db->trans_complete();
 		$this->response($objSalida);
     }
@@ -664,15 +682,39 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		}		
         $CodSerEsp=$this->get('CodSerEsp');
         $data = $this->Comercializadora_model->get_detalle_servicio_especial($CodSerEsp);
-        $detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_especiales($CodSerEsp);
+        //$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_especiales($CodSerEsp);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'V_DetSerEsp','GET',$CodSerEsp,$this->input->ip_address(),'Consultando Detalles de Tarifas del Servicio Especial');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
-		$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
-		$this->response($data_comisiones);		
+		//$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
+		$this->response($data);		
     }
+    public function buscar_comisiones_detalles_servicios_especiales_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		//$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		$CodSerEsp=$this->get('CodSerEsp');
+		$CodDetSerEsp=$this->get('CodDetSerEsp');
+		$CodTarEle=$this->get('CodTarEle');
+		$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_servicios_especiales($CodSerEsp,$CodDetSerEsp,$CodTarEle);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesServiciosEspeciales','GET',$CodSerEsp,$this->input->ip_address(),'Buscando Detalles de Comisiones.');	
+		$this->db->trans_complete();
+		$this->response($detalle_comisiones);
+    }
+
+
+
+
+
+
+
     public function guardar_comisiones_detalles_servicios_especiales_post()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -683,13 +725,13 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$detalle=$objSalida->Detalles;		
-		$this->Comercializadora_model->eliminar_detalles_comisiones_servicios_especial($objSalida->CodSerEsp);
+		$this->Comercializadora_model->eliminar_detalles_comisiones_servicios_especial($objSalida->CodSerEsp,$objSalida->CodTarEle,$objSalida->CodDetSerEsp);
 		foreach ($detalle as $record):
 		{
-			$this->Comercializadora_model->agregar_comisiones_servicios_especial($record->CodDetSerEsp,$record->CodSerEsp,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer);
+			$this->Comercializadora_model->agregar_comisiones_servicios_especial($record->CodDetSerEsp,$record->CodSerEsp,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ);
 		}	
 		endforeach;	
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesServiciosEspeciales','INSERT',null,$this->input->ip_address(),'Registrando Comisiones.');	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesServiciosEspeciales','INSERT',$objSalida->CodSerEsp,$this->input->ip_address(),'Registrando Comisiones Servicios Especiales.');	
 		$this->db->trans_complete();
 		$this->response($objSalida);
     }
