@@ -103,7 +103,7 @@ scope.agregar_detalle_comision=function(index,CodDetAneTarEle,dato)
 	}
 	else
 	{
-		$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+		$("#Car_Det").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
 		var url = base_urlHome()+"api/Comercializadora/buscar_comisiones_detalles/CodAnePro/"+dato.CodAnePro+"/CodDetAneTarEle/"+dato.CodDetAneTarEle+"/CodTar/"+dato.CodTarEle;
 		$http.get(url).then(function(result)
 		{
@@ -241,9 +241,11 @@ scope.guardar_comisiones=function()
 	{
         if(t.value==true)
         {
+           	$("#Guar_Deta").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
            	var url=base_urlHome()+"api/Comercializadora/guardar_comisiones_detalles_anexos/";
          	$http.post(url,scope.datos_enviar).then(function(result)
          	{
+         		$("#Guar_Deta").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
          		if(result.data!=false)
          		{
          			Swal.fire({title:"Exito",text:"Comisiones Registradas Correctamente.",type:"success",confirmButtonColor:"#188ae2"});	         			
@@ -254,7 +256,7 @@ scope.guardar_comisiones=function()
          		}
 	         	},function(error)
          	{
-         		//$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+         		$("#Guar_Deta").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				if(error.status==404 && error.statusText=="Not Found")
 				{
 					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});

@@ -255,5 +255,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div> 
 </div>
-</body><div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas para las Comisiones, Por Favor Espere..."></div>
+</body>
+<div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas para las Comisiones, Por Favor Espere..."></div>
+<div id="Guar_Deta" class="loader loader-default"  data-text="Realizando Proceso de Comisiones, Por Favor Espere..."></div>
 </html>

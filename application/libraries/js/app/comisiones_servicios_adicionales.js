@@ -128,7 +128,7 @@ scope.agregar_detalle_comision=function(index,CodDetSerEsp,dato)
 {
 	//console.log('Index: '+index);
 	//console.log('CodDetSerEsp: '+CodDetSerEsp);		
-	console.log(dato);
+	//console.log(dato);
 	if(scope.Block_Deta==1)
 	{
 		Swal.fire({title:"Error",text:"Debe terminar el proceso de comisiones que tiene activo para poder agregar o modificar otro.",type:"error",confirmButtonColor:"#188ae2"});
@@ -136,7 +136,7 @@ scope.agregar_detalle_comision=function(index,CodDetSerEsp,dato)
 	}
 	else
 	{
-		$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+		$("#Car_Det").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
 		var url = base_urlHome()+"api/Comercializadora/buscar_comisiones_detalles_servicios_especiales/CodSerEsp/"+dato.CodSerEsp+"/CodDetSerEsp/"+dato.CodDetSerEsp+"/CodTarEle/"+dato.CodTarEle;
 		$http.get(url).then(function(result)
 		{
