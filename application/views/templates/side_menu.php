@@ -1,4 +1,4 @@
-    <header class="header white-bg">
+    <header class="header white-bg" ng-controller="CtrlMenuController as vm">
       <div class="toggle-nav">
         <div class="icon-reorder tooltips" data-original-title="Menu Principal" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
@@ -119,7 +119,7 @@
                 <a href="#"><i class="icon_profile"></i> My Profile</a>
               </li--> 
               <li>
-                <a href="javascript:void;" id="cerrar-sesion" data-username="<?php $this->usuario;?> " data-end-url="<?php echo 'Login/desconectar';?>" onclick="javascript:void(0)"><span class="fa fa-sign-in"></span> Cerrar Sesión</a>
+                <a id="cerrarsesion" data-username="<?php $this->usuario;?> " data-end-url="<?php echo 'Login/desconectar';?>" ng-click="vm.cerrar_sesion()"><span class="fa fa-sign-in"></span> {{ 'LogOut' | translate }}</a>
               </li>
               
               
@@ -138,9 +138,9 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
           <li class="active">
-            <a class="" href="#/Dashboard">
+            <a class="" href="#/{{ 'DASHBOARD' | translate }}">
                           <i class="icon_house_alt"></i>
-                          <span>Dashboard</span>
+                          <span>{{ 'DASHBOARD' | translate }}</span>
                       </a>
           </li>
           
@@ -154,31 +154,31 @@
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-bus"></i>
-              <span>Comercializadora</span>
+              <span>{{ 'MARKETER' | translate }}</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">            	
-              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Comercializadora"> Datos Basicos</a></li>
-              <li><a class="fa fa-briefcase" href="#/Productos"> Productos</a></li>
-              <li><a class="fa fa-bullseye" href="#/Anexos"> Anexos</a></li>
-              <li><a class="fa fa-child" href="#/Servicios_Adicionales"> Ser. Adicionales</a></li>         
+              <li><a class="fa fa-user-circle" href="#/{{ 'DAT_BAS_COM' | translate }}"> {{ 'DAT_BAS' | translate }}</a></li>
+              <li><a class="fa fa-briefcase" href="#/{{ 'PRODUCTS' | translate }}"> {{ 'PRODUCTS' | translate }}</a></li>
+              <li><a class="fa fa-bullseye" href="#/Anexos"> {{ 'ANNEXES' | translate }}</a></li>
+              <li><a class="fa fa-child" href="#/Servicios_Adicionales"> {{ 'SER_ESP' | translate }}</a></li>         
             </ul>
           </li>
 
              <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-users"></i>
-              <span>Clientes</span>
+              <span>{{ 'CUSTOMERS' | translate }}</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> Datos Basicos</a></li>
-              <li><a class="fa fa-briefcase" href="#/Actividades"> Actividad</a></li>
-              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> Dir. Suministros</a></li>
-              <li><a class="fa fa-child" href="#/Contactos"> Contactos</a></li>  
-              <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
-              <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li> 
-              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>    
+              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> {{ 'DAT_BAS' | translate }}</a></li>
+              <li><a class="fa fa-briefcase" href="#/Actividades"> {{ 'Exercise' | translate }}</a></li>
+              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> {{ 'Supplies_Dir' | translate }}</a></li>
+              <li><a class="fa fa-child" href="#/Contactos"> {{ 'Contacts' | translate }}</a></li>  
+              <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> {{ 'Bank_Accounts' | translate }}</a></li>  
+              <li><a class="fa fa-file" href="#/Documentos"> {{ 'Documents' | translate }}</a></li> 
+              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> {{ 'Manage_CUPs' | translate }}</a></li>    
             </ul>
           </li>
 
@@ -187,11 +187,11 @@
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-file"></i>
-              <span>Reportes</span>
+              <span>{{ 'Reports' | translate }}</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-handshake-o" href="#/Reporte_Cups_Colaboradores"> Colaboradores</a></li>
+              <li><a class="fa fa-handshake-o" href="#/Reporte_Cups_Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
             </ul>
         </li>
 
@@ -232,16 +232,16 @@
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="icon_cogs"></i>
-              <span>Configuraciones</span>
+              <span>{{ 'Configurations' | translate }}</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-            	<li><a class="fa fa-cube" href="#/Distribuidora"> Distribuidora</a></li>
-            	<li><a class="fa fa-area-chart" href="#/Tarifas"> Tarifas</a></li>
-            	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> Colaboradores</a></li>
-            	<li><a class="fa fa-cc" href="#/Comercial"> Comercial</a></li>
-            	<li><a class="fa fa-certificate" href="#/Tipos"> Tipos</a></li>
-            	<li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> Motivos</a></li>
+            	<li><a class="fa fa-cube" href="#/Distribuidora"> {{ 'Distributor' | translate }}</a></li>
+            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a class="fa fa-cc" href="#/Comercial"> {{ 'Commercial' | translate }}</a></li>
+            	<li><a class="fa fa-certificate" href="#/Tipos"> {{ 'Types' | translate }}</a></li>
+            	<li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> {{ 'Reasons' | translate }}</a></li>
               <!--li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>            
               
               <li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
@@ -319,28 +319,4 @@
       </div>
     </aside>
     <!--sidebar end-->
-     <script>
-$(function(){
-    var username = "<?php echo $this->usuario;?>";
- 
-  $("#cerrar-sesion").on('click', function(){
-    Swal.fire({title:"Cerrar Sesión",text:"Estimado Usuario: "+username+" Desea cerar su sesión?",		
-		type:"question",
-		showCancelButton:!0,
-		confirmButtonColor:"#31ce77",
-		cancelButtonColor:"#f34943",
-		confirmButtonText:"OK"}).then(function(t)
-		{
-	        if(t.value==true)
-	        {
-	           document.location.href = 'Login/desconectar';
-	        }
-	        else
-	        {
-	            console.log('Cancelando ando...');
-	        }
-	    });
-  });
-}); 
- 
-</script>
+    

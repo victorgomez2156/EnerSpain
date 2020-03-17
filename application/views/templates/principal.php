@@ -45,8 +45,7 @@ document.onmousedown = right;*/
     </script>
 </head>
 
-<body>  
-
+<body>
 <div ng-app="appPrincipal">
   
  
@@ -61,7 +60,7 @@ document.onmousedown = right;*/
          <!--overview start-->
         <div class="row" align="center">
           <div class="col-lg-12">
-            <h3><img src="<?php echo ESTILOS;?>img/ajax-loader.gif" /><b style="color:black;"> Cargando Vista, Por Favor Espere...</b></h3>
+            <h3><img src="<?php echo ESTILOS;?>img/ajax-loader.gif" /><b style="color:black;"> {{ 'LoadView' | translate }}</b></h3>
             
           </div>
         </div></section>
@@ -75,7 +74,9 @@ document.onmousedown = right;*/
   <input id="IdUsers" type='hidden' value="<?php echo $this->session->userdata('id');?>" readonly></input>
 	<input id="NivelUsers" type='hidden' value="<?php echo $this->session->userdata('nivel');?>" readonly></input> 
 	<input id="ApiKey" type='hidden' value="<?php echo $this->session->userdata('key');?>" readonly></input> 
-  <input id="correo_electronico" type='hidden' value="<?php echo $this->session->userdata('correo_electronico');?>" readonly></input>  
+  <input id="correo_electronico" type='hidden' value="<?php echo $this->session->userdata('correo_electronico');?>" readonly></input> 
+  <input id="username" type='hidden' value="<?php echo $this->session->userdata('username');?>" readonly></input>
+  <input id="idioma" type='hidden' value="<?php echo $this->session->userdata('idioma');?>" readonly></input>  
 </div>
  
 

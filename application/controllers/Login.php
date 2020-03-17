@@ -16,6 +16,7 @@ class Login extends CI_Controller
         $this->load->library('email');
        	$this->load->helper('cookie'); 
        	$this->load->model('Usuarios_model');
+		
     }
 
 	public function index() 
@@ -53,16 +54,23 @@ class Login extends CI_Controller
 			$os=$this->agent->platform();			
 			$cookie_sesion=$this->input->cookie('EnerSpain');
 			$hora_nueva=date('Y-m-d G:i:s');
-			$datausuario=$this->session->all_userdata();			
-
-			if (!isset($datausuario['sesion_clientes']))
+			//var_dump($cookie_sesion);				
+			if($cookie_sesion==NULL)
 			{
-				$this->session->sess_destroy();
-				$this->load->view('view_login');
+				redirect(base_url());	
 			}
 			else
 			{
-				redirect(base_url("Principal#/Dashboard/"), 'location', 301);
+				$datausuario=$this->session->all_userdata();
+				if (!isset($datausuario['sesion_clientes']))
+				{
+					//$this->session->sess_destroy();
+					$this->load->view('view_login');
+				}
+				else
+				{
+					redirect(base_url("Principal#/Dashboard/"), 'location', 301);
+				}
 			}
 			/*if (!isset($datausuario['sesion_clientes']))
 			{
@@ -146,8 +154,25 @@ class Login extends CI_Controller
 		$userid = $this->input->post('usuario');
 		$password = md5($this->input->post('password'));
 		$remember = $this->input->post('remember-me');
-		$ano=date('Y');
-
+		$idioma = $this->input->post('idioma');
+		
+		if($idioma=="sp")
+		{
+		
+			$this->config->set_item('language','spanish');
+			$this->lang->load('message','spanish'); 
+		}
+		elseif ($idioma=="en")
+		{
+			$this->config->set_item('language','english');
+			$this->lang->load('message','english');
+		}
+		else
+		{
+			$respuesta = array('status'=>TRUE,'message'=>$this->lang->line('Error_Lang'),'title'=>$this->lang->line('title_login_error_lang'),'data'=>$datausuario);
+        			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+		}
+		$ano=date('Y');		
 		/**/
 		#Buscaremos en la base de datos si el usuario esta registrado 
 		$FuncionBuscarUsuarios=$this->Usuarios_model->get_usuarios_buscar($userid);
@@ -159,11 +184,13 @@ class Login extends CI_Controller
 				$datausuario = $this->Usuarios_model->get_usuario($userid,$password);
 				if($datausuario!=false)
 				{	
-					$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
-					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico);
+					//$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
+					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico,
+                        'idioma'=>$idioma);
 					$this->session->set_userdata($newdata);
 					//echo 2;
-					$respuesta = array('status'=>TRUE,'message'=>'Iniciando Sesión Por favor Espere...','data'=>$datausuario);
+
+					$respuesta = array('status'=>TRUE,'message'=>$this->lang->line('Iniciar_Sesion'),'title'=>$this->lang->line('title_login_true'),'data'=>$datausuario);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				  	/*$sender = $configuraciones->smtp_user;        // Your name and email address 
 				    $recipient = $datausuario->correo_electronico;// The Recipients name and email address 
@@ -189,33 +216,35 @@ class Login extends CI_Controller
 				}
 				else
 				{
-					$respuesta = array('status'=>$datausuario,'message'=>'Error en los datos suministrados. Intente nuevamente.','data'=>3);
+					$respuesta = array('status'=>$datausuario,'message'=>$this->lang->line('Error_Datos'),'title'=>$this->lang->line('title_login_error'),'data'=>3);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				}
 			}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>'Este usuario se encuentra bloqueado.','data'=>2);
+				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>$this->lang->line('User_Blo'),'title'=>$this->lang->line('title_login_blo'),'data'=>2);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 		}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>'Este usuario no se encuentra registrado.','data'=>1);
+				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>$this->lang->line('User_NoBD'),'title'=>$this->lang->line('title_login_NoBD'),'data'=>1);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 	}
 
 	public function desconectar()
 	{
-		$cookie_sesion=$this->input->cookie('EnerSpain');
+		/*$cookie_sesion=$this->input->cookie('EnerSpain');
 		$id_usuario=$this->session->userdata('id');
 		$objfinal= $this->Usuarios_model->actualizar_estado_sesion($cookie_sesion,$id_usuario);
 		if($objfinal!=false)
 		{
 			$this->session->sess_destroy();
 			redirect(base_url(), 'location', 301,'refresh');
-		}
+		}*/
+		$this->session->sess_destroy();
+			redirect(base_url(), 'location', 301,'refresh');
 	}
 
 public function enviar()

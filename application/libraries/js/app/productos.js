@@ -1,13 +1,6 @@
-app.controller('Controlador_Productos', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora', Controlador]);
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora)
+app.controller('Controlador_Productos', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora','$translate', Controlador]);
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,$translate)
 {
-	//declaramos una variable llamada scope donde tendremos a vm
-	/*inyectamos un controlador para acceder a sus variables y metodos*/
-	//$controller('Controlador_Clientes as vmAE',{$scope:$scope});
-	//var testCtrl1ViewModel = $scope.$new(); //You need to supply a scope while instantiating.	
-	//$controller('Controlador_Clientes',{$scope : testCtrl1ViewModel });		
-	//var testCtrl1ViewModel = $controller('Controlador_Clientes');
-   	//testCtrl1ViewModel.cargar_lista_clientes();
 	var scope = this;
 	scope.fdatos = {};	
 	scope.productos = {};	
@@ -34,17 +27,17 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	} 
 	var fecha = dd+'/'+mm+'/'+yyyy;	
 	console.log($route.current.$$route.originalPath);
-	if($route.current.$$route.originalPath=="/Ver_Productos/:ID/:INF")
+	if($route.current.$$route.originalPath=="/"+$translate('Ver_Productos')+"/:ID/:INF")
 	{
 		scope.validate_info_productos=scope.INF;
 	}
-	if($route.current.$$route.originalPath=="/Edit_Productos/:ID")
+	if($route.current.$$route.originalPath=="/"+$translate('Edit_Productos')+"/:ID")
 	{
 		scope.validate_info_productos=scope.INF;
 	}
 ////////////////////////////////////////////////////////////PARA LA LISTA Y CONFIGURACIONES DE PRODUCTOS START///////////////////////////////////////////////////
-
-		scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
+		
+		scope.Topciones_Grib = [{id: 4, nombre: $translate('VER')},{id: 3, nombre: $translate('EDITAR')},{id: 1, nombre: $translate('ACTIVAR')},{id: 2, nombre: $translate('BLOQUEAR')}];
 		scope.NumCifCom=true;
 		scope.RazSocCom=true;
 		scope.DesTPro=true;
@@ -56,7 +49,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.tmodal_productos={};
 		scope.reporte_pdf_productos=0;
 		scope.reporte_excel_productos=0;
-		scope.ttipofiltrosProductos = [{id: 1, nombre: 'Comercializadora'},{id: 2, nombre: 'Tipo de Servicio'},{id: 3, nombre: 'Fecha de Inicio'},{id: 4, nombre: 'Estatus del Producto'}];
+		scope.ttipofiltrosProductos = [{id: 1, nombre: $translate('MARKETER')},{id: 2, nombre: $translate('TIP_SER')},{id: 3, nombre: $translate('FECH_INI')},{id: 4, nombre: $translate('ESTATUS')}];
 		scope.productos.SerGas=false;
 		scope.productos.SerEle=false;
 
@@ -96,25 +89,24 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			console.log(error);//Tratar el error
 			if(error.status==false && error.error=="This API key does not have access to the requested controller.")
 			{
-				Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Unknown method.")
 			{
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Invalid API Key.")
 			{
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Internal Server Error")
 			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
-
 		});	
 
 scope.cargar_lista_productos=function()
@@ -149,7 +141,8 @@ scope.cargar_lista_productos=function()
 		}
 		else
 		{
-			console.log('No hemos encontrado Productos registrados.');
+			console.log($translate('NO_FOUND_PRODUCTS'));
+			Swal.fire({title:"Error 404.",text:$translate('NO_FOUND_PRODUCTS'),type:"error",confirmButtonColor:"#188ae2"});
 			scope.TProductos=[];
 			scope.TProductosBack=[];
 		}
@@ -158,19 +151,19 @@ scope.cargar_lista_productos=function()
 		$("#List_Produc").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
 		if(error.status==404 && error.statusText=="Not Found")
 		{
-			Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==401 && error.statusText=="Unauthorized")
 		{
-			Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==403 && error.statusText=="Forbidden")
 		{
-			Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==500 && error.statusText=="Internal Server Error")
 		{
-			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});	
 }
@@ -244,7 +237,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			var FecIniPro= (scope.tmodal_productos.FecIniPro).split("/");
 			if(FecIniPro.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -252,19 +245,19 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			{		
 				if(FecIniPro[0].length>2 || FecIniPro[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniPro[1].length>2 || FecIniPro[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniPro[2].length<4 || FecIniPro[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}					
@@ -356,7 +349,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		scope.fecha_bloqueo=fecha_bloqueo;
 	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
 	 	{
-	 		Swal.fire({title:'Fecha de Bloqueo',text:'Este Campo no estar vacio.',type:"error",confirmButtonColor:"#188ae2"});
+	 		Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('FEC_BLOC'),type:"error",confirmButtonColor:"#188ae2"});
 	 		return	false;
 	 	}
 	 	else
@@ -364,7 +357,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 	 		var FecBlo= (scope.fecha_bloqueo).split("/");
 			if(FecBlo.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('MESSA_BLOC')+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -372,19 +365,19 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			{		
 			if(FecBlo[0].length>2 || FecBlo[0].length<2)
 			{
-				Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('MESSA_BLOC1'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 				}
 			if(FecBlo[1].length>2 || FecBlo[1].length<2)
 			{
-				Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('MESSA_BLOC2'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
 			if(FecBlo[2].length<4 || FecBlo[2].length>4)
 			{
-				Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('MESSA_BLOC3'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -395,18 +388,18 @@ $scope.SubmitFormFiltrosProductos = function(event)
 	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 	        if(dateStart>dateEnd)
 	        {
-	            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+	            Swal.fire({text:$translate('MESSA_BLOC4')+scope.Fecha_Server+$translate('MESSA_BLOC5'),type:"error",confirmButtonColor:"#188ae2"});					
 	            return false;
 	        }
 	        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
 	    }
 	 	}
-	 	Swal.fire({title:"¿Esta Seguro de Bloquear Este Producto?",
+	 	Swal.fire({title:$translate('BLO_PRODUCTS'),
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
 		cancelButtonColor:"#f34943",
-		confirmButtonText:"Bloquear"}).then(function(t)
+		confirmButtonText:$translate('MESSA_BLOC7')}).then(function(t)
 		{
 	        if(t.value==true)
 	        {
@@ -438,53 +431,48 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		 var url= base_urlHome()+"api/Comercializadora/cambiar_estatus_productos/";
 		 $http.post(url,scope.status_producto).then(function(result)
 		 {
+		 	$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(result.data.resultado!=false)
 		 	{
 		 		if(opciones_productos==1)
 		 		{
-		 			var title='Activando.';
-		 			var text='El Producto a sido activado con exito.';
+		 			var title=$translate('MESSA_BLOC8');
+		 			var text=$translate('TEXT_PRODUCTS_ACT');
 		 		}
 		 		if(opciones_productos==2)
 		 		{
-		 			var title='Bloquear.';
-		 			var text='El Producto a sido bloqueado con exito.';
+		 			var title=$translate('MESSA_BLOC10');
+		 			var text=$translate('TEXT_PRODUCTS_BLO');
 		 			$("#modal_motivo_bloqueo_productos").modal('hide');
-		 		}
-
-		 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+		 		}		 		
 		 		Swal.fire({title:title,text:text,type:"success",confirmButtonColor:"#188ae2"});
 		 		scope.opciones_productos[index]=undefined;
 		 		scope.cargar_lista_productos();
 		 	}
 		 	else
 		 	{
-		 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:"No hemos podido actualizar el estatus del producto.",type:"error",confirmButtonColor:"#188ae2"});
+		 		Swal.fire({title:"Error",text:"No hemos podido actualizar el estatus del producto.",type:"error",confirmButtonColor:"#188ae2"});
 				scope.cargar_lista_productos();
 		 	}
 
 		 },function(error)
-		 {
+		 {	
+		 	$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				Swal.fire({title:"Error 500.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 		 });
 	}
@@ -498,15 +486,15 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			scope.opciones_productos[index]=undefined;
 			if(dato.EstPro=='ACTIVO')
 			{
-				Swal.fire({title:"Error",text:"Ya este Producto se encuentra activo.",type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('PRODUCT_ACTIVE'),type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}			
-			Swal.fire({title:"¿Esta Seguro de Activar Este Producto?",
+			Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('PRODUCT_ACTIVE_TEXT'),
 			type:"info",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
-			confirmButtonText:"Activar"}).then(function(t)
+			confirmButtonText:$translate('ACTIVAR')}).then(function(t)
 			{
 	            if(t.value==true)
 	            {
@@ -524,7 +512,7 @@ $scope.SubmitFormFiltrosProductos = function(event)
 			scope.opciones_productos[index]=undefined;
 			if(dato.EstPro=='BLOQUEADO')
 			{
-				Swal.fire({title:"Error",text:"Ya este Producto ya se encuentra bloqueado.",type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:$translate('MESSA_BLOC10'),text:$translate('PRODUCT_BLOCK_TEXT'),type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}
 			scope.t_modal_data.CodPro=dato.CodPro;
@@ -539,12 +527,12 @@ $scope.SubmitFormFiltrosProductos = function(event)
 		if(opciones_productos==3)
 		{
 			scope.opciones_productos[index]=undefined;
-			location.href="#/Edit_Productos/"+dato.CodPro;
+			location.href="#/"+$translate('Edit_Productos')+"/"+dato.CodPro;
 		}
 		if(opciones_productos==4)
 		{
 			scope.opciones_productos[index]=undefined;
-			location.href="#/Ver_Productos/"+dato.CodPro+"/"+1;			
+			location.href="#/"+$translate('Ver_Productos')+"/"+dato.CodPro+"/"+1;			
 		}
 	}
 	scope.validar_fecha=function(object)
@@ -563,13 +551,13 @@ scope.regresar_productos=function()
 	{
 		if(scope.productos.CodTPro==undefined)
 		{
-			var title="Guardando";
-			var text="¿Estás seguro de regresar y no guardar los datos?";
+			var title=$translate('SAVE');
+			var text=$translate('text_back_save');
 		}
 		else
 		{
-			var title="Actualizando";
-			var text="¿Estás seguro de regresar y no actualizar los datos?";
+			var title=$translate('UPDATE');
+			var text=$translate('text_back_update');
 		}
 		Swal.fire({title:title,text:text,		
 		type:"question",
@@ -580,7 +568,7 @@ scope.regresar_productos=function()
 		{
 	        if(t.value==true)
 	        {	            
-	            location.href="#/Productos";
+	            location.href="#/"+$translate('PRODUCTS');
 	            scope.productos={};
 	        }
 	        else
@@ -591,7 +579,7 @@ scope.regresar_productos=function()
 	}
 	else
 	{
-		location.href="#/Productos";
+		location.href="#/"+$translate('PRODUCTS');
 	    scope.productos={};
 	}	
 }
@@ -639,7 +627,7 @@ scope.BuscarxID=function()
 		}
 		else
 		{
-			Swal.fire({title:"Error",text:"No se han encontrado datos relacionados con el Producto que esta intentando buscar, por favor verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error",text:$translate('NO_FOUND_PRODUCTS'),type:"error",confirmButtonColor:"#188ae2"});
 			scope.validate_info_productos=1;			
 			scope.productos={};
 			scope.productos.CodTPro=scope.nID;
@@ -653,19 +641,19 @@ scope.BuscarxID=function()
 		scope.productos.CodTPro=scope.nID;
 		if(error.status==404 && error.statusText=="Not Found")
 		{
-			Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==401 && error.statusText=="Unauthorized")
 		{
-			Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==403 && error.statusText=="Forbidden")
 		{
-			Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==500 && error.statusText=="Internal Server Error")
 		{
-			Swal.fire({title:"Error 500.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});
 }	
@@ -678,15 +666,15 @@ $scope.submitFormProductos = function(event)
 		}
 	if(scope.productos.CodTPro==undefined)
  	{
- 		var titulo='Guardando';
- 		var texto='¿Esta Seguro de Ingresar este nuevo registro.?';
- 		var response="Producto registrado satisfactoriamente.";
+ 		var titulo=$translate('SAVE');
+ 		var texto=$translate('TEXT_SAVE');
+ 		var response=$translate('TEXT_SAVE_PRODUCTS');
  	}
  	else
  	{
- 		var titulo='Actualizando';
- 		var texto='¿Esta Seguro de Actualizar este registro.?';
- 		var response="Producto modificado satisfactoriamente.";
+ 		var titulo=$translate('UPDATE');
+ 		var texto=$translate('TEXT_UPDATE');;
+ 		var response=$translate('TEXT_UPDATE_PRODUCTS');
  	}
  	if(scope.productos.ObsPro==undefined||scope.productos.ObsPro==null||scope.productos.ObsPro=='')
  	{
@@ -703,7 +691,7 @@ $scope.submitFormProductos = function(event)
 	showCancelButton:!0,
 	confirmButtonColor:"#31ce77",
 	cancelButtonColor:"#f34943",
-	confirmButtonText:"Confirmar!"}).then(function(t)
+	confirmButtonText:"OK!"}).then(function(t)
 	{
 	    if(t.value==true)
 	    {
@@ -721,29 +709,26 @@ $scope.submitFormProductos = function(event)
 	           	else
 	           	{
 	           	    $("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error",text:"No hemos podido procesar la solicitud, Por Favor Intente Nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error",text:$translate('ERROR_SAVE'),type:"error",confirmButtonColor:"#188ae2"});
 	           	}
 			},function(error)
 	        {
-			    if(error.status==404 && error.statusText=="Not Found")
+				$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				if(error.status==404 && error.statusText=="Not Found")
 				{
-					$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==401 && error.statusText=="Unauthorized")
 				{
-					$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==403 && error.statusText=="Forbidden")
 				{
-					$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==500 && error.statusText=="Internal Server Error")
 				{
-					$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 	        });  	
 	    }

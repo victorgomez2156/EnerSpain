@@ -54,6 +54,7 @@
   <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script>
   <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
   
   <!--Final de Principales de ANGULARJS-->
@@ -93,7 +94,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tipos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comercial.js'?>"></script>
-  
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script>
   
     
  

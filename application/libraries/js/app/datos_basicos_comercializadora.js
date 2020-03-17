@@ -1,4 +1,4 @@
-app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload', Controlador])
+app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload','$translate', Controlador])
 .directive('uploaderModel', ["$parse", function ($parse) 
 {
 	return {
@@ -51,7 +51,7 @@ app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','
 		return deferred.promise;
 	}	
 }])
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload,$translate)
 {
 	
 //////////////////////////////////////////////////////////// DATOS BASICOS DE COMERCIALIZADORAS START //////////////////////////////////////////////////////////
@@ -89,45 +89,42 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.tLocalidades= dato.Localidades;
 		scope.tTiposVias=dato.Tipos_Vias;
 		scope.fecha_server=dato.fecha;
-		if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
+		if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/")
 		{	
 				scope.FecIniCom=scope.fecha_server;
 				console.log(scope.FecIniCom);
-				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCom);  		 		
-				
-				
+				$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.FecIniCom);				
 		}
-
 		//scope.FecIniCom=scope.fecha_server;
 	}).catch(function(error) 
 	{
 		console.log(error);//Tratar el error
 		if(error.status==false && error.error=="This API key does not have access to the requested controller.")
 		{
-			Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==false && error.error=="Unknown method.")
 		{
-			Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==false && error.error=="Unauthorized")
 		{
-			Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==false && error.error=="Invalid API Key.")
 		{
-			Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==false && error.error=="Internal Server Error")
 		{
-			Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});		
-	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
+	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/")
 	{		
 		if(scope.CIF_COM==undefined)
-		{
-			location.href="#/Comercializadora";
+		{//
+			location.href="#/"+$translate('MARKETER');
 			$("#btn_modal_cif_com").removeClass("btn btn-info").addClass("btn btn-danger");
 		}
 		else
@@ -141,11 +138,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			console.log(scope.FecIniCom);
 		}		
 	}
-	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID");
+	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID");
 	{
 		scope.validate_info=scope.INF;
 	}
-	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID/:INF");
+	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID/:INF");
 	{
 		scope.validate_info=scope.INF;
 	}
@@ -212,7 +209,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			if(new Date(scope.FecVenConCom)<new Date(scope.FecConCom))
 			{
-				Swal.fire({title:"Error",text:"La fecha de vencimiento no puede ser menor a la fecha de inicio.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:$translate('CAL_ANO'),type:"error",confirmButtonColor:"#188ae2"});
 				scope.fdatos.DurConCom=undefined;
 				scope.FecVenConCom=undefined;
 				return false;
@@ -228,7 +225,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			//console.log(scope.fdatos.DurConCom);
 			if(scope.fdatos.DurConCom==0)
 			{
-				Swal.fire({title:"Error",text:"El Tiempo Minimo del contrato debe ser de 1 año en adelante.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:$translate('CAL_ANO_MAY'),type:"error",confirmButtonColor:"#188ae2"});
 				scope.FecVenConCom=undefined;
 				scope.fdatos.DurConCom=undefined;
 				scope.disabled_button=1;					
@@ -249,7 +246,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.filtrarLocalidadCom =  function()
 	{
 		scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, {CodPro: scope.fdatos.CodPro}, true);		
-		if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID/:INF" || $route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID")
+		if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID/:INF" || $route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID")
 		{
 			scope.contador=0;
 			scope.contador=scope.contador+1;
@@ -276,15 +273,15 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	 	console.log(scope);
 	 	if(scope.fdatos.CodCom==undefined)
 	 	{
-	 		var titulo='Guardando';
-	 		var texto='¿Esta Seguro de Ingresar este nuevo registro.?';
-	 		var response="Comercializadora registrada satisfactoriamente";
+	 		var titulo=$translate('SAVE');
+	 		var texto=$translate('TEXT_SAVE');
+	 		var response=$translate('RESPONSE_SAVE_MARKET');
 	 	}
 	 	else
 	 	{
-	 		var titulo='Actualizando';
-	 		var texto='¿Esta Seguro de Actualizar este registro.?';
-	 		var response="Comercializadora modificada satisfactoriamente";
+	 		var titulo=$translate('UPDATE');
+	 		var texto=$translate('TEXT_UPDATE');
+	 		var response=$translate('RESPONSE_UPDATE_MARKET');
 	 	}
 		if (!scope.validar_campos_datos_basicos())
 		{
@@ -306,7 +303,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		 	else	 	
 		 	{
 		 		console.log('Archivo No Permitido');
-		 		Swal.fire({title:'Error',text:"Formato incorrecto solo se permite archivos PDF, JPG o PNG.",type:"error",confirmButtonColor:"#188ae2"});		 		
+		 		Swal.fire({title:'Error',text:$translate('ERROR_FILE'),type:"error",confirmButtonColor:"#188ae2"});		 		
 				document.getElementById('file').value ='';
 				return false;
 			}
@@ -334,13 +331,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 							Swal.fire({title:titulo,text:response,type:"success",confirmButtonColor:"#188ae2"});
 	           	    		document.getElementById('file').value ='';
 	           	    		$cookies.remove('CIF_COM');
-	           	    		location.href="#/Datos_Basicos_Comercializadora/"+scope.nID;
-	           	    		//scope.fdatos=result.data;
+	           	    		location.href="#/"+$translate('DAT_BAS_COM')+"/"+scope.nID;
+	           	    		//scope.fdatos=result.data;"/"+$translate('DAT_BAS_COM')+"
 	           	    	}
 	           	    	else
 	           	    	{
 	           	    		$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-							Swal.fire({title:"Error",text:"No hemos podidos guardar los datos intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error",text:$translate('ERROR_SAVE'),type:"error",confirmButtonColor:"#188ae2"});
 	           	    	}
 
 	           	    },function(error)
@@ -348,20 +345,20 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	           	    	$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );							
 			           	if(error.status==404 && error.statusText=="Not Found")
 						{
-							Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==401 && error.statusText=="Unauthorized")
 						{
-							Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==403 && error.statusText=="Forbidden")
 						{
-							Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 							
 						}
 						if(error.status==500 && error.statusText=="Internal Server Error")
 						{
-							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 						}
 	           	    });  	
 	        }
@@ -378,7 +375,7 @@ scope.validar_campos_datos_basicos = function()
 		scope.FecIniCom=FecIniCom;
 		if (scope.FecIniCom==null || scope.FecIniCom==undefined || scope.FecIniCom=='')
 		{
-			Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('Fec_Ini_Vali'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -386,7 +383,7 @@ scope.validar_campos_datos_basicos = function()
 			var FecIniCom= (scope.FecIniCom).split("/");
 			if(FecIniCom.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -394,20 +391,20 @@ scope.validar_campos_datos_basicos = function()
 			{		
 				if(FecIniCom[0].length>2 || FecIniCom[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 
 				}
 				if(FecIniCom[1].length>2 || FecIniCom[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniCom[2].length<4 || FecIniCom[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -418,7 +415,7 @@ scope.validar_campos_datos_basicos = function()
 			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 			    if(dateStart>dateEnd)
 			    {
-			        Swal.fire({title:"Fecha de Inicio",text:"La Fecha de Inicio no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        Swal.fire({title:$translate('FECH_INI'),text:$translate('FECH_INI_1')+scope.fecha_server+$translate('FECH_INI_2'),type:"error",confirmButtonColor:"#188ae2"});					
 			        return false;
 			    }
 				scope.fdatos.FecIniCom=	valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
@@ -426,57 +423,57 @@ scope.validar_campos_datos_basicos = function()
 		}
 		if (scope.fdatos.RazSocCom==null || scope.fdatos.RazSocCom==undefined || scope.fdatos.RazSocCom=='')
 		{
-			Swal.fire({title:"El Campo Razon Social es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('RAZ_SOC_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}		
 		if (scope.fdatos.NomComCom==null || scope.fdatos.NomComCom==undefined || scope.fdatos.NomComCom=='')
 		{
-			Swal.fire({title:"El Campo Nombre Comercial es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('NOM_SOC_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (!scope.fdatos.CodTipVia > 0)
 		{
-			Swal.fire({title:"Debe Seleccionar un Tipo de Vía de la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('TIP_VIA_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.NomViaDirCom==null || scope.fdatos.NomViaDirCom==undefined || scope.fdatos.NomViaDirCom=='')
 		{
-			Swal.fire({title:"El Campo Nombre de la Vía es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('NOM_VIA_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.NumViaDirCom==null || scope.fdatos.NumViaDirCom==undefined || scope.fdatos.NumViaDirCom=='')
 		{
-			Swal.fire({title:"El Campo Número de la Vía es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('NUM_VIA_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (!scope.fdatos.CodPro > 0)
 		{
-			Swal.fire({title:"Debe Seleccionar una Provincia de la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('PROVI_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (!scope.fdatos.CodLoc > 0)
 		{
-			Swal.fire({title:"Debe Seleccionar una Localidad de la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('LOC_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.TelFijCom==null || scope.fdatos.TelFijCom==undefined || scope.fdatos.TelFijCom=='')
 		{
-			Swal.fire({title:"El Campo Teléfono es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('TEL_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.EmaCom==null || scope.fdatos.EmaCom==undefined || scope.fdatos.EmaCom=='')
 		{
-			Swal.fire({title:"El Campo Correo Electrónico es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('EMAIL_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.NomConCom==null || scope.fdatos.NomConCom==undefined || scope.fdatos.NomConCom=='')
 		{
-			Swal.fire({title:"El Campo Persona Contacto es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('PER_CON_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.fdatos.CarConCom==null || scope.fdatos.CarConCom==undefined || scope.fdatos.CarConCom=='')
 		{
-			Swal.fire({title:"El Campo Cargo Persona es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('CAR_PER_REQ'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		var FecConCom1=document.getElementById("FecConCom").value;
@@ -491,7 +488,7 @@ scope.validar_campos_datos_basicos = function()
 			console.log(FecConCom);
 			if(FecConCom.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Contrato debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('FecComCom'),type:"error",confirmButtonColor:"#188ae2"});
 				//event.preventDefault();	
 				return false;
 			}
@@ -499,20 +496,20 @@ scope.validar_campos_datos_basicos = function()
 			{		
 				if(FecConCom[0].length>2 || FecConCom[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Contrato deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecComComDay'),type:"error",confirmButtonColor:"#188ae2"});
 					//event.preventDefault();	
 					return false;
 
 				}
 				if(FecConCom[1].length>2 || FecConCom[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Contrato deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecComComMonth'),type:"error",confirmButtonColor:"#188ae2"});
 					//event.preventDefault();	
 					return false;
 				}
 				if(FecConCom[2].length<4 || FecConCom[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Contrato Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecComComYear'),type:"error",confirmButtonColor:"#188ae2"});
 					//event.preventDefault();	
 					return false;
 				}
@@ -532,7 +529,7 @@ scope.validar_campos_datos_basicos = function()
 			var FecVenConCom= (scope.FecVenConCom).split("/");
 			if(FecVenConCom.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Vencimiento debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('FecVenConCom'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -540,20 +537,20 @@ scope.validar_campos_datos_basicos = function()
 			{		
 				if(FecVenConCom[0].length>2 || FecVenConCom[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Vencimiento deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecVenConDay'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 
 				}
 				if(FecVenConCom[1].length>2 || FecVenConCom[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Vencimiento deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecVenConMonth'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecVenConCom[2].length<4 || FecVenConCom[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Vencimiento Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('FecVenConYear'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -654,22 +651,23 @@ scope.validar_campos_datos_basicos = function()
 			console.log(res);
 		},function(error)
 		{
-			if(error.status==404 && error.statusText=="Not Found")
-			{
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==401 && error.statusText=="Unauthorized")
-			{
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==403 && error.statusText=="Forbidden")
-			{
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-			}
+				if(error.status==404 && error.statusText=="Not Found")
+						{
+							Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==401 && error.statusText=="Unauthorized")
+						{
+							Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==403 && error.statusText=="Forbidden")
+						{
+							Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+							
+						}
+						if(error.status==500 && error.statusText=="Internal Server Error")
+						{
+							Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+						}
 		});
 	}
 	scope.regresar=function()
@@ -679,13 +677,13 @@ scope.validar_campos_datos_basicos = function()
 		{
 			if(scope.fdatos.CodCom==undefined)
 			{
-				var title="Guardando";
-				var text="¿Estás seguro de regresar y no guardar los datos?";
+				var title=$translate('SAVE');
+				var text=$translate('text_back_save');
 			}
 			else
 			{
-				var title="Actualizando";
-				var text="¿Estás seguro de regresar y no actualizar los datos?";
+				var title=$translate('UPDATE');
+				var text=$translate('text_back_update');
 			}
 			Swal.fire({title:title,text:text,		
 			type:"question",
@@ -697,7 +695,7 @@ scope.validar_campos_datos_basicos = function()
 		        if(t.value==true)
 		        {
 		            $cookies.remove('CIF_COM');
-		            location.href="#/Comercializadora";
+		            location.href="#/"+$translate('MARKETER');
 		            scope.fdatos={};
 		        }
 		        else
@@ -710,7 +708,7 @@ scope.validar_campos_datos_basicos = function()
 		else
 		{
 			$cookies.remove('CIF_COM');
-		    location.href="#/Comercializadora";
+		    location.href="#/"+$translate('MARKETER');
 		    scope.fdatos={};
 		}		
 	}
@@ -771,30 +769,27 @@ scope.validar_campos_datos_basicos = function()
 		 	else
 		 	{
 		 		$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:"No hemos encontrado datos relacionados con este código.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:$translate('NO_FOUND_MAR_ID'),type:"error",confirmButtonColor:"#188ae2"});
+				location.href="#/"+$translate('MARKETER');
 		 	}
 
 		 },function(error)
-		 {
+		 {$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				Swal.fire({title:"Error 500.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 		 });
 

@@ -1,4 +1,4 @@
-app.controller('Controlador_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload', Controlador])
+app.controller('Controlador_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload','$translate', Controlador])
 .directive('uploaderModel', ["$parse", function ($parse) 
 {
 	return {
@@ -51,7 +51,7 @@ app.controller('Controlador_Comercializadora', ['$http', '$scope', '$filter','$r
 		return deferred.promise;
 	}	
 }])
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload,$translate)
 {
 	var scope = this;
 	scope.fdatos = {}; // datos del formulario
@@ -109,27 +109,26 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			console.log(error);//Tratar el error
 			if(error.status==false && error.error=="This API key does not have access to the requested controller.")
 			{
-				Swal.fire({title:"Error 401.",text:"Usted No Tiene Acceso al Controlador de Configuraciones Generales.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Unknown method.")
 			{
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Invalid API Key.")
 			{
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==false && error.error=="Internal Server Error")
 			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 
 		});		
-
 
 		scope.NumCifCom=true;
 		scope.RazSocCom=true;
@@ -138,85 +137,82 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.Acc=true;
 		scope.validate_cif==1
 		resultado = false;	
-		scope.Topciones_comercializadoras = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'}];
-		scope.ttipofiltros = [{id: 1, nombre: 'TIPO DE SERVICIO'},{id: 2, nombre: 'PROVINCIA'},{id: 3, nombre: 'LOCALIDAD'},{id: 4, nombre: 'ESTATUS'}];
-		scope.EstComFil = [{id: 1, nombre: 'ACTIVA'},{id: 2, nombre: 'BLOQUEADA'}];
-		scope.TipServ= [{id: 1, nom_serv: 'Servicio Gas'},{id: 2, nom_serv: 'Servicio Electrico'},{id: 3, nom_serv: 'Servicio Especiales'}];
-		scope.tmodal_comercializadora={};		
-		scope.reporte_pdf_comercializadora=0;
-		scope.reporte_excel_comercializadora=0;
-		
-		console.log(scope.Tcomercializadoras);
-
-		scope.modal_cif_comercializadora=function()
-	{		
-		scope.fdatos.NumCifCom=undefined;
-		$("#modal_cif_comercializadora").modal('show');		
-	}
-
-	scope.cargar_lista_comercializadoras=function()
+scope.Topciones_comercializadoras = [{id: 4, nombre: $translate('VER')},{id: 3, nombre: $translate('EDITAR')},{id: 1, nombre: $translate('ACTIVAR')},{id: 2, nombre: $translate('BLOQUEAR')}];
+scope.ttipofiltros = [{id: 1, nombre: $translate('TIP_SER')},{id: 2, nombre:$translate('PROVINCIA')},{id: 3, nombre: $translate('LOCALIDAD')},{id: 4, nombre: $translate('ESTATUS')}];
+scope.EstComFil = [{id: 1, nombre: $translate('ACTIVA')},{id: 2, nombre: $translate('BLOQUEADA')}];
+scope.TipServ= [{id: 1, nom_serv: $translate('SER_GAS')},{id: 2, nom_serv: $translate('SER_ELE')},{id: 3, nom_serv: $translate('ESP_SER')}];
+scope.tmodal_comercializadora={};		
+scope.reporte_pdf_comercializadora=0;
+scope.reporte_excel_comercializadora=0;
+console.log(scope.Tcomercializadoras);
+scope.modal_cif_comercializadora=function()
+{		
+	scope.fdatos.NumCifCom=undefined;
+	$("#modal_cif_comercializadora").modal('show');		
+}
+scope.cargar_lista_comercializadoras=function()
+{
+	$("#List_Comer").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+    var url=base_urlHome()+"api/Comercializadora/get_list_comercializadora";
+	$http.get(url).then(function(result)
 	{
-		$("#List_Comer").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
-	    var url=base_urlHome()+"api/Comercializadora/get_list_comercializadora";
-		$http.get(url).then(function(result)
+		$("#List_Comer").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
+		if(result.data!=false)
 		{
-			$("#List_Comer").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-			if(result.data!=false)
-			{
-				$scope.predicate = 'id';  
-				$scope.reverse = true;						
-				$scope.currentPage = 1;  
-				$scope.order = function (predicate) 
-				{  
-					$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;  
-					$scope.predicate = predicate;  
-				}; 						
-				scope.Tcomercializadoras =result.data;
-				scope.TcomercializadorasBack =result.data; 	 								
-				$scope.totalItems = scope.Tcomercializadoras.length; 
-				$scope.numPerPage = 50;  
-				$scope.paginate = function (value) 
-				{  
-					var begin, end, index;  
-					begin = ($scope.currentPage - 1) * $scope.numPerPage;  
-					end = begin + $scope.numPerPage;  
-					index = scope.Tcomercializadoras.indexOf(value);  
-					return (begin <= index && index < end);  
-				};
-			}
-			else
-			{
-				Swal.fire({title:"Comercializadora.",text:"No hemos encontrado Comercializadora Registradas Actualmente.",type:"info",confirmButtonColor:"#188ae2"});
-				scope.Tcomercializadoras=[];
-				scope.TcomercializadorasBack=[];
-			}
-		},function(error)
-		{				
-			$("#List_Comer").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );					
-			if(error.status==404 && error.statusText=="Not Found")
-			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==401 && error.statusText=="Unauthorized")
-			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==403 && error.statusText=="Forbidden")
-			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				
-			}
-			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-		});
-	}
+			$scope.predicate = 'id';  
+			$scope.reverse = true;						
+			$scope.currentPage = 1;  
+			$scope.order = function (predicate) 
+			{  
+				$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;  
+				$scope.predicate = predicate;  
+			}; 						
+			scope.Tcomercializadoras =result.data;
+			scope.TcomercializadorasBack =result.data; 	 								
+			$scope.totalItems = scope.Tcomercializadoras.length; 
+			$scope.numPerPage = 50;  
+			$scope.paginate = function (value) 
+			{  
+				var begin, end, index;  
+				begin = ($scope.currentPage - 1) * $scope.numPerPage;  
+				end = begin + $scope.numPerPage;  
+				index = scope.Tcomercializadoras.indexOf(value);  
+				return (begin <= index && index < end);  
+			};
+		}
+		else
+		{
+			Swal.fire({title:$translate('MARKETER'),text:$translate('MARKETER_NOBD'),type:"info",confirmButtonColor:"#188ae2"});
+			scope.Tcomercializadoras=[];
+			scope.TcomercializadorasBack=[];
+		}
+	},function(error)
+	{				
+		$("#List_Comer").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );					
+		if(error.status==404 && error.statusText=="Not Found")
+		{
+			Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==401 && error.statusText=="Unauthorized")
+		{
+			Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+		}
+		if(error.status==403 && error.statusText=="Forbidden")
+		{
+			Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+			
+		}
+		if(error.status==500 && error.statusText=="Internal Server Error")
+		{
+			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+		}
+	});
+}
 	$scope.Consultar_CIF = function(event) 
 	{      
 	 	if(scope.fdatos.NumCifCom==undefined || scope.fdatos.NumCifCom==null || scope.fdatos.NumCifCom=='')
 		{
-			Swal.fire({title:"Error.",text:"El número de CIF no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:$translate('CIF_EMPTY'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -225,40 +221,36 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	        var url=base_urlHome()+"api/Comercializadora/comprobar_cif_comercializadora";
 			$http.post(url,scope.fdatos).then(function(result)
 			{
+				$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				if(result.data!=false)
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Comercializadora Registrada.",text:"La Comercializadora ya se encuentra registrada.",type:"success",confirmButtonColor:"#188ae2"});					
+					Swal.fire({title:$translate('TITLE_CIF_REGISTER'),text:$translate('TEXT_CIF_REGISTER'),type:"success",confirmButtonColor:"#188ae2"});					
 				}
 				else
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					$("#modal_cif_comercializadora").modal('hide');
 					$cookies.put('CIF_COM', scope.fdatos.NumCifCom);
-					location.href ="#/Datos_Basicos_Comercializadora/";
+					location.href ="#/"+$translate('DAT_BAS_COM')+"/";
 				}
 			},function(error)
 			{
+				$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );					
 				if(error.status==404 && error.statusText=="Not Found")
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==401 && error.statusText=="Unauthorized")
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==403 && error.statusText=="Forbidden")
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 					
 				}
 				if(error.status==500 && error.statusText=="Internal Server Error")
 				{
-					$("#NumCifCom").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 			});
 		}						
@@ -419,15 +411,15 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.opciones_comercializadoras[index]=undefined;
 			if(dato.EstCom=='ACTIVA')
 			{
-				Swal.fire({title:"Error",text:"Ya esta Comercializadora se encuentra activa.",type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:"Error",text:$translate('MARKE_ACTI'),type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}			
-			Swal.fire({title:"¿Esta Seguro de Activar Esta Comercializadora?",
+			Swal.fire({title:$translate('ACTI_MARKE'),
 			type:"info",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
-			confirmButtonText:"Activar"}).then(function(t)
+			confirmButtonText:$translate('ACTIVAR')}).then(function(t)
 			{
 	            if(t.value==true)
 	            {	              	
@@ -445,7 +437,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.t_modal_data={};
 			if(dato.EstCom=='BLOQUEADA')
 			{
-				Swal.fire({title:"Error",text:"Ya esta Comercializadora se encuentra bloqueada.",type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:"Error",text:$translate('MARKE_BLOC'),type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}
 			scope.t_modal_data.CodCom=dato.CodCom;
@@ -453,18 +445,16 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.RazSocComBlo=dato.RazSocCom;
 			scope.t_modal_data.OpcCom=opciones_comercializadoras;
 			scope.fecha_bloqueo=scope.fecha_server;
-
-			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.fecha_bloqueo);  		 		
-				
+			$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}).datepicker("setDate", scope.fecha_bloqueo);				
 			scope.cargar_lista_MotBloCom(index);
 		}
 		if(opciones_comercializadoras==3)
 		{
-			location.href ="#/Datos_Basicos_Comercializadora/"+dato.CodCom;
+			location.href ="#/"+$translate('DAT_BAS_COM')+"/"+dato.CodCom;
 		}
 		if(opciones_comercializadoras==4)
 		{
-			location.href ="#/Datos_Basicos_Comercializadora/"+dato.CodCom+"/"+1;
+			location.href ="#/"+$translate('DAT_BAS_COM')+"/"+dato.CodCom+"/"+1;
 			scope.validate_info=1;
 		}
 	}
@@ -481,31 +471,28 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			}
 			else
 			{
-				Swal.fire({title:"Error",text:"No Hemos encontrado motivos de bloqueos para las Comercializadora por lo que no puede continuar con esta operación.",type:"error",confirmButtonColor:"#188ae2"});	
+				Swal.fire({title:"Error",text:$translate('MOT_BLO_EMPTY_COME'),type:"error",confirmButtonColor:"#188ae2"});	
 				scope.opciones_comercializadoras[index]=undefined;
 			}
 
 		},function(error)
-		{
+		{	scope.opciones_comercializadoras[index]=undefined;
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.opciones_comercializadoras[index]=undefined;
+				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.opciones_comercializadoras[index]=undefined;
+				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.opciones_comercializadoras[index]=undefined;
+				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{			
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				scope.opciones_comercializadoras[index]=undefined;
+			{
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}	
 		});
 	}
@@ -523,7 +510,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.fecha_bloqueo=fecha_bloqueo;
 	 	if(scope.fecha_bloqueo==undefined||scope.fecha_bloqueo==null||scope.fecha_bloqueo=='')
 	 	{
-	 		Swal.fire({title:"Error",text:"El Campo Fecha de Bloqueo no puedar estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+	 		Swal.fire({title:"Error",text:$translate('FEC_BLOC'),type:"error",confirmButtonColor:"#188ae2"});
 	 		return false;
 		}
 	 	else
@@ -531,7 +518,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		 	var FecBlo= (scope.fecha_bloqueo).split("/");
 			if(FecBlo.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: "+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('MESSA_BLOC')+scope.fecha_server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -539,19 +526,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			{		
 				if(FecBlo[0].length>2 || FecBlo[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('MESSA_BLOC1'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 					}
 				if(FecBlo[1].length>2 || FecBlo[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('MESSA_BLOC2'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecBlo[2].length<4 || FecBlo[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('MESSA_BLOC3'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -562,19 +549,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 		        if(dateStart>dateEnd)
 		        {
-		            Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+scope.fecha_server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+		            Swal.fire({text:$translate('MESSA_BLOC4')+scope.fecha_server+$translate('MESSA_BLOC5'),type:"error",confirmButtonColor:"#188ae2"});					
 		            return false;
 		        }
 		        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];		
 			}
 	 		
 	 	}
-	 	Swal.fire({title:"¿Esta Seguro de Bloquear Esta Comercializadora?",
+	 	Swal.fire({title:$translate('MESSA_BLOC6'),
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
 		cancelButtonColor:"#f34943",
-		confirmButtonText:"Bloquear"}).then(function(t)
+		confirmButtonText:$translate('MESSA_BLOC7')}).then(function(t)
 		{
 	        if(t.value==true)
 	        {
@@ -608,13 +595,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		 	{
 		 		if(opciones_comercializadoras==1)
 		 		{
-		 			var title='Activando.';
-		 			var text='La Comercializadora a sido activada con exito.';
+		 			var title=$translate('MESSA_BLOC8');
+		 			var text=$translate('MESSA_BLOC9');
 		 		}
 		 		if(opciones_comercializadoras==2)
 		 		{
-		 			var title='Bloquear.';
-		 			var text='La Comercializadora a sido bloqueada con exito.';
+		 			var title=$translate('MESSA_BLOC10');
+		 			var text=$translate('MESSA_BLOC11');
 		 			$("#modal_motivo_bloqueo_comercializadora").modal('hide');
 		 		}
 
@@ -626,31 +613,29 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		 	else
 		 	{
 		 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:"No hemos podido actualizar el estatus de la Comercializadora.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:$translate('MESSA_BLOC12'),type:"error",confirmButtonColor:"#188ae2"});
 				scope.cargar_lista_comercializadoras();
 		 	}
 
 		 },function(error)
-		 {
+		 {	
+		 	$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 404.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 401.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error 403.",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
-				Swal.fire({title:"Error 500.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 		 });
 	}
