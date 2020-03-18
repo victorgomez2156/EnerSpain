@@ -73,10 +73,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-briefcase"></i>Registrar Productos</h3>
+            <h3 class="page-header"><i class="fa fa-briefcase"></i>{{ 'SAVE_PRODUC' | translate }}</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-              <li><i class="fa fa-briefcase"></i>Registrar Productos</li>
+              <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>           
+              <li><i class="fa fa-briefcase"></i>{{ 'SAVE_PRODUC' | translate }}</li>
             </ol>
           </div>
         </div>
@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }} <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTProCom" name="CodTProCom" ng-model="vm.productos.CodTProCom" ng-disabled="vm.validate_info_productos!=undefined">
          <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
         </select>
@@ -106,8 +106,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Producto <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.productos.DesPro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Producto" maxlength="50" ng-disabled="vm.validate_info_productos!=undefined"/>       
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'NOM_PROD' | translate }} <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.productos.DesPro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* {{ 'NOM_PROD' | translate }}" maxlength="50" ng-disabled="vm.validate_info_productos!=undefined"/>       
        </div>
        </div>
        </div>
@@ -115,19 +115,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FECH_INI' | translate }} <b style="color:red;">DD/MM/YYYY</b></label>
        <input type="text" class="form-control datepicker" id="FecIniPro" name="FecIniPro" ng-model="vm.FecIniPro" placeholder="* DD/MM/YYYY" maxlength="10" ng-change="vm.validar_fecha(vm.FecIniPro)" ng-disabled="vm.validate_info_productos!=undefined"/>
        </div>
        </div>
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>TIPO DE SUMINISTROS</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIPO_SUM' | translate }}</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS: </label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_GAS' | translate }} </label>
         <input type="checkbox" ng-model="vm.productos.SerGas" ng-disabled="vm.validate_info_productos!=undefined"/>
        </div>
        </div>
@@ -135,7 +135,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO: </label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_ELE' | translate }} </label>
         <input type="checkbox" ng-model="vm.productos.SerEle" ng-disabled="vm.validate_info_productos!=undefined"/>
        </div>
        </div>
@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> {{ 'OBS_COM_BLO' | translate }}</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsPro" name="ObsPro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.productos.ObsPro" ng-disabled="vm.validate_info_productos!=undefined"></textarea>
         
        </div>
@@ -151,10 +151,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodTPro" name="CodTPro" type="hidden" ng-model="vm.productos.CodTPro" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined && vm.validate_info_productos==undefined||vm.productos.CodTPro==null&& vm.validate_info_productos==undefined||vm.productos.CodTPro==''&& vm.validate_info_productos==undefined" ng-disabled="vm.disabled_button==1">REGISTRAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos!=undefined">ACTUALIZAR</button>            
-            <button class="btn btn-warning" type="button" ng-show="vm.validate_info_productos==undefined && vm.productos.CodTPro==undefined" ng-click="vm.limpiar_productos()">LIMPIAR</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()">REGRESAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined && vm.validate_info_productos==undefined||vm.productos.CodTPro==null&& vm.validate_info_productos==undefined||vm.productos.CodTPro==''&& vm.validate_info_productos==undefined" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> {{ 'REGIS' | translate }}</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos!=undefined"><i class="fa fa-save"></i> {{ 'UPDA' | translate }}</button>            
+            <button class="btn btn-warning" type="button" ng-show="vm.validate_info_productos==undefined && vm.productos.CodTPro==undefined" ng-click="vm.limpiar_productos()"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()"><i class="fa fa-arrow-left"></i> {{ 'BACK' | translate }}</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -172,11 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
  </div>
-
-
-
-
-          </section>
+  </section>
         <!--/section-->
         </div>
         </div>

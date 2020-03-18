@@ -160,7 +160,7 @@
             <ul class="sub">            	
               <li><a class="fa fa-user-circle" href="#/{{ 'DAT_BAS_COM' | translate }}"> {{ 'DAT_BAS' | translate }}</a></li>
               <li><a class="fa fa-briefcase" href="#/{{ 'PRODUCTS' | translate }}"> {{ 'PRODUCTS' | translate }}</a></li>
-              <li><a class="fa fa-bullseye" href="#/Anexos"> {{ 'ANNEXES' | translate }}</a></li>
+              <li><a class="fa fa-bullseye" href="#/{{ 'ANNEXES' | translate }}"> {{ 'ANNEXES' | translate }}</a></li>
               <li><a class="fa fa-child" href="#/Servicios_Adicionales"> {{ 'SER_ESP' | translate }}</a></li>         
             </ul>
           </li>

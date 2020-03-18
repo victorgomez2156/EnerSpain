@@ -744,19 +744,19 @@ scope.validar_campos_productos = function()
 		resultado = true;
 		if (!scope.productos.CodTProCom > 0)
 		{
-			Swal.fire({title:"Debe Seleccionar una Comercializadora de la lista.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('search_comer_req'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.productos.DesPro==null || scope.productos.DesPro==undefined || scope.productos.DesPro=='')
 		{
-			Swal.fire({title:"El Campo Nombre del Producto es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('produc_req'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		var FecIniPro1=document.getElementById("FecIniPro").value;
 		scope.FecIniPro=FecIniPro1;
 		if (scope.FecIniPro==null || scope.FecIniPro==undefined || scope.FecIniPro=='')
 		{
-			Swal.fire({title:"El Campo Fecha de Inicio es Requerido.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:$translate('Fec_Ini_Vali'),type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -764,7 +764,7 @@ scope.validar_campos_productos = function()
 			var FecIniPro= (scope.FecIniPro).split("/");
 			if(FecIniPro.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -772,20 +772,20 @@ scope.validar_campos_productos = function()
 			{		
 				if(FecIniPro[0].length>2 || FecIniPro[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 
 				}
 				if(FecIniPro[1].length>2 || FecIniPro[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniPro[2].length<4 || FecIniPro[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -796,7 +796,7 @@ scope.validar_campos_productos = function()
 			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 			    if(dateStart>dateEnd)
 			    {
-			        Swal.fire({title:"Fecha de Inicio",text:"La Fecha de Inicio no puede ser mayor al "+scope.Fecha_Server+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        Swal.fire({title:$translate('FECH_INI'),text:$translate('FECH_INI_1')+scope.Fecha_Server+$translate('FECH_INI_2'),type:"error",confirmButtonColor:"#188ae2"});					
 			        return false;
 			    }
 				scope.productos.FecIniPro=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];			
@@ -823,13 +823,8 @@ scope.validar_campos_productos = function()
 			scope.fecha_bloqueo=numero.substring(0,numero.length-1);
 		}
 	}
-
-
-
 if(scope.nID!=undefined)
 {
 	scope.BuscarxID();
 }
-
-
 }			

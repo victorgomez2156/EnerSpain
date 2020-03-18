@@ -11,87 +11,46 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		$routeProvider
 		//Se debe colocar  para cada uno de los controladores que desea para el acceso todos los formularios
-		.when('/Dashboard/', {
-			templateUrl: 'application/views/view_dashboard.php'
-		})
-		.when('/Tablero/', {
-			templateUrl: 'application/views/view_dashboard.php'
-		})
-		.when('/Comercializadora/', {
-		templateUrl: 'application/views/view_grib_comercializadora.php'
-		})
-		.when('/Marketer/', {
-		templateUrl: 'application/views/view_grib_comercializadora.php'
-		})		
-		.when('/Datos_Basicos_Comercializadora/', {
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Basic_Data_Commercialist/', {
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Datos_Basicos_Comercializadora/:ID',{
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Basic_Data_Commercialist/:ID',{
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Datos_Basicos_Comercializadora/:ID/:INF', {
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Basic_Data_Commercialist/:ID/:INF', {
-		templateUrl: 'application/views/view_comercializadora.php'
-		})
-		.when('/Productos/', 
-		{
-			templateUrl: 'application/views/view_grib_productos.php'
-		})
-		.when('/Products/', 
-		{
-			templateUrl: 'application/views/view_grib_productos.php'
-		})
-		.when('/Add_Productos/', 
-		{
-			templateUrl: 'application/views/view_add_productos.php'
-		})
-		.when('/Add_Products/', 
-		{
-			templateUrl: 'application/views/view_add_productos.php'
-		})
-		.when('/Edit_Productos/:ID',
-		{
-			templateUrl: 'application/views/view_add_productos.php'
-		})
-		.when('/Edit_Products/:ID',
-		{
-			templateUrl: 'application/views/view_add_productos.php'
-		})
-		.when('/Ver_Productos/:ID/:INF', {
-			templateUrl: 'application/views/view_add_productos.php'
-		})
-		.when('/See_Products/:ID/:INF', {
-			templateUrl: 'application/views/view_add_productos.php'
-		})
+		.when('/Dashboard/', {templateUrl: 'application/views/view_dashboard.php'})
+		.when('/Tablero/', {templateUrl: 'application/views/view_dashboard.php'})
+		
+		.when('/Comercializadora/',{templateUrl: 'application/views/view_grib_comercializadora.php'})
+		.when('/Marketer/', {templateUrl: 'application/views/view_grib_comercializadora.php'})		
+		.when('/Datos_Basicos_Comercializadora/', {templateUrl: 'application/views/view_comercializadora.php'})
+		.when('/Basic_Data_Commercialist/', {templateUrl: 'application/views/view_comercializadora.php'})
+		.when('/Datos_Basicos_Comercializadora/:ID',{templateUrl: 'application/views/view_comercializadora.php'})
+		.when('/Basic_Data_Commercialist/:ID',{templateUrl: 'application/views/view_comercializadora.php'})
+		.when('/Datos_Basicos_Comercializadora/:ID/:INF', {templateUrl: 'application/views/view_comercializadora.php'})
+		.when('/Basic_Data_Commercialist/:ID/:INF', {templateUrl: 'application/views/view_comercializadora.php'})
+
+		.when('/Productos/',{templateUrl: 'application/views/view_grib_productos.php'})
+		.when('/Products/', {templateUrl: 'application/views/view_grib_productos.php'})
+		.when('/Add_Productos/',{templateUrl: 'application/views/view_add_productos.php'})
+		.when('/Add_Products/',{templateUrl: 'application/views/view_add_productos.php'})
+		.when('/Edit_Productos/:ID',{templateUrl: 'application/views/view_add_productos.php'})
+		.when('/Edit_Products/:ID',{templateUrl: 'application/views/view_add_productos.php'})
+		.when('/Ver_Productos/:ID/:INF',{templateUrl: 'application/views/view_add_productos.php'})
+		.when('/See_Products/:ID/:INF', {templateUrl: 'application/views/view_add_productos.php'})
+
+
+		.when('/Anexos/',{templateUrl: 'application/views/view_grib_anexos.php'})
+		.when('/Annexes/',{templateUrl: 'application/views/view_grib_anexos.php'})
+		
+		
+		.when('/Add_Anexos/', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/Add_Annexes/', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/Edit_Anexos/:ID', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/Edit_Annexes/:ID', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/Ver_Anexos/:ID/:INF', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/See_Annexes/:ID/:INF', {templateUrl: 'application/views/view_add_anexos.php'})
+		.when('/Comisiones_Anexos/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro',
+			{templateUrl: 'application/views/view_add_comisiones_anexos.php'})
+		.when('/Commissions_Annexes/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro',
+			{templateUrl: 'application/views/view_add_comisiones_anexos.php'})
 
 
 
 
-
-
-		.when('/Anexos/', {
-		templateUrl: 'application/views/view_grib_anexos.php'
-		})
-		.when('/Add_Anexos/', {
-		templateUrl: 'application/views/view_add_anexos.php'
-		})
-		.when('/Edit_Anexos/:ID', {
-		templateUrl: 'application/views/view_add_anexos.php'
-		})
-		.when('/Ver_Anexos/:ID/:INF', {
-		templateUrl: 'application/views/view_add_anexos.php'
-		})
-		.when('/Comisiones_Anexos/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro', {
-		templateUrl: 'application/views/view_add_comisiones_anexos.php'
-		})
 		.when('/Servicios_Adicionales/', {
 		templateUrl: 'application/views/view_grib_servicios_especiales.php'
 		})
@@ -306,209 +265,8 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			
 			redirectTo: '/Dashboard'
 		});
+		$translateProvider.translations('sp',{});	
 
-		$translateProvider.translations('sp', 
-		{	
-			'LogOut':'Cerrar Sesión',			
-			'LoadView':'Cargando Vista, Por Favor Espere...',
-			'DASHBOARD':'Tablero',
-			'Designed':'Diseñado Por ',
-
-			'CARGA_DAT':'Cargando Datos, Por Favor Espere...',
-			'Add_Columns':'Agregar Columnas',
-			'Ex_Reports':'Generar Reportes',
-			'FILTRO':'Filtros',
-			'Sin_Data':'Actualmente no hay datos disponibles.',
-			'RAZ_SOC':'Razón Social',
-			'NOM_COM':'Nombre Comecial',
-			'DIRECCION':'Dirección',
-			'PROVINCIA':'Provincia',
-			'LOCALIDAD':'Localidad',
-			'TELEFONO':'Teléfono',
-			'EMAIL':'Correo Eléctronico',
-			'ESTATUS':'Estatus',
-			'DESCRIPCION':'Descripción',
-			'ACCION':'Ación',
-			'PDF':'Exportar en PDF',
-			'EXCEL':'Exportar en Excel',
-			
-			'FILTRO_SEARCH':'Escribe para filtrar...',
-			'VER':'Ver',
-			'EDITAR':'Editar',
-			'ACTIVAR':'Activar',
-			'BLOQUEAR':'Bloquear',
-			'RELOAD':'Refrescar',
-			'TIP_SER':'Tipos de Servicios',
-			'SER_GAS':'Servicio Gas',
-			'SER_ELE':'Servicio Eléctrico',
-			'ESP_SER':'Servicios Adicionales',
-			'MOT_BLO_COM_MODAL':'Motivo de Bloqueo',
-			'FEC_BLO_COM_MODAL':'Fecha de Bloqueo',
-			'OBS_COM_BLO':'Observación',
-			'BUTTON_COM_BLO':'Bloquear',
-			'BUTTON_COM_REG':'Regresar',
-			'tip_fil_modal':'Tipos de Filtro',
-			'tip_fil1_modal':'TIPO DE FILTROS',
-			'si_modal':'Si',
-			'no_modal':'No',
-			'app_modal':'Aplicar',
-			'lim_modal':'Limpiar',
-			'module_data':'Cargando datos del Modulo, Por Favor Espere...',			
-			'FECH_INI':'Fecha de Inicio',
-			'DIST_SOC':'Distinto a Razón Social',
-			'TIP_VIA':'Tipo de Vía',
-			'NOM_VIA':'Nombre de la Vía',
-			'NUM_VIA':'Número de Vía',
-			'BLOQUE':'Bloque',
-			'ESCALERA':'Escalera',
-			'PLANTA':'Planta',
-			'PUERTA':'Puerta',
-			'ZON_POST':'Zona Postal',
-			'TEL_FIJ':'Teléfono Fijo',
-			'CAR_PER_CON':'Cargo Persona Contacto',
-			'PAG_WEB':'Página Web',
-			'SUM_ELE':'SUMINISTRO ELÉCTRICO',
-			'SUM_GAS':'SUMINISTRO GAS',
-			'SUM_ADI':'SERVICIOS ADICIONALES',
-			'PERS_CONT':'Persona de Contacto',
-			'FOT_CONT':'Fotocopia del Contrato',
-			'DOWN_CONT':'Descargar Documento',
-			'FEC_CONT':'Fecha Contrato',
-			'DUR':'Duración',
-			'VENCI':'Vencimiento',			
-			'RENEW':'Renovación Automatica',
-			'REGIS':'Guardar',
-			'UPDA':'Actualizar',
-			'BACK':'Regresar',
-			'CAL_ANO':'La fecha de vencimiento no puede ser inferior a la fecha de inicio.',
-			'CAL_ANO_MAY':'El tiempo mínimo del contrato debe ser de 1 año en adelante.',
-			'SAVE':'Guardando',
-			'TEXT_SAVE':'¿Estás seguro de ingresar este nuevo registro?',			
-			'UPDATE':'Actualizando',
-			'TEXT_UPDATE':'¿Estás seguro de actualizar este registro?',			
-			'ERROR_FILE':"Formato incorrecto, solo se permiten archivos PDF, JPG o PNG.",
-			'ERROR_SAVE':"Se ha producido un error durante el proceso. Vuelva a intentarlo.",
-
-			'text_back_save':"¿Estás seguro de volver y no guardar los datos?",
-			'text_back_update':"¿Estás seguro de volver y no actualizar los datos?",
-			'NO_FOUND_MAR_ID':'No hemos encontrado ningún dato relacionado con este código.',
-
-			'Fec_Ini_Vali':'El Campo Fecha de Inicio es Obligatorio.',
-			'format_fec_ini':'El Formato de la fecha de inicio debe ser EJ: DD / MM / AAAA.',
-			'format_fec_ini_dia':'Corrija que el formato del día en la fecha de inicio debe ser solo de 2 números. EJ: 01',
-			'format_fec_ini_mes':'Corrija que el formato del mes de la fecha de inicio debe ser solo de 2 números. EJ: 01',
-			'format_fec_ini_ano':'Corrija el formato del año en la fecha de inicio, ya que debe haber solo 4 números. EJ: 1999',
-			'FECH_INI_1':'La fecha de inicio no puede ser mayor que ',
-			'FECH_INI_2':" Verifique y intente nuevamente.",
-
-			
-			'RAZ_SOC_REQ':"El Campo Razón Social es Obligatorio.",
-			'NOM_SOC_REQ':"El Campo Nombre Comercial es Obligatorio.",
-			'TIP_VIA_REQ':"Debe Seleccionar un Tipo de Vía de la Lista.",
-			'NOM_VIA_REQ':"El Campo Nombre de Vía es Obligatorio.",
-			'NUM_VIA_REQ':"El Campo Número de Vía es Obligatorio.",
-			'PROVI_REQ':"Debe Seleccionar una Provincia de la Lista.",
-			'LOC_REQ':"Debe Seleccionar una Localidad de la Lista.",
-			'TEL_REQ':"El Campo Teléfono es Obligatorio",
-			'EMAIL_REQ':"El Campo Correo Eléctronico es Obligatorio.",
-			'PER_CON_REQ':"El Campo Persona de Contacto es Obligatorio.",
-			'CAR_PER_REQ':"El Cargo de La Persona es Obligatorio.",
-
-			'FecComCom':"El formato de fecha del contrato debe ser EJ: DD / MM / AAAA.",
-			'FecComComDay':"Corrija que el formato del día en la fecha del contrato debe ser solo de 2 números. EJ: 01",
-			'FecComComMonth':"Corrija que el formato del mes de la fecha del contrato debe ser solo de 2 números. EJ: 01",
-			'FecComComYear':"Corrija el formato del año en la fecha del contrato, ya que solo debe haber 4 números. EJ: 1999",		
-			
-			'FecVenConCom':"El formato de fecha de vencimiento debe ser EJ: DD / MM / AAAA.",
-			'FecVenConDay':"Corrija que el formato del día en la fecha de vencimiento debe ser solo de 2 números. EJ: 01",		
-			'FecVenConMonth':"Corrija que el formato del mes de la fecha de vencimiento debe ser solo de 2 números. EJ: 01",
-			'FecVenConYear':"Corrija el formato del año en la fecha de vencimiento, ya que solo debe haber 4 números. EJ: 1999",
-
-			'ACTIVA':'Activa',
-			'BLOQUEADA':'Bloqueada',
-			
-			'DAT_BAS_COM':'Datos_Basicos_Comercializadora',
-			'ADD_COM':'Agregar Comercializadora',			
-			'MARKETER_NOBD':'No hemos encontrado Comercializadora registradas actualmente.',
-			'MARKE_ACTI':'Esta Comercializadora ya está encuentra activa.',
-			'ACTI_MARKE':'¿Estás seguro de activar esta Comercializadora?',
-			'MARKETER_SAVE':'Registro de Comercializadora',
-			'MARKETER_UPDATE':'Actualización de Comercializadora',
-			'MARKETER_DATA':'Datos Basicos de la Comercializadora:',
-			'CIF_EMPTY':'El Número CIF no puede estar vacío.',
-			'TITLE_CIF_REGISTER':'Registrando Comercializadora.',
-			'TEXT_CIF_REGISTER':'La Comercializadora ya se encuentra registrada.',
-			'MARKE_BLOC':'Ya está Comercializadora se encuentra bloqueada.',
-			'MOT_BLO_EMPTY_COME':'No hemos encontrado motivos para bloquear la Comercializadora, por lo que no pueden continuar con esta operación.',
-			'list_comer':'Cargando lista de Comercializadoras, Por Favor Espere...',
-			'delete_cli':'Borrando Comercializadora, Por Favor Espere...',
-			'SAVE_MAR':'Guardando Comercializadora, Por Favor Espere...',			
-			'UPDATE_MAR':'Actualizando Comercializadora, Por Favor Espere...',
-			'RESPONSE_SAVE_MARKET':'Comercializadora registrada correctamente.',
-			'RESPONSE_UPDATE_MARKET':'Comercializadora modificada correctamente.',
-
-			'NO_FOUND1':'No tiene acceso al Controlador de configuración general.',
-			'NO_FOUND':'El método que está intentando usar no se puede localizar.',
-			'UNAUTHORIZED':'Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.',
-			'FORBIDDEN':'Está intentando utilizar una APIKEY no válida.',
-			'INTERNAL_ERROR':'Actualmente estamos experimentando fallas en el servidor, intente nuevamente más tarde.',		
-			
-			'FEC_BLOC':'El campo de fecha de bloqueo no puede estar vacío.',
-			'MESSA_BLOC':'El formato de fecha de bloqueo debe ser EJ: DD / MM / AAAA',
-			'MESSA_BLOC1':"Corrija que el formato del día en la fecha de bloqueo debe ser solo de 2 números. EJ: 01",
-			'MESSA_BLOC2':"Corrija que el formato del mes de la fecha de bloqueo debe ser solo de 2 números. EJ: 01",
-			'MESSA_BLOC3':"Corrija el formato del año en la fecha de bloqueo, ya que solo debe haber 4 números. EX: 1999",		
-
-			'MESSA_BLOC4':"La fecha de bloqueo no puede ser mayor que ",
-			'MESSA_BLOC5':" Verifique He intente nuevamente.",
-			'MESSA_BLOC6':"¿Estás seguro de bloquear esta Comercializadora?",
-			'MESSA_BLOC7':"Bloquear",
-			'MESSA_BLOC8':"Activando",
-			'MESSA_BLOC9':"La Comercializadora ha sido activada correctamente.",
-			'MESSA_BLOC10':"Bloqueando",
-			'MESSA_BLOC11':'La Comercializadora ha sido bloqueada correctamente.',
-			'MESSA_BLOC12':"No hemos podido actualizar el estado de la Comercializadora.",
-			'BLO_COM_MODAL':' Bloqueando Comercializadora',
-			'RAZ_COM_MODAL':'Razón Social Comercializadora',
-	
-			'con_cif_modal':'Ingrese Número de CIF:',
-			'cif_con_modal':'Número de CIF',
-			'button_con_modal':'Consultar',	
-			
-			'validate_cif':'Verificando Número de CIF, Por Favor Espere...',
-
-			///// side menu start /////
-			'MARKETER':'Comercializadora',
-			'DAT_BAS':'Datos Basicos',
-			'PRODUCTS':'Productos',
-			'ANNEXES':'Anexos',
-			'SER_ESP':'Ser. Adicionales',
-
-			'CUSTOMERS':'Clientes',			
-			'Exercise':'Actividades',
-			'Supplies_Dir':'Dir. Suministros',
-			'Contacts':'Contactos',
-			'Bank_Accounts':'Cuentas Bancarias',
-			'Documents':'Documentos',
-			'Manage_CUPs':'Gestionar CUPs',
-
-			'Reports':'Reportes',
-			'Collaborators':'Colaboradores',
-
-			'Configurations':'Configuraciones',			
-			'Distributor':'Distribudora',
-			'Rates':'Tarifas',
-			'Commercial':'Comercial',
-			'Types':'Tipos',
-			'Reasons':'Motivos',
-			///// side menu end /////
-
-			'TITLE_CLOSE_SESSION':'Cerrar Sesión',
-			'Users':'Estimado Usuario: ',
-			'UsersConti':' Desea Cerrar su Sesión',
-				
-		});
-		
 		$translateProvider.translations('en', 
 		{
 			'LogOut':'Sign Off',			
@@ -516,11 +274,17 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'DASHBOARD':'Dashboard',
 			'Designed':'Designed By ',
 
-			'CARGA_DAT':'Loading Data, Please Wait...',
 			'Add_Columns':'Add Columns',
 			'Ex_Reports':'Generate Reports',
 			'FILTRO':'Filters',
+			'PDF':'Export in PDF',
+			'EXCEL':'Export in Excel',			
+			'FILTRO_SEARCH':'Write to Filter...',
+			
 			'Sin_Data':'Currently no data available.',
+			'CARGA_DAT':'Loading Data, Please Wait...',
+			'module_data':'Loading Module Data, Please Wait...',
+
 			'RAZ_SOC':'Business Name',
 			'NOM_COM':'Tradename',
 			'DIRECCION':'Address',
@@ -531,15 +295,30 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'ESTATUS':'Status',
 			'DESCRIPCION':'Description',
 			'ACCION':'Action',
-			'PDF':'Export in PDF',
-			'EXCEL':'Export in Excel',
+			'DIST_SOC':'Other than Company Name',
+			'TIP_VIA':'Type of road',
+			'NOM_VIA':'Name of the road',
+			'NUM_VIA':'Road number',
+			'BLOQUE':'Block',
+			'ESCALERA':'Stairs',
+			'PLANTA':'Plant',
+			'PUERTA':'Door',
+			'ZON_POST':'Postal Code',
+			'TEL_FIJ':'Landline',			
 			
-			'FILTRO_SEARCH':'Write to Filter...',
 			'VER':'See',
 			'EDITAR':'Edit',
 			'ACTIVAR':'Activate',
-			'BLOQUEAR':'To Block',
+			'BLOQUEAR':'To Block',			
 			'RELOAD':'Reload',
+			
+			'REGIS':'Save',
+			'UPDA':'Update',
+			'BACK':'Return',
+			'lim_modal':'Clean',
+
+			'FECH_INI':'Start Date',
+
 			'TIP_SER':'Type of Services',
 			'SER_GAS':'Gas Service',
 			'SER_ELE':'Electric Service',
@@ -553,35 +332,28 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'tip_fil1_modal':'FILTER TYPE',
 			'si_modal':'Yes',
 			'no_modal':'Don´t',
-			'app_modal':'Apply',
-			'lim_modal':'Clean',
-			'module_data':'Loading Module Data, Please Wait...',			
-			'FECH_INI':'Start date',
-			'DIST_SOC':'Other than Company Name',
-			'TIP_VIA':'Type of road',
-			'NOM_VIA':'Name of the road',
-			'NUM_VIA':'Road number',
-			'BLOQUE':'Block',
-			'ESCALERA':'Stairs',
-			'PLANTA':'Plant',
-			'PUERTA':'Door',
-			'ZON_POST':'Postal Code',
-			'TEL_FIJ':'Landline',
+			'app_modal':'Apply',		
+
+
 			'CAR_PER_CON':'Position Person Contact',
-			'PAG_WEB':'Web page',
+			'PAG_WEB':'Web Page',
 			'SUM_ELE':'ELECTRICAL SUPPLY',
 			'SUM_GAS':'GAS SUPPLY',
 			'SUM_ADI':'ADDITIONAL SERVICES',
-			'PERS_CONT':'Contact Person',
+			'PERS_CONT':'Contact Person',			
 			'FOT_CONT':'Photocopy of the Contract',
 			'DOWN_CONT':'Download Document',
+			
+			'TAR_ACC_GAS':'GAS ACCESS RATE',
+			'HIG_TENS':'High Voltage',
+			'DOW_TENS':'Low Voltage',
+			'TAR_ACC_ELE':'ELECTRICAL ACCESS RATE',
+
 			'FEC_CONT':'Contract Date',
 			'DUR':'Duration',
 			'VENCI':'Expiration',			
 			'RENEW':'Automatic renewal',
-			'REGIS':'Save',
-			'UPDA':'Update',
-			'BACK':'Return',
+
 			'CAL_ANO':'The expiration date cannot be less than the start date.',
 			'CAL_ANO_MAY':'The Minimum Time of the contract must be from 1 year onwards.',
 			'SAVE':'Saving',
@@ -590,9 +362,10 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'TEXT_UPDATE':'Are you sure to update this record?',			
 			'ERROR_FILE':"Wrong format only PDF, JPG or PNG files are allowed.",
 			'ERROR_SAVE':"An error has occurred during the process please try again.",
-
+			
 			'text_back_save':"Are you sure to go back and not save the data?",
 			'text_back_update':"Are you sure to go back and not update the data?",
+			
 			'NO_FOUND_MAR_ID':'We have not found any data related to this code.',
 
 			'Fec_Ini_Vali':'The Start Date Field is Required.',
@@ -626,28 +399,18 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'FecVenConYear':"Please Correct the Format of the year on the Expiration Date as there must be 4 numbers only. EJ: 1999",
 		
 			'ACTIVA':'Active',
-			'BLOQUEADA':'Blocked Up',
-			
-			'DAT_BAS_COM':'Basic_Data_Commercialist',
-			'ADD_COM':'Add Marketer',			
-			'MARKETER_NOBD':'We Have Not Found Currently Registered Marketers.',
-			'MARKE_ACTI':'This Marketers is Already Active.',
-			'ACTI_MARKE':'¿Are You Sure To Activate This Marketer?',
-			'MARKETER_SAVE':'Marketer Registration',
-			'MARKETER_UPDATE':'Marketer Data Update',
-			'MARKETER_DATA':'Marketing Company Basic Data:',
-			'CIF_EMPTY':'The CIF Number Cannot Be Empty.',
-			'TITLE_CIF_REGISTER':'Registered Marketer.',
-			'TEXT_CIF_REGISTER':'The Marketers is Already Registered.',
-			'MARKE_BLOC':'¿This Marketer Is Already Blocked?',
-			'MOT_BLO_EMPTY_COME':'We have not found reasons to block the trading companies, so they cannot continue with this operation.',
-			'list_comer':'Loading list of Marketers, Please Wait...',
-			'delete_cli':'Deleting Marketer, Please Wait...',
-			'SAVE_MAR':'Saving Marketer, Please Wait...',			
-			'UPDATE_MAR':'Updating Marketer, Please Wait ...',
-			'RESPONSE_SAVE_MARKET':'Successfully registered marketer',
-			'RESPONSE_UPDATE_MARKET':'Successfully modified marketer',
+			'BLOQUEADA':'Blocked Up',			
+			'RAZ_COM_MODAL':'Trading Company Name',
+			'MESSA_BLOC7':"To Block",
 
+			'MESSA_BLOC8':"Activating",
+			'MESSA_BLOC10':"Blocking",	
+
+			'con_cif_modal':'Enter CIF Number:',
+			'cif_con_modal':'CIF number',
+			'validate_cif':'Checking CIF Number, Please Wait...',
+			'button_con_modal':'Check',				
+			
 			'NO_FOUND1':'You do not have access to the General Settings Controller.',
 			'NO_FOUND':'The method you are trying to use cannot be located.',
 			'UNAUTHORIZED':'Excuse me, the current user does not have permissions to enter this module.',
@@ -661,22 +424,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'MESSA_BLOC3':"Please Correct the Format of the year on the Block Date as there must be 4 numbers only. EX: 1999",
 			
 			'MESSA_BLOC4':"The Block Date cannot be greater than ",
-			'MESSA_BLOC5':" Please verify I have tried again.",
-			'MESSA_BLOC6':"¿Are You Sure to Block This Marketers?",
-			'MESSA_BLOC7':"To Block",
-			'MESSA_BLOC8':"Activating",
-			'MESSA_BLOC9':"The Marketer has been successfully activated.",
-			'MESSA_BLOC10':"Blocking",
-			'MESSA_BLOC11':'The Marketer has been successfully blocked.',
-			'MESSA_BLOC12':"We have not been able to update the status of the Marketers.",
-			'BLO_COM_MODAL':' Marketing Blocker',
-			'RAZ_COM_MODAL':'Trading Company Name',
-		
-			'con_cif_modal':'Enter CIF Number:',
-			'cif_con_modal':'CIF number',
-			'button_con_modal':'Check',
-		
-			'validate_cif':'Checking CIF Number, Please Wait...',
+			'MESSA_BLOC5':" Please verify I have tried again.",			
 
 			///// side menu start /////
 			'MARKETER':'Marketer',
@@ -687,7 +435,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 
 			'CUSTOMERS':'Customers',			
 			'Exercise':'Exercise',
-			'Supplies_Dir':'Supplies Dir',
+			'Supplies_Dir':'Supplies Add.',
 			'Contacts':'Contacts',
 			'Bank_Accounts':'Bank Accounts',
 			'Documents':'Documents',
@@ -707,9 +455,48 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'TITLE_CLOSE_SESSION':'Sign Off',
 			'Users':'Dear user: ',
 			'UsersConti':' You want to log out',
+			'ACTIVO':'Active',
+			'BLOQUEADO':'Locked',
+			'TIPO_SUM':'Type Of Supplies',
+			'NOM_PROD':'Product Name',
+			'search_comer_req':'You must Select a Marketer from the list.',
+			'search_prod_req':'You must Select a Products from the list.',
+			'search_tip_ser_req':'You must select a type of service.',
+			'select_item':'Select an Item from the List.',
+			'select_com_req':'You Must Select A Commission Type.',
 
+			'produc_req':'The Product Name Field is Required.',
+			'COMISION':'Commissions',
+
+			/////COMERCIALIZADORA START ////
+			'DAT_BAS_COM':'Basic_Data_Commercialist',
+			'ADD_COM':'Add Marketer',			
+			'MARKETER_NOBD':'We Have Not Found Currently Registered Marketers.',
+			'MARKE_ACTI':'This Marketers is Already Active.',
+			'ACTI_MARKE':'¿Are You Sure To Activate This Marketer?',
+			'MARKETER_SAVE':'Marketer Registration',
+			'MARKETER_UPDATE':'Marketer Data Update',
+			'MARKETER_DATA':'Marketing Company Basic Data:',
+			'CIF_EMPTY':'The CIF Number Cannot Be Empty.',
+			'TITLE_CIF_REGISTER':'Registered Marketer.',
+			'TEXT_CIF_REGISTER':'The Marketers is Already Registered.',
+			'MARKE_BLOC':'¿This Marketer Is Already Blocked?',
+			'MOT_BLO_EMPTY_COME':'We have not found reasons to block the trading companies, so they cannot continue with this operation.',
+			'list_comer':'Loading list of Marketers, Please Wait...',
+			'delete_cli':'Deleting Marketer, Please Wait...',
+			'SAVE_MAR':'Saving Marketer, Please Wait...',			
+			'UPDATE_MAR':'Updating Marketer, Please Wait ...',
+			'RESPONSE_SAVE_MARKET':'Successfully registered marketer',
+			'RESPONSE_UPDATE_MARKET':'Successfully modified marketer',
+			'MESSA_BLOC6':"¿Are You Sure to Block This Marketers?",			
+			'MESSA_BLOC9':"The Marketer has been successfully activated.",						
+			'MESSA_BLOC11':'The Marketer has been successfully blocked.',
+			'MESSA_BLOC12':"We have not been able to update the status of the Marketers.",
+			'BLO_COM_MODAL':' Marketing Blocker',
+			/////COMERCIALIZADORA END ////
+
+			
 			////// PARA PRODUCTOS START////////
-
 			'TITLE_PRODUCTS':'Add Products',
 			'RUT_PRODUCTS':'Add_Products',
 			'BLOC_PRODUC':'Product Blocking',
@@ -725,13 +512,59 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'PRODUCT_BLOCK_TEXT':'This Product is already blocked.',
 			'TEXT_SAVE_PRODUCTS':'Product successfully registered.',
 			'TEXT_UPDATE_PRODUCTS':'Product successfully modified.',
-
-
-			'ACTIVO':'Active',
-			'BLOQUEADO':'Locked',
-
-
+			'SAVE_PRODUC':'Register Products',
+			'UPDATE_PRODUCT':'Updating Products',
 			////// PARA PRODUCTOS END////////
+
+			////// PARA ANEXOS START////////
+			'DESC_ANNEX':'Description Annex',
+			'TIP_PRICE':'Type Price',
+			'TIP_PRICE_FIJ':'PERMANENT',
+			'TIP_PRICE_INDEX':'INDEXED',
+			'TIP_COM':'Commission Type',
+			'List_Anex':'Loading Annex List, Please Wait...',
+			'BLO_ANNE':'Annexed Lock',
+			'ADD_ANNEX':'Add Annexes',
+			'acti_annex':'This Annexed is already active.',
+			'select_status':'You Must Select A Status.',
+			'MESSA_TEXT_ACT_ANE':'Are You Sure to Activate This Annexed?',
+			'MESSA_TEXT_BLO_ANE':'This Annexed is already blocked.',
+			'TEXT_BLO_ANNEX':'Are you sure to block the Annexed.',
+			'TEXT_ACT_ANNEX_RESPONSE':'The Annex has been successfully activated.',
+			'TEXT_BLO_ANNEX_RESPONSE':'The Annex has been successfully Blocked.',
+			'error_update_anex':'We were unable to process the status of the Annexed.',
+			'NO_DATA_ANENNE':'We have not found Registered Annexed.',			
+			'TEXT_SAVE_RESPONSE_ANE':'Annex successfully registered.',
+			'TEXT_UPDATE_RESPONSE_ANE':'Annex updated correctly.',
+			'SAVE_ANE':'Saving Annex, Please Wait...',
+			'UPDATE_ANE':'Updating Annex, Please Wait...',
+
+			'FOT_ANNEX':'Photocopy of the Annex',
+			
+			'nom_anex_req':'The name of the annex is required.',
+			'SER_ELE_REQ':'You must Select at least one Supply Type. Electric, Gas or Both.',	
+			'SER_ELE_TAR_REQ':'You must select at least one Electric Service Rate, Low or High Voltage.',
+			'SER_GAS_TAR_REQ':'You must select at least one Gas Rate.'	,
+			'TIP_PRICE_REQ':'You must select a price type. Fixed, Indexed or Both.'	,
+			'TIP_COM_REQ':'You must Select a Commission Type from the list.'	,
+
+
+			'SEE_ANNEXES':'See_Annexes',
+			'EDIT_ANNEXES':'Edit_Annexes',
+			'COMI_ANNEXES':'Commissions_Annexes',
+			/*
+			
+			
+			'TEXT_PRODUCTS_ACT':'The Product has been successfully activated.',
+			'TEXT_PRODUCTS_BLO':'The Product has been successfully blocked.',
+			'PRODUCT_ACTIVE':'This Product is already active.',
+			'PRODUCT_ACTIVE_TEXT':'Are you sure to activate this product?',
+			'PRODUCT_BLOCK_TEXT':'This Product is already blocked.',
+			'TEXT_SAVE_PRODUCTS':'Product successfully registered.',
+			'TEXT_UPDATE_PRODUCTS':'Product successfully modified.',
+			'SAVE_PRODUC':'Register Products',
+			'UPDATE_PRODUCT':'Updating Products',*/
+			////// PARA ANEXOS END////////
 
 
 

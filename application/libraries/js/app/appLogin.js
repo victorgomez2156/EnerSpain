@@ -42,14 +42,14 @@ var app = angular.module('appLogin', ['checklist-model','ngResource','ngCookies'
 			'TITLE':"Application for the Management of Energy Services"
 
 		});		
-		$translateProvider.preferredLanguage('sp');
+		$translateProvider.preferredLanguage('en');
 		
 
 }).run(function run( $http, $cookies , netTesting)
 {
  	if($cookies.get('idioma')==undefined)
  	{
- 		$cookies.put('idioma','sp');
+ 		$cookies.put('idioma','en');
  	}
  	
 });
