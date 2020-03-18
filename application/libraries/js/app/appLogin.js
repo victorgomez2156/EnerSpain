@@ -45,11 +45,15 @@ var app = angular.module('appLogin', ['checklist-model','ngResource','ngCookies'
 		$translateProvider.preferredLanguage('en');
 		
 
-}).run(function run( $http, $cookies , netTesting)
+}).run(function run( $http, $cookies , netTesting,$translate)
 {
  	if($cookies.get('idioma')==undefined)
  	{
  		$cookies.put('idioma','en');
+ 	}
+ 	else
+ 	{
+ 		$translate.uses($cookies.get('idioma'));
  	}
  	
 });

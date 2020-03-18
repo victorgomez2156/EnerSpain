@@ -32,11 +32,8 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Ver_Productos/:ID/:INF',{templateUrl: 'application/views/view_add_productos.php'})
 		.when('/See_Products/:ID/:INF', {templateUrl: 'application/views/view_add_productos.php'})
 
-
 		.when('/Anexos/',{templateUrl: 'application/views/view_grib_anexos.php'})
 		.when('/Annexes/',{templateUrl: 'application/views/view_grib_anexos.php'})
-		
-		
 		.when('/Add_Anexos/', {templateUrl: 'application/views/view_add_anexos.php'})
 		.when('/Add_Annexes/', {templateUrl: 'application/views/view_add_anexos.php'})
 		.when('/Edit_Anexos/:ID', {templateUrl: 'application/views/view_add_anexos.php'})
@@ -48,145 +45,51 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.when('/Commissions_Annexes/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro',
 			{templateUrl: 'application/views/view_add_comisiones_anexos.php'})
 
+		.when('/Servicios_Adicionales/',{templateUrl: 'application/views/view_grib_servicios_especiales.php'})
+		.when('/Additional_Services/',{templateUrl: 'application/views/view_grib_servicios_especiales.php'})
+		.when('/Add_Servicios_Adicionales/', {templateUrl: 'application/views/view_add_servicios_especiales.php'})
+		.when('/Add_Additional_Services/', {templateUrl: 'application/views/view_add_servicios_especiales.php'})
+		.when('/Edit_Servicios_Adicionales/:ID',{templateUrl: 'application/views/view_add_servicios_especiales.php'})
+		.when('/Edit_Additional_Services/:ID',{templateUrl: 'application/views/view_add_servicios_especiales.php'})		
+		.when('/Ver_Servicios_Adicionales/:ID/:INF',{templateUrl: 'application/views/view_add_servicios_especiales.php'})
+		.when('/See_Additional_Services/:ID/:INF',{templateUrl: 'application/views/view_add_servicios_especiales.php'})		
+		.when('/Comisiones_Servicios_Adicionales/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp',{
+			templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php'})
+		.when('/Commissions_Additional_Services/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp',{
+		templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php'})
 
+		.when('/Clientes/',{templateUrl: 'application/views/view_grib_clientes.php'})
+		.when('/Datos_Basicos_Clientes/', {templateUrl: 'application/views/view_datos_basicos_clientes.php'})		
+		.when('/Edit_Datos_Basicos_Clientes/:ID', {templateUrl: 'application/views/view_datos_basicos_clientes.php'})
+		.when('/Edit_Datos_Basicos_Clientes/:ID/:INF', {templateUrl: 'application/views/view_datos_basicos_clientes.php'})
+		
 
-
-		.when('/Servicios_Adicionales/', {
-		templateUrl: 'application/views/view_grib_servicios_especiales.php'
-		})
-		.when('/Add_Servicios_Adicionales/', {
-		templateUrl: 'application/views/view_add_servicios_especiales.php'
-		})
-		.when('/Edit_Servicios_Adicionales/:ID', {
-		templateUrl: 'application/views/view_add_servicios_especiales.php'
-		})
-		.when('/Ver_Servicios_Adicionales/:ID/:INF', {
-		templateUrl: 'application/views/view_add_servicios_especiales.php'
-		})
-		.when('/Comisiones_Servicios_Adicionales/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp', {
-		templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php'
-		})
-
-
-
-		.when('/Datos_Basicos_Clientes/', {
-		templateUrl: 'application/views/view_datos_basicos_clientes.php'
-		})		
-		.when('/Edit_Datos_Basicos_Clientes/:ID', {
-		templateUrl: 'application/views/view_datos_basicos_clientes.php'
-		})
-		.when('/Edit_Datos_Basicos_Clientes/:ID/:INF', {
-		templateUrl: 'application/views/view_datos_basicos_clientes.php'
-		})
-		.when('/Actividades/', {
-		templateUrl: 'application/views/view_grib_actividad.php'
-		})	
-		.when('/Add_Actividades/', {
-		templateUrl: 'application/views/view_add_actividad.php'
-		})	
-		.when('/Puntos_Suministros/', {
-		templateUrl: 'application/views/view_grib_punto_suministros.php'
-		})
-		.when('/Add_Puntos_Suministros/', {
-		templateUrl: 'application/views/view_add_punto_suministros.php'
-		})
-		.when('/Edit_Punto_Suministros/:ID', {
-		templateUrl: 'application/views/view_add_punto_suministros.php'
-		})
-		.when('/Edit_Punto_Suministros/:ID/:INF', {
-		templateUrl: 'application/views/view_add_punto_suministros.php'
-		})
-		.when('/Contactos/', {
-		templateUrl: 'application/views/view_grib_contactos.php'
-		})
-		.when('/Add_Contactos/', {
-		templateUrl: 'application/views/view_add_contactos.php'
-		})
-		.when('/Edit_Contactos/:ID', {
-		templateUrl: 'application/views/view_add_contactos.php'
-		})
-		.when('/Edit_Contactos/:ID/:INF', {
-		templateUrl: 'application/views/view_add_contactos.php'
-		})
-		.when('/Contacto_Otro_Cliente/:NIFConCli', {
-		templateUrl: 'application/views/view_add_contactos.php'
-		})
-		.when('/Cuentas_Bancarias/', {
-		templateUrl: 'application/views/view_grib_cuentas_bancarias.php'
-		})
-		.when('/Add_Cuentas_Bancarias/', {
-		templateUrl: 'application/views/view_add_cuentas_bancarias.php'
-		})
-		.when('/Edit_Cuenta_Bancaria/:ID', {
-		templateUrl: 'application/views/view_add_cuentas_bancarias.php'
-		})
-		.when('/Documentos/', {
-		templateUrl: 'application/views/view_grib_documentos.php'
-		})
-		.when('/Add_Documentos/', {
-		templateUrl: 'application/views/view_add_documentos.php'
-		})
-		.when('/Edit_Documentos/:ID', {
-		templateUrl: 'application/views/view_add_documentos.php'
-		})
-
-		.when('/Gestionar_Cups/', {
-		templateUrl: 'application/views/view_grib_cups.php'
-		})
-		.when('/Add_Cups/', {
-		templateUrl: 'application/views/view_add_cups.php'
-		})
-		.when('/Edit_Cups/:CodCups/:TipServ', 
-		{
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_add_cups.php'
-		})
-		.when('/Edit_Cups/:CodCups/:TipServ/:INF', 
-		{
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_add_cups.php'
-		})		
-		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_grib_consumo_cups.php'
-		})
-		.when('/Historial_Consumo_Cups/:CodCup/:TipServ', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_grib_historial_cups.php'
-		})	
-		.when('/Reporte_Cups_Colaboradores', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_reporte_cups_colaboradores.php'
-		})	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		.when('/Clientes/', 
-		{		
-			templateUrl: 'application/views/view_grib_clientes.php'			
-		})		
-		.when('/Creacion_Clientes/', {
-			mytext:"This is angular",
-			templateUrl: 'application/views/view_add_clientes.php'
-		})
-		.when('/Editar_Clientes/:ID', {
-			templateUrl: 'application/views/view_add_clientes.php'
-		})		
-		.when('/Editar_Clientes/:ID/:MET', {
-			templateUrl: 'application/views/view_add_clientes.php'
-		})
+		.when('/Actividades/', {templateUrl: 'application/views/view_grib_actividad.php'})	
+		.when('/Add_Actividades/', {templateUrl: 'application/views/view_add_actividad.php'})	
+		.when('/Puntos_Suministros/', {templateUrl: 'application/views/view_grib_punto_suministros.php'})
+		.when('/Add_Puntos_Suministros/', {templateUrl: 'application/views/view_add_punto_suministros.php'})
+		.when('/Edit_Punto_Suministros/:ID', {templateUrl: 'application/views/view_add_punto_suministros.php'})
+		.when('/Edit_Punto_Suministros/:ID/:INF', {templateUrl: 'application/views/view_add_punto_suministros.php'})
+		.when('/Contactos/', {templateUrl: 'application/views/view_grib_contactos.php'})
+		.when('/Add_Contactos/', {templateUrl: 'application/views/view_add_contactos.php'})
+		.when('/Edit_Contactos/:ID', {templateUrl: 'application/views/view_add_contactos.php'})
+		.when('/Edit_Contactos/:ID/:INF', {templateUrl: 'application/views/view_add_contactos.php'})
+		.when('/Contacto_Otro_Cliente/:NIFConCli', {templateUrl: 'application/views/view_add_contactos.php'})
+		.when('/Cuentas_Bancarias/', {templateUrl: 'application/views/view_grib_cuentas_bancarias.php'})
+		.when('/Add_Cuentas_Bancarias/', {templateUrl: 'application/views/view_add_cuentas_bancarias.php'})
+		.when('/Edit_Cuenta_Bancaria/:ID', {templateUrl: 'application/views/view_add_cuentas_bancarias.php'})
+		.when('/Documentos/', {templateUrl: 'application/views/view_grib_documentos.php'})
+		.when('/Add_Documentos/', {templateUrl: 'application/views/view_add_documentos.php'})
+		.when('/Edit_Documentos/:ID', {templateUrl: 'application/views/view_add_documentos.php'})
+		.when('/Gestionar_Cups/', {templateUrl: 'application/views/view_grib_cups.php'})
+		.when('/Add_Cups/', {templateUrl: 'application/views/view_add_cups.php'})
+		.when('/Edit_Cups/:CodCups/:TipServ',{mytext:"This is angular",templateUrl: 'application/views/view_add_cups.php'})
+		.when('/Edit_Cups/:CodCups/:TipServ/:INF', {mytext:"This is angular",templateUrl: 'application/views/view_add_cups.php'})		
+		.when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', {mytext:"This is angular",templateUrl: 'application/views/view_grib_consumo_cups.php'})
+		.when('/Historial_Consumo_Cups/:CodCup/:TipServ', {mytext:"This is angular",templateUrl: 'application/views/view_grib_historial_cups.php'})	
+		.when('/Reporte_Cups_Colaboradores', {mytext:"This is angular",templateUrl: 'application/views/view_reporte_cups_colaboradores.php'})
+				
+		
 		////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  START//////////////////////////////////////////////////////////////////////////
 		.when('/Distribuidora/', {
 			mytext:"This is angular",
@@ -241,10 +144,6 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			mytext:"This is angular",
 			templateUrl: 'application/views/view_grib_motivos_bloqueos.php'
 		})
-		
-
-
-
 		////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  END/////////////////////////////////////////////////////////////////////////////
 		.when('/Usuarios/', {
 			templateUrl: 'application/views/view_grib_usuarios.php'
@@ -264,9 +163,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 		.otherwise({
 			
 			redirectTo: '/Dashboard'
-		});
-		$translateProvider.translations('sp',{});	
-
+		});$translateProvider.translations('sp',{});
 		$translateProvider.translations('en', 
 		{
 			'LogOut':'Sign Off',			
@@ -322,7 +219,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 
 			'FECH_INI':'Start Date',
 
-			'TIP_SER':'Type of Services',
+			'TIP_SER':'Types of Services',
 			'SER_GAS':'Gas Service',
 			'SER_ELE':'Electric Service',
 			'ESP_SER':'Special Service',
@@ -335,8 +232,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'tip_fil1_modal':'FILTER TYPE',
 			'si_modal':'Yes',
 			'no_modal':'Don´t',
-			'app_modal':'Apply',		
-
+			'app_modal':'Apply',
 
 			'CAR_PER_CON':'Position Person Contact',
 			'PAG_WEB':'Web Page',
@@ -359,10 +255,13 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 
 			'CAL_ANO':'The expiration date cannot be less than the start date.',
 			'CAL_ANO_MAY':'The Minimum Time of the contract must be from 1 year onwards.',
+
 			'SAVE':'Saving',
-			'TEXT_SAVE':'Are you sure to enter this new record?',			
 			'UPDATE':'Updating',
-			'TEXT_UPDATE':'Are you sure to update this record?',			
+
+			'TEXT_SAVE':'Are you sure to enter this new record?',			
+			'TEXT_UPDATE':'Are you sure to update this record?',
+
 			'ERROR_FILE':"Wrong format only PDF, JPG or PNG files are allowed.",
 			'ERROR_SAVE':"An error has occurred during the process please try again.",
 			
@@ -435,7 +334,6 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'PRODUCTS':'Products',
 			'ANNEXES':'Annexes',
 			'SER_ESP':'Be. Additional',
-
 			'CUSTOMERS':'Customers',			
 			'Exercise':'Exercise',
 			'Supplies_Dir':'Supplies Add.',
@@ -443,10 +341,8 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'Bank_Accounts':'Bank Accounts',
 			'Documents':'Documents',
 			'Manage_CUPs':'Manage CUPs',
-
 			'Reports':'Reports',
 			'Collaborators':'Collaborators',
-
 			'Configurations':'Configurations',			
 			'Distributor':'Distributor',
 			'Rates':'Rates',
@@ -464,37 +360,65 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'NOM_PROD':'Product Name',
 			'search_comer_req':'You must Select a Marketer from the list.',
 			'search_prod_req':'You must Select a Products from the list.',
-			'search_tip_ser_req':'You must select a type of service.',
+			'search_tip_ser_req':'You must select a Type of Service.',
 			'select_item':'Select an Item from the List.',
-			'select_com_req':'You Must Select A Commission Type.',
-
+			'select_com_req':'You Must Select A Commission Type From the list.',			
 			'produc_req':'The Product Name Field is Required.',
-			'COMISION':'Commissions',
+			
+			'SER_ELE_REQ':'You must Select at least one Supply Type. Electric, Gas or Both.',	
+			'SER_ELE_TAR_REQ':'You must select at least one Electric Service Rate, Low or High Voltage.',
+			'SER_GAS_TAR_REQ':'You must select at least one Gas Rate.'	,
+			'TIP_PRICE_REQ':'You must select a price type. Fixed, Indexed or Both.'
+			,'TIP_COM_REQ':'You must Select a Commission Type from the list.'	,
+			'ROW_DET_COM':'You must indicate at least one commission row to continue the process.',
+			'ROW_DET_COM_CONMIN':'The Annual Minimum Consumption Field cannot be empty.',
+			'ROW_DET_COM_CONMAX':'The Annual Maximum Consumption Field cannot be empty.',
+			'ROW_DET_COM_CONSER':'The Service Commission Field cannot be empty.',
+			'ROW_DET_COM_CONCERVE':'The Green Certificate Commission Field cannot be empty.',
+			'CIF_EMPTY':'The CIF Number Cannot Be Empty.',
+			'tip_cli_req':'You must select a type client from the list',	
 
+			'COMISION':'Commissions',
+			'ADD':'Add',
+			'REMOVE':'Remove',
+			'CONMINANU':'Annual Minimum Consumption',
+			'CONMAXANU':'Annual Maximum Consumption',
+			'CONSER':'Service Commission',
+			'CONSERVER':'Green Certificate Commission',
+			'TIP_COM':'Commission Type',
+			'TIP_PRICE':'Types of Prices',
+			'TIP_PRICE_FIJ':'PERMANENT',
+			'TIP_PRICE_INDEX':'INDEXED',
+			'TIP_CLI':'Client Types',
+			'Both':'Both',
+			'NEGOCIO':'Deal',
+			'PARTICULAR':'Particular',
+			'ALL':'All','TIP_CLI_PART':'Private Customers',
+			'TIP_CLI_NEG':'Business Clients',
+			'MOT_BLO_EMPTY_COME':'We have not found reasons to block the trading companies, so they cannot continue with this operation.',
+			'MESSA_BLOC12':"We have not been able to update the status.",
+			
 			/////COMERCIALIZADORA START ////
 			'DAT_BAS_COM':'Basic_Data_Commercialist',
 			'ADD_COM':'Add Marketer',			
 			'MARKETER_NOBD':'We Have Not Found Currently Registered Marketers.',
-			'MARKE_ACTI':'This Marketers is Already Active.',
+			'MARKE_ACTI':'This Marketer is Already Active.',
 			'ACTI_MARKE':'¿Are You Sure To Activate This Marketer?',
 			'MARKETER_SAVE':'Marketer Registration',
 			'MARKETER_UPDATE':'Marketer Data Update',
-			'MARKETER_DATA':'Marketing Company Basic Data:',
-			'CIF_EMPTY':'The CIF Number Cannot Be Empty.',
+			'MARKETER_DATA':'Marketing Company Basic Data:',			
 			'TITLE_CIF_REGISTER':'Registered Marketer.',
-			'TEXT_CIF_REGISTER':'The Marketers is Already Registered.',
-			'MARKE_BLOC':'¿This Marketer Is Already Blocked?',
-			'MOT_BLO_EMPTY_COME':'We have not found reasons to block the trading companies, so they cannot continue with this operation.',
-			'list_comer':'Loading list of Marketers, Please Wait...',
+			'TEXT_CIF_REGISTER':'The Marketer is Already Registered.',
+			'MARKE_BLOC':'¿This Marketer Is Already Blocked?',						
+			'list_comer':'Loading list of Marketer, Please Wait...',
 			'delete_cli':'Deleting Marketer, Please Wait...',
 			'SAVE_MAR':'Saving Marketer, Please Wait...',			
 			'UPDATE_MAR':'Updating Marketer, Please Wait ...',
-			'RESPONSE_SAVE_MARKET':'Successfully registered marketer',
-			'RESPONSE_UPDATE_MARKET':'Successfully modified marketer',
-			'MESSA_BLOC6':"¿Are You Sure to Block This Marketers?",			
+			'RESPONSE_SAVE_MARKET':'Successfully registered Marketer',
+			'RESPONSE_UPDATE_MARKET':'Successfully modified Marketer',
+			'MESSA_BLOC6':"¿Are You Sure to Block This Marketer?",			
 			'MESSA_BLOC9':"The Marketer has been successfully activated.",						
-			'MESSA_BLOC11':'The Marketer has been successfully blocked.',
-			'MESSA_BLOC12':"We have not been able to update the status of the Marketers.",
+			'MESSA_BLOC11':'The Marketer has been successfully blocked.',			
 			'BLO_COM_MODAL':' Marketing Blocker',
 			/////COMERCIALIZADORA END ////
 
@@ -519,12 +443,8 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'UPDATE_PRODUCT':'Updating Products',
 			////// PARA PRODUCTOS END////////
 
-			////// PARA ANEXOS START////////
-			'DESC_ANNEX':'Description Annex',
-			'TIP_PRICE':'Type Price',
-			'TIP_PRICE_FIJ':'PERMANENT',
-			'TIP_PRICE_INDEX':'INDEXED',
-			'TIP_COM':'Commission Type',
+			////// PARA ANEXOS START////////			
+			'DESC_ANNEX':'Description Annex',						
 			'List_Anex':'Loading Annex List, Please Wait...',
 			'BLO_ANNE':'Annexed Lock',
 			'ADD_ANNEX':'Add Annexes',
@@ -543,36 +463,59 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'UPDATE_ANE':'Updating Annex, Please Wait...',
 			'REGIST_ANENE':'Register Annexes',
 			'FOT_ANNEX':'Photocopy of the Annex',
-			
-			'nom_anex_req':'The name of the annex is required.',
-			'SER_ELE_REQ':'You must Select at least one Supply Type. Electric, Gas or Both.',	
-			'SER_ELE_TAR_REQ':'You must select at least one Electric Service Rate, Low or High Voltage.',
-			'SER_GAS_TAR_REQ':'You must select at least one Gas Rate.'	,
-			'TIP_PRICE_REQ':'You must select a price type. Fixed, Indexed or Both.'	,
-			'TIP_COM_REQ':'You must Select a Commission Type from the list.'	,
-
-
+			'NAME_ANNEX':'Annex Name',			
+			'nom_anex_req':'The Name of the annex is required.',
+			'COM_ANE':'Annex Commissions',
 			'SEE_ANNEXES':'See_Annexes',
 			'EDIT_ANNEXES':'Edit_Annexes',
-			'COMI_ANNEXES':'Commissions_Annexes',
-			/*
-			
-			
-			'TEXT_PRODUCTS_ACT':'The Product has been successfully activated.',
-			'TEXT_PRODUCTS_BLO':'The Product has been successfully blocked.',
-			'PRODUCT_ACTIVE':'This Product is already active.',
-			'PRODUCT_ACTIVE_TEXT':'Are you sure to activate this product?',
-			'PRODUCT_BLOCK_TEXT':'This Product is already blocked.',
-			'TEXT_SAVE_PRODUCTS':'Product successfully registered.',
-			'TEXT_UPDATE_PRODUCTS':'Product successfully modified.',
-			'SAVE_PRODUC':'Register Products',
-			'UPDATE_PRODUCT':'Updating Products',*/
+			'COMI_ANNEXES':'Commissions_Annexes',		
 			////// PARA ANEXOS END////////
+
+			////// PARA COMISIONES ANEXOS START////////
+			'Car_Det':'Loading Commission Rates, Please Wait...',
+			'Guar_Deta':'Performing Commission Process, Please Wait...',
+			'NO_FOUND_TAR':'No assigned rates found',
+			'ERROR_TAR_DETA':'You must finish the commission process you have active to be able to add or modify another one.',
+			'pro_com_1':'Processing commissions',
+			'pro_com_2':'Be sure to continue the procedure.',
+			'MEN_EXI_COM_DET':'Commissions processed correctly.',
+			////// PARA COMISIONES ANEXOS END////////
+
+			////// PARA SERVICIOS ESPECIALES START////////
+			'SER_ESP_TIT':'Special Services',
+			'SER_ADD':'Additional_Services',
+			'SER_ADD_ADD':'Add_Additional_Services',
+			'SER_EDIT_EDIT':'Edit_Additional_Services',
+			'SER_SEE_SEE':'Commissions_Additional_Services',
+			'TITLE_ADD_SER_ESP':'Add Special Service',
+			'BLO_SER_ESP':'Special Service Lock',
+			'List_Serv':'Loading list of Additional Services, Please Wait...',
+			'SER_ESP_NAME':'Special Services Registry',			
+			'TIP_CLI_CART':'Main features of the Special Service',
+			'NAME_SER_ESP':'Name of the Special Service',
+			'SAVE_SER_ESP':'Saving Special Services, Please Wait...',
+			'UPDATE_SER_ESP':'Updating Special Services, Please Wait...',
+			'RESPONSE_SAVE_SER_ESPE':'Special Service successfully created.',
+			'RESPONSE_UPDATE_SER_ESP':'Special Service successfully modified.',
+			'no_ser_esp_regis':'We have not found registered Special Services.',
+			'ACT_SER_ESPE':'This Special Service is already active.',
+			'ACT_QUES_SER_ESP':'Are you sure to activate the special service?',
+			'BLO_QUES_SER_ESP':'This Special Service is already blocked.',
+			'TEXT_SER_ESP_ACT':'The Special Service has been successfully activated.',
+			'TEXT_SER_ESP_BLO':'The Special Service has been blocked successfully.',
+			'MESSA_BLOC_SER_ESP':'Are you sure you want to block this Special Service?',
+			'search_name_ser_req':'The Special Service Name is Required.',
+			'car_ser_espe_req':'The Characteristics of the Special Service is Required.',
+			////// PARA SERVICIOS ESPECIALES END////////
+
+			////// PARA COMISIONES DE LOS SERVICIOS ESPECIALES START////////
+			'COM_SER_ESP':'Special Services Commissions',
+			////// PARA COMISIONES DE LOS SERVICIOS ESPECIALES END//////////
 
 
 
 		});		
-		$translateProvider.preferredLanguage('sp');
+		//$translateProvider.preferredLanguage('en');
 
 		
 }).run(function run( $http, $cookies , netTesting,$rootScope,$location,$route,$translate)
