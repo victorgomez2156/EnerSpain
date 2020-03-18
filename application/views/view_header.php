@@ -35,14 +35,11 @@
 
   <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
 
-  
-
    <script src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
    <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.min.js'?>"></script>
    <script src="<?php echo PATH_ESTILOS_JS.'angular-aria.min.js'?>"></script>
    <script src="<?php echo PATH_ESTILOS_JS.'angular-material.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>"></script>
-    
+   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>"></script>  
 
 
   <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>"></script> 
@@ -84,19 +81,12 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'documentos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comisiones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comisiones_servicios_adicionales.js'?>"></script>
-
-
-
-
-
   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tarifas.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'tipos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'motivos_bloqueos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'comercial.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script>
-  
-    
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script>   
  
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script-->
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>
@@ -118,7 +108,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>"></script-->
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    
-  <title><?php echo TITULO;?> | Principal</title>
+  <title>{{ 'LOGIN' | translate }} | {{ 'TITLE' | translate }}</title>
   <style>
   body { padding-right: 0 !important }
   

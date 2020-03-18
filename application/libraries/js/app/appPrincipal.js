@@ -281,6 +281,9 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'EXCEL':'Export in Excel',			
 			'FILTRO_SEARCH':'Write to Filter...',
 			
+			'LOGIN':'Welcome',
+			'TITLE':"Application for the Management of Energy Services.",
+
 			'Sin_Data':'Currently no data available.',
 			'CARGA_DAT':'Loading Data, Please Wait...',
 			'module_data':'Loading Module Data, Please Wait...',

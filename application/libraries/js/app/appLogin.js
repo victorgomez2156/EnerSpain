@@ -39,7 +39,7 @@ var app = angular.module('appLogin', ['checklist-model','ngResource','ngCookies'
 			'DESIGNED':'Designed By',
 			'LOGIN':'Log in',
 			'SESSION':"We Are Logging In, Please Wait...",
-			'TITLE':"Application for the Management of Energy Services"
+			'TITLE':"Application for the Management of Energy Services."
 
 		});		
 		$translateProvider.preferredLanguage('en');

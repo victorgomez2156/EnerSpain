@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="appPrincipal">
 <head>
  <?php $this->load->view('view_header');?>
    <script type="text/javascript">
@@ -46,7 +46,7 @@ document.onmousedown = right;*/
 </head>
 
 <body>
-<div ng-app="appPrincipal">
+<div >
   
  
   <!-- container section start -->
