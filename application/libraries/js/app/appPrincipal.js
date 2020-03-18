@@ -541,7 +541,7 @@ var app = angular.module('appPrincipal', ['checklist-model','ngResource','ngCook
 			'TEXT_UPDATE_RESPONSE_ANE':'Annex updated correctly.',
 			'SAVE_ANE':'Saving Annex, Please Wait...',
 			'UPDATE_ANE':'Updating Annex, Please Wait...',
-
+			'REGIST_ANENE':'Register Annexes',
 			'FOT_ANNEX':'Photocopy of the Annex',
 			
 			'nom_anex_req':'The name of the annex is required.',
