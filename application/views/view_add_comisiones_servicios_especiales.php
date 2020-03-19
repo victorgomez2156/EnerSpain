@@ -156,8 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <br>  
 <div ng-show="vm.TComisionesRangoGrib.length>0">
    <div align="right" style="margin-right: 50px;">
-         <span class="store-qty"> <a title='Quitar Detalle de Comisión' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
-         <span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title='{{ "REMOVE" | translate }}' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title='{{ "ADD" | translate }}' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
         </div> <br>
         <div class="table-responsive">
         <table class="table table-striped table-advance table-hover table-responsive">
