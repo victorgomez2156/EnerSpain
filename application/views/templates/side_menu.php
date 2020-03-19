@@ -161,7 +161,7 @@
               <li><a class="fa fa-user-circle" href="#/{{ 'DAT_BAS_COM' | translate }}"> {{ 'DAT_BAS' | translate }}</a></li>
               <li><a class="fa fa-briefcase" href="#/{{ 'PRODUCTS' | translate }}"> {{ 'PRODUCTS' | translate }}</a></li>
               <li><a class="fa fa-bullseye" href="#/{{ 'ANNEXES' | translate }}"> {{ 'ANNEXES' | translate }}</a></li>
-              <li><a class="fa fa-child" href="#/Servicios_Adicionales"> {{ 'SER_ESP' | translate }}</a></li>         
+              <li><a class="fa fa-child" href="#/{{ 'SER_ADD' | translate }}"> {{ 'SER_ESP' | translate }}</a></li>         
             </ul>
           </li>
 
@@ -237,7 +237,7 @@
             </a>
             <ul class="sub">
             	<li><a class="fa fa-cube" href="#/Distribuidora"> {{ 'Distributor' | translate }}</a></li>
-            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Rates' | translate }}</a></li>
             	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
             	<li><a class="fa fa-cc" href="#/Comercial"> {{ 'Commercial' | translate }}</a></li>
             	<li><a class="fa fa-certificate" href="#/Tipos"> {{ 'Types' | translate }}</a></li>

@@ -1,6 +1,6 @@
-app.controller('Controlador_Comisiones_Servicios_Adicionales', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile', Controlador])
+app.controller('Controlador_Comisiones_Servicios_Adicionales', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','$translate', Controlador])
 
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,$translate)
 {
 	var scope = this;
 	scope.fdatos = {};	
@@ -62,7 +62,7 @@ scope.Buscar_Tarifas_Servicios_Adicionales=function()
 			}
 			else
 			{
-				Swal.fire({title:"Error",text:"No se encontraron Tarifas asignadas a este Servicio Especial.",type:"info",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:$translate('NO_FOUND_TAR'),type:"info",confirmButtonColor:"#188ae2"});
 				scope.comisiones=false;
 				scope.TComisionesRangoGrib=[];
 				scope.TComisionesDet=[];
@@ -72,19 +72,19 @@ scope.Buscar_Tarifas_Servicios_Adicionales=function()
 			$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 }
@@ -131,7 +131,7 @@ scope.agregar_detalle_comision=function(index,CodDetSerEsp,dato)
 	//console.log(dato);
 	if(scope.Block_Deta==1)
 	{
-		Swal.fire({title:"Error",text:"Debe terminar el proceso de comisiones que tiene activo para poder agregar o modificar otro.",type:"error",confirmButtonColor:"#188ae2"});
+		Swal.fire({title:"Error",text:$translate('ERROR_TAR_DETA'),type:"error",confirmButtonColor:"#188ae2"});
 		return false;
 	}
 	else
@@ -189,19 +189,19 @@ scope.agregar_detalle_comision=function(index,CodDetSerEsp,dato)
 			$("#Car_Det").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -260,13 +260,13 @@ scope.guardar_comisiones=function()
 	scope.datos_enviar.TipServ=scope.TipServ;
 	scope.datos_enviar.Detalles=scope.TComisionesRangoGrib;
 	console.log(scope.datos_enviar);
-	Swal.fire({title:'Procesando Comisiones',
-	text:'Esta Seguro de Continuar con el Procedimiento.',
+	Swal.fire({title:$translate('pro_com_1'),
+	text:$translate('pro_com_2'),
 	type:"question",
 	showCancelButton:!0,
 	confirmButtonColor:"#31ce77",
 	cancelButtonColor:"#f34943",
-	confirmButtonText:"Confirmar!"}).then(function(t)
+	confirmButtonText:"OK"}).then(function(t)
 	{
         if(t.value==true)
         {
@@ -277,30 +277,30 @@ scope.guardar_comisiones=function()
          		$("#Guar_Deta").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
          		if(result.data!=false)
          		{
-         			Swal.fire({title:"Exito",text:"Comisiones Registradas Correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+         			Swal.fire({title:$translate('pro_com_1'),text:$translate('MEN_EXI_COM_DET'),type:"success",confirmButtonColor:"#188ae2"});
          		}
          		else
          		{
-         			Swal.fire({title:"Error",text:"hubo un error en el proceso intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});	
+         			Swal.fire({title:"Error",text:$translate('ERROR_SAVE'),type:"error",confirmButtonColor:"#188ae2"});	
          		}
 	        },function(error)
          	{
          		$("#Guar_Deta").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 				if(error.status==404 && error.statusText=="Not Found")
 				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==401 && error.statusText=="Unauthorized")
 				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==403 && error.statusText=="Forbidden")
 				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 				if(error.status==500 && error.statusText=="Internal Server Error")
 				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
 				}
 	        });  	   
 	    }
@@ -316,38 +316,38 @@ scope.validar_campos_detalles_comisiones = function()
 	resultado = true;
 	if (!scope.TComisionesRangoGrib.length>0)
 	{
-		Swal.fire({title:"Error",text:"Debe indicar al menos un renglon de comisión para poder guardar los registros.",type:"error",confirmButtonColor:"#188ae2"});			
+		Swal.fire({title:"Error",text:$translate('ROW_DET_COM'),type:"error",confirmButtonColor:"#188ae2"});			
 		return false;
 	}
 	for(var i=0; i<scope.TComisionesRangoGrib.length; i++) 
 	{
-		if (scope.TComisionesRangoGrib[i].RanCon==undefined || scope.TComisionesRangoGrib[i].RanCon==null || scope.TComisionesRangoGrib[i].RanCon=='') 
+		/*if (scope.TComisionesRangoGrib[i].RanCon==undefined || scope.TComisionesRangoGrib[i].RanCon==null || scope.TComisionesRangoGrib[i].RanCon=='') 
 		{
-		    Swal.fire({title:"Error",text:"El Campo Rango de Consumo no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+	        Swal.fire({title:"Error",text:"El Campo Rango de Consumo no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
 			i=scope.TComisionesRangoGrib.length;
 			resultado = false;
-		}
+		}*/
 		if (scope.TComisionesRangoGrib[i].ConMinAnu==undefined || scope.TComisionesRangoGrib[i].ConMinAnu==null || scope.TComisionesRangoGrib[i].ConMinAnu=='') 
 		{
-		    Swal.fire({title:"Error",text:"El Campo Consumo Mínimo Anual no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+	        Swal.fire({title:"Error",text:$translate('ROW_DET_COM_CONMIN'),type:"error",confirmButtonColor:"#188ae2"});
 			i=scope.TComisionesRangoGrib.length;
 			resultado = false;
 		}
 		if (scope.TComisionesRangoGrib[i].ConMaxAnu==undefined || scope.TComisionesRangoGrib[i].ConMaxAnu==null || scope.TComisionesRangoGrib[i].ConMaxAnu=='') 
 		{
-		    Swal.fire({title:"Error",text:"El Campo Consumo Máximo Anual no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+	        Swal.fire({title:"Error",text:$translate('ROW_DET_COM_CONMAX'),type:"error",confirmButtonColor:"#188ae2"});
 			i=scope.TComisionesRangoGrib.length;
 			resultado = false;
 		}
 		if (scope.TComisionesRangoGrib[i].ConSer==undefined || scope.TComisionesRangoGrib[i].ConSer==null || scope.TComisionesRangoGrib[i].ConSer=='') 
 		{
-		    Swal.fire({title:"Error",text:"El Campo Comisión de Servicio no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+	        Swal.fire({title:"Error",text:$translate('ROW_DET_COM_CONSER'),type:"error",confirmButtonColor:"#188ae2"});
 			i=scope.TComisionesRangoGrib.length;
 			resultado = false;
 		}
 		if (scope.TComisionesRangoGrib[i].ConCerVer==undefined || scope.TComisionesRangoGrib[i].ConCerVer==null || scope.TComisionesRangoGrib[i].ConCerVer=='') 
 		{
-		    Swal.fire({title:"Error",text:"El Campo Comisión Certificado Verde no puede estar vacío.",type:"error",confirmButtonColor:"#188ae2"});
+	        Swal.fire({title:"Error",text:$translate('ROW_DET_COM_CONCERVE'),type:"error",confirmButtonColor:"#188ae2"});
 			i=scope.TComisionesRangoGrib.length;
 			resultado = false;
 		}				
@@ -360,17 +360,17 @@ scope.validar_campos_detalles_comisiones = function()
 }
 scope.regresar_comisiones=function()
 {
-	Swal.fire({title:'Regresar',
-	text:'¿Está seguro de regresar y no guardar las comisiones?',
+	Swal.fire({title:$translate('BACK'),
+	text:$translate('text_back_save'),
 	type:"question",
 	showCancelButton:!0,
 	confirmButtonColor:"#31ce77",
 	cancelButtonColor:"#f34943",
-	confirmButtonText:"Regresar"}).then(function(t)
+	confirmButtonText:$translate('BACK')}).then(function(t)
 	{
 	    if(t.value==true)
 	    {
-	        location.href="#/Servicios_Adicionales";	  
+	        location.href="#/"+$translate('SER_ADD');	  
 	    }
 		else
 	    {

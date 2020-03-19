@@ -484,6 +484,10 @@ public function Buscar_xID_Anexos_get()
 		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodAnePro,$objSalida->CodTarEle,$objSalida->CodDetAne);
 		foreach ($detalle as $record):
 		{
+			if (empty($record->RanCon))
+			{
+				$record->RanCon=null;
+			}
 			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ);
 		}	
 		endforeach;	
@@ -708,13 +712,7 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		$this->db->trans_complete();
 		$this->response($detalle_comisiones);
     }
-
-
-
-
-
-
-
+    
     public function guardar_comisiones_detalles_servicios_especiales_post()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -728,6 +726,10 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		$this->Comercializadora_model->eliminar_detalles_comisiones_servicios_especial($objSalida->CodSerEsp,$objSalida->CodTarEle,$objSalida->CodDetSerEsp);
 		foreach ($detalle as $record):
 		{
+			if (empty($record->RanCon))
+			{
+				$record->RanCon=null;
+			}
 			$this->Comercializadora_model->agregar_comisiones_servicios_especial($record->CodDetSerEsp,$record->CodSerEsp,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ);
 		}	
 		endforeach;	
