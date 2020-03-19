@@ -158,10 +158,10 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">            	
-              <li><a class="fa fa-user-circle" href="#/{{ 'DAT_BAS_COM' | translate }}"> {{ 'DAT_BAS' | translate }}</a></li>
-              <li><a class="fa fa-briefcase" href="#/{{ 'PRODUCTS' | translate }}"> {{ 'PRODUCTS' | translate }}</a></li>
-              <li><a class="fa fa-bullseye" href="#/{{ 'ANNEXES' | translate }}"> {{ 'ANNEXES' | translate }}</a></li>
-              <li><a class="fa fa-child" href="#/{{ 'SER_ADD' | translate }}"> {{ 'SER_ESP' | translate }}</a></li>         
+              <li><a href="#/{{ 'DAT_BAS_COM' | translate }}"> {{ 'DAT_BAS' | translate }}</a></li>
+              <li><a href="#/{{ 'PRODUCTS' | translate }}"> {{ 'PRODUCTS' | translate }}</a></li>
+              <li><a href="#/{{ 'ANNEXES' | translate }}"> {{ 'ANNEXES' | translate }}</a></li>
+              <li><a href="#/Servicios_Adicionales"> {{ 'SER_ESP' | translate }}</a></li>         
             </ul>
           </li>
 
@@ -172,13 +172,13 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> {{ 'DAT_BAS' | translate }}</a></li>
-              <li><a class="fa fa-briefcase" href="#/Actividades"> {{ 'Exercise' | translate }}</a></li>
-              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> {{ 'Supplies_Dir' | translate }}</a></li>
-              <li><a class="fa fa-child" href="#/Contactos"> {{ 'Contacts' | translate }}</a></li>  
-              <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> {{ 'Bank_Accounts' | translate }}</a></li>  
-              <li><a class="fa fa-file" href="#/Documentos"> {{ 'Documents' | translate }}</a></li> 
-              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> {{ 'Manage_CUPs' | translate }}</a></li>    
+              <li><a href="#/Datos_Basicos_Clientes"> {{ 'DAT_BAS' | translate }}</a></li>
+              <li><a href="#/Actividades"> {{ 'Exercise' | translate }}</a></li>
+              <li><a href="#/Puntos_Suministros"> {{ 'Supplies_Dir' | translate }}</a></li>
+              <li><a href="#/Contactos"> {{ 'Contacts' | translate }}</a></li>  
+              <li><a href="#/Cuentas_Bancarias"> {{ 'Bank_Accounts' | translate }}</a></li>  
+              <li><a href="#/Documentos"> {{ 'Documents' | translate }}</a></li> 
+              <li><a href="#/Gestionar_Cups"> {{ 'Manage_CUPs' | translate }}</a></li>    
             </ul>
           </li>
 
@@ -191,7 +191,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-handshake-o" href="#/Reporte_Cups_Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
+              <li><a chref="#/Reporte_Cups_Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
             </ul>
         </li>
 
@@ -236,12 +236,12 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-            	<li><a class="fa fa-cube" href="#/Distribuidora"> {{ 'Distributor' | translate }}</a></li>
-            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Rates' | translate }}</a></li>
-            	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
-            	<li><a class="fa fa-cc" href="#/Comercial"> {{ 'Commercial' | translate }}</a></li>
-            	<li><a class="fa fa-certificate" href="#/Tipos"> {{ 'Types' | translate }}</a></li>
-            	<li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> {{ 'Reasons' | translate }}</a></li>
+            	<li><a href="#/Distribuidora"> {{ 'Distributor' | translate }}</a></li>
+            	<li><a href="#/Tarifas"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a href="#/Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a href="#/Comercial"> {{ 'Commercial' | translate }}</a></li>
+            	<li><a href="#/Tipos"> {{ 'Types' | translate }}</a></li>
+            	<li><a href="#/Motivos_Bloqueos"> {{ 'Reasons' | translate }}</a></li>
               <!--li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>            
               
               <li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>

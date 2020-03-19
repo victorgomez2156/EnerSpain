@@ -182,7 +182,7 @@ $(document).ready(function()
         <!--button class="btn btn-info btn-lg btn-block" type="submit">Signup</button-->
       </div>
     </form>
-    <div class="text-right">
+    <div class="text-right" color white>
       <div class="credits">
           <!--
             All the links in the footer should remain intact.
