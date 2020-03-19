@@ -237,7 +237,7 @@
             </a>
             <ul class="sub">
             	<li><a class="fa fa-cube" href="#/Distribuidora"> {{ 'Distributor' | translate }}</a></li>
-            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Collaborators' | translate }}</a></li>
+            	<li><a class="fa fa-area-chart" href="#/Tarifas"> {{ 'Rates' | translate }}</a></li>
             	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> {{ 'Collaborators' | translate }}</a></li>
             	<li><a class="fa fa-cc" href="#/Comercial"> {{ 'Commercial' | translate }}</a></li>
             	<li><a class="fa fa-certificate" href="#/Tipos"> {{ 'Types' | translate }}</a></li>

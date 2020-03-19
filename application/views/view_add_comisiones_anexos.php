@@ -77,10 +77,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section class="wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h3 class="page-header"><i class="fa fa-dollar"></i> Comisiones Anexos</h3>
+          <h3 class="page-header"><i class="fa fa-dollar"></i> {{ 'COM_ANE' | translate }}</h3>
           <ol class="breadcrumb">
-          <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-          <li><i class="fa fa-dollar"></i>Comisiones Anexos</li>
+          <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>              
+          <li><i class="fa fa-dollar"></i> {{ 'COM_ANE' | translate }}</li>
           </ol>
         </div>
       </div>
@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }} <b style="color:red;">(*)</b></label>
         <input type="text" name="ComerComision" id="ComerComision" class="form-control" ng-model="vm.ComerComision" readonly="readonly">     
        </div>
        </div>
@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Producto <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'PRODUCTS' | translate }} <b style="color:red;">(*)</b></label>
         <input type="text" name="ProComision" id="ProComision" class="form-control" ng-model="vm.ProComision" readonly="readonly">     
        </div>
        </div>
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Anexo <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'ANNEXES' | translate }} <b style="color:red;">(*)</b></label>
         <input type="text" name="AneComision" id="AneComision" class="form-control" ng-model="vm.AneComision" readonly="readonly">     
        </div>
        </div>
@@ -132,18 +132,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th><i class="fa fa-arrow-down"></i></th>
-                    <th><i class="fa fa-arrow-down"></i> Tipo de Servicio</th>
-                    <th><i class="fa fa-arrow-down"></i> Tipo de Precio</th>
-                    <th><i class="fa fa-arrow-down"></i> Tarifa</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'TIP_SER' | translate }}</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'TIP_PRICE' | translate }}</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'Rates' | translate }}</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesDet.length==0"> 
-                    <td colspan="4" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="4" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> {{ 'Sin_Data' | translate }}</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesDet | filter:paginate3" ng-class-odd="odd">                    
                     <td>
-                      <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" title="Agregar {{dato.NomTarEle}}" style="color:black;"></i></button>                        
+                      <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="{{ 'ADD' | translate }} {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" style="color:black;"></i></button>                        
 
-                      <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
+                      <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="{{ 'REMOVE' | translate }} {{dato.NomTarEle}}" style="color:green;"></i></button>
                       </td>
                     <td>{{dato.TipServ}}</td>
                     <td>{{dato.TipPre}}</td>                  
@@ -152,9 +152,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <th><i class="fa fa-arrow-up"></i></th>
-                    <th><i class="fa fa-arrow-up"></i> Tipo de Servicio</th>
-                    <th><i class="fa fa-arrow-up"></i> Tipo de Precio</th>
-                    <th><i class="fa fa-arrow-up"></i> Tarifa</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'TIP_SER' | translate }}</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'TIP_PRICE' | translate }}</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'Rates' | translate }}</th>
                 </tfoot>
               </table><!--/div-->
         <div align="center">
@@ -167,24 +167,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <br>  
   <div ng-show="vm.TComisionesRangoGrib.length>0">
       <div align="right" style="margin-right: 50px;">
-         <span class="store-qty"> <a title='Quitar Detalle de Comisión' ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
-         <span class="store-qty"> <a title='Agregar Detalle de Comisión' ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title="{{ 'REMOVE' | translate }}" ng-click="vm.quitar_detalle_comision_length()" class="btn btn-info"><div><i class="fa fa-minus-square" style="color:white;"></i></div></a></span>
+         <span class="store-qty"> <a title="{{ 'ADD' | translate }}" ng-click="vm.agregardetalle()" class="btn btn-info"><div><i class="fa fa-plus" style="color:white;"></i></div></a></span>
         </div> <br>
         <div class="table-responsive">
         <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th><i class="fa fa-arrow-down"></i> Rango de Consumo</th>
-                    <th><i class="fa fa-arrow-down"></i> Consumo Mínimo Anual</th>
-                    <th><i class="fa fa-arrow-down"></i> Consumo Máximo Anual</th>
-                    <th><i class="fa fa-arrow-down"></i> Comisión Servicio</th>
-                    <th><i class="fa fa-arrow-down"></i> Comisión Certificado Verde</th>
+                    <!--th><i class="fa fa-arrow-down"></i> Rango de Consumo</th-->
+                    <th><i class="fa fa-arrow-down"></i> {{ 'CONMINANU' | translate }}</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'CONMAXANU' | translate }}</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'CONSER' | translate }}</th>
+                    <th><i class="fa fa-arrow-down"></i> {{ 'CONSERVER' | translate }}</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesRangoGrib.length==0"> 
-                    <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> {{ 'Sin_Data' | translate }}</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesRangoGrib | filter:paginate4" ng-class-odd="odd">                    
-                    <td><input type="text" name="RanCon" ng-model="vm.TComisionesRangoGrib[$index].RanCon" ng-change="vm.validar_inputs(1,vm.TComisionesRangoGrib[$index].RanCon,$index)" class="form-control"></td>
+                    <!--td><input type="text" name="RanCon" ng-model="vm.TComisionesRangoGrib[$index].RanCon" ng-change="vm.validar_inputs(1,vm.TComisionesRangoGrib[$index].RanCon,$index)" class="form-control"></td-->
                     
                     <td><input type="text" name="ConMinAnu" ng-model="vm.TComisionesRangoGrib[$index].ConMinAnu" ng-change="vm.validar_inputs(2,vm.TComisionesRangoGrib[$index].ConMinAnu,$index)" class="form-control"></td>
                    
@@ -196,19 +196,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th><i class="fa fa-arrow-up"></i> Rango de Consumo</th>
-                    <th><i class="fa fa-arrow-up"></i> Consumo Mínimo Anual</th>
-                    <th><i class="fa fa-arrow-up"></i> Consumo Máximo Anual</th>
-                    <th><i class="fa fa-arrow-up"></i> Comisión Servicio</th>
-                    <th><i class="fa fa-arrow-up"></i> Comisión Certificado Verde</th>
+                    <!--th><i class="fa fa-arrow-up"></i> Rango de Consumo</th-->
+                    <th><i class="fa fa-arrow-up"></i> {{ 'CONMINANU' | translate }}</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'CONMAXANU' | translate }}</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'CONSER' | translate }}</th>
+                    <th><i class="fa fa-arrow-up"></i> {{ 'CONSERVER' | translate }}</th>
                 </tfoot>
               </table></div>
 
 
                <div class="form-group" >
           <div align="right">
-            <button class="btn btn-success" ng-click="vm.guardar_comisiones()" ><i class="fa fa-save"></i> GUARDAR</button>           
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_comisiones()"><i class="fa fa-arrow-left"></i> REGRESAR</button>
+            <button class="btn btn-success" ng-click="vm.guardar_comisiones()" ><i class="fa fa-save"></i> {{ 'REGIS' | translate }}</button>           
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_comisiones()"><i class="fa fa-arrow-left"></i> {{ 'BACK' | translate }}</button>
           </div>
         </div>
 
@@ -219,19 +219,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
                                
-        </div>                        
-
-
-            
-
-
-
-
-
-
-
-
-
+        </div> 
 
             </div>
           </section>
@@ -251,11 +239,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          {{ 'Designed' | translate }} <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div> 
 </div>
 </body>
-<div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas para las Comisiones, Por Favor Espere..."></div>
-<div id="Guar_Deta" class="loader loader-default"  data-text="Realizando Proceso de Comisiones, Por Favor Espere..."></div>
+<div id="Car_Det" class="loader loader-default"  data-text="{{ 'Car_Det' | translate }}"></div>
+<div id="Guar_Deta" class="loader loader-default"  data-text="{{ 'Guar_Deta' | translate }}"></div>
 </html>

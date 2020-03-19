@@ -27,10 +27,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Registro de Servicios Especiales</h3>
+            <h3 class="page-header"><i class="fa fa-bullseye"></i> {{ 'SER_ESP_NAME' | translate }}</h3>
             <ol class="breadcrumb">
-             <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
-              <li><i class="fa fa-bullseye"></i>Registro de Servicios Especiales</li>
+             <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}"> {{ 'DASHBOARD' | translate }}</a></li>            
+              <li><i class="fa fa-bullseye"></i> {{ 'SER_ESP_NAME' | translate }}</li>
             </ol>
           </div>
         </div>
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }} <b style="color:red;">(*)</b></label>
        <select class="form-control" name="CodCom" ng-model="vm.servicio_especial.CodCom" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
          <option ng-repeat="dato in vm.Tcomercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
         </select>
@@ -61,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Servicio Especial <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'NAME_SER_ESP' | translate }} <b style="color:red;">(*)</b></label>
        <input type="text" class="form-control" ng-model="vm.servicio_especial.DesSerEsp" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Servicio Especial" maxlength="50" ng-disabled="vm.validate_info_servicio_especiales!=undefined"/>       
        </div>
        </div>
@@ -70,19 +70,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FECH_INI' | translate }} <b style="color:red;">DD/MM/YYYY</b></label>
        <input type="text" class="form-control datepicker" id="FecIniSerEspForm" name="FecIniSerEspForm" ng-model="vm.FecIniSerEspForm" placeholder="* DD/MM/YYYY" maxlength="10" ng-disabled="vm.validate_info_servicio_especiales!=undefined" ng-change="vm.validarfecini(vm.FecIniSerEspForm)"/>
        </div>
        </div>
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>TIPO DE SUMINISTROS</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIPO_SUM' | translate }}</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_ELE' | translate }}</label>
         <input type="checkbox" ng-model="vm.servicio_especial.SerEle" ng-click="vm.limpiar_Servicio_Electrico_SerEsp(vm.servicio_especial.SerEle)" ng-disabled="vm.validate_info_servicio_especiales!=undefined"/>
        </div>
        </div>
@@ -90,18 +90,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_GAS' | translate }}</label>
         <input type="checkbox" ng-model="vm.servicio_especial.SerGas" ng-click="vm.limpiar_Servicio_Gas_SerEsp(vm.servicio_especial.SerGas)" ng-disabled="vm.validate_info_servicio_especiales!=undefined"/>
        </div>
        </div>
        </div>
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>TARIFA DE ACCESO ELÉCTRICO</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TAR_ACC_ELE' | translate }}</b></label></div></div>
         
         <div class="col-lg-6">
                 <section class="panel">
                   <header class="panel-heading">
-                   <div align="center"> <b>BAJA TENSIÓN</b> </div>
+                   <div align="center"> <b>{{ 'DOW_TENS' | translate }}</b> </div>
                   </header>
                    <div class="panel-body">
                     <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
@@ -116,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                      <div align="center">
                     <label>
-                        <input name="sample-checkbox-01" id="checkbox-011" type="checkbox" ng-click="vm.agregar_todas_baja_tension_SerEsp(vm.Tarifa_Elec_Baja,vm.servicio_especial.AggAllBaj)" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales!=undefined" ng-model="vm.servicio_especial.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                        <input name="sample-checkbox-01" id="checkbox-011" type="checkbox" ng-click="vm.agregar_todas_baja_tension_SerEsp(vm.Tarifa_Elec_Baja,vm.servicio_especial.AggAllBaj)" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales!=undefined" ng-model="vm.servicio_especial.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> {{ 'ALL' | translate }}</b>
                       </label></div>
                   </div>
                 </section> 
@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="col-lg-6">
                 <section class="panel">
                   <header class="panel-heading">
-                   <div align="center"> <b>ALTA TENSIÓN</b> </div>
+                   <div align="center"> <b>{{ 'HIG_TENS' | translate }}</b> </div>
                   </header>
                    <div class="panel-body">
                     <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
@@ -139,7 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                      <div align="center">
                     <label>
-                        <input name="sample-checkbox-01" id="checkbox-012" type="checkbox" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales!=undefined" ng-model="vm.servicio_especial.AggAllAlt" ng-click="vm.agregar_todas_alta_tension_SerEsp(vm.Tarifa_Elec_Alt,vm.servicio_especial.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> Todas</b>
+                        <input name="sample-checkbox-01" id="checkbox-012" type="checkbox" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales!=undefined" ng-model="vm.servicio_especial.AggAllAlt" ng-click="vm.agregar_todas_alta_tension_SerEsp(vm.Tarifa_Elec_Alt,vm.servicio_especial.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> {{ 'ALL' | translate }}</b>
                       </label></div>
                   </div>
                 </section> 
@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <div style="margin-top: 8px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>TARIFA DE ACCESO GAS</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TAR_ACC_GAS' | translate }}</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
        <div class="form">                          
@@ -168,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <input name="sample-checkbox-01" id="checkbox-013" type="checkbox" ng-model="vm.Todas_Gas_SerEsp" ng-click="vm.agregar_todas_detalle_SerEsp(vm.Todas_Gas_SerEsp)" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerGas==false||vm.validate_info_servicio_especiales!=undefined" /> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div><br>
      <div style="margin-top: 10px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>TIPO DE CLIENTE</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIP_CLI' | translate }}</b></label></div></div>
 
       
       <div class="col-12 col-sm-12">
@@ -176,16 +176,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        
        <input type="radio" name="tipo_cliente1" id="tipo_cliente1" value="0" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Particulares</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_CLI_PART' | translate }}</label>
 
        <input type="radio" name="tipo_cliente2" id="tipo_cliente2" value="1" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Negocios</label> 
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_CLI_NEG' | translate }}</label> 
        </div>
        </div>
        </div>
        <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Características principales del Servicio Especial <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> {{ 'TIP_CLI_CART' | translate }} <b style="color:red;">(*)</b></label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="CarSerEsp" name="CarSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.CarSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
         
        </div>
@@ -195,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Comisión <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_COM' | translate }} <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTipCom2" name="CodTipCom" ng-model="vm.servicio_especial.CodTipCom" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
          <option ng-repeat="dato in vm.Tipos_Comision" value="{{dato.CodTipCom}}">{{dato.DesTipCom}}</option>                        
         </select>
@@ -207,7 +207,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> {{ 'OBS_COM_BLO' | translate }}</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="OsbSerEsp" name="OsbSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.OsbSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
         
        </div>
@@ -215,24 +215,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodSerEsp" name="CodSerEsp" type="hidden" ng-model="vm.servicio_especial.CodSerEsp" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1">REGISTRAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==undefined" ng-disabled="vm.validate_info_servicio_especiales!=undefined">ACTUALIZAR</button>            
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_servicio_especial()" ng-show="vm.validate_info_servicio_especiales==undefined && vm.servicio_especial.CodSerEsp==undefined">LIMPIAR</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()">REGRESAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> {{ 'REGIS' | translate }}</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==undefined" ng-disabled="vm.validate_info_servicio_especiales!=undefined"><i class="fa fa-save"></i> {{ 'UPDA' | translate }}</button>            
+            <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar_servicio_especial()" ng-show="vm.validate_info_servicio_especiales==undefined && vm.servicio_especial.CodSerEsp==undefined"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button-->
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()"><i class="fa fa-arrow-left"></i> {{ 'BACK' | translate }}</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
         </form>
-
-
-
-
-
-
-
-
-
-
               </div>
             </section>
           </div>
@@ -249,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          {{ 'Designed' | translate }} <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -269,9 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargando Datos Comercial, Por Favor Espere..."></div>
-<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial, Por Favor Espere..."></div>
-
+<div id="{{ 'SAVE' | translate }}" class="loader loader-default"  data-text="{{ 'SAVE_SER_ESP' | translate }}"></div>
+<div id="{{ 'UPDATE' | translate }}" class="loader loader-default"  data-text="{{ 'UPDATE_SER_ESP' | translate }}"></div>
+<div id="buscando" class="loader loader-default"  data-text="{{ 'CARGA_DAT' | translate }}"></div>
 </html>

@@ -582,11 +582,11 @@ scope.validar_opcion_servicios_especiales=function(index,opciones_servicio_espec
 	}
 	if(opciones_servicio_especiales==4)
 	{
-		location.href="#/"+$translate('SER_EDIT_EDIT')+"/"+dato.CodSerEsp+"/"+1;
+		location.href="#/"+$translate('SER_SEE_SEE')+"/"+dato.CodSerEsp+"/"+1;
 	}
 	if(opciones_servicio_especiales==5)
 	{
-		location.href="#/"+$translate('SER_SEE_SEE')+"/"+dato.CodSerEsp+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesSerEsp;
+		location.href="#/"+$translate('SER_SEE_COM')+"/"+dato.CodSerEsp+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesSerEsp;
 	}
 }
 

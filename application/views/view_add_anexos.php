@@ -71,8 +71,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Anexo <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Anexo" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'NAME_ANNEX' | translate }} <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* {{ 'NAME_ANNEX' | translate }}" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
        </div>
        </div>
        </div>
@@ -217,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_COM' | translate }}<b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_COM' | translate }} <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTipCom1" name="CodTipCom" ng-model="vm.anexos.CodTipCom" ng-disabled="vm.validate_info_anexos!=undefined">
          <option ng-repeat="dato in vm.Tipos_Comision" value="{{dato.CodTipCom}}">{{dato.DesTipCom}}</option>                        
         </select>
@@ -239,8 +239,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> {{ 'REGIS' | translate }}</button>
             <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==undefined" ng-disabled="vm.validate_info_anexos!=undefined"><i class="fa fa-save"></i> {{ 'UPDA' | translate }}</button>            
-            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''"><i class="fa fa-trash"></i> {{ 'BACK' | translate }}</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()"><i class="fa fa-arrow-left"></i> {{ 'lim_modal' | translate }}</button>
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()"><i class="fa fa-arrow-left"></i> {{ 'BACK' | translate }}</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
