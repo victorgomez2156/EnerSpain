@@ -1,4 +1,4 @@
-app.controller('Controlador_Anexos', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora','upload','$translate', Controlador])
+app.controller('Controlador_Anexos', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora','upload', Controlador])
 .directive('uploaderModel', ["$parse", function ($parse) 
 {
 	return {
@@ -51,7 +51,7 @@ app.controller('Controlador_Anexos', ['$http', '$scope', '$filter','$route','$in
 		return deferred.promise;
 	}	
 }])
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload,$translate)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload)
 {
 	var scope = this;
 	scope.fdatos = {};	
@@ -92,8 +92,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.FecIniAne=true;
 	scope.EstAne=true;
 	scope.AccTAne=true;
-	scope.ttipofiltrosAnexos = [{id: 1, nombre: $translate('MARKETER')},{id: 2, nombre: $translate('PRODUCTS')},{id: 3, nombre: $translate('TIP_SER')},{id: 4, nombre: $translate('TIP_COM')},{id: 5, nombre: $translate('FECH_INI')},{id: 6, nombre: $translate('ESTATUS')}];
-	scope.Topciones_Grib = [{id: 4, nombre: $translate('VER')},{id: 3, nombre: $translate('EDITAR')},{id: 1, nombre: $translate('ACTIVAR')},{id: 2, nombre: $translate('BLOQUEAR')},{id: 5, nombre: $translate('COMISION')}];
+	scope.ttipofiltrosAnexos = [{id: 1, nombre: 'Comercializadora'},{id: 2, nombre: 'Productos'},{id: 3, nombre: 'Tipo de Servicios'},{id: 4, nombre: 'Tipo de Comisión'},{id: 5, nombre: 'Fecha de Inicio'},{id: 6, nombre: 'Estatus'}];
+	scope.Topciones_Grib = [{id: 4, nombre: 'Ver'},{id: 3, nombre: 'Editar'},{id: 1, nombre: 'Activar'},{id: 2, nombre: 'Bloquear'},{id: 5, nombre: 'Comisiones'}];
 	scope.comisiones=false;
 	scope.anexos.SerEle=false;
 	scope.anexos.SerGas=false;
@@ -177,7 +177,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		}).catch(function(error) 
 		{
 			console.log(error);//Tratar el error
-			if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+			/*if(error.status==false && error.error=="This API key does not have access to the requested controller.")
 			{
 				Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
 			}
@@ -196,7 +196,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			if(error.status==false && error.error=="Internal Server Error")
 			{
 				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-			}
+			}*/
 		});	
 scope.validarsifechaanexos=function(object,metodo)
 	{
@@ -219,7 +219,7 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	{ 		
 	 		if(!scope.tmodal_anexos.CodCom>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('search_comer_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:'Comercializadora',text:'Debe Seleccionar una Comercializadora de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate2 = 'id';  
@@ -249,7 +249,7 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	{ 		
 	 		if(!scope.tmodal_anexos.DesPro>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('search_prod_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Productos",text:'Debe Seleccionar un Producto de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate2 = 'id';  
@@ -279,12 +279,12 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	{ 		
 	 		if(!scope.tmodal_anexos.TipServ>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('search_tip_ser_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Tipos de Servicios",text:'Debe Seleccionar un Tipo de Servicio de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		if(!scope.tmodal_anexos.Select>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('select_item'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Error",text:'Debe Seleccionar un Elemento de la Lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate2 = 'id';  
@@ -323,7 +323,7 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	{ 		
 	 		if(!scope.tmodal_anexos.DesTipCom>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('select_com_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Tipo Comisión",text:'Debe Seleccionar una Comisión de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate2 = 'id';  
@@ -355,7 +355,7 @@ scope.validarsifechaanexos=function(object,metodo)
 			scope.tmodal_anexos.FecIniAne=FecIniAne1;
 	 		if(scope.tmodal_anexos.FecIniAne==undefined||scope.tmodal_anexos.FecIniAne==null||scope.tmodal_anexos.FecIniAne=="")
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('Fec_Ini_Vali'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:'Fecha de Inicio',text:'La Fecha de Inicio es Requerida.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		else
@@ -364,7 +364,7 @@ scope.validarsifechaanexos=function(object,metodo)
 	 			var FecIniAne= (scope.tmodal_anexos.FecIniAne).split("/");	 			
 				if(FecIniAne.length<3)
 				{
-					Swal.fire({text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio',text:'El Formato de la Fecha de Inicio Debe Ser: DD / MM / YYYY',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -372,20 +372,20 @@ scope.validarsifechaanexos=function(object,metodo)
 				{		
 					if(FecIniAne[0].length>2 || FecIniAne[0].length<2)
 					{
-						Swal.fire({text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:'Fecha de Inicio',text:'El Formato del Día Debe Ser: EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 
 					}
 					if(FecIniAne[1].length>2 || FecIniAne[1].length<2)
 					{
-						Swal.fire({text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:'Fecha de Inicio',text:'El Formato del Mes Debe Ser: EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 					}
 					if(FecIniAne[2].length<4 || FecIniAne[2].length>4)
 					{
-						Swal.fire({text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:'Fecha de Inicio',text:'El Formato del Año Debe Ser: EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 					}					
@@ -418,7 +418,7 @@ scope.validarsifechaanexos=function(object,metodo)
 	 	{ 		
 	 		if(!scope.tmodal_anexos.EstAne>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('select_status'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Estatus",text:'Debe Seleccionar un Estatus de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}	 		
 	 		$scope.predicate2 = 'id';  
@@ -504,7 +504,7 @@ scope.cargar_lista_anexos=function()
 		}
 		else
 		{
-			Swal.fire({title:$translate('ANNEXES'),text:$translate('NO_DATA_ANENNE'),type:"info",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Anexos',text:'No hemos encontrado datos actualmente.',type:"info",confirmButtonColor:"#188ae2"});
 			scope.TAnexos =[];
 			scope.TAnexosBack =[];
 		}
@@ -513,19 +513,19 @@ scope.cargar_lista_anexos=function()
 		$("#List_Anex").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		if(error.status==404 && error.statusText=="Not Found")
 		{
-			Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==401 && error.statusText=="Unauthorized")
 		{
-			Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==403 && error.statusText=="Forbidden")
 		{
-			Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==500 && error.statusText=="Internal Server Error")
-		{
-			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+		{				
+			Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});	
 }
@@ -540,15 +540,15 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		{
 			if(dato.EstAne=='ACTIVO')
 			{
-				Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('acti_annex'),type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:'Activando',text:'Este Anexo ya se encuentra Activo.',type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}			
-			Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('MESSA_TEXT_ACT_ANE'),
+			Swal.fire({title:'Activando',text:"¿Estás seguro de Activar este Anexo?",
 			type:"info",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
-			confirmButtonText:$translate('ACTIVAR')}).then(function(t)
+			confirmButtonText:"Activar"}).then(function(t)
 			{
 	            if(t.value==true)
 	            {
@@ -565,7 +565,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			scope.t_modal_data={};
 			if(dato.EstAne=='BLOQUEADO')
 			{
-				Swal.fire({title:$translate('MESSA_BLOC10'),text:$translate('MESSA_TEXT_BLO_ANE'),type:"error",confirmButtonColor:"#188ae2"});				
+				Swal.fire({title:"Bloqueado",text:'Este Anexo ya se encuentra Bloqueado.',type:"error",confirmButtonColor:"#188ae2"});				
 				return false;				
 			}
 			scope.anexos_motivo_bloqueos={};
@@ -580,15 +580,15 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		}
 		if(opciones_anexos==3)
 		{
-			location.href ="#/"+$translate('EDIT_ANNEXES')+"/"+dato.CodAnePro;
+			location.href ="#/Edit_Anexos/"+dato.CodAnePro;
 		}
 		if(opciones_anexos==4)
 		{		
-			location.href ="#/"+$translate('SEE_ANNEXES')+"/"+dato.CodAnePro+"/"+1;		
+			location.href ="#/Ver_Anexos/"+dato.CodAnePro+"/"+1;		
 		}
 		if(opciones_anexos==5)
 		{		
-			location.href="#/"+$translate('COMI_ANNEXES')+"/"+dato.CodAnePro+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesPro+"/"+dato.DesAnePro;			
+			location.href="#/Comisiones_Anexos/"+dato.CodAnePro+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesPro+"/"+dato.DesAnePro;			
 		}
 	}	
 	$scope.submitFormlockAnexos = function(event) 
@@ -605,7 +605,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		scope.FecBloAne=FecBloAne;
 	 	if(scope.FecBloAne==undefined||scope.FecBloAne==null||scope.FecBloAne=='')
 	 	{
-	 		Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('FEC_BLOC'),type:"error",confirmButtonColor:"#188ae2"});				
+	 		Swal.fire({title:"Fecha de Bloqueo",text:'La Fecha de Bloqueo es Requerida.',type:"error",confirmButtonColor:"#188ae2"});				
 			return false;
 	 	}
 	 	else
@@ -613,7 +613,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	 		var FecBlo= (scope.FecBloAne).split("/");
 			if(FecBlo.length<3)
 			{
-				Swal.fire({title:$translate('FEC_BLO_COM_MODAL') ,text:$translate('MESSA_BLOC')+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Fecha de Bloqueo" ,text:"El Formato de la Fecha de Bloqueo Debe Ser: "+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -621,19 +621,19 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			{		
 			if(FecBlo[0].length>2 || FecBlo[0].length<2)
 			{
-				Swal.fire({text:$translate('MESSA_BLOC1'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Fecha de Bloqueo",text:'El Formato del Día Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 				}
 			if(FecBlo[1].length>2 || FecBlo[1].length<2)
 			{
-				Swal.fire({text:$translate('MESSA_BLOC2'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Fecha de Bloqueo",text:'El Formato del Mes Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
 			if(FecBlo[2].length<4 || FecBlo[2].length>4)
 			{
-				Swal.fire({text:$translate('MESSA_BLOC3'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Fecha de Bloqueo",text:'El Formato del Año Debe Ser EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -644,18 +644,18 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 	        if(dateStart>dateEnd)
 	        {
-	            Swal.fire({text:$translate('MESSA_BLOC4')+scope.Fecha_Server+$translate('MESSA_BLOC5'),type:"error",confirmButtonColor:"#188ae2"});					
+	            Swal.fire({title:"Fecha de Bloqueo",text:"La Fecha de Bloqueo no debe ser mayor a: "+scope.Fecha_Server+" Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
 	            return false;
 	        }
 	        scope.t_modal_data.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
 	    }
 	 }
-	 	Swal.fire({title:$translate('MESSA_BLOC10'),text:$translate('TEXT_BLO_ANNEX') ,
+	 	Swal.fire({title:"Bloqueado",text:'¿Estás seguro de bloquear este anexo?',
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
 		cancelButtonColor:"#f34943",
-		confirmButtonText:$translate('BLOQUEADO')}).then(function(t)
+		confirmButtonText:'Bloquear'}).then(function(t)
 		{
 	        if(t.value==true)
 	        {
@@ -692,13 +692,13 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 	{
 		 		if(opciones_anexos==1)
 		 		{
-		 			var title=$translate('MESSA_BLOC8');
-		 			var text=$translate('TEXT_ACT_ANNEX_RESPONSE');
+		 			var title='Activando';
+		 			var text='Anexo activado correctamente.';
 		 		}
 		 		if(opciones_anexos==2)
 		 		{
-		 			var title=$translate('Blocking');
-		 			var text=$translate('TEXT_BLO_ANNEX_RESPONSE');
+		 			var title='Bloquando';
+		 			var text='Anexo bloqueado correctamente.';
 		 			$("#modal_motivo_bloqueo_anexos").modal('hide');
 		 		}
 
@@ -710,7 +710,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 	else
 		 	{
 		 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:$translate('error_update_anex'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:'Error en el proceso de actualización del esatus del anexo.',type:"error",confirmButtonColor:"#188ae2"});
 				scope.cargar_lista_anexos();
 		 	}
 
@@ -718,19 +718,19 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 {	$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		 });
 	}
@@ -738,7 +738,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	{
 		scope.TProductosActivosFiltrados = $filter('filter')(scope.TProductosActivos, {CodCom: scope.anexos.CodTProCom}, true);	
 		console.log(scope.TProductosActivosFiltrados)	;
-		if($route.current.$$route.originalPath=="/"+$translate('SEE_ANNEXES')+"/:ID/:INF" || $route.current.$$route.originalPath=="/"+$translate('EDIT_ANNEXES')+"/:ID")
+		if($route.current.$$route.originalPath=="/Ver_Anexos/:ID/:INF" || $route.current.$$route.originalPath=="/Edit_Anexos/:ID")
 		{
 			scope.contador=0;
 			scope.contador=scope.contador+1;
@@ -792,16 +792,16 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	 	if(scope.anexos.CodAnePro==undefined)
 	 	{
 	 		var titulo='Guardando_Anexo';
-	 		var titulo2=$translate('SAVE');
-	 		var texto=$translate('TEXT_SAVE');
-	 		var response =$translate('TEXT_SAVE_RESPONSE_ANE');
+	 		var titulo2='Guardando';
+	 		var texto='¿Estás seguro de guardar este nuevo registro?';
+	 		var response ='Anexo creado correctamente.';
 	 	}
 	 	else
 	 	{
 	 		var titulo='Actualizando_Anexo';
-	 		var titulo2=$translate('UPDATE');
-	 		var texto=$translate('TEXT_UPDATE');
-	 		var response =$translate('TEXT_UPDATE_RESPONSE_ANE');
+	 		var titulo2='Actualizando';
+	 		var texto='¿Estás seguro de actualizar este registro?';;
+	 		var response ='Anexo modificado correctamente.';
 	 	}
 		if (!scope.validar_campos_anexos())
 		{
@@ -824,7 +824,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 	else	 	
 		 	{
 		 		//console.log('Archivo No Permitido');
-		 		Swal.fire({title:'Error',text:$translate('ERROR_FILE'),type:"error",confirmButtonColor:"#188ae2"});		 		
+		 		Swal.fire({title:'Error',text:'Error en formato de archivo se permite solo PDF',type:"error",confirmButtonColor:"#188ae2"});		 		
 				scope.anexos.DocAnePro=null;
 				document.getElementById('file_anexo').value ='';
 				return false;
@@ -906,7 +906,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	           	    	if(result.data!=false)
 	           	    	{Swal.fire({title:titulo2,text:response,type:"success",confirmButtonColor:"#188ae2"});
 	           	    		document.getElementById('file_anexo').value ='';
-	           	    		location.href="#/"+$translate('EDIT_ANNEXES')+"/"+scope.nIDAnexos;
+	           	    		location.href="#/Edit_Anexos/"+scope.nIDAnexos;
 	           	    	}
 	           	    	else
 	           	    	{
@@ -915,21 +915,21 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 	           	    },function(error)
 	           	    {
 			           $("#"+titulo2).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-			           	if(error.status==404 && error.statusText=="Not Found")
+			           if(error.status==404 && error.statusText=="Not Found")
 						{
-							Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==401 && error.statusText=="Unauthorized")
 						{
-							Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==403 && error.statusText=="Forbidden")
 						{
-							Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==500 && error.statusText=="Internal Server Error")
-						{
-							Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+						{				
+							Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 				    }); 	
 				 }
@@ -945,24 +945,24 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		resultado = true;								
 		if (!scope.anexos.CodTProCom > 0)
 		{
-			Swal.fire({title:$translate('MARKETER'),text:$translate('search_comer_req'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Comercializadora',text:'Debe Seleccionar una Comercializadora de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}				
 		if (!scope.anexos.CodPro > 0)
 		{
-			Swal.fire({title:$translate('PRODUCTS'),text:$translate('search_prod_req'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Productos',text:'Debe Seleccionar un Producto de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.anexos.DesAnePro==null || scope.anexos.DesAnePro==undefined || scope.anexos.DesAnePro=='')
 		{
-			Swal.fire({title:$translate('ANNEXES'),text:$translate('nom_anex_req'),type:"error",confirmButtonColor:"#188ae2"});		           
+			Swal.fire({title:'Anexos',text:'El Nombre del Anexo es Requerido.',type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
 		var FecIniAneA1=document.getElementById("FecIniAneA").value;
 		scope.FecIniAneA=FecIniAneA1;
 		if (scope.FecIniAneA==null || scope.FecIniAneA==undefined || scope.FecIniAneA=='')
 		{
-			Swal.fire({title:$translate('FECH_INI') ,text:$translate('Fec_Ini_Vali'),type:"error",confirmButtonColor:"#188ae2"});		           
+			Swal.fire({title:'Fecha de Inicio' ,text:'La Fecha de Inicio es Requerida',type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
 		else
@@ -970,7 +970,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			var FecIniAneA= (scope.FecIniAneA).split("/");
 			if(FecIniAneA.length<3)
 			{
-				Swal.fire({title:$translate('FECH_INI') ,text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Fecha de Inicio' ,text:'El Formato de la Fecha de Inicio Debe Ser: DD / MM / YYYY',type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -978,20 +978,20 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			{		
 				if(FecIniAneA[0].length>2 || FecIniAneA[0].length<2)
 				{
-					Swal.fire({title:$translate('FECH_INI') ,text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio' ,text:'El Formato del Día Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 
 				}
 				if(FecIniAneA[1].length>2 || FecIniAneA[1].length<2)
 				{
-					Swal.fire({title:$translate('FECH_INI') ,text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio' ,text:'El Formato del Mes Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniAneA[2].length<4 || FecIniAneA[2].length>4)
 				{
-					Swal.fire({title:$translate('FECH_INI') ,text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio' ,text:'El Formato del Año Debe Ser EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -1002,7 +1002,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 			    if(dateStart>dateEnd)
 			    {
-			        Swal.fire({title:$translate('FECH_INI'),text:$translate('FECH_INI_1')+scope.Fecha_Server+$translate('FECH_INI_2'),type:"error",confirmButtonColor:"#188ae2"});					
+			        Swal.fire({title:'Fecha de Inicio',text:'La Fecha de Inicio no puede ser mayor a '+scope.Fecha_Server+' Verifique he intente Nuevamente.',type:"error",confirmButtonColor:"#188ae2"});					
 			        return false;
 			    }
 				scope.anexos.FecIniAneA=valuesStart[2]+"/"+valuesStart[1]+"/"+valuesStart[0];
@@ -1012,14 +1012,14 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		
 		if (scope.anexos.SerEle==false && scope.anexos.SerGas==false)					
 		{
-			Swal.fire({title:$translate('TIPO_SUM'),text:$translate('SER_ELE_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Tipos Suministros',text:'Debe Seleccionar un Tipo de Suministro.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if(scope.anexos.SerEle==true)
 		{	
 			if(scope.anexos.T_DetalleAnexoTarifaElecBaj.length==0 && scope.anexos.T_DetalleAnexoTarifaElecAlt.length==0 || scope.anexos.T_DetalleAnexoTarifaElecBaj==false && scope.anexos.T_DetalleAnexoTarifaElecAlt==false )
 			{
-				Swal.fire({title:$translate('SER_ELE'),text:$translate('SER_ELE_TAR_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Servicio Eléctrico',text:'Debe Seleccionar una tarifa Eléctrico Baja o Alta Tensión.',type:"error",confirmButtonColor:"#188ae2"});
 				return false;	
 			}
 		}
@@ -1028,18 +1028,18 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 			console.log(scope.anexos.T_DetalleAnexoTarifaGas);
 			if(scope.anexos.T_DetalleAnexoTarifaGas.length==0)
 			{
-				Swal.fire({title:$translate('SER_GAS'),text:$translate('SER_GAS_TAR_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Servicio Gas',text:'Debe Seleccionar al menos una tarifa de gas.',type:"error",confirmButtonColor:"#188ae2"});
 				return false;	
 			}
 		}
 		if (scope.anexos.Fijo==false && scope.anexos.Indexado==false)					
 		{
-			Swal.fire({title:$translate('TIP_PRICE'),text:$translate('TIP_PRICE_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Tipo Precio',text:'Debe Seleccionar un Tipo de Precio',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (!scope.anexos.CodTipCom > 0)
 		{
-			Swal.fire({title:$translate('TIP_COM'),text:$translate('TIP_COM_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Comisión',text:'Debe Seleccionar una Comisión de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.anexos.ObsAnePro==undefined || scope.anexos.ObsAnePro==null || scope.anexos.ObsAnePro=='')
@@ -1282,19 +1282,19 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		{
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -1408,7 +1408,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 	else
 		 	{
 		 		$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:$translate('NO_FOUND_MAR_ID'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:'No se encontraron datos con el código, por favor intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});
 		 	}
 
 		 },function(error)
@@ -1416,19 +1416,19 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		 	$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -1438,13 +1438,13 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		{
 			if(scope.anexos.CodAnePro==undefined)
 			{
-				var title=$translate('SAVE');
-				var text=$translate('text_back_save');
+				var title='Guardando';
+				var text='¿Estás seguro de regresar y no guardar los datos?';
 			}
 			else
 			{
-				var title=$translate('UPDATE');
-				var text=$translate('text_back_update');
+				var title='Actualizando';
+				var text='¿Estás seguro de regresar y no actualizar los datos?';
 			}
 			Swal.fire({title:title,text:text,		
 			type:"question",
@@ -1469,7 +1469,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 					scope.anexos.Indexado=false;
 					scope.anexos.AggAllBaj=false;
 					scope.anexos.AggAllAlt=false;	
-					location.href="#/"+$translate('ANNEXES');	
+					location.href="#/Anexos";	
 		        }
 		        else
 		        {
@@ -1480,7 +1480,7 @@ scope.validar_opcion_anexos=function(index,opciones_anexos,dato)
 		}
 		else
 		{
-			location.href="#/"+$translate('ANNEXES');	
+			location.href="#/Anexos";
 		}
 	}	
 	if(scope.nIDAnexos!=undefined) 

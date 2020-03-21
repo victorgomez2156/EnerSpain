@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código CNAE <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" required placeholder="* Ingrese Código CNAE"/>       
+       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" placeholder="* Ingrese Código CNAE"/>       
        </div>
        </div>
        </div>

@@ -229,13 +229,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodCol" name="CodCol" type="hidden" ng-model="vm.fdatos.CodCol" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''" ng-disabled="vm.habilitar_button==1">CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined||vm.habilitar_button==1" >ACTUALIZAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''" ng-disabled="vm.habilitar_button==1"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined||vm.habilitar_button==1" ><i class="fa fa-save"></i> ACTUALIZAR</button>
             
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined"><i class="fa fa-trash"></i> BORRAR</button>
 
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''">LIMPIAR</button>
-            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">REGRESAR</a>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''"><i class="fa fa-trash"></i> LIMPIAR</button>
+            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()"><i class="fa fa-arrow-left"></i> REGRESAR</a>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -251,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--main content end-->
      <div class="text-right">
       <div class="credits">
-          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -284,7 +284,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
 </body>
 <div id="cargando" class="loader loader-default"  data-text="Cargando Datos del Colaborador, Por Favor Espere..."></div>
-<div id="crear_colaborador" class="loader loader-default"  data-text="Creando o Actualizando Colaborador, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Colaborador, Por Favor Espere..."></div>
+<div id="Actualiando" class="loader loader-default"  data-text="Actualizando Colaborador, Por Favor Espere..."></div>
 <div id="borrando" class="loader loader-default"  data-text="Borrando Registro, Por Favor Espere..."></div>
 <div id="comprobar_cif" class="loader loader-default"  data-text="Comprobando Número de DNI/NIE, Por Favor Espere..."></div>
 

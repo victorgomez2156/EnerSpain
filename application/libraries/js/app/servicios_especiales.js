@@ -1,4 +1,4 @@
- app.controller('Controlador_Servicios_Especiales', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora','upload','$translate', Controlador])
+ app.controller('Controlador_Servicios_Especiales', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','$compile','ServiceComercializadora','upload', Controlador])
 .directive('uploaderModel', ["$parse", function ($parse) 
 {
 	return {
@@ -51,7 +51,7 @@
 		return deferred.promise;
 	}	
 }])
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload,$translate)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,$compile,ServiceComercializadora,upload)
 {
 	//declaramos una variable llamada scope donde tendremos a vm
 	/*inyectamos un controlador para acceder a sus variables y metodos*/
@@ -103,8 +103,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.select_tarifa_gas_SerEsp=[];	
 
 	scope.servicio_especial.T_DetalleServicioEspecialTarifaGas=[];
-	scope.ttipofiltrosServicioEspecial = [{id: 1, nombre: $translate('MARKETER')},{id: 2, nombre: $translate('TIP_SER')},{id: 3, nombre: $translate('TIP_CLI')},{id: 4, nombre: $translate('TIP_COM')},{id: 5, nombre: $translate('FECH_INI')},{id: 6, nombre: $translate('ESTATUS')}];
-	scope.Topciones_Grib = [{id: 4, nombre: $translate('VER')},{id: 3, nombre: $translate('EDITAR')},{id: 1, nombre: $translate('ACTIVAR')},{id: 2, nombre: $translate('BLOQUEAR')},{id: 5, nombre: $translate('COMISION')}];
+	scope.ttipofiltrosServicioEspecial = [{id: 1, nombre: 'Comercializadora'},{id: 2, nombre: 'Tipo de Servicio'},{id: 3, nombre: 'Tipo de Cliente'},{id: 4, nombre: 'Tipo Comisión'},{id: 5, nombre: 'Fecha de Inicio'},{id: 6, nombre: 'Estatus'}];
+	scope.Topciones_Grib = [{id: 4, nombre:'Ver'},{id: 3, nombre: 'Editar'},{id: 1, nombre: 'Activar'},{id: 2, nombre: 'Bloquear'},{id: 5, nombre: 'Comisiones'}];
 	//scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'},{id: 5, nombre: 'COMISIONES'}];
 	scope.validate_info_servicio_especiales=scope.INF;
 	console.log($route.current.$$route.originalPath);	
@@ -169,26 +169,23 @@ ServiceComercializadora.getAll().then(function(dato)
 		}).catch(function(error) 
 		{
 			console.log(error);//Tratar el error
-			if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+			/*if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
-			if(error.status==false && error.error=="Unknown method.")
+			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
-			if(error.status==false && error.error=="Unauthorized")
+			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
-			if(error.status==false && error.error=="Invalid API Key.")
-			{
-				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==false && error.error=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}*/
+
 		});	 
 
 scope.cargar_lista_servicos_especiales=function()
@@ -223,8 +220,8 @@ scope.cargar_lista_servicos_especiales=function()
 		}
 		else
 		{
-			console.log($translate('no_ser_esp_regis'));
-			Swal.fire({title:"Error",text:$translate('no_ser_esp_regis'),type:"error",confirmButtonColor:"#188ae2"});
+			console.log('No hemos encontrado servicios especiales registrados.');
+			Swal.fire({title:"Error",text:'No hemos encontrado servicios especiales registrados.',type:"error",confirmButtonColor:"#188ae2"});
 			scope.TServicioEspeciales=[];
 			scope.TServicioEspecialesBack=[];
 		}
@@ -233,19 +230,19 @@ scope.cargar_lista_servicos_especiales=function()
 		$("#List_Serv").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		if(error.status==404 && error.statusText=="Not Found")
 		{
-			Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==401 && error.statusText=="Unauthorized")
 		{
-			Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==403 && error.statusText=="Forbidden")
 		{
-			Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 		}
 		if(error.status==500 && error.statusText=="Internal Server Error")
-		{
-			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+		{				
+			Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 		}
 	});	
 }
@@ -256,7 +253,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 	{ 		
 	 		if(!scope.tmodal_servicio_especiales.CodCom>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('search_comer_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Comercializadora",text:'Debe Seleccionar una Comercializadora de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}	 	
 			$scope.predicate3 = 'id';  
@@ -285,7 +282,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 	{ 		
 	 		if(!scope.tmodal_servicio_especiales.TipServ>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('search_tip_ser_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:'Tipo Servicio',text:'Debe Seleccionar un Tipo de Servicio de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		/*if(!scope.tmodal_servicio_especiales.Select>0)
@@ -334,7 +331,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 	{ 		
 	 		if(!scope.tmodal_servicio_especiales.TipCli>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('tip_cli_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Tipo Cliente",text:'Debe Seleccionar un Tipo de Cliente de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate3 = 'id';  
@@ -364,7 +361,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 	{ 		
 	 		if(!scope.tmodal_servicio_especiales.DesTipCom>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('tip_cli_req'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Tipo Comision",text:'Debe Seleccionar un Tipo de Comisión de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		$scope.predicate3 = 'id';  
@@ -397,7 +394,7 @@ scope.cargar_lista_servicos_especiales=function()
 			scope.tmodal_servicio_especiales.FecIniSerEsp=FecIniSerEsp;
 	 		if(scope.tmodal_servicio_especiales.FecIniSerEsp==undefined||scope.tmodal_servicio_especiales.FecIniSerEsp==null||scope.tmodal_servicio_especiales.FecIniSerEsp=="")
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('Fec_Ini_Vali'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Fecha de Inicio",text:'La Fecha de Inicio es Requerida.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}
 	 		else
@@ -405,7 +402,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 			var FecIniSerEsp= (scope.tmodal_servicio_especiales.FecIniSerEsp).split("/");
 				if(FecIniSerEsp.length<3)
 				{
-					Swal.fire({text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Fecha de Inicio",text:"El Formato de la Fecha de Inicio de Ser: "+fecha,type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -413,20 +410,20 @@ scope.cargar_lista_servicos_especiales=function()
 				{		
 					if(FecIniSerEsp[0].length>2 || FecIniSerEsp[0].length<2)
 					{
-						Swal.fire({text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Fecha de Inicio",text:"El Formato del Día Debe Ser: "+dd,type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 
 					}
 					if(FecIniSerEsp[1].length>2 || FecIniSerEsp[1].length<2)
 					{
-						Swal.fire({text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Fecha de Inicio",text:"El Formato del Mes Debe Ser: "+mm,type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 					}
 					if(FecIniSerEsp[2].length<4 || FecIniSerEsp[2].length>4)
 					{
-						Swal.fire({text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Fecha de Inicio",text:"El Formato del Año Debe Ser: "+yyyy,type:"error",confirmButtonColor:"#188ae2"});
 						event.preventDefault();	
 						return false;
 					}
@@ -461,7 +458,7 @@ scope.cargar_lista_servicos_especiales=function()
 	 	{ 		
 	 		if(!scope.tmodal_servicio_especiales.EstSerEsp>0)
 	 		{
-	 			Swal.fire({title:"Error",text:$translate('select_status'),type:"error",confirmButtonColor:"#188ae2"});
+	 			Swal.fire({title:"Estatus",text:'Debe Seleccionar un Estatus de la lista.',type:"error",confirmButtonColor:"#188ae2"});
 	 			return false;
 	 		}	 		
 	 		$scope.predicate2 = 'id';  
@@ -540,15 +537,15 @@ scope.validar_opcion_servicios_especiales=function(index,opciones_servicio_espec
 	{
 		if(dato.EstSerEsp=="ACTIVO")
 		{
-			Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('ACT_SER_ESPE'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Activando',text:'Este Servicio Especial ya se encuentra activo.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
-		Swal.fire({title:$translate('MESSA_BLOC8'),text:$translate('ACT_QUES_SER_ESP'),
+		Swal.fire({title:'Activando',text:'¿Estás seguro de activar este servicio especial?',
 			type:"question",
 			showCancelButton:!0,
 			confirmButtonColor:"#31ce77",
 			cancelButtonColor:"#f34943",
-			confirmButtonText:$translate('ACTIVAR')}).then(function(t)
+			confirmButtonText:'Activar'}).then(function(t)
 			{
 	            if(t.value==true)
 	            {
@@ -564,7 +561,7 @@ scope.validar_opcion_servicios_especiales=function(index,opciones_servicio_espec
 	{
 		if(dato.EstSerEsp=="BLOQUEADO")
 		{
-			Swal.fire({title:$translate('MESSA_BLOC10'),text:$translate('BLO_QUES_SER_ESP'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Bloqueando',text:'Este Servicio Especial se encuentra bloqueado ya.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}		
 			scope.servicio_especial_bloqueo={};
@@ -578,15 +575,15 @@ scope.validar_opcion_servicios_especiales=function(index,opciones_servicio_espec
 	}
 	if(opciones_servicio_especiales==3)
 	{
-		location.href="#/"+$translate('SER_EDIT_EDIT')+"/"+dato.CodSerEsp;
+		location.href="#/Edit_Servicios_Adicionales/"+dato.CodSerEsp;
 	}
 	if(opciones_servicio_especiales==4)
 	{
-		location.href="#/"+$translate('SER_SEE_SEE')+"/"+dato.CodSerEsp+"/"+1;
+		location.href="#/Ver_Servicios_Adicionales/"+dato.CodSerEsp+"/"+1;
 	}
 	if(opciones_servicio_especiales==5)
 	{
-		location.href="#/"+$translate('SER_SEE_COM')+"/"+dato.CodSerEsp+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesSerEsp;
+		location.href="#/Comisiones_Servicios_Adicionales/"+dato.CodSerEsp+"/"+dato.NumCifCom+"/"+dato.RazSocCom+"/"+dato.DesSerEsp;
 	}
 }
 
@@ -612,13 +609,13 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	 	{
 	 		if(opciones_servicio_especiales==1)
 	 		{
-				var title=$translate('MESSA_BLOC8');
-	 			var text=$translate('TEXT_SER_ESP_ACT');
+				var title='Activando';
+	 			var text='El Servicio Especial ha sido activado correctamente.';
 	 		}
 	 		if(opciones_servicio_especiales==2)
 	 		{
-	 			var title=$translate('MESSA_BLOC10');
-	 			var text=$translate('TEXT_SER_ESP_BLO');
+	 			var title='Bloqueando';
+	 			var text='El Servicio Especial ha sido bloqueado correctamente.';
 	 			$("#modal_motivo_bloqueo_servicio_especial").modal('hide');
 	 		}
 	 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
@@ -629,28 +626,29 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	 	else
 	 	{
 	 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-			Swal.fire({title:"Error",text:$translate('MESSA_BLOC12'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error",text:'Un error a ocurrido en el proceso de actualización del estatus.',type:"error",confirmButtonColor:"#188ae2"});
 			scope.cargar_lista_servicos_especiales();
 	 	}
     },function(error)
 	{	
 		$("#estatus").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 	 	if(error.status==404 && error.statusText=="Not Found")
-		{
-			Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
-		}
-		if(error.status==401 && error.statusText=="Unauthorized")
-		{
-			Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
-		}
-		if(error.status==403 && error.statusText=="Forbidden")
-		{
-			Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
-		}
-		if(error.status==500 && error.statusText=="Internal Server Error")
-		{
-			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-		}
+			{
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+
 	});
 }
 
@@ -668,7 +666,7 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 		scope.FecBloSerEsp=FecBloSerEsp1;
 	 	if(scope.FecBloSerEsp==undefined||scope.FecBloSerEsp==null||scope.FecBloSerEsp=='')
 	 	{
-	 		Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('FEC_BLOC'),type:"error",confirmButtonColor:"#188ae2"});
+	 		Swal.fire({title:'Fecha de Bloqueo',text:'La Fecha de Bloqueo es Requerido.',type:"error",confirmButtonColor:"#188ae2"});
 	 		return false;
 	 	}
 	 	else
@@ -676,7 +674,7 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 	 		var FecBlo= (scope.FecBloSerEsp).split("/");
 			if(FecBlo.length<3)
 			{
-				Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('MESSA_BLOC')+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Fecha de Bloqueo',text:'El Formato de la Fecha de Bloqueo Debe Ser: '+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -684,19 +682,19 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 			{		
 				if(FecBlo[0].length>2 || FecBlo[0].length<2)
 				{
-					Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('MESSA_BLOC1'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato Día la Fecha de Bloqueo Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 					}
 				if(FecBlo[1].length>2 || FecBlo[1].length<2)
 				{
-					Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('MESSA_BLOC2'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato Mes la Fecha de Bloqueo Debe Ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecBlo[2].length<4 || FecBlo[2].length>4)
 				{
-					Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('MESSA_BLOC3'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato Año la Fecha de Bloqueo Debe Ser EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -707,19 +705,19 @@ scope.cambiar_estatus_servicio_especial=function(opciones_servicio_especiales,Co
 		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 		        if(dateStart>dateEnd)
 		        {
-		            Swal.fire({title:$translate('FEC_BLO_COM_MODAL'),text:$translate('MESSA_BLOC4')+scope.Fecha_Server+$translate('MESSA_BLOC5'),type:"error",confirmButtonColor:"#188ae2"});					
+		            Swal.fire({title:'Fecha de Bloqueo',text:"La Fecha de Bloqueo No Puede Ser Mayor a: "+scope.Fecha_Server+'Por Favor verifique e intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});					
 		            return false;
 		        }
 		        scope.servicio_especial_bloqueo.FecBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
 	        }	
 	 	}
 	 	console.log(scope.servicio_especial_bloqueo);
-	 	Swal.fire({title:$translate('MESSA_BLOC10'),text:$translate('MESSA_BLOC_SER_ESP'),
+	 	Swal.fire({title:'Bloqueando',text:'Estás Seguro de Bloquear Este Servicio Especial?',
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
 		cancelButtonColor:"#f34943",
-		confirmButtonText:$translate('BLOQUEADA')}).then(function(t)
+		confirmButtonText:'Bloquear'}).then(function(t)
 		{
 	        if(t.value==true)
 	        {
@@ -739,16 +737,16 @@ $scope.submitFormServiciosEspeciales = function(event)
 	if(scope.servicio_especial.CodSerEsp==undefined)
 	{
 		//var titulo='Guardando_Anexo';
-		var titulo=$translate('SAVE');
-		var texto=$translate('TEXT_SAVE');
-		var response=$translate('RESPONSE_SAVE_SER_ESPE');
+		var titulo='Guardando';
+		var texto='Estás seguro de ingresar este nuevo registro';
+		var response='Servicio Especial creado correctamente.';
 	}
 	else
 	{
 		//var titulo='Actualizando_Anexo';
-		var titulo=$translate('UPDATE');
-		var texto=$translate('TEXT_UPDATE');
-		var response=$translate('RESPONSE_UPDATE_SER_ESP');
+		var titulo='Actualizando';
+		var texto='Estás seguro de ingresar este nuevo registro';
+		var response='Servicio Especial modificado correctamente.';
 	}
 	if (!scope.validar_campos_servicio_especial())
 	{
@@ -774,33 +772,34 @@ $scope.submitFormServiciosEspeciales = function(event)
 	           	{
 	           	    $("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					Swal.fire({title:titulo,text:response,type:"success",confirmButtonColor:"#188ae2"});
-	           	    location.href="#/"+$translate('SER_EDIT_EDIT')+"/"+scope.nIDSerEsp;
+	           	    location.href="#/Edit_Servicios_Adicionales/"+scope.nIDSerEsp;
 	           	} 
 	           	else
 	           	{
 	           	    $("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"Error",text:$translate('ERROR_SAVE'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:"Error",text:'Un error a ocurrido durante el proceso, por favor intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});
 	           	}
 
 	        },function(error)
 	        {
 	        	$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 	        	if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-				}
+			{
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+
 	        });  	
 	    }
 	    else
@@ -814,19 +813,19 @@ $scope.submitFormServiciosEspeciales = function(event)
 		resultado = true;								
 		if (!scope.servicio_especial.CodCom > 0)
 		{
-			Swal.fire({title:$translate('MARKETER'),text:$translate('search_comer_req'), type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Comercializadora',text:'Debe Seleccionar una Comercializadora de la lista.', type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}					
 		if (scope.servicio_especial.DesSerEsp==null || scope.servicio_especial.DesSerEsp==undefined || scope.servicio_especial.DesSerEsp=='')
 		{
-			Swal.fire({title:$translate('SER_ESP_TIT'),text:$translate('search_name_ser_req'),type:"error",confirmButtonColor:"#188ae2"});		           
+			Swal.fire({title:'Servicio Especial',text:'El Nombre del Servicio Especial Es Requerido.',type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
 		var FecIniSerEspForm1=document.getElementById("FecIniSerEspForm").value;
 		scope.FecIniSerEspForm=FecIniSerEspForm1;
 		if (scope.FecIniSerEspForm==null || scope.FecIniSerEspForm==undefined || scope.FecIniSerEspForm=='')
 		{
-			Swal.fire({title:$translate('FECH_INI'),text:$translate('Fec_Ini_Vali'), type:"error",confirmButtonColor:"#188ae2"});		           
+			Swal.fire({title:'Fecha de Inicio',text:'La Fecha de Inicio es Requerida.', type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
 		else
@@ -834,7 +833,7 @@ $scope.submitFormServiciosEspeciales = function(event)
 			var FecIniSerEspForm= (scope.FecIniSerEspForm).split("/");
 			if(FecIniSerEspForm.length<3)
 			{
-				Swal.fire({title:$translate('FECH_INI'),text:$translate('format_fec_ini'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Fecha de Inicio',text:'El Formato de la Fecha de Inicio Debe Ser: '+scope.Fecha_Server,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -842,20 +841,20 @@ $scope.submitFormServiciosEspeciales = function(event)
 			{		
 				if(FecIniSerEspForm[0].length>2 || FecIniSerEspForm[0].length<2)
 				{
-					Swal.fire({title:$translate('FECH_INI'),text:$translate('format_fec_ini_dia'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio',text:'El Formato del Día Debe Ser: EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 
 				}
 				if(FecIniSerEspForm[1].length>2 || FecIniSerEspForm[1].length<2)
 				{
-					Swal.fire({title:$translate('FECH_INI'),text:$translate('format_fec_ini_mes'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio',text:'El Formato del Mes Debe Ser: EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FecIniSerEspForm[2].length<4 || FecIniSerEspForm[2].length>4)
 				{
-					Swal.fire({title:$translate('FECH_INI'),text:$translate('format_fec_ini_ano'),type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Inicio',text:'El Formato del Año Debe Ser: EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -869,7 +868,7 @@ $scope.submitFormServiciosEspeciales = function(event)
 		        var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 		        if(dateStart>dateEnd)
 		        {
-		            Swal.fire({text:$translate('FECH_INI_1')+scope.Fecha_Server+$translate('FECH_INI_2'),type:"error",confirmButtonColor:"#188ae2"});					
+		            Swal.fire({text:"La Fecha de Inicio No Puede Ser Mayor a: "+scope.Fecha_Server+'Por favor Verifique he intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});					
 		            return false;
 		        }			
 			}
@@ -877,14 +876,14 @@ $scope.submitFormServiciosEspeciales = function(event)
 		
 		if (scope.servicio_especial.SerEle==false && scope.servicio_especial.SerGas==false)					
 		{
-			Swal.fire({title:$translate('TIP_SER'),text:$translate('SER_ELE_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Tipo de Servicios',text:'Debe Seleccionar un Tipo de Servicio Eléctrico, Gas o Ambos.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if(scope.servicio_especial.SerEle==true)
 		{	
 			if(scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj.length==0 && scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt.length==0 || scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj==false && scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt==false )
 			{
-				Swal.fire({title:$translate('Rates'),text:$translate('SER_ELE_TAR_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Tarifa Eléctrica',text:'Debe Seleccionar un Tipo de Tensión Alta o Baja',type:"error",confirmButtonColor:"#188ae2"});
 				return false;	
 			}
 		}
@@ -893,23 +892,23 @@ $scope.submitFormServiciosEspeciales = function(event)
 			console.log(scope.servicio_especial.T_DetalleServicioEspecialTarifaGas);
 			if(scope.servicio_especial.T_DetalleServicioEspecialTarifaGas.length==0)
 			{
-				Swal.fire({title:$translate('Rates'),text:$translate('SER_GAS_TAR_REQ'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Tarifa Gas',text:'Debe Seleccionar una Tarifa de Gas',type:"error",confirmButtonColor:"#188ae2"});
 				return false;	
 			}
 		}
 		if (!scope.servicio_especial.TipCli > 0)
 		{
-			Swal.fire({title:$translate('TIP_CLI'),text:$translate('tip_cli_req'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Tipo Clientes',text:'Debe Seleccionar un Tipo de Cliente',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.servicio_especial.CarSerEsp==null || scope.servicio_especial.CarSerEsp==undefined || scope.servicio_especial.CarSerEsp=='')
 		{
-			Swal.fire({text:$translate('car_ser_espe_req'),type:"error",confirmButtonColor:"#188ae2"});		           
+			Swal.fire({title:"Caracteristicas",text:'Caracteristicas',type:"error",confirmButtonColor:"#188ae2"});		           
 			return false;
 		}
 		if (!scope.servicio_especial.CodTipCom > 0)
 		{
-			Swal.fire({title:$translate('COMISION'),text:$translate('select_com_req'),type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Comisión',text:'Debe Seleccionar un Tipo de Comisión',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (scope.servicio_especial.OsbSerEsp==undefined || scope.servicio_especial.OsbSerEsp==null || scope.servicio_especial.OsbSerEsp=='')
@@ -1235,51 +1234,50 @@ scope.agregar_tarifa_elec_baja_SerEsp=function(index,CodTarEle,opcion_tension_ba
 scope.regresar_servicios_especiales=function()
 {
 	if(scope.INF==undefined)
+	{
+		if(scope.servicio_especial.CodSerEsp==undefined)
 		{
-			if(scope.servicio_especial.CodSerEsp==undefined)
-			{
-				var title=$translate('SAVE');
-				var text=$translate('text_back_save');
-			}
-			else
-			{
-				var title=$translate('SAVE');
-				var text=$translate('text_back_update');
-			}
-			Swal.fire({title:title,text:text,		
-			type:"question",
-			showCancelButton:!0,
-			confirmButtonColor:"#31ce77",
-			cancelButtonColor:"#f34943",
-			confirmButtonText:"OK"}).then(function(t)
-			{
-		        if(t.value==true)
-		        {
-			      	//scope.TvistaServiciosEspeciales=1;
-					scope.servicio_especial={};
-					scope.select_tarifa_Elec_Baj_SerEsp=[];
-					scope.select_tarifa_Elec_Alt_SerEsp=[];
-					scope.select_tarifa_gas_SerEsp=[];
-					scope.servicio_especial.T_DetalleServicioEspecialTarifaGas=[];
-					scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj =[]; 
-					scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt =[]; 
-					scope.servicio_especial.SerGas=false;
-					scope.servicio_especial.SerEle=false;
-					scope.servicio_especial.AggAllBaj=false;
-					scope.servicio_especial.AggAllAlt=false;
-					location.href="#/"+$translate('SER_ADD');
-					//scope.cargar_lista_servicos_especiales();
-					console.log(scope.TvistaServiciosEspeciales);	   
-		        }
-		        else
-		        {
-		            console.log('Cancelando ando...');
-		        }
-		    });	
+			var title='Guardando';
+			var text='¿Estás seguro de regresar y no guardar los datos?';
 		}
 		else
 		{
-			location.href="#/"+$translate('SER_ADD');
+			var title='Actualizando';
+			var text='¿Estás seguro de regresar y no actualizar los datos?';
+		}
+		Swal.fire({title:title,text:text,		
+		type:"question",
+		showCancelButton:!0,
+		confirmButtonColor:"#31ce77",
+		cancelButtonColor:"#f34943",
+		confirmButtonText:"OK"}).then(function(t)
+		{
+	        if(t.value==true)
+	        {
+		      	//scope.TvistaServiciosEspeciales=1;
+				scope.servicio_especial={};
+				scope.select_tarifa_Elec_Baj_SerEsp=[];
+				scope.select_tarifa_Elec_Alt_SerEsp=[];
+				scope.select_tarifa_gas_SerEsp=[];
+				scope.servicio_especial.T_DetalleServicioEspecialTarifaGas=[];
+				scope.servicio_especial.T_DetalleServicioEspecialTarifaElecBaj =[]; 
+				scope.servicio_especial.T_DetalleServicioEspecialTarifaElecAlt =[]; 
+				scope.servicio_especial.SerGas=false;
+				scope.servicio_especial.SerEle=false;
+				scope.servicio_especial.AggAllBaj=false;
+				scope.servicio_especial.AggAllAlt=false;
+				location.href="#/Servicios_Adicionales/";
+				//console.log(scope.TvistaServiciosEspeciales);	   
+		    }
+		    else
+		    {
+		        console.log('Cancelando ando...');
+		    }
+		});	
+	}
+		else
+		{
+			location.href="#/Servicios_Adicionales/";
 		}
 	}
 scope.buscarXIDServicioEspecial=function()
@@ -1373,27 +1371,28 @@ scope.buscarXIDServicioEspecial=function()
 			}
 		 	else
 		 	{
-		 		Swal.fire({title:"Error",text:$translate('NO_FOUND_MAR_ID'),type:"error",confirmButtonColor:"#188ae2"});
+		 		Swal.fire({title:"Error",text:'No se encontraron datos relaciones con el Código de Busqueda.',type:"error",confirmButtonColor:"#188ae2"});
 		 	}
 		 },function(error)
 		 {
 			$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
+
 		 });
 	}
 if(scope.nIDSerEsp!=undefined)

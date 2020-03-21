@@ -132,7 +132,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     
                     <div class="btn-group">
-                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Tarifa_Electrica/{{vm.ruta_reportes_pdf_tarifas_electrica}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
                         <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Tarifa_Electrica/{{vm.ruta_reportes_excel_tarifas_electrica}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
@@ -176,9 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CanPerTar==true">{{dato.CanPerTar}}</td>
                     <td ng-show="vm.MinPotCon==true">{{dato.MinPotCon}} kw</td>
                     <td ng-show="vm.MaxPotCom==true">{{dato.MaxPotCon}} kw</td>                    
-                    <td ng-show="vm.AccTarElec==true">                     
-                      <!--a ng-click="vm.editar_TarEle(dato)" title='Editar Tarifa Electrica' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-edit" style="color:white;"></i></div></a>
-                      <a ng-click="vm.borrar_row_electrica($index,dato.CodTarEle)" title='Eliminar Tarifa Electrica' class="btn btn-danger btn-icon mg-r-5"><div><i class="fa fa-trash" style="color:white;"></i></div></a-->
+                    <td ng-show="vm.AccTarElec==true"> 
                          <select class="form-control" id="opciones_TarEle" name="opciones_TarEle" ng-model="vm.opciones_TarEle[$index]" ng-change="vm.validar_opcion_TarEle($index,vm.opciones_TarEle[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                       </select>
@@ -215,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="panel">                  
       <form class="form-validate" id="frm_filtro_TarEle" name="frm_filtro_TarEle" ng-submit="SubmitFormFiltrosTarEle($event)">                 
      
-     <div class="col-12 col-sm-6">
+     <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
@@ -229,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <br>
      <br>
      <br> 
-     <div class="col-12 col-sm-6" ng-show="vm.tmodal_TarEle.tipo_filtro==1">
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_TarEle.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipTen" name="TipTen" ng-model="vm.tmodal_TarEle.TipTen">
@@ -240,9 +238,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
     </div>
-    <br ng-show="vm.tmodal_TarEle.tipo_filtro==1">
-     <br ng-show="vm.tmodal_TarEle.tipo_filtro==1"> 
-    <br>
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frm_filtro_TarEle.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
       <a class="btn btn-danger" ng-click="vm.regresar_filtro_TarEle()" ng-show="vm.tmodal_TarEle.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR</a>
@@ -351,7 +346,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     
                     <div class="btn-group">
-                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Tarifa_Gas/{{vm.ruta_reportes_pdf_tarifas_gas}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
                         <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Tarifa_Gas/{{vm.ruta_reportes_excel_tarifas_gas}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
