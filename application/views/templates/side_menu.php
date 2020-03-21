@@ -158,10 +158,10 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">            	
-              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Comercializadora"> Datos Basicos</a></li>
-              <li><a class="fa fa-briefcase" href="#/Productos"> Productos</a></li>
-              <li><a class="fa fa-bullseye" href="#/Anexos"> Anexos</a></li>
-              <li><a class="fa fa-child" href="#/Servicios_Adicionales"> Ser. Adicionales</a></li>         
+              <li><a href="#/Datos_Basicos_Comercializadora"> Datos Básicos</a></li>
+              <li><a href="#/Productos"> Productos</a></li>
+              <li><a href="#/Anexos"> Anexos</a></li>
+              <li><a href="#/Servicios_Adicionales"> Ser. Adicionales</a></li>         
             </ul>
           </li>
 
@@ -172,13 +172,14 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-user-circle" href="#/Datos_Basicos_Clientes"> Datos Basicos</a></li>
-              <li><a class="fa fa-briefcase" href="#/Actividades"> Actividad</a></li>
-              <li><a class="fa fa-bullseye" href="#/Puntos_Suministros"> Dir. Suministros</a></li>
-              <li><a class="fa fa-child" href="#/Contactos"> Contactos</a></li>  
-              <li><a class="fa fa-bank" href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
-              <li><a class="fa fa-file" href="#/Documentos"> Documentos</a></li> 
-              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>    
+              <li><a href="#/Datos_Basicos_Clientes"> Datos Básicos</a></li>
+              <li><a href="#/Actividades"> Actividad</a></li>
+              <li><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
+              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
+              <li><a href="#/Contactos"> Contactos</a></li>  
+              <li><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
+              <li><a href="#/Documentos"> Documentos</a></li> 
+                
             </ul>
           </li>
 
@@ -191,7 +192,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a class="fa fa-handshake-o" href="#/Reporte_Cups_Colaboradores"> Colaboradores</a></li>
+              <li><a href="#/Reporte_Cups_Colaboradores"> Colaboradores</a></li>
             </ul>
         </li>
 
@@ -232,17 +233,17 @@
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="icon_cogs"></i>
-              <span>Configuraciones</span>
+              <span>Configuración</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-            	<li><a class="fa fa-cube" href="#/Distribuidora"> Distribuidora</a></li>
-            	<li><a class="fa fa-area-chart" href="#/Tarifas"> Tarifas</a></li>
-            	<li><a class="fa fa-handshake-o" href="#/Colaboradores"> Colaboradores</a></li>
-            	<li><a class="fa fa-cc" href="#/Comercial"> Comercial</a></li>
-            	<li><a class="fa fa-certificate" href="#/Tipos"> Tipos</a></li>
-            	<li><a class="fa fa-ban" href="#/Motivos_Bloqueos"> Motivos</a></li>
-              <li><a class="fa fa-users" href="#/Usuarios"> Usuarios</a></li>            
+            	<li><a href="#/Distribuidora"> Distribuidora</a></li>
+            	<li><a href="#/Tarifas"> Tarifas</a></li>
+            	<li><a href="#/Colaboradores"> Colaboradores</a></li>
+            	<li><a href="#/Comercial"> Comercial</a></li>
+            	<li><a href="#/Tipos"> Tipos</a></li>
+            	<li><a href="#/Motivos_Bloqueos"> Motivos</a></li>
+              <li><a href="#/Usuarios"> Usuarios</a></li>            
               
               <!--li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
               <li><a class="fa fa-bullhorn" href="#/Tipo_Contacto"> Tipo Contacto</a></li>
@@ -324,7 +325,7 @@ $(function(){
     var username = "<?php echo $this->usuario;?>";
  
   $("#cerrar-sesion").on('click', function(){
-    Swal.fire({title:"Cerrar Sesión",text:"Estimado Usuario: "+username+" Desea cerrar su sesión?",		
+    Swal.fire({"Seguro que desea cerrar la sesión?",		
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
