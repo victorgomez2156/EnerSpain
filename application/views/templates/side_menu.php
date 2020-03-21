@@ -175,7 +175,7 @@
               <li><a href="#/Datos_Basicos_Clientes"> Datos Básicos</a></li>
               <li><a href="#/Actividades"> Actividad</a></li>
               <li><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
-              <li><a class="fa fa-cube" href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
+              <li><a href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
               <li><a href="#/Contactos"> Contactos</a></li>  
               <li><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
               <li><a href="#/Documentos"> Documentos</a></li> 
@@ -240,7 +240,7 @@
             	<li><a href="#/Distribuidora"> Distribuidora</a></li>
             	<li><a href="#/Tarifas"> Tarifas</a></li>
             	<li><a href="#/Colaboradores"> Colaboradores</a></li>
-            	<li><a href="#/Comercial"> Comercial</a></li>
+            	<li><a href="#/Comercial"> Comerciales</a></li>
             	<li><a href="#/Tipos"> Tipos</a></li>
             	<li><a href="#/Motivos_Bloqueos"> Motivos</a></li>
               <li><a href="#/Usuarios"> Usuarios</a></li>            
