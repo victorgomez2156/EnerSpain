@@ -60,7 +60,7 @@ document.onmousedown = right;*/
          <!--overview start-->
         <div class="row" align="center">
           <div class="col-lg-12">
-            <h3><img src="<?php echo ESTILOS;?>img/ajax-loader.gif" /><b style="color:black;"> Cargando Aplicación, por favor espere ...</b></h3>
+            <h3><img src="<?php echo ESTILOS;?>img/ajax-loader.gif" /><b style="color:black;"> Cargando Información, por favor espere ...</b></h3>
             
           </div>
         </div></section>

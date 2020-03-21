@@ -138,10 +138,10 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
           <li class="active">
-            <a class="" href="#/Dashboard">
+            </class="" href="#/Dashboard">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
-                      </a>
+            </a>
           </li>
           
             <!--li>

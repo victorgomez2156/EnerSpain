@@ -77,11 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bus"></i> Comercializadora</h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>               
-              <li><i class="fa fa-bus"></i>Comercializadora</li>
-            </ol>
+            <h3 class="page-header">Comercializadora</h3>
           </div>
         </div>
         <!-- page start-->
