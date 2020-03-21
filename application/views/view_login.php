@@ -36,19 +36,18 @@ $(document).ready(function()
     $("#login").prop('disabled', true);
     $.ajax({
     type: 'POST',
-     url: $(this).attr('action'),
+    url: $(this).attr('action'),
     data: $(this).serialize(),
     success: function(data) 
     {
       $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
       console.log(data);
-       var datax = JSON.parse(data)
+      var datax = JSON.parse(data)
       console.log(datax);
       if(datax.status==false && datax.data==1)
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Usuario no registrado!',
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -56,7 +55,6 @@ $(document).ready(function()
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Usuario Bloqueado!',
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -64,7 +62,6 @@ $(document).ready(function()
       {
        $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Error en datos!',
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -72,7 +69,6 @@ $(document).ready(function()
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Iniciando Sesión!',
         message: "<i class='fa fa-check-circle' ></i> "+datax.message+"",
         size: 'large'});        
         url = "<?php echo base_url('Principal#/Dashboard/')?>";
@@ -86,32 +82,28 @@ $(document).ready(function()
           {
            $("#login").prop('disabled', false);
             bootbox.alert({
-            title:'¡Api-Key!',
-            message: "Usted no tiene un api asignado para poder realizar esta acción.",
+            message: "No tiene un api asignado para realizar la operación",
             size: 'large'});
           }
           if(error.status==500 && error.statusText=="Internal Server Error")
           {
            $("#login").prop('disabled', false);
              bootbox.alert({
-            title:'¡Error-Interno!',
-            message: "Un error a ocurrido al intentar iniciar sesión por favor intente nuevamente.",
+             message: "Ha ocurrido un error, intente nuevamente",
             size: 'large'});
           }
            if(error.status==404 && error.statusText=="Not Found")
           {
            $("#login").prop('disabled', false);
              bootbox.alert({
-            title:'¡Metodo Invalido!',
-            message: "No hemos podido localizar el metodo por favor intente nuevamente.",
+             message: "No se ha ubicado la aplicación",
             size: 'large'});
           }
            if(error.status==403 && error.statusText=="Forbidden")
           {
             $("#login").prop('disabled', false);
             bootbox.alert({
-            title:'¡Seguridad!',
-            message: "No esta autorizado.",
+            message: "Usuario no autorizado",
             size: 'large'});
           }
     }
