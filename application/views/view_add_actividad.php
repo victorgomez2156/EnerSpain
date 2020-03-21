@@ -27,7 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Actividades</h3>
+            <h3 class="page-header"><i class="fa fa-briefcase"></i> Registro de Actividades</h3>
+            <ol class="breadcrumb">
+             <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
+              <li><i class="fa fa-briefcase"></i>Registro de Actividades</li>
+            </ol>
           </div>
         </div>
         <!-- Form validations -->
@@ -53,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código CNAE <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" required placeholder="* Ingrese Código CNAE"/>       
+       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" placeholder="* Ingrese Código CNAE"/>       
        </div>
        </div>
        </div>

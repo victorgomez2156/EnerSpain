@@ -17,14 +17,11 @@
   <!-- font icon -->
   <link href="<?php echo ESTILOS;?>css/elegant-icons-style.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css/font-awesome.min.css" rel="stylesheet" />
-
   <!-- Custom styles -->
   <link href="<?php echo ESTILOS;?>css/style.css" rel="stylesheet">
   <link href="<?php echo ESTILOS;?>css/style-responsive.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css-loader-master/dist/css-loader.css" rel="stylesheet" />
   <link href="<?php echo ESTILOS;?>css/sweetalert2.min.css" rel="stylesheet" />
-
-
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/datepicker.css" />
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/bootstrap-timepicker.css" />
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/daterangepicker.css" />
@@ -51,7 +48,7 @@
   <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script>
+  <!--script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script-->
   <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
   
   <!--Final de Principales de ANGULARJS-->
@@ -108,7 +105,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>"></script-->
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    
-  <title>{{ 'LOGIN' | translate }} | {{ 'TITLE' | translate }}</title>
+  <title>Bienvenido: <?php echo $this->usuario;?> | <?php echo TITULO;?>"></title>
   <style>
   body { padding-right: 0 !important }
   

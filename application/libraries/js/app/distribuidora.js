@@ -24,8 +24,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 	{
 		mm='0'+mm
 	} 
-	var fecha = dd+'/'+mm+'/'+yyyy;
-	
+	var fecha = dd+'/'+mm+'/'+yyyy;	
  
 	if($route.current.$$route.originalPath=="/Distribuidora/")
 	{
@@ -37,7 +36,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		scope.tmodal_distribuidora={};
 		scope.ruta_reportes_pdf_distribuidora=0;
 		scope.ruta_reportes_excel_distribuidora=0;
-		scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
+		scope.topciones = [{id: 1, nombre: 'Ver'},{id: 2, nombre: 'Editar'},{id: 3, nombre: 'Activar'},{id: 4, nombre: 'Bloquear'}];
 	}
 	if($route.current.$$route.originalPath=="/Add_Distribuidora/")
 	{
@@ -100,7 +99,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			else
 			{
 				$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:"No hemos encontrado distribuidoras registradas.",type:"info",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:'No se encontraron datos disponibles.',type:"info",confirmButtonColor:"#188ae2"});
 				scope.TDistribuidora=[];
 				scope.TDistribuidoraBack=[];
 			}
@@ -109,19 +108,19 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -144,19 +143,19 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		{
 			if(dato.EstDist=="ACTIVO")
 			{
-				Swal.fire({title:"Error",text:"La Distribuidora se encuentra Activa ya.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Activando',text:'Está Distribuidora ya se encuentra activa.',type:"error",confirmButtonColor:"#188ae2"});
 				return false;			
 			}
 				scope.datos_update={};
 				scope.datos_update.opcion=1;
 				scope.datos_update.CodDist=dato.CodDist;
-				Swal.fire({title:"Activando",
-				text:"¿Esta Seguro de Activar Esta Distribuidora?",
+				Swal.fire({title:'Activando',
+				text:'Estás seguro de activar esta distribuidora',
 				type:"question",
 				showCancelButton:!0,
 				confirmButtonColor:"#31ce77",
 				cancelButtonColor:"#f34943",
-				confirmButtonText:"SI"}).then(function(t)
+				confirmButtonText:'Activar'}).then(function(t)
 				{
 			        if(t.value==true)
 			        {
@@ -165,31 +164,31 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 						{
 							if(result.data!=false)
 							{
-								Swal.fire({title:"Exito!.",text:"La Distribuidora fue Activada correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+								Swal.fire({title:'Activando',text:'Distribuidora activada correctamente.',type:"success",confirmButtonColor:"#188ae2"});
 								scope.cargar_lista_distribuidoras();							
 							}
 							else
 							{
-								Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+								Swal.fire({title:"Error.",text:'Hubo un error al cambiar el estatus de la distribuidora',type:"error",confirmButtonColor:"#188ae2"});
 								scope.cargar_lista_distribuidoras();
 							}
 						},function(error)
 						{
 							if(error.status==404 && error.statusText=="Not Found")
 							{
-								Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+								Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 							}
 							if(error.status==401 && error.statusText=="Unauthorized")
 							{
-								Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+								Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 							}
 							if(error.status==403 && error.statusText=="Forbidden")
 							{
-								Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+								Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 							}
 							if(error.status==500 && error.statusText=="Internal Server Error")
-							{
-								Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+							{				
+								Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 							}
 						});
 			        }
@@ -203,7 +202,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		{
 			if(dato.EstDist=="BLOQUEADO")
 			{
-				Swal.fire({title:"Error",text:"La Distribuidora ya se encuentra Bloqueada.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Bloqueando',text:'Está Distribuidora ya se encuentra Bloqueada.',type:"error",confirmButtonColor:"#188ae2"});
 				return false;
 			}
 			scope.tmodal_data={};
@@ -232,7 +231,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		}
 		if(scope.disabled_form==1)
 		{
-			Swal.fire({title:"Error.",text:"No se puede completar esta acción.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:'No se puede continuar con la operación.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		if (!scope.validar_campos_null())
@@ -243,14 +242,14 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		if(scope.fdatos.CodDist>0)
 		{
 			var title='Actualizando';
-			var text='¿Esta Seguro de Actualizar Este Distribuidora?';
-			var response="Los datos de la Distribuidora Fueron Actualizados Correctamente.";
+			var text='¿Estás seguro de actualizar este registro?';
+			var response='Distribuidora modificada correctamente.';
 		}
 		if(scope.fdatos.CodDist==undefined)
 		{
 			var title='Guardando';
-			var text='¿Esta Seguro de Incluir Esta Distribuidora?';
-			var response="La Distribuidora Fue Registrado Correctamente.";
+			var text='Estás seguro de registra este nuevo registro?';
+			var response='Distribuidora creado correctamente.';
 		}
 		console.log(scope.fdatos);
 		Swal.fire({title:title,
@@ -352,29 +351,28 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			return true;
 	}
 	scope.guardar=function()
-	{		
+	{
 		if(scope.fdatos.CodDist>0)
 		{
 			var title='Actualizando';
-			var text='¿Esta Seguro de Actualizar Este Distribuidora?';
-			var response="Los datos de la Distribuidora Fueron Actualizados Correctamente.";
+			var text='Estás seguro de actualizar este registro?';
+			var response='Distribuidora modificada correctamente.';
 		}
 		if(scope.fdatos.CodDist==undefined)
 		{
 			var title='Guardando';
-			var text='¿Esta Seguro de Incluir Esta Distribuidora?';
-			var response="La Distribuidora Fue Registrado Correctamente.";
+			var text='Estás seguro de incluir este nuevo registro?';
+			var response='Distribuidora creada correctamente.';
 		}
 		$("#"+title).removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");		
 		var url=base_urlHome()+"api/Distribuidoras/crear_distribuidora/";
 		$http.post(url,scope.fdatos).then(function(result)
 		{
 			scope.nID=result.data.CodDist;
-
+			$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(result.data!=false)
 			{
-				console.log(result.data);				
-				$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+				console.log(result.data);
 				Swal.fire({title:title,text:response,type:"success",confirmButtonColor:"#188ae2"});
 				if($route.current.$$route.originalPath=="/Add_Distribuidora/")
 				{
@@ -384,27 +382,26 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			}
 			else
 			{
-				$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:'Error',text:'Ha ocurrido un error en proceso de la Distribuidora, Por Favor Intente Nuevamente.',type:"error",confirmButtonColor:"#188ae2"});			
+				Swal.fire({title:'Error',text:'Error durante la operación, por favor intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});			
 			}
 		},function(error)
 		{
 			$("#"+title).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			{				
+				Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		});
 	}
@@ -472,10 +469,8 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			}
 			else
 			{
-				$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				bootbox.alert({
-				message: "Hubo un error al intentar cargar los datos.",
-				size: 'middle'});
+				$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
+				Swal.fire({title:"Error",text:'No hemos encontrado datos relacionados con el código.',type:"error",confirmButtonColor:"#188ae2"});
 			}
 
 		},function(error)
@@ -483,21 +478,21 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 
 			$("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(error.status==404 && error.statusText=="Not Found")
-			{
-				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==401 && error.statusText=="Unauthorized")
-			{
-				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==403 && error.statusText=="Forbidden")
-			{
-				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-			}
-			if(error.status==500 && error.statusText=="Internal Server Error")
-			{
-				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-			}
+					{
+						Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==401 && error.statusText=="Unauthorized")
+					{
+						Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==403 && error.statusText=="Forbidden")
+					{
+						Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==500 && error.statusText=="Internal Server Error")
+					{				
+						Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}
 		});
 	}
 	scope.borrar_row=function(index,id)
@@ -542,21 +537,20 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 					$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					if(error.status==404 && error.statusText=="Not Found")
 					{
-						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==401 && error.statusText=="Unauthorized")
 					{
-						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==403 && error.statusText=="Forbidden")
 					{
-						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==500 && error.statusText=="Internal Server Error")
-					{
-						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-					}						
-					
+					{				
+						Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}					
 				});
 	        }
 	        else
@@ -605,21 +599,21 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 				},function(error)
 				{
 					$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					if(error.status==404 && error.statusText=="Not Found")
+				if(error.status==404 && error.statusText=="Not Found")
 					{
-						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==401 && error.statusText=="Unauthorized")
 					{
-						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==403 && error.statusText=="Forbidden")
 					{
-						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==500 && error.statusText=="Internal Server Error")
-					{
-						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					{				
+						Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 				});
 	        }
@@ -633,7 +627,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 	{      
 	 	if(scope.NumCifDisConsulta==undefined || scope.NumCifDisConsulta==null || scope.NumCifDisConsulta=='')
 		{
-			Swal.fire({title:"Error.",text:"El Número de CIF no puede estar vacio.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:"Error.",text:'El Campo Número de CIF es Requerido.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -645,7 +639,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 				if(result.data!=false)
 				{
 					$("#NumCifDis").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-					Swal.fire({title:"DNI/NIE.",text:"El Número de CIF de la Distribuidora ya se encuentra registrado.",type:"info",confirmButtonColor:"#188ae2"});					
+					Swal.fire({title:"DNI/NIE.",text:'El Número de CIF no se encuentra disponible.',type:"info",confirmButtonColor:"#188ae2"});					
 				}
 				else
 				{
@@ -660,21 +654,21 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			{
 				$("#NumCifDis").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );					
 				if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});					
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
+					{
+						Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==401 && error.statusText=="Unauthorized")
+					{
+						Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==403 && error.statusText=="Forbidden")
+					{
+						Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==500 && error.statusText=="Internal Server Error")
+					{				
+						Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}
 			});	
 
 		}						
@@ -686,7 +680,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			scope.FechBlo=FechBlo;
 		if (scope.FechBlo==null || scope.FechBlo==undefined || scope.FechBlo=='')
 		{
-			Swal.fire({title:"El Campo Fecha de Bloqueo Es Requerida.",type:"error",confirmButtonColor:"#188ae2"});
+			Swal.fire({title:'Fecha de Bloqueo',text:'El Campo de Fecha de Bloqueo es Requerido.',type:"error",confirmButtonColor:"#188ae2"});
 			return false;
 		}
 		else
@@ -694,7 +688,7 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			var FechBlo= (scope.FechBlo).split("/");
 			if(FechBlo.length<3)
 			{
-				Swal.fire({text:"El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.",type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:'Fecha de Bloqueo',text:"El Formato de la Fecha de Bloqueo debe Ser: "+fecha,type:"error",confirmButtonColor:"#188ae2"});
 				event.preventDefault();	
 				return false;
 			}
@@ -702,19 +696,19 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			{		
 				if(FechBlo[0].length>2 || FechBlo[0].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato del Día debe ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FechBlo[1].length>2 || FechBlo[1].length<2)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato del Mes debe ser EJ: 01',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
 				if(FechBlo[2].length<4 || FechBlo[2].length>4)
 				{
-					Swal.fire({text:"Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999",type:"error",confirmButtonColor:"#188ae2"});
+					Swal.fire({title:'Fecha de Bloqueo',text:'El Formato del Año debe ser EJ: 1999',type:"error",confirmButtonColor:"#188ae2"});
 					event.preventDefault();	
 					return false;
 				}
@@ -725,13 +719,13 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 			    var dateEnd=new Date(valuesEnd[2],(valuesEnd[1]-1),valuesEnd[0]);
 			    if(dateStart>dateEnd)
 			    {
-			        Swal.fire({text:"La Fecha de Bloqueo no puede ser mayor al "+fecha+" Por Favor Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
+			        Swal.fire({title:'Fecha de Bloqueo',text:"La Fecha de Bloqueo no puede ser mayor a "+fecha+" Verifique he intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});					
 			        return false;
 			    }
 				scope.tmodal_data.FechBlo=valuesStart[2]+"-"+valuesStart[1]+"-"+valuesStart[0];
 			}
 		}
-	 	Swal.fire({title:"¿Esta Seguro de Bloquear Esta Distribuidora?",
+	 	Swal.fire({title:'Bloqueando',text:'Estás seguro de bloquear esta Distribuidora?',
 		type:"info",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
@@ -753,38 +747,41 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 				{
 					scope.datos_update.ObsBloDis=scope.tmodal_data.ObsBloDis;
 				}
-				console.log(scope.datos_update);										
+				console.log(scope.datos_update);
+				$("#bloquendo").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );										
 				var url = base_urlHome()+"api/Distribuidoras/update_status/";
 				$http.post(url,scope.datos_update).then(function(result)
 				{
+					$("#bloquendo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					if(result.data!=false)
 					{
 						$("#modal_motivo_bloqueo").modal('hide');
-						Swal.fire({title:"Exito!.",text:"La Distribuidora fue bloqueada correctamente.",type:"success",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:'Bloqueando',text:'Distribuidora Bloqueada correctamente.',type:"success",confirmButtonColor:"#188ae2"});
 						scope.cargar_lista_distribuidoras();							
 					}
 					else
 					{
-						Swal.fire({title:"Error.",text:"Hubo un error al ejecutar esta acción por favor intente nuevamente.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error.",text:'Error en el proceso, por favor intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});
 						scope.cargar_lista_distribuidoras();
 					}
 				},function(error)
 				{
+					$("#bloquendo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 					if(error.status==404 && error.statusText=="Not Found")
 					{
-						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error.",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==401 && error.statusText=="Unauthorized")
 					{
-						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Error en Permisos.",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"info",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==403 && error.statusText=="Forbidden")
 					{
-						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						Swal.fire({title:"Seguridad.",text:"Está intentando usar un APIKEY inválido.",type:"question",confirmButtonColor:"#188ae2"});
 					}
 					if(error.status==500 && error.statusText=="Internal Server Error")
-					{
-						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					{				
+						Swal.fire({title:"Error.",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 					}
 				});     
 	        }
@@ -872,11 +869,8 @@ function Controlador($http,$scope,$filter,$route,$interval,controller,$cookies,$
 		scope.ruta_reportes_pdf_distribuidora=0;
 		scope.ruta_reportes_excel_distribuidora=0;	
 	}
-
-
 	if(scope.nID!=undefined)
 	{
 		scope.buscarXID();
-	}
-		
+	}		
 }			

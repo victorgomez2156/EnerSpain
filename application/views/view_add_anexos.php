@@ -27,7 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">{{ 'REGIST_ANENE' | translate }}</h3>            
+            <h3 class="page-header"><i class="fa fa-bullseye"></i> Registro de Anexos</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>         
+              <li><i class="fa fa-bullseye"></i> Registro de Anexos</li>
+            </ol>
           </div>
         </div>
         <!-- Form validations -->
@@ -43,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }} <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTProComAnex" name="CodTProComAnex" ng-model="vm.anexos.CodTProCom" ng-change="vm.filtrar_productos_com()" ng-disabled="vm.validate_info_anexos!=undefined">
          <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
         </select>
@@ -55,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'PRODUCTS' | translate }} <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Productos <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodProducAnex" name="CodPro" ng-model="vm.anexos.CodPro" ng-disabled="vm.anexos.CodTProCom==undefined||vm.validate_info_anexos!=undefined ">
          <option ng-repeat="dato in vm.TProductosActivosFiltrados" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                        
         </select>
@@ -67,8 +71,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'NAME_ANNEX' | translate }} <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* {{ 'NAME_ANNEX' | translate }}" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
+       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Anexo <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Anexo" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
        </div>
        </div>
        </div>
@@ -76,19 +80,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FECH_INI' | translate }} <b style="color:red;">DD/MM/YYYY</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>
        <input type="text" class="form-control datepicker" ng-model="vm.FecIniAneA" id="FecIniAneA" ng-change="vm.validarFecIni(vm.FecIniAneA)" placeholder="* DD/MM/YYYY" maxlength="10" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
        </div>
 
       <div style="margin-top: 8px;">
-       <div align ="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIPO_SUM' | translate }}</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministros</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_ELE' | translate }}</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
         <input type="checkbox" ng-model="vm.anexos.SerEle" ng-click="vm.limpiar_Servicio_Electrico(vm.anexos.SerEle)" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
@@ -97,17 +101,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SUM_GAS' | translate }}</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
         <input type="checkbox" ng-model="vm.anexos.SerGas" ng-click="vm.limpiar_Servicio_Gas(vm.anexos.SerGas)" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
        </div>
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIP_PRICE' | translate }}</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Precios</b></label></div></div>
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_PRICE_FIJ' | translate }}</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">FIJO</label>
         <input type="checkbox" ng-model="vm.anexos.Fijo" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
@@ -116,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_PRICE_INDEX' | translate }}</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">INDEXADO</label>
         <input type="checkbox" ng-model="vm.anexos.Indexado" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
@@ -125,12 +129,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TAR_ACC_ELE' | translate }}</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Eléctrico</b></label></div></div>
         
         <div class="col-lg-6">
                 <section class="panel">
                   <header class="panel-heading">
-                   <div align="center"> <b>{{ 'DOW_TENS' | translate }}</b> </div>
+                   <div align="center"> <b>Baja Tensión</b> </div>
                   </header>
                    <div class="panel-body">
                     <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
@@ -143,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                      <div align="center">
                     <label>
-                        <input name="sample-checkbox-01" id="checkbox-016" type="checkbox" ng-click="vm.agregar_todas_baja_tension(vm.Tarifa_Elec_Baja,vm.anexos.AggAllBaj)" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> {{ 'ALL' | translate }}</b>
+                        <input name="sample-checkbox-01" id="checkbox-016" type="checkbox" ng-click="vm.agregar_todas_baja_tension(vm.Tarifa_Elec_Baja,vm.anexos.AggAllBaj)" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div>
                   </div>
                 </section> 
@@ -152,7 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="col-lg-6">
                 <section class="panel">
                   <header class="panel-heading">
-                   <div align="center"> <b>{{ 'HIG_TENS' | translate }}</b> </div>
+                   <div align="center"> <b>Alta Tensión</b> </div>
                   </header>
                    <div class="panel-body">
                     <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
@@ -172,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                      <div align="center">
                     <label>
-                        <input name="sample-checkbox-01" id="checkbox-014" type="checkbox" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllAlt" ng-click="vm.agregar_todas_alta_tension(vm.Tarifa_Elec_Alt,vm.anexos.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> {{ 'ALL' | translate }}</b>
+                        <input name="sample-checkbox-01" id="checkbox-014" type="checkbox" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllAlt" ng-click="vm.agregar_todas_alta_tension(vm.Tarifa_Elec_Alt,vm.anexos.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div>
                   </div>
                 </section> 
@@ -181,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <div style="margin-top: 8px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TAR_ACC_GAS' | translate }}</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Gas</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
        <div class="form">                          
@@ -198,14 +202,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
         <div align="center">
                     <label class="label_check" for="checkbox-01">
-                        <input name="sample-checkbox-01" id="checkbox-015" type="checkbox" ng-model="vm.Todas_Gas" ng-click="vm.agregar_todas_detalle(vm.Todas_Gas)" ng-disabled="vm.validate_info==1||vm.anexos.SerGas==false||vm.validate_info_anexos!=undefined" /> <b><i class="fa fa-check-circle"></i> {{ 'ALL' | translate }}</b>
+                        <input name="sample-checkbox-01" id="checkbox-015" type="checkbox" ng-model="vm.Todas_Gas" ng-click="vm.agregar_todas_detalle(vm.Todas_Gas)" ng-disabled="vm.validate_info==1||vm.anexos.SerGas==false||vm.validate_info_anexos!=undefined" /> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div>
 
 
        <div class="col-12 col-sm-12">
       <div class="form">                          
         <div class="form-group"><br>
-           <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FOT_ANNEX' | translate }} <a title='{{ "DOWN_CONT" | translate }}' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
+           <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
           <input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined">
         </div>
       </div>
@@ -213,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'TIP_COM' | translate }} <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Comisión <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTipCom1" name="CodTipCom" ng-model="vm.anexos.CodTipCom" ng-disabled="vm.validate_info_anexos!=undefined">
          <option ng-repeat="dato in vm.Tipos_Comision" value="{{dato.CodTipCom}}">{{dato.DesTipCom}}</option>                        
         </select>
@@ -225,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> {{ 'OBS_COM_BLO' | translate }}</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos!=undefined"></textarea>
         
        </div>
@@ -233,10 +237,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodAnePro" name="CodAnePro" type="hidden" ng-model="vm.anexos.CodAnePro" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> {{ 'REGIS' | translate }}</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==undefined" ng-disabled="vm.validate_info_anexos!=undefined"><i class="fa fa-save"></i> {{ 'UPDA' | translate }}</button>            
-            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()"><i class="fa fa-arrow-left"></i> {{ 'BACK' | translate }}</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==undefined" ng-disabled="vm.validate_info_anexos!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''"><i class="fa fa-trash"></i> Limpiar</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()"><i class="fa fa-arrow-left"></i> Regresar</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -260,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          {{ 'Designed' | translate }} <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -284,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="{{ 'SAVE' | translate }}" class="loader loader-default"  data-text="{{ 'SAVE_ANE' | translate }}"></div>
-<div id="{{ 'UPDATE' | translate }}" class="loader loader-default"  data-text="{{ 'UPDATE_ANE' | translate }}"></div>
-<div id="buscando" class="loader loader-default"  data-text="{{ 'CARGA_DAT' | translate }}"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Anexo, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Anexo, Por Favor Espere..."></div>
+<div id="buscando" class="loader loader-default"  data-text="'Cargando Lista de Anexos, Por Favor Espere...'"></div>
 </html>

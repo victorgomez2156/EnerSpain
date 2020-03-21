@@ -150,19 +150,19 @@ protected function buscar_xID_get()
 		if (isset($objSalida->CodCli))
 		{		
 			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis);		
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Datos del Cliente');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Datos Del Clientes');
 		}
 		else
 		{
 			$id = $this->Clientes_model->agregar($objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->FecIniCli,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumCifCli,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli);
 			if($id==false)
 			{
-				$arrayName = array('status' =>false ,'response'=> $id, 'message'=>'El CIF ya se encuentra registrado, por favor verifique');
+				$arrayName = array('status' =>false ,'response'=> $id, 'message'=>'El Número de CIF ya se encuentra registrado, Por Favor intente con otro.');
 				$this->response($arrayName);
 				return false;
 			}	
 			$objSalida->CodCli=$id;	
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','INSERT',$objSalida->CodCli,$this->input->ip_address(),'Registrando Cliente');			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','INSERT',$objSalida->CodCli,$this->input->ip_address(),'Creando Registro de Clientes');			
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
@@ -240,13 +240,13 @@ protected function buscar_xID_get()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->update_actividad_cliente($objSalida->opcion,$objSalida->CodTActCli,$objSalida->CodCli);							
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Cambiando Estatus de la Actividad');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Cambiando Estatus de Actividad.');
 
 		if($objSalida->opcion==2)
 		{
 			$CodBloAct=$this->Clientes_model->agregar_motivo_bloqueo_actividad($objSalida->CodCli,$objSalida->CodTActCli,$objSalida->FecBloAct,$objSalida->MotBloq,$objSalida->ObsBloAct);
 			$objSalida->CodBloAct=$CodBloAct;
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','INSERT',$CodBloAct,$this->input->ip_address(),'Agregando Motivo de Bloqueo de la Actividad');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','INSERT',$CodBloAct,$this->input->ip_address(),'Agregando Motivo de Bloqueo de Actividad');
 		}
 		$this->db->trans_complete();
 		$this->response($objSalida);
@@ -259,7 +259,7 @@ protected function buscar_xID_get()
 			redirect(base_url(), 'location', 301);
 		}		
         $data = $this->Clientes_model->get_list_motivos_bloqueos_actividades();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','GET',null,$this->input->ip_address(),'Cargando Listado de Motivos de BLoqueo de Actividad');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Actividades');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -279,7 +279,7 @@ protected function buscar_xID_get()
 		}
 		$CodPunSum=$this->get('CodPunSum');		
         $data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Datos de la Dirección de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Datos del Punto de Suministros');
 		if (empty($data)){
 			$this->response(false);
 			return false;
