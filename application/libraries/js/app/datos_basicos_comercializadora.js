@@ -1,4 +1,4 @@
-app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload','$translate', Controlador])
+app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','$route','$interval', '$controller','$cookies','ServiceComercializadora','upload', Controlador])
 .directive('uploaderModel', ["$parse", function ($parse) 
 {
 	return {
@@ -51,7 +51,7 @@ app.controller('Datos_Basicos_Comercializadora', ['$http', '$scope', '$filter','
 		return deferred.promise;
 	}	
 }])
-function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload,$translate)
+function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,ServiceComercializadora,upload)
 {
 	
 //////////////////////////////////////////////////////////// DATOS BASICOS DE COMERCIALIZADORAS START //////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.tLocalidades= dato.Localidades;
 		scope.tTiposVias=dato.Tipos_Vias;
 		scope.fecha_server=dato.fecha;
-		if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/")
+		if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
 		{	
 				scope.FecIniCom=scope.fecha_server;
 				console.log(scope.FecIniCom);
@@ -99,7 +99,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	}).catch(function(error) 
 	{
 		console.log(error);//Tratar el error
-		if(error.status==false && error.error=="This API key does not have access to the requested controller.")
+		/*if(error.status==false && error.error=="This API key does not have access to the requested controller.")
 		{
 			Swal.fire({title:"Error 401.",text:$translate('NO_FOUND1'),type:"error",confirmButtonColor:"#188ae2"});
 		}
@@ -118,13 +118,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		if(error.status==false && error.error=="Internal Server Error")
 		{
 			Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-		}
+		}*/
 	});		
-	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/")
+	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/")
 	{		
 		if(scope.CIF_COM==undefined)
 		{//
-			location.href="#/"+$translate('MARKETER');
+			location.href="#/Comercializadora";
 			$("#btn_modal_cif_com").removeClass("btn btn-info").addClass("btn btn-danger");
 		}
 		else
@@ -138,11 +138,11 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			console.log(scope.FecIniCom);
 		}		
 	}
-	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID");
+	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID");
 	{
 		scope.validate_info=scope.INF;
 	}
-	if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID/:INF");
+	if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID/:INF");
 	{
 		scope.validate_info=scope.INF;
 	}
@@ -209,7 +209,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			if(new Date(scope.FecVenConCom)<new Date(scope.FecConCom))
 			{
-				Swal.fire({title:"Error",text:$translate('CAL_ANO'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Fecha de Contrato",text:'',type:"error",confirmButtonColor:"#188ae2"});
 				scope.fdatos.DurConCom=undefined;
 				scope.FecVenConCom=undefined;
 				return false;
@@ -225,7 +225,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			//console.log(scope.fdatos.DurConCom);
 			if(scope.fdatos.DurConCom==0)
 			{
-				Swal.fire({title:"Error",text:$translate('CAL_ANO_MAY'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error",text:'El tiempo mínimo del contrato debe ser de 1 año en adelante.',type:"error",confirmButtonColor:"#188ae2"});
 				scope.FecVenConCom=undefined;
 				scope.fdatos.DurConCom=undefined;
 				scope.disabled_button=1;					
@@ -246,7 +246,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.filtrarLocalidadCom =  function()
 	{
 		scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, {CodPro: scope.fdatos.CodPro}, true);		
-		if($route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID/:INF" || $route.current.$$route.originalPath=="/"+$translate('DAT_BAS_COM')+"/:ID")
+		if($route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID/:INF" || $route.current.$$route.originalPath=="/Datos_Basicos_Comercializadora/:ID")
 		{
 			scope.contador=0;
 			scope.contador=scope.contador+1;
@@ -273,15 +273,15 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	 	console.log(scope);
 	 	if(scope.fdatos.CodCom==undefined)
 	 	{
-	 		var titulo=$translate('SAVE');
-	 		var texto=$translate('TEXT_SAVE');
-	 		var response=$translate('RESPONSE_SAVE_MARKET');
+	 		var titulo='Guardando';
+	 		var texto='¿Estás seguro de guardar este nuevo registro?';
+	 		var response='Comercializadora creada correctamente.';
 	 	}
 	 	else
 	 	{
-	 		var titulo=$translate('UPDATE');
-	 		var texto=$translate('TEXT_UPDATE');
-	 		var response=$translate('RESPONSE_UPDATE_MARKET');
+	 		var titulo='Actualizando';
+	 		var texto='¿Estás seguro de actualizar este registro?';
+	 		var response='Comercializadora modificada correctamente.';
 	 	}
 		if (!scope.validar_campos_datos_basicos())
 		{
@@ -292,7 +292,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	 	if($archivos.files.length>0)
 	 	{	
 	 		console.log($archivos.files);
-		 	if($archivos.files[0].type=="application/pdf" || $archivos.files[0].type=="image/jpeg" || $archivos.files[0].type=="image/png")
+		 	if($archivos.files[0].type=="application/pdf") //|| $archivos.files[0].type=="image/jpeg" || $archivos.files[0].type=="image/png")
 		 	{
 		 		console.log('Archivo Permitido');
 		 		var tipo_file=($archivos.files[0].type).split("/");$archivos.files[0].type;
@@ -303,7 +303,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		 	else	 	
 		 	{
 		 		console.log('Archivo No Permitido');
-		 		Swal.fire({title:'Error',text:$translate('ERROR_FILE'),type:"error",confirmButtonColor:"#188ae2"});		 		
+		 		Swal.fire({title:'Error',text:'Error en formato de archivo solo permite PDF',type:"error",confirmButtonColor:"#188ae2"});		 		
 				document.getElementById('file').value ='';
 				return false;
 			}
@@ -331,13 +331,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 							Swal.fire({title:titulo,text:response,type:"success",confirmButtonColor:"#188ae2"});
 	           	    		document.getElementById('file').value ='';
 	           	    		$cookies.remove('CIF_COM');
-	           	    		location.href="#/"+$translate('DAT_BAS_COM')+"/"+scope.nID;
-	           	    		//scope.fdatos=result.data;"/"+$translate('DAT_BAS_COM')+"
+	           	    		location.href="#/Datos_Basicos_Comercializadora/"+scope.nID;
+	           	    		//scope.fdatos=result.data;"/Datos_Basicos_Comercializadora
 	           	    	}
 	           	    	else
 	           	    	{
 	           	    		$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-							Swal.fire({title:"Error",text:$translate('ERROR_SAVE'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error",text:'Error durante el proceso, Por Favor Intente nuevamente.',type:"error",confirmButtonColor:"#188ae2"});
 	           	    	}
 
 	           	    },function(error)
@@ -345,20 +345,19 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	           	    	$("#"+titulo).removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );							
 			           	if(error.status==404 && error.statusText=="Not Found")
 						{
-							Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==401 && error.statusText=="Unauthorized")
 						{
-							Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==403 && error.statusText=="Forbidden")
 						{
-							Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
-							
+							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==500 && error.statusText=="Internal Server Error")
 						{
-							Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 	           	    });  	
 	        }
@@ -651,23 +650,22 @@ scope.validar_campos_datos_basicos = function()
 			console.log(res);
 		},function(error)
 		{
-				if(error.status==404 && error.statusText=="Not Found")
-						{
-							Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==401 && error.statusText=="Unauthorized")
-						{
-							Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==403 && error.statusText=="Forbidden")
-						{
-							Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
-							
-						}
-						if(error.status==500 && error.statusText=="Internal Server Error")
-						{
-							Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
-						}
+			if(error.status==404 && error.statusText=="Not Found")
+			{
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}
 		});
 	}
 	scope.regresar=function()
@@ -677,13 +675,13 @@ scope.validar_campos_datos_basicos = function()
 		{
 			if(scope.fdatos.CodCom==undefined)
 			{
-				var title=$translate('SAVE');
-				var text=$translate('text_back_save');
+				var title='Guardando';
+				var text='¿Estás seguro de regresar y no guardar los datos?';
 			}
 			else
 			{
-				var title=$translate('UPDATE');
-				var text=$translate('text_back_update');
+				var title='Actualizando';
+				var text='¿Estás seguro de regresar y no actualizar los datos?';
 			}
 			Swal.fire({title:title,text:text,		
 			type:"question",
@@ -695,7 +693,7 @@ scope.validar_campos_datos_basicos = function()
 		        if(t.value==true)
 		        {
 		            $cookies.remove('CIF_COM');
-		            location.href="#/"+$translate('MARKETER');
+		            location.href="#/Comercializadora";
 		            scope.fdatos={};
 		        }
 		        else
@@ -708,7 +706,7 @@ scope.validar_campos_datos_basicos = function()
 		else
 		{
 			$cookies.remove('CIF_COM');
-		    location.href="#/"+$translate('MARKETER');
+		    location.href="#/Comercializadora";
 		    scope.fdatos={};
 		}		
 	}
@@ -769,32 +767,31 @@ scope.validar_campos_datos_basicos = function()
 		 	else
 		 	{
 		 		$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
-				Swal.fire({title:"Error",text:$translate('NO_FOUND_MAR_ID'),type:"error",confirmButtonColor:"#188ae2"});
-				location.href="#/"+$translate('MARKETER');
+				Swal.fire({title:"Error",text:'No se encontraron datos con el código que esta intentando buscar.',type:"error",confirmButtonColor:"#188ae2"});
+				location.href="#/Comercializadora";
 		 	}
 
 		 },function(error)
 		 {$("#buscando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 		 	if(error.status==404 && error.statusText=="Not Found")
 			{
-				Swal.fire({title:"Error 404.",text:$translate('NO_FOUND'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==401 && error.statusText=="Unauthorized")
 			{
-				Swal.fire({title:"Error 401.",text:$translate('UNAUTHORIZED'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==403 && error.statusText=="Forbidden")
 			{
-				Swal.fire({title:"Error 403.",text:$translate('FORBIDDEN'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 			if(error.status==500 && error.statusText=="Internal Server Error")
 			{
-				Swal.fire({title:"Error 500",text:$translate('INTERNAL_ERROR'),type:"error",confirmButtonColor:"#188ae2"});
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
 			}
 		 });
 
 	}
-
 scope.misma_razon=function(opcion)
 	{
 		if(opcion==true)
@@ -807,9 +804,6 @@ scope.misma_razon=function(opcion)
 		}
 		
 	}
-
-
-
 	if(scope.nID!=undefined) 
 	{
 		scope.buscarXID();
