@@ -68,16 +68,13 @@ function ServiceColaboradores ($http, $q, $cookies) {
     function getAll () { 
         var defered = $q.defer();
         var promise = defered.promise;
-        $("#cargando").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
         var url = base_urlHome()+"api/Colaboradores/get_all_functions_colaboradores";
         $http.get(url)
             .success(function(data) {
-            $("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
                 defered.resolve(data);
             })
             .error(function(err) {
- $("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
-                 defered.reject(err)
+                defered.reject(err)
             });
         return promise;
     }

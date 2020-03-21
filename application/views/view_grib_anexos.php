@@ -79,10 +79,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Anexos</h3>
+            <h3 class="page-header"><i class="fa fa-bullseye"></i> {{ 'ANNEXES' | translate }}</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>                   
-              <li><i class="fa fa-bullseye"></i> Anexos</li>
+              <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>                   
+              <li><i class="fa fa-bullseye"></i>{{ 'ANNEXES' | translate }}</li>
             </ol>
           </div>
         </div>
@@ -96,31 +96,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="t-0029">
             <div class="t-0031" style="margin-top: -8px; ">
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <button data-toggle="dropdown" title="{{ 'Add_Columns' | translate }}" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Productos</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.DesAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción Anexos</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.TipPreAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Precio</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Comisión</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha de Inicio</b></li>   
-                        <li><input type="checkbox" ng-model="vm.EstAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccTAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'RAZ_SOC' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'PRODUCTS' | translate }}</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DesAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'DESC_ANNEX' | translate }}</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'SER_GAS' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'SER_ELE' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.TipPreAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'TIP_PRICE' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'TIP_COM' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'OBS_COM_BLO' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.FecIniAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'FECH_INI' | translate }}</b></li>   
+                        <li><input type="checkbox" ng-model="vm.EstAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ESTATUS' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccTAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ACCION' | translate }}</b></li>
                       </ul> 
                     </div>                    
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" title="{{ 'Ex_Reports' | translate }}" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title='Exportar en PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Anexos/{{vm.reporte_pdf_anexos}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title='Exportar En Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Anexos/{{vm.reporte_excel_anexos}}"><i class="fa fa-file-excel-o"></i> Exportar En Excel</a></li>                        
+                        <li style="cursor: pointer;"><a title='{{ "PDF" | translate }}' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Anexos/{{vm.reporte_pdf_anexos}}"><i class="fa fa-file"></i> {{ 'PDF' | translate }}</a></li>
+                        <li style="cursor: pointer;"><a title='{{ "EXCEL" | translate }}' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Anexos/{{vm.reporte_excel_anexos}}"><i class="fa fa-file-excel-o"></i> {{ 'EXCEL' | translate }}</a></li>                        
                       </ul>
                     </div>
                     <div class="btn-group">
-                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_anexos" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
+                       <a data-toggle="modal" title='{{ "FILTRO" | translate }}' data-target="#modal_filtros_anexos" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
                    </div>
           </div>
         </div>
@@ -129,9 +129,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_anexos" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail22" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_anexos" title="{{ 'FILTRO_SEARCH' | translate }}" minlength="1" id="exampleInputEmail22" placeholder="{{ 'FILTRO_SEARCH' | translate }}">
                     </div>                 
-                    <a style="margin-right: 10px;" class="btn btn-info" title="Agregar Anexos" href="#/Add_Anexos"><i class="fa fa-plus-square"></i></a>
+                    <a style="margin-right: 10px;" class="btn btn-info" title="{{ 'ADD_ANNEX' | translate }}" href="#/Add_{{ 'ANNEXES' | translate }}"><i class="fa fa-plus-square"></i></a>
                   </form>                    
                   </div>
             </div>
@@ -143,20 +143,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
-                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
-                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> {{ 'RAZ_SOC' | translate }}</th>
+                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> {{ 'PRODUCTS' | translate }}</th>
+                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> {{ 'DESC_ANNEX' | translate }}</th>
+                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> {{ 'SER_GAS' | translate }}</th>
+                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> {{ 'SER_ELE' | translate }}</th>
+                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> {{ 'TIP_PRICE' | translate }}</th>
+                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> {{ 'TIP_COM' | translate }}</th>
+                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> {{ 'OBS_COM_BLO' | translate }}</th>
+                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> {{ 'FECH_INI' | translate }}</th>
+                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> {{ 'ACCION' | translate }}</th>
                   </tr> 
                   <tr ng-show="vm.TAnexos.length==0"> 
-                    <td colspan="12" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="12" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> {{ 'Sin_Data' | translate }}</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TAnexos | filter:paginate2 | filter:vm.filtrar_anexos" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -170,8 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.ObsAnePro==true">{{dato.ObsAnePro}}</td>
                     <td ng-show="vm.FecIniAne==true">{{dato.FecIniAne}}</td>
                     <td ng-show="vm.EstAne==true">
-                      <span class="label label-info" ng-show="dato.EstAne=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstAne=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstAne=='ACTIVO'"><i class="fa fa-check-circle"></i> {{ 'ACTIVO' | translate }}</span>
+                      <span class="label label-danger" ng-show="dato.EstAne=='BLOQUEADO'"><i class="fa fa-ban"></i> {{ 'BLOQUEADO' | translate }}</span>
                     </td>
                     <td ng-show="vm.AccTAne==true">
                       <div class="btn-group">
@@ -185,22 +185,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                      <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
-                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
-                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> {{ 'RAZ_SOC' | translate }}</th>
+                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> {{ 'PRODUCTS' | translate }}</th>
+                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> {{ 'DESC_ANNEX' | translate }}</th>
+                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> {{ 'SER_GAS' | translate }}</th>
+                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> {{ 'SER_ELE' | translate }}</th>
+                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> {{ 'TIP_PRICE' | translate }}</th>
+                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> {{ 'TIP_COM' | translate }}</th>
+                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> {{ 'OBS_COM_BLO' | translate }}</th>
+                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> {{ 'FECH_INI' | translate }}</th>
+                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> {{ 'ACCION' | translate }}</th>
                 </tfoot>
               </table>
         </div> 
           <div align="center">
-          <span class="store-qty"> <a ng-click="vm.cargar_lista_anexos()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_anexos()" title='{{ "RELOAD" | translate }}' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems2" ng-model="currentPage2" max-size="5" boundary-links="true" items-per-page="numPerPage2" class="pagination-sm">  
             </pagination>
@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">{{ 'tip_fil_modal' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -222,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'tip_fil1_modal' | translate }}</label>
       <select class="form-control" id="ttipofiltrosAnexos" name="ttipofiltrosAnexos" required ng-model="vm.tmodal_anexos.ttipofiltrosAnexos">
           <option ng-repeat="dato in vm.ttipofiltrosAnexos" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
@@ -254,8 +254,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipServ3" name="TipServ" ng-model="vm.tmodal_anexos.TipServ">
-        <option value="1">Servicio Gas</option>
-        <option value="2">Servicio Eléctrico</option>        
+        <option value="1">{{ 'SER_GAS' | translate }}</option>
+        <option value="2">{{ 'SER_ELE' | translate }}</option>        
       </select>   
      </div>
      </div>
@@ -264,8 +264,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="Select1" name="Select" ng-model="vm.tmodal_anexos.Select">
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>      
+        <option value="SI">{{ 'si_modal' | translate }}</option>
+        <option value="NO">{{ 'no_modal' | translate }}</option>      
       </select>   
      </div>
      </div>
@@ -296,16 +296,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="EstAne" name="EstAne" ng-model="vm.tmodal_anexos.EstAne">
-        <option value="ACTIVO">Activo</option>
-        <option value="BLOQUEADO">Bloqueado</option>                          
+        <option value="ACTIVO">{{ 'ACTIVO' | translate }}</option>
+        <option value="BLOQUEADO">{{ 'BLOQUEADO' | translate }}</option>                          
       </select>   
      </div>
      </div>
     </div> 
 
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroAnexos.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.quitar_filtro_anexos()" ng-show="vm.tmodal_anexos.ttipofiltrosAnexos>0"><i class="fa fa-trash"></i> Quitar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroAnexos.$invalid"><i class="fa fa-check-circle"></i> {{ 'app_modal' | translate }}</button>
+      <a class="btn btn-danger" ng-click="vm.quitar_filtro_anexos()" ng-show="vm.tmodal_anexos.ttipofiltrosAnexos>0"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</a>
       </div>
 </form>
    </div>
@@ -322,7 +322,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Anexo</h4>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> {{ 'BLO_ANNE' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -331,28 +331,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;"> Comercializadora</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }}</label>
      <input type="text" class="form-control" ng-model="vm.RazSocCom_BloAne" required readonly/>     
      </div>
      </div>
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Productos</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'PRODUCTS' | translate }}</label>
       <input type="text" class="form-control" ng-model="vm.DesPro_BloAne" required readonly />     
      </div>
      </div>
 
       <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Anexos</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'ANNEXES' | translate }}</label>
       <input type="text" class="form-control" ng-model="vm.DesAnePro_BloAne" required readonly />     
      </div>
      </div>
 <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MOT_BLO_COM_MODAL' | translate }}</label>
        <input type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.MotBloAne" required/> 
      </div>
      </div>
@@ -361,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FEC_BLO_COM_MODAL' | translate }}</label>
      <input type="text" class="form-control datepicker2" id="FecBloAne" name="FecBloAne" ng-model="vm.FecBloAne" required maxlength="10" ng-change="vm.validarsifechaanexos(vm.FecBloAne,2)" />    
      </div>
      </div>
@@ -369,14 +369,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'OBS_COM_BLO' | translate }}</label>
      <textarea type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.ObsMotBloAne" rows="5" maxlength="100"/></textarea>
      </div>
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid"><i class="fa fa-lock"></i>  Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid"><i class="fa fa-lock"></i>  {{ 'BUTTON_COM_BLO' | translate }}</button>
+      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> {{ 'BUTTON_COM_REG' | translate }}</a>
 </form>
    </div>
     </div>
@@ -407,6 +407,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Anex" class="loader loader-default"  data-text="Cargando Lista de Anexos, Por favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="{{ 'module_data' | translate }}"></div>
+<div id="List_Anex" class="loader loader-default"  data-text="{{ 'List_Anex' | translate }}"></div>
 </html>

@@ -76,8 +76,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-users"></i> Colaboradores</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>               
-              <li><i class="fa fa-users"></i> Colaboradores</li>
+              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
+              <li><i class="fa fa-users"></i>Colaboradores</li>
             </ol>
           </div>
         </div>
@@ -92,29 +92,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="t-0029">
       <div class="t-0031" style="margin-top: -8px; ">
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="{{ 'Add_Columns'  }}" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.NomCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
                         <li><input type="checkbox" ng-model="vm.NumIdeFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.TipCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo</b></li>
+                        <li><input type="checkbox" ng-model="vm.TipCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Colaborador</b></li>
                         <li><input type="checkbox" ng-model="vm.PorCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Porcentaje</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelCelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tel. Móvil</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelFijCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tel. Fijo</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelCelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Movil</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Fijo</b></li>
                         <li><input type="checkbox" ng-model="vm.EmaCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
                         <li><input type="checkbox" ng-model="vm.EstCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li> 
+                        <li><input type="checkbox" ng-model="vm.AccCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li> 
                       </ul> 
                     </div>                    
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title="Exportar en PDF" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Colaboradores/{{vm.ruta_reportes_pdf_colaboradores}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Colaboradores/{{vm.ruta_reportes_excel_colaboradores}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Colaboradores/{{vm.ruta_reportes_pdf_colaboradores}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Colaboradores/{{vm.ruta_reportes_excel_colaboradores}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
                       </ul>
                     </div>
 
                     <div class="btn-group">
-                       <a data-toggle="modal" title="Filtros" data-target="#modal_filtros_colaboradores" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
+                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_colaboradores" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
                     </div>
     </div>
   </div>
@@ -123,10 +123,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" title="Escribe para Filtrar..." id="exampleInputEmail2" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>
 
-                    <a style="margin-right: 10px;" href="#/Add_Colaborador" title="Agregar Colaborador" class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-plus-square" style="color:white;"></i></div></a>
+                    <a style="margin-right: 10px;" href="#/Add_Colaborador" title='Agregar Colaborador' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-plus-square" style="color:white;"></i></div></a>
                   </form>                    
                   </div>
               </div>
@@ -136,16 +136,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_colaboradores()">
                 <tbody>
                   <tr>                                       
-                    
-                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
+                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
                     <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
-                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
-                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
-                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
-                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> Email</th>
-                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>                       
+                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> TIPO</th>
+                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % BENEFICIO</th>
+                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> TEL. CELULAR</th>
+                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> TEL. FIJO</th>
+                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> ESTATUS</th>
+                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> ACCIÓN</th>                   
                   </tr>
                   <tr ng-show="vm.tColaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
@@ -159,10 +158,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.TelFijCol==true">{{dato.TelFijCol}}</td>
                     <td ng-show="vm.EmaCol==true">{{dato.EmaCol}}</td>
                     <td ng-show="vm.EstCol==true">
-                      <span class="label label-info" ng-show="dato.EstCol==1"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCol==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstCol==1"><i class="fa fa-check-circle"></i> ACTIVO</span>
+                      <span class="label label-danger" ng-show="dato.EstCol==2"><i class="fa fa-ban"></i> BLOQUEADO</span>
                     </td>                                       
                     <td ng-show="vm.AccCol==true">
+                      <!--a href="#/Editar_Colaborador/{{dato.CodCol}}" title='Editar Colaborador {{dato.NomCol}}' class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-edit" style="color:white;"></i></div></a>
+                      <a ng-click="vm.borrar_row($index,dato.CodCol)" title='Eliminar Colaborador {{dato.NomCol}}' class="btn btn-danger btn-icon mg-r-5"><div><i class="fa fa-trash" style="color:white;"></i></div></a-->
                       <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                       </select>
@@ -170,15 +171,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
+                   <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
                     <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
-                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
-                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
-                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
-                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> Email</th>
-                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>     
+                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> TIPO</th>
+                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % BENEFICIO</th>
+                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> TEL. CELULAR</th>
+                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> TEL. FIJO</th>
+                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> EMAIL</th>
+                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> ESTATUS</th>
+                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> ACCIÓN</th>
                 </tfoot>
               </table>
         </div> 
@@ -199,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--main content end-->
      <div class="text-right">
       <div class="credits">
-          Diseñador Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -216,43 +217,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="panel">                  
       <form class="form-validate" id="frmfiltrocolaboradores" name="frmfiltrocolaboradores" ng-submit="SubmitFormFiltrosColaboradores($event)">                 
      
-     <div class="col-12 col-sm-12">
+     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
       <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.tmodal_colaboradores.tipo_filtro">
           <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
      </div>
      </div>
+     <br>
+     <br>
+     <br>
+     <br> 
 
-     <div class="col-12 col-sm-12" ng-show="vm.tmodal_colaboradores.tipo_filtro==1">
+     <div class="col-12 col-sm-6" ng-show="vm.tmodal_colaboradores.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">
      
       <select class="form-control" id="TipColFil" name="TipColFil" ng-model="vm.tmodal_colaboradores.TipColFil">
         <option value="1">Persona Física</option> 
-        <option value="2">Emnpresa</option>                       
+        <option value="2">Empresa</option>                       
       </select>   
      </div>
      </div>
 </div>
 
-       <div class="col-12 col-sm-12" ng-show="vm.tmodal_colaboradores.tipo_filtro==2">
+       <div class="col-12 col-sm-6" ng-show="vm.tmodal_colaboradores.tipo_filtro==2">
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="EstColFil" name="EstColFil" ng-model="vm.tmodal_colaboradores.EstColFil">
-        <option value="1">Activo</option> 
-        <option value="2">Bloqueado</option>                         
+        <option value="1">ACTIVO</option> 
+        <option value="2">BLOQUEADO</option>                         
       </select>     
      </div> 
      </div>
-     </div> 
-
+     </div>     
+    <br ng-show="vm.tmodal_colaboradores.tipo_filtro==1 || vm.tmodal_colaboradores.tipo_filtro==2">
+     <br ng-show="vm.tmodal_colaboradores.tipo_filtro==1 || vm.tmodal_colaboradores.tipo_filtro==2"> 
+    <br>
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltrocolaboradores.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_colaboradores()" ng-show="vm.tmodal_colaboradores.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltrocolaboradores.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_colaboradores()" ng-show="vm.tmodal_colaboradores.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR FILTRO</a>
       </div>
 </form>
    </div>
@@ -288,7 +295,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Colaborador</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Colaborador</label>
       <input type="text" class="form-control" ng-model="vm.NomColBlo" readonly />     
      </div>
      </div>
@@ -298,7 +305,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FEC_BLO_COM_MODAL'  }}</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
      <input type="text" class="form-control datepicker" ng-model="vm.FecBloColBlo" name="FecBloColBlo" id="FecBloColBlo"  />    
      </div>
      </div>
@@ -320,8 +327,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
 </form>
    </div>
     </div>

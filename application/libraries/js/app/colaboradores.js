@@ -57,8 +57,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		scope.AccCol=true;
 		scope.ruta_reportes_pdf_colaboradores=0;
 		scope.ruta_reportes_excel_colaboradores=0;
-		scope.topciones = [{id: 1, nombre: 'Ver'},{id: 2, nombre: 'Editar'},{id: 3, nombre: 'Activar'},{id: 4, nombre: 'Bloquear'}];
-		scope.ttipofiltros = [{id: 1, nombre: 'Tipo Colaborador'},{id: 2, nombre: 'Estatus del Colaborador'}];
+		scope.topciones = [{id: 1, nombre: 'VER'},{id: 2, nombre: 'EDITAR'},{id: 3, nombre: 'ACTIVAR'},{id: 4, nombre: 'BLOQUEAR'}];
+		scope.ttipofiltros = [{id: 1, nombre: 'Tipo Colaborador'},{id: 2, nombre: 'Estatus'}];
 	}
 	
 	var fecha = new Date();
@@ -365,7 +365,8 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
 			if(result.data!=false)
 			{
-				scope.fdatos=result.data;	
+				scope.fdatos=result.data;
+				scope.filtrarLocalidad();		
 			}
 			else
 			{
@@ -522,21 +523,21 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			$("#cargando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 			if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
+			{
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}
 		});
 	}
 	scope.borrar_row=function(index,id)
@@ -574,21 +575,21 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 				{
 					$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 					if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
+					{
+						Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==401 && error.statusText=="Unauthorized")
+					{
+						Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==403 && error.statusText=="Forbidden")
+					{
+						Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+					}
+					if(error.status==500 && error.statusText=="Internal Server Error")
+					{
+						Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+					}
 				});
 	            }
 	            else
@@ -631,21 +632,21 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 					{
 						$("#borrando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );				
 						if(error.status==404 && error.statusText=="Not Found")
-				{
-					Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==401 && error.statusText=="Unauthorized")
-				{
-					Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==403 && error.statusText=="Forbidden")
-				{
-					Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-				}
-				if(error.status==500 && error.statusText=="Internal Server Error")
-				{
-					Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-				}
+						{
+							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==401 && error.statusText=="Unauthorized")
+						{
+							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==403 && error.statusText=="Forbidden")
+						{
+							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+						}
+						if(error.status==500 && error.statusText=="Internal Server Error")
+						{
+							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+						}
 					}); 
 	            }
 	            else
@@ -711,7 +712,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==403 && error.statusText=="Forbidden")
-						{
+						{						
 							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==500 && error.statusText=="Internal Server Error")
@@ -749,13 +750,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			if(scope.fdatos.CodCol==undefined)
 			{
-				var title='Guardando';
-				var text='Estás seguro de regresar y no guardar los datos.';
+				var title="Guardando";
+				var text="¿Estás seguro de regresar y no guardar los datos?";
 			}
 			else
 			{
-				var title='Actualizando';
-				var text='Estás seguro de regresar y no actualizar los datos.';
+				var title="Actualizando";
+				var text="¿Estás seguro de regresar y no actualizar los datos?";
 			}
 			Swal.fire({title:title,text:text,		
 			type:"question",
@@ -777,7 +778,7 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		}
 		else
 		{
-			location.href="#/Colaboradores";
+			location.href="#/Colaboradores/";
 		}		
 	}
 	$scope.submitFormlockCol = function(event) 
@@ -871,7 +872,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 					}
 					},function(error)
 					{						
-											
 						if(error.status==404 && error.statusText=="Not Found")
 						{
 							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
@@ -881,13 +881,13 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==403 && error.statusText=="Forbidden")
-						{
+						{						
 							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
 						}
 						if(error.status==500 && error.statusText=="Internal Server Error")
 						{
 							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-						}
+					}
 				});
 	        }
 	        else
@@ -985,11 +985,6 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 	scope.filtrarLocalidad =  function()
 	{
 		scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, {CodPro: scope.fdatos.CodPro}, true);
-		if(scope.fdatos.CodCol>0)
-		{
-			$interval.cancel(promise);
-		}
-		
 
 	}
 	scope.filtrar_zona_postal =  function()
@@ -1000,19 +995,10 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 			scope.fdatos.CPLoc=data.CPLoc;						
 		});
 	}
-	
 	if(scope.nID!=undefined)
 	{
 		scope.buscarXID();
-		var promise = $interval(function() 
-		{			
-			console.log('por aqui');
-			scope.filtrarLocalidad();
-		},5000);	
-		$scope.$on('$destroy', function () 
-		{ 
-			$interval.cancel(promise); 
-		});		
+		//scope.funcion_services();
 	}
 	scope.search=1;	
 	scope.Clientes_x_Colaboradores = function(cod)
@@ -1037,23 +1023,22 @@ function Controlador($http,$scope,$filter,$route,$interval,$controller,$cookies,
 		{
 			scope.spinner_loader=0;
 			scope.data_result=0;
-								
-						if(error.status==404 && error.statusText=="Not Found")
-						{
-							Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==401 && error.statusText=="Unauthorized")
-						{
-							Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==403 && error.statusText=="Forbidden")
-						{
-							Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
-						}
-						if(error.status==500 && error.statusText=="Internal Server Error")
-						{
-							Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
-						}	
+			if(error.status==404 && error.statusText=="Not Found")
+			{
+				Swal.fire({title:"Error 404",text:"El método que esté intentando usar no puede ser localizado.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==401 && error.statusText=="Unauthorized")
+			{
+				Swal.fire({title:"Error 401",text:"Disculpe, el usuario actual no tiene permisos para ingresar a este módulo.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==403 && error.statusText=="Forbidden")
+			{						
+				Swal.fire({title:"Error 403",text:"Está intentando usar un APIKEY inválido.",type:"error",confirmButtonColor:"#188ae2"});
+			}
+			if(error.status==500 && error.statusText=="Internal Server Error")
+			{
+				Swal.fire({title:"Error 500",text:"Actualmente presentamos fallas en el servidor, por favor intente mas tarde.",type:"error",confirmButtonColor:"#188ae2"});
+			}	
 		});
 	}
 }			

@@ -74,10 +74,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-child"></i> Lista de Servicios Especiales</h3>
+            <h3 class="page-header"><i class="fa fa-child"></i> {{ 'SER_ESP_TIT' | translate }}</h3>
             <ol class="breadcrumb">
-             <li><i class="fa fa-home"></i><a href="#/Dashborad"> Dashborad</a></li>            
-              <li><i class="fa fa-child"></i>Lista de Servicios Especiales</li>
+             <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>            
+              <li><i class="fa fa-child"></i>{{ 'SER_ESP_TIT' | translate }}</li>
             </ol>
           </div>
         </div>
@@ -91,28 +91,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="t-0029">
             <div class="t-0031" style="margin-top: -8px; ">
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <button data-toggle="dropdown" title="{{ 'Add_Columns' | translate }}" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                        <li><input type="checkbox" ng-model="vm.DesSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Especial</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.TipCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Cliente</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerElecSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerGasSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha de Inicio</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'RAZ_SOC' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.DesSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'SER_ESP_TIT' | translate }}</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TipCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'TIP_CLI' | translate }}</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerElecSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'SER_ELE' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'SER_GAS' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.FecIniSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'FECH_INI' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ESTATUS' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ACCION' | translate }}</b></li>
                       </ul> 
                     </div>                    
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" title="{{ 'Ex_Reports' | translate }}" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title="Exportar en PDF" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Servicios_Especiales/{{vm.reporte_pdf_servicio_especiales}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Servicios_Especiales/{{vm.reporte_excel_servicio_especiales}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                       
+                        <li style="cursor: pointer;"><a title="{{ 'PDF' | translate }}" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Servicios_Especiales/{{vm.reporte_pdf_servicio_especiales}}"><i class="fa fa-file"></i> {{ 'PDF' | translate }}</a></li>
+                        <li style="cursor: pointer;"><a title="{{ 'EXCEL' | translate }}" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Servicios_Especiales/{{vm.reporte_excel_servicio_especiales}}"><i class="fa fa-file-excel-o"></i> {{ 'EXCEL' | translate }}</a></li>                       
                       </ul>
                     </div>
                     <div class="btn-group">
-                       <a data-toggle="modal" title="{{ 'FILTRO'" data-target="#modal_filtros_servicios_especiales" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
+                       <a data-toggle="modal" title="{{ 'FILTRO' | translate }}" data-target="#modal_filtros_servicios_especiales" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
                    </div>
           </div>
         </div>
@@ -121,9 +121,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" title="Escribir para Filtrar..." ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail23" placeholder="Escribir para Filtrar...">
+                      <input type="text" class="form-control" title="{{ 'FILTRO_SEARCH' | translate }}" ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail23" placeholder="{{ 'FILTRO_SEARCH' | translate }}">
                     </div>                 
-                    <a style="margin-right: 10px;" class="btn btn-info" title="Agregar Servicio Especial" href="#/Add_Servicios_Adicionales"><i class="fa fa-plus-square"></i></a>
+                    <a style="margin-right: 10px;" class="btn btn-info" title="{{ 'TITLE_ADD_SER_ESP' | translate }}" href="#/{{ 'SER_ADD_ADD' | translate }}"><i class="fa fa-plus-square"></i></a>
                   </form>                    
                   </div>
             </div>
@@ -135,17 +135,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> Servicio Especial</th>
-                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> Tipo Cliente</th>
-                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> {{ 'RAZ_SOC' | translate }}</th>
+                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_ESP_TIT' | translate }}</th>
+                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> {{ 'TIP_CLI' | translate }}</th>
+                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_ELE' | translate }}</th>
+                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_GAS' | translate }}</th>
+                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> {{ 'FECH_INI' | translate }}</th>
+                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> {{ 'ACCION' | translate }}</th>
                   </tr> 
                   <tr ng-show="vm.TServicioEspeciales.length==0"> 
-                    <td colspan="10" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="10" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> {{ 'Sin_Data' | translate }}</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -156,8 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.SerGasSerEsp==true">{{dato.SerGas}}</td>
                     <td ng-show="vm.FecIniSerEsp==true">{{dato.FecIniSerEsp}}</td>
                     <td ng-show="vm.EstSerEsp==true">
-                      <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'"><i class="fa fa-check-circle"></i> {{ 'ACTIVO' | translate }}</span>
+                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'"><i class="fa fa-ban"></i> {{ 'BLOQUEADO' | translate }}</span>
                     </td>
                     <td ng-show="vm.AccSerEsp==true">
                       <div class="btn-group">
@@ -171,19 +171,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> Servicio Especial</th>
-                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> Tipo Cliente</th>
-                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> {{ 'RAZ_SOC' | translate }}</th>
+                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_ESP_TIT' | translate }}</th>
+                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> {{ 'TIP_CLI' | translate }}</th>
+                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_ELE' | translate }}</th>
+                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> {{ 'SER_GAS' | translate }}</th>
+                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> {{ 'FECH_INI' | translate }}</th>
+                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> {{ 'ACCION' | translate }}</th>
                 </tfoot>
               </table>
         </div> 
           <div align="center">
-          <span class="store-qty"> <a ng-click="vm.cargar_lista_servicos_especiales()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_servicos_especiales()" title='{{ "RELOAD" | translate }}' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems3" ng-model="currentPage3" max-size="5" boundary-links="true" items-per-page="numPerPage3" class="pagination-sm">  
             </pagination>
@@ -195,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">{{ 'tip_fil_modal' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -204,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'tip_fil1_modal' | translate }}</label>
       <select class="form-control" id="ttipofiltrosServicioEspecial" name="ttipofiltrosServicioEspecial" required ng-model="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial">
           <option ng-repeat="dato in vm.ttipofiltrosServicioEspecial" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
@@ -226,9 +226,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipServ2" name="TipServ" ng-model="vm.tmodal_servicio_especiales.TipServ">
-        <option value="1">Servicio Gas</option>
-        <option value="2">Servicio Eléctrico</option> 
-        <option value="3">Ambos</option>                
+        <option value="1">{{ 'SER_GAS' | translate }}</option>
+        <option value="2">{{ 'SER_ELE' | translate }}</option> 
+        <option value="3">{{ 'Both' | translate }}</option>                
       </select>   
      </div>
      </div>
@@ -247,8 +247,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipCli" name="TipCli" ng-model="vm.tmodal_servicio_especiales.TipCli">
-        <option value="NEGOCIO">Negocio</option>
-        <option value="PARTICULAR">Particular</option>                
+        <option value="NEGOCIO">{{ 'NEGOCIO' | translate }}</option>
+        <option value="PARTICULAR">{{ 'PARTICULAR' | translate }}</option>                
       </select>   
      </div>
      </div>
@@ -273,16 +273,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="EstSerEsp" name="EstSerEsp" ng-model="vm.tmodal_servicio_especiales.EstSerEsp">
-        <option value="ACTIVO">Activo</option>
-        <option value="BLOQUEADO">Bloqueado</option>                          
+        <option value="ACTIVO">{{ 'ACTIVO' | translate }}</option>
+        <option value="BLOQUEADO">{{ 'BLOQUEADO' | translate }}</option>                          
       </select>   
      </div>
      </div>
     </div> 
 
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmFiltroServicioEspecial.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_servicio_especial()" ng-show="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial>0"><i class="fa fa-trash"></i> Quitar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmFiltroServicioEspecial.$invalid"><i class="fa fa-check-circle"></i> {{ 'app_modal' | translate }}</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_servicio_especial()" ng-show="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial>0"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</a>
       </div>
 </form>
    </div>
@@ -291,13 +291,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 <!--modal container section end -->
+
+
+
 <!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_motivo_bloqueo_servicio_especial" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Servicio Especial</h4>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> {{ 'BLO_SER_ESP' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -306,21 +309,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MARKETER' | translate }}</label>
      <input type="text" class="form-control" ng-model="vm.RazSocCom_BloSerEsp" required readonly/>     
      </div>
      </div>
 
       <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Servicio Especial</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'SER_ESP' | translate }}</label>
       <input type="text" class="form-control" ng-model="vm.DesSerEsp_Blo" required readonly />     
      </div>
      </div>
 <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de BLoqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MOT_BLO_COM_MODAL' | translate }}</label>
        <input type="text" class="form-control" ng-model="vm.servicio_especial_bloqueo.MotBloSerEsp" required/> 
      </div>
      </div>
@@ -329,7 +332,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FEC_BLO_COM_MODAL' | translate }}</label>
      <input type="text" class="form-control datepicker2" name="FecBloSerEsp" id="FecBloSerEsp" ng-model="vm.FecBloSerEsp" required maxlength="10" ng-change="vm.validarsifechaserespe(vm.FecBloSerEsp,2)" />    
      </div>
      </div>
@@ -337,14 +340,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'OBS_COM_BLO' | translate }}</label>
      <textarea type="text" class="form-control" ng-model="vm.servicio_especial_bloqueo.ObsMotBloSerEsp" rows="5" maxlength="100"/></textarea>
      </div>
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid"><i class="fa fa-lock"></i> {{ 'BUTTON_COM_BLO' | translate }}</button>
+      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> {{ 'BUTTON_COM_REG' | translate }}</a>
 </form>
    </div>
     </div>
@@ -372,9 +375,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </section>
     </section>
+
 </div>
 </body>
 
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Serv" class="loader loader-default"  data-text="Cargando Lista de Servicio Especiales, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="{{ 'module_data' | translate }}"></div>
+<div id="List_Serv" class="loader loader-default"  data-text="{{ 'List_Serv' | translate }}"></div>
 </html>

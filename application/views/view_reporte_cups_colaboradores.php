@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </ul> 
               </div>
               <div class="btn-group">
-                <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                 <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
                         <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
@@ -204,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñador Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
     </div>
   </div>
 </div> <!--fin div controller-->
@@ -238,4 +238,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
     </script>
 </body>
+
+
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
+
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Cups, Por Favor Espere..."></div>
+<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del Cups, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUPs, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando CUPs, Por Favor Espere..."></div>                 
+<div id="Baja" class="loader loader-default"  data-text="Dando de Baja CUPs, Por Favor Espere..."></div>   
+<div id="Generar_Consumo" class="loader loader-default"  data-text="Generando Historial, Por Favor Espere..."></div> 
+
 </html>
