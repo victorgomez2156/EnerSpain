@@ -9,7 +9,7 @@
   <meta name="keyword" content="Aplicación para la Gestión de Servicios Energéticos - AGSE">
   <link rel="shortcut icon" href="<?php echo ESTILOS;?>img/logo-big.png">
 
-  <title>Inicio de Sesión | <?php echo TITULO;?> </title>
+  <title>{{ 'LOGIN' | translate }} | {{ 'TITLE' | translate }} </title>
   <!-- Bootstrap CSS -->
   <link href="<?php echo ESTILOS;?>css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
@@ -25,8 +25,34 @@
   <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
   <script src="<?php echo ESTILOS.'js/bootstrap.min.js'?>"></script>
   <script src="<?php echo ESTILOS.'js/bootbox.js'?>"></script>
+  <!--- Libreriias AngularJS START -->
+   <script src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.min.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-aria.min.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-material.js'?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>"></script>
+    
+
+
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'checklist-model.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-resource.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-ping.js'?>"></script> 
+
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-route.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
+  <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script> 
+  
+  <!--Final de Principales de ANGULARJS-->
+  <!--Inicio de Librerias del sistema con ANGULARJS-->
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'appLogin.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'funciones.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'login.js'?>"></script>
   <!--- Libreriias AngularJS END -->
-  <script type="text/javascript"> 
+<script type="text/javascript"> 
 $(document).ready(function() 
 {
   
@@ -48,7 +74,7 @@ $(document).ready(function()
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Usuario no registrado!',
+        title:datax.title,
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -56,7 +82,7 @@ $(document).ready(function()
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Usuario Bloqueado!',
+        title:datax.title,
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -64,7 +90,7 @@ $(document).ready(function()
       {
        $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Error en datos!',
+        title:datax.title,
         message: "<i class='fa fa-close' ></i> "+datax.message+"",
         size: 'large'});
       }
@@ -72,7 +98,7 @@ $(document).ready(function()
       {
         $("#login").prop('disabled', false);
         bootbox.alert({
-        title:'¡Iniciando Sesión!',
+        title:datax.title,
         message: "<i class='fa fa-check-circle' ></i> "+datax.message+"",
         size: 'large'});        
         url = "<?php echo base_url('Principal#/Dashboard/')?>";
@@ -81,15 +107,15 @@ $(document).ready(function()
     },error:function(error)
     {
       $("#sesion").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );    
-        console.log(error);
-       if(error.status==401 && error.statusText=="Unauthorized")
-          {
-           $("#login").prop('disabled', false);
-            bootbox.alert({
-            title:'¡Api-Key!',
-            message: "Usted no tiene un api asignado para poder realizar esta acción.",
-            size: 'large'});
-          }
+      console.log(error);
+      if(error.status==401 && error.statusText=="Unauthorized")
+      {
+        $("#login").prop('disabled', false);
+        bootbox.alert({
+        title:'¡Api-Key!',
+        message: "Usted no tiene un api asignado para poder realizar esta acción.",
+        size: 'large'});
+      }
           if(error.status==500 && error.statusText=="Internal Server Error")
           {
            $("#login").prop('disabled', false);
@@ -132,21 +158,30 @@ $(document).ready(function()
         <p class="login-img"><i class="icon_lock_alt"></i></p>
         <div class="input-group">
           <span class="input-group-addon"><i class="icon_profile"></i></span>
-          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Nombre de Usuario o Correo Eléctronico" autofocus>
+          <input type="text" class="form-control" name="usuario" id="usuario" placeholder="{{ 'USERNAME' | translate }}" autofocus>
         </div>
         <div class="input-group">
           <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-          <input type="password" name="password" id="password" class="form-control" placeholder="Clave o Contraseña">
+          <input type="password" name="password" id="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}">
         </div>
         <label class="checkbox">
-                <input type="checkbox" value="remember-me" name="remember-me" id="remember-me"> Recordar Datos
-                <span class="pull-right"> <a href="forgot_password"> Recuperar Contraseña</a></span>
-        <br>
-        <button class="btn btn-primary btn-lg btn-block" type="submit" id="login"><i class="fa fa-sign-in"></i> Iniciar Sesión</button>
+                <input type="checkbox" value="remember-me" name="remember-me" id="remember-me"> {{ 'REMEMBER' | translate }}
+                <span class="pull-right"> <a href="forgot_password"> {{ 'RECOVERY' | translate }}</a></span>
+            </label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+          <select style="font-size:14px" name="idioma" id="idioma" class="form-control" ng-change="vm.change_languaje(vm.idioma)" ng-model="vm.idioma">
+                          <option value="sp">Español</option>
+                          <option value="en">Ingles</option>                          
+                          <!--option value="ru">Russian</option>
+                          <option value="fr">French</option-->
+                      </select>
+          <!--input type="password" name="password" id="password" class="form-control" placeholder="Clave o Contraseña"-->
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit" id="login"><i class="fa fa-sign-in"></i> {{ 'LOGIN' | translate }}</button>
         <!--button class="btn btn-info btn-lg btn-block" type="submit">Signup</button-->
       </div>
     </form>
-     </form>
     <div class="text-right" color white>
       <div class="credits">
           <!--
@@ -155,12 +190,12 @@ $(document).ready(function()
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          {{ 'DESIGNED' | translate }} <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </div>
 
-<div id="sesion" class="loader loader-default"  data-text="Estamos Iniciando su Sesión, Por Favor Espere..."></div>
+<div id="sesion" class="loader loader-default"  data-text="{{ 'SESSION' | translate }}"></div>
 </body>
 
 </html>

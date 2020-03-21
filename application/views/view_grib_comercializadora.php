@@ -77,10 +77,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bus"></i> Comercializadora</h3>
+            <h3 class="page-header"><i class="fa fa-bus"></i> {{ 'MARKETER' | translate }}</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>               
-              <li><i class="fa fa-bus"></i>Comercializadora</li>
+              <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>               
+              <li><i class="fa fa-bus"></i>{{ 'MARKETER' | translate }}</li>
             </ol>
           </div>
         </div>
@@ -95,32 +95,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="t-0029">
       <div class="t-0031" style="margin-top: -8px; ">
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <button data-toggle="dropdown" title="{{ 'Add_Columns' | translate }}" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'RAZ_SOC' | translate }}</b></li></li>
                         <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Comercializadora</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.DirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>
-                        <li><input type="checkbox" ng-model="vm.ProDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Provincia</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodLoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Localidad</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelFijCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
-                        <li><input type="checkbox" ng-model="vm.EmaCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Correo Eléctronico</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Persona Contacto</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>                     
-                        <li><input type="checkbox" ng-model="vm.Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'NOM_COM' | translate }}</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'DIRECCION' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.ProDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'PROVINCIA' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodLoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'LOCALIDAD' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'TELEFONO' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.EmaCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'EMAIL' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'PERS_CONT' | translate }}</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ESTATUS' | translate }}</b></li>                     
+                        <li><input type="checkbox" ng-model="vm.Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">{{ 'ACCION' | translate }}</b></li>
                       </ul> 
                     </div>
                     
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" title="{{ 'Ex_Reports' | translate }}" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title='Exportar En PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Comercializadora/{{vm.reporte_pdf_comercializadora}}"><i class="fa fa-file"></i> Exportar En PDF</a></li>
-                        <li style="cursor: pointer;"><a title='Exportar en Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Comercializadora/{{vm.reporte_excel_comercializadora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                        <li style="cursor: pointer;"><a title='{{ "PDF" | translate }}' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Comercializadora/{{vm.reporte_pdf_comercializadora}}"><i class="fa fa-file"></i> {{ 'PDF' | translate }}</a></li>
+                        <li style="cursor: pointer;"><a title='{{ "EXCEL" | translate }}' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Comercializadora/{{vm.reporte_excel_comercializadora}}"><i class="fa fa-file-excel-o"></i> {{ 'EXCEL' | translate }}</a></li>
                     </ul>
                     </div>
 
                     <div class="btn-group">
-                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_comercializadora" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
+                       <a data-toggle="modal" title='{{ "FILTRO" | translate }}' data-target="#modal_filtros_comercializadora" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
                     </div>
     </div>
   </div>
@@ -130,9 +130,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" title="Escribe para Filtrar..." placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" title="{{ 'FILTRO_SEARCH' | translate }}" placeholder="{{ 'FILTRO_SEARCH' | translate }}">
                     </div>                 
-                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i></button>
+                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="{{ 'ADD_COM' | translate }}" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -144,20 +144,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.NumCifCom==true"> CIF</th>
-                    <th ng-show="vm.RazSocCom==true">Razón Social</th>                    
-                    <th ng-show="vm.NomComCom==true">Comercializadora</th>
-                    <th ng-show="vm.DirCom==true">Dirección</th>
-                    <th ng-show="vm.ProDirCom==true"> Provincia</th>
-                    <th ng-show="vm.CodLoc==true"> Localidad</th>
-                    <th ng-show="vm.TelFijCom==true"> Teléfono</th>
-                    <th ng-show="vm.EmaCom==true"> Correo Eléctronico</th>
-                    <th ng-show="vm.NomConCom==true"> Persona Contacto</th>
-                    <th ng-show="vm.EstCom==true"> Estatus</th>
-                    <th ng-show="vm.Acc==true"> Acción</th>
+                    <th ng-show="vm.RazSocCom==true">{{ 'RAZ_SOC' | translate }}</th>                    
+                    <th ng-show="vm.NomComCom==true">{{ 'NOM_COM' | translate }}</th>
+                    <th ng-show="vm.DirCom==true">{{ 'DIRECCION' | translate }}</th>
+                    <th ng-show="vm.ProDirCom==true"> {{ 'PROVINCIA' | translate }}</th>
+                    <th ng-show="vm.CodLoc==true"> {{ 'LOCALIDAD' | translate }}</th>
+                    <th ng-show="vm.TelFijCom==true"> {{ 'TELEFONO' | translate }}</th>
+                    <th ng-show="vm.EmaCom==true"> {{ 'EMAIL' | translate }}</th>
+                    <th ng-show="vm.NomConCom==true"> {{ 'PERS_CONT' | translate }}</th>
+                    <th ng-show="vm.EstCom==true"> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.Acc==true"> {{ 'ACCION' | translate }}</th>
                   </tr>  
 
                    <tr ng-show="vm.Tcomercializadoras.length==0"> 
-                     <td colspan="29" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                     <td colspan="29" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> {{ 'Sin_Data' | translate }}</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.Tcomercializadoras | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -170,8 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>
                     <td ng-show="vm.NomConCom==true">{{dato.NomConCom}}</td>
                     <td ng-show="vm.EstCom==true">
-                      <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'"><i class="fa fa-check-circle"></i> {{ 'ACTIVA' | translate }}</span>
+                      <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'"><i class="fa fa-ban"></i> {{ 'BLOQUEADA' | translate }}</span>
                     </td>
                     <td ng-show="vm.Acc==true">
                       <div class="btn-group">
@@ -184,22 +184,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                      <th ng-show="vm.NumCifCom==true"> CIF</th>
-                    <th ng-show="vm.RazSocCom==true">Razón Social</th>                    
-                    <th ng-show="vm.NomComCom==true">Comercializadora</th>
-                    <th ng-show="vm.DirCom==true">Dirección</th>
-                    <th ng-show="vm.ProDirCom==true"> Provincia</th>
-                    <th ng-show="vm.CodLoc==true"> Localidad</th>
-                    <th ng-show="vm.TelFijCom==true"> Teléfono</th>
-                    <th ng-show="vm.EmaCom==true"> Correo Eléctronico</th>
-                    <th ng-show="vm.NomConCom==true"> Persona Contacto</th>
-                    <th ng-show="vm.EstCom==true"> Estatus</th>
-                    <th ng-show="vm.Acc==true"> Acción</th>
+                    <th ng-show="vm.RazSocCom==true">{{ 'RAZ_SOC' | translate }}</th>                    
+                    <th ng-show="vm.NomComCom==true">{{ 'NOM_COM' | translate }}</th>
+                    <th ng-show="vm.DirCom==true">{{ 'DIRECCION' | translate }}</th>
+                    <th ng-show="vm.ProDirCom==true"> {{ 'PROVINCIA' | translate }}</th>
+                    <th ng-show="vm.CodLoc==true"> {{ 'LOCALIDAD' | translate }}</th>
+                    <th ng-show="vm.TelFijCom==true"> {{ 'TELEFONO' | translate }}</th>
+                    <th ng-show="vm.EmaCom==true"> {{ 'EMAIL' | translate }}</th>
+                    <th ng-show="vm.NomConCom==true"> {{ 'PERS_CONT' | translate }}</th>
+                    <th ng-show="vm.EstCom==true"> {{ 'ESTATUS' | translate }}</th>
+                    <th ng-show="vm.Acc==true"> {{ 'ACCION' | translate }}</th>
 
                 </tfoot>
               </table>
         </div> 
         <div align="center">
-          <span class="store-qty"> <a ng-click="vm.cargar_lista_comercializadoras()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_comercializadoras()" title='{{ "RELOAD" | translate }}' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          {{ "Designed" | translate }} <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -231,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i>Bloqueo de Comercializadora</h4>
+            <h4 class="modal-title"><i class="fa fa-ban"></i>{{ 'BLO_COM_MODAL' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -249,7 +249,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'RAZ_COM_MODAL' | translate }}</label>
       <input type="text" class="form-control" ng-model="vm.RazSocComBlo" required readonly />     
      </div>
      </div>
@@ -258,7 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'MOT_BLO_COM_MODAL' | translate }}</label>
        <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.t_modal_data.MotBloq">
           <option ng-repeat="dato in vm.tMotBloCom" value="{{dato.CodMotBloCom}}">{{dato.DesMotBloCom}}</option>
         </select>    
@@ -269,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FEC_BLO_COM_MODAL' | translate }}</label>
      <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" id="fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
      </div>
      </div>
@@ -277,14 +277,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'OBS_COM_BLO' | translate }}</label>
      <textarea type="text" class="form-control" ng-model="vm.t_modal_data.ObsBloCom" rows="5" maxlength="100"/></textarea>
      </div>
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">{{ 'BUTTON_COM_BLO' | translate }}</button>
+      <a class="btn btn-danger" data-dismiss="modal">{{ 'BUTTON_COM_REG' | translate }}</a>
 </form>
    </div>
     </div>
@@ -323,7 +323,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">{{ 'tip_fil_modal' | translate }}</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -332,7 +332,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Filtro</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'tip_fil1_modal' | translate }}</label>
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_comercializadora.tipo_filtro">
           <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
@@ -356,8 +356,8 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
      <div class="form-group">
      
       <select class="form-control" id="Selec" name="Selec" ng-model="vm.tmodal_comercializadora.Selec">
-        <option value="SI">Si</option> 
-         <option value="NO">No</option>                            
+        <option value="SI">{{ 'si_modal' | translate }}</option> 
+         <option value="NO">{{ 'no_modal' | translate }}</option>                            
       </select>   
      </div>
      </div>
@@ -398,8 +398,8 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
 
   
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar </button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()"><i class="fa fa-trash"></i> Quitar </a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> {{ 'app_modal' | translate }} </button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }} </a>
       </div>
 </form>
    </div>
@@ -414,27 +414,32 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title"> Ingrese Número de CIF</h4>
+                        <h4 class="modal-title"> {{ 'con_cif_modal' | translate }}</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i> Número de CIF</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="{{ 'cif_con_modal' | translate }}"></i> {{ 'cif_con_modal' | translate }}</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Ingrese Número de CIF" maxlength="8" required/>   
+                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* {{ 'con_cif_modal' | translate }}" maxlength="8" required/>   
                             </div>
                           </div>
-                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> {{ 'button_con_modal' | translate }}</button>
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
 <!--modal modal_cif_comercializadora section END -->
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Comer" class="loader loader-default"  data-text="Cargando Lista de Comercializadoras, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Comercializadora, Por Favor Espere"></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF, Por Favor Espere..."></div>
+
+
+
+<div id="carganto_servicio" class="loader loader-default"  data-text="{{ 'module_data' | translate }}"></div>
+<div id="List_Comer" class="loader loader-default"  data-text="{{ 'list_comer' | translate }}"></div>
+<div id="borrando" class="loader loader-default"  data-text="{{ 'delete_cli' | translate }}"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="{{ 'validate_cif' | translate }}"></div>
 </div>
+
 </body>
+
 </html>

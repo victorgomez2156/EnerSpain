@@ -153,7 +153,25 @@ class Login extends CI_Controller
 		$os=$this->agent->platform();
 		$userid = $this->input->post('usuario');
 		$password = md5($this->input->post('password'));
-		$remember = $this->input->post('remember-me');		
+		$remember = $this->input->post('remember-me');
+		$idioma = $this->input->post('idioma');
+		
+		if($idioma=="sp")
+		{
+		
+			$this->config->set_item('language','spanish');
+			$this->lang->load('message','spanish'); 
+		}
+		elseif ($idioma=="en")
+		{
+			$this->config->set_item('language','english');
+			$this->lang->load('message','english');
+		}
+		else
+		{
+			$respuesta = array('status'=>TRUE,'message'=>$this->lang->line('Error_Lang'),'title'=>$this->lang->line('title_login_error_lang'),'data'=>$datausuario);
+        			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+		}
 		$ano=date('Y');		
 		/**/
 		#Buscaremos en la base de datos si el usuario esta registrado 
@@ -167,11 +185,12 @@ class Login extends CI_Controller
 				if($datausuario!=false)
 				{	
 					//$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
-					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico);
+					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico,
+                        'idioma'=>$idioma);
 					$this->session->set_userdata($newdata);
 					//echo 2;
 
-					$respuesta = array('status'=>TRUE,'message'=>'Estamos Iniciando Su Sesión, Por Favor Espere...','data'=>$datausuario);
+					$respuesta = array('status'=>TRUE,'message'=>$this->lang->line('Iniciar_Sesion'),'title'=>$this->lang->line('title_login_true'),'data'=>$datausuario);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				  	/*$sender = $configuraciones->smtp_user;        // Your name and email address 
 				    $recipient = $datausuario->correo_electronico;// The Recipients name and email address 
@@ -197,19 +216,19 @@ class Login extends CI_Controller
 				}
 				else
 				{
-					$respuesta = array('status'=>$datausuario,'message'=>'El Nombre de Usuario o Contraseña Son Inconrrectos, Verifiquelos y Intente Nuevamente.','data'=>3);
+					$respuesta = array('status'=>$datausuario,'message'=>$this->lang->line('Error_Datos'),'title'=>$this->lang->line('title_login_error'),'data'=>3);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				}
 			}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>'Este Usuario Se Encuentra Bloqueado.','data'=>2);
+				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>$this->lang->line('User_Blo'),'title'=>$this->lang->line('title_login_blo'),'data'=>2);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 		}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>'Este Usuario No Se Encuentra Registrado.','data'=>1);
+				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>$this->lang->line('User_NoBD'),'title'=>$this->lang->line('title_login_NoBD'),'data'=>1);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 	}

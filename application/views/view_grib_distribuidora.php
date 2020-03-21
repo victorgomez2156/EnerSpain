@@ -76,8 +76,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-users"></i> Distribuidoras</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>              
-              <li><i class="fa fa-users"></i> Distribuidoras</li>
+              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
+              <li><i class="fa fa-users"></i>Distribuidoras</li>
             </ol>
           </div>
         </div>
@@ -99,15 +99,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.RazSocDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
                         <li><input type="checkbox" ng-model="vm.TelFijDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li></li>
                         <li><input type="checkbox" ng-model="vm.EstDist"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li>
                       </ul> 
                     </div>
                     
                     <div class="btn-group">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title="Exportar en PDF" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Distribuidora/{{vm.ruta_reportes_pdf_distribuidora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Distribuidora/{{vm.ruta_reportes_excel_distribuidora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Distribuidora/{{vm.ruta_reportes_pdf_distribuidora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Distribuidora/{{vm.ruta_reportes_excel_distribuidora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
                       </ul>
                     </div>
                     <div class="btn-group">
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.fdatos.filtrar" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail2" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.fdatos.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Distribuidora" ng-click="vm.modal_cif_distribuidora()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.RazSocDis==true"><i class="fa fa-building"></i> Razón Social</th>                   
                     <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
                     <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
-                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <tr ng-show="vm.TDistribuidora.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
@@ -148,8 +148,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.RazSocDis==true">{{dato.RazSocDis}}</td>
                     <td ng-show="vm.TelFijDis==true">{{dato.TelFijDis}}</td>                    
                     <td ng-show="vm.EstDist==true">
-                      <span class="label label-info" ng-show="dato.EstDist=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstDist=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstDist=='ACTIVO'"><i class="fa fa-check-circle"></i> {{dato.EstDist}}</span>
+                      <span class="label label-danger" ng-show="dato.EstDist=='BLOQUEADO'"><i class="fa fa-ban"></i> {{dato.EstDist}}</span>
                     </td> 
                     <td ng-show="vm.AccDis==true">
                       <div class="btn-group">
@@ -160,12 +160,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                   </tr>
                 </tbody>
-                <tfoot>                   
-                   <th ng-show="vm.NumCifDis==true"><i class="fa fa-vcard"></i> CIF</th> 
+                <tfoot>
+                    <th ng-show="vm.NumCifDis==true"><i class="fa fa-vcard"></i> CIF</th> 
                     <th ng-show="vm.RazSocDis==true"><i class="fa fa-building"></i> Razón Social</th>                   
                     <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
                     <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
-                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Action</th>
                 </tfoot>
               </table>
         </div> 
@@ -192,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-         Diseñador Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Designed by <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -202,11 +202,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-lock"></i> Bloqueo de Distribuidora</h4>
+            <h4 class="modal-title">Bloqueo de Distribuidoras</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
-                 <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodDist" required readonly />
+                 <input type="text" class="form-control" ng-model="vm.tmodal_data.CodDist" required readonly />
       <form class="form-validate" id="form_lock" name="form_lock" ng-submit="submitFormlock($event)">                 
      <div class="col-12 col-sm-4">
      <div class="form">                          
@@ -228,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social del Cliente</label>
      <input type="text" class="form-control" ng-model="vm.tmodal_data.RazSocDis" required readonly />     
      </div>
      </div>
@@ -236,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
      <input type="text" class="form-control" ng-model="vm.tmodal_data.MotBloq" required/>      
      </div>
      </div>
@@ -249,8 +249,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">BLOQUEAR</button>
+      <a class="btn btn-danger" data-dismiss="modal">REGRESAR</a>
 </form>
    </div>
     </div>
@@ -273,50 +273,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipo de Filtro</h4>
+            <h4 class="modal-title">Tipos de Filtros</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
       <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltrosDistribuidora($event)">                 
      
-     <div class="col-12 col-sm-12">
+     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_distribuidora.tipo_filtro">
-         <option value="1">Tipo de Servicios</option> 
-        <option value="2">Estatus</option>
+         <option value="1">TIPO DE SERVICIO</option> 
+        <option value="2">ESTATUS</option>
         </select>     
      </div>
      </div>
      </div>
-    
-     <div class="col-12 col-sm-12" ng-show="vm.tmodal_distribuidora.tipo_filtro==1">
+     <br>
+     <br>
+     <br>
+     <br> 
+     <div class="col-12 col-sm-6" ng-show="vm.tmodal_distribuidora.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipSerDis" name="TipSerDis" ng-model="vm.tmodal_distribuidora.TipSerDis">
-        <option value="GAS">Servicio Gas</option> 
-        <option value="ELÉCTRICO">Servicio Eléctrico</option>
-        <option value="AMBOS SERVICIOS">Ambos</option>                         
+        <option value="GAS">GAS</option> 
+        <option value="ELÉCTRICO">ELÉCTRICO</option>
+        <option value="AMBOS SERVICIOS">AMBOS SERVICIOS</option>                         
       </select>   
      </div>
      </div>
     </div>    
 
-    <div class="col-12 col-sm-12" ng-show="vm.tmodal_distribuidora.tipo_filtro==2">
+    <div class="col-12 col-sm-6" ng-show="vm.tmodal_distribuidora.tipo_filtro==2">
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="EstDist" name="EstDist" ng-model="vm.tmodal_distribuidora.EstDist">
-        <option value="ACTIVO">Activo</option> 
-        <option value="BLOQUEADO">Bloqueado</option>                         
+        <option value="ACTIVO">ACTIVO</option> 
+        <option value="BLOQUEADO">BLOQUEADO</option>                         
       </select>     
      </div> 
      </div>
      </div>     
-   
+    <br ng-show="vm.tmodal_distribuidora.tipo_filtro==1 || vm.tmodal_distribuidora.tipo_filtro==2">
+     <br ng-show="vm.tmodal_distribuidora.tipo_filtro==1 || vm.tmodal_distribuidora.tipo_filtro==2"> 
+    <br>
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_distribuidora()" ng-show="vm.tmodal_distribuidora.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_distribuidora()" ng-show="vm.tmodal_distribuidora.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR</a>
       </div>
 </form>
    </div>
@@ -331,17 +336,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Comprobación de CIF</h4>
+                        <h4 class="modal-title">Ingrese Número de CIF:</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Ingrese Número de CIF"></i> Ingrese Número de CIF:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i> Número de CIF:</label>
                             <div class="col-lg-10">
                               <input type="text" class="form-control" ng-model="vm.NumCifDisConsulta" placeholder="* Ingrese Número de CIF" maxlength="50" required/>   
                             </div>
                           </div>
-                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"><i class="fa fa-search"></i> Consultar</button>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid">CONSULTAR</button>
                         </form>
                       </div>
                     </div>
@@ -351,7 +356,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de distribuidoras, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Lista de Distribuidoras, Por Favor Espere..."></div>
 <div id="borrando" class="loader loader-default"  data-text="Borrando Distribuidora, Por Favor Espere..."></div>
-<div id="NumCifDis" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere"></div>
+<div id="NumCifDis" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
 </html>
