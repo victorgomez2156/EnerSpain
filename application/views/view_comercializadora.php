@@ -77,14 +77,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header" ng-show="vm.fdatos.CodCom==undefined"><i class="fa fa-users"></i> Registro de Comercializadora  </h3>
-            <h3 class="page-header" ng-show="vm.fdatos.CodCom>0"><i class="fa fa-users"></i> Actualizando de Comercializadora </h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCom==undefined">Registrar Comercializadora</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCom>0">Modificar Comercializadora</h3>
             <ol class="breadcrumb">
             
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               
-              <li ng-show="vm.fdatos.CodCom==undefined"><i class="fa fa-users"></i>Registro de Comercializadora</li>
-              <li ng-show="vm.fdatos.CodCom>0"><i class="fa fa-users"></i>Actualizando de Comercializadora</li>
+              <li ng-show="vm.fdatos.CodCom==undefined">Registrar Comercializadora</li>
+              <li ng-show="vm.fdatos.CodCom>0">Modificar Comercializadora</li>
             </ol>
           </div>
         </div>
