@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Comercializadora</h3>
+            <h3 class="page-header">Listado de Comercializadoras</h3>
           </div>
         </div>
         <!-- page start-->
