@@ -121,7 +121,7 @@ $(document).ready(function()
            $("#login").prop('disabled', false);
              bootbox.alert({
             title:'¡Error-Interno!',
-            message: "Un error a ocurrido al intentar iniciar sesión por favor intente nuevamente.",
+            message: "Ha ocurrido un error al intentar iniciar sesión, por favor intente nuevamente",
             size: 'large'});
           }
            if(error.status==404 && error.statusText=="Not Found")
@@ -129,7 +129,7 @@ $(document).ready(function()
            $("#login").prop('disabled', false);
              bootbox.alert({
             title:'¡Metodo Invalido!',
-            message: "No hemos podido localizar el metodo por favor intente nuevamente.",
+            message: "No hemos podido localizar el método, por favor intente nuevamente",
             size: 'large'});
           }
            if(error.status==403 && error.statusText=="Forbidden")
@@ -137,7 +137,7 @@ $(document).ready(function()
             $("#login").prop('disabled', false);
             bootbox.alert({
             title:'¡Seguridad!',
-            message: "No esta autorizado.",
+            message: "Usuario no autorizado",
             size: 'large'});
           }
     }
