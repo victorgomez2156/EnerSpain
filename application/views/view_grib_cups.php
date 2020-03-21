@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div align="center">
           <span class="store-qty"> <a ng-click="vm.cargar_lista_cups()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span> 
 
-          <!--span class="store-qty"> <a href="#/Puntos_Suministros" title='Regresar' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span-->      
+          <!--span class="store-qty"> <a href="#/Puntos_Suministros" title='Volver' class="btn btn-info"><div><i class="fa fa-arrow-circle-left" style="color:white;"></i></div></a> </span-->      
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>

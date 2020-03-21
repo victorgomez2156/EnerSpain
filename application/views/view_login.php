@@ -160,7 +160,7 @@ $(document).ready(function()
     </div>
   </div>
 
-<div id="sesion" class="loader loader-default"  data-text="Estamos Iniciando su Sesión, Por Favor Espere..."></div>
+<div id="sesion" class="loader loader-default"  data-text="Iniciando Sesión, por favor espere ..."></div>
 </body>
 
 </html>

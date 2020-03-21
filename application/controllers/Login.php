@@ -171,7 +171,7 @@ class Login extends CI_Controller
 					$this->session->set_userdata($newdata);
 					//echo 2;
 
-					$respuesta = array('status'=>TRUE,'message'=>'Estamos Iniciando Su Sesión, Por Favor Espere...','data'=>$datausuario);
+					$respuesta = array('status'=>TRUE,'message'=>'Iniciando Sesión, por favor espere ...','data'=>$datausuario);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				  	/*$sender = $configuraciones->smtp_user;        // Your name and email address 
 				    $recipient = $datausuario->correo_electronico;// The Recipients name and email address 
@@ -197,19 +197,19 @@ class Login extends CI_Controller
 				}
 				else
 				{
-					$respuesta = array('status'=>$datausuario,'message'=>'El Nombre de Usuario o Contraseña Son Inconrrectos, Verifiquelos y Intente Nuevamente.','data'=>3);
+					$respuesta = array('status'=>$datausuario,'message'=>'Error en Usuario o Contraseña, por favor verifique','data'=>3);
         			echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 				}
 			}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>'Este Usuario Se Encuentra Bloqueado.','data'=>2);
+				$respuesta = array('status'=>$FuncionBloqueadoUser,'message'=>'Usuario Bloqueado.','data'=>2);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 		}
 			else
 			{
-				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>'Este Usuario No Se Encuentra Registrado.','data'=>1);
+				$respuesta = array('status'=>$FuncionBuscarUsuarios,'message'=>'Usuario No Registrado','data'=>1);
         		echo json_encode($respuesta,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 			}
 	}
@@ -264,7 +264,7 @@ public function enviar()
 		   	$configuraciones=$this->Dependencias_model->get_configuracion();
 			$sender = $configuraciones->smtp_user;        // Your name and email address 
 			$recipient = $correo_electronico;// The Recipients name and email address 
-			$subject = "Recuperación de Contraseña Clientes";           // Subject for the email 
+			$subject = "Recuperación de Contraseña";           // Subject for the email 
 			$html='<div id=":ab" class="ii gt"><div id=":aa" class="a3s aXjCH msg-1530226089000420248"><u></u><div bgcolor="#FFFFFF" style="margin:0;padding:0"><table border="0" cellpadding="0" cellspacing="0" height="100%" lang="es" style="min-width:348px" width="100%"><tbody><tr height="32" style="height:32px"><td></td></tr><tr align="center"><td><div><div></div></div><table border="0" cellpadding="0" cellspacing="0" style="padding-bottom:20px;max-width:516px;min-width:220px"><tbody><tr><td style="width:8px" width="8"></td><td><div align="center" class="m_-1530226089000420248mdv2rw" style="border-style:solid;border-width:thin;border-color:#dadce0;border-radius:8px;padding:40px 20px"><img height="24" src="https://wayak.es/wp-content/uploads/2018/07/Wayak.jpg" style="width:75px;height:24px;margin-bottom:16px" width="100" class="CToWUd"><div style="font-family:Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;border-bottom:thin solid #dadce0;color:rgba(0,0,0,0.87);line-height:32px;padding-bottom:24px;text-align:center;word-break:break-word"><div style="font-size:24px">Solucitud de&nbsp;Contraseña del Correo Electrónico</div><table align="center" style="margin-top:8px"><tbody><tr style="line-height:normal"><td align="right" style="padding-right:8px"><img height="20" src="https://ci4.googleusercontent.com/proxy/QpsGaULeBaBhhOTpb-uwGsICda8b1ae95rM7JtYlDtcjbrJ_fDlrGcQ9nUwocVilT_dWdlntnRieTr4GY_IFycf2zxXXuPXiHCdY7G5yRw7uJHHhalp2NYvY=s0-d-e1-ft#https://www.gstatic.com/accountalerts/email/anonymous_profile_photo.png" style="width:20px;height:20px;vertical-align:sub;border-radius:50%" width="20" class="CToWUd"></td><td><a style="font-family:Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:rgba(0,0,0,0.87);font-size:14px;line-height:20px">'.$correo_electronico.'</a></td></tr></tbody></table></div><div style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:14px;color:rgba(0,0,0,0.87);line-height:20px;padding-top:20px;text-align:center">Estimado Usuario hemos dectatado que ha solicitado su contraseña desde un dispositivo nuevo ('.$os.'). Con la Dirección IP: '.$ip.' tu contraseña es <b>'.$clave_sin_cifrar.'</b>Te hemos enviado este correo electrónico para comprobar que lo hiciste tú.<div style="padding-top:32px;text-align:center"><a href="#">Ver actividad</a></div></div></div><div style="text-align:left"><div style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;padding-top:12px;text-align:center"><div>Te hemos enviado este correo electrónico para informarte de cambios importantes en tu cuenta y en los servicios de nuestra empresa. No responder a este correo electrónico porque no sera atendido por nuestro sistema</div><div style="direction:ltr">© 2018-'.$ano.' SistemaOnline2018 C.A,<a class="m_-1530226089000420248afal" style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;color:rgba(0,0,0,0.54);font-size:11px;line-height:18px;padding-top:12px;text-align:center"> La Morita II Av. Principal Santa Ines, Venezuela</a></div></div><div style="display:none!important;max-height:0px;max-width:0px">1547398360000000</div></div></td><td style="width:8px" width="8"></td></tr></tbody></table></td></tr><tr height="32" style="height:32px"><td></td></tr></tbody></table><img height="1" src="https://ci5.googleusercontent.com/proxy/lehYhn8ZDmZju4Mu6M5sfyPk7-YqtRGnix_Fr5ZDDKOy1rnaQRtSYlbi1PVmY4mJ84t8KFVt5bvjY4a-6GBFB3OoR0U7YQwZjthqlqszZn75Nr-12D58Esoph5V6CjUwztlv5wuMebA90UeR1u0bvF-s72OFKtHuGiXrXuP6vdynPYDrEyqNBnkb45u6OXOVfibOrGhqtnePW5l0Lahh5LC6KEcOlbrjMEs6t9zJUSVFOTF3DHj-qLgDr6IIcNSfkjYrGd9-Hjxda6yWjSYZJLzlwuJSis616WM3A5h3R6F9Wc_-ly1L_6D_oXvSKuDyYwRTI_KeJ8g-daQacMgrFUHQRczJtxqH06ltVR6JPeGNxige1HhZQP6PfHFvL9Utrk-z2WY-DEtKyBcfjs1rEaCtR1gFpLDJU_0yhr8gNfP5QVNDiDJYIz05vHifyKcMkNesPozlsv-EW3cCzmwRsdQk5xrwIoyAng=s0-d-e1-ft#https://notifications.googleapis.com/email/t/AFG8qyVChqlooQDPoY-b8gVxOhRBNj_fGxPp7YZr_yWCStmWSzudyYdIC62_KTf-yGV25ru1RYi3t-ks7Wn-gZM6duNFvZ0Kq3QOso0Rh7tojWBdNJHD9VtcA0vKb-31nJ6CsDq-kfU7SQk55F1i_0sWRCshcsIfXpeI2I-jpXcEdsBpByoLMK1Kod7XeZepv4K60Z20SpOLEa8Lt3XBpdzuVIDQMzGrLJPIqmUYHUOqpLyJdK-w7QgM10h-Vm25kXgt4S_u0bG_e1NIvzYDXvD9LwPZrHmw8g/a.gif" width="1" class="CToWUd"></div></div><div class="yj6qo"></div></div>';   
 			$crlf = "\n"; 
 			$headers = array('From'=>$sender,'To'=>$correo_electronico,'Return-Path' => $sender,'Subject'  => $subject,'X-Priority' =>1,'Errors-To'=>$configuraciones->correo_paypal);     
@@ -285,11 +285,11 @@ public function enviar()
 			$mail->send($recipient, $headers, $body);
 			if (PEAR::isError($mail)) 
 			{ 
-				$this->session->set_flashdata('envio', 'Hubo un Error al enviar el correo electrónico porfavor intente nuevamente!!');
+				$this->session->set_flashdata('envio', 'Error al enviar correo electrónico, intente nuevamente');
 			} 
 			else 
 			{ 
-			   $this->session->set_flashdata('envio', 'Estimado Cliente: <b>'.$fullname.'</b> hemos enviado a su Correo Electrónico: <b>'.$correo_electronico.'</b> su contraseña por favor rebice su Bandeja de Entrada o la Carpeta de Spam...');	
+			   $this->session->set_flashdata('envio', 'Hemos enviado Contraseña al Correo Electrónico <b>'.$correo_electronico.'</b>');	
 			}
 			redirect(base_url());
 		   /* $config['protocol'] = 'smtp';      
@@ -318,7 +318,7 @@ public function enviar()
 	}
 	else
 	{	
-		$this->session->set_flashdata('envio', 'El Usuario no está registrado en la base de datos');
+		$this->session->set_flashdata('envio', 'Usuario No Registrado');
 		 redirect(base_url());			
 	}
 
@@ -383,7 +383,7 @@ public function consultar_correo()
 					} 
 					else 
 					{*/ 
-					   $this->session->set_flashdata('envio', 'Estimado Cliente: <b>'.$full_name.'</b> Su Dirección de Correo Electrónico Es: <b>'.$correo_electronico.'</b> Ingrese Con Su Contraseña o sino la recuerda solicitela con el correo electrónico que se le acaba de indicar');	
+					   $this->session->set_flashdata('envio', 'Su Correo Electrónico es: <b>'.$correo_electronico.'</b> Introduzca Contraseña, si no la recuerda recupérela a través del Correo Electrónico');	
 					//}
 					redirect(base_url());	
 
@@ -412,7 +412,7 @@ public function consultar_correo()
 	}
 	else
 	{
-		$this->session->set_flashdata('envio', 'El numero de identificacion ingresado no está registrado en la base de datos');
+		$this->session->set_flashdata('envio', 'DNI no se encuentra registrado');
 				 redirect(base_url());
 	}
 	redirect(base_url());

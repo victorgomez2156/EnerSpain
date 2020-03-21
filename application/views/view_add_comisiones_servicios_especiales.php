@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tfoot>
               </table>
         <div align="center">
-           <span class="store-qty" ng-show="vm.TComisionesRangoGrib.length==0"> <a ng-click="vm.regresar_comisiones()" title='Regresar' class="btn btn-success"><div><i class="fa fa-arrow-left" style="color:white;"></i></div></a> </span>  
+           <span class="store-qty" ng-show="vm.TComisionesRangoGrib.length==0"> <a ng-click="vm.regresar_comisiones()" title='Volver' class="btn btn-success"><div><i class="fa fa-arrow-left" style="color:white;"></i></div></a> </span>  
           <div class='btn-group' align="center">
 
             <pagination total-items="totalItems4" ng-model="currentPage4" max-size="5" boundary-links="true" items-per-page="numPerPage4" class="pagination-sm">  
