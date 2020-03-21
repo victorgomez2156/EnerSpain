@@ -27,11 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> {{ 'REGIST_ANENE' | translate }}</h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/{{ 'DASHBOARD' | translate }}">{{ 'DASHBOARD' | translate }}</a></li>         
-              <li><i class="fa fa-bullseye"></i>{{ 'REGIST_ANENE' | translate }}</li>
-            </ol>
+            <h3 class="page-header">{{ 'REGIST_ANENE' | translate }}</h3>            
           </div>
         </div>
         <!-- Form validations -->
@@ -87,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIPO_SUM' | translate }}</b></label></div></div>
+       <div align ="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>{{ 'TIPO_SUM' | translate }}</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
