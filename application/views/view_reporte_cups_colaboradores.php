@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i> TELÉFONO</th>
                   </tr>
                   <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
-                     <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tClientes_x_Colaboradores | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.NomComCli==true">{{dato.NomComCli}}</td>

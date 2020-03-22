@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <tr ng-show="vm.TComercial.length==0"> 
-                     <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="7" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TComercial | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
                     
@@ -150,8 +150,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.TelCelCom==true">{{dato.TelCelCom}}</td>
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>                 
                     <td ng-show="vm.EstCom==true">
-                      <span class="label label-info" ng-show="dato.EstCom==1"><i class="fa fa-check-circle"></i> ACTIVO</span>
-                      <span class="label label-danger" ng-show="dato.EstCom==2"><i class="fa fa-ban"></i> BLOQUEADO</span>
+                      <span class="label label-info" ng-show="dato.EstCom==1">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstCom==2">Bloqueado</span>
                     </td> 
                     <td ng-show="vm.AccCom==true">
                       <div class="btn-group">

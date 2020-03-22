@@ -164,7 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloCliente.length==0"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloCliente | filter:paginate | filter:vm.filtrar_bloqueo_cliente" ng-class-odd="odd">
                     
@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AcctMotBloAct==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloActividad==undefined"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloActividad | filter:paginate2 | filter:vm.filtrar_actividad" ng-class-odd="odd">
                     
@@ -397,7 +397,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AcctMotBloPunSum==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloPunSum==undefined"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloPunSum | filter:paginate3 | filter:vm.filtrar_PunSum" ng-class-odd="odd">
                     
@@ -518,7 +518,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AcctMotBloCon==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloContacto==undefined"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloContacto | filter:paginate4 | filter:vm.filtrar_Contacto" ng-class-odd="odd">
                     
@@ -640,7 +640,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AcctMotBloCom==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloComercializadora==undefined"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloComercializadora | filter:paginate5 | filter:vm.filtrar_comercializadora" ng-class-odd="odd">
                     
@@ -758,7 +758,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AcctMotBloCUPs==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloCUPs.length==0"> 
-                     <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloCUPs | filter:paginate6 | filter:vm.filtrar_cups" ng-class-odd="odd">
                     

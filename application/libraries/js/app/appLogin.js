@@ -20,7 +20,7 @@ var app = angular.module('appLogin', ['checklist-model', 'ngResource', 'ngCookie
             'RECOVERY': 'Recuperar Contraseña?',
             'USERNAME': 'Usuario o Correo Eléctronico',
             'PASSWORD': 'Clave o Contraseña',
-            'DESIGNED': 'Diseñado Por',
+            'DESIGNED': 'Diseñado por',
             'LOGIN': 'Iniciar Sesión',
             'SESSION': "Iniciando Sesión, por favor espere ...",
             'TITLE': 'Aplicación para la Gestión de Servicios Energéticos'

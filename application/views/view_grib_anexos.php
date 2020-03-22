@@ -156,7 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TAnexos.length==0"> 
-                    <td colspan="12" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="12" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TAnexos | filter:paginate2 | filter:vm.filtrar_anexos" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -170,8 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.ObsAnePro==true">{{dato.ObsAnePro}}</td>
                     <td ng-show="vm.FecIniAne==true">{{dato.FecIniAne}}</td>
                     <td ng-show="vm.EstAne==true">
-                      <span class="label label-info" ng-show="dato.EstAne=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstAne=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstAne=='ACTIVO'">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstAne=='BLOQUEADO'">Bloqueado</span>
                     </td>
                     <td ng-show="vm.AccTAne==true">
                       <div class="btn-group">

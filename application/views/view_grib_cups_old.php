@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups.length==0"> 
-                     <td colspan="14" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                     <td colspan="14" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TCups | filter:paginate | filter:vm.filtrar_cups" ng-class-odd="odd">                    
                     <td ng-show="vm.Cups==true">{{dato.CupsGas}}</td>

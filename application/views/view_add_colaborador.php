@@ -251,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--main content end-->
      <div class="text-right">
       <div class="credits">
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Diseñado por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>

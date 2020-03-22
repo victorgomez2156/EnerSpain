@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.Acc==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <tr ng-show="vm.Tclientes.length==0"> 
-                     <td colspan="14" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                     <td colspan="14" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.Tclientes | filter:paginate | filter:vm.filtrar_clientes" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCif==true">{{dato.NumCifCli}}</td>

@@ -153,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>  
 
                    <tr ng-show="vm.Tcomercializadoras.length==0"> 
-                     <td colspan="29" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                     <td colspan="29" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.Tcomercializadoras | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -166,8 +166,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>
                     <td ng-show="vm.NomConCom==true">{{dato.NomConCom}}</td>
                     <td ng-show="vm.EstCom==true">
-                      <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'">Bloqueado</span>
                     </td>
                     <td ng-show="vm.Acc==true">
                       <div class="btn-group">
@@ -217,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Diseñado por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div>
   </section>
@@ -227,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i>Bloqueo de Comercializadora</h4>
+            <h4 class="modal-title">Bloqueo de Comercializadora</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -279,7 +279,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

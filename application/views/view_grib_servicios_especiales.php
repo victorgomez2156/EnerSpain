@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TServicioEspeciales.length==0"> 
-                    <td colspan="10" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -156,8 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.SerGasSerEsp==true">{{dato.SerGas}}</td>
                     <td ng-show="vm.FecIniSerEsp==true">{{dato.FecIniSerEsp}}</td>
                     <td ng-show="vm.EstSerEsp==true">
-                      <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'">Bloqueado</span>
                     </td>
                     <td ng-show="vm.AccSerEsp==true">
                       <div class="btn-group">

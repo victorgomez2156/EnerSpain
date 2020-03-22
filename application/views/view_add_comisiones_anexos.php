@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th><i class="fa fa-arrow-down"></i> Tarifas</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesDet.length==0"> 
-                    <td colspan="4" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="4" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesDet | filter:paginate3" ng-class-odd="odd">                    
                     <td>
@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th><i class="fa fa-arrow-down"></i> Comisión Certificado Verde</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesRangoGrib.length==0"> 
-                    <td colspan="5" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesRangoGrib | filter:paginate4" ng-class-odd="odd">                    
                     <!--td><input type="text" name="RanCon" ng-model="vm.TComisionesRangoGrib[$index].RanCon" ng-change="vm.validar_inputs(1,vm.TComisionesRangoGrib[$index].RanCon,$index)" class="form-control"></td-->
@@ -240,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
+          Diseñado por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
         </div>
     </div> 
 </div>

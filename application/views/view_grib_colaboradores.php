@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>                       
                   </tr>
                   <tr ng-show="vm.tColaboradores.length==0"> 
-                     <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>           
+                     <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">                    
                     <td ng-show="vm.NomCol==true">{{dato.NomCol}}</td>
@@ -159,8 +159,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.TelFijCol==true">{{dato.TelFijCol}}</td>
                     <td ng-show="vm.EmaCol==true">{{dato.EmaCol}}</td>
                     <td ng-show="vm.EstCol==true">
-                      <span class="label label-info" ng-show="dato.EstCol==1"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCol==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstCol==1">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstCol==2">Bloqueado</span>
                     </td>                                       
                     <td ng-show="vm.AccCol==true">
                       <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
@@ -319,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
