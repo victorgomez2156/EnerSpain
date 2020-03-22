@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-briefcase"></i> Registro de Productos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Producto</h3>
+            <!-- <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>           
               <li><i class="fa fa-briefcase"></i> Registro de Productos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -122,12 +122,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministros</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministro</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS </label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">GAS </label>
         <input type="checkbox" ng-model="vm.productos.SerGas" ng-disabled="vm.validate_info_productos!=undefined"/>
        </div>
        </div>
@@ -135,7 +135,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELECTRICO </label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">ELÉCTRICO </label>
         <input type="checkbox" ng-model="vm.productos.SerEle" ng-disabled="vm.validate_info_productos!=undefined"/>
        </div>
        </div>
@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsPro" name="ObsPro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.productos.ObsPro" ng-disabled="vm.validate_info_productos!=undefined"></textarea>
         
        </div>
@@ -151,9 +151,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodTPro" name="CodTPro" type="hidden" ng-model="vm.productos.CodTPro" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined && vm.validate_info_productos==undefined||vm.productos.CodTPro==null&& vm.validate_info_productos==undefined||vm.productos.CodTPro==''&& vm.validate_info_productos==undefined" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
-            <button class="btn btn-warning" type="button" ng-show="vm.validate_info_productos==undefined && vm.productos.CodTPro==undefined" ng-click="vm.limpiar_productos()"><i class="fa fa-trash"></i> Limpiar</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined && vm.validate_info_productos==undefined||vm.productos.CodTPro==null&& vm.validate_info_productos==undefined||vm.productos.CodTPro==''&& vm.validate_info_productos==undefined" ng-disabled="vm.disabled_button==1">Grabar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos!=undefined">Actualizar</button>            
+            <button class="btn btn-warning" type="button" ng-show="vm.validate_info_productos==undefined && vm.productos.CodTPro==undefined" ng-click="vm.limpiar_productos()">Limpiar</button>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()">Volver</button>
           </div>
         </div>

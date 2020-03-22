@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Registro de Anexos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Anexo</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>         
               <li><i class="fa fa-bullseye"></i> Registro de Anexos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Productos <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Producto <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodProducAnex" name="CodPro" ng-model="vm.anexos.CodPro" ng-disabled="vm.anexos.CodTProCom==undefined||vm.validate_info_anexos!=undefined ">
          <option ng-repeat="dato in vm.TProductosActivosFiltrados" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                        
         </select>
@@ -87,12 +87,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministros</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministro</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">ELÉCTRICO</label>
         <input type="checkbox" ng-model="vm.anexos.SerEle" ng-click="vm.limpiar_Servicio_Electrico(vm.anexos.SerEle)" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
@@ -101,13 +101,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">GAS</label>
         <input type="checkbox" ng-model="vm.anexos.SerGas" ng-click="vm.limpiar_Servicio_Gas(vm.anexos.SerGas)" ng-disabled="vm.validate_info_anexos!=undefined"/>
        </div>
        </div>
        </div>
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Precios</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipo de Precio</b></label></div></div>
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Eléctrico</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas Suministro Eléctrico</b></label></div></div>
         
         <div class="col-lg-6">
                 <section class="panel">
@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <div style="margin-top: 8px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Gas</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas Suministro de Gas</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
        <div class="form">                          
