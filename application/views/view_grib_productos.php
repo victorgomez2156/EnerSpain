@@ -134,14 +134,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                   
                     <th ng-show="vm.NumCifCom==true">CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesTPro==true"><i class="icon_cogs"></i> Descripción</th>
-                    <th ng-show="vm.SerTGas==true"><i class="icon_cogs"></i> Suministro Gas</th>
-                    <th ng-show="vm.SerTEle==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
-                    <th ng-show="vm.ObsTPro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniTPro==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstTPro==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTPro==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.RazSocCom==true">Razón Social</th>
+                    <th ng-show="vm.DesTPro==true">Descripción</th>
+                    <th ng-show="vm.SerTGas==true">Gas</th>
+                    <th ng-show="vm.SerTEle==true">Eléctrico</th>
+                    <th ng-show="vm.ObsTPro==true">Observación</th>
+                    <th ng-show="vm.FecIniTPro==true">Fecha de Inicio</th>
+                    <th ng-show="vm.EstTPro==true">Estatus</th>
+                    <th ng-show="vm.AccTPro==true">Acción</th>
                   </tr> 
                   <tr ng-show="vm.TProductos.length==0"> 
                     <td colspan="9" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
@@ -169,15 +169,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesTPro==true"><i class="icon_cogs"></i> Descripción</th>
-                    <th ng-show="vm.SerTGas==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEle==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.ObsTPro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniTPro==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstTPro==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTPro==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true">CIF</th>
+                    <th ng-show="vm.RazSocCom==true">Razón Social</th>
+                    <th ng-show="vm.DesTPro==true">Descripción</th>
+                    <th ng-show="vm.SerTGas==true">Gas</th>
+                    <th ng-show="vm.SerTEle==true">Eléctrico</th>
+                    <th ng-show="vm.ObsTPro==true">Observación</th>
+                    <th ng-show="vm.FecIniTPro==true">Fecha de Inicio</th>
+                    <th ng-show="vm.EstTPro==true">Estatus</th>
+                    <th ng-show="vm.AccTPro==true">Acción</th>
                 </tfoot>
               </table>
         </div>
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Producto</h4>
+            <h4 class="modal-title">Bloqueo de Producto</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 

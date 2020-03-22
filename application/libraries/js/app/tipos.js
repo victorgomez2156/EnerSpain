@@ -127,12 +127,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormClientes = function(event) {
         console.log(scope.fdatos_clientes);
         if (scope.fdatos_clientes.CodTipCli > 0) {
-
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Tipo de Cliente?';
             var response = "El Tipo de Cliente ha sido modificar de forma correcta";
         }
         if (scope.fdatos_clientes.CodTipCli == undefined) {
-
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Tipo de Cliente?';
             var response = "El Tipo de Cliente ha sido registrado de forma correcta";
         }
@@ -361,12 +361,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormSector = function(event) {
         console.log(scope.fdatos_sector);
         if (scope.fdatos_sector.CodSecCli > 0) {
-
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Sector?';
             var response = "El Sector ha sido modificado de forma correcta";
         }
         if (scope.fdatos_sector.CodSecCli == undefined) {
-
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Sector?';
             var response = "El Sector ha sido registrado de forma correcta";
         }
@@ -596,12 +596,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormContacto = function(event) {
         console.log(scope.fdatos_contacto);
         if (scope.fdatos_contacto.CodTipCon > 0) {
-
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Tipo de Contacto?';
             var response = "El Tipo de Contacto ha sido modificado de forma correcta";
         }
         if (scope.fdatos_contacto.CodTipCon == undefined) {
-
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Tipo de Contacto?';
             var response = "El Tipo de Contacto ha sido registrado de forma correcta";
         }

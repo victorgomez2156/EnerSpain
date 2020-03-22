@@ -33,7 +33,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     ////////////////////////////////////////////////////////////PARA LA LISTA Y CONFIGURACIONES DE PRODUCTOS START///////////////////////////////////////////////////
 
-    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquar' }];
+    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }];
     scope.NumCifCom = true;
     scope.RazSocCom = true;
     scope.DesTPro = true;
@@ -45,7 +45,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.tmodal_productos = {};
     scope.reporte_pdf_productos = 0;
     scope.reporte_excel_productos = 0;
-    scope.ttipofiltrosProductos = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipos de Servicio' }, { id: 3, nombre: 'Fecha de Inicio' }, { id: 4, nombre: 'Estatus' }];
+    scope.ttipofiltrosProductos = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Servicio' }, { id: 3, nombre: 'Fecha de Inicio' }, { id: 4, nombre: 'Estatus' }];
     scope.productos.SerGas = false;
     scope.productos.SerEle = false;
 
@@ -79,19 +79,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }).catch(function(error) {
         console.log(error); //Tratar el error
         if (error.status == false && error.error == "This API key does not have access to the requested controller.") {
-            Swal.fire({ title: "Error 401.", text: 'Este API KEY no tiene acceso a este controlador.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 401", text: 'Este API KEY no tiene acceso a este controlador', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Unknown method.") {
-            Swal.fire({ title: "Error 404.", text: 'el método que esta intentando usar no puede ser localizado, por favor intente mas tarde.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 404", text: 'El método no puede ser localizado, intente más tarde', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Unauthorized") {
-            Swal.fire({ title: "Error 401.", text: 'Usted no esta autorizado para esta operación', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 401", text: 'Usuario no autorizado', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Invalid API Key.") {
-            Swal.fire({ title: "Error 403.", text: 'El API KEY que esta intentando usar es invalido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 403", text: 'El API KEY que está intentando utilizar no es válido', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Internal Server Error") {
-            Swal.fire({ title: "Error 500", text: 'Actualmente estamos presentando fallas en nuestro servidor, por favor intente mas tarde.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 500", text: 'Ha ocurrido un error en el Servidor, intente más tarde', type: "error", confirmButtonColor: "#188ae2" });
         }
     });
 
@@ -120,24 +120,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin1 <= index1 && index1 < end1);
                 };
             } else {
-                console.log('no hemos encontrado productos registrados.');
-                Swal.fire({ title: "Error 404.", text: 'no hemos encontrado productos registrados.', type: "error", confirmButtonColor: "#188ae2" });
+                console.log('No existen Productos registrados');
+                Swal.fire({ title: "Error 404", text: 'No existen Productos registrados', type: "error", confirmButtonColor: "#188ae2" });
                 scope.TProductos = [];
                 scope.TProductosBack = [];
             }
         }, function(error) {
             $("#List_Produc").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
@@ -200,22 +200,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.tmodal_productos.FecIniPro = FecIniPro1;
             var FecIniPro = (scope.tmodal_productos.FecIniPro).split("/");
             if (FecIniPro.length < 3) {
-                Swal.fire({ title: "Fecha de Inicio", text: 'El Formato de la Fecha de Inicio Deber Ser: DD / MM / YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniPro[0].length > 2 || FecIniPro[0].length < 2) {
-                    Swal.fire({ title: "Fecha de Inicio", text: 'El Formato del Día Deber Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniPro[1].length > 2 || FecIniPro[1].length < 2) {
-                    Swal.fire({ title: "Fecha de Inicio", text: 'El Formato del Mes Deber Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniPro[2].length < 4 || FecIniPro[2].length > 4) {
-                    Swal.fire({ title: "Fecha de Inicio", text: 'El Formato del Año Deber Ser EJ: 1999', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -294,27 +294,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ title: 'Fecha de Bloqueo', text: 'La Fecha de Bloqueo es Requerida.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Bloqueo es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
             if (FecBlo.length < 3) {
-                Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Formato de La Fecha Debe Ser: ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                    Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Formato del Día Debe Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                    Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Formato del Mes Debe Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                    Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Formato del Año Debe Ser EJ: 1999', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -324,15 +324,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: 'Fecha de Bloqueo', text: 'La Fecha de Bloqueo no puede ser mayor a: ' + scope.Fecha_Server + ' Verifica he intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'La Fecha de Bloqueo no puede ser mayor a ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
             }
         }
         Swal.fire({
-            title: 'Bloqueando',
-            text: '¿Estás seguro de bloquar este producto?',
+            text: '¿Seguro que desea bloquear el Producto?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -367,34 +366,34 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (result.data.resultado != false) {
                 if (opciones_productos == 1) {
                     var title = 'Activando';
-                    var text = 'Producto Activado correctamente.';
+                    var text = 'El Producto ha sido activado de forma correcta';
                 }
                 if (opciones_productos == 2) {
                     var title = 'Bloqueando';
-                    var text = 'Producto Bloqueado correctamente.';
+                    var text = 'El Producto ha sido bloqueado de forma correcta';
                     $("#modal_motivo_bloqueo_productos").modal('hide');
                 }
                 Swal.fire({ title: title, text: text, type: "success", confirmButtonColor: "#188ae2" });
                 scope.opciones_productos[index] = undefined;
                 scope.cargar_lista_productos();
             } else {
-                Swal.fire({ title: "Error", text: "No hemos podido actualizar el estatus del producto.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error actualizando el Producto", type: "error", confirmButtonColor: "#188ae2" });
                 scope.cargar_lista_productos();
             }
 
         }, function(error) {
             $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
@@ -405,12 +404,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (opciones_productos == 1) {
             scope.opciones_productos[index] = undefined;
             if (dato.EstPro == 'ACTIVO') {
-                Swal.fire({ title: 'Activando', text: 'Este Producto ya se encuentra activo.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'El Producto ya se encuentra activo', type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             Swal.fire({
-                title: 'Activando',
-                text: '¿Estás seguro de activar este producto?',
+                /**title: 'Activando',**/
+                text: '¿Seguro que desea activar el Producto?',
                 type: "info",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
@@ -428,7 +427,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.t_modal_data = {};
             scope.opciones_productos[index] = undefined;
             if (dato.EstPro == 'BLOQUEADO') {
-                Swal.fire({ title: 'Bloqueando', text: 'Este producto ya se encuentra bloqueado.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'El Producto ya se encuentra bloqueado', type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             scope.t_modal_data.CodPro = dato.CodPro;
@@ -461,10 +460,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.INF == undefined) {
             if (scope.productos.CodTPro == undefined) {
                 var title = 'Guardando';
-                var text = '¿Estás seguro de regresar y no guardar los datos?';
+                var text = '¿Seguro que desea cerrar sin registrar el Producto?';
             } else {
                 var title = 'Actualizando';
-                var text = 'Estás seguro de regresar y no actualizar los datos.';
+                var text = '¿Seguro que desea cerrar sin actualizar el Producto';
             }
             Swal.fire({
                 title: title,
@@ -473,7 +472,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     location.href = "#/Productos";
@@ -519,7 +518,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.productos.SerEle = true;
                 }
             } else {
-                Swal.fire({ title: "Error", text: 'No se encontraron datos relacionados con este código.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No existe información registrada', type: "error", confirmButtonColor: "#188ae2" });
                 scope.validate_info_productos = 1;
                 scope.productos = {};
                 scope.productos.CodTPro = scope.nID;
@@ -531,16 +530,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.productos = {};
             scope.productos.CodTPro = scope.nID;
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
@@ -551,12 +550,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.productos.CodTPro == undefined) {
             var titulo = 'Guardando';
-            var texto = '¿Estás seguro de guardar este nuevo registro?';
-            var response = 'Producto creado correctamente.';
+            var texto = '¿Seguro que desea registrar el Producto?';
+            var response = 'El Producto se ha creado de forma correcta';
         } else {
             var titulo = 'Actualizando';
-            var texto = '¿Estás seguro de actualizar este registro?';
-            var response = 'Producto modificado correctamente';
+            var texto = '¿Seguro que desea modificar el Producto?';
+            var response = 'El Producto se ha actualizado de forma correcta';
         }
         if (scope.productos.ObsPro == undefined || scope.productos.ObsPro == null || scope.productos.ObsPro == '') {
             scope.productos.ObsPro = null;
@@ -571,7 +570,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + titulo).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -584,21 +583,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.productos = result.data;
                     } else {
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: "Error", text: 'Un error a ocurrido durante el proceso, Por favor intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: 'Ha ocurrido un error, intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 });
             } else {
@@ -610,38 +609,38 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_productos = function() {
         resultado = true;
         if (!scope.productos.CodTProCom > 0) {
-            Swal.fire({ title: 'Comercializadora', text: 'Debe Seleccionar una Comercializadora de la lista', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'Seleccione una Comercializadora del listado', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.productos.DesPro == null || scope.productos.DesPro == undefined || scope.productos.DesPro == '') {
-            Swal.fire({ title: 'Productos', text: 'El Nombre del Producto es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Nombre del Producto es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         var FecIniPro1 = document.getElementById("FecIniPro").value;
         scope.FecIniPro = FecIniPro1;
         if (scope.FecIniPro == null || scope.FecIniPro == undefined || scope.FecIniPro == '') {
-            Swal.fire({ title: 'Fecha de Inicio', text: 'El Campo de la Fecha de Inicio es Requerido', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Inicio es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniPro = (scope.FecIniPro).split("/");
             if (FecIniPro.length < 3) {
-                Swal.fire({ title: 'Fecha de Inicio', text: 'El Formato de la Fecha de Inicio Debe Ser: DD / MM / YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniPro[0].length > 2 || FecIniPro[0].length < 2) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'El Formato del Día Debe Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecIniPro[1].length > 2 || FecIniPro[1].length < 2) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'El Formato del Mes Debe Ser EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniPro[2].length < 4 || FecIniPro[2].length > 4) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'El Formato del Año Debe Ser EJ: 1999', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -651,7 +650,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio no puede ser mayor a: ' + scope.Fecha_Server + ' Verifique he intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'La Fecha de Inicio no puede ser mayor a ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.productos.FecIniPro = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];

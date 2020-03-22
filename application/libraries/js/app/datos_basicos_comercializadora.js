@@ -533,8 +533,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         if (scope.INF == undefined) {
             if (scope.fdatos.CodCom == undefined) {
+                var title = 'Guardando';
                 var text = '¿Seguro que desea cerrar sin grabar la información?';
             } else {
+                var title = 'Actualizando';
                 var text = '¿Seguro que desea cerrar sin actualizar la información?';
             }
             Swal.fire({
@@ -544,7 +546,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     $cookies.remove('CIF_COM');
