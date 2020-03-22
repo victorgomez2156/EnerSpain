@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>                   
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
+                    <th ng-show="vm.NumCifCom==true">CIF</th>
                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.DesTPro==true"><i class="icon_cogs"></i> Descripción</th>
                     <th ng-show="vm.SerTGas==true"><i class="icon_cogs"></i> Suministro Gas</th>
