@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <button class="btn btn-info" type="submit" ng-show="vm.fdatos.id>0" ng-disabled="register_form.$invalid || vm.disponibilidad_username==true || vm.disponibilidad_email==true">Actualizar Usuario</button>
                          <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.id>0" ng-disabled="vm.Nivel==3">Borrar Registro</button>
                         <button class="btn btn-warning" type="button" ng-click="vm.limpiar()">Limpiar</button>
-                        <a class="btn btn-danger" href="#/Usuarios">Regresar</a>
+                        <a class="btn btn-danger" href="#/Usuarios">Volver</a>
                       </div>
                     </div>
                     <input class="form-control " id="huser" name="huser" type="hidden" ng-model="vm.fdatos.id" readonly />
@@ -182,8 +182,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="generar_key" class="loader loader-default"  data-text="Generando ApiKey, Por Favor Espere..."></div>
-<div id="cargando" class="loader loader-default"  data-text="Cargando datos de Usuarios, Por Favor Espere..."></div>
-<div id="crear_usuario" class="loader loader-default"  data-text="Creando o Actualizando Usuario, Por Favor Espere..."></div>
-<div id="comprobando_disponibilidad" class="loader loader-default"  data-text="Comprobando Disponibilidad, Por Favor Espere..."></div>
+<div id="generar_key" class="loader loader-default"  data-text="Generando ApiKey"></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Información del Usuario"></div>
+<div id="crear_usuario" class="loader loader-default"  data-text="Creando o Actualizando Usuario"></div>
+<div id="comprobando_disponibilidad" class="loader loader-default"  data-text="Comprobando disponibilidad"></div>
 </html>

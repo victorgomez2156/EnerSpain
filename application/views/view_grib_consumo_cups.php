@@ -279,7 +279,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock2.$invalid">Dar de Baja</button>
-      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -452,8 +452,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form-group" >
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos_cups.CodConCup==undefined||vm.fdatos_cups.CodConCup==null||vm.fdatos_cups.CodConCup==''">CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_cups.CodConCup>0 && vm.validate_info==undefined">ACTUALIZAR</button>            
-            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_consumo_cups()">REGRESAR</a>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_cups.CodConCup>0 && vm.validate_info==undefined">Actualizar</button>            
+            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_consumo_cups()">Volver</a>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -531,12 +531,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </body>
 
 
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Consumo Cups, Por Favor Espere..."></div>
-<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del Cups, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUPs, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando CUPs, Por Favor Espere..."></div>                 
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Consumos del CUP"></div>
+<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Información del CUP"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUP"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando CUP"></div>                 
  
 
 

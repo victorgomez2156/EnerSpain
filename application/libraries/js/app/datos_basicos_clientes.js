@@ -124,11 +124,9 @@
      scope.regresar = function() {
          if (scope.validate_info == undefined) {
              if (scope.fdatos.CodCli == undefined) {
-                 var title = "Guardando";
-                 var text = "¿Estás seguro de regresar y no guardar los datos?";
+                 var text = "¿Seguro que desea cerrar sin grabar la información?";
              } else {
-                 var title = "Actualizando";
-                 var text = "¿Estás seguro de regresar y no actualizar los datos?";
+                 var text = "¿Seguro que desea cerrar sin actualizar la información?";
              }
              Swal.fire({
                  title: title,

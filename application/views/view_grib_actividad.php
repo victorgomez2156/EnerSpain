@@ -344,7 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -379,10 +379,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="cargando_actividades" class="loader loader-default"  data-text="Cargando lista de Actividades, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="cargando_actividades" class="loader loader-default"  data-text="Cargando listado de Actividades"></div>
 
-<div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Cliente"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

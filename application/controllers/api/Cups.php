@@ -48,7 +48,7 @@ class Cups extends REST_Controller
        	 	$Fecha=date('d/m/Y');        	 	
        	 	$Cups = $this->Cups_model->get_list_cups_PunSum();
        	 	$arrayName = array('Cups' => $Cups,'Fecha' => $Fecha);
-	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cups','GET',0,$this->input->ip_address(),'Cargando Lista de Cups');
+	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cups','GET',0,$this->input->ip_address(),'Cargando listado de CUPs');
 			if (empty($arrayName))
 			{
 				$this->response(false);
@@ -65,7 +65,7 @@ class Cups extends REST_Controller
 		}        
        	 	$CodPunSum=$this->get('CodPunSum');
        	 	$Result = $this->Cups_model->get_data_PunSum($CodPunSum); 
-	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'Cargando Datos Puntos de Suministro');
+	        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');
 			if (empty($Result)){
 				$this->response(false);
 				return false;

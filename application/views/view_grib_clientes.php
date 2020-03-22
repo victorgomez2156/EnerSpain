@@ -222,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -231,8 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
-      <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_data.tipo_filtro">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_data.tipo_filtro">
           <option ng-repeat="dato in vm.Filtro_Clientes" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -320,8 +319,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <br ng-show="vm.tmodal_data.tipo_filtro==3"> 
     <br>
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_clientes()" ng-show="vm.tmodal_data.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_clientes()" ng-show="vm.tmodal_data.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
       </div>
 </form>
    </div>
@@ -389,7 +388,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock2.$invalid">Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -404,7 +403,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Ingrese Número de CIF:</h4>
+                        <h4 class="modal-title">Introduzca CIF:</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF_Clientes($event)"> 
@@ -441,10 +440,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Cli" class="loader loader-default"  data-text="Cargando lista de Clientes, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="List_Cli" class="loader loader-default"  data-text="Cargando listado de Clientes"></div>
 
-<div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Cliente"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

@@ -218,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==undefined" ng-disabled="vm.validate_info_servicio_especiales!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
             <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar_servicio_especial()" ng-show="vm.validate_info_servicio_especiales==undefined && vm.servicio_especial.CodSerEsp==undefined"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button-->
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()"><i class="fa fa-arrow-left"></i> Regresar</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->

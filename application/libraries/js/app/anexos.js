@@ -693,7 +693,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $scope.uploadFileAnexo();
                 scope.anexos.DocAnePro = 'documentos/' + $archivosanexos.files[0].name;
             } else {
-                //console.log('Archivo No Permitido');
+                //console.log('Fichero no Permitido');
                 Swal.fire({ title: 'Error', text: 'Error en fichero, el formato debe ser PDF', type: "error", confirmButtonColor: "#188ae2" });
                 scope.anexos.DocAnePro = null;
                 document.getElementById('file_anexo').value = '';

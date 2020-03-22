@@ -195,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -204,8 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
-      <select class="form-control" id="ttipofiltrosServicioEspecial" name="ttipofiltrosServicioEspecial" required ng-model="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial">
+        <select class="form-control" id="ttipofiltrosServicioEspecial" name="ttipofiltrosServicioEspecial" required ng-model="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial">
           <option ng-repeat="dato in vm.ttipofiltrosServicioEspecial" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -343,8 +342,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -375,6 +374,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </body>
 
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Serv" class="loader loader-default"  data-text="Cargando Lista de Servicio Especiales, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="List_Serv" class="loader loader-default"  data-text="Cargando listado de Servicios Especiales"></div>
 </html>

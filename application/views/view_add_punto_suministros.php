@@ -240,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <button class="btn btn-success" type="submit" ng-show="vm.fpuntosuministro.CodPunSum>0 && vm.validate_info_PunSum==undefined" ng-disabled="vm.validate_info_PunSum!=undefined">ACTUALIZAR</button>            
             
-            <button class="btn btn-danger" type="button" ng-click="vm.regresar_punto_suministro()">REGRESAR</button>
+            <button class="btn btn-danger" type="button" ng-click="vm.regresar_punto_suministro()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -283,10 +283,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargando Datos del Punto de Suministro, Por Favor Espere..."></div>
-<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Comerciales"></div>
+<div id="cargando_I" class="loader loader-default"  data-text="Cargando Información de la Dirección de Suministro"></div>
+<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial"></div>
 
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Punto de Suministro, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Punto de Suministro, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Dirección de Suministro"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Dirección de Suministro"></div>
 </html>

@@ -255,8 +255,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">BLOQUEAR</button>
-      <a class="btn btn-danger" data-dismiss="modal">REGRESAR</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -290,7 +290,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" ng-model="vm.tmodal_data.tipo_filtro">
         <option value="1">ESTATUS COMERCIAL</option> 
                                 
@@ -307,8 +306,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">
      
       <select class="form-control" id="EstCom" name="EstCom" ng-model="vm.tmodal_data.EstCom">
-        <option value="1">ACTIVO</option> 
-        <option value="2">BLOQUEADO</option>                         
+        <option value="1">Activo</option> 
+        <option value="2">Bloqueado</option>                         
       </select>     
      </div> 
      </div>
@@ -317,8 +316,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <br ng-show="vm.tmodal_data.tipo_filtro==1"> 
     <br>
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercial()" ng-show="vm.tmodal_data.tipo_filtro>0&&vm.tmodal_data.EstCom>0"><i class="fa fa-trash"></i> QUITAR FILTRO</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercial()" ng-show="vm.tmodal_data.tipo_filtro>0&&vm.tmodal_data.EstCom>0">Quitar Filtro</a>
       </div>
 </form>
    </div>
@@ -334,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Ingrese Número de DNI/NIE:</h4>
+                        <h4 class="modal-title">Introduzca DNI/NIE:</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="DNI_NIE_consulta_form" name="DNI_NIE_consulta_form" ng-submit="Consultar_DNI_NIE($event)"> 

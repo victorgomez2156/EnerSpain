@@ -154,7 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" type="submit" ng-show="vm.productos.CodTPro==undefined && vm.validate_info_productos==undefined||vm.productos.CodTPro==null&& vm.validate_info_productos==undefined||vm.productos.CodTPro==''&& vm.validate_info_productos==undefined" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.productos.CodTPro>0 && vm.validate_info_productos==undefined" ng-disabled="vm.validate_info_productos!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
             <button class="btn btn-warning" type="button" ng-show="vm.validate_info_productos==undefined && vm.productos.CodTPro==undefined" ng-click="vm.limpiar_productos()"><i class="fa fa-trash"></i> Limpiar</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()"><i class="fa fa-arrow-left"></i> Regresar</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_productos()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->

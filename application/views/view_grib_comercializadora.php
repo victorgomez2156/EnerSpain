@@ -280,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -319,7 +319,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -328,9 +328,8 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Filtro</label>
-      <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_comercializadora.tipo_filtro">
-          <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
+         <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_comercializadora.tipo_filtro">
+                 <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
      </div>
@@ -427,10 +426,10 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                   </div>
                 </div>
 <!--modal modal_cif_comercializadora section END -->
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Comer" class="loader loader-default"  data-text="Cargando Lista de Comercializadoras, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Comercializadora, Por Favor Espere"></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="List_Comer" class="loader loader-default"  data-text="Cargando listado de Comercializadoras"></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Comercializadora"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 </div>
 </body>
 </html>

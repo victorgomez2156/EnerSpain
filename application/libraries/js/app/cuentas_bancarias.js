@@ -478,13 +478,11 @@
      scope.regresar_cuenta_bancaria = function() {
 
          if (scope.tgribBancos.CodCueBan == undefined) {
-             var title = "Regresar";
-             var text = "Esta Seguro de Regresar y No Guarda La Cuenta Bancaria?";
+             var text = "¿Seguro que desea cerrar sin grabar la Cuenta Bancaria?";
 
          }
          if (scope.tgribBancos.CodCueBan > 0) {
-             var title = "Regresar";
-             var text = "Esta Seguro de Regresar y No Actualizar La Cuenta Bancaria?";
+             var text = "¿Seguro que desea cerrar sin actualizar la información de la Cuenta Bancaria?";
          }
          Swal.fire({
              title: title,
@@ -519,22 +517,22 @@
                  scope.IBAN4 = result.data.IBAN4;
                  scope.IBAN5 = result.data.IBAN5;
              } else {
-                 Swal.fire({ title: "Error.", text: "No hemos encontrado datos con la cuenta bancaria.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "No existe información de la Cuenta Bancaria", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
              }
          });
 

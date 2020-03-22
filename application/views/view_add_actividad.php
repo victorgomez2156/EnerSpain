@@ -174,8 +174,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargando Datos Comercial, Por Favor Espere..."></div>
-<div id="buscar_cnae" class="loader loader-default"  data-text="Buscando Codigo CNAE, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Comerciales"></div>
+<div id="cargando_I" class="loader loader-default"  data-text="Cargando Información de Comerciales"></div>
+<div id="buscar_cnae" class="loader loader-default"  data-text="Buscando Código CNAE"></div>
 
 </html>

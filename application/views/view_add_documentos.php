@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   
              <button class="btn btn-info" type="submit" ng-disabled="form_documentos.$invalid" ng-show="vm.fagregar_documentos.CodTipDocAI==undefined">REGISTRAR</button>
              <button class="btn btn-success" type="submit" ng-disabled="form_documentos.$invalid" ng-show="vm.fagregar_documentos.CodTipDocAI>0">ACTUALIZAR</button>
-              <a class="btn btn-danger" ng-click="vm.regresar_documentos()">REGRESAR</a>
+              <a class="btn btn-danger" ng-click="vm.regresar_documentos()">Volver</a>
         </form>
         <input type="hidden" class="form-control" ng-model="vm.fagregar_documentos.CodTipDocAI" readonly />
 
@@ -155,12 +155,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="buscando" class="loader loader-default"  data-text="Cargando Datos del Documento, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Comerciales"></div>
+<div id="buscando" class="loader loader-default"  data-text="Cargando Información del Documento"></div>
 
-<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial, Por Favor Espere..."></div>
+<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial"></div>
 
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Documento, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Creando Documento, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Documento"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Creando Documento"></div>
 
 </html>

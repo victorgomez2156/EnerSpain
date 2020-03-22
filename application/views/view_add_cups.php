@@ -378,10 +378,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
 </div>
 </body>
-<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del CUPs, Por Favor Espere..."></div>
-<div id="List_Produc" class="loader loader-default"  data-text="Cargando lista de Productos, Por Favor Espere..."></div>
+<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Información del CUPs"></div>
+<div id="List_Produc" class="loader loader-default"  data-text="Cargando listado de Productos"></div>
 
-<div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Cliente"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

@@ -212,11 +212,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_clientes.CodTipCli==undefined||vm.fdatos_clientes.CodTipCli==null||vm.fdatos_clientes.CodTipCli==''" ng-disabled="form_clientes.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_clientes.CodTipCli>0 && vm.validate_cliente==undefined" ng-disabled="form_clientes.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_cliente()" ng-show="vm.fdatos_clientes.CodTipCli>0 && vm.validate_cliente==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_cliente()" ng-show="vm.fdatos_clientes.CodTipCli==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_cliente()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_clientes.CodTipCli==undefined||vm.fdatos_clientes.CodTipCli==null||vm.fdatos_clientes.CodTipCli==''" ng-disabled="form_clientes.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_clientes.CodTipCli>0 && vm.validate_cliente==undefined" ng-disabled="form_clientes.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_cliente()" ng-show="vm.fdatos_clientes.CodTipCli>0 && vm.validate_cliente==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_cliente()" ng-show="vm.fdatos_clientes.CodTipCli==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_cliente()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodTipCli" name="CodTipCli" type="hidden" ng-model="vm.fdatos_clientes.CodTipCli" readonly />
@@ -330,11 +330,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_sector.CodSecCli==undefined||vm.fdatos_sector.CodSecCli==null||vm.fdatos_sector.CodSecCli==''" ng-disabled="form_sector.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_sector.CodSecCli>0 && vm.validate_sector==undefined" ng-disabled="form_sector.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_sector()" ng-show="vm.fdatos_sector.CodSecCli>0 && vm.validate_sector==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_sector()" ng-show="vm.fdatos_sector.CodSecCli==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_sector()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_sector.CodSecCli==undefined||vm.fdatos_sector.CodSecCli==null||vm.fdatos_sector.CodSecCli==''" ng-disabled="form_sector.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_sector.CodSecCli>0 && vm.validate_sector==undefined" ng-disabled="form_sector.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_sector()" ng-show="vm.fdatos_sector.CodSecCli>0 && vm.validate_sector==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_sector()" ng-show="vm.fdatos_sector.CodSecCli==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_sector()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodSecCli" name="CodSecCli" type="hidden" ng-model="vm.fdatos_sector.CodSecCli" readonly />
@@ -447,11 +447,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_contacto.CodTipCon==undefined||vm.fdatos_contacto.CodTipCon==null||vm.fdatos_contacto.CodTipCon==''" ng-disabled="form_contacto.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_contacto.CodTipCon>0 && vm.validate_contacto==undefined" ng-disabled="form_contacto.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_contacto()" ng-show="vm.fdatos_contacto.CodTipCon>0 && vm.validate_contacto==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_contacto()" ng-show="vm.fdatos_contacto.CodTipCon==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_contacto()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_contacto.CodTipCon==undefined||vm.fdatos_contacto.CodTipCon==null||vm.fdatos_contacto.CodTipCon==''" ng-disabled="form_contacto.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_contacto.CodTipCon>0 && vm.validate_contacto==undefined" ng-disabled="form_contacto.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_contacto()" ng-show="vm.fdatos_contacto.CodTipCon>0 && vm.validate_contacto==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_contacto()" ng-show="vm.fdatos_contacto.CodTipCon==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_contacto()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodTipCon" name="CodTipCon" type="hidden" ng-model="vm.fdatos_contacto.CodTipCon" readonly />
@@ -589,11 +589,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_documento.CodTipDoc==undefined||vm.fdatos_documento.CodTipDoc==null||vm.fdatos_documento.CodTipDoc==''" ng-disabled="form_documentos.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_documento.CodTipDoc>0 && vm.validate_documento==undefined" ng-disabled="form_documentos.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_documento()" ng-show="vm.fdatos_documento.CodTipDoc>0 && vm.validate_documento==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_documento()" ng-show="vm.fdatos_documento.CodTipDoc==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_documento()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_documento.CodTipDoc==undefined||vm.fdatos_documento.CodTipDoc==null||vm.fdatos_documento.CodTipDoc==''" ng-disabled="form_documentos.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_documento.CodTipDoc>0 && vm.validate_documento==undefined" ng-disabled="form_documentos.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_documento()" ng-show="vm.fdatos_documento.CodTipDoc>0 && vm.validate_documento==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_documento()" ng-show="vm.fdatos_documento.CodTipDoc==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_documento()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodTipDoc" name="CodTipDoc" type="hidden" ng-model="vm.fdatos_documento.CodTipDoc" readonly />
@@ -648,9 +648,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- container section end -->
 </div>
 </body>
-<div id="cargando_lista" class="loader loader-default"  data-text="Cargando Lista, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Registro, Por Favor Espere..."></div>
-<div id="cargando" class="loader loader-default"  data-text="Cargando Datos, Por Favor Espere..."></div>
+<div id="cargando_lista" class="loader loader-default"  data-text="Cargando listado de Tipos"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro"></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Registro"></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Información"></div>
 </html>

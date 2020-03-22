@@ -79,13 +79,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <h3 class="page-header" ng-show="vm.fdatos.CodCom==undefined">Registrar Comercializadora</h3>
             <h3 class="page-header" ng-show="vm.fdatos.CodCom>0">Modificar Comercializadora</h3>
-            <ol class="breadcrumb">
-            
-             <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
-              
-              <li ng-show="vm.fdatos.CodCom==undefined">Registrar Comercializadora</li>
-              <li ng-show="vm.fdatos.CodCom>0">Modificar Comercializadora</li>
-            </ol>
           </div>
         </div>
         <!-- Form validations -->
@@ -238,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Zona Postal</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
        <input type="text" class="form-control" ng-model="vm.fdatos.ZonPos" placeholder="* Zona Postal" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
@@ -284,13 +277,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Cargo de la Persona <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Cargo<b style="color:red;">(*)</b></label>
        <input type="text" class="form-control" ng-model="vm.fdatos.CarConCom" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Cargo de la Persona" maxlength="50"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
          <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Servicios</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministro</b></label></div></div>
 
        <div class="col-12 col-sm-4">
        <div class="form">                          
@@ -333,7 +326,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-calendar"></i> Fecha de Contrato</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Contrato</label>
        <input type="text" class="form-control selectSimple datepicker2" ng-model="vm.FecConCom" id="FecConCom" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha(1,vm.FecConCom)" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10" />
        </div>
        </div>
@@ -342,7 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-clock-o"></i> Duración</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Duración</label>
        <input type="text" class="form-control" ng-model="vm.fdatos.DurConCom" readonly onkeyup="this.value=this.value.toUpperCase();" placeholder=" Duración del Contrato" maxlength="11" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
@@ -351,7 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-ban"></i> Fec. Vencimiento</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Vencimiento</label>
        <input type="text" class="form-control selectSimple datepicker3" ng-model="vm.FecVenConCom" id="FecVenConCom" ng-change="vm.validar_fecha(2,vm.FecVenConCom)" placeholder="DD/MM/YYYY" ng-disabled="vm.validate_info!=undefined" maxlength="10"/>
        </div>
        </div>
@@ -360,7 +353,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-refresh"></i> Renovación Automatica</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Renovación Automática</label>
        <input type="checkbox" class="form-control" ng-model="vm.fdatos.RenAutConCom" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
@@ -368,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
        <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Observaciones</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsCom" name="ObsCom" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCom" ng-disabled="vm.validate_info!=undefined"></textarea>
         <input class="form-control" name="CodCom" type="hidden" ng-model="vm.fdatos.CodCom" readonly/>
        </div>
@@ -381,7 +374,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
             <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button-->
 
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()"><i class="fa fa-arrow-left"></i> Regresar</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -408,9 +401,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </section>
 
-<div id="buscando" class="loader loader-default"  data-text="Cargando Datos, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Registrando Comercializadora, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Comercializadora, Por Favor Espere..."></div>
+<div id="buscando" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Registrando Comercializadora"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Comercializadora"></div>
 
 </div>
   <!-- container section end -->

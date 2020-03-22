@@ -186,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -195,8 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
-      <select class="form-control" name="tipo_filtro" required ng-model="vm.t_modal_documentos.tipo_filtro">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.t_modal_documentos.tipo_filtro">
           <option value="1">CLIENTES</option>
           <option value="2">TIPO DOCUMENTO</option>
           <option value="3">TIENE VENCIMIENTO</option>
@@ -238,8 +237,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
 
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfildocumentos.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_documentos()"><i class="fa fa-trash"></i> LIMPIAR FILTRO</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfildocumentos.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_documentos()">Borrar Filtro</a>
       </div>
 </form>
    </div>
@@ -258,10 +257,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="cargar_documentos" class="loader loader-default"  data-text="Cargando lista de Documentos, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="cargar_documentos" class="loader loader-default"  data-text="Cargando listado de Documentos"></div>
 
-<div id="borrando" class="loader loader-default"  data-text="Borrando Cliente, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Cliente"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

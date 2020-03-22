@@ -244,13 +244,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
-     <textarea type="text" class="form-control" ng-model="vm.tmodal_data.ObsBloDis" rows="5" maxlength="100"/></textarea>
+     <textarea type="text" class="form-control" ng-model="vm.tmodal_data.ObsBloDis" rows="5" maxlength="100"></textarea>
      </div>
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -282,9 +282,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Seleccione Filtro</label>
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_distribuidora.tipo_filtro">
-         <option value="1">Tipo de Servicios</option> 
+         <option value="1">Tipo de Suministro</option> 
         <option value="2">Estatus</option>
         </select>     
      </div>
@@ -295,8 +295,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipSerDis" name="TipSerDis" ng-model="vm.tmodal_distribuidora.TipSerDis">
-        <option value="GAS">Servicio Gas</option> 
-        <option value="ELÉCTRICO">Servicio Eléctrico</option>
+        <option value="GAS">Suministro Gas</option> 
+        <option value="ELÉCTRICO">Suministro Eléctrico</option>
         <option value="AMBOS SERVICIOS">Ambos</option>                         
       </select>   
      </div>
@@ -315,8 +315,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>     
    
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_distribuidora()" ng-show="vm.tmodal_distribuidora.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_distribuidora()" ng-show="vm.tmodal_distribuidora.tipo_filtro>0">Quitar</a>
       </div>
 </form>
    </div>

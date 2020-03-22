@@ -283,10 +283,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
     </script>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando Datos del Colaborador, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Colaborador, Por Favor Espere..."></div>
-<div id="Actualiando" class="loader loader-default"  data-text="Actualizando Colaborador, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Registro, Por Favor Espere..."></div>
-<div id="comprobar_cif" class="loader loader-default"  data-text="Comprobando Número de DNI/NIE, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Información del Colaborador"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Colaborador"></div>
+<div id="Actualiando" class="loader loader-default"  data-text="Actualizando Colaborador"></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Colaborador"></div>
+<div id="comprobar_cif" class="loader loader-default"  data-text="Comprobando DNI/NIE"></div>
 
 </html>

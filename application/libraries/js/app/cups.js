@@ -186,11 +186,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         if (scope.validate_info == undefined) {
             if (scope.fdatos_cups.CodCup == undefined) {
-                var title = "Confirmar";
-                var text = "Estás seguro de regresar y no guardar los datos?";
+                var text = "¿Seguro que desea cerrar sin grabar la información?";
             } else {
-                var title = "Confirmar";
-                var text = "Estás seguro de regresar y no actualizar los datos?";
+                var text = "¿Seguro que desea cerrar sin actualizar la información?";
             }
             Swal.fire({
                 title: title,

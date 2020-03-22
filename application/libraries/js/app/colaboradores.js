@@ -587,10 +587,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_info == undefined) {
             if (scope.fdatos.CodCol == undefined) {
                 var title = 'Guardando';
-                var text = 'Estás seguro de regresar y no guardar los datos.';
+                var text = '¿Seguro que desea cerrar y no grabar la Información?';
             } else {
                 var title = 'Actualizando';
-                var text = 'Estás seguro de regresar y no actualizar los datos.';
+                var text = '¿Seguro que desea cerrar y no actualizar la Información';
             }
             Swal.fire({
                 title: title,
@@ -613,227 +613,230 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
     $scope.submitFormlockCol = function(event) {
-        var FecBloColBlo = document.getElementById("FecBloColBlo").value;
-        scope.FecBloColBlo = FecBloColBlo;
-        if (scope.FecBloColBlo == null || scope.FecBloColBlo == undefined || scope.FecBloColBlo == '') {
-            Swal.fire({ title: "El Campo Fecha de Bloqueo Es Requerida.", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
-        } else {
-            var FecBloColBlo = (scope.FecBloColBlo).split("/");
-            if (FecBloColBlo.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
+            var FecBloColBlo = document.getElementById("FecBloColBlo").value;
+            scope.FecBloColBlo = FecBloColBlo;
+            if (scope.FecBloColBlo == null || scope.FecBloColBlo == undefined || scope.FecBloColBlo == '') {
+                Swal.fire({ title: "La Fecha de Bloqueo es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             } else {
-                if (FecBloColBlo[0].length > 2 || FecBloColBlo[0].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                var FecBloColBlo = (scope.FecBloColBlo).split("/");
+                if (FecBloColBlo.length < 3) {
+                    Swal.fire({ text: "Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
-                }
-                if (FecBloColBlo[1].length > 2 || FecBloColBlo[1].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
-                    return false;
-                }
-                if (FecBloColBlo[2].length < 4 || FecBloColBlo[2].length > 4) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
-                    return false;
-                }
-                valuesStart = scope.FecBloColBlo.split("/");
-                valuesEnd = fecha.split("/");
-                //Verificamos que la fecha no sea posterior a la actual
-                var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
-                var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
-                if (dateStart > dateEnd) {
-                    Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + fecha + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                } else {
+                    if (FecBloColBlo[0].length > 2 || FecBloColBlo[0].length < 2) {
+                        Swal.fire({ text: "Error en Día, debe contener dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecBloColBlo[1].length > 2 || FecBloColBlo[1].length < 2) {
+                        Swal.fire({ text: "Error en Mes, debe contener dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecBloColBlo[2].length < 4 || FecBloColBlo[2].length > 4) {
+                        Swal.fire({ text: "Error en Año, debe contener cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    valuesStart = scope.FecBloColBlo.split("/");
+                    valuesEnd = fecha.split("/");
+                    //Verificamos que la fecha no sea posterior a la actual
+                    var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
+                    var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
+                    if (dateStart > dateEnd) {
+                        Swal.fire({
+                                text: "La Fecha de Bloqueo no puede ser mayor a " + fecha ", type: "
+                                error ", confirmButtonColor: "
+                                #188ae2" });
                     return false;
                 }
                 scope.t_modal_data.FecBloColBlo = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
-            }
-        }
-        if (scope.t_modal_data.ObsBloColBlo == undefined || scope.t_modal_data.ObsBloColBlo == null || scope.t_modal_data.ObsBloColBlo == '') {
-            scope.t_modal_data.ObsBloColBlo = null;
-        } else {
-            scope.t_modal_data.ObsBloColBlo = scope.t_modal_data.ObsBloColBlo;
-        }
-        scope.t_modal_data.opcion = 2;
-        console.log(scope.t_modal_data);
-        Swal.fire({
-            title: "¿Esta Seguro de Bloquear Este Colaborador?",
-            type: "question",
-            showCancelButton: !0,
-            confirmButtonColor: "#31ce77",
-            cancelButtonColor: "#f34943",
-            confirmButtonText: "Bloquear"
-        }).then(function(t) {
-            if (t.value == true) {
+                            }
+                        }
+                        if (scope.t_modal_data.ObsBloColBlo == undefined || scope.t_modal_data.ObsBloColBlo == null || scope.t_modal_data.ObsBloColBlo == '') {
+                            scope.t_modal_data.ObsBloColBlo = null;
+                        } else {
+                            scope.t_modal_data.ObsBloColBlo = scope.t_modal_data.ObsBloColBlo;
+                        }
+                        scope.t_modal_data.opcion = 2;
+                        console.log(scope.t_modal_data);
+                        Swal.fire({
+                            title: "¿Seguro que desea Bloquear el Colaborador?",
+                            type: "question",
+                            showCancelButton: !0,
+                            confirmButtonColor: "#31ce77",
+                            cancelButtonColor: "#f34943",
+                            confirmButtonText: "Bloquear"
+                        }).then(function(t) {
+                            if (t.value == true) {
 
-                var url = base_urlHome() + "api/Colaboradores/update_status/";
-                $http.post(url, scope.t_modal_data).then(function(result) {
-                    if (result.data != false) {
-                        Swal.fire({ title: "Exito!.", text: "El Colaborador a sido Bloqueado correctamente.", type: "success", confirmButtonColor: "#188ae2" });
-                        $("#modal_motivo_bloqueo").modal('hide');
-                        scope.t_modal_data = {};
-                        scope.NumIdeFisBlo = undefined;
-                        scope.NomColBlo = undefined;
-                        scope.FecBloColBlo = undefined;
-                        scope.cargar_lista_colaboradores();
-                    } else {
-                        Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
-                        scope.cargar_lista_colaboradores();
+                                var url = base_urlHome() + "api/Colaboradores/update_status/";
+                                $http.post(url, scope.t_modal_data).then(function(result) {
+                                    if (result.data != false) {
+                                        Swal.fire({ title: "Exito!.", text: "El Colaborador se ha Bloqueado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                                        $("#modal_motivo_bloqueo").modal('hide');
+                                        scope.t_modal_data = {};
+                                        scope.NumIdeFisBlo = undefined;
+                                        scope.NomColBlo = undefined;
+                                        scope.FecBloColBlo = undefined;
+                                        scope.cargar_lista_colaboradores();
+                                    } else {
+                                        Swal.fire({ title: "Error.", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                                        scope.cargar_lista_colaboradores();
+                                    }
+                                }, function(error) {
+
+                                    if (error.status == 404 && error.statusText == "Not Found") {
+                                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                    }
+                                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                                        Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                    }
+                                    if (error.status == 403 && error.statusText == "Forbidden") {
+                                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                                    }
+                                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                    }
+                                });
+                            } else {
+                                event.preventDefault();
+                                console.log('Cancelando ando...');
+                            }
+                        });
+                    };
+                    //scope.ruta_reportes_pdf_colaboradores=
+                    //scope.ruta_reportes_excel_colaboradores=
+                    $scope.SubmitFormFiltrosColaboradores = function(event) {
+                        if (scope.tmodal_colaboradores.tipo_filtro == 1) {
+                            $scope.predicate = 'id';
+                            $scope.reverse = true;
+                            $scope.currentPage = 1;
+                            $scope.order = function(predicate) {
+                                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                $scope.predicate = predicate;
+                            };
+                            scope.tColaboradores = $filter('filter')(scope.tColaboradoresBack, { TipCol: scope.tmodal_colaboradores.TipColFil }, true); //scope.tColaboradoresBack;		
+                            console.log(scope.tColaboradores);
+                            console.log(scope.tColaboradoresBack);
+                            $scope.totalItems = scope.tColaboradores.length;
+                            $scope.numPerPage = 50;
+                            $scope.paginate = function(value) {
+                                var begin, end, index;
+                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                end = begin + $scope.numPerPage;
+                                index = scope.tColaboradores.indexOf(value);
+                                return (begin <= index && index < end);
+                            };
+                            scope.ruta_reportes_pdf_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.TipColFil;
+                            scope.ruta_reportes_excel_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.TipColFil;
+
+                        }
+                        if (scope.tmodal_colaboradores.tipo_filtro == 2) {
+                            $scope.predicate = 'id';
+                            $scope.reverse = true;
+                            $scope.currentPage = 1;
+                            $scope.order = function(predicate) {
+                                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                $scope.predicate = predicate;
+                            };
+                            scope.tColaboradores = $filter('filter')(scope.tColaboradoresBack, { EstCol: scope.tmodal_colaboradores.EstColFil }, true); //scope.tColaboradoresBack;		
+                            console.log(scope.tColaboradores);
+                            console.log(scope.tColaboradoresBack);
+                            $scope.totalItems = scope.tColaboradores.length;
+                            $scope.numPerPage = 50;
+                            $scope.paginate = function(value) {
+                                var begin, end, index;
+                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                end = begin + $scope.numPerPage;
+                                index = scope.tColaboradores.indexOf(value);
+                                return (begin <= index && index < end);
+                            };
+                            scope.ruta_reportes_pdf_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.EstColFil;
+                            scope.ruta_reportes_excel_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.EstColFil;
+
+                        }
+
+                    };
+                    scope.regresar_filtro_colaboradores = function() {
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };
+                        scope.tColaboradores = scope.tColaboradoresBack;
+                        $scope.totalItems = scope.tColaboradores.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.tColaboradores.indexOf(value);
+                            return (begin <= index && index < end);
+                        };
+                        scope.tmodal_colaboradores = {};
+                        scope.ruta_reportes_pdf_colaboradores = 0;
+                        scope.ruta_reportes_excel_colaboradores = 0;
                     }
-                }, function(error) {
+                    scope.filtrarLocalidad = function() {
+                        scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { CodPro: scope.fdatos.CodPro }, true);
+                        if (scope.fdatos.CodCol > 0) {
+                            $interval.cancel(promise);
+                        }
 
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+
                     }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.filtrar_zona_postal = function() {
+                        scope.CodLocZonaPostal = $filter('filter')(scope.tLocalidades, { CodLoc: scope.fdatos.CodLoc }, true);
+                        angular.forEach(scope.CodLocZonaPostal, function(data) {
+                            scope.fdatos.CPLoc = data.CPLoc;
+                        });
                     }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+
+                    if (scope.nID != undefined) {
+                        scope.buscarXID();
+                        var promise = $interval(function() {
+                            console.log('por aqui');
+                            scope.filtrarLocalidad();
+                        }, 5000);
+                        $scope.$on('$destroy', function() {
+                            $interval.cancel(promise);
+                        });
                     }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.search = 1;
+                    scope.Clientes_x_Colaboradores = function(cod) {
+                        scope.spinner_loader = 1;
+                        scope.data_result = 0;
+                        var url = base_urlHome() + "api/Colaboradores/clientes_colaboradores/CodCol/" + cod;
+                        $http.get(url).then(function(result) {
+                            scope.spinner_loader = 0;
+                            if (result.data != false) {
+                                scope.data_result = 1;
+                                scope.tClientes_x_Colaboradores = result.data;
+                            } else {
+                                scope.data_result = 2;
+                                scope.tClientes_x_Colaboradores = [];
+                            }
+                        }, function(error) {
+                            scope.spinner_loader = 0;
+                            scope.data_result = 0;
+
+                            if (error.status == 404 && error.statusText == "Not Found") {
+                                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 401 && error.statusText == "Unauthorized") {
+                                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 403 && error.statusText == "Forbidden") {
+                                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                        });
                     }
-                });
-            } else {
-                event.preventDefault();
-                console.log('Cancelando ando...');
-            }
-        });
-    };
-    //scope.ruta_reportes_pdf_colaboradores=
-    //scope.ruta_reportes_excel_colaboradores=
-    $scope.SubmitFormFiltrosColaboradores = function(event) {
-        if (scope.tmodal_colaboradores.tipo_filtro == 1) {
-            $scope.predicate = 'id';
-            $scope.reverse = true;
-            $scope.currentPage = 1;
-            $scope.order = function(predicate) {
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
-            scope.tColaboradores = $filter('filter')(scope.tColaboradoresBack, { TipCol: scope.tmodal_colaboradores.TipColFil }, true); //scope.tColaboradoresBack;		
-            console.log(scope.tColaboradores);
-            console.log(scope.tColaboradoresBack);
-            $scope.totalItems = scope.tColaboradores.length;
-            $scope.numPerPage = 50;
-            $scope.paginate = function(value) {
-                var begin, end, index;
-                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                end = begin + $scope.numPerPage;
-                index = scope.tColaboradores.indexOf(value);
-                return (begin <= index && index < end);
-            };
-            scope.ruta_reportes_pdf_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.TipColFil;
-            scope.ruta_reportes_excel_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.TipColFil;
-
-        }
-        if (scope.tmodal_colaboradores.tipo_filtro == 2) {
-            $scope.predicate = 'id';
-            $scope.reverse = true;
-            $scope.currentPage = 1;
-            $scope.order = function(predicate) {
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
-            scope.tColaboradores = $filter('filter')(scope.tColaboradoresBack, { EstCol: scope.tmodal_colaboradores.EstColFil }, true); //scope.tColaboradoresBack;		
-            console.log(scope.tColaboradores);
-            console.log(scope.tColaboradoresBack);
-            $scope.totalItems = scope.tColaboradores.length;
-            $scope.numPerPage = 50;
-            $scope.paginate = function(value) {
-                var begin, end, index;
-                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                end = begin + $scope.numPerPage;
-                index = scope.tColaboradores.indexOf(value);
-                return (begin <= index && index < end);
-            };
-            scope.ruta_reportes_pdf_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.EstColFil;
-            scope.ruta_reportes_excel_colaboradores = scope.tmodal_colaboradores.tipo_filtro + "/" + scope.tmodal_colaboradores.EstColFil;
-
-        }
-
-    };
-    scope.regresar_filtro_colaboradores = function() {
-        $scope.predicate = 'id';
-        $scope.reverse = true;
-        $scope.currentPage = 1;
-        $scope.order = function(predicate) {
-            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-            $scope.predicate = predicate;
-        };
-        scope.tColaboradores = scope.tColaboradoresBack;
-        $scope.totalItems = scope.tColaboradores.length;
-        $scope.numPerPage = 50;
-        $scope.paginate = function(value) {
-            var begin, end, index;
-            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-            end = begin + $scope.numPerPage;
-            index = scope.tColaboradores.indexOf(value);
-            return (begin <= index && index < end);
-        };
-        scope.tmodal_colaboradores = {};
-        scope.ruta_reportes_pdf_colaboradores = 0;
-        scope.ruta_reportes_excel_colaboradores = 0;
-    }
-    scope.filtrarLocalidad = function() {
-        scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { CodPro: scope.fdatos.CodPro }, true);
-        if (scope.fdatos.CodCol > 0) {
-            $interval.cancel(promise);
-        }
-
-
-    }
-    scope.filtrar_zona_postal = function() {
-        scope.CodLocZonaPostal = $filter('filter')(scope.tLocalidades, { CodLoc: scope.fdatos.CodLoc }, true);
-        angular.forEach(scope.CodLocZonaPostal, function(data) {
-            scope.fdatos.CPLoc = data.CPLoc;
-        });
-    }
-
-    if (scope.nID != undefined) {
-        scope.buscarXID();
-        var promise = $interval(function() {
-            console.log('por aqui');
-            scope.filtrarLocalidad();
-        }, 5000);
-        $scope.$on('$destroy', function() {
-            $interval.cancel(promise);
-        });
-    }
-    scope.search = 1;
-    scope.Clientes_x_Colaboradores = function(cod) {
-        scope.spinner_loader = 1;
-        scope.data_result = 0;
-        var url = base_urlHome() + "api/Colaboradores/clientes_colaboradores/CodCol/" + cod;
-        $http.get(url).then(function(result) {
-            scope.spinner_loader = 0;
-            if (result.data != false) {
-                scope.data_result = 1;
-                scope.tClientes_x_Colaboradores = result.data;
-            } else {
-                scope.data_result = 2;
-                scope.tClientes_x_Colaboradores = [];
-            }
-        }, function(error) {
-            scope.spinner_loader = 0;
-            scope.data_result = 0;
-
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
-        });
-    }
-}
+                }

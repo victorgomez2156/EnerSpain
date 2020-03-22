@@ -287,13 +287,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.regresar_documentos = function() {
         if (scope.fagregar_documentos.CodTipDocAI == undefined) {
-            var title = "Regresar";
-            var text = "Esta Seguro de Regresar y No Guarda El Documento?";
+
+            var text = "¿Seguro que desea cerrar sin grabar el Documento?";
 
         }
         if (scope.fagregar_documentos.CodTipDocAI > 0) {
-            var title = "Regresar";
-            var text = "Esta Seguro de Regresar y No Actualizar El Documento?";
+
+            var text = "¿Seguro que desea cerrar sin actualizar el Documento?";
         }
         Swal.fire({
             title: title,
@@ -379,7 +379,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         let Archivo_DocCliDoc = $Archivo_DocCliDoc.files;
         if ($Archivo_DocCliDoc.files.length > 0) {
             if ($Archivo_DocCliDoc.files[0].size > 2097152) {
-                Swal.fire({ title: 'Error', text: "El Archivo No Puede Ser Mayor a 2 MB.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Error', text: "El tamaño del fichero no debe ser superior a 2 MB", type: "error", confirmButtonColor: "#188ae2" });
                 scope.fagregar_documentos.ArcDoc = null;
                 scope.fagregar_documentos.DesDoc = null;
                 document.getElementById('DocCliDoc').value = '';
@@ -391,7 +391,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.fagregar_documentos.ArcDoc = 'documentos/' + $Archivo_DocCliDoc.files[0].name;
                     scope.fagregar_documentos.DesDoc = $Archivo_DocCliDoc.files[0].name;
                 } else {
-                    Swal.fire({ title: 'Error', text: "Formato incorrecto solo se permite archivos PDF, JPG o PNG.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: 'Error', text: "Formato de fichero incorrecto, debe ser PDF, JPG o PNG", type: "error", confirmButtonColor: "#188ae2" });
                     document.getElementById('DocCliDoc').value = '';
                     scope.fagregar_documentos.ArcDoc = null;
                     scope.fagregar_documentos.DesDoc = null;
@@ -411,41 +411,41 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_documentos_null = function() {
         resultado = true;
         if (!scope.fagregar_documentos.CodCli > 0) {
-            Swal.fire({ title: "Debe Seleccionar un Cliente.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Seleccione un Cliente", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.fagregar_documentos.CodTipDoc > 0) {
-            Swal.fire({ title: "Debe Seleccionar un Tipo de Documento.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Seleccione un Tipo de Documento", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fagregar_documentos.TieVen == 0) {
-            Swal.fire({ title: "Debe Indiciar Si el Documento Tiene O No Fecha de Vencimiento.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Indicar si el Documento tiene o no Fecha de Vencimiento", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fagregar_documentos.TieVen == 1) {
             if (scope.FecVenDocAco == undefined) {
-                Swal.fire({ title: "Debe colocar la fecha de vencimiento del documento en formato EJ: 01/01/2000.", type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Colocar Fecha de Vencimiento con el formato DD/MM/YYYY", type: "info", confirmButtonColor: "#188ae2" });
                 return false;
             } else {
                 var FecActDoc = (scope.FecVenDocAco).split("/");
                 if (FecActDoc.length < 3) {
-                    Swal.fire({ text: "El Formato de Fecha de Vencimiento debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Fecha de Vencimiento, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 } else {
                     if (FecActDoc[0].length > 2 || FecActDoc[0].length < 2) {
-                        Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Vencimiento deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Error en Día, debe contener dos números", type: "error", confirmButtonColor: "#188ae2" });
                         event.preventDefault();
                         return false;
 
                     }
                     if (FecActDoc[1].length > 2 || FecActDoc[1].length < 2) {
-                        Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Vencimiento deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Error en Mes, debe contener dos números", type: "error", confirmButtonColor: "#188ae2" });
                         event.preventDefault();
                         return false;
                     }
                     if (FecActDoc[2].length < 4 || FecActDoc[2].length > 4) {
-                        Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Vencimiento Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Error en Año, debe contener cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                         event.preventDefault();
                         return false;
                     }
@@ -493,7 +493,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 bootbox.alert({
-                    message: "Actualmente estamos prensentado fallas en el servidor, por favor intente mas tarde",
+                    message: "Ha ocurrido una falla en el Servidor, intente más tarde",
                     size: 'middle'
                 });
             }
@@ -510,13 +510,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenDocAco);
                 console.log(result.data);
             } else {
-                Swal.fire({ title: "Error", text: "No hemos encontrado datos relacionados con este código.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No hemos encontrado datos relacionados con este código", type: "error", confirmButtonColor: "#188ae2" });
             }
 
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401.", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });

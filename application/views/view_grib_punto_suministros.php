@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -202,8 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO <b style="color:red;">(*)</b></label>
-      <select class="form-control" name="tipo_filtro" required ng-model="vm.fpuntosuministro.tipo_filtro">
+       <select class="form-control" name="tipo_filtro" required ng-model="vm.fpuntosuministro.tipo_filtro">
           <option ng-repeat="dato in vm.ttipofiltrosPunSum" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -275,8 +274,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>    
    
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroPumSum.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtroPumSum()"><i class="fa fa-trash"></i> QUITAR FILTRO</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroPumSum.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtroPumSum()">Borrar Filtro</a>
       </div>
 </form>
    </div>
@@ -340,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>    
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock_PunSum.$invalid">Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal">Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -366,10 +365,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="cargando_puntos" class="loader loader-default"  data-text="Cargando lista de Puntos de Suministros, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="cargando_puntos" class="loader loader-default"  data-text="Cargando listado de Direcciones de Suministro"></div>
 
-<div id="estatus_PumSum" class="loader loader-default"  data-text="Actualizando Estatus del Punto de Suministro, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="estatus_PumSum" class="loader loader-default"  data-text="Actualizando Estatus de la Dirección de Suministro"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

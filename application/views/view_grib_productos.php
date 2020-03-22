@@ -76,11 +76,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bus"></i> Productos</h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>              
-              <li><i class="fa fa-bus"></i> Productos</li>
-            </ol>
+            <h3 class="page-header">Listado de Productos</h3>
+           
           </div>
         </div>
         <!-- page start-->
@@ -96,14 +93,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.DesTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerTGas"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerTEle"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha de Inicio</b></li>   <li><input type="checkbox" ng-model="vm.EstTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <b style="color:black;">CIF</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <b style="color:black;">Razón Social</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DesTPro"/> <b style="color:black;">Descripción</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerTGas"/> <b style="color:black;">Gas</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerTEle"/> <<b style="color:black;">Eléctrico</b></li>
+                        <li><input type="checkbox" ng-model="vm.ObsTPro"/> <b style="color:black;">Observación</b></li>
+                        <li><input type="checkbox" ng-model="vm.FecIniTPro"/><b style="color:black;">Fecha de Inicio</b></li>   <li><input type="checkbox" ng-model="vm.EstTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccTPro"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
                     <div class="btn-group">
@@ -125,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail21" placeholder="Escribe para Filtrar...">
                     </div>                 
-                    <a style="margin-right: 10px;" class="btn btn-info" title="Escribe para Filtrar..." href="#/Add_Productos"><i class="fa fa-plus-square"></i></a>
+                    <a style="margin-right: 10px;" class="btn btn-info" title="Escribe texto a filtrar ..." href="#/Add_Productos"><i class="fa fa-plus-square"></i></a>
                   </form>                    
                   </div>
             </div>
@@ -139,15 +136,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.DesTPro==true"><i class="icon_cogs"></i> Descripción</th>
-                    <th ng-show="vm.SerTGas==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEle==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
+                    <th ng-show="vm.SerTGas==true"><i class="icon_cogs"></i> Suministro Gas</th>
+                    <th ng-show="vm.SerTEle==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
                     <th ng-show="vm.ObsTPro==true"><i class="icon_cogs"></i> Observación</th>
                     <th ng-show="vm.FecIniTPro==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
                     <th ng-show="vm.EstTPro==true"><i class="icon_cogs"></i> Estatus</th>
                     <th ng-show="vm.AccTPro==true"><i class="icon_cogs"></i> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TProductos.length==0"> 
-                    <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay datos disponibles.</div></td>
+                    <td colspan="9" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TProductos | filter:paginate1 | filter:vm.filtrar" ng-class-odd="odd">                   
                     
@@ -159,8 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.ObsTPro==true">{{dato.ObsPro}}</td>
                     <td ng-show="vm.FecIniTPro==true">{{dato.FecIniPro}}</td>
                     <td ng-show="vm.EstTPro==true">
-                      <span class="label label-info" ng-show="dato.EstPro=='ACTIVO'"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstPro=='BLOQUEADO'"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstPro=='ACTIVO'">Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstPro=='BLOQUEADO'">Bloqueado</span>
                     </td>
                     <td ng-show="vm.AccTPro==true">
                       <div class="btn-group">
@@ -265,8 +262,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lockPro.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lockPro.$invalid">Bloquear</button>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -280,7 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -289,8 +286,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tìpo de Filtro</label>
-      <select class="form-control" id="ttipofiltrosProductos" name="ttipofiltrosProductos" required ng-model="vm.tmodal_productos.ttipofiltrosProductos">
+        <select class="form-control" id="ttipofiltrosProductos" name="ttipofiltrosProductos" required ng-model="vm.tmodal_productos.ttipofiltrosProductos">
           <option ng-repeat="dato in vm.ttipofiltrosProductos" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -385,10 +381,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </script>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Produc" class="loader loader-default"  data-text="Cargando Lista de Productos, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="List_Produc" class="loader loader-default"  data-text="Cargando lista de Productos"></div>
 
-<div id="cargando_xID" class="loader loader-default"  data-text="Buscando Datos Del Producto, Por Favor Espere..."></div>
-<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="cargando_xID" class="loader loader-default"  data-text="Buscando Información del Producto"></div>
+<div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 
 </html>

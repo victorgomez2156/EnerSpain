@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th><i class="fa fa-arrow-down"></i></th>
-                    <th><i class="fa fa-arrow-down"></i> Tipos de Servicios</th>
+                    <th><i class="fa fa-arrow-down"></i> Tipos de Servicio</th>
                     <th><i class="fa fa-arrow-down"></i> Tarifas</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesDet.length==0"> 
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <th><i class="fa fa-arrow-up"></i></th>
-                    <th><i class="fa fa-arrow-up"></i> Tipos de Servicios</th>
+                    <th><i class="fa fa-arrow-up"></i> Tipos de Servicio</th>
                     <th><i class="fa fa-arrow-up"></i> Tarifas</th>
                 </tfoot>
               </table>

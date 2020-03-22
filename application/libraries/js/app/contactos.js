@@ -566,10 +566,10 @@
          if (scope.no_editable == undefined) {
              if (scope.tContacto_data_modal.CodConCli == undefined) {
                  var title = "Guardando";
-                 var text = "¿Estás seguro de regresar y no guardar los datos?";
+                 var text = "¿Seguro que desea cerrar y no grabar la información?";
              } else {
                  var title = "Actualizando";
-                 var text = "¿Estás seguro de regresar y no actualizar los datos?";
+                 var text = "¿Seguro que desea cerrar y no actualizar la información?";
              }
              Swal.fire({
                  title: title,
@@ -599,14 +599,14 @@
              if (result.data != false) {
                  scope.tContacto_data_modal = result.data;
              } else {
-                 Swal.fire({ title: "Error.", text: "No hemos encontrado datos con el Contacto Seleccionado.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "No existe información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
 
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
@@ -625,7 +625,7 @@
          if ($Archivo_DocNIF.files.length > 0) {
              if ($Archivo_DocNIF.files[0].type == "application/pdf" || $Archivo_DocNIF.files[0].type == "image/jpeg" || $Archivo_DocNIF.files[0].type == "image/png") {
                  if ($Archivo_DocNIF.files[0].size > 2097152) {
-                     Swal.fire({ title: 'Error', text: "El Archivo No Puede Ser Mayor a 2 MB.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: 'Error', text: "El tamaño del fichero no debe ser superior a 2 MB", type: "error", confirmButtonColor: "#188ae2" });
                      scope.tContacto_data_modal.DocNIF = null;
                      document.getElementById('DocNIF').value = '';
                      return false;
@@ -635,7 +635,7 @@
                      scope.tContacto_data_modal.DocNIF = 'documentos/' + $Archivo_DocNIF.files[0].name;
                  }
              } else {
-                 Swal.fire({ title: 'Error', text: "Formato incorrecto solo se permite archivos PDF, JPG o PNG.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Error', text: "Formato de fichero incorrecto, debe ser PDF, JPG o PNG", type: "error", confirmButtonColor: "#188ae2" });
                  document.getElementById('DocNIF').value = '';
                  return false;
              }
@@ -651,7 +651,7 @@
          if ($Archivo_DocPod.files.length > 0) {
              if ($Archivo_DocPod.files[0].type == "application/pdf" || $Archivo_DocPod.files[0].type == "image/jpeg" || $Archivo_DocPod.files[0].type == "image/png") {
                  if ($Archivo_DocPod.files[0].size > 2097152) {
-                     Swal.fire({ title: 'Error', text: "El Archivo No Puede Ser Mayor a 2 MB.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: 'Error', text: "El tamaño del fichero no debe ser superior a 2 MB", type: "error", confirmButtonColor: "#188ae2" });
                      scope.tContacto_data_modal.DocPod = null;
                      document.getElementById('DocPod').value = '';
                      return false;
@@ -661,7 +661,7 @@
                      scope.tContacto_data_modal.DocPod = 'documentos/' + $Archivo_DocPod.files[0].name;
                  }
              } else {
-                 Swal.fire({ title: 'Error', text: "Formato incorrecto solo se permite archivos PDF, JPG o PNG.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Error', text: "Formato de fichero incorrecto, debe ser PDF, JPG o PNG", type: "error", confirmButtonColor: "#188ae2" });
                  document.getElementById('DocPod').value = '';
                  return false;
              }
@@ -678,11 +678,11 @@
          }
          if (scope.tContacto_data_modal.CodConCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Esta Seguro de Actualizar Este Contacto?';
+             var text = '¿Seguro que desea Actualizar el Contacto?';
          }
          if (scope.tContacto_data_modal.CodConCli == undefined) {
              var title = 'Guardando';
-             var text = '¿Esta Seguro de Incluir Un Nuevo Registro?';
+             var text = '¿Seguro que desea Registrar el Contacto?';
          }
          Swal.fire({
              title: text,
@@ -718,7 +718,7 @@
                  }, function(error) {
                      $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
                      if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 401 && error.statusText == "Unauthorized") {
                          Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -738,35 +738,35 @@
      scope.validar_campos_contactos_null = function() {
          resultado = true;
          if (!scope.tContacto_data_modal.CodCli > 0) {
-             Swal.fire({ title: "Debe Seleccionar un Cliente.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione un Cliente", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.tContacto_data_modal.CodTipCon > 0) {
-             Swal.fire({ title: "Debe Seleccionar un Tipo de Contacto.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione un Tipo de Contacto", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
-             Swal.fire({ title: "El Campo Cargo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Cargo del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
-             Swal.fire({ title: "El Campo Nombre es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
-             Swal.fire({ title: "El Campo Teléfono Fijo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Teléfono Fijo del Contato es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
-             Swal.fire({ title: "El Campo Teléfono Celular es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Teléfono Celular del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
-             Swal.fire({ title: "El Campo Email es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Email del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.CanMinRep <= 0) {
-             Swal.fire({ title: "La Cantidad de Firmantes Debe Ser Mayor a 0.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Cliente debe tener al menos un Firmante", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
@@ -776,26 +776,26 @@
          }
          if (scope.tContacto_data_modal.EsRepLeg == 1) {
              if (!scope.tContacto_data_modal.TipRepr > 0) {
-                 Swal.fire({ title: "Debe Seleccionar un tipo de Representación.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seleccione el Tipo de Representación", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == null) {
-                 Swal.fire({ title: "Debe Seleccionar el Documento de Identidad.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seleccione Documento de Identidad", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
 
          }
          if (scope.tContacto_data_modal.EsRepLeg == undefined) {
-             Swal.fire({ title: "Debe Indicar Si es o No Representante Legal.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Indique si el Firmante es o no Representante Legal", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == undefined) {
-             Swal.fire({ title: "Debe Indicar Si Tiene Facultad de Escrituras.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == 0) {
              if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
-                 Swal.fire({ title: "Debe Seleccionar El Poder.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Adjunte el documento Poder del Representante Legal ", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
          }

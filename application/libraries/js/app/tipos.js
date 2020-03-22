@@ -104,13 +104,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.regresar_cliente = function() {
         Swal.fire({
-            title: "Regresar",
-            text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+            text: "¿Seguro que desea cerrar sin actualizar el Tipo de Cliente ?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_clientes = {};
@@ -127,14 +127,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormClientes = function(event) {
         console.log(scope.fdatos_clientes);
         if (scope.fdatos_clientes.CodTipCli > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Tipo de Cliente?';
-            var response = "Tipo de Cliente modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Tipo de Cliente?';
+            var response = "El Tipo de Cliente ha sido modificar de forma correcta";
         }
         if (scope.fdatos_clientes.CodTipCli == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar El Nuevo Tipo de Cliente?';
-            var response = "Tipo de Cliente creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Tipo de Cliente?';
+            var response = "El Tipo de Cliente ha sido registrado de forma correcta";
         }
         if (scope.fdatos_clientes.ObsTipCli == undefined || scope.fdatos_clientes.ObsTipCli == null || scope.fdatos_clientes.ObsTipCli == "") {
             scope.fdatos_clientes.ObsTipCli = null;
@@ -148,7 +148,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -161,13 +161,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_Clientes();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -193,13 +193,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_clientes = result.data;
                 console.log(scope.fdatos_clientes);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error al cargar la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -222,13 +222,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         Swal.fire({
-            title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+
+            text: "¿Seguro que desea eliminar el Cliente?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -236,7 +236,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.delete(url).then(function(result) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: "Exito!!", text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                         scope.TVistaCliente = 1;
                         scope.cargar_lista_tipo_clientes();
                     } else {
@@ -245,7 +245,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }, function(error) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -305,13 +305,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Sector);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado tipos de sectores registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No existen Sectores registrados", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Sector = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -332,13 +332,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_sector = function() {
         if (scope.validate_sector == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin actualizar el Sector?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_sector = {};
@@ -361,14 +361,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormSector = function(event) {
         console.log(scope.fdatos_sector);
         if (scope.fdatos_sector.CodSecCli > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Tipo de Sector?';
-            var response = "Tipo de Sector modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Sector?';
+            var response = "El Sector ha sido modificado de forma correcta";
         }
         if (scope.fdatos_sector.CodSecCli == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar El Nuevo Tipo de Sector?';
-            var response = "Tipo de Sector creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Sector?';
+            var response = "El Sector ha sido registrado de forma correcta";
         }
         if (scope.fdatos_sector.ObsSecCli == undefined || scope.fdatos_sector.ObsSecCli == null || scope.fdatos_sector.ObsSecCli == "") {
             scope.fdatos_sector.ObsSecCli = null;
@@ -382,7 +382,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -395,13 +395,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_Sector();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -427,13 +427,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_sector = result.data;
                 console.log(scope.fdatos_sector);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error al cargar la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -470,7 +470,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.delete(url).then(function(result) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: "Exito!!", text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                         scope.TVistaSector = 1;
                         scope.cargar_lista_tipo_sector();
                     } else {
@@ -540,13 +540,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Contacto);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado tipos de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No existen Tipos de Contacto registrados", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Contacto = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -567,13 +567,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_contacto = function() {
         if (scope.validate_contacto == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin actualizar el Tipo de Contacto?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_contacto = {};
@@ -596,14 +596,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormContacto = function(event) {
         console.log(scope.fdatos_contacto);
         if (scope.fdatos_contacto.CodTipCon > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Tipo de Contacto?';
-            var response = "Tipo de Contacto modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Tipo de Contacto?';
+            var response = "El Tipo de Contacto ha sido modificado de forma correcta";
         }
         if (scope.fdatos_contacto.CodTipCon == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar El Nuevo Tipo de Contacto?';
-            var response = "Tipo de Contacto creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Tipo de Contacto?';
+            var response = "El Tipo de Contacto ha sido registrado de forma correcta";
         }
         if (scope.fdatos_contacto.ObsTipCon == undefined || scope.fdatos_contacto.ObsTipCon == null || scope.fdatos_contacto.ObsTipCon == "") {
             scope.fdatos_contacto.ObsTipCon = null;
@@ -617,7 +617,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -630,7 +630,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_Contacto();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
@@ -662,13 +662,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_contacto = result.data;
                 console.log(scope.fdatos_contacto);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error cargando la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -705,7 +705,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.delete(url).then(function(result) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: "Exito!!", text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                         scope.TVistaContacto = 1;
                         scope.cargar_lista_tipo_contacto();
                     } else {
@@ -774,7 +774,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Documento);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado documentos registrados.", type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No existen Documentos registrados", type: "info", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Documento = [];
             }
         }, function(error) {
@@ -802,13 +802,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_documento = function() {
         if (scope.validate_documento == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin actualizar el Documento?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_documento = {};
@@ -831,14 +831,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormDocumentos = function(event) {
         console.log(scope.fdatos_documento);
         if (scope.fdatos_documento.CodTipDoc > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Tipo de Documento?';
-            var response = "Tipo de Documento modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Tipo de Documento?';
+            var response = "El Tipo de Documento ha sido modificado de forma correcta";
         }
         if (scope.fdatos_documento.CodTipDoc == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar El Nuevo Tipo de Documento?';
-            var response = "Tipo de Documento creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Tipo de Documento?';
+            var response = "El Tipo de Documento ha sido registrado de forma correcta";
         }
         if (scope.fdatos_documento.ObsTipDoc == undefined || scope.fdatos_documento.ObsTipDoc == null || scope.fdatos_documento.ObsTipDoc == "") {
             scope.fdatos_documento.ObsTipDoc = null;
@@ -852,7 +852,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -865,13 +865,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_Documentos();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -902,13 +902,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 console.log(scope.fdatos_documento);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error cargando la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -931,13 +931,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         Swal.fire({
-            title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+
+            text: "¿Seguro que desea eliminar el Tipo de Documento?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -945,7 +945,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.delete(url).then(function(result) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: "Exito!!", text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                         scope.TVistaDocumentos = 1;
                         scope.cargar_lista_tipo_documentos();
                     } else {

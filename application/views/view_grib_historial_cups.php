@@ -111,8 +111,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
      <div align="center" >
           
-            <button class="btn btn-info" type="submit" ng-disabled="historial_form.$invalid">CONSULTAR</button>       
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_a_cups()">REGRESAR</button>
+            <button class="btn btn-info" type="submit" ng-disabled="historial_form.$invalid">Consultar</button>       
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_a_cups()">Volver</button>
          
         </div>
 </form> 
@@ -237,13 +237,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </body>
 
 
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Datos del Modulo, Por Favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Cups, Por Favor Espere..."></div>
-<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Datos del Cups, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUPs, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando CUPs, Por Favor Espere..."></div>                 
-<div id="Baja" class="loader loader-default"  data-text="Dando de Baja CUPs, Por Favor Espere..."></div>   
-<div id="Generar_Consumo" class="loader loader-default"  data-text="Generando Historial, Por Favor Espere..."></div> 
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de CUPs"></div>
+<div id="cargandos_cups" class="loader loader-default"  data-text="Cargando Información del CUP"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando CUP"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando CUP"></div>                 
+<div id="Baja" class="loader loader-default"  data-text="Dando de Baja CUP"></div>   
+<div id="Generar_Consumo" class="loader loader-default"  data-text="Generando Historial de Consumo"></div> 
 
 </html>

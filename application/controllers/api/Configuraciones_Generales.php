@@ -254,7 +254,7 @@ class Configuraciones_Generales extends REST_Controller
 		{
 			$file='no';
 		}
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','INSERT',0,$this->input->ip_address(),'Importando Archivo Excel');	
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','INSERT',0,$this->input->ip_address(),'Importando fichero Excel');	
 		$this->db->trans_complete();
 		$this->response($file);
 		
@@ -273,7 +273,7 @@ class Configuraciones_Generales extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
         $data = $this->Configuraciones_generales_model->get_list_tipo_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','GET',0,$this->input->ip_address(),'Cargando Lista Tipo Clientes');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','GET',0,$this->input->ip_address(),'Cargando listado de Tipos de Cliente');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -289,7 +289,7 @@ class Configuraciones_Generales extends REST_Controller
 		}
 		$CodTipCli=$this->get('CodTipCli');		
         $data = $this->Configuraciones_generales_model->get_tipo_cliente_data($CodTipCli);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','GET',$CodTipCli,$this->input->ip_address(),'Consultando datos Tipo Clientes');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','GET',$CodTipCli,$this->input->ip_address(),'Consultando Información del Tipo de Cliente');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -308,13 +308,13 @@ class Configuraciones_Generales extends REST_Controller
 		if (isset($objSalida->CodTipCli))
 		{		
 			$this->Configuraciones_generales_model->actualizar_tipo_cliente($objSalida->CodTipCli,$objSalida->DesTipCli);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','UPDATE',$objSalida->CodTipCli,$this->input->ip_address(),'Actualizando Tipo Cliente');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','UPDATE',$objSalida->CodTipCli,$this->input->ip_address(),'Actualizando Tipo de Cliente');
 		}
 		else
 		{
 			$id = $this->Configuraciones_generales_model->agregar_tipo_cliente($objSalida->DesTipCli);		
 			$objSalida->CodTipCli=$id;			
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','INSERT',$objSalida->CodTipCli,$this->input->ip_address(),'Creando Tipo Cliente');			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','INSERT',$objSalida->CodTipCli,$this->input->ip_address(),'Creando Tipo de Cliente');			
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);

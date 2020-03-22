@@ -113,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
              <button class="btn btn-info" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan==undefined">REGISTRAR</button>
              <button class="btn btn-success" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan>0">ACTUALIZAR</button>
-              <a class="btn btn-danger" ng-click="vm.regresar_cuenta_bancaria()">REGRESAR</a>
+              <a class="btn btn-danger" ng-click="vm.regresar_cuenta_bancaria()">VOLVER</a>
         </form>
         <input type="hidden" class="form-control" ng-model="vm.tgribBancos.CodCueBan" required readonly />
 
@@ -154,9 +154,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargando Datos de la Cuenta Bancaria, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Comerciales"></div>
+<div id="cargando_I" class="loader loader-default"  data-text="Cargando Información de la Cuenta Bancaria"></div>
 
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Cuenta Bancaria, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Creando Cuenta Bancaria, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Cuenta Bancaria"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Creando Cuenta Bancaria"></div>
 </html>

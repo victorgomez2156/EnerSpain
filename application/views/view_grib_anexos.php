@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -222,8 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
-      <select class="form-control" id="ttipofiltrosAnexos" name="ttipofiltrosAnexos" required ng-model="vm.tmodal_anexos.ttipofiltrosAnexos">
+        <select class="form-control" id="ttipofiltrosAnexos" name="ttipofiltrosAnexos" required ng-model="vm.tmodal_anexos.ttipofiltrosAnexos">
           <option ng-repeat="dato in vm.ttipofiltrosAnexos" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -376,7 +375,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid"><i class="fa fa-lock"></i>  Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
@@ -407,6 +406,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Anex" class="loader loader-default"  data-text="Cargando Lista de Anexos, Por favor Espere..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
+<div id="List_Anex" class="loader loader-default"  data-text="Cargando listado de Anexos"></div>
 </html>

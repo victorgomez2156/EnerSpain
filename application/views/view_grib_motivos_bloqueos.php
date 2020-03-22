@@ -217,11 +217,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined||vm.fdatos_mot_clientes.CodMotBloCli==null||vm.fdatos_mot_clientes.CodMotBloCli==''" ng-disabled="form_bloqueo_clientes.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="form_bloqueo_clientes.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_cliente()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined||vm.fdatos_mot_clientes.CodMotBloCli==null||vm.fdatos_mot_clientes.CodMotBloCli==''" ng-disabled="form_bloqueo_clientes.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="form_bloqueo_clientes.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli>0 && vm.validate_mot_bloqueo_cliente==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_bloqueo_cliente()" ng-show="vm.fdatos_mot_clientes.CodMotBloCli==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_cliente()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloCli" name="CodMotBloCli" type="hidden" ng-model="vm.fdatos_mot_clientes.CodMotBloCli" readonly />
@@ -335,11 +335,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined||vm.fdatos_mot_actividad.CodMotBloAct==null||vm.fdatos_mot_actividad.CodMotBloAct==''" ng-disabled="form_bloqueo_actividad.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="form_bloqueo_actividad.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_actividad()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined||vm.fdatos_mot_actividad.CodMotBloAct==null||vm.fdatos_mot_actividad.CodMotBloAct==''" ng-disabled="form_bloqueo_actividad.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="form_bloqueo_actividad.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct>0 && vm.validate_mot_bloqueo_actividad==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_actividad()" ng-show="vm.fdatos_mot_actividad.CodMotBloAct==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_actividad()"><i class="fa fa-backward"></i> Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloAct" name="CodMotBloAct" type="hidden" ng-model="vm.fdatos_mot_actividad.CodMotBloAct" readonly />
@@ -449,11 +449,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined||vm.fdatos_mot_PunSum.CodMotBloPun==null||vm.fdatos_mot_PunSum.CodMotBloPun==''" ng-disabled="form_bloqueo_PunSum.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="form_bloqueo_PunSum.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_PunSum()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined||vm.fdatos_mot_PunSum.CodMotBloPun==null||vm.fdatos_mot_PunSum.CodMotBloPun==''" ng-disabled="form_bloqueo_PunSum.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="form_bloqueo_PunSum.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun>0 && vm.validato_mot_bloqueo_PunSum==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_PunSum()" ng-show="vm.fdatos_mot_PunSum.CodMotBloPun==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_bloqueo_PunSum()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloPun" name="CodMotBloPun" type="hidden" ng-model="vm.fdatos_mot_PunSum.CodMotBloPun" readonly />
@@ -574,11 +574,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined||vm.fdatos_mot_contacto.CodMotBloCon==null||vm.fdatos_mot_contacto.CodMotBloCon==''" ng-disabled="form_bloqueo_contacto.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="form_bloqueo_contacto.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_Contacto()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined||vm.fdatos_mot_contacto.CodMotBloCon==null||vm.fdatos_mot_contacto.CodMotBloCon==''" ng-disabled="form_bloqueo_contacto.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="form_bloqueo_contacto.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon>0 && vm.validate_mot_contacto==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Contacto()" ng-show="vm.fdatos_mot_contacto.CodMotBloCon==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_Contacto()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloCon" name="CodMotBloCon" type="hidden" ng-model="vm.fdatos_mot_contacto.CodMotBloCon" readonly />
@@ -692,11 +692,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined||vm.fdatos_mot_comercializadora.CodMotBloCom==null||vm.fdatos_mot_comercializadora.CodMotBloCom==''" ng-disabled="form_bloqueo_comercializadora.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="form_bloqueo_comercializadora.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_Comercializadora()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined||vm.fdatos_mot_comercializadora.CodMotBloCom==null||vm.fdatos_mot_comercializadora.CodMotBloCom==''" ng-disabled="form_bloqueo_comercializadora.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="form_bloqueo_comercializadora.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom>0 && vm.validate_mot_comercializadora==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_Comercializadora()" ng-show="vm.fdatos_mot_comercializadora.CodMotBloCom==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_Comercializadora()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloCom" name="CodMotBloCom" type="hidden" ng-model="vm.fdatos_mot_comercializadora.CodMotBloCom" readonly />
@@ -810,11 +810,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="form-group">
           <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined||vm.fdatos_mot_cups.CodMotBloCUPs==null||vm.fdatos_mot_cups.CodMotBloCUPs==''" ng-disabled="form_bloqueo_cups.$invalid"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="form_bloqueo_cups.$invalid"><i class="fa fa-refresh"></i> ACTUALIZAR</button>
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined"><i class="fa fa-leaf"></i> LIMPIAR</button>
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_CUPs()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined||vm.fdatos_mot_cups.CodMotBloCUPs==null||vm.fdatos_mot_cups.CodMotBloCUPs==''" ng-disabled="form_bloqueo_cups.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="form_bloqueo_cups.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs>0 && vm.validate_mot_bloqueo_cups==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_CUPs()" ng-show="vm.fdatos_mot_cups.CodMotBloCUPs==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_CUPs()">Volver</button>
           </div>
         </div>
         <input class="form-control " id="CodMotBloCUPs" name="CodMotBloCUPs" type="hidden" ng-model="vm.fdatos_mot_cups.CodMotBloCUPs" readonly />
@@ -897,9 +897,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- container section end -->
 </div>
 </body>
-<div id="cargando_lista" class="loader loader-default"  data-text="Cargando Lista, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Registro, Por Favor Espere..."></div>
-<div id="cargando" class="loader loader-default"  data-text="Cargando Datos, Por Favor Espere..."></div>
+<div id="cargando_lista" class="loader loader-default"  data-text="Cargando listado de Motivos de Bloqueo"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro"></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro"></div>
+<div id="borrando" class="loader loader-default"  data-text="Eliminando Registro"></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Información"></div>
 </html>

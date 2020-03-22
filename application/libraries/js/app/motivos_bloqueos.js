@@ -124,13 +124,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_bloqueo_cliente = function() {
         if (scope.validate_mot_bloqueo_cliente == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar y no completar el proceso?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_clientes = {};
@@ -153,14 +153,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormMotClientes = function(event) {
         console.log(scope.fdatos_mot_clientes);
         if (scope.fdatos_mot_clientes.CodMotBloCli > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Motivo?';
-            var response = "Motivo Bloqueo Cliente modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Motivo?';
+            var response = "El Motivo Bloqueo de Cliente modificado de forma correcta";
         }
         if (scope.fdatos_mot_clientes.CodMotBloCli == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar el Motivo?';
-            var response = "Motivo Bloqueo Cliente creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Motivo de Bloqueo?';
+            var response = "El Motivo Bloqueo de Cliente ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_clientes.ObsMotBloCli == undefined || scope.fdatos_mot_clientes.ObsMotBloCli == null || scope.fdatos_mot_clientes.ObsMotBloCli == "") {
             scope.fdatos_mot_clientes.ObsMotBloCli = null;
@@ -174,7 +174,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -187,13 +187,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_MotBloClientes();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -219,13 +219,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_mot_clientes = result.data;
                 console.log(scope.fdatos_mot_clientes);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error cargando la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -360,13 +360,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_bloqueo_actividad = function() {
         if (scope.validate_mot_bloqueo_actividad == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin bloquear la Actividad?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_actividad = {};
@@ -389,14 +389,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormActividad = function(event) {
         console.log(scope.fdatos_mot_actividad);
         if (scope.fdatos_mot_actividad.CodMotBloAct > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Motivo?';
-            var response = "Motivo Bloqueo Actividad modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea modificar el Motivo de Bloqueo de la Actividad?';
+            var response = "El Motivo de Bloqueo de la Actividad ha sido actualizado de forma correcta";
         }
         if (scope.fdatos_mot_actividad.CodMotBloAct == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar el Motivo?';
-            var response = "Motivo Bloqueo Actividad creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Motivo de Bloqueo de la Actividad?';
+            var response = "El Motivo de Bloqueo de la Actividad ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_actividad.ObsMotBloAct == undefined || scope.fdatos_mot_actividad.ObsMotBloAct == null || scope.fdatos_mot_actividad.ObsMotBloAct == "") {
             scope.fdatos_mot_actividad.ObsMotBloAct = null;
@@ -410,7 +410,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -423,13 +423,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_MotBloActividad();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -455,13 +455,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_mot_actividad = result.data;
                 console.log(scope.fdatos_mot_actividad);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error al cargar la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -507,7 +507,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }, function(error) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -593,13 +593,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_bloqueo_PunSum = function() {
         if (scope.validato_mot_bloqueo_PunSum == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin bloquear la Dirección?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_PunSum = {};
@@ -622,14 +622,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormPunSum = function(event) {
         console.log(scope.fdatos_mot_PunSum);
         if (scope.fdatos_mot_PunSum.CodMotBloPun > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Motivo?';
-            var response = "Motivo Bloqueo Punto Suministro modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Motivo de Bloqueo de la Dirección de Suministro?';
+            var response = "El Motivo de Bloqueo de la Dirección de Suministro ha sido modificado de forma correcta";
         }
         if (scope.fdatos_mot_PunSum.CodMotBloPun == undefined) {
             var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar el Motivo?';
-            var response = "Motivo Bloqueo Punto Suministro creado satisfactoriamente.";
+            var text = '¿Seguro que desea grabar el Motivo de Bloqueo de la Dirección de Suministro?';
+            var response = "El Motivo de Bloqueo de la Dirección de Suministro ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_PunSum.ObsMotBloPun == undefined || scope.fdatos_mot_PunSum.ObsMotBloPun == null || scope.fdatos_mot_PunSum.ObsMotBloPun == "") {
             scope.fdatos_mot_PunSum.ObsMotBloPun = null;
@@ -643,7 +643,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -656,13 +656,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_MotBloPunSum();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -694,7 +694,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -828,13 +828,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_Contacto = function() {
         if (scope.validate_mot_contacto == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin bloquear el Contacto?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_contacto = {};
@@ -857,14 +857,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormContactos = function(event) {
         console.log(scope.fdatos_mot_contacto);
         if (scope.fdatos_mot_contacto.CodMotBloCon > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Motivo?';
-            var response = "Motivo Bloqueo Contacto modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea modificar el Motivo de Bloqueo del Contacto?';
+            var response = "El Motivo de Bloqueo del Contacto ha sido modificado de forma correcta";
         }
         if (scope.fdatos_mot_contacto.CodMotBloCon == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar el Motivo?';
-            var response = "Motivo Bloqueo Contacto creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Motivo de Bloqueo del Contacto?';
+            var response = "El Motivo de Bloqueo del Contacto ha sido registrado de formar correcta";
         }
         if (scope.fdatos_mot_contacto.ObsMotBloCon == undefined || scope.fdatos_mot_contacto.ObsMotBloCon == null || scope.fdatos_mot_contacto.ObsMotBloCon == "") {
             scope.fdatos_mot_contacto.ObsMotBloCon = null;
@@ -878,7 +878,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -891,13 +891,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_MotBloContacto();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -923,13 +923,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_mot_contacto = result.data;
                 console.log(scope.fdatos_mot_contacto);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Hubo un error cargando la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -1064,13 +1064,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_Comercializadora = function() {
         if (scope.validate_mot_comercializadora == undefined) {
             Swal.fire({
-                title: "Regresar",
-                text: "¿Está Seguro de Regresar y no completar el Proceso?",
+
+                text: "¿Seguro que desea cerrar sin bloquear la Comercializadora?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Si, Deseo continuar!"
+                confirmButtonText: "Continuar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_comercializadora = {};
@@ -1093,14 +1093,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormComercializadora = function(event) {
         console.log(scope.fdatos_mot_comercializadora);
         if (scope.fdatos_mot_comercializadora.CodMotBloCom > 0) {
-            var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar el Motivo?';
-            var response = "Motivo Bloqueo Comercializadora modificado satisfactoriamente.";
+
+            var text = '¿Seguro que desea actualizar el Motivo de Bloqueo de la Comercializadora?';
+            var response = "El Motivo de Bloqueo de la Comercializadora ha sido modificado de forma correcta";
         }
         if (scope.fdatos_mot_comercializadora.CodMotBloCom == undefined) {
-            var title = 'Guardando';
-            var text = '¿Está Seguro de Guardar el Motivo?';
-            var response = "Motivo Bloqueo Comercializadora creado satisfactoriamente.";
+
+            var text = '¿Seguro que desea grabar el Notivo de Bloqueo de la Comercializadora?';
+            var response = "El Motivo de Bloqueo de la Comercializadora ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_comercializadora.ObsMotBloCom == undefined || scope.fdatos_mot_comercializadora.ObsMotBloCom == null || scope.fdatos_mot_comercializadora.ObsMotBloCom == "") {
             scope.fdatos_mot_comercializadora.ObsMotBloCom = null;
@@ -1114,7 +1114,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -1127,13 +1127,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_MotBloComercializadora();
                     } else {
-                        Swal.fire({ title: "Error", text: "Ha ocurrido un error durante el proceso, Por Favor Intente Nuevamente .", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     console.log(error);
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -1159,13 +1159,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_mot_comercializadora = result.data;
                 console.log(scope.fdatos_mot_comercializadora);
             } else {
-                Swal.fire({ title: "Error", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error al cargar la información", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             console.log(error);
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });

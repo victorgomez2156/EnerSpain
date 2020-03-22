@@ -279,7 +279,7 @@ protected function buscar_xID_get()
 		}
 		$CodPunSum=$this->get('CodPunSum');		
         $data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Datos del Punto de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -295,7 +295,7 @@ protected function buscar_xID_get()
 		}
 		//$hcliente=$this->get('hcliente');		
         $data = $this->Clientes_model->get_puntos_suministros_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Puntos de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando listado de Direcciones de Suministro');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -431,7 +431,7 @@ protected function buscar_xID_get()
 		$CodConCli=$this->get('CodConCli');	
 		$select="a.*";	
         $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Datos del Contacto.');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -448,7 +448,7 @@ protected function buscar_xID_get()
 		$NIFConCli=$this->get('NIFConCli');
 		$select="a.*";		
         $data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Datos del Contacto.');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -580,7 +580,7 @@ protected function buscar_xID_get()
 			redirect(base_url(), 'location', 301);
 		}				
         $data = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',null,$this->input->ip_address(),'Cargando Lista Cuenta Bancarias del Cliente');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',null,$this->input->ip_address(),'Cargando listado de Cuentas Bancarias del Cliente');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -596,7 +596,7 @@ protected function buscar_xID_get()
 		}
 		$CodCueBan=$this->get('CodCueBan');		
         $data = $this->Clientes_model->get_xID_CuentaBancaria($CodCueBan);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Datos de la Cuenta Bancaria.');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -613,7 +613,7 @@ protected function buscar_xID_get()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$result=$this->Clientes_model->buscar_NumIBan($objSalida->NumIBan,$objSalida->CodBan);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','SEARCH',null,$this->input->ip_address(),'Buscando Número IBAN.');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','SEARCH',null,$this->input->ip_address(),'Buscando Número IBAN');
 		$this->db->trans_complete();
 		$this->response($result);
     }
@@ -672,7 +672,7 @@ protected function buscar_xID_get()
 		redirect(base_url(), 'location', 301);
 	}		
     $data = $this->Clientes_model->get_all_documentos();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',null,$this->input->ip_address(),'Cargando Lista de Documentos');
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',null,$this->input->ip_address(),'Cargando listado de Documentos del Cliente');
 	if (empty($data))
 	{
 		$this->response(false);
@@ -689,7 +689,7 @@ public function Buscar_xID_Documentos_get()
 		}
 		$CodTipDocAI=$this->get('CodTipDocAI');		
         $data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Datos del Documento.');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Información del Documento');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -708,7 +708,7 @@ public function Registrar_Documentos_post()
 		if (isset($objSalida->CodTipDocAI))
 		{		
 			$this->Clientes_model->actualizar_documentos($objSalida->CodTipDocAI,$objSalida->CodCli,$objSalida->CodTipDoc,$objSalida->DesDoc,$objSalida->ArcDoc,$objSalida->TieVen,$objSalida->FecVenDocAco,$objSalida->ObsDoc);		
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','UPDATE',$objSalida->CodTipDocAI,$this->input->ip_address(),'Actualizando Documentos.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','UPDATE',$objSalida->CodTipDocAI,$this->input->ip_address(),'Actualizando Documentos');
 		}
 		else
 		{

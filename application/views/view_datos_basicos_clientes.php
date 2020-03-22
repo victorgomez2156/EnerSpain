@@ -392,13 +392,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''" ng-disabled="vm.disabled_button_by_email==true">GRABAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button_by_email==true" >ACTUALIZAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''" ng-disabled="vm.disabled_button_by_email==true">Grabar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button_by_email==true" >Actualizar</button>
             
             <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button-->
 
             <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''">LIMPIAR</button-->
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">REGRESAR</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -454,8 +454,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
 
-<div id="cargando" class="loader loader-default"  data-text="Cargando Listado Comercial, Por Favor Espere..."></div>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargando Datos del Cliente, Por Favor Espere..."></div>
-<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Comerciales"></div>
+<div id="cargando_I" class="loader loader-default"  data-text="Cargando Información del Cliente"></div>
+<div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial"></div>
 
 </html>

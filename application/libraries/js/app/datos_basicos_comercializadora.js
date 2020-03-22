@@ -243,15 +243,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             console.log($archivos.files);
             if ($archivos.files[0].type == "application/pdf") //|| $archivos.files[0].type=="image/jpeg" || $archivos.files[0].type=="image/png")
             {
-                console.log('Archivo Permitido');
+                console.log('Fichero Permitido');
                 var tipo_file = ($archivos.files[0].type).split("/");
                 $archivos.files[0].type;
                 console.log(tipo_file[1]);
                 $scope.uploadFile();
                 scope.fdatos.DocConCom = 'documentos/' + $archivos.files[0].name;
             } else {
-                console.log('Archivo No Permitido');
-                Swal.fire({ title: 'Error', text: 'Error en formato de archivo solo permite PDF', type: "error", confirmButtonColor: "#188ae2" });
+                console.log('Fichero No Permitido');
+                Swal.fire({ title: 'Error', text: 'Formato de fichero incorrecto, debe ser PDF', type: "error", confirmButtonColor: "#188ae2" });
                 document.getElementById('file').value = '';
                 return false;
             }
@@ -533,11 +533,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         if (scope.INF == undefined) {
             if (scope.fdatos.CodCom == undefined) {
-                var title = 'Guardando';
-                var text = '¿Estás seguro de regresar y no guardar los datos?';
+                var text = '¿Seguro que desea cerrar sin grabar la información?';
             } else {
-                var title = 'Actualizando';
-                var text = '¿Estás seguro de regresar y no actualizar los datos?';
+                var text = '¿Seguro que desea cerrar sin actualizar la información?';
             }
             Swal.fire({
                 title: title,

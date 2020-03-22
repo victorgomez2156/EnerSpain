@@ -207,7 +207,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -216,8 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">TIPO DE FILTRO</label>
-      <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_TarEle.tipo_filtro">
+        <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.tmodal_TarEle.tipo_filtro">
          <option value="1">TIPO TENSIÓN</option>
         </select>     
      </div>
@@ -239,8 +238,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     </div>
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frm_filtro_TarEle.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_TarEle()" ng-show="vm.tmodal_TarEle.tipo_filtro>0"><i class="fa fa-trash"></i> QUITAR</a>
+     <button class="btn btn-info" type="submit" ng-disabled="frm_filtro_TarEle.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_TarEle()" ng-show="vm.tmodal_TarEle.tipo_filtro>0">Quitar</a>
       </div>
 </form>
    </div>
@@ -313,7 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos_tar_elec.CodTarEle>0 && vm.disabled_form_TarEle==undefined" ng-disabled="register_form_TarEle.$invalid">ACTUALIZAR</button>
                         <button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarEle()" ng-show="vm.fdatos_tar_elec.CodTarEle>0 && vm.Nivel==1" ng-disabled="vm.Nivel==3 && vm.disabled_form_TarEle==1">BORRAR</button>
                         <button class="btn btn-warning" type="button" ng-click="vm.limpiar_TarEle()" ng-show="vm.disabled_form_TarEle==undefined">LIMPIAR</button>
-                        <a class="btn btn-info" ng-click="vm.regresar_TarEle()">REGRESAR</a>
+                        <a class="btn btn-info" ng-click="vm.regresar_TarEle()">Volver</a>
                       </div>
                     </div>
                     <input class="form-control " id="CodTarEle" name="CodTarEle" type="hidden" ng-model="vm.fdatos_tar_elec.CodTarEle" readonly />
@@ -446,11 +445,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                    <div class="form-group">
                       <div align="right">
-                        <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_tar_gas.CodTarGas==undefined||vm.fdatos_tar_gas.CodTarGas==null||vm.fdatos_tar_gas.CodTarGas==''" ng-disabled="register_form_TarGas.$invalid"><i class="fa fa-save"></i> REGISTRAR</button>
-                        <button class="btn btn-success" type="submit" ng-show="vm.fdatos_tar_gas.CodTarGas>0 && vm.disabled_form_TarGas==undefined" ng-disabled="register_form_TarGas.$invalid"><i class="fa fa-check-circle"></i> ACTUALIZAR</button>
-                        <button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarGas()" ng-show="vm.fdatos_tar_gas.CodTarGas>0&& vm.disabled_form_TarGas==undefined && vm.Nivel==1" ng-disabled="vm.Nivel==3"><i class="fa fa-trash"></i> BORRAR</button>
-                        <button class="btn btn-warning" type="button" ng-show="vm.disabled_form_TarGas==undefined" ng-click="vm.limpiar_TarGas()"><i class="fa fa-leaf"></i> LIMPIAR</button>
-                        <a class="btn btn-info" ng-click="vm.regresar_TarGas()"><i class="fa fa-refresh"></i> REGRESAR</a>
+                        <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_tar_gas.CodTarGas==undefined||vm.fdatos_tar_gas.CodTarGas==null||vm.fdatos_tar_gas.CodTarGas==''" ng-disabled="register_form_TarGas.$invalid">Registrar</button>
+                        <button class="btn btn-success" type="submit" ng-show="vm.fdatos_tar_gas.CodTarGas>0 && vm.disabled_form_TarGas==undefined" ng-disabled="register_form_TarGas.$invalid">Actualizar</button>
+                        <button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarGas()" ng-show="vm.fdatos_tar_gas.CodTarGas>0&& vm.disabled_form_TarGas==undefined && vm.Nivel==1" ng-disabled="vm.Nivel==3">Borrar</button>
+                        <button class="btn btn-warning" type="button" ng-show="vm.disabled_form_TarGas==undefined" ng-click="vm.limpiar_TarGas()">Limpiar</button>
+                        <a class="btn btn-info" ng-click="vm.regresar_TarGas()">Volver</a>
                       </div>
                     </div>
                     <input class="form-control " id="CodTarGas" name="CodTarGas" type="hidden" ng-model="vm.fdatos_tar_gas.CodTarGas" readonly />

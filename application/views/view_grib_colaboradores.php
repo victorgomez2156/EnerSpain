@@ -210,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Tipos de Filtros</h4>
+            <h4 class="modal-title">Seleccione Filtro</h4>
           </div>
           <div class="modal-body">
                         <div class="panel">                  
@@ -219,8 +219,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Filtros</label>
-      <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.tmodal_colaboradores.tipo_filtro">
+        <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.tmodal_colaboradores.tipo_filtro">
           <option ng-repeat="dato in vm.ttipofiltros" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -315,13 +314,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
-     <textarea type="text" class="form-control" ng-model="vm.t_modal_data.ObsBloColBlo" rows="5" maxlength="100"/></textarea>
+     <textarea type="text" class="form-control" ng-model="vm.t_modal_data.ObsBloColBlo" rows="5" maxlength="100"></textarea>
      </div>
      </div>
     
     <br>
      <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid"><i class="fa fa-lock"></i> Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Regresar</a>
+      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
     </div>
