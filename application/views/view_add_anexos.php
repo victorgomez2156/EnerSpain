@@ -229,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos!=undefined"></textarea>
         
        </div>
@@ -237,10 +237,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodAnePro" name="CodAnePro" type="hidden" ng-model="vm.anexos.CodAnePro" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==undefined" ng-disabled="vm.validate_info_anexos!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
-            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''"><i class="fa fa-trash"></i> Limpiar</button>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()"><i class="fa fa-arrow-left"></i> Regresar</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''" ng-disabled="vm.disabled_button==1">Grabar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.anexos.CodAnePro>0 && vm.validate_info_anexos==undefined" ng-disabled="vm.validate_info_anexos!=undefined">Actualizar</button>            
+            <button class="btn btn-warning" type="button"  ng-click="vm.limpiar_anexo()" ng-show="vm.anexos.CodAnePro==undefined||vm.anexos.CodAnePro==null||vm.anexos.CodAnePro==''">Limpiar</button>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_anexos()">Volver</button>
           </div>
         </div>
          </div><!--FINAL ROW -->
@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Anexo, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Anexo, Por Favor Espere..."></div>
-<div id="buscando" class="loader loader-default"  data-text="'Cargando Lista de Anexos, Por Favor Espere...'"></div>
+<div id="Guardando" class="loader loader-default"  data-text="Grabando Anexo, por favor espere ..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Anexo, por favor espere ..."></div>
+<div id="buscando" class="loader loader-default"  data-text="'Cargando listado de Anexos, por favor espere ...'"></div>
 </html>
