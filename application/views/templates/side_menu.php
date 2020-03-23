@@ -138,18 +138,9 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
           <li class="active">
-            </class="" href="#/Dashboard">
-                          <i class="icon_house_alt"></i>
-                          <span>Dashboard</span>
-            </a>
+            <a href="#/Dashboard">
+              <i class="icon_house_alt"></i><span>Dashboard</span></a>
           </li>
-          
-            <!--li>
-            <a class="" href="#/Comercializadora">
-              <i class="fa fa-bus"></i>
-              <span>Comercializadora</span>
-            </a>
-          </li-->
 
           <li class="sub-menu">
             <a href="javascript:;" class="">
@@ -183,8 +174,6 @@
             </ul>
           </li>
 
-
-
           <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-file"></i>
@@ -195,40 +184,6 @@
               <li><a href="#/Reporte_Cups_Colaboradores"> Colaboradores</a></li>
             </ul>
         </li>
-
-
-          <!--li>
-            <a class="" href="#/Clientes">
-              <i class="fa fa-users"></i>
-              <span>Clientes</span>
-            </a>
-          </li-->
-
-          <!--li class="sub-menu">
-            <a href="javascript:;" class="">
-              <i class="fa fa-thermometer"></i>
-              <span>Suministros</span>
-              <span class="menu-arrow arrow_carrot-right"></span>
-            </a>
-            <ul class="sub">
-              <li><a class="fa fa-address-book" href="#/Datos_Basicos_Suministros"> Datos Basicos</a></li>
-              <li><a class="fa fa-dot-circle-o" href="#/Optimizar_Potencia"> Optimizar Potencia</a></li>
-              <li><a class="fa fa-dollar" href="#/Impuestos_Especiales"> Optimizar Impuestos Especiales</a></li>
-             
-            </ul>
-          </li-->
-
-          <!--li class="sub-menu">
-            <a href="javascript:;" class="">
-              <i class="fa fa-handshake-o"></i>
-              <span>Contratos</span>
-              <span class="menu-arrow arrow_carrot-right"></span>
-            </a>
-            <ul class="sub">
-              <li><a class="fa fa-plus-square" href="#/Generar_Contrato"> Generar</a></li>
-              <li><a class="fa fa-circle-o" href="#/Renovar_Contrato"> Renovar</a></li>
-            </ul>
-          </li-->
           
           <li class="sub-menu">
             <a href="javascript:;" class="">
@@ -264,57 +219,7 @@
               <li><a class="fa fa-ban" href="#/Motivos_Bloqueos_Contacto"> Motivos Contacto</a></li>
               <li><a class="fa fa-gears" href="#/Configuracion_Sistema"> Configuraciones Sistema</a></li-->
             </ul>
-          </li>
-          <!--li>
-            <a class="" href="#/Colaboradores">
-              <i class="fa fa-handshake-o"></i>
-              <span>Colaboradores</span>
-            </a>
-          </li-->
-            <!--li>
-            <a class="" href="#/Control_Incidencias">
-              <i class="fa fa-balance-scale"></i>
-              <span>Control Incidencias</span>
-            </a>
-          </li-->
-          <!--li class="sub-menu">
-            <a href="javascript:;" class="">
-              <i class="fa fa-balance-scale"></i>
-              <span>Control Incidencias</span>
-              <span class="menu-arrow arrow_carrot-right"></span>
-            </a>
-            <ul class="sub">
-              <li><a class="fa fa-bookmark" href="#/Provincia"> Provincia</a></li>
-             
-            </ul>
-          </li-->
-           <!--li>
-            <a class="" href="#/Proyeccón_Ingresos">
-              <i class="fa fa-money"></i>
-              <span>Proyección Ingresos</span>
-            </a>
-          </li-->
-           <!--li class="sub-menu">
-            <a href="javascript:;" class="">
-              <i class="fa fa-money"></i>
-              <span>Proyeccón Ingresos</span>
-              <span class="menu-arrow arrow_carrot-right"></span>
-            </a>
-            <ul class="sub">
-              <li><a class="fa fa-bookmark" href="#/Provincia"> Provincia</a></li>
-             
-            </ul>
-          </li-->
-
-           <!--li>
-            <a class="" href="#/Reportes">
-              <i class="fa fa-area-chart"></i>
-              <span>Reportes</span>
-            </a>
-          </li-->
-          
-
-          
+          </li>          
         </ul>
         <!-- sidebar menu end-->
       </div>
