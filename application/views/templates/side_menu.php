@@ -230,7 +230,7 @@ $(function(){
     var username = "<?php echo $this->usuario;?>";
  
   $("#cerrar-sesion").on('click', function(){
-    Swal.fire({"Seguro que desea cerrar la sesión?",		
+    Swal.fire({title:"Cerrar Sesión",text:"Seguro que desea cerrar la sesión?",		
 		type:"question",
 		showCancelButton:!0,
 		confirmButtonColor:"#31ce77",
