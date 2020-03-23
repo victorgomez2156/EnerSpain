@@ -90,12 +90,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="panel-body"> 
 
-  <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
+  <!--No se requiere Tab <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
       <ul>
       <li>
         <a href="#tabs-1"><i class="fa fa-cube"></i> Cups</a>
       </li>      
      </ul>
+-->
+
     <!--/TABS 1 START-->
     <div id="tabs-1">  
 
@@ -108,13 +110,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><input type="checkbox" ng-model="vm.Cif"/> <i class="fa fa-vcard"></i> <b style="color:black;">CIF</b></li>
-            <li><input type="checkbox" ng-model="vm.RazSoc"/> <i class="fa fa-user"></i> <b style="color:black;">RAZÓN SOCIAL</b></li>
-            <li><input type="checkbox" ng-model="vm.Cups"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CUPS</b></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SERVICIO</b></li></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
-            <li><input type="checkbox" ng-model="vm.EstCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ESTATUS</b></li></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+            <li><input type="checkbox" ng-model="vm.Cif"/><b style="color:black;">CIF</b></li>
+            <li><input type="checkbox" ng-model="vm.RazSoc"/><b style="color:black;">Razón Social</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups"/> <b style="color:black;">CUPS</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <b style="color:black;">Tipo de Suministro</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <b style="color:black;">Tarifa</b></li></li>
+            <li><input type="checkbox" ng-model="vm.EstCUPs"/> <b style="color:black;">Estatus</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <b style="color:black;">Acción</b></li>
           </ul> 
         </div>                    
         <div class="btn-group">
@@ -147,17 +149,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
-                    <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
-                    <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
-                    <th ng-show="vm.Dir_Cups==true"><i class="fa fa-archive"></i> DIRECCÓN</th> 
-                    <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                    <th ng-show="vm.Cif==true">CIF</th>
+                    <th ng-show="vm.RazSoc==true">Razón Social</th>
+                    <th ng-show="vm.Cups==true">CUP</th>
+                    <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>
+                    <th ng-show="vm.Cups_Tar==true">Tarifa</th> 
+                    <th ng-show="vm.Dir_Cups==true">Drección</th> 
+                    <th ng-show="vm.EstCUPs==true">Estatus</th>      
+                    <th ng-show="vm.Cups_Acc==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TCups.length==0"> 
-                     <td colspan="7" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                     <td colspan="7" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TCups | filter:paginate | filter:vm.filtrar_cups" ng-class-odd="odd">                    
                     <td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td>
@@ -180,14 +182,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.Cif==true"><i class="fa fa-vcard"></i> CIF</th>
-                    <th ng-show="vm.RazSoc==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
-                    <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
-                    <th ng-show="vm.Dir_Cups==true"><i class="fa fa-archive"></i> DIRECCÓN</th> 
-                    <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                   <th ng-show="vm.Cif==true">CIF</th>
+                    <th ng-show="vm.RazSoc==true">Razón Social</th>
+                    <th ng-show="vm.Cups==true">CUP</th>
+                    <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>
+                    <th ng-show="vm.Cups_Tar==true">Tarifa</th> 
+                    <th ng-show="vm.Dir_Cups==true">Dirección</th> 
+                    <th ng-show="vm.EstCUPs==true">Estatus</th>      
+                    <th ng-show="vm.Cups_Acc==true">Acción</th>
                 </tfoot>
               </table>
         </div>
@@ -237,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro</label>
      <input type="text" class="form-control" ng-model="vm.DirPunSumCUPs"  readonly />     
      </div>
      </div>
@@ -255,7 +257,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Servicio</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Suministro</label>
      <input type="text" class="form-control" ng-model="vm.tmodal_data.TipServ"  readonly />     
      </div>
      </div>
