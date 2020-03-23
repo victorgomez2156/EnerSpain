@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Contacto</h3>
+            <h3 class="page-header">Listado de Contactos</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-child"></i>Contactos</li>
@@ -93,18 +93,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                  <li><input type="checkbox" ng-model="vm.NomConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre Contacto</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.NIFConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">NIF</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.TelFijConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Fijo</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.TelCelConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Celular</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.EmaConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.CodTipCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo de Contacto</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.CarConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Cargo</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.EsRepLeg"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Representante Legal</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.EstConCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li></li> 
-                  <li><input type="checkbox" ng-model="vm.ActCont"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+                  <li><input type="checkbox" ng-model="vm.NomConCli"/> <b style="color:black;">Nombre Contacto</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.NIFConCli"/> <b style="color:black;">NIF</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.TelFijConCli"/> <b style="color:black;">Teléfono Fijo</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.TelCelConCli"/> <b style="color:black;">Teléfono Celular</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.EmaConCli"/> <b style="color:black;">Email</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.CodTipCon"/> <b style="color:black;">Tipo de Contacto</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.CarConCli"/> <b style="color:black;">Cargo</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.EsRepLeg"/> <b style="color:black;">Representante Legal</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.EstConCli"/> <b style="color:black;">Estatus</b></li></li> 
+                  <li><input type="checkbox" ng-model="vm.ActCont"/> <<b style="color:black;">Acción</b></li>
                 </ul> 
               </div>
               <div class="btn-group"> 
@@ -158,23 +158,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                  <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
-                  <th ng-show="vm.NomConCli==true"><i class="fa fa-bank"></i> Nombre</th>
-                  <th ng-show="vm.NIFConCli==true"><i class="fa fa-asterisk"></i> NIF</th>
-                  <th ng-show="vm.TelFijConCli==true"><i class="fa fa-asterisk"></i> Teléfono Fijo</th>
-                  <th ng-show="vm.TelCelConCli==true"><i class="fa fa-asterisk"></i> Teléfono Celular</th> 
-                  <th ng-show="vm.EmaConCli==true"><i class="fa fa-asterisk"></i> Email</th>
-                  <th ng-show="vm.CodTipCon==true"><i class="fa fa-asterisk"></i> Tipo de Contacto</th>
-                  <th ng-show="vm.CarConCli==true"><i class="fa fa-asterisk"></i> Cargo</th>
-                  <th ng-show="vm.EsRepLeg==true"><i class="fa fa-asterisk"></i> Representante Legal</th>
-                  <th ng-show="vm.representacion==true"><i class="fa fa-asterisk"></i> Representación</th>
-                  <th ng-show="vm.EstConCli==true"><i class="fa fa-building"></i> Estatus</th>
-                  <th ng-show="vm.ActCont==true"><i class="icon_cogs"></i> Acción</th>
+                  <th ng-show="vm.NumCifCli==true">CIF</th>
+                  <th ng-show="vm.RazSocCli==true">Razón Social</th>
+                  <th ng-show="vm.NomConCli==true">Nombre</th>
+                  <th ng-show="vm.NIFConCli==true">NIF</th>
+                  <th ng-show="vm.TelFijConCli==true">Teléfono Fijo</th>
+                  <th ng-show="vm.TelCelConCli==true">Teléfono Celular</th> 
+                  <th ng-show="vm.EmaConCli==true">Email</th>
+                  <th ng-show="vm.CodTipCon==true">Tipo de Contacto</th>
+                  <th ng-show="vm.CarConCli==true">Cargo</th>
+                  <th ng-show="vm.EsRepLeg==true">Representante Legal</th>
+                  <th ng-show="vm.representacion==true">Representación</th>
+                  <th ng-show="vm.EstConCli==true">Estatus</th>
+                  <th ng-show="vm.ActCont==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tabla_Contacto.length==0"> 
                     <td colspan="13" align="center">
-                      <div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no ahí contactos registrados.</div>
+                      <div class="td-usuario-table">No existen Contactos registrados</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate4 | filter:vm.tgribcontactos.filtrar" ng-class-odd="odd">
@@ -203,19 +203,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                 <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
-                  <th ng-show="vm.NomConCli==true"><i class="fa fa-bank"></i> Nombre</th>
-                  <th ng-show="vm.NIFConCli==true"><i class="fa fa-asterisk"></i> NIF</th>
-                  <th ng-show="vm.TelFijConCli==true"><i class="fa fa-asterisk"></i> Teléfono Fijo</th>
-                  <th ng-show="vm.TelCelConCli==true"><i class="fa fa-asterisk"></i> Teléfono Celular</th> 
-                  <th ng-show="vm.EmaConCli==true"><i class="fa fa-asterisk"></i> Email</th>
-                  <th ng-show="vm.CodTipCon==true"><i class="fa fa-asterisk"></i> Tipo de Contacto</th>
-                  <th ng-show="vm.CarConCli==true"><i class="fa fa-asterisk"></i> Cargo</th>
-                  <th ng-show="vm.EsRepLeg==true"><i class="fa fa-asterisk"></i> Representante Legal</th>
-                  <th ng-show="vm.representacion==true"><i class="fa fa-asterisk"></i> Representación</th>
-                  <th ng-show="vm.EstConCli==true"><i class="fa fa-building"></i> Estatus</th>
-                  <th ng-show="vm.ActCont==true"><i class="icon_cogs"></i> Acción</th>
+                 <th ng-show="vm.NumCifCli==true">CIF</th>
+                    <th ng-show="vm.RazSocCli==true">Razón Social</th>
+                  <th ng-show="vm.NomConCli==true">Nombre</th>
+                  <th ng-show="vm.NIFConCli==true">NIF</th>
+                  <th ng-show="vm.TelFijConCli==true">Teléfono Fijo</th>
+                  <th ng-show="vm.TelCelConCli==true">Teléfono Celular</th> 
+                  <th ng-show="vm.EmaConCli==true">Email</th>
+                  <th ng-show="vm.CodTipCon==true">Tipo de Contacto</th>
+                  <th ng-show="vm.CarConCli==true">Cargo</th>
+                  <th ng-show="vm.EsRepLeg==true">Representante Legal</th>
+                  <th ng-show="vm.representacion==true">Representación</th>
+                  <th ng-show="vm.EstConCli==true">Estatus</th>
+                  <th ng-show="vm.ActCont==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
