@@ -336,12 +336,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Ingrese Número de CIF"></i> Ingrese Número de CIF:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Introduzca CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifDisConsulta" placeholder="* Ingrese Número de CIF" maxlength="50" required/>   
+                              <input type="text" class="form-control" ng-model="vm.NumCifDisConsulta" placeholder="* Introduzca CIF" maxlength="50" required/>   
                             </div>
                           </div>
-                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"><i class="fa fa-search"></i> Consultar</button>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid">Consultar</button>
                         </form>
                       </div>
                     </div>

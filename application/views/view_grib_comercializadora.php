@@ -409,14 +409,14 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title"> Ingrese Número de CIF</h4>
+                        <h4 class="modal-title">Introduzca CIF</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i> Número de CIF</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i>CIF</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Ingrese Número de CIF" maxlength="8" required/>   
+                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Introduzca CIF" maxlength="8" required/>   
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>

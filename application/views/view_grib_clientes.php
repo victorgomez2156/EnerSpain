@@ -75,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Cliente</h3>
+            <h3 class="page-header">Listado de Clientes</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-users"></i>Clientes</li>
@@ -410,7 +410,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i> Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.fdatos.Clientes_CIF" placeholder="* Ingrese Número de CIF" maxlength="50" required/>   
+                              <input type="text" class="form-control" ng-model="vm.fdatos.Clientes_CIF" placeholder="* Introduzca CIF" maxlength="50" required/>   
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid">CONSULTAR</button>
