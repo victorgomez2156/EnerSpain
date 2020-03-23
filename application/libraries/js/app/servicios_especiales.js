@@ -1010,10 +1010,10 @@
          if (scope.INF == undefined) {
              if (scope.servicio_especial.CodSerEsp == undefined) {
                  var title = 'Guardando';
-                 var text = '¿Estás seguro de regresar y no guardar los datos?';
+                 var text = '¿Seguro que desea cerrar sin registrar el Servicio Especial?';
              } else {
                  var title = 'Actualizando';
-                 var text = '¿Estás seguro de regresar y no actualizar los datos?';
+                 var text = '¿Seguro que desea cerrar sin actualizar el Servicio Especial?';
              }
              Swal.fire({
                  title: title,
@@ -1022,7 +1022,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "OK"
+                 confirmButtonText: "Continuar"
              }).then(function(t) {
                  if (t.value == true) {
                      //scope.TvistaServiciosEspeciales=1;
@@ -1120,21 +1120,21 @@
                  //console.log(result.data);
                  console.log(scope.servicio_especial);
              } else {
-                 Swal.fire({ title: "Error", text: 'No se encontraron datos relaciones con el Código de Busqueda.', type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
              }
 
          });

@@ -821,10 +821,10 @@
      scope.regresar_punto_suministro = function() {
          if (scope.fpuntosuministro.CodPunSum == undefined) {
              var title = "Guardando";
-             var text = "¿Estás seguro de regresar y no guardar los datos?";
+             var text = "¿Seguro que desea cerrar sin registrar la Dirección de Suministro?";
          } else {
              var title = "Actualizando";
-             var text = "¿Estás seguro de regresar y no actualizar los datos?";
+             var text = "¿Seguro que desea cerrar sin actualizar la información de la Dirección de Suministro?";
          }
          Swal.fire({
              title: title,
@@ -833,7 +833,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Continuar"
          }).then(function(t) {
              if (t.value == true) {
                  location.href = "#/Puntos_Suministros";
@@ -861,7 +861,7 @@
                      console.log('Pasando por Timeout');
                  }, 1300);
              } else {
-                 Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: "Ha ocurrido un error, por favor intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");

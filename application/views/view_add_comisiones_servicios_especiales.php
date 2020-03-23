@@ -77,11 +77,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section class="wrapper">
       <div class="row">
         <div class="col-lg-12">
-          <h3 class="page-header"><i class="fa fa-dollar"></i> Comisión de Servicios Especiales</h3>
-          <ol class="breadcrumb">
+          <h3 class="page-header">Comisiones de Servicio Especial</h3>
+          <!--<ol class="breadcrumb">
           <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>             
           <li><i class="fa fa-dollar"></i> Comisión de Servicios Especiales</li>
-          </ol>
+          </ol>-->
         </div>
       </div>
       <!-- page start-->
@@ -198,8 +198,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                <div class="form-group" >
           <div align="right">
-            <button class="btn btn-success" ng-click="vm.guardar_comisiones()" ><i class="fa fa-save"></i> Guardar</button>           
-            <button class="btn btn-info" type="button" ng-click="vm.regresar_comisiones()"><i class="fa fa-arrow-left"></i> Regresar</button>
+            <button class="btn btn-success" ng-click="vm.guardar_comisiones()" >Grabar</button>           
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_comisiones()">Volver</button>
           </div>
         </div>
 

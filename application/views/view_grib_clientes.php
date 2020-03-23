@@ -75,11 +75,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-users"></i> Clientes</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Cliente</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-users"></i>Clientes</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -96,20 +96,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><input type="checkbox" ng-model="vm.NumCif"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-            <li><input type="checkbox" ng-model="vm.RazSoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razon Social</b></li></li>
-            <li><input type="checkbox" ng-model="vm.NomCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre Comercial</b></li></li>
-            <li><input type="checkbox" ng-model="vm.NomVia"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Domicilio Social</b></li>
-            <li><input type="checkbox" ng-model="vm.NomViaFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Domicilio Fiscal</b></li>
-            <li><input type="checkbox" ng-model="vm.Tel"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
-            <li><input type="checkbox" ng-model="vm.Ema"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-            <li><input type="checkbox" ng-model="vm.CodTip"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Cliente</b></li>
-            <li><input type="checkbox" ng-model="vm.CodSecCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Sector</b></li>
-            <li><input type="checkbox" ng-model="vm.CodCo"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Comercial</b></li>
-            <li><input type="checkbox" ng-model="vm.CodCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Colaborador</b></li>
-            <li><input type="checkbox" ng-model="vm.FechRe"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha Inicio</b></li>
-            <li><input type="checkbox" ng-model="vm.Est"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-            <li><input type="checkbox" ng-model="vm.Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li>
+            <li><input type="checkbox" ng-model="vm.NumCif"/> <b style="color:black;">CIF</b></li>
+            <li><input type="checkbox" ng-model="vm.RazSoc"/> <b style="color:black;">Razón Social</b></li></li>
+            <li><input type="checkbox" ng-model="vm.NomCli"/> <b style="color:black;">Nombre Comercial</b></li></li>
+            <li><input type="checkbox" ng-model="vm.NomVia"/> <b style="color:black;">Domicilio Social</b></li>
+            <li><input type="checkbox" ng-model="vm.NomViaFis"/> <b style="color:black;">Domicilio Fiscal</b></li>
+            <li><input type="checkbox" ng-model="vm.Tel"/> <b style="color:black;">Teléfono</b></li>
+            <li><input type="checkbox" ng-model="vm.Ema"/> <b style="color:black;">Email</b></li>
+            <li><input type="checkbox" ng-model="vm.CodTip"/> <b style="color:black;">Tipo Cliente</b></li>
+            <li><input type="checkbox" ng-model="vm.CodSecCli"/> <b style="color:black;">Sector</b></li>
+            <li><input type="checkbox" ng-model="vm.CodCo"/> <b style="color:black;">Comercial</b></li>
+            <li><input type="checkbox" ng-model="vm.CodCol"/> <b style="color:black;">Colaborador</b></li>
+            <li><input type="checkbox" ng-model="vm.FechRe"/> <b style="color:black;">Fecha Inicio</b></li>
+            <li><input type="checkbox" ng-model="vm.Est"/> <b style="color:black;">Estatus</b></li>
+            <li><input type="checkbox" ng-model="vm.Acc"/> <b style="color:black;">Action</b></li>
           </ul> 
         </div>                    
         <div class="btn-group">
@@ -142,23 +142,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NumCif==true"><i class="fa fa-vcard"></i> CIF</th>
-                    <th ng-show="vm.RazSoc==true"><i class="fa fa-building"></i> Razon Social</th>                                        
-                    <th ng-show="vm.NomCli==true"><i class="fa fa-archive"></i> Nombre Comercial</th>
-                    <th ng-show="vm.NomVia==true"><i class="fa fa-crop"></i> Dominicilio Social</th>
-                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-crop"></i> Dominicilio Fiscal</th>
-                    <th ng-show="vm.Tel==true"><i class="fa fa-phone"></i> Teléfono</th>
-                    <th ng-show="vm.Ema==true"><i class="fa fa-phone"></i> Email</th>  
-                    <th ng-show="vm.CodTip==true"><i class="fa fa-tree"></i> Tipo Cliente</th>
-                    <th ng-show="vm.CodSecCli==true"><i class="fa fa-industry"></i> Sector</th>
-                    <th ng-show="vm.CodCo==true"><i class="fa fa-tint"></i> Comercial</th>
-                    <th ng-show="vm.CodCol==true"><i class="fa fa-tint"></i> Colaborador</th>
-                    <th ng-show="vm.FechRe==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
-                    <th ng-show="vm.Est==true"><i class="fa fa-bolt"></i> Estatus</th>                    
-                    <th ng-show="vm.Acc==true"><i class="icon_cogs"></i> Action</th>
+                    <th ng-show="vm.NumCif==true">CIF</th>
+                    <th ng-show="vm.RazSoc==true">Razón Social</th>                                        
+                    <th ng-show="vm.NomCli==true">Nombre Comercial</th>
+                    <th ng-show="vm.NomVia==true">Domicilio Social</th>
+                    <th ng-show="vm.NomViaFis==true">Domicilio Fiscal</th>
+                    <th ng-show="vm.Tel==true">Teléfono</th>
+                    <th ng-show="vm.Ema==true">Email</th>  
+                    <th ng-show="vm.CodTip==true">Tipo de Cliente</th>
+                    <th ng-show="vm.CodSecCli==true">Sector</th>
+                    <th ng-show="vm.CodCo==true">Comercial</th>
+                    <th ng-show="vm.CodCol==true">Colaborador</th>
+                    <th ng-show="vm.FechRe==true">Fecha Inicio</th>
+                    <th ng-show="vm.Est==true">Estatus</th>                    
+                    <th ng-show="vm.Acc==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tclientes.length==0"> 
-                     <td colspan="14" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                     <td colspan="14" align="center"><div class="td-usuario-table">No existe información</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.Tclientes | filter:paginate | filter:vm.filtrar_clientes" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCif==true">{{dato.NumCifCli}}</td>
@@ -190,20 +190,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.RazSoc==true"><i class="fa fa-building"></i> Razon Social</th>
-                    <th ng-show="vm.NumCif==true"><i class="fa fa-vcard"></i> CIF</th>                    
-                    <th ng-show="vm.NomCli==true"><i class="fa fa-archive"></i> Nombre Comercial</th>
-                    <th ng-show="vm.NomVia==true"><i class="fa fa-crop"></i> Dominicilio Social</th>
-                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-crop"></i> Dominicilio Fiscal</th>
-                    <th ng-show="vm.Tel==true"><i class="fa fa-phone"></i> Teléfono</th>
-                    <th ng-show="vm.Ema==true"><i class="fa fa-phone"></i> Email</th>  
-                    <th ng-show="vm.CodTip==true"><i class="fa fa-tree"></i> Tipo Cliente</th>
-                    <th ng-show="vm.CodSecCli==true"><i class="fa fa-industry"></i> Sector</th>
-                    <th ng-show="vm.CodCo==true"><i class="fa fa-tint"></i> Comercial</th>
-                    <th ng-show="vm.CodCol==true"><i class="fa fa-tint"></i> Colaborador</th>
-                    <th ng-show="vm.FechRe==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
-                    <th ng-show="vm.Est==true"><i class="fa fa-bolt"></i> Estatus</th>                    
-                    <th ng-show="vm.Acc==true"><i class="icon_cogs"></i> Action</th>
+                   <th ng-show="vm.RazSoc==true">Razón Social</th>
+                    <th ng-show="vm.NumCif==true">CIF</th>                    
+                    <th ng-show="vm.NomCli==true">Nombre Comercial</th>
+                    <th ng-show="vm.NomVia==true">Domicilio Social</th>
+                    <th ng-show="vm.NomViaFis==true">Domicilio Fiscal</th>
+                    <th ng-show="vm.Tel==true">Teléfono</th>
+                    <th ng-show="vm.Ema==true">Email</th>  
+                    <th ng-show="vm.CodTip==true">Tipo de Cliente</th>
+                    <th ng-show="vm.CodSecCli==true">Sector</th>
+                    <th ng-show="vm.CodCo==true">Comercial</th>
+                    <th ng-show="vm.CodCol==true">Colaborador</th>
+                    <th ng-show="vm.FechRe==true">Fecha Inicio</th>
+                    <th ng-show="vm.Est==true">Estatus</th>                    
+                    <th ng-show="vm.Acc==true">Acción</th>
                 </tfoot>
               </table>
         </div>
@@ -362,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Razon Social del Cliente</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
      <input type="text" class="form-control" ng-model="vm.tmodal_data.RazSoc" required readonly />     
      </div>
      </div>

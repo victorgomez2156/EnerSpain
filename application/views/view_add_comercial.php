@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-users"></i> Registro Comercial</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Comercial</h3>
+            <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-users"></i>Registro Comercial</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -125,14 +125,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
        
     
            <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''" ng-disabled="vm.habilitar_button==1"><i class="fa fa-save"></i> CREAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''" ng-disabled="vm.habilitar_button==1">Crear</button>
             
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.validate_form==1||vm.habilitar_button==1" ><i class="fa fa-spinner"></i> ACTUALIZAR</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.validate_form==1||vm.habilitar_button==1" >Actualizar</button>
             
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.Nivel==3 || vm.validate_form==1"><i class="fa fa-trash"></i>  BORRAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.Nivel==3 || vm.validate_form==1">Borrar</button>
 
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''"><i class="fa fa-leaf"></i> LIMPIAR</button>            
-            <button class="btn btn-primary" style="margin-top: 10px;" type="button" ng-click="vm.regresar()"><i class="fa fa-backward"></i> REGRESAR</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''">Limpiar</button>            
+            <button class="btn btn-primary" style="margin-top: 10px;" type="button" ng-click="vm.regresar()">Volver</button>
             
           </div>
          </div><!--FINAL ROW -->

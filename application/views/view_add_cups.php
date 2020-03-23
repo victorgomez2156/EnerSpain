@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-cube"></i>Registrar Cups</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header"></i>Registro de CUP</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-cube"></i>Registrar Cups</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -297,9 +297,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <input type="hidden" class="form-control" ng-model="vm.fdatos_cups.CodCup" readonly />      
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos_cups.CodCup==undefined||vm.fdatos_cups.CodCup==null||vm.fdatos_cups.CodCup==''" >CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_cups.CodCup>0 && vm.validate_info==undefined">ACTUALIZAR</button>            
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">REGRESAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos_cups.CodCup==undefined||vm.fdatos_cups.CodCup==null||vm.fdatos_cups.CodCup==''" >Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_cups.CodCup>0 && vm.validate_info==undefined">Actualizar</button>            
+            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">Volver</button>
           </div>
         </div>
 

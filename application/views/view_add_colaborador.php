@@ -35,11 +35,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-users"></i> Registro de Colaboradores </h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Colaborador</h3>
+            <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-users"></i>Registro de Colaboradores</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -229,13 +229,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodCol" name="CodCol" type="hidden" ng-model="vm.fdatos.CodCol" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''" ng-disabled="vm.habilitar_button==1"><i class="fa fa-save"></i> CREAR</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined||vm.habilitar_button==1" ><i class="fa fa-save"></i> ACTUALIZAR</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''" ng-disabled="vm.habilitar_button==1">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined||vm.habilitar_button==1" >Actualizar</button>
             
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined"><i class="fa fa-trash"></i> BORRAR</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">Borrar</button>
 
-            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''"><i class="fa fa-trash"></i> LIMPIAR</button>
-            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()"><i class="fa fa-arrow-left"></i> REGRESAR</a>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''">Limpiar</button>
+            <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</a>
           </div>
         </div>
          </div><!--FINAL ROW -->

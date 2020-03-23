@@ -4651,7 +4651,7 @@ class Exportar_Documentos extends CI_Controller
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Servicios Especiales PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Listado de Servicios Especiales PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
         $pdf->SetSubject('Doc_PDF_Servicios_Especiales');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
@@ -6797,7 +6797,7 @@ class Exportar_Documentos extends CI_Controller
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Tipos de Clientes PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Listado de Tipos de Cliente PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
         $pdf->SetSubject('Doc_Pdf_Tipos_Clientes');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);

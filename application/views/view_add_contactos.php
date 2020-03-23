@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-child"></i> Registro de Contacto</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Contacto del Cliente</h3>
+            <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-child"></i>Registro de Contacto</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -192,9 +192,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
             
-             <button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli==undefined && vm.no_editable==undefined" ng-disabled="form_contacto2.$invalid">REGISTRAR</button>
-             <button class="btn btn-success" type="submit" ng-show="vm.tContacto_data_modal.CodConCli>0 && vm.no_editable==undefined">ACTUALIZAR</button>
-             <a class="btn btn-danger" ng-click="vm.regresar_contacto()">REGRESAR</a>
+             <button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli==undefined && vm.no_editable==undefined" ng-disabled="form_contacto2.$invalid">Registrar</button>
+             <button class="btn btn-success" type="submit" ng-show="vm.tContacto_data_modal.CodConCli>0 && vm.no_editable==undefined">Actualizar</button>
+             <a class="btn btn-danger" ng-click="vm.regresar_contacto()">Volver</a>
         </form>
 
 

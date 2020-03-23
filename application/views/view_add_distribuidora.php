@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header" ng-show="vm.fdatos.CodDist==undefined"><i class="fa fa-cube"></i> Registro de Distribuidora</h3><h3 class="page-header" ng-show="vm.fdatos.CodDist>0"><i class="fa fa-cube"></i> Actualizando Distribuidora</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header" ng-show="vm.fdatos.CodDist==undefined">Registro de Distribuidora</h3><h3 class="page-header" ng-show="vm.fdatos.CodDist>0"><i class="fa fa-cube"></i> Actualizando Distribuidora</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>             
               <li ng-show="vm.fdatos.CodDist==undefined"><i class="fa fa-cube"></i>Registro de Distribuidora</li><li ng-show="vm.fdatos.CodDist>0"><i class="fa fa-cube"></i>Actualizando Distribuidora</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->

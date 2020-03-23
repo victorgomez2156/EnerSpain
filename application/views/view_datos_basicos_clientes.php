@@ -27,15 +27,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header" ng-show="vm.fdatos.CodCli==undefined"><i class="fa fa-users"></i> Registro de Clientes </h3>
-            <h3 class="page-header" ng-show="vm.fdatos.CodCli>0"><i class="fa fa-users"></i> Actualización de Datos del Cliente </h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header" ng-show="vm.fdatos.CodCli==undefined">Registro de Cliente</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCli>0">Modificación de Cliente </h3>
+            <!--<ol class="breadcrumb">
             
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               
-              <li ng-show="vm.fdatos.CodCli==undefined"><i class="fa fa-users"></i>Registro de Clientes</li>
-              <li ng-show="vm.fdatos.CodCli>0"><i class="fa fa-users"></i>Actualización de Datos del Cliente</li>
-            </ol>
+              <li ng-show="vm.fdatos.CodCli==undefined">Registro de Cliente</li>
+              <li ng-show="vm.fdatos.CodCli>0">Modificación de Cliente</li>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading" style="color:black;">
-                <b>Datos Basicos del Cliente:</b>
+                <b>Datos Básicos del Cliente:</b>
               </header>
               <div class="panel-body">
 

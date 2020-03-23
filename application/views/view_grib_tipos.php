@@ -72,11 +72,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-meetup"></i> Tipos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Configurar Tipos</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-meetup"></i>Tipos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -96,16 +96,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
     <ul >
       <li>
-        <a href="#tabs-1"><i class="fa fa-user-circle"></i> CLIENTE</a>
+        <a href="#tabs-1">CLIENTE</a>
       </li>       
       <li>
-        <a href="#tabs-2"><i class="fa fa-columns"></i> SECTOR</a>
+        <a href="#tabs-2">SECTOR</a>
       </li>
       <li>
-        <a href="#tabs-3"><i class="fa fa-fax"></i> CONTACTO</a>
+        <a href="#tabs-3">CONTACTO</a>
       </li>
       <li>
-        <a href="#tabs-4"><i class="fa fa-file"></i> DOCUMENTO</a>
+        <a href="#tabs-4">DOCUMENTO</a>
       </li>    
     </ul>
 

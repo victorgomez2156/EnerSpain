@@ -269,10 +269,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         if (scope.fdatos_tar_elec.CodTarEle == undefined) {
             var title = 'Guardando';
-            var text = '¿Está seguro de regresar y no guardar los datos?';
+            var text = '¿Seguro que desea cerrar sin registrar la Tarifa Eléctrica?';
         } else {
             var title = 'Actualizando';
-            var text = '¿Está seguro de regresar y no actualizar los datos?';
+            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa Elétrica?';
         }
         Swal.fire({
             title: title,
@@ -281,7 +281,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_tar_elec = {};
@@ -298,12 +298,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_tar_elec.CodTarEle == undefined) {
             var titulo = 'Guardando';
-            var text = '¿Estás seguro de ingresar este nuevo registro?';
-            var response = 'Registro creado correctamente.';
+            var text = '¿Seguro que desea crear la Tarifa Eléctrica?';
+            var response = 'La Tarifa Eléctrica se ha registrado de forma correcta';
         } else {
             var titulo = 'Actualizando';
-            var text = '¿Estás seguro de actualizar este registro?';
-            var response = 'Registro modificado correctamente.';
+            var text = '¿Seguro que desea actualizar la Tarifa Eléctrica?';
+            var response = 'La Tarifa Eléctrica se ha modificado de forma correcta';
         }
         console.log(scope.fdatos_tar_elec);
         Swal.fire({
@@ -325,22 +325,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXIDTarEle();
                     } else {
-                        Swal.fire({ title: titulo, text: 'Hubo un error en la operación, intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: 'Ha ocurro un error, por favor intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
 
                     }
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 });
             } else {
@@ -352,19 +352,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_tension = function() {
         resultado = true;
         if (scope.fdatos_tar_elec.TipTen == null || scope.fdatos_tar_elec.TipTen == undefined || scope.fdatos_tar_elec.TipTen == '') {
-            Swal.fire({ title: 'Tipo Tensión', text: 'Debe seleccionar un Tipo de Tensión.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'Seleccionar un Tipo de Tensión', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_elec.CanPerTar == null || scope.fdatos_tar_elec.CanPerTar == undefined || scope.fdatos_tar_elec.CanPerTar == '') {
-            Swal.fire({ title: 'Periodos', text: 'La Cantidad de Periodos es Requerida.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Cantidad de Períodos es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_elec.MinPotCon == null || scope.fdatos_tar_elec.MinPotCon == undefined || scope.fdatos_tar_elec.MinPotCon == '') {
-            Swal.fire({ title: 'Potencia Mínima', text: 'Debe Indicar una Potencia Mínima.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'Introduzca la Potencia Mínima', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_elec.MaxPotCon == null || scope.fdatos_tar_elec.MaxPotCon == undefined || scope.fdatos_tar_elec.MaxPotCon == '') {
-            Swal.fire({ title: 'Potencia Máxima', text: 'Debe Indicar una Potencia Máxima.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'Introduzca la Potencia Máxima', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (resultado == false) {
@@ -382,21 +382,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos_tar_elec);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No se encontraron datos relacionados con este código.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
@@ -491,23 +491,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
             } else {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: 'Tarifa Gas', text: 'No se encontraron datos.', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No existe información', type: "info", confirmButtonColor: "#188ae2" });
                 scope.T_TarifasGas = [];
                 scope.T_TarifasGasBack = [];
             }
         }, function(error) {
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
@@ -556,12 +556,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_tar_gas.CodTarGas == undefined) {
             var titulo = 'Guardando';
-            var titulo2 = 'Registro creado correctamente.';
-            var texto = '¿Estás seguro de guardar este nuevo registro?';
+            var titulo2 = 'La Tarifa de Gas ha sido registrada de forma correcta';
+            var texto = '¿Seguro que desea crear la Tarifa de Gas?';
         } else {
             var titulo = 'Actualizando';
-            var titulo2 = 'Registro modificado correctamente.';
-            var texto = '¿Estás seguro de actualizar este registro?';
+            var titulo2 = 'La Tarifa de Gas ha sido modificada de forma correcta';
+            var texto = '¿Seguro que desea actualizar la Tarifa de Gas?';
         }
         console.log(scope.fdatos_tar_gas);
         Swal.fire({
@@ -571,7 +571,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + titulo).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -583,22 +583,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: titulo, text: titulo2, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXIDTarGas();
                     } else {
-                        Swal.fire({ title: titulo, text: 'Hubo un error en la operación, intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: titulo, text: 'Ha ocurrido un error, por favor intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
 
                     }
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 });
             } else {
@@ -610,15 +610,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_TarGas = function() {
         resultado = true;
         if (scope.fdatos_tar_gas.NomTarGas == null || scope.fdatos_tar_gas.NomTarGas == undefined || scope.fdatos_tar_gas.NomTarGas == '') {
-            Swal.fire({ title: 'Tarifa Gas', text: 'El Campo nombre de la tarifa es requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El nombre de la Tarifa es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_gas.MinConAnu == null || scope.fdatos_tar_gas.MinConAnu == undefined || scope.fdatos_tar_gas.MinConAnu == '') {
-            Swal.fire({ title: 'Tarifa Gas', text: 'El Campo Consumo Mínimo es requerido', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Consumo Mínimo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_gas.MaxConAnu == null || scope.fdatos_tar_gas.MaxConAnu == undefined || scope.fdatos_tar_gas.MaxConAnu == '') {
-            Swal.fire({ title: 'Tarifa Gas', text: 'El Campo Consumo Máximo es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Consumo Máximo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
 
@@ -637,38 +637,38 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos_tar_gas);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No se encontraron datos relacionados con el código.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         });
     }
     scope.borrar_TarGas = function() {
         if (scope.Nivel != 1) {
-            Swal.fire({ title: "Error", text: "Su Nivel no esta autorizado para realizar esta acción contacte un administrador del sistema.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error", text: "Usuario no autorizado para realizar la operación, contacte al Administrador del Sistema", type: "error", confirmButtonColor: "#188ae2" });
             return false;
 
         }
         Swal.fire({
-            title: 'Borrando',
-            text: "Estás seguro de eliminar este registro.?",
+            /**title: 'Borrando',**/
+            text: "¿Seguro que desea eliminar la Tarifa de Gas?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -676,13 +676,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.delete(url).then(function(result) {
                     if (result.data != false) {
                         $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: "Exito!", text: "Registro eliminado de forma correcta", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ text: "La Tarifa de Gas ha sido eliminada de forma correcta", type: "error", confirmButtonColor: "#188ae2" });
                         scope.TVistaTarGas = 1;
                         scope.fdatos_tar_gas = {};
                         scope.cargar_lista_Tarifa_Gas();
                     } else {
                         $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: "Error", text: "No se pudo eliminar el registro intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
                     $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -710,10 +710,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_TarGas = function() {
         if (scope.fdatos_tar_gas.CodTarGas == undefined) {
             var title = 'Guardando';
-            var text = 'Estás seguro de regresar y no guardar los datos.';
+            var text = '¿Seguro que desea cerrar sin crear la Tarifa de Gas';
         } else {
             var title = 'Actualizando';
-            var text = 'Estás seguro de reresar y no actualizar los datos.';
+            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa de Gas';
         }
         Swal.fire({
             title: title,
@@ -722,7 +722,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Continuar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_tar_gas = {};

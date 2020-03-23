@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-file"></i> Documentos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Documento</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-file"></i>Documentos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->

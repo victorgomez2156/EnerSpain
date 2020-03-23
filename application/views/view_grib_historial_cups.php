@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-cube"></i> Historial Consumo Cups</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Ver Historial Consumo del CUP</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-cube"></i>Historial Consumo Cups</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->

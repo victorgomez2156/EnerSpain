@@ -72,11 +72,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-ban"></i> Motivos Bloqueos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Motivo de Bloqueo</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-ban"></i>Motivos Bloqueos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading" style="color:black;">
-                <b>MOTIVOS DE BLOQUEOS</b>
+                <b>MOTIVOS DE BLOQUEO</b>
               </header>
               <div class="panel-body">              
              
@@ -96,22 +96,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
     <ul >
       <li>
-        <a href="#tabs-1"><i class="fa fa-users"></i> CLIENTE</a>
+        <a href="#tabs-1">CLIENTE</a>
       </li>       
       <li>
-        <a href="#tabs-2"><i class="fa fa-bandcamp"></i> ACTIVIDAD</a>
+        <a href="#tabs-2">ACTIVIDAD</a>
       </li>
       <li>
-        <a href="#tabs-3"><i class="fa fa-bolt"></i> PUNTO DE SUMINISTRO</a>
+        <a href="#tabs-3">DIRECCIÓN DE SUMINISTRO</a>
       </li>
       <li>
-        <a href="#tabs-4"><i class="fa fa-fax"></i> CONTACTO</a>
+        <a href="#tabs-4">CONTACTO</a>
       </li>
        <li>
-        <a href="#tabs-5"><i class="fa fa-bus"></i> COMERCIALIZADORA</a>
+        <a href="#tabs-5">COMERCIALIZADORA</a>
       </li>    
       <li>
-        <a href="#tabs-6"><i class="fa fa-cube"></i> CUPs</a>
+        <a href="#tabs-6">CUP</a>
       </li>
     </ul>
 

@@ -511,7 +511,7 @@ public function get_list_servicos_especiales_get()
 	}
 	//$CodCom=$this->get('CodCom');
     $data = $this->Comercializadora_model->get_list_servicos_especiales();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','GET',0,$this->input->ip_address(),'Cargando Lista de Servicios Especiales.');
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','GET',0,$this->input->ip_address(),'Cargando listado de Servicios Especiales');
 	if (empty($data))
 	{
 		$this->response(false);

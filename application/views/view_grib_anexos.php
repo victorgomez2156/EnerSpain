@@ -79,11 +79,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Anexos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Anexo</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>                   
               <li><i class="fa fa-bullseye"></i> Anexos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->

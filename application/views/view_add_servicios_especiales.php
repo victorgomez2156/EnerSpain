@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Registro de Servicios Especiales</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Servicio Especial</h3>
+            <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>            
               <li><i class="fa fa-bullseye"></i> Registro de Servicios Especiales</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -168,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <input name="sample-checkbox-01" id="checkbox-013" type="checkbox" ng-model="vm.Todas_Gas_SerEsp" ng-click="vm.agregar_todas_detalle_SerEsp(vm.Todas_Gas_SerEsp)" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerGas==false||vm.validate_info_servicio_especiales!=undefined" /> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div><br>
      <div style="margin-top: 10px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Clientes</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipo de Clientes</b></label></div></div>
 
       
       <div class="col-12 col-sm-12">
@@ -176,10 +176,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        
        <input type="radio" name="tipo_cliente1" id="tipo_cliente1" value="0" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Particulares</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Particulares</label>
 
        <input type="radio" name="tipo_cliente2" id="tipo_cliente2" value="1" ng-model="vm.servicio_especial.TipCli" ng-disabled="vm.validate_info_servicio_especiales!=undefined">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes Negocios</label> 
+       <label class="font-weight-bold nexa-dark" style="color:black;">Negocios</label> 
        </div>
        </div>
        </div>
@@ -259,7 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Servicio Especial, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Servicio Especial, Por Favor Espere..."></div>
-<div id="buscando" class="loader loader-default"  data-text="Cargnado Lista de Servicios Especiales, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando el Servicio Especial, por favor espere ..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando el Servicio Especial, por favor espere ..."></div>
+<div id="buscando" class="loader loader-default"  data-text="Cargnado listado de Servicios Especiales, por favor espere ..."></div>
 </html>

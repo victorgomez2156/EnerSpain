@@ -74,11 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-bullseye"></i> Dirección de Suministros</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Dirección de Suministro</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-bullseye"></i>Dirección de Suministros</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -317,7 +317,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Razon Social del Cliente</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
      <input type="text" class="form-control" ng-model="vm.tPunSum.RazSocCli" required readonly />     
      </div>
      </div>

@@ -27,11 +27,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-briefcase"></i> Registro de Actividades</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registro de Actividad</h3>
+           <!-- <ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-briefcase"></i>Registro de Actividades</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- Form validations -->
@@ -126,9 +126,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <input type="hidden" class="form-control" ng-model="vm.fdatos_actividades.id" readonly/>
      <div class="form-group" >
         <div class="col-12 col-sm-6">
-          <button class="btn btn-info" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli==undefined" type="submit">ASIGNAR</button>
-          <button class="btn btn-success" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli>0" type="submit">ACTUALIZAR</button>           
-          <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_actividad()">REGRESAR</button>
+          <button class="btn btn-info" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli==undefined" type="submit">Asignar</button>
+          <button class="btn btn-success" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli>0" type="submit">Aactualizar</button>           
+          <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_actividad()">Volver</button>
         </div>
       </div>
   </form>

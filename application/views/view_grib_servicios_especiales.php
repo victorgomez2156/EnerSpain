@@ -74,11 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-child"></i> Lista de Servicios Especiales</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Listado de Servicios Especiales</h3>
+            <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashborad"> Dashborad</a></li>            
               <li><i class="fa fa-child"></i>Lista de Servicios Especiales</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -93,15 +93,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                        <li><input type="checkbox" ng-model="vm.DesSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Especial</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.TipCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Cliente</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerElecSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerGasSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha de Inicio</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccSerEsp"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifCom"/><b style="color:black;">CIF</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <b style="color:black;">Razón Social</b></li>
+                        <li><input type="checkbox" ng-model="vm.DesSerEsp"/> <b style="color:black;">Servicio Especial</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TipCli"/> <b style="color:black;">Tipo de Cliente</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerElecSerEsp"/> <b style="color:black;">Eléctricidad</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasSerEsp"/> <b style="color:black;">Gas</b></li>
+                        <li><input type="checkbox" ng-model="vm.FecIniSerEsp"/> <b style="color:black;">Fecha de Inicio</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstSerEsp"/> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccSerEsp"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
                     <div class="btn-group">
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" title="Escribir para Filtrar..." ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail23" placeholder="Escribir para Filtrar...">
+                      <input type="text" class="form-control" title="Escriba para Filtrar listado ..." ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail23" placeholder="Escribir para Filtrar...">
                     </div>                 
                     <a style="margin-right: 10px;" class="btn btn-info" title="Agregar Servicio Especial" href="#/Add_Servicios_Adicionales"><i class="fa fa-plus-square"></i></a>
                   </form>                    
@@ -134,18 +134,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> Servicio Especial</th>
-                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> Tipo Cliente</th>
-                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true">CIF</th>
+                     <th ng-show="vm.RazSocCom==true">Razón Social</th>
+                    <th ng-show="vm.DesSerEsp==true">Servicio Especial</th>
+                    <th ng-show="vm.TipCli==true">Tipo de Cliente</th>
+                    <th ng-show="vm.SerElecSerEsp==true">Electricidad</th>
+                    <th ng-show="vm.SerGasSerEsp==true">Gas</th>
+                    <th ng-show="vm.FecIniSerEsp==true">Fecha de Inicio</th>
+                    <th ng-show="vm.EstSerEsp==true">Estatus</th>
+                    <th ng-show="vm.AccSerEsp==true">Acción</th>
                   </tr> 
                   <tr ng-show="vm.TServicioEspeciales.length==0"> 
-                    <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                    <td colspan="10" align="center"><div class="td-usuario-table">No existe información</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -170,15 +170,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.DesSerEsp==true"><i class="icon_cogs"></i> Servicio Especial</th>
-                    <th ng-show="vm.TipCli==true"><i class="icon_cogs"></i> Tipo Cliente</th>
-                    <th ng-show="vm.SerElecSerEsp==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
-                    <th ng-show="vm.SerGasSerEsp==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.FecIniSerEsp==true"><i class="fa fa-calendar"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstSerEsp==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccSerEsp==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true">CIF</th>
+                     <th ng-show="vm.RazSocCom==true">Razón Social</th>
+                    <th ng-show="vm.DesSerEsp==true">Servicio Especial</th>
+                    <th ng-show="vm.TipCli==true">Tipo de Cliente</th>
+                    <th ng-show="vm.SerElecSerEsp==true">Electricidad</th>
+                    <th ng-show="vm.SerGasSerEsp==true">Gas</th>
+                    <th ng-show="vm.FecIniSerEsp==true">Fecha de Inicio</th>
+                    <th ng-show="vm.EstSerEsp==true">Estatus</th>
+                    <th ng-show="vm.AccSerEsp==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -225,8 +225,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipServ2" name="TipServ" ng-model="vm.tmodal_servicio_especiales.TipServ">
-        <option value="1">Servicio Gas</option>
-        <option value="2">Servicio Eléctrico</option> 
+        <option value="1">Suministro de Gas</option>
+        <option value="2">Suministro Eléctrico</option> 
         <option value="3">Ambos</option>                
       </select>   
      </div>
@@ -296,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Servicio Especial</h4>
+            <h4 class="modal-title">Bloqueo de Servicio Especial</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 

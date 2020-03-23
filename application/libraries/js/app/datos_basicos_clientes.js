@@ -377,74 +377,74 @@
              }
          }
          if (scope.fdatos.RazSocCli == null || scope.fdatos.RazSocCli == undefined || scope.fdatos.RazSocCli == '') {
-             Swal.fire({ title: "El Campo Razon Social es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "La Razón Social del Cliente es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.NomComCli == null || scope.fdatos.NomComCli == undefined || scope.fdatos.NomComCli == '') {
-             Swal.fire({ title: "El Campo Nombre Comercial es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre Comercial del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodTipCli > 0) {
-             Swal.fire({ title: "Debe Seleccionar un Tipo de Cliente.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione un Tipo de Cliente", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodSecCli > 0) {
-             Swal.fire({ title: "Debe Seleccionar un Sector.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione un Sector", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodTipViaSoc > 0) {
-             Swal.fire({ title: "Debe Seleccionar un Tipo de Via.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione un Tipo de Vía para el Domicilio Social", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.NomViaDomSoc == null || scope.fdatos.NomViaDomSoc == undefined || scope.fdatos.NomViaDomSoc == '') {
-             Swal.fire({ title: "El Nombre del Domicilio es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre del Domicilio Social del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.NumViaDomSoc == null || scope.fdatos.NumViaDomSoc == undefined || scope.fdatos.NumViaDomSoc == '') {
-             Swal.fire({ title: "El Número del Domicilio es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número del Domicilio del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodProSoc > 0) {
-             Swal.fire({ title: "Debe seleccionar una Provincia de la lista.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione una Provincia para el Domicilio Social", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodLocSoc > 0) {
-             Swal.fire({ title: "Debe seleccionar una Localidad de la lista.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccione una Localidad para el Domicilio Social", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.distinto_a_social == true) {
              if (!scope.fdatos.CodTipViaFis > 0) {
-                 Swal.fire({ title: "Debe Seleccionar un Tipo de Via Fiscal.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seleccione un Tipo de Vía para el Domicilio Fiscal", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (scope.fdatos.NomViaDomFis == null || scope.fdatos.NomViaDomFis == undefined || scope.fdatos.NomViaDomFis == '') {
-                 Swal.fire({ title: "El Nombre del Domicilio Fiscal es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "El Nombre del Domicilio Fiscal del Clientees ocligatorio", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (scope.fdatos.NumViaDomFis == null || scope.fdatos.NumViaDomFis == undefined || scope.fdatos.NumViaDomFis == '') {
-                 Swal.fire({ title: "El Número del Domicilio Fiscal es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "El Número del Domicilio Fiscal del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (!scope.fdatos.CodProFis > 0) {
-                 Swal.fire({ title: "Debe Seleccionar una Provincia de la lista Fiscal.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seleccione una Provincia para el Domicilio Fiscal", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (!scope.fdatos.CodLocFis > 0) {
-                 Swal.fire({ title: "Debe seleccionar una Localidad de la lista Fiscal.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seleccione una Localidad para el Domicilio Fiscal", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
          }
          if (scope.fdatos.TelFijCli == null || scope.fdatos.TelFijCli == undefined || scope.fdatos.TelFijCli == '') {
-             Swal.fire({ title: "El Campo Número de Teléfono es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número de Teléfono es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.EmaCli == null || scope.fdatos.EmaCli == undefined || scope.fdatos.EmaCli == '') {
-             Swal.fire({ title: "El Campo Correo Electrónico es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Correo Electrónico es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
 
          if (!scope.fdatos.CodCom > 0) {
-             Swal.fire({ title: "Debe seleccionar un Comercial de la lista.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Seleccionar un Comercial", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (resultado == false) {
@@ -522,13 +522,13 @@
          }
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Esta Seguro de Actualizar Este Cliente?';
-             var response = "Cliente modificado Correctamente.";
+             var text = '¿Seguro que desea actualizar el Cliente?';
+             var response = "El Cliente ha sido modificado de forma correcta";
          }
          if (scope.fdatos.CodCli == undefined) {
              var title = 'Guardando';
-             var text = '¿Esta Seguro de Incluir Este Cliente?';
-             var response = "Cliente registrado correctamente.";
+             var text = '¿Seguro que desea crear el Cliente?';
+             var response = "El Cliente ha sido registrado de forma correcta";
          }
          $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
          var url = base_urlHome() + "api/Clientes/crear_clientes/";
@@ -554,13 +554,13 @@
                  //scope.buscarXID();				
              } else {
                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 Swal.fire({ title: 'Error', text: 'Ha ocurrido un error intentando guardar el cliente por favor intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Error', text: 'Ha ocurrido un error, por favor intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
 
              }
          }, function(error) {
              $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -583,7 +583,7 @@
                  valido.innerText = "";
                  scope.disabled_button_by_email = false;
              } else {
-                 valido.innerText = "Email Incorrecto.";
+                 valido.innerText = "Formato de Email incorrecto";
                  scope.disabled_button_by_email = true;
              }
          });
@@ -610,7 +610,7 @@
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
 
              } else {
-                 Swal.fire({ title: "Error", text: "No se encontraron datos asociados con el código del cliente.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: "No existe información", type: "error", confirmButtonColor: "#188ae2" });
                  $interval.cancel(promise);
                  /*scope.fdatos={};
                  scope.FecIniCli=fecha;
@@ -624,7 +624,7 @@
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });

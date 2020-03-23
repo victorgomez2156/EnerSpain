@@ -74,11 +74,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-child"></i> Contactos</h3>
-            <ol class="breadcrumb">
+            <h3 class="page-header">Registrar Contacto</h3>
+            <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-child"></i>Contactos</li>
-            </ol>
+            </ol>-->
           </div>
         </div>
         <!-- page start-->
@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Ingrese Número de CIF: <b style="color:red;">(*)</b></h4>
+                        <h4 class="modal-title">Introduzca CIF: <b style="color:red;">(*)</b></h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="dni_contacto" name="dni_contacto" ng-submit="Consultar_CIF_Contacto($event)"> 
