@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Documento</h3>
+            <h3 class="page-header">Listado de Documentos</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-file"></i>Documentos</li>
@@ -92,13 +92,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                  <li><input type="checkbox" ng-model="vm.CodTipDoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO DOCUMENTO</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.DesDoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">NOMBRE DEL FICHERO</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.TieVen"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIENE VENCIMIENTO</b></li>
-                  <li><input type="checkbox" ng-model="vm.FecVenDoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">FECHA VENCIMIENTO</b></li>
-                  <li><input type="checkbox" ng-model="vm.AccDoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+                  <li><input type="checkbox" ng-model="vm.CodTipDoc"/> <b style="color:black;">Tipo Documento</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.DesDoc"/> <b style="color:black;">Fichero</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.TieVen"/> <b style="color:black;">Tiene Vencimiento</b></li>
+                  <li><input type="checkbox" ng-model="vm.FecVenDoc"/> <b style="color:black;">Fecha Vencimiento</b></li>
+                  <li><input type="checkbox" ng-model="vm.AccDoc"/> <b style="color:black;">Acción</b></li>
                 </ul> 
               </div>
               <div class="btn-group">
@@ -132,17 +132,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <table class="table table-striped table-advance table-hover table-responsive">
           <tbody>
             <tr>
-              <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-              <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> RAZÓN SOCIAL</th>
-              <th ng-show="vm.CodTipDoc==true"><i class="fa fa-bank"></i> TIPO DOCUMENTO</th>
-              <th ng-show="vm.DesDoc==true"><i class="fa fa-bank"></i> NOMBRE DEL FICHERO</th>
-              <th ng-show="vm.TieVen==true"><i class="fa fa-asterisk"></i> TIENE VENCIMIENTO</th> 
-              <th ng-show="vm.FecVenDoc==true"><i class="fa fa-calendar"></i> FECHA VENCIMIENTO</th>                
-              <th ng-show="vm.AccDoc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+              <th ng-show="vm.NumCifCli==true">CIF</th>
+              <th ng-show="vm.RazSocCli==true">Razón Social</th>
+              <th ng-show="vm.CodTipDoc==true">Tipo de Documento</th>
+              <th ng-show="vm.DesDoc==true">Fichero</th>
+              <th ng-show="vm.TieVen==true">Tiene Vencimiento</th> 
+              <th ng-show="vm.FecVenDoc==true">Fecha Vencimiento</th>                
+              <th ng-show="vm.AccDoc==true">Acción</th>
             </tr>
             <tr ng-show="vm.T_Documentos.length==0"> 
               <td colspan="7" align="center">
-                <div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no ahí documentos registrados.</div>
+                <div class="td-usuario-table"><i class="fa fa-close"></i> No existen Documentos registrados</div>
               </td>           
             </tr>
                 <tr ng-repeat="dato in vm.T_Documentos | filter:paginate7 | filter:vm.t_documentos.filtrar" ng-class-odd="odd">
@@ -162,13 +162,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                 <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-              <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> RAZÓN SOCIAL</th>
-              <th ng-show="vm.CodTipDoc==true"><i class="fa fa-bank"></i> TIPO DOCUMENTO</th>
-              <th ng-show="vm.DesDoc==true"><i class="fa fa-bank"></i> NOMBRE DEL FICHERO</th>
-              <th ng-show="vm.TieVen==true"><i class="fa fa-asterisk"></i> TIENE VENCIMIENTO</th> 
-              <th ng-show="vm.FecVenDoc==true"><i class="fa fa-calendar"></i> FECHA VENCIMIENTO</th>                
-              <th ng-show="vm.AccDoc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                 <th ng-show="vm.NumCifCli==true">CIF</th>
+              <th ng-show="vm.RazSocCli==true">Razón Social</th>
+              <th ng-show="vm.CodTipDoc==true">Tipo de Documento</th>
+              <th ng-show="vm.DesDoc==true">Fichero</th>
+              <th ng-show="vm.TieVen==true">Tiene Vencimiento</th> 
+              <th ng-show="vm.FecVenDoc==true">Fecha Vencimiento</th>                
+              <th ng-show="vm.AccDoc==true">Acción</th>
                 </tfoot>
               </table>
         </div>
@@ -196,9 +196,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
         <select class="form-control" name="tipo_filtro" required ng-model="vm.t_modal_documentos.tipo_filtro">
-          <option value="1">CLIENTES</option>
-          <option value="2">TIPO DOCUMENTO</option>
-          <option value="3">TIENE VENCIMIENTO</option>
+          <option value="1">Cliente</option>
+          <option value="2">Tipo de Documento</option>
+          <option value="3">Tiene Vencimiento</option>
         </select>     
      </div>
      </div>
