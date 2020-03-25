@@ -160,7 +160,7 @@
                      return (begin1 <= index1 && index1 < end1);
                  };
              } else {
-                 Swal.fire({ text: "No existen Actividades Registradas", type: "info", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Actividades",text: "No existen Actividades Registradas", type: "info", confirmButtonColor: "#188ae2" });
                  scope.TActividades = [];
                  scope.TActividadesBack = [];
              }
@@ -191,23 +191,23 @@
              } else {
                  var FecActFil = (scope.FecIniActFil).split("/");
                  if (FecActFil.length < 3) {
-                     Swal.fire({ text: "Error en Fecha, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({title:"Fecha de Inicio",text:  "Error en Fecha, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  } else {
                      if (FecActFil[0].length > 2 || FecActFil[0].length < 2) {
-                         Swal.fire({ text: "Error en Día, el formato correcto es de 2 números", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title:"Fecha de Inicio",text: "Error en Día, el formato correcto es de 2 números", type: "error", confirmButtonColor: "#188ae2" });
                          event.preventDefault();
                          return false;
 
                      }
                      if (FecActFil[1].length > 2 || FecActFil[1].length < 2) {
-                         Swal.fire({ text: "Error en Mes, el formato correcto es de 2 números", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title:"Fecha de Inicio",text: "Error en Mes, el formato correcto es de 2 números", type: "error", confirmButtonColor: "#188ae2" });
                          event.preventDefault();
                          return false;
                      }
                      if (FecActFil[2].length < 4 || FecActFil[2].length > 4) {
-                         Swal.fire({ text: "Error en Año, el formato correcto es de 4 números", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title:"Fecha de Inicio",text: "Error en Año, el formato correcto es de 4 números", type: "error", confirmButtonColor: "#188ae2" });
                          event.preventDefault();
                          return false;
                      }
@@ -240,7 +240,7 @@
          }
          if (scope.tmodal_filtroAct.tipo_filtro_actividad == 2) {
              if (!scope.tmodal_filtroAct.EstActFil > 0) {
-                 Swal.fire({ title: "Para aplicar el filtro debe seleccionar un Estatus", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:"Estatus",title: "Para aplicar el filtro debe seleccionar un Estatus", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              $scope.predicate1 = 'id';
@@ -266,7 +266,7 @@
          }
          if (scope.tmodal_filtroAct.tipo_filtro_actividad == 3) {
              if (!scope.tmodal_filtroAct.CodCliActFil > 0) {
-                 Swal.fire({ title: "Para aplicar el filtro debe seleccionar un Cliente", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Clientes", text: "Para aplicar el filtro debe seleccionar un Cliente", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              $scope.predicate1 = 'id';
@@ -340,12 +340,12 @@
          scope.update_status_activity.CodCli = datos.CodCli;
          if (opcion == 1) {
              if (datos.EstAct == "Activa") {
-                 Swal.fire({ text: "La Actividad seleccionada se encuentra activa", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Activando", text: "La Actividad seleccionada se encuentra activa", type: "error", confirmButtonColor: "#188ae2" });
                  scope.opciones_actividades[index] = undefined;
                  return false;
              }
              Swal.fire({
-                 title: "¿Seguro que desea activar la Actividad?",
+                title:"Activando", text: "¿Seguro que desea activar la Actividad?",
                  type: "info",
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
@@ -394,7 +394,7 @@
          }
          if (opcion == 2) {
              if (datos.EstAct == "Bloqueada") {
-                 Swal.fire({ text: "La Actividad ya se encuentra bloqueada", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Bloqueando", text: "La Actividad ya se encuentra bloqueada", type: "error", confirmButtonColor: "#188ae2" });
                  scope.opciones_actividades[index] = undefined;
                  return false;
              }
@@ -430,7 +430,7 @@
              if (result.data != false) {
                  scope.tMotivosBloqueosActividades = result.data;
              } else {
-                 Swal.fire({ text: "No existen Motivos de Bloqueo registrados", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Motivos Bloqueos", text: "No existen Motivos de Bloqueo registrados", type: "error", confirmButtonColor: "#188ae2" });
              }
 
          }, function(error) {
@@ -453,28 +453,28 @@
          var FecBloAct = document.getElementById("FecBloAct").value;
          scope.FecBloAct = FecBloAct;
          if (scope.FecBloAct == undefined || scope.FecBloAct == null || scope.FecBloAct == '') {
-             Swal.fire({ text: "La Fecha de Bloqueo es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({title:"Fecha de Bloqueo", text: "La Fecha de Bloqueo es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          } else {
              var FecBloAct = (scope.FecBloAct).split("/");
              if (FecBloAct.length < 3) {
-                 Swal.fire({ text: "Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:"Fecha de Bloqueo",text: "Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              } else {
                  if (FecBloAct[0].length > 2 || FecBloAct[0].length < 2) {
-                     Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:"Fecha de Bloqueo",text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloAct[1].length > 2 || FecBloAct[1].length < 2) {
-                     Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:"Fecha de Bloqueo",text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloAct[2].length < 4 || FecBloAct[2].length > 4) {
-                     Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:"Fecha de Bloqueo",text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -484,7 +484,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ text: "Fecha de Bloqueo no debe ser mayor a " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:"Fecha de Bloqueo",text: "Fecha de Bloqueo no debe ser mayor a " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
                  scope.tmodal_data.FecBloAct = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -492,7 +492,7 @@
          }
          console.log(scope.tmodal_data.FecBloAct);
          Swal.fire({
-             title: "¿Seguro que desea bloquear la Actividad?",
+             title:'Bloqueando',text:"¿Seguro que desea bloquear la Actividad?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
@@ -507,13 +507,13 @@
                          if (result.data.opcion == 2) {
                              scope.mostrar_all_actividades();
                              $("#estatus_actividad").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                             Swal.fire({ text: "La Actividad ha sido bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                             Swal.fire({title:"Bloqueando", text: "La Actividad ha sido bloqueada de forma correctamente.", type: "success", confirmButtonColor: "#188ae2" });
                              scope.opciones_actividades[scope.tmodal_data.index] = undefined;
                              $("#modal_motivo_bloqueo_actividades").modal('hide');
                          }
                      } else {
                          $("#estatus_actividad").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                         Swal.fire({ text: "Ha ocurrido un error, intente nuevamente", type: "success", confirmButtonColor: "#188ae2" });
+                         Swal.fire({title:"Bloqueando", text: "Ha ocurrido un error, intente nuevamente", type: "success", confirmButtonColor: "#188ae2" });
                          scope.opciones_actividades[scope.tmodal_data.index] = undefined;
                      }
                  }, function(error) {
@@ -548,7 +548,7 @@
                      scope.resultado_actividad = 1;
                      scope.fdatos_actividades = result.data;
                  } else {
-                     Swal.fire({ text: "El Código CNAE no existe", type: "info", confirmButtonColor: "#188ae2" });
+                     Swal.fire({title:"Código CNAE", text: "El Código CNAE no existe", type: "info", confirmButtonColor: "#188ae2" });
                      scope.resultado_actividad = 0;
                      scope.fdatos_actividades = {};
                  }
@@ -580,39 +580,41 @@
          	return false;
          }*/
          if (scope.fdatos_actividades.CodTActCli > 0) {
+             var title = 'Actualizando';
              var text = '¿Seguro que desea actualizar la Actividad?';
              var response = "Actividad modificada de forma correcta";
          }
          if (scope.fdatos_actividades.CodTActCli == undefined) {
+              var title = 'Guardando';
              var text = '¿Seguro que desea grabar la Actividad?';
              var response = "Actividad registrada de forma correcta";
          }
          var FecIniAct = document.getElementById("FecIniAct").value;
          scope.FecIniAct = FecIniAct;
          if (scope.FecIniAct == undefined || scope.FecIniAct == null || scope.FecIniAct == '') {
-             Swal.fire({ text: "La Fecha de Inicio es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({title:"Fecha de Inicio" ,text: "La Fecha de Inicio es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          }
          var FecActCon = (scope.FecIniAct).split("/");
          if (FecActCon.length < 3) {
-             Swal.fire({ text: "Error en Fecha, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title:"Fecha de Inicio" ,text: "Error en Fecha, el formato correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          } else {
              if (FecActCon[0].length > 2 || FecActCon[0].length < 2) {
-                 Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:"Fecha de Inicio" ,text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
 
              }
              if (FecActCon[1].length > 2 || FecActCon[1].length < 2) {
-                 Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:"Fecha de Inicio" , text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              }
              if (FecActCon[2].length < 4 || FecActCon[2].length > 4) {
-                 Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:"Fecha de Inicio" ,text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              }
@@ -626,7 +628,7 @@
              var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
              var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
              if (dateStart > dateEnd) {
-                 Swal.fire({ text: "La Fecha de Inicio no puede ser mayor a" + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:"Fecha de Inicio" ,text: "La Fecha de Inicio no puede ser mayor a" + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
          }
@@ -646,9 +648,6 @@
                      $("#asignando_actividad").removeClass("loader loader-default  is-active").addClass("loader loader-default");
                      if (result.data != false) {
                          Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
-                         //scope.resultado_actividad=1;
-                         //scope.T_ActEcoGrib=2;
-                         //scope.mostrar_all_actividades();
                          scope.fdatos_actividades.CodTActCli = result.data.CodTActCli;
                      } else {
                          Swal.fire({ text: "La Actividad ya se encuentra asignada al Cliente", type: "info", confirmButtonColor: "#188ae2" });
@@ -674,13 +673,6 @@
          });
      };
      scope.regresar_actividad = function() {
-         //scope.T_ActEcoGrib=1;
-         //scope.mostrar_all_actividades();
-         /*scope.fdatos_actividades={};
-         scope.FecIniAct=undefined;
-         scope.resultado_actividad=0;
-         scope.CodActCNAE=undefined;
-         location.href="#/Actividades";*/
 
          if (scope.fdatos_actividades.CodTActCli == undefined) {
              var title = "Guardando";

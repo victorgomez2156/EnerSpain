@@ -144,7 +144,7 @@
                      return (begin3 <= index3 && index3 < end3);
                  };
              } else {
-                 Swal.fire({ title: "No se Encontraron Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title:'Cuentas Bancarias',text:"No se Encontraron Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#cuentas_bancarias").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -166,7 +166,7 @@
          console.log(scope.tmodal_bancos);
          if (scope.tmodal_bancos.tipo_filtro == 1) {
              if (!scope.tmodal_bancos.CodBan > 0) {
-                 Swal.fire({ title: "Error.", text: "Debe Seleccionar Un Banco de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Banco", text: "Debe Seleccionar Un Banco de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              $scope.predicate3 = 'id';
@@ -192,7 +192,7 @@
          }
          if (scope.tmodal_bancos.tipo_filtro == 2) {
              if (!scope.tmodal_bancos.CodCli > 0) {
-                 Swal.fire({ title: "Error.", text: "Debe Seleccionar Un Cliente de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Clientes", text: "Debe Seleccionar Un Cliente de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              $scope.predicate3 = 'id';
@@ -249,14 +249,14 @@
          scope.opciones_Ban[index] = undefined;
          if (opcion == 1) {
              if (datos.EstCue == 1) {
-                 Swal.fire({ title: "Esta Cuenta Bancaria Ya Se Encuentra Activa.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:'Cuentas Bancarias',text: "Esta Cuenta Bancaria Ya Se Encuentra Activa.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              scope.update_status_CueBan(scope.bloquear_cueban);
          }
          if (opcion == 2) {
              if (datos.EstCue == 2) {
-                 Swal.fire({ title: "Esta Cuenta Bancaria Ya Se Encuentra Bloqueada.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({title:'Cuentas Bancarias',text:"Esta Cuenta Bancaria Ya Se Encuentra Bloqueada.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              scope.update_status_CueBan(scope.bloquear_cueban);
@@ -264,17 +264,6 @@
          if (opcion == 3) {
              console.log(datos);
              location.href = "#/Edit_Cuenta_Bancaria/" + datos.CodCueBan;
-             /*scope.agregar_cuentas=false;
-             scope.tgribBancos.CodCli=datos.CodCli;
-             scope.tgribBancos.CodBan=datos.CodBan;
-             scope.tgribBancos.CodCueBan=datos.CodCueBan;
-             scope.CodEur=datos.CodEur;
-             scope.IBAN1=datos.IBAN1;
-             scope.IBAN2=datos.IBAN2;
-             scope.IBAN3=datos.IBAN3;
-             scope.IBAN4=datos.IBAN4;
-             scope.IBAN5=datos.IBAN5;*/
-
          }
 
      }
@@ -283,10 +272,10 @@
          $http.post(url, total_datos).then(function(result) {
              if (result.data != false) {
                  if (total_datos.EstCue == 1) {
-                     Swal.fire({ title: "Cuenta Bancaria Activada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:'Activando',text:  "Cuenta Bancaria Activada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
                  }
                  if (total_datos.EstCue == 2) {
-                     Swal.fire({ title: "Cuenta Bancaria Bloqueada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title:'Bloqueando',text: "Cuenta Bancaria Bloqueada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
                  }
                  scope.cargar_cuentas_bancarias();
              } else {
@@ -411,7 +400,7 @@
                      var response = "Número de cuenta creado satisfactoriamente.";
                  }
                  Swal.fire({
-                     title: text,
+                     title: title,text:text,
                      type: "question",
                      showCancelButton: !0,
                      confirmButtonColor: "#31ce77",
@@ -477,11 +466,14 @@
      };
      scope.regresar_cuenta_bancaria = function() {
 
-         if (scope.tgribBancos.CodCueBan == undefined) {
-             var text = "¿Seguro que desea cerrar sin grabar la Cuenta Bancaria?";
+         if (scope.tgribBancos.CodCueBan == undefined) 
+         {
+         	var title="Guardando";
+            var text = "¿Seguro que desea cerrar sin grabar la Cuenta Bancaria?";
 
          }
          if (scope.tgribBancos.CodCueBan > 0) {
+             var title="Actualizando";
              var text = "¿Seguro que desea cerrar sin actualizar la información de la Cuenta Bancaria?";
          }
          Swal.fire({
