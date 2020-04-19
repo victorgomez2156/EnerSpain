@@ -154,8 +154,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_tipo_clientes()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesTipCli==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsTipCli==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesTipCli==true">Descripción</th> 
+                    <th ng-show="vm.ObsTipCli==true">Observación</th>   
                     <th ng-show="vm.AccCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Cliente.length==0"> 
@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesTipCli==true"><i class="fa fa-building"></i> Descripción</th>    
+                   <th ng-show="vm.DesTipCli==true">Descripción</th>    
                     <th ng-show="vm.AccCli==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -271,8 +271,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_tipo_sector()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesSecCli==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsSecCli==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesSecCli==true">Descripción</th> 
+                    <th ng-show="vm.ObsSecCli==true">Observación</th>   
                     <th ng-show="vm.AccSecCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Sector.length==0"> 
@@ -292,8 +292,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesSecCli==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsSecCli==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesSecCli==true">Descripción</th> 
+                    <th ng-show="vm.ObsSecCli==true">Observación</th>   
                     <th ng-show="vm.AccSecCli==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -390,8 +390,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_tipo_contacto()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesTipCon==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsTipCon==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesTipCon==true">Descripción</th> 
+                    <th ng-show="vm.ObsTipCon==true">Observación</th>   
                     <th ng-show="vm.AccTipCon==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Contacto.length==0"> 
@@ -411,8 +411,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                  <th ng-show="vm.DesTipCon==true"><i class="fa fa-building"></i> Descripción</th> 
-                  <th ng-show="vm.ObsTipCon==true"><i class="fa fa-building"></i> Observación</th>   
+                  <th ng-show="vm.DesTipCon==true">Descripción</th> 
+                  <th ng-show="vm.ObsTipCon==true">Observación</th>   
                   <th ng-show="vm.AccTipCon==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -513,9 +513,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_tipo_documentos()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesTipDoc==true"><i class="fa fa-building"></i> TIPO DOCUMENTO</th> 
-                    <th ng-show="vm.EstReq==true"><i class="fa fa-building"></i> ES OBLIGATORIO</th>
-                    <th ng-show="vm.ObsTipDoc==true"><i class="fa fa-building"></i> OBSERVACIÓN</th>    
+                    <th ng-show="vm.DesTipDoc==true">TIPO DOCUMENTO</th> 
+                    <th ng-show="vm.EstReq==true">ES OBLIGATORIO</th>
+                    <th ng-show="vm.ObsTipDoc==true">OBSERVACIÓN</th>    
                     <th ng-show="vm.AccTipDoc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Documento.length==0"> 
@@ -536,9 +536,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                  <th ng-show="vm.DesTipDoc==true"><i class="fa fa-building"></i> TIPO DOCUMENTO</th> 
-                    <th ng-show="vm.EstReq==true"><i class="fa fa-building"></i> ES OBLIGATORIO</th>
-                    <th ng-show="vm.ObsTipDoc==true"><i class="fa fa-building"></i> OBSERVACIÓN</th>    
+                  <th ng-show="vm.DesTipDoc==true">TIPO DOCUMENTO</th> 
+                    <th ng-show="vm.EstReq==true">ES OBLIGATORIO</th>
+                    <th ng-show="vm.ObsTipDoc==true">OBSERVACIÓN</th>    
                     <th ng-show="vm.AccTipDoc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                 </tfoot>
               </table>

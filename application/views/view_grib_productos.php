@@ -307,8 +307,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipServ1" name="TipServ" ng-model="vm.tmodal_productos.TipServ">
-        <option value="1">Servicio Gas</option>
-        <option value="2">Servicio Eléctrico</option>
+        <option value="1">Suministro Gas</option>
+        <option value="2">Suministro Eléctrico</option>
       </select>   
      </div>
      </div>
@@ -347,7 +347,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltroproductos.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_productos()"><i class="fa fa-trash"></i> Quitar</a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_productos()">Quitar</a>
       </div>
 </form>
    </div>

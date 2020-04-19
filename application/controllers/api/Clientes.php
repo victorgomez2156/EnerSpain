@@ -269,7 +269,7 @@ protected function buscar_xID_get()
     //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES END //////////////////////////////////////////////////////////////////////////
    
 
-    ////////////////////////////////////// PARA LOS PUNTOS DE SUMINISTROS START //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// PARA LOS Direcciones de SuministroS START //////////////////////////////////////////////////////////////////////////
     public function BuscarXIDPunSumData_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -331,7 +331,7 @@ protected function buscar_xID_get()
 		}
         
         
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Puntos de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -350,13 +350,13 @@ protected function buscar_xID_get()
 		if (isset($objSalida->CodPunSum))
 		{
 			$this->Clientes_model->actualizar_punto_suministro_cliente($objSalida->CodPunSum,$objSalida->CodCliPunSum,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,$objSalida->CodTipInm,$objSalida->Aclarador,$objSalida->RefCasPunSum,$objSalida->DimPunSum,$objSalida->ObsPunSum,$objSalida->TelPunSum,$objSalida->CPLocSoc);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Puntos de Suministro del Cliiente.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Direcciones de Suministro del Cliiente.');
 		}
 		else
 		{
 			$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCliPunSum,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,$objSalida->CodTipInm,$objSalida->Aclarador,$objSalida->RefCasPunSum,$objSalida->DimPunSum,$objSalida->ObsPunSum,$objSalida->TelPunSum,$objSalida->CPLocSoc);
 			$objSalida->CodPunSum=$CodPunSum;
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','INSERT',$objSalida->CodPunSum,$this->input->ip_address(),'Creando Punto de Suministro del Cliente.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','INSERT',$objSalida->CodPunSum,$this->input->ip_address(),'Creando Dirección de Suministro del Cliente.');
 		}
 		
 		$this->db->trans_complete();
@@ -370,7 +370,7 @@ protected function buscar_xID_get()
 			redirect(base_url(), 'location', 301);
 		}		
         $data = $this->Clientes_model->get_list_motivos_bloqueos_PunSum();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Puntos de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Direcciones de Suministros');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -389,19 +389,19 @@ protected function buscar_xID_get()
 		if($objSalida->opcion==4)
 		{
 			$this->Clientes_model->update_status_PumSum($objSalida->CodCli,$objSalida->CodPunSum,2);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Estatus del Punto de Suministros');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Estatus del Dirección de Suministros');
 			$CodBloq=$this->Clientes_model->agregar_motivo_bloqueo_PunSum($objSalida->FecBloPun,$objSalida->CodPunSum,$objSalida->MotBloPunSum,$objSalida->ObsBloPunSum);			
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoPunto','INSERT',$objSalida->CodPunSum,$this->input->ip_address(),'Agregando Bloqueo De Punto de Suministro');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoPunto','INSERT',$objSalida->CodPunSum,$this->input->ip_address(),'Agregando Bloqueo De Dirección de Suministro');
 		}
 		if($objSalida->opcion==5)
 		{
 			$this->Clientes_model->update_status_PumSum($objSalida->CodCli,$objSalida->CodPunSum,1);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Estatus del Punto de Suministros');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','UPDATE',$objSalida->CodPunSum,$this->input->ip_address(),'Actualizando Estatus del Dirección de Suministros');
 		}			
 		$this->db->trans_complete();
 		$this->response(true);
     }
-    ////////////////////////////////////// PARA LOS PUNTOS DE SUMINISTROS END //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// PARA LOS Direcciones de SuministroS END //////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////// PARA CONTACTOS CLIENTES START //////////////////////////////////////////////////////////////////////////
 

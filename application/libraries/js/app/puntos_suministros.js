@@ -67,9 +67,9 @@
          mm = '0' + mm
      }
      var fecha = dd + '/' + mm + '/' + yyyy;
-     ////////////////////////////////////////////////// PARA LOS PUNTOS DE SUMINISTROS START ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////// PARA LOS Direcciones de SuministroS START ////////////////////////////////////////////////////////
 
-     ///////////////////////////// PUNTOS DE SUMINISTROS START ///////////////////////////
+     ///////////////////////////// Direcciones de SuministroS START ///////////////////////////
 
      scope.NumCifCli = true;
      scope.RazSocCli = true;
@@ -98,7 +98,7 @@
      scope.tListaContactos = [];
      scope.tListDocumentos = [];
      scope.Tclientes = [];
-     ///////////////////////////// PUNTOS DE SUMINISTROS END ///////////////////////////	
+     ///////////////////////////// Direcciones de SuministroS END ///////////////////////////	
      ServiceMaster.getAll().then(function(dato) {
          scope.tProvidencias = dato.Provincias;
          scope.tLocalidades = dato.Localidades;
@@ -323,7 +323,7 @@
                  };
              } else {
                  if ($route.current.$$route.originalPath != "/Add_Puntos_Suministros/") {
-                     Swal.fire({ title: "Error", text: "No hemos encontrados puntos de suministros registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: "Error", text: "No hemos encontrados Direcciones de Suministros registrados.", type: "error", confirmButtonColor: "#188ae2" });
                      scope.tPuntosSuminitros = [];
                  }
              }
@@ -360,7 +360,7 @@
          }
          if (opciones_PunSum == 4) {
              if (dato.EstPunSum == "Bloqueado") {
-                 Swal.fire({ title: "Este Punto de Suministro Ya Se Encuentra Bloqueado.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Este Dirección de Suministro Ya Se Encuentra Bloqueado.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              scope.tPunSum = {};
@@ -376,11 +376,11 @@
          }
          if (opciones_PunSum == 5) {
              if (dato.EstPunSum == "Activo") {
-                 Swal.fire({ title: "Este Punto de Suministro Ya Se Encuentra Activo.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Este Dirección de Suministro Ya Se Encuentra Activo.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              Swal.fire({
-                 title: "¿Esta Seguro de Activar este Punto de Suministro?",
+                 title: "¿Esta Seguro de Activar este Dirección de Suministro?",
                  type: "question",
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
@@ -397,7 +397,7 @@
                      $http.post(url, scope.tPunSum).then(function(result) {
                          $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                          if (result.data != false) {
-                             Swal.fire({ title: "Exito!.", text: "El Punto de Suministro a sido activo correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                             Swal.fire({ title: "Exito!.", text: "El Dirección de Suministro a sido activo correctamente.", type: "success", confirmButtonColor: "#188ae2" });
                              scope.mostrar_all_puntos();
                          } else {
                              Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -431,7 +431,7 @@
                  scope.tMotivosBloqueosPunSum = result.data;
              } else {
                  bootbox.alert({
-                     message: "No hemos encontrados Motivos de Bloqueos para el Punto de Suministro.",
+                     message: "No hemos encontrados Motivos de Bloqueos para el Dirección de Suministro.",
                      size: 'middle'
                  });
              }
@@ -507,7 +507,7 @@
          }
 
          Swal.fire({
-             title: "¿Esta Seguro de Bloquear esta Punto de Suministro?",
+             title: "¿Esta Seguro de Bloquear esta Dirección de Suministro?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
@@ -521,7 +521,7 @@
                      $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      scope.tPunSum = result.data;
                      if (result.data != false) {
-                         Swal.fire({ title: "Exito!.", text: "El Punto de Suministro a sido bloqueado correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Exito!.", text: "El Dirección de Suministro a sido bloqueado correctamente.", type: "success", confirmButtonColor: "#188ae2" });
                          $("#modal_motivo_bloqueo_punto_suministro").modal('hide');
                          scope.mostrar_all_puntos();
                      } else {
@@ -725,13 +725,13 @@
          }
          if (scope.fpuntosuministro.CodPunSum > 0) {
              var title = 'Actualizando';
-             var text = '¿Esta Seguro de Actualizar el Punto de Suministro?';
-             var response = "Punto de Suministro modificado satisfactoriamente.";
+             var text = '¿Esta Seguro de Actualizar el Dirección de Suministro?';
+             var response = "Dirección de Suministro modificado satisfactoriamente.";
          }
          if (scope.fpuntosuministro.CodPunSum == undefined) {
              var title = 'Guardando';
              var text = '¿Esta Seguro de Incluir Un Nuevo Registro?';
-             var response = "Punto de Suministro creado satisfactoriamente.";
+             var response = "Dirección de Suministro creado satisfactoriamente.";
          }
          Swal.fire({
              title: text,
@@ -789,11 +789,11 @@
              return false;
          }
          if (scope.fpuntosuministro.NomViaPunSum == null || scope.fpuntosuministro.NomViaPunSum == undefined || scope.fpuntosuministro.NomViaPunSum == '') {
-             Swal.fire({ title: "El Nombre del Domicilio es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre del Domicilio es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fpuntosuministro.NumViaPunSum == null || scope.fpuntosuministro.NumViaPunSum == undefined || scope.fpuntosuministro.NumViaPunSum == '') {
-             Swal.fire({ title: "El Número del Domicilio es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número del Domicilio es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fpuntosuministro.CodProPunSum > 0) {
@@ -806,7 +806,7 @@
          }
          /*if (scope.fpuntosuministro.TelPunSum==null || scope.fpuntosuministro.TelPunSum==undefined || scope.fpuntosuministro.TelPunSum=='')
          {
-         	Swal.fire({title:"El Campo Número de Teléfono es Requerido.",type:"error",confirmButtonColor:"#188ae2"});		           
+         	Swal.fire({title:"El Campo Número de Teléfono es requerido",type:"error",confirmButtonColor:"#188ae2"});		           
          	return false;
          }*/
          if (!scope.fpuntosuministro.CodTipInm > 0) {
@@ -907,5 +907,5 @@
      if (scope.nID != undefined) {
          scope.BuscarXIDPunSum();
      }
-     ////////////////////////////////////////////////// PARA LOS PUNTOS DE SUMINISTROS END ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////// PARA LOS Direcciones de SuministroS END ////////////////////////////////////////////////////////
  }

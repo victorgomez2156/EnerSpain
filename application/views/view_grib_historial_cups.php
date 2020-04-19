@@ -122,15 +122,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.PotCon1==true"><i class="fa fa-bolt"></i> PotCon1</th>
-                    <th ng-show="vm.PotCon2==true"><i class="fa fa-bolt"></i> PotCon2</th>                                        
-                    <th ng-show="vm.PotCon3==true"><i class="fa fa-bolt"></i> PotCon3</th>
-                    <th ng-show="vm.PotCon4==true"><i class="fa fa-bolt"></i> PotCon4</th>
-                    <th ng-show="vm.PotCon5==true"><i class="fa fa-bolt"></i> PotCon5</th>
-                    <th ng-show="vm.PotCon6==true"><i class="fa fa-bolt"></i> PotCon6</th>
+                    <th ng-show="vm.PotCon1==true">PotCon1</th>
+                    <th ng-show="vm.PotCon2==true">PotCon2</th>                                        
+                    <th ng-show="vm.PotCon3==true">PotCon3</th>
+                    <th ng-show="vm.PotCon4==true">PotCon4</th>
+                    <th ng-show="vm.PotCon5==true">PotCon5</th>
+                    <th ng-show="vm.PotCon6==true">PotCon6</th>
                     <th ng-show="vm.FecIniConHis==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
                     <th ng-show="vm.FecFinConHis==true"><i class="fa fa-calendar"></i> Fecha Final</th>
-                    <th ng-show="vm.ConCupHis==true"><i class="fa fa-bolt"></i> Consumo</th>
+                    <th ng-show="vm.ConCupHis==true">Consumo</th>
                   </tr>
                   <tr ng-show="vm.T_Historial_Consumo.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No ahi datos disponibles.</div></td>
@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.ConCupHis==true">{{dato.ConCup}}</td>
                   </tr>
                   <tr>                    
-                    <td><b><i class="fa fa-bolt"></i> Total Consumo:</b> </td>
+                    <td><b>Total Consumo:</b> </td>
                     <td ng-show="vm.PotCon1==true"></td>
                     <td ng-show="vm.PotCon1==true"></td>
                     <td ng-show="vm.PotCon1==true"></td>
@@ -159,15 +159,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.PotCon1==true"><i class="fa fa-bolt"></i> PotCon1</th>
-                    <th ng-show="vm.PotCon2==true"><i class="fa fa-bolt"></i> PotCon2</th>                                        
-                    <th ng-show="vm.PotCon3==true"><i class="fa fa-bolt"></i> PotCon3</th>
-                    <th ng-show="vm.PotCon4==true"><i class="fa fa-bolt"></i> PotCon4</th>
-                    <th ng-show="vm.PotCon5==true"><i class="fa fa-bolt"></i> PotCon5</th>
-                    <th ng-show="vm.PotCon6==true"><i class="fa fa-bolt"></i> PotCon6</th>
+                    <th ng-show="vm.PotCon1==true">PotCon1</th>
+                    <th ng-show="vm.PotCon2==true">PotCon2</th>                                        
+                    <th ng-show="vm.PotCon3==true">PotCon3</th>
+                    <th ng-show="vm.PotCon4==true">PotCon4</th>
+                    <th ng-show="vm.PotCon5==true">PotCon5</th>
+                    <th ng-show="vm.PotCon6==true">PotCon6</th>
                     <th ng-show="vm.FecIniConHis==true"><i class="fa fa-calendar"></i> Fecha Inicio</th>
                     <th ng-show="vm.FecFinConHis==true"><i class="fa fa-calendar"></i> Fecha Final</th>
-                    <th ng-show="vm.ConCupHis==true"><i class="fa fa-bolt"></i> Consumo</th>
+                    <th ng-show="vm.ConCupHis==true">Consumo</th>
                 </tfoot>
               </table>               
         </div>

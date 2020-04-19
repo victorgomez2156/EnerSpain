@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Via <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NomViaPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre de la Via del Punto de Suministro" maxlength="30"  ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NomViaPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre de la Via del Dirección de Suministro" maxlength="30"  ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
        </div>
        </div>
        </div>
@@ -109,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Número <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NumViaPunSum" onkeyup="this.value=this.value.toUpperCase();" min="1" placeholder="* Numero del Punto de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fpuntosuministro.NumViaPunSum,1)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NumViaPunSum" onkeyup="this.value=this.value.toUpperCase();" min="1" placeholder="* Numero del Dirección de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fpuntosuministro.NumViaPunSum,1)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
        </div>
        </div>
        </div>
@@ -118,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.BloPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Bloque del Punto de Suministro" maxlength="3" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.BloPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Bloque del Dirección de Suministro" maxlength="3" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
        </div>
@@ -127,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.EscPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Escalera del Punto de Suministro" maxlength="2" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.EscPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Escalera del Dirección de Suministro" maxlength="2" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
        </div>
@@ -136,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.PlaPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Planta del Punto de Suministro" maxlength="3" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.PlaPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Planta del Dirección de Suministro" maxlength="3" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
        </div>
@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.PuePunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Puerta del Punto de Suministro" maxlength="4" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.PuePunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Puerta del Dirección de Suministro" maxlength="4" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
        </div>
@@ -192,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.TelPunSum" ng-change="vm.validarsinuermo(vm.fpuntosuministro.TelPunSum)" placeholder="* Telefono del Punto de Suministro" maxlength="9" ng-disabled="vm.validate_info==1|| vm.fpuntosuministro.TipRegDir==undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.TelPunSum" ng-change="vm.validarsinuermo(vm.fpuntosuministro.TelPunSum)" placeholder="* Telefono del Dirección de Suministro" maxlength="9" ng-disabled="vm.validate_info==1|| vm.fpuntosuministro.TipRegDir==undefined"/>       
        </div>
        </div>
        </div-->
@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Referencia Castastral</label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.RefCasPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Referencia Castastral del Punto de Suministro" maxlength="20" ng-change="vm.validarsinuermo(vm.fpuntosuministro.RefCasPunSum,2)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.RefCasPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Referencia Castastral del Dirección de Suministro" maxlength="20" ng-change="vm.validarsinuermo(vm.fpuntosuministro.RefCasPunSum,2)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>       
        </div>
        </div>
        </div>
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Area</label>
-        <input type="text" class="form-control" ng-model="vm.fpuntosuministro.DimPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Área del Punto de Suministro" maxlength="5" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.TipRegDir==undefined" ng-change="vm.validarsinuermo(vm.fpuntosuministro.DimPunSum,3)"/>       
+        <input type="text" class="form-control" ng-model="vm.fpuntosuministro.DimPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Área del Dirección de Suministro" maxlength="5" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.TipRegDir==undefined" ng-change="vm.validarsinuermo(vm.fpuntosuministro.DimPunSum,3)"/>       
        </div>
        </div>
        </div>

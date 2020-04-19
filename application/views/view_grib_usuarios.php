@@ -30,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <h3 class="page-header">Configurar Usuarios</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-              <li><i class="fa fa-users"></i>Usuarios</li>
+              <li>Usuarios</li>
             </ol>-->
           </div>
         </div>

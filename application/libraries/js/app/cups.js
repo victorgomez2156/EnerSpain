@@ -557,7 +557,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (result.data != false) {
                 scope.T_PuntoSuministros = result.data;
             } else {
-                Swal.fire({ title: "Error", text: "No Se Encontraron Puntos de Suministros Registrados", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No Se Encontraron Direcciones de Suministros Registrados", type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
@@ -586,13 +586,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodCup > 0) {
             var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar Este CUPs?';
+            var text = '¿Seguro de Actualizar el CUPs?';
             var response = "CUPs modificado satisfactoriamente";
         }
         if (scope.fdatos_cups.CodCup == undefined) {
             var title = 'Guardando';
-            var text = '¿Esta Seguro de Incluir Un Nuevo CUPs?';
-            var response = "CUPs creado satisfactoriamente.";
+            var text = '¿Seguro de registrar el CUPs?';
+            var response = "CUPs creado satisfactoriamente";
         }
         Swal.fire({
             title: title,
@@ -642,11 +642,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_cups = function() {
         resultado = true;
         if (!scope.fdatos_cups.CodPunSum > 0) {
-            Swal.fire({ title: "Debe seleccionar un punto de suministro de la lista.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Debe seleccionar un Dirección de Suministro de la lista.", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_cups.cups == null || scope.fdatos_cups.cups == undefined || scope.fdatos_cups.cups == '') {
-            Swal.fire({ title: "El Campo CUPs es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo CUPs es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (scope.fdatos_cups.cups.length < 2) {
@@ -655,7 +655,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (scope.fdatos_cups.cups1 == null || scope.fdatos_cups.cups1 == undefined || scope.fdatos_cups.cups1 == '') {
-            Swal.fire({ title: "El Campo CUPs 1 es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo CUPs 1 es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (scope.fdatos_cups.cups1.length < 16) {
@@ -664,7 +664,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (scope.fdatos_cups.cups2 == null || scope.fdatos_cups.cups2 == undefined || scope.fdatos_cups.cups2 == '') {
-            Swal.fire({ title: "El Campo CUPs 2 es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo CUPs 2 es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (scope.fdatos_cups.cups2.length < 2) {
@@ -673,7 +673,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (scope.fdatos_cups.TipServ == 0) {
-            Swal.fire({ title: "Debe Seleccionar un Tipo de Servicio.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Debe Seleccionar un Tipo de Suministro", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
 
@@ -688,35 +688,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
 
             if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
-                Swal.fire({ title: "El Campo P1 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
-                Swal.fire({ title: "El Campo P2 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotConP3 == null || scope.fdatos_cups.PotConP3 == undefined || scope.fdatos_cups.PotConP3 == '') {
-                Swal.fire({ title: "El Campo P3 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotConP4 == null || scope.fdatos_cups.PotConP4 == undefined || scope.fdatos_cups.PotConP4 == '') {
-                Swal.fire({ title: "El Campo P4 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotConP5 == null || scope.fdatos_cups.PotConP5 == undefined || scope.fdatos_cups.PotConP5 == '') {
-                Swal.fire({ title: "El CampoP5 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El CampoP5 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotConP6 == null || scope.fdatos_cups.PotConP6 == undefined || scope.fdatos_cups.PotConP6 == '') {
-                Swal.fire({ title: "El Campo P6 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P6 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
-                Swal.fire({ title: "El Campo Potencia Máxima Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.ConAnuCup == null || scope.fdatos_cups.ConAnuCup == undefined || scope.fdatos_cups.ConAnuCup == '') {
-                Swal.fire({ title: "El Campo Consumo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo Consumo es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
         }
@@ -731,7 +731,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
 
             if (scope.fdatos_cups.ConAnuCup == null || scope.fdatos_cups.ConAnuCup == undefined || scope.fdatos_cups.ConAnuCup == '') {
-                Swal.fire({ title: "El Campo Consumo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo Consumo es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             scope.fdatos_cups.PotConP1 = null;
@@ -746,7 +746,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecAltCup = document.getElementById("FecAltCup").value;
         scope.fdatos_cups.FecAltCup = FecAltCup;
         if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
-            Swal.fire({ title: "El Campo Fecha de Alta Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Fecha de Alta Es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
@@ -780,7 +780,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecUltLec = document.getElementById("FecUltLec").value;
         scope.fdatos_cups.FecUltLec = FecUltLec;
         if (scope.fdatos_cups.FecUltLec == null || scope.fdatos_cups.FecUltLec == undefined || scope.fdatos_cups.FecUltLec == '') {
-            Swal.fire({ title: "El Campo Fecha de Última Lectura es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Fecha de Última Lectura es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecUltLec = (scope.fdatos_cups.FecUltLec).split("/");
@@ -819,7 +819,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.tmodal_filtro);
         if (scope.tmodal_filtro.tipo_filtro == 1) {
             if (!scope.tmodal_filtro.TipServ > 0) {
-                Swal.fire({ title: "Error", text: "Debe seleccionar un tipo de servicio para aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Debe seleccionar un Tipo de Suministro para aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             $scope.predicate = 'id';
@@ -844,7 +844,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.tmodal_filtro.tipo_filtro == 2) {
             if (!scope.tmodal_filtro.tipo_tarifa > 0) {
-                Swal.fire({ title: "Error", text: "Debe seleccionar un tipo de servicio para la tarifa.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Debe seleccionar un Tipo de Suministro para la tarifa.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (!scope.tmodal_filtro.NomTar > 0) {

@@ -103,11 +103,11 @@ class Cups extends REST_Controller
 	}
 	else
 	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Servicio es Incorrecto Intente Nuevamente.');
+		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
 		$this->response($response_fail);
 		return false;
 	}
-	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Servicio Eléctrico o Gas');
+	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
 	$this->db->trans_complete();
 	$this->response($data);
 }
@@ -186,12 +186,12 @@ class Cups extends REST_Controller
 	}
 	else
 	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Servicio es Incorrecto Intente Nuevamente.');
+		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
 		$this->response($response_fail);
 		return false;
 	}
 
-	//$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Servicio Eléctrico o Gas');
+	//$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
 	$this->db->trans_complete();
 	$this->response($objSalida);
 }
@@ -221,7 +221,7 @@ public function Buscar_XID_Servicio_get()
        	 	}
        	 	else
        	 	{
-       	 		$Result = array('response' =>'El Tipo de servicio es incorrecto','status'=>false );
+       	 		$Result = array('response' =>'El Tipo de Suministro es incorrecto','status'=>false );
        	 		return false;
        	 	}       	 	
 	        $this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'GET',$CodCup,$this->input->ip_address(),'Cargando Cups Por ID');
@@ -239,7 +239,7 @@ public function Buscar_XID_Servicio_get()
 			redirect(base_url(), 'location', 301);
 		}
 		$Result = $this->Cups_model->get_PumSum_for_cups(); 
-	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Puntos de Suministros');
+	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Direcciones de Suministros');
 		if (empty($Result))
 		{
 			$this->response(false);
@@ -300,7 +300,7 @@ public function Buscar_XID_Servicio_get()
 	}
 	else
 	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Servicio es Incorrecto Intente Nuevamente.');
+		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
 		$this->response($response_fail);
 		return false;
 	}	
@@ -401,7 +401,7 @@ public function get_Historicos_Consumos_CUPs_get()
        	}
        	else
        	{
-       		$data = array('status' =>false,'response'=>'Error en Tipo de Servicio');
+       		$data = array('status' =>false,'response'=>'Error en Tipo de Suministro');
        		return false;
        	}
 
@@ -519,7 +519,7 @@ public function buscar_datos_electrico_get()
 	}
 	else
 	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Servicio es Incorrecto Intente Nuevamente.');
+		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
 		$this->response($response_fail);
 		return false;
 	}	

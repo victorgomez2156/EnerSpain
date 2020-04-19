@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmFiltroServicioEspecial.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_servicio_especial()" ng-show="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial>0"><i class="fa fa-trash"></i> Quitar</a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_servicio_especial()" ng-show="vm.tmodal_servicio_especiales.ttipofiltrosServicioEspecial>0">Quitar</a>
       </div>
 </form>
    </div>

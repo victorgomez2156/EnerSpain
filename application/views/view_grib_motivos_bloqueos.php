@@ -159,8 +159,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_clientes()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBloCli==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCli==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBloCli==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCli==true">Observación</th>   
                     <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloCliente.length==0"> 
@@ -180,8 +180,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBloCli==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCli==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBloCli==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCli==true">Observación</th>   
                     <th ng-show="vm.AccMotBloCli==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -276,8 +276,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_actividades()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBloAct==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloAct==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBloAct==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloAct==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloAct==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloActividad==undefined"> 
@@ -297,8 +297,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBloAct==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloAct==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBloAct==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloAct==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloAct==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -350,7 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-    <!--INICIO TABS 3 BLOQUEO PUNTOS DE SUMINISTROS-->
+    <!--INICIO TABS 3 BLOQUEO Direcciones de SuministroS-->
   <div id="tabs-3">  
   <div ng-show="vm.TvistaMotBloPunSum==1"><!--INICIO DIV NG-SHOW TvistaMotBloPunSum 1-->      
    <!--t-0002 start-->                  
@@ -392,8 +392,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivos_punto_sumininistro()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBloPun==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloPun==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBloPun==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloPun==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloPunSum==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloPunSum==undefined"> 
@@ -413,8 +413,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBloPun==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloPun==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBloPun==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloPun==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloPunSum==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -465,7 +465,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--FINAL DIV NG-SHOW TvistaMotBloPunSum 2-->
 
     </div>
-    <!-- FINAL DE TABS 3 MOTIVO BLOQUEO PUNTOS DE SUMINISTROS-->
+    <!-- FINAL DE TABS 3 MOTIVO BLOQUEO Direcciones de SuministroS-->
 
 
 
@@ -513,8 +513,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_contactos()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBlocon==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCon==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBlocon==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCon==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCon==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloContacto==undefined"> 
@@ -534,8 +534,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBlocon==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCon==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBlocon==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCon==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCon==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -635,8 +635,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_comercializadora()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBloCom==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCom==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBloCom==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCom==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCom==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloComercializadora==undefined"> 
@@ -656,8 +656,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBloCom==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCom==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBloCom==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCom==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCom==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>
@@ -753,8 +753,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_motivo_cups()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.DesMotBloCUPs==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCUPs==true"><i class="fa fa-building"></i> Observación</th>   
+                    <th ng-show="vm.DesMotBloCUPs==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCUPs==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCUPs==true"><i class="icon_cogs"></i> Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloCUPs.length==0"> 
@@ -774,8 +774,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.DesMotBloCUPs==true"><i class="fa fa-building"></i> Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCUPs==true"><i class="fa fa-building"></i> Observación</th>   
+                   <th ng-show="vm.DesMotBloCUPs==true">Descripción</th> 
+                    <th ng-show="vm.ObsMotBloCUPs==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCUPs==true"><i class="icon_cogs"></i> Acción</th>
                 </tfoot>
               </table>

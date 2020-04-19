@@ -151,8 +151,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                                       
                     <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
-                    <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
+                    <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
+                    <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
                     <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
                     <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
                     <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>
@@ -177,8 +177,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>                 
                    <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
-                    <th ng-show="vm.NumCifCli==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-vcard"></i> RAZÓN SOCIAL</th>
+                    <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
+                    <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
                     <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
                     <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
                     <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>

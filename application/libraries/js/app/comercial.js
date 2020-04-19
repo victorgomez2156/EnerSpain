@@ -111,17 +111,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_datos_basicos = function() {
         resultado = true;
         if (scope.fdatos.NomCom == null || scope.fdatos.NomCom == undefined || scope.fdatos.NomCom == '') {
-            Swal.fire({ title: "El Campo Nombre Comercial es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Nombre Comercial es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.CarCom == null || scope.fdatos.CarCom == undefined || scope.fdatos.CarCom == '') {
-            Swal.fire({ title: "El Campo Cargo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Cargo es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.fdatos.FecIniCom = FecIniCom;
         if (scope.fdatos.FecIniCom == null || scope.fdatos.FecIniCom == undefined || scope.fdatos.FecIniCom == '') {
-            Swal.fire({ title: "El Campo Fecha de Inicio Es Requerida.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "La Fecha de Inicio es requerida", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniCom = (scope.fdatos.FecIniCom).split("/");
@@ -158,19 +158,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (scope.fdatos.PorComCom == null || scope.fdatos.PorComCom == undefined || scope.fdatos.PorComCom == '') {
-            Swal.fire({ title: "El Campo Porcentaje del Beneficio es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Porcentaje del Beneficio es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: "El Campo Teléfono Fijo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Teléfono Fijo es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.TelCelCom == null || scope.fdatos.TelCelCom == undefined || scope.fdatos.TelCelCom == '') {
-            Swal.fire({ title: "El Campo Teléfono Celular es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Teléfono Celular es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
-            Swal.fire({ title: "El Campo Email es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Email es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.ObsCom == null || scope.fdatos.ObsCom == undefined || scope.fdatos.ObsCom == '') {
@@ -359,13 +359,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos = {};
             scope.fdatos.NIFCom = scope.CIF_COMERCIAL;
         } else {
-            console.log('Nada Que Limpiar');
+            console.log('No existen datos por limpiar');
         }
     }
     scope.regresar = function() {
         if (scope.fdatos.CodCom == undefined) {
             Swal.fire({
-                title: "¿Esta seguro de regresar?",
+                title: "¿Seguro de cerrar?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",

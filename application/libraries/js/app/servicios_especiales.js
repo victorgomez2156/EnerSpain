@@ -91,7 +91,7 @@
      scope.select_tarifa_gas_SerEsp = [];
 
      scope.servicio_especial.T_DetalleServicioEspecialTarifaGas = [];
-     scope.ttipofiltrosServicioEspecial = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Servicio' }, { id: 3, nombre: 'Tipo de Cliente' }, { id: 4, nombre: 'Tipo Comisión' }, { id: 5, nombre: 'Fecha de Inicio' }, { id: 6, nombre: 'Estatus' }];
+     scope.ttipofiltrosServicioEspecial = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Suministro' }, { id: 3, nombre: 'Tipo de Cliente' }, { id: 4, nombre: 'Tipo Comisión' }, { id: 5, nombre: 'Fecha de Inicio' }, { id: 6, nombre: 'Estatus' }];
      scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }, { id: 5, nombre: 'Comisiones' }];
      //scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'},{id: 5, nombre: 'COMISIONES'}];
      scope.validate_info_servicio_especiales = scope.INF;
@@ -242,7 +242,7 @@
          }
          if (scope.tmodal_servicio_especiales.ttipofiltrosServicioEspecial == 2) {
              if (!scope.tmodal_servicio_especiales.TipServ > 0) {
-                 Swal.fire({ title: 'Tipo Servicio', text: 'Debe Seleccionar un Tipo de Servicio de la lista.', type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Tipo Servicio', text: 'Debe Seleccionar un Tipo de Suministro de la lista.', type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              /*if(!scope.tmodal_servicio_especiales.Select>0)
@@ -565,7 +565,7 @@
          var FecBloSerEsp1 = document.getElementById("FecBloSerEsp").value;
          scope.FecBloSerEsp = FecBloSerEsp1;
          if (scope.FecBloSerEsp == undefined || scope.FecBloSerEsp == null || scope.FecBloSerEsp == '') {
-             Swal.fire({ title: 'Fecha de Bloqueo', text: 'La Fecha de Bloqueo es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: 'Fecha de Bloqueo', text: 'La Fecha de Bloqueo es requerido', type: "error", confirmButtonColor: "#188ae2" });
              return false;
          } else {
              var FecBlo = (scope.FecBloSerEsp).split("/");
@@ -688,7 +688,7 @@
              return false;
          }
          if (scope.servicio_especial.DesSerEsp == null || scope.servicio_especial.DesSerEsp == undefined || scope.servicio_especial.DesSerEsp == '') {
-             Swal.fire({ title: 'Servicio Especial', text: 'El Nombre del Servicio Especial Es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: 'Servicio Especial', text: 'El Nombre del Servicio Especial Es requerido', type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          var FecIniSerEspForm1 = document.getElementById("FecIniSerEspForm").value;
@@ -735,7 +735,7 @@
          }
 
          if (scope.servicio_especial.SerEle == false && scope.servicio_especial.SerGas == false) {
-             Swal.fire({ title: 'Tipo de Servicios', text: 'Debe Seleccionar un Tipo de Servicio Eléctrico, Gas o Ambos.', type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: 'Tipo de Suministros', text: 'Debe Seleccionar un Tipo de Suministro Eléctrico, Gas o Ambos.', type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.servicio_especial.SerEle == true) {

@@ -892,7 +892,7 @@ class Configuraciones_generales_model extends CI_Model
 
 
 
-    /////PARA LOS BLOQUEOS DEL PUNTO DE SUMINISTRO  START////
+    /////PARA LOS BLOQUEOS DEL Dirección de Suministro  START////
 
        public function get_list_MotPumSum()
     {
@@ -942,7 +942,7 @@ class Configuraciones_generales_model extends CI_Model
 
 
 
-    /////PARA LOS BLOQUEOS DEL PUNTO DE SUMINISTRO  END////
+    /////PARA LOS BLOQUEOS DEL Dirección de Suministro  END////
 
     /////PARA LOS BLOQUEOS MOTIVOS DE LAS COMERCIALIZADORA START////
 

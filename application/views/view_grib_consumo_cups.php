@@ -139,12 +139,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                        
+                    <th ng-show="vm.Cups==true">CUPS</th>
+                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                        
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th>
                     <th ng-show="vm.FecIniCon==true"><i class="fa fa-calendar"></i> FECHA INICIO</th>
                     <th ng-show="vm.FecFinCon==true"><i class="fa fa-calendar"></i> FECHA FIN</th>
-                    <th ng-show="vm.ConCup==true"><i class="fa fa-bolt"></i> CONSUMO</th>
+                    <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
@@ -172,12 +172,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.Cups==true"><i class="fa fa-vcard"></i> CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true"><i class="fa fa-building"></i> TIPO SERVICIO</th>                                        
+                    <th ng-show="vm.Cups==true">CUPS</th>
+                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                        
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th>
                     <th ng-show="vm.FecIniCon==true"><i class="fa fa-calendar"></i> FECHA INICIO</th>
                     <th ng-show="vm.FecFinCon==true"><i class="fa fa-calendar"></i> FECHA FIN</th>
-                    <th ng-show="vm.ConCup==true"><i class="fa fa-bolt"></i> CONSUMO</th>
+                    <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                 </tfoot>
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro</label>
      <input type="text" class="form-control" ng-model="vm.DirPunSumCUPs"  readonly />     
      </div>
      </div>
@@ -244,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Servicio</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Suministro</label>
      <input type="text" class="form-control" ng-model="vm.tmodal_data.TipServ"  readonly />     
      </div>
      </div>
@@ -326,7 +326,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro</label>
        <input type="text" class="form-control" ng-model="vm.Cups_Dir" onkeyup="this.value=this.value.toUpperCase();" readonly maxlength="100"/>       
        </div>
        </div>

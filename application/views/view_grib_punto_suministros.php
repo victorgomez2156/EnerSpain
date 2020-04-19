@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </ul>
               </div>
               <div class="btn-group">
-                <a data-toggle="modal" title='Filtro Puntos de Suministros'  data-target="#modal_filtro_puntos_suministros" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
+                <a data-toggle="modal" title='Filtro Direcciones de Suministros'  data-target="#modal_filtro_puntos_suministros" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
               </div>
             </div><!--t-0031 end--> 
           </div><!--t-0029 end--> 
@@ -135,16 +135,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
             <tbody>
                   <tr>
-                   <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
-                  <th ng-show="vm.DirPunSum==true"><i class="fa fa-vcard"></i> Dirección</th>
-                  <th ng-show="vm.CodProPunSum==true"><i class="fa fa-building"></i> Provincia</th>
-                  <th ng-show="vm.CodLocPunSum==true"><i class="fa fa-building"></i> Localidad</th>
-                  <th ng-show="vm.EstPunSumGrid==true"><i class="fa fa-bolt"></i> Estatus</th>
-                  <th ng-show="vm.ActPunSum==true"><i class="fa fa-gears"></i> Acción</th>
+                   <th ng-show="vm.NumCifCli==true"> CIF</th>
+                    <th ng-show="vm.RazSocCli==true"> Razón Social</th>
+                  <th ng-show="vm.DirPunSum==true">Dirección</th>
+                  <th ng-show="vm.CodProPunSum==true">Provincia</th>
+                  <th ng-show="vm.CodLocPunSum==true">Localidad</th>
+                  <th ng-show="vm.EstPunSumGrid==true">Estatus</th>
+                  <th ng-show="vm.ActPunSum==true"> Acción</th>
                   </tr>
                   <tr ng-show="vm.tPuntosSuminitros.length==0"> 
-                    <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay puntos de suministros asignados.</div></td>           
+                    <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Direcciones de Sumninistro registradas</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2 | filter:vm.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
@@ -166,13 +166,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
-                  <th ng-show="vm.DirPunSum==true"><i class="fa fa-vcard"></i> Dirección</th>
-                  <th ng-show="vm.CodProPunSum==true"><i class="fa fa-building"></i> Provincia</th>
-                  <th ng-show="vm.CodLocPunSum==true"><i class="fa fa-building"></i> Localidad</th>
-                  <th ng-show="vm.EstPunSumGrid==true"><i class="fa fa-bolt"></i> Estatus</th>
-                  <th ng-show="vm.ActPunSum==true"><i class="fa fa-gears"></i> Acción</th>
+                  <th ng-show="vm.NumCifCli==true"> CIF</th>
+                    <th ng-show="vm.RazSocCli==true"> Razón Social</th>
+                  <th ng-show="vm.DirPunSum==true">Dirección</th>
+                  <th ng-show="vm.CodProPunSum==true">Provincia</th>
+                  <th ng-show="vm.CodLocPunSum==true">Localidad</th>
+                  <th ng-show="vm.EstPunSumGrid==true">Estatus</th>
+                  <th ng-show="vm.ActPunSum==true"> Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -291,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Puntos de Suministros</h4>
+            <h4 class="modal-title">Bloqueo de Direcciones de Suministros</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 

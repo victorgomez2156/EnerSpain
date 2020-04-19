@@ -227,15 +227,15 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         resultado = true;
 
         if (scope.fdatos.RazSocDis == null || scope.fdatos.RazSocDis == undefined || scope.fdatos.RazSocDis == '') {
-            Swal.fire({ title: "El Campo Razón Social es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Razón Social es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NomComDis == null || scope.fdatos.NomComDis == undefined || scope.fdatos.NomComDis == '') {
-            Swal.fire({ title: "El Campo Nombre Comercial es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Nombre Comercial es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.SerEle == false && scope.SerGas == false) {
-            Swal.fire({ title: "Debe Seleccionar Un Tipo de Servicio.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Debe Seleccionar un Tipo de Suministro", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.ObsDis == null || scope.fdatos.ObsDis == undefined || scope.fdatos.ObsDis == '') {
@@ -493,7 +493,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
     }
     $scope.Consultar_CIF = function(event) {
         if (scope.NumCifDisConsulta == undefined || scope.NumCifDisConsulta == null || scope.NumCifDisConsulta == '') {
-            Swal.fire({ title: "Error.", text: 'El Campo Número de CIF es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error.", text: 'El Campo Número de CIF es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             $("#NumCifDis").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -533,7 +533,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         var FechBlo = document.getElementById("FechBlo").value;
         scope.FechBlo = FechBlo;
         if (scope.FechBlo == null || scope.FechBlo == undefined || scope.FechBlo == '') {
-            Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Campo de Fecha de Bloqueo es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Fecha de Bloqueo', text: 'El Campo de Fecha de Bloqueo es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FechBlo = (scope.FechBlo).split("/");

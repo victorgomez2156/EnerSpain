@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <h3 class="page-header">Registrar Colaborador</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>               
-              <li><i class="fa fa-users"></i> Colaboradores</li>
+              <li> Colaboradores</li>
             </ol>-->
           </div>
         </div>
@@ -138,8 +138,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>                                       
                     
                     <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
-                    <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
+                    <th ng-show="vm.NumIdeFis==true">CIF/NIF</th>
+                    <th ng-show="vm.TipCol==true">Tipo</th>
                     <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
                     <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
                     <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
@@ -171,8 +171,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>                 
                     <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
-                    <th ng-show="vm.NumIdeFis==true"><i class="fa fa-vcard"></i> CIF/NIF</th>
-                    <th ng-show="vm.TipCol==true"><i class="fa fa-vcard"></i> Tipo</th>
+                    <th ng-show="vm.NumIdeFis==true">CIF/NIF</th>
+                    <th ng-show="vm.TipCol==true">Tipo</th>
                     <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
                     <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
                     <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
@@ -251,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltrocolaboradores.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_colaboradores()" ng-show="vm.tmodal_colaboradores.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_colaboradores()" ng-show="vm.tmodal_colaboradores.tipo_filtro>0">Quitar</a>
       </div>
 </form>
    </div>

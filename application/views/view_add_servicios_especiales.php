@@ -215,9 +215,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <input class="form-control" id="CodSerEsp" name="CodSerEsp" type="hidden" ng-model="vm.servicio_especial.CodSerEsp" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==undefined" ng-disabled="vm.validate_info_servicio_especiales!=undefined"><i class="fa fa-save"></i> Actualizar</button>            
-            <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar_servicio_especial()" ng-show="vm.validate_info_servicio_especiales==undefined && vm.servicio_especial.CodSerEsp==undefined"><i class="fa fa-trash"></i> {{ 'lim_modal' | translate }}</button-->
+            <button class="btn btn-info" type="submit" ng-show="vm.servicio_especial.CodSerEsp==undefined||vm.servicio_especial.CodSerEsp==null||vm.servicio_especial.CodSerEsp==''" ng-disabled="vm.disabled_button==1"> Guardar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.servicio_especial.CodSerEsp>0 && vm.validate_info_servicio_especiales==undefined" ng-disabled="vm.validate_info_servicio_especiales!=undefined"> Actualizar</button>            
+            <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar_servicio_especial()" ng-show="vm.validate_info_servicio_especiales==undefined && vm.servicio_especial.CodSerEsp==undefined">{{ 'lim_modal' | translate }}</button-->
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_servicios_especiales()">Volver</button>
           </div>
         </div>
@@ -259,7 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando el Servicio Especial, por favor espere ..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando el Servicio Especial, por favor espere ..."></div>
-<div id="buscando" class="loader loader-default"  data-text="Cargnado listado de Servicios Especiales, por favor espere ..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Servicio Especial, por favor espere ..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Servicio Especial, por favor espere ..."></div>
+<div id="buscando" class="loader loader-default"  data-text="Cargando listado de Servicios Especiales, por favor espere ..."></div>
 </html>

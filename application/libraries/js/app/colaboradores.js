@@ -150,7 +150,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos = function() {
         resultado = true;
         if (scope.fdatos.NumIdeFis == null || scope.fdatos.NumIdeFis == undefined || scope.fdatos.NumIdeFis == '') {
-            Swal.fire({ title: "El Número de DNI/NIE es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Número de DNI/NIE es requerido", type: "error", confirmButtonColor: "#188ae2" });
             /*console.log($route.current.$$route.originalPath);
             if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID")	
             {
@@ -163,7 +163,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.NomCol == null || scope.fdatos.NomCol == undefined || scope.fdatos.NomCol == '') {
-            Swal.fire({ title: "El Nombre del Colaborador es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Nombre del Colaborador es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.PorCol == null || scope.fdatos.PorCol == undefined || scope.fdatos.PorCol == '') {
@@ -175,11 +175,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.NomViaDir == null || scope.fdatos.NomViaDir == undefined || scope.fdatos.NomViaDir == '') {
-            Swal.fire({ title: "El Nombre de la Vía es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Nombre de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NumViaDir == null || scope.fdatos.NumViaDir == undefined || scope.fdatos.NumViaDir == '') {
-            Swal.fire({ title: "El Número de la Vía es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Número de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.fdatos.CodPro > 0) {
@@ -196,7 +196,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos.CPLoc = scope.fdatos.CPLoc;
         }
         if (scope.fdatos.TelCelCol == null || scope.fdatos.TelCelCol == undefined || scope.fdatos.TelCelCol == '') {
-            Swal.fire({ title: "El Campo Teléfono es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Teléfono es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (resultado == false) {

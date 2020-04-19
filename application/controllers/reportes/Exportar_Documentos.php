@@ -50,11 +50,11 @@ class Exportar_Documentos extends CI_Controller
 		$hora_nueva=date('d/m/Y G:i:s');
         echo $mes[date('m')].' '.$dia[date('l')].' '.$hora_nueva;
         echo '<br>';
-        echo 'Este Modulo Permitira Mostrar Los Diferentes Reportes En Excel & PDF.';
+        echo 'Este módulo muestra los Reportes en formato Excel y PDF';
         echo '<br>';
         echo '<b>Datos de Conexión al Servidor:</b>';
         echo '<br>';
-        echo 'Tu Dirección IP Es: '.$this->input->ip_address().' <br><b>Cookie:</b>'.$cookie_sesion;
+        echo 'Tu Dirección IP es: '.$this->input->ip_address().' <br><b>Cookie:</b>'.$cookie_sesion;
         echo '<br>';
         echo '<b>Sistema Operativo:</b> '. $os.' Con el <b>Navegador:</b> '.$agent.' <b>Versión:</b> '.$version;
         echo '<br>';
@@ -64,11 +64,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Clientes";
+           $nombre_filtro="Todos los Clientes";
            $Tipo_Cliente="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -78,11 +78,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="Tipo de Clientes";
+            $nombre_filtro="Tipo de Cliente";
             $Tipo_Cliente = $this->uri->segment(5);
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el Tipo de Cliente';
                 return false;
             }
             else
@@ -94,7 +94,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Filtro no Esta Registrado';
+                    echo 'Error o el Tipo de Filtro no se encuentra registrado';
                     return false;
                 }
             } 
@@ -105,7 +105,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente = $this->uri->segment(5);
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Sector';
+                echo 'Error o no introdujo el Tipo de Sector';
                 return false;
             }
             else
@@ -117,7 +117,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Sector no Esta Registrado';
+                    echo 'Error o el Tipo de Sector no se encuentra registrado';
                     return false;
                 }
             }
@@ -128,7 +128,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente= urldecode($this->uri->segment(5));         
            if($Tipo_Cliente==null)
            {
-                echo 'Algo Salio Mal o No Coloco La Provincia';
+                echo 'Error o no introdujo la Provincia';
                 return false;
            }
            else
@@ -140,24 +140,24 @@ class Exportar_Documentos extends CI_Controller
                 } 
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia no Esta Registrada';
+                    echo 'Error o la Provincia no se encuentra registrada';
                     return false; 
                 }
            }             
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="Localiad Fiscal";
+            $nombre_filtro="Localidad Fiscal";
             $Provincia= urldecode($this->uri->segment(5));
             $Tipo_Cliente= urldecode($this->uri->segment(6));           
             if($Provincia==null)
             {
-                echo 'LA PROVINCIA NO ESTAR VACIA.';
+                echo 'La Provincia no puede estar vacía';
                 return false;
             }
             if($Tipo_Cliente==null)
             {
-                echo 'LA LOCALIDAD NO ESTAR VACIA.';
+                echo 'La Localidad no puede estar vacía';
                 return false;
             }
             if($Provincia!=null && $Tipo_Cliente!=null)
@@ -169,7 +169,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Localidad no Esta Registrada';
+                    echo 'Error o la Localidad no se encuentra registrada';
                     return false; 
                 }
             }
@@ -180,7 +180,7 @@ class Exportar_Documentos extends CI_Controller
             $nombre_filtro="Comercial";
             if($Tipo_Cliente==null)
             {
-                echo 'EL COMERCIAL NO PUEDE ESTAR VACIO.';
+                echo 'El Comercial no puede estar vacío';
                 return false;
             }
             else
@@ -192,7 +192,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Comercial No Esta Registrado';
+                    echo 'Error o el Comercial no se encuentra registrado';
                     return false;
                 }
             }
@@ -203,7 +203,7 @@ class Exportar_Documentos extends CI_Controller
             $nombre_filtro="Colaborador";
             if($Tipo_Cliente==null)
             {
-                echo 'EL COLABORADOR NO PUEDE ESTAR VACIO.';
+                echo 'El Colaborador no puede estar vacío';
                 return false;
             }
             else
@@ -215,7 +215,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Colaborador No Esta Registrado';
+                    echo 'Error o el Colaborador no se encuentra registrado';
                     return false;
                 }
             }
@@ -223,10 +223,10 @@ class Exportar_Documentos extends CI_Controller
         else
         {
             $Tipo_Cliente=urldecode($this->uri->segment(5));
-            $nombre_filtro="ESTATUS CLIENTE";
+            $nombre_filtro="Estatus Cliente";
             if($Tipo_Cliente==null)
             {
-                echo 'EL ESTATUS DEL CLIENTE NO PUEDE ESTAR VACIO.';
+                echo 'El Estatus del Cliente no puede estar vacío';
                 return false;
             }
             else
@@ -240,13 +240,13 @@ class Exportar_Documentos extends CI_Controller
                     $Tipo_Cliente="BLOQUEADO";
                 }
                 else {
-                    $Tipo_Cliente="ESTATUS DEL CLIENTE INVALIDO";
+                    $Tipo_Cliente="Estatus de Cliente incorrecto";
                 }
             }
         }
         $pdf = new TCPDF ('P','mm', 'A2', true, 'UTF-8', false);
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetTitle('Lista de Clientes PDF '.date('d/m/Y'));
+		$pdf->SetTitle('Listado de Clientes PDF '.date('d/m/Y'));
 		$pdf->SetAuthor(TITULO);		
 		$pdf->SetSubject('Clientes_Doc_PDF');
 		$pdf->SetHeaderData(PDF_HEADER_LOGO,80);
@@ -324,7 +324,7 @@ class Exportar_Documentos extends CI_Controller
 		 	{
 		 		$html.='
            		<tr>
-	           	<td align="center" colspan="6"><b>Actualmente no hemos encontrados clientes.</b></td>	           
+	           	<td align="center" colspan="6"><b>No existen Clientes registrados</b></td>	           
 				</tr>';	
 		 	}   
         $html .= '</table>' ;
@@ -338,11 +338,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Clientes";
+           $nombre_filtro="Todos los Clientes";
            $Tipo_Cliente="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -352,11 +352,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="Tipo de Clientes";
+            $nombre_filtro="Tipo de Cliente";
             $Tipo_Cliente = $this->uri->segment(5);
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el Tipo de Cliente';
                 return false;
             }
             else
@@ -368,7 +368,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Filtro no Esta Registrado';
+                    echo 'Error o el Tipo de Filtro no se encuentra registrado';
                     return false;
                 }
             } 
@@ -379,7 +379,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente = $this->uri->segment(5);
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Sector';
+                echo 'Error o no introdujo el Tipo de Sector';
                 return false;
             }
             else
@@ -391,7 +391,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Sector no Esta Registrado';
+                    echo 'Error o el Tipo de Sector no se encuentra Registrado';
                     return false;
                 }
             }
@@ -402,7 +402,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente= urldecode($this->uri->segment(5));         
            if($Tipo_Cliente==null)
            {
-                echo 'Algo Salio Mal o No Coloco La Provincia';
+                echo 'Error o no introdujo la Provincia';
                 return false;
            }
            else
@@ -414,24 +414,24 @@ class Exportar_Documentos extends CI_Controller
                 } 
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia no Esta Registrada';
+                    echo 'Error o la Provincia no se encuentra registrada';
                     return false; 
                 }
            }             
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="Localiad Fiscal";
+            $nombre_filtro="Localidad Fiscal";
             $Provincia= urldecode($this->uri->segment(5));
             $Tipo_Cliente= urldecode($this->uri->segment(6));           
             if($Provincia==null)
             {
-                echo 'LA PROVINCIA NO ESTAR VACIA.';
+                echo 'La Provincia no puede estar vacía';
                 return false;
             }
             if($Tipo_Cliente==null)
             {
-                echo 'LA LOCALIDAD NO ESTAR VACIA.';
+                echo 'La Localidad no puede estar vacía';
                 return false;
             }
             if($Provincia!=null && $Tipo_Cliente!=null)
@@ -443,7 +443,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Localidad no Esta Registrada';
+                    echo 'Error o la Localidad no se encuentra registrada';
                     return false; 
                 }
             }
@@ -454,7 +454,7 @@ class Exportar_Documentos extends CI_Controller
             $nombre_filtro="Comercial";
             if($Tipo_Cliente==null)
             {
-                echo 'EL COMERCIAL NO PUEDE ESTAR VACIO.';
+                echo 'El Comercial no puede estar vacío';
                 return false;
             }
             else
@@ -466,7 +466,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Comercial No Esta Registrado';
+                    echo 'Error o el Comercial no se encuentra registrado';
                     return false;
                 }
             }
@@ -477,7 +477,7 @@ class Exportar_Documentos extends CI_Controller
             $nombre_filtro="Colaborador";
             if($Tipo_Cliente==null)
             {
-                echo 'EL COLABORADOR NO PUEDE ESTAR VACIO.';
+                echo 'El Colaborador no puede estar vacío';
                 return false;
             }
             else
@@ -489,7 +489,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Colaborador No Esta Registrado';
+                    echo 'Error o el Colaborador no se encuentra registrado';
                     return false;
                 }
             }
@@ -497,10 +497,10 @@ class Exportar_Documentos extends CI_Controller
         else
         {
             $Tipo_Cliente=urldecode($this->uri->segment(5));
-            $nombre_filtro="ESTATUS CLIENTE";
+            $nombre_filtro="Estatus Cliente";
             if($Tipo_Cliente==null)
             {
-                echo 'EL ESTATUS DEL CLIENTE NO PUEDE ESTAR VACIO.';
+                echo 'El Estatus del Cliente no puede estar vacío';
                 return false;
             }
             else
@@ -515,7 +515,7 @@ class Exportar_Documentos extends CI_Controller
                     $Tipo_Cliente="BLOQUEADO";
                 }
                 else {
-                    $Tipo_Cliente="ESTATUS DEL CLIENTE INVALIDO";
+                    $Tipo_Cliente="Estatus de Cliente incorrecto";
                 }
             }
         }
@@ -743,11 +743,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todas Las Activadades";
+           $nombre_filtro="Todas las Actividades";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -761,7 +761,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Filtro = $this->uri->segment(5);
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Fecha de Inicio de la Actividad.';
+                echo 'Error o no introdujo Fecha de Inicio de la Actividad';
                 return false;
             }
             else
@@ -774,10 +774,10 @@ class Exportar_Documentos extends CI_Controller
         elseif($tipo_filtro==2)
         {
             $Tipo_Filtro=urldecode($this->uri->segment(5));
-            $nombre_filtro="ESTATUS DE LA ACTIVIDAD";
+            $nombre_filtro="Estatus de la Actividad";
             if($Tipo_Filtro==null)
             {
-                echo 'EL ESTATUS DE LA ACTIVIDAD NO PUEDE ESTAR VACIO.';
+                echo 'El estatus de la Actividad no puede estar vacío';
                 return false;
             }
             else
@@ -796,10 +796,10 @@ class Exportar_Documentos extends CI_Controller
         elseif($tipo_filtro==3)
         {
             $Tipo_Filtro=urldecode($this->uri->segment(5));
-            $nombre_filtro="CLIENTES";
+            $nombre_filtro="Clientes";
             if($Tipo_Filtro==null)
             {
-                echo 'EL CÓDIGO DEL CLIENTE NO PUEDE ESTAR VACIO.';
+                echo 'El código de Cliente no puede estar vacío';
                 return false;
             }
             else
@@ -809,7 +809,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-            echo 'EL TIPO DE FILTRO ES INVALIDO INTENTE NUEVAMENTE.';
+            echo 'Tipo de filtro incorrecto';
             return false;
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -882,7 +882,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="6"><b>Actualmente no hemos encontrados actividades.</b></td>              
+                <td align="center" colspan="6"><b>No existen Actividades registradas</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -896,11 +896,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todas Las Activadades";
+           $nombre_filtro="Todas las Actividades";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -914,7 +914,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Filtro = $this->uri->segment(5);
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Fecha de Inicio de la Actividad.';
+                echo 'Error o no introdujo la Fecha de Inicio de la Actividad';
                 return false;
             }
             else
@@ -927,10 +927,10 @@ class Exportar_Documentos extends CI_Controller
         elseif($tipo_filtro==2)
         {
             $Tipo_Filtro=urldecode($this->uri->segment(5));
-            $nombre_filtro="ESTATUS DE LA ACTIVIDAD";
+            $nombre_filtro="Estatus de la Actividad";
             if($Tipo_Filtro==null)
             {
-                echo 'EL ESTATUS DE LA ACTIVIDAD NO PUEDE ESTAR VACIO.';
+                echo 'El estatus de la Actividad no puede estar vacío';
                 return false;
             }
             else
@@ -952,7 +952,7 @@ class Exportar_Documentos extends CI_Controller
             $nombre_filtro="CLIENTES";
             if($Tipo_Filtro==null)
             {
-                echo 'EL CÓDIGO DEL CLIENTE NO PUEDE ESTAR VACIO.';
+                echo 'El código de Cliente no puede estar vacío';
                 return false;
             }
             else
@@ -962,7 +962,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-            echo 'EL TIPO DE FILTRO ES INVALIDO INTENTE NUEVAMENTE.';
+            echo 'Tipo de filtro incorrecto';
             return false;
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -1163,11 +1163,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Puntos de Suministros";
+           $nombre_filtro="Todos las Direcciones de Suministro";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el tipo de filtro';
                 return false;
             }
             else 
@@ -1181,7 +1181,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo salio mal o no coloco el código del cliente.';
+                echo 'Error o no introdujo el código de Cliente';
                 return false;
             }
             else
@@ -1194,7 +1194,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Cliente No Esta Registrado.';
+                    echo 'Error o el Cliente no se encuentra registrado';
                     return false; 
                 }
             } 
@@ -1207,7 +1207,7 @@ class Exportar_Documentos extends CI_Controller
             //var_dump($Tipo_Filtro);
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Localidad.';
+                echo 'Error o no introdujo la Localidad';
                 return false;
             }
            else
@@ -1219,18 +1219,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Localidad No Esta Registrada.';
+                    echo 'Error o la Localidad no se encuentra registrada';
                     return false; 
                 }
             }
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="PROVINCIA";
+            $nombre_filtro="Provincia";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo la Provincia';
                 return false;
             }
             else
@@ -1243,18 +1243,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia No Esta Registrada.';
+                    echo 'Error o la Provincia no se encuentra registrada';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="TIPO INMUEBLE";
+            $nombre_filtro="Tipo de Inmueble";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo el Tipo de Inmueble';
                 return false;
             }
             else
@@ -1266,18 +1266,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Inmueble No Esta Registrado.';
+                    echo 'Error o el Tipo de Inmueble no se encuentra registrado';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==5)
         {
-            $nombre_filtro="ESTATUS";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo el Tipo de Estatus';
                 return false;
             }
             else
@@ -1292,19 +1292,19 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                   echo 'Algo Salio Mal o No Coloco El Tipo de Estatus.';
+                   echo 'Error o no introdujo el Tipo de Estatus';
                     return false;   
                }
             } 
         }
         else
         {
-            echo 'Algo Salio Mal o El Tipo de Filtro es Incorrecto.';
+            echo 'Error o el Tipo de Filtro es incorrecto';
             return false;          
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Puntos de Suministros PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Lista de Direcciones de Suministro PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
         $pdf->SetSubject('Clientes_Doc_PDF_Puntos_Suministros');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
@@ -1322,7 +1322,7 @@ class Exportar_Documentos extends CI_Controller
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
             <tr>
-                <td border="0" align="left" colspan="2"><h4>LISTADO DE PUNTOS DE SUMINISTROS</h4></td>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE Direcciones de SuministroS</h4></td>
                 <td border="0"><h4></h4></td>
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
             </tr>
@@ -1365,11 +1365,11 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="8"><b>Actualmente no hemos encontrados Puntos de Suministros Registrados.</b></td>              
+                <td align="center" colspan="8"><b>Actualmente no hemos encontrados Direcciones de Suministros Registrados.</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF PUNTOS DE SUMINISTROS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF Direcciones de SuministroS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Clientes_Doc_PDF_Puntos_Suministros'.'.pdf', 'I');
@@ -1379,11 +1379,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Puntos de Suministros";
+           $nombre_filtro="Todas las Direcciones de Suministro";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -1393,11 +1393,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="CLIENTE";
+            $nombre_filtro="Cliente";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo salio mal o no coloco el código del cliente.';
+                echo 'Error o no introdujo el código de Cliente';
                 return false;
             }
             else
@@ -1410,20 +1410,20 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Cliente No Esta Registrado.';
+                    echo 'Error o el Cliente no se encuentra registrado';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="LOCALIDAD";
+            $nombre_filtro="Localidad";
             //$Provincia=urldecode($this->uri->segment(6));
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             //var_dump($Tipo_Filtro);
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Localidad.';
+                echo 'Error o no introdujo la Localidad';
                 return false;
             }
            else
@@ -1435,18 +1435,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Localidad No Esta Registrada.';
+                    echo 'Error o la Localidad no se encuentra registrada';
                     return false; 
                 }
             }
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="PROVINCIA";
+            $nombre_filtro="Provincia";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo la Provincia';
                 return false;
             }
             else
@@ -1459,18 +1459,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia No Esta Registrada.';
+                    echo 'Error o la Provincia no se encuentra registrada';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="TIPO INMUEBLE";
+            $nombre_filtro="Tipo de Inmueble";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo el Tipo de Inmueble';
                 return false;
             }
             else
@@ -1482,18 +1482,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Tipo de Inmueble No Esta Registrado.';
+                    echo 'Error o el Tipo de Inmueble no se encuentra registrado';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==5)
         {
-            $nombre_filtro="ESTATUS";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco La Provincia.';
+                echo 'Error o no introdujo el Estatus';
                 return false;
             }
             else
@@ -1508,14 +1508,14 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                   echo 'Algo Salio Mal o No Coloco El Tipo de Estatus.';
+                   echo 'Error o no introdujo el Tipo de Estatus';
                     return false;   
                }
             } 
         }
         else
         {
-            echo 'Algo Salio Mal o El Tipo de Filtro es Incorrecto.';
+            echo 'Error o el Tipo de Estatus es incorrecto';
             return false;          
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -1526,7 +1526,7 @@ class Exportar_Documentos extends CI_Controller
         $nombre_reporte='Clientes_Doc_Excel_Puntos_de_Suministros_'.$fecha.".xls";
         $objPHPExcel = new PHPExcel(); //nueva instancia         
         $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
-        $objPHPExcel->getProperties()->setTitle("Clientes Doc Excel Puntos de Suministros"); //titulo 
+        $objPHPExcel->getProperties()->setTitle("Clientes Doc Excel Direcciones de Suministros"); //titulo 
         $titulo = new PHPExcel_Style(); //nuevo estilo
         $titulo2 = new PHPExcel_Style(); //nuevo estilo
         $titulo3 = new PHPExcel_Style(); //nuevo estilo
@@ -1623,7 +1623,7 @@ class Exportar_Documentos extends CI_Controller
         //fin estilos        
         $objPHPExcel->createSheet(0);
         $objPHPExcel->setActiveSheetIndex(0);
-        $objPHPExcel->getActiveSheet()->setTitle("Clientes Doc Excel Puntos de Suministros"); 
+        $objPHPExcel->getActiveSheet()->setTitle("Clientes Doc Excel Dirección de Suministros"); 
         $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
@@ -1644,7 +1644,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE PUNTOS DE SUMINISTROS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE Direcciones de SuministroS");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");
         
@@ -1697,7 +1697,7 @@ class Exportar_Documentos extends CI_Controller
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL PUNTOS DE SUMINISTROS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL Direcciones de SuministroS FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }
@@ -1706,11 +1706,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Contactos";
+           $nombre_filtro="Todos los Contactos";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -1720,11 +1720,11 @@ class Exportar_Documentos extends CI_Controller
         }
        elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE CONTACTO";
+            $nombre_filtro="Tipo de Contacto";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Contacto.';
+                echo 'Error o no introdujo el Tipo de Contacto';
                 return false;
             }
             else
@@ -1736,18 +1736,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia No Esta Registrada.';
+                    echo 'Error o el Tipo de Contacto no se encuentra registrado';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="REPRESENTANTE LEGAL";
+            $nombre_filtro="Representante Legal";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Representante Legal.';
+                echo 'Error o no introdujo el Representante Legal';
                 return false;
             }
             else
@@ -1762,7 +1762,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o La Representación Legal Es Incorrecta.';
+                   echo 'Error o el Representante Legal es incorrecto';
                     return false; 
                 }
                 $Resultado_Filtro_Contactos=$this->Reportes_model->get_data_contacto_all_filtro('a.EsRepLeg',$Tipo_Filtro);
@@ -1778,46 +1778,46 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="TIPO DE REPRESENTACIÓN";
+            $nombre_filtro="Tipo de Representación";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Representación.';
+                echo 'Error o no introdujo el Tipo de Representación';
                 return false;
             }
             else
             {
-                if($Tipo_Filtro=="INDEPENDIENTE")
+                if($Tipo_Filtro=="Independiente")
                 {
                     $Tipo_Filtro=1;
                 }
-                elseif($Tipo_Filtro=="MANCOMUNADA")
+                elseif($Tipo_Filtro=="Mancomunada")
                 {
                     $Tipo_Filtro=2;
                 }  
                 else
                 {
-                     echo 'Algo Salio Mal o El Tipo de Representación Es Incorrecto.';
+                     echo 'Error o el Tipo de Representación es incorrecto';
                     return false;
                 }
                 $Resultado_Filtro_Contactos=$this->Reportes_model->get_data_contacto_all_filtro('a.TipRepr',$Tipo_Filtro);
                 if($Tipo_Filtro==1)
                 {
-                    $Tipo_Filtro="INDEPENDIENTE";
+                    $Tipo_Filtro="Independiente";
                 }  
                 else
                 {
-                    $Tipo_Filtro="MANCOMUNADA";
+                    $Tipo_Filtro="Mancomunada";
                 }
             } 
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="ESTATUS DEL CONTACTO";
+            $nombre_filtro="Estatus del Contacto";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Contacto.';
+                echo 'Error o no introdujo el Estatus del Contacto';
                 return false;
             }
             else
@@ -1832,7 +1832,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {   
-                    echo 'EL ESTATUS DEL CONTACTO ES INVALIDO.';
+                    echo 'El Estatus del Contacto es incorrecto';
                     return false;
 
                 }
@@ -1849,7 +1849,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+           echo 'El Tipo de Filtro es incorrecto';
             return false; 
         }        
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -1941,11 +1941,11 @@ class Exportar_Documentos extends CI_Controller
        $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Contactos";
+           $nombre_filtro="Todos los Contactos";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el tipo de filtro';
                 return false;
             }
             else 
@@ -1955,11 +1955,11 @@ class Exportar_Documentos extends CI_Controller
         }
        elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE CONTACTO";
+            $nombre_filtro="Tipo de Contacto";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Contacto.';
+                echo 'Error o no introdujo el Tipo de Contacto';
                 return false;
             }
             else
@@ -1971,18 +1971,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Provincia No Esta Registrada.';
+                    echo 'Error o el Tipo de Contacto no se encuentra registrado';
                     return false; 
                 }
             } 
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="REPRESENTANTE LEGAL";
+            $nombre_filtro="Representante Legal";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Representante Legal.';
+                echo 'Error o no introdujo el Representante Legal';
                 return false;
             }
             else
@@ -1997,7 +1997,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o La Representación Legal Es Incorrecta.';
+                   echo 'Error o la Representación Legal es incorrecta';
                     return false; 
                 }
                 $Resultado_Filtro_Contactos=$this->Reportes_model->get_data_contacto_all_filtro('a.EsRepLeg',$Tipo_Filtro);
@@ -2013,46 +2013,46 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="TIPO DE REPRESENTACIÓN";
+            $nombre_filtro="Tipo de Representación";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Representación.';
+                echo 'Error o no introdujo el Tipo de Representación';
                 return false;
             }
             else
             {
-                if($Tipo_Filtro=="INDEPENDIENTE")
+                if($Tipo_Filtro=="Independiente")
                 {
                     $Tipo_Filtro=1;
                 }
-                elseif($Tipo_Filtro=="MANCOMUNADA")
+                elseif($Tipo_Filtro=="Mancomunada")
                 {
                     $Tipo_Filtro=2;
                 }  
                 else
                 {
-                     echo 'Algo Salio Mal o El Tipo de Representación Es Incorrecto.';
+                     echo 'Error o el Tipo de Representación es incorrecto';
                     return false;
                 }
                 $Resultado_Filtro_Contactos=$this->Reportes_model->get_data_contacto_all_filtro('a.TipRepr',$Tipo_Filtro);
                 if($Tipo_Filtro==1)
                 {
-                    $Tipo_Filtro="INDEPENDIENTE";
+                    $Tipo_Filtro="Independiente";
                 }  
                 else
                 {
-                    $Tipo_Filtro="MANCOMUNADA";
+                    $Tipo_Filtro="Mancomunada";
                 }
             } 
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="ESTATUS DEL CONTACTO";
+            $nombre_filtro="Estatus del Contacto";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Contacto.';
+                echo 'Error o no introdujo el Estatus del Contacto';
                 return false;
             }
             else
@@ -2067,7 +2067,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {   
-                    echo 'EL ESTATUS DEL CONTACTO ES INVALIDO.';
+                    echo 'El Estatus del Contacto es incorrecto';
                     return false;
 
                 }
@@ -2084,7 +2084,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+           echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -2294,11 +2294,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Bancos";
+           $nombre_filtro="Todos los Bancos";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -2312,7 +2312,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Banco.';
+                echo 'Error o no introdujo el Banco';
                 return false;
             }
             else
@@ -2325,18 +2325,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Banco No Esta Registrado.';
+                    echo 'Error o el Banco no se encuentra registrado';
                     return false; 
                 }
             } 
         }    
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="CLIENTE";
+            $nombre_filtro="Cliente";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Código del Cliente.';
+                echo 'Error o no introdujo el Código de Cliente';
                 return false;
             }
             else
@@ -2349,14 +2349,14 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Banco No Esta Registrado.';
+                    echo 'Error o el Banco no se encuentra registrado';
                     return false; 
                 }
             } 
         }        
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 1.';
+           echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         }        
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -2434,11 +2434,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todos Los Bancos";
+           $nombre_filtro="Todos los Bancos";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -2452,7 +2452,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Banco.';
+                echo 'Error o no introdujo el Banco';
                 return false;
             }
             else
@@ -2465,18 +2465,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Banco No Esta Registrado.';
+                    echo 'Error o el Banco no se encuentra registrado';
                     return false; 
                 }
             } 
         }    
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="CLIENTE";
+            $nombre_filtro="Cliente";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Código del Cliente.';
+                echo 'Error o no introdujo el código de Cliente';
                 return false;
             }
             else
@@ -2489,14 +2489,14 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Banco No Esta Registrado.';
+                    echo 'Error o el Banco no se encuentra registrado';
                     return false; 
                 }
             } 
         }        
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 1.';
+           echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -2685,11 +2685,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todas Las Comercializadoras";
+           $nombre_filtro="Todas las Comercializadoras";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -2700,18 +2700,18 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE SERVICIO: ";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Servicio = urldecode($this->uri->segment(5));
 
             if($Tipo_Servicio==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+               echo 'Error o no introdujo el Tipo de Suministro';
                 return false; 
             }
             $Tipo_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Filtro==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+               echo 'Error o no introdujo el Tipo de Filtro';
                 return false; 
             }
             if($Tipo_Servicio==1)
@@ -2726,7 +2726,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="GAS".": ".$Tipo_Filtro;
@@ -2743,7 +2743,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="ELÉCTRICO".": ".$Tipo_Filtro;
@@ -2760,7 +2760,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else 
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="ESPECIAL".": ".$Tipo_Filtro;
@@ -2768,7 +2768,7 @@ class Exportar_Documentos extends CI_Controller
         } 
          elseif($tipo_filtro==2)
         {
-            $nombre_filtro="PROVINCIA: ";
+            $nombre_filtro="Provincia";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             $Resultado_Provincia=$this->Reportes_model->get_tipo_filtro_busqueda('T_Provincia','Despro',$Tipo_Filtro);
             
@@ -2778,18 +2778,18 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-               echo "Algo Salio Mal o La Provincia No Esta Registrada.";
+               echo "Error o la Provincia no se encuentra registrada";
                 return false;  
             } 
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="LOCALIDAD: ";
+            $nombre_filtro="Localidad";
             $Provincia = urldecode($this->uri->segment(5));
             $Tipo_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Filtro==null)
             {
-               echo "Algo Salio Mal o No Coloco la Localidad.";
+               echo "Error o no introdujo la Localidad";
                return false;  
             }
             else
@@ -2802,18 +2802,18 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo "Algo Salio Mal o la Localidad No Esta Registrada.";
+                    echo "Error o la Localidad no se encuentra registrada";
                     return false;
                }               
             }            
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="ESTATUS: ";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));            
             if($Tipo_Filtro==null)
             {
-               echo "Algo Salio Mal o No Coloco El Estatus de La Comercializadora.";
+               echo "Error o no introdujo el Estatus de la Comercializadora";
                return false;  
             }
             else
@@ -2828,7 +2828,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "Algo Salio Mal o No Coloco El Estatus Es Invalido.";
+                    echo "Error o el Estatus es incorrecto";
                     return false; 
                 }                            
             }            
@@ -2836,7 +2836,7 @@ class Exportar_Documentos extends CI_Controller
 
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+           echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         }
         
@@ -2928,11 +2928,11 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==0)
         {
-           $nombre_filtro="Todas Las Comercializadoras";
+           $nombre_filtro="Todas las Comercializadoras";
            $Tipo_Filtro="";
             if($tipo_filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
             }
             else 
@@ -2943,18 +2943,18 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE SERVICIO: ";
+            $nombre_filtro="Tipo de Filtro";
             $Tipo_Servicio = urldecode($this->uri->segment(5));
 
             if($Tipo_Servicio==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+               echo 'Error o no introdujo el Tipo de Suministro';
                 return false; 
             }
             $Tipo_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Filtro==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+               echo 'Error o no introdujo el Tipo de Filtro';
                 return false; 
             }
             if($Tipo_Servicio==1)
@@ -2969,7 +2969,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="GAS".": ".$Tipo_Filtro;
@@ -2986,7 +2986,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="ELÉCTRICO".": ".$Tipo_Filtro;
@@ -3003,7 +3003,7 @@ class Exportar_Documentos extends CI_Controller
                 }   
                 else 
                 {
-                    echo "El Filtro Colocado es Incorrecto Intente Con SI o NO";
+                    echo "El Tipo de Filtro que introdujo es incorrecto";
                     return false;
                 } 
                 $Tipo_Filtro="ESPECIAL".": ".$Tipo_Filtro;
@@ -3011,7 +3011,7 @@ class Exportar_Documentos extends CI_Controller
         } 
          elseif($tipo_filtro==2)
         {
-            $nombre_filtro="PROVINCIA: ";
+            $nombre_filtro="Provincia";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             $Resultado_Provincia=$this->Reportes_model->get_tipo_filtro_busqueda('T_Provincia','Despro',$Tipo_Filtro);
             
@@ -3021,18 +3021,18 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-               echo "Algo Salio Mal o La Provincia No Esta Registrada.";
+               echo "Error o la Provincia no se encuentra registrada";
                 return false;  
             } 
         }
         elseif($tipo_filtro==3)
         {
-            $nombre_filtro="LOCALIDAD: ";
+            $nombre_filtro="Localidad";
             $Provincia = urldecode($this->uri->segment(5));
             $Tipo_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Filtro==null)
             {
-               echo "Algo Salio Mal o No Coloco la Localidad.";
+               echo "Error o no introdujo la Localidad";
                return false;  
             }
             else
@@ -3044,18 +3044,18 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo "Algo Salio Mal o la Localidad No Esta Registrada.";
+                    echo "Error o la Localidad no se encuentra registrada";
                     return false;
                }               
             }            
         }
         elseif($tipo_filtro==4)
         {
-            $nombre_filtro="ESTATUS: ";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));            
             if($Tipo_Filtro==null)
             {
-               echo "Algo Salio Mal o No Coloco El Estatus de La Comercializadora.";
+               echo "Error o no introdujo el Estatus de la Comercializadora";
                return false;  
             }
             else
@@ -3070,7 +3070,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "Algo Salio Mal o No Coloco El Estatus Es Invalido.";
+                    echo "Error o el Estatus que introdujo es incorrecto";
                     return false; 
                 }                            
             }            
@@ -3078,7 +3078,7 @@ class Exportar_Documentos extends CI_Controller
 
         else
         {
-           echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+           echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -3284,23 +3284,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
          }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="Todos los Productos.";
+            $nombre_filtro="Todos los Productos";
             $Tipo_Filtro="";
             $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all(); 
            
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de la Comercializadora";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Número de CIF de la Comercializadora.';
+               echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false; 
             }
             $Resultado_Filtro=$this->Reportes_model->get_tipo_filtro_busqueda('T_Comercializadora','NumCifCom',$Tipo_Filtro);
@@ -3310,23 +3310,23 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Número de CIF de la Comercializadora No Esta Registrado.';
+                echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                 return false;
             }
         } 
         elseif ($tipo_filtro==2) 
         {
-            $nombre_filtro="TIPO DE SERVICIO ";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Servicio = urldecode($this->uri->segment(5));
             $Tipo_Servicio_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Servicio==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;    
             }
             if($Tipo_Servicio_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;    
             }
             if($Tipo_Servicio==1)
@@ -3342,7 +3342,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro debe Ser SI o NO";
+                    echo "El Tipo de Filtro debe ser SI o NO";
                     return false;
                 }
             }
@@ -3359,35 +3359,35 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro debe Ser SI o NO";
+                    echo "El Tipo de Filtro debe ser SI o NO";
                     return false;
                 }
             }
             else
             {
-                echo 'Algo Salio Mal o El Tipo de Servicio es Incorrecto.';
+                echo 'Error o el Tipo de Suministro es incorrecto';
                 return false;  
             }            
         }
         elseif($tipo_filtro==3) 
         {
-            $nombre_filtro="FECHA DE INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia = urldecode($this->uri->segment(5));
             $mes = urldecode($this->uri->segment(6));
             $ano = urldecode($this->uri->segment(7));
             if($dia==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Dia.';
+               echo 'Error o no introdujo el Día';
                 return false; 
             }
             if($mes==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Mes.';
+               echo 'Error o no introdujo el Mes';
                 return false; 
             }
             if($ano==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Año.';
+               echo 'Error o no introdujo el Año';
                 return false; 
             }
             $fecha_busqueda=$ano."-".$mes."-".$dia;
@@ -3396,11 +3396,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==4) 
         {
-            $nombre_filtro="ESTATUS: ";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'No ha Colocado el Tipo de Filtro.';
+                echo 'No introdujo el Tipo de Filtro';
             return false;
             } 
                 if($Tipo_Filtro=="ACTIVO")
@@ -3413,13 +3413,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro Que Coloco Es Incorrecto.";
+                    echo "Tipo de Filtro incorrecto";
                     return false;
                 }                     
         }        
         else
         {
-            echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+            echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         }        
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -3501,23 +3501,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
          }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="Todos los Productos.";
+            $nombre_filtro="Todos los Productos";
             $Tipo_Filtro="";
             $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all(); 
            
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de la Comercializadora";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Número de CIF de la Comercializadora.';
+               echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false; 
             }
             $Resultado_Filtro=$this->Reportes_model->get_tipo_filtro_busqueda('T_Comercializadora','NumCifCom',$Tipo_Filtro);
@@ -3527,23 +3527,23 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Número de CIF de la Comercializadora No Esta Registrado.';
+                echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                 return false;
             }
         } 
         elseif ($tipo_filtro==2) 
         {
-            $nombre_filtro="TIPO DE SERVICIO ";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Servicio = urldecode($this->uri->segment(5));
             $Tipo_Servicio_Filtro = urldecode($this->uri->segment(6));
             if($Tipo_Servicio==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;    
             }
             if($Tipo_Servicio_Filtro==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;    
             }
             if($Tipo_Servicio==1)
@@ -3559,7 +3559,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro debe Ser SI o NO";
+                    echo "El Tipo de Filtro debe ser SI o NO";
                     return false;
                 }
             }
@@ -3576,35 +3576,35 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro debe Ser SI o NO";
+                    echo "El Tipo de Filtro debe ser SI o NO";
                     return false;
                 }
             }
             else
             {
-                echo 'Algo Salio Mal o El Tipo de Servicio es Incorrecto.';
+                echo 'Error o el Tipo de Suministro es incorrecto';
                 return false;  
             }            
         }
         elseif($tipo_filtro==3) 
         {
-            $nombre_filtro="FECHA DE INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia = urldecode($this->uri->segment(5));
             $mes = urldecode($this->uri->segment(6));
             $ano = urldecode($this->uri->segment(7));
             if($dia==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Dia.';
+               echo 'Error o no introdujo el Día';
                 return false; 
             }
             if($mes==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Mes.';
+               echo 'Error o no introdujo el Mes';
                 return false; 
             }
             if($ano==null)
             {
-               echo 'Algo Salio Mal o No Coloco El Año.';
+               echo 'Error o no introdujo el Año';
                 return false; 
             }
             $fecha_busqueda=$ano."-".$mes."-".$dia;
@@ -3613,11 +3613,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==4) 
         {
-            $nombre_filtro="ESTATUS: ";
+            $nombre_filtro="Estatus";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
-                echo 'No ha Colocado el Tipo de Filtro.';
+                echo 'No ha introdujo el Tipo de Filtro';
             return false;
             } 
                 if($Tipo_Filtro=="ACTIVO")
@@ -3630,13 +3630,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "El Tipo de Filtro Que Coloco Es Incorrecto.";
+                    echo "Tipo de Filtro incorrecto";
                     return false;
                 }                     
         }        
         else
         {
-            echo 'EL FILTRO QUE HA COLOCADO ES INVALIDA INTENTE DEL 0 AL 4.';
+            echo 'El Tipo de Filtro que introdujo es incorrecto';
             return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -3773,9 +3773,9 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "PRODUCTO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "SERVICIO GAS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Suministro Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "SERVICIO ELÉCTRICO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Suministro Eléctrico");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
         $objPHPExcel->getActiveSheet()->SetCellValue("E9", "FECHA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
@@ -3831,23 +3831,23 @@ class Exportar_Documentos extends CI_Controller
         //var_dump($tipo_filtro);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Los Anexos";
+           $nombre_filtro="Todos los Anexos";
            $Tipo_Cliente="";
            $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos();
             
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de Comercializadora:";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false;
             }
             else
@@ -3859,18 +3859,18 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Comercializadora No Esta Registrada.';
+                    echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                     return false;
                 }
             } 
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="PRODUCTO:";
+            $nombre_filtro="Producto";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Producto.';
+                echo 'Error o no introdujo el Producto';
                 return false;
             }
             else
@@ -3882,7 +3882,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Producto No Esta Registrado.';
+                    echo 'Error o el Producto no se encuentra registrado';
                     return false;
                 }
             } 
@@ -3891,15 +3891,15 @@ class Exportar_Documentos extends CI_Controller
         {  
            $Tipo_Servicio = urldecode($this->uri->segment(5));
            $Tipo_Filtro = urldecode($this->uri->segment(6));           
-           $nombre_filtro="TIPO DE SERVICIO ";
+           $nombre_filtro="Tipo de Suministro ";
            if($Tipo_Servicio==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
            }
             if($Tipo_Filtro==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
            }
            if($Tipo_Servicio=="GAS")
@@ -3914,7 +3914,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o El Tipo de Filtro es Invalido.';
+                   echo 'Error o el Tipo de Filtro es incorrecto';
                     return false;
                 }
            }
@@ -3930,13 +3930,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o El Tipo de Filtro es Invalido.';
+                   echo 'Error o el Tipo de Filtro es incorrecto';
                     return false;
                 }
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Servicio No Es Incorrecto.';
+                echo 'Error o el Tipo de Suministro es incorrecto';
                 return false;
            }
 
@@ -3944,11 +3944,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif ($tipo_filtro==4) 
         {
-            $nombre_filtro="TIPO DE COMISIÓN: ";
+            $nombre_filtro="Tipo de Comisión";
             $Tipo_Cliente=urldecode($this->uri->segment(5)); 
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Comisión.';
+                echo 'Error o no introdujo el Tipo de Comisión';
                 return false;
             }
             $Tipo_Comision=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoComision','DesTipCom',$Tipo_Cliente);   
@@ -3959,29 +3959,29 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                 echo 'Algo Salio Mal o El Tipo de Comisión No Esta Registrada.';
+                 echo 'Error o el Tipo de Comisión no se encuentra registrada';
                 return false;
             }            
         }
         elseif ($tipo_filtro==5) 
         {
-            $nombre_filtro="FECHA INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia=$this->uri->segment(5);
             $mes=$this->uri->segment(6);
             $ano=$this->uri->segment(7);
             if($dia==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Día.';
+                echo 'Error o no introdujo el Día';
                 return false;
             }
             if($mes==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Mes.';
+                echo 'Error o no introdujo el Mes';
                 return false;
             }
             if($ano==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Año.';
+                echo 'Error o no introdujo el Año';
                 return false;
             }
             $Tipo_Cliente=$dia."/".$mes."/".$ano;
@@ -3990,11 +3990,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif ($tipo_filtro==6) 
         {
-            $nombre_filtro="ESTATUS ANEXO: ";
+            $nombre_filtro="Estatus Anexo";
             $Tipo_Cliente=urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Anexo.';
+                echo 'Error o no introdujo el Estatus del Anexo';
                 return false;  
             }
             if($Tipo_Cliente=="ACTIVO")
@@ -4007,7 +4007,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Estatus del Anexo Es Incorrecto.';
+                echo 'Error o el Estatus del Anexo es incorrecto';
                 return false;
             }
            
@@ -4015,7 +4015,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 6';
+            echo 'Error o Tipo de Filtro incorrecto';
             return false;
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -4104,22 +4104,22 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Los Anexos";
+           $nombre_filtro="Todos los Anexos";
            $Tipo_Cliente="";
            $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos();
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de Comercializadora:";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false;
             }
             else
@@ -4131,7 +4131,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Comercializadora No Esta Registrada.';
+                    echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                     return false;
                 }
             } 
@@ -4142,7 +4142,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Producto.';
+                echo 'Error o no introdujo el Producto';
                 return false;
             }
             else
@@ -4154,7 +4154,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o El Producto No Esta Registrado.';
+                    echo 'Error o el Producto no se encuentra registrado';
                     return false;
                 }
             } 
@@ -4163,15 +4163,15 @@ class Exportar_Documentos extends CI_Controller
         {  
            $Tipo_Servicio = urldecode($this->uri->segment(5));
            $Tipo_Filtro = urldecode($this->uri->segment(6));           
-           $nombre_filtro="TIPO DE SERVICIO ";
+           $nombre_filtro="Tipo de Suministro ";
            if($Tipo_Servicio==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
            }
             if($Tipo_Filtro==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Filtro.';
+                echo 'Error o no introdujo el Tipo de Filtro';
                 return false;
            }
            if($Tipo_Servicio=="GAS")
@@ -4186,7 +4186,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o El Tipo de Filtro es Invalido.';
+                   echo 'Error o el Tipo de Filtro es incorrecto';
                     return false;
                 }
            }
@@ -4202,13 +4202,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                   echo 'Algo Salio Mal o El Tipo de Filtro es Invalido.';
+                   echo 'Error o el Tipo de Filtro es incorrecto';
                     return false;
                 }
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Servicio No Es Incorrecto.';
+                echo 'Error o el Tipo de Suministro es incorrecto';
                 return false;
            }
 
@@ -4220,7 +4220,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Cliente=urldecode($this->uri->segment(5)); 
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Comisión.';
+                echo 'Error o no introdujo el Tipo de Comisión';
                 return false;
             }
             $Tipo_Comision=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoComision','DesTipCom',$Tipo_Cliente);   
@@ -4231,29 +4231,29 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                 echo 'Algo Salio Mal o El Tipo de Comisión No Esta Registrada.';
+                 echo 'Error o el Tipo de Comisión no se encuentra registrada';
                 return false;
             }            
         }
         elseif ($tipo_filtro==5) 
         {
-            $nombre_filtro="FECHA INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia=$this->uri->segment(5);
             $mes=$this->uri->segment(6);
             $ano=$this->uri->segment(7);
             if($dia==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Día.';
+                echo 'Error o no introdujo el Día';
                 return false;
             }
             if($mes==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Mes.';
+                echo 'Error o no introdujo el Mes';
                 return false;
             }
             if($ano==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Año.';
+                echo 'Error o no introdujo el Año';
                 return false;
             }
             $Tipo_Cliente=$dia."/".$mes."/".$ano;
@@ -4262,11 +4262,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif ($tipo_filtro==6) 
         {
-            $nombre_filtro="ESTATUS ANEXO: ";
+            $nombre_filtro="Estatus Anexo";
             $Tipo_Cliente=urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Anexo.';
+                echo 'Error o no introdujo el Estatus del Anexo';
                 return false;  
             }
             if($Tipo_Cliente=="ACTIVO")
@@ -4279,7 +4279,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Estatus del Anexo Es Incorrecto.';
+                echo 'Error o el Estatus del Anexo es incorrecto';
                 return false;
             }
            
@@ -4287,7 +4287,7 @@ class Exportar_Documentos extends CI_Controller
         }
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 6';
+            echo 'Error o Tipo de Filtro incorrecto';
             return false;
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -4426,9 +4426,9 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $objPHPExcel->getActiveSheet()->SetCellValue("C9", "ANEXO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "SERVICIO GAS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Suministro Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "SERVICIO ELÉCTRICO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Suministro Eléctrico");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
         $objPHPExcel->getActiveSheet()->SetCellValue("F9", "TIPO PRECIO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
@@ -4490,23 +4490,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Los Servicios Especiales.";
+           $nombre_filtro="Todos los Servicios Especiales.";
            $Tipo_Cliente="";
            $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicios_especiales();
             
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de Comercializadora:";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false;
             }
             else
@@ -4518,7 +4518,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Comercializadora No Esta Registrada.';
+                    echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                     return false;
                 }
             } 
@@ -4526,10 +4526,10 @@ class Exportar_Documentos extends CI_Controller
         elseif ($tipo_filtro==2) 
         {  
            $Tipo_Servicio = urldecode($this->uri->segment(5));          
-           $nombre_filtro="TIPO DE SERVICIO: ";
+           $nombre_filtro="Tipo de Suministro";
            if($Tipo_Servicio==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
            }
            if($Tipo_Servicio=="GAS")
@@ -4547,7 +4547,7 @@ class Exportar_Documentos extends CI_Controller
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Filtro es Incorrecto.';
+                echo 'Error o Tipo de Filtro incorrecto';
                 return false;
            }     
            $Tipo_Cliente= $Tipo_Servicio;    
@@ -4555,10 +4555,10 @@ class Exportar_Documentos extends CI_Controller
          elseif ($tipo_filtro==3) 
         {  
            $Tipo_Cliente = urldecode($this->uri->segment(5));           
-           $nombre_filtro="TIPO DE CLIENTE: ";
+           $nombre_filtro="Tipo de Cliente";
            if($Tipo_Cliente==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Cliente';
                 return false;
            }
            if($Tipo_Cliente=="NEGOCIO")
@@ -4572,17 +4572,17 @@ class Exportar_Documentos extends CI_Controller
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Cliente es Incorrecto.';
+                echo 'Error o Tipo de Cliente incorrecto';
                 return false;
            } 
         }
         elseif ($tipo_filtro==4) 
         {
-            $nombre_filtro="TIPO DE COMISIÓN: ";
+            $nombre_filtro="Tipo de Comisión";
             $Tipo_Cliente=urldecode($this->uri->segment(5)); 
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Comisión.';
+                echo 'Error o no introdujo el Tipo de Comisión';
                 return false;
             }
             $Tipo_Comision=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoComision','DesTipCom',$Tipo_Cliente);   
@@ -4592,29 +4592,29 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                 echo 'Algo Salio Mal o El Tipo de Comisión No Esta Registrada.';
+                 echo 'Error o el Tipo de Comisión no se encuentra registrada';
                 return false;
             }            
         }
         elseif ($tipo_filtro==5) 
         {
-            $nombre_filtro="FECHA INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia=$this->uri->segment(5);
             $mes=$this->uri->segment(6);
             $ano=$this->uri->segment(7);
             if($dia==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Día.';
+                echo 'Error o no introdujo el Día';
                 return false;
             }
             if($mes==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Mes.';
+                echo 'Error o no introdujo el Mes';
                 return false;
             }
             if($ano==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Año.';
+                echo 'Error o no introdujo el Año';
                 return false;
             }
             $Tipo_Cliente=$dia."/".$mes."/".$ano;
@@ -4623,11 +4623,11 @@ class Exportar_Documentos extends CI_Controller
         }
        elseif ($tipo_filtro==6) 
         {
-            $nombre_filtro="ESTATUS ANEXO: ";
+            $nombre_filtro="Estatus Anexo";
             $Tipo_Cliente=urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Servicio Especial.';
+                echo 'Error o no introdujo el Estatus del Anexo';
                 return false;  
             }
             if($Tipo_Cliente=="ACTIVO")
@@ -4640,13 +4640,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Estatus del Servicio Especial Es Incorrecto.';
+                echo 'Error o el Estatus del Anexo es incorrecto';
                 return false;
             }
         }
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 6';
+            echo 'Error o Tipo de Filtro incorrecto';
             return false;
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -4728,23 +4728,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = $this->uri->segment(4);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Los Servicios Especiales.";
+           $nombre_filtro="Todos los Servicios Especiales";
            $Tipo_Cliente="";
            $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicios_especiales();
             
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="COMERCIALIZADORA Nº CIF:";
+            $nombre_filtro="CIF de Comercializadora:";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Cliente.';
+                echo 'Error o no introdujo el CIF de la Comercializadora';
                 return false;
             }
             else
@@ -4756,7 +4756,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo 'Algo Salio Mal o La Comercializadora No Esta Registrada.';
+                    echo 'Error o el CIF de la Comercializadora no se encuentra registrado';
                     return false;
                 }
             } 
@@ -4764,10 +4764,10 @@ class Exportar_Documentos extends CI_Controller
         elseif ($tipo_filtro==2) 
         {  
            $Tipo_Servicio = urldecode($this->uri->segment(5));          
-           $nombre_filtro="TIPO DE SERVICIO: ";
+           $nombre_filtro="Tipo de Suministro";
            if($Tipo_Servicio==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
            }
            if($Tipo_Servicio=="GAS")
@@ -4785,7 +4785,7 @@ class Exportar_Documentos extends CI_Controller
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Filtro es Incorrecto.';
+                echo 'Error o Tipo de Filtro incorrecto';
                 return false;
            }
 
@@ -4795,10 +4795,10 @@ class Exportar_Documentos extends CI_Controller
          elseif ($tipo_filtro==3) 
         {  
            $Tipo_Cliente = urldecode($this->uri->segment(5));           
-           $nombre_filtro="TIPO DE CLIENTE: ";
+           $nombre_filtro="Tipo de Cliente";
            if($Tipo_Cliente==null)
            {
-                echo 'Algo Salio Mal o No Coloco el Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Cliente';
                 return false;
            }
            if($Tipo_Cliente=="NEGOCIO")
@@ -4812,17 +4812,17 @@ class Exportar_Documentos extends CI_Controller
            }
            else
            {
-                echo 'Algo Salio Mal o El Tipo de Cliente es Incorrecto.';
+                echo 'Error o Tipo de Cliente incorrecto';
                 return false;
            } 
         }
         elseif ($tipo_filtro==4) 
         {
-            $nombre_filtro="TIPO DE COMISIÓN: ";
+            $nombre_filtro="Tipo de Comisión";
             $Tipo_Cliente=urldecode($this->uri->segment(5)); 
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Comisión.';
+                echo 'Error o no introdujo el Tipo de Comisión';
                 return false;
             }
             $Tipo_Comision=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoComision','DesTipCom',$Tipo_Cliente);   
@@ -4832,29 +4832,29 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                 echo 'Algo Salio Mal o El Tipo de Comisión No Esta Registrada.';
+                 echo 'Error o el Tipo de Comisión no se encuentra registrada';
                 return false;
             }            
         }
         elseif ($tipo_filtro==5) 
         {
-            $nombre_filtro="FECHA INICIO: ";
+            $nombre_filtro="Fecha de Inicio";
             $dia=$this->uri->segment(5);
             $mes=$this->uri->segment(6);
             $ano=$this->uri->segment(7);
             if($dia==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Día.';
+                echo 'Error o no introdujo el Día';
                 return false;
             }
             if($mes==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Mes.';
+                echo 'Error o no introdujo el Mes';
                 return false;
             }
             if($ano==null)
             {
-                echo 'Algo Salio Mal o No Coloco el Año.';
+                echo 'Error o no introdujo el Año';
                 return false;
             }
             $Tipo_Cliente=$dia."/".$mes."/".$ano;
@@ -4863,11 +4863,11 @@ class Exportar_Documentos extends CI_Controller
         }
        elseif ($tipo_filtro==6) 
         {
-            $nombre_filtro="ESTATUS ANEXO: ";
+            $nombre_filtro="Estatus Anexo";
             $Tipo_Cliente=urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus del Servicio Especial.';
+                echo 'Error o no introdujo el Estatus del Anexo';
                 return false;  
             }
             if($Tipo_Cliente=="ACTIVO")
@@ -4880,13 +4880,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo 'Algo Salio Mal o El Estatus del Servicio Especial Es Incorrecto.';
+                echo 'Error o Estatus del Anexo es incorrecto';
                 return false;
             }
         }
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 6';
+            echo 'Error o Tipo de Filtro incorrecto';
             return false;
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -5087,23 +5087,23 @@ class Exportar_Documentos extends CI_Controller
         //var_dump($tipo_filtro);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Las Distribuidoras";
+           $nombre_filtro="Todos las Distribuidoras";
            $Tipo_Cliente="";
            $Resultado=$this->Reportes_model->get_data_all_distribuidoras();
             
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE SERVICIO:";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
             }
             else
@@ -5122,7 +5122,7 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo 'Algo Salio Mal o El Tipo de Servicio es incorrecto.';
+                    echo 'Error o Tipo de Suministro incorrecto';
                     return false;
                }
                
@@ -5130,11 +5130,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="ESTATUS:";
+            $nombre_filtro="Estatus";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus.';
+                echo 'Error o no introdujo el Estatus';
                 return false;
             }
             else
@@ -5149,14 +5149,14 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo 'Algo Salio Mal o El Estatus es incorrecto.';
+                    echo 'Error o el Estatus es incorrecto';
                     return false;
                }
             } 
         }        
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 2';
+            echo 'Error en Tipo de Filtro';
             return false;
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -5237,23 +5237,23 @@ class Exportar_Documentos extends CI_Controller
         //var_dump($tipo_filtro);
         if($tipo_filtro==null)
         {
-            echo 'Algo Salio Mal o No Coloco El Tipo de Filtro.';
+            echo 'Error o no introdujo el Tipo de Filtro';
             return false;
         }
         if($tipo_filtro==0)
         { 
-           $nombre_filtro="Todos Las Distribuidoras";
+           $nombre_filtro="Todos las Distribuidoras";
            $Tipo_Cliente="";
            $Resultado=$this->Reportes_model->get_data_all_distribuidoras();
             
         }
         elseif($tipo_filtro==1)
         {
-            $nombre_filtro="TIPO DE SERVICIO:";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Tipo de Servicio.';
+                echo 'Error o no introdujo el Tipo de Suministro';
                 return false;
             }
             else
@@ -5272,7 +5272,7 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo 'Algo Salio Mal o El Tipo de Servicio es incorrecto.';
+                    echo 'Error o Tipo de Suministro incorrecto';
                     return false;
                }
                
@@ -5280,11 +5280,11 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==2)
         {
-            $nombre_filtro="ESTATUS:";
+            $nombre_filtro="ESTATUS";
             $Tipo_Cliente = urldecode($this->uri->segment(5));
             if($Tipo_Cliente==null)
             {
-                echo 'Algo Salio Mal o No Coloco El Estatus.';
+                echo 'Error o no introdujo el Estatus';
                 return false;
             }
             else
@@ -5299,14 +5299,14 @@ class Exportar_Documentos extends CI_Controller
                }
                else
                {
-                    echo 'Algo Salio Mal o El Estatus es incorrecto.';
+                    echo 'Error o el Estatus es incorrecto';
                     return false;
                }
             } 
         }        
         else
         {
-            echo 'Algo Salio Mal o Intente Con el Filtro del 0 a 2';
+            echo 'Error o el Tipo de Filtro es incorrecto';
             return false;
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -5498,30 +5498,30 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro=="AMBAS")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas();
         }
         elseif ($tipo_filtro=="BAJA")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión:";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',0);
         }
         elseif ($tipo_filtro=="ALTA")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión:";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',1);
         }
         else
         {
-            echo "EL TIPO DE TENSIÓN ES INCORRECTO.";
+            echo "El Tipo de Tensión es incorrecto";
             return false;
         }       
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -5602,32 +5602,32 @@ class Exportar_Documentos extends CI_Controller
         
         if($tipo_filtro==null)
         {
-           echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+           echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
 
         if($tipo_filtro=="AMBAS")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas();
 
         }
         elseif ($tipo_filtro=="BAJA")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',0);
         }
         elseif ($tipo_filtro=="ALTA")
         {
-            $nombre_filtro="TIPO DE TENSIÓN: ";
+            $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
             $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',1);
         }
         else
         {
-            echo "EL TIPO DE TENSIÓN ES INCORRECTO.";
+            echo "El Tipo de Tensión es incorrecto";
             return false;
         }
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -5762,7 +5762,7 @@ class Exportar_Documentos extends CI_Controller
         
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "TIPO TENSIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "MONENCLATURA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NONENCLATURA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $objPHPExcel->getActiveSheet()->SetCellValue("C9", "PERIODOS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
@@ -5818,7 +5818,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -5829,7 +5829,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -5901,7 +5901,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -5912,7 +5912,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -6089,19 +6089,19 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS COLABORADORES";
+            $nombre_filtro="Todos los Colaboradores";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_colaboradores();
         }
         elseif($tipo_filtro==1)
         {
             $Tipo_Colaborador = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="TIPO COLABORADOR: ";
+            $nombre_filtro="Tipo de Colaborador";
             if($Tipo_Colaborador==1)
             {
                 $Tipo_Cliente="Persona Física";
@@ -6114,14 +6114,14 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Tipo de Colaborador.";
+                echo "Error en Tipo de Colaborador";
                 return false;
             } 
         } 
         elseif($tipo_filtro==2)
         {
             $Estatus = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="ESTATUS COLABORADOR: ";
+            $nombre_filtro="Estatus Colaborador";
             if($Estatus==1)
             {
                 $Tipo_Cliente="ACTIVO";
@@ -6134,13 +6134,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Estatus del Colaborador.";
+                echo "Error en Estatus del Colaborador";
                 return false;
             } 
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -6204,7 +6204,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -6218,19 +6218,19 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS COLABORADORES";
+            $nombre_filtro="Todos los Colaboradores";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_colaboradores();
         }
         elseif($tipo_filtro==1)
         {
             $Tipo_Colaborador = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="TIPO COLABORADOR: ";
+            $nombre_filtro="Tipo de Colaborador";
             if($Tipo_Colaborador==1)
             {
                 $Tipo_Cliente="Persona Física";
@@ -6243,14 +6243,14 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Tipo de Colaborador.";
+                echo "Error en Tipo de Colaborador";
                 return false;
             } 
         } 
         elseif($tipo_filtro==2)
         {
             $Estatus = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="ESTATUS COLABORADOR: ";
+            $nombre_filtro="Estatus Colaborador";
             if($Estatus==1)
             {
                 $Tipo_Cliente="ACTIVO";
@@ -6263,13 +6263,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Estatus del Colaborador.";
+                echo "Error en Estatus del Colaborador";
                 return false;
             } 
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -6455,19 +6455,19 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS COMERCIALES";
+            $nombre_filtro="Todos los Comerciales";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_comerciales();
         }
         elseif($tipo_filtro==1)
         {
             $EstCom = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="ESTATUS COMERCIAL: ";
+            $nombre_filtro="Estatus del Comercial";
             if($EstCom==1)
             {
                 $Tipo_Cliente="ACTIVO";
@@ -6480,13 +6480,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Estatus Comercial.";
+                echo "Error en Estatus del Comercial";
                 return false;
             } 
         }            
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -6550,7 +6550,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -6564,19 +6564,19 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS COMERCIALES";
+            $nombre_filtro="Todos los Comerciales";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_comerciales();
         }
         elseif($tipo_filtro==1)
         {
             $EstCom = urldecode($this->uri->segment(5)); 
-            $nombre_filtro="ESTATUS COMERCIAL: ";
+            $nombre_filtro="Estatus del Comercial";
             if($EstCom==1)
             {
                 $Tipo_Cliente="ACTIVO";
@@ -6589,13 +6589,13 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "Error en Estatus Comercial.";
+                echo "Error en Estatus del Comercial";
                 return false;
             } 
         }            
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -6781,18 +6781,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE CLIENTE";
+            $nombre_filtro="Todos los Tipos de Cliente";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_cliente();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -6848,7 +6848,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -6862,18 +6862,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE CLIENTE";
+            $nombre_filtro="Todos los Tipos de Clientes";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_cliente();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -7047,18 +7047,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE SECTOR";
+            $nombre_filtro="Todos los Tipos de Sector";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_sector();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -7114,7 +7114,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -7128,18 +7128,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE SECTOR";
+            $nombre_filtro="Todos los Tipos de Sector";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_sector();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -7268,7 +7268,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE TIPOS SECTOR");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE TIPOS DE SECTOR");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
@@ -7313,23 +7313,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE CONTACTO";
+            $nombre_filtro="Todos los Tipos de Contacto";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_contacto();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Tipos Contacto PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Listado de Tipos Contacto PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
         $pdf->SetSubject('Doc_Pdf_Tipos_Contacto');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
@@ -7380,7 +7380,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -7394,18 +7394,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE CONTACTO";
+            $nombre_filtro="Todos los Tipos de Contacto";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipos_contacto();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -7579,18 +7579,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE DOCUMENTOS";
+            $nombre_filtro="Todos los Tipos de Documentos";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_tipo_documentos();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -7648,7 +7648,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -7662,18 +7662,17 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS TIPO DE CONTACTO";
-            $Tipo_Cliente="";
+            $nombre_filtro="Todos los Tipos de Documentos"
             $Resultado=$this->Reportes_model->get_data_all_tipo_documentos();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         } 
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -7850,18 +7849,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO CLIENTE";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Clientes";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_bloqueos();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -7917,7 +7916,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -7932,18 +7931,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO CLIENTE";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Clientes";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_bloqueos();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }    
        
@@ -8118,18 +8117,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO ACTIVIDAD";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Actividad";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_actividad();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -8185,7 +8184,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -8200,18 +8199,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO ACTIVIDAD";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Actividad";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_actividad();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }   
        
@@ -8386,23 +8385,23 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO PUNTO DE SUMINISTRO";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Direcciones de Suministro";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_PunSum();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Motivos Punto Suministro PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Listado de Motivos Dirección Suministro PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
         $pdf->SetSubject('Doc_Pdf_Motivos_Punto_Suministro');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
@@ -8453,7 +8452,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -8468,18 +8467,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO PUNTOS SUMINISTROS";
+            $nombre_filtro="Todos los Motivos de Bloqueo de Direcciones de Suministro";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_PunSum();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }   
        
@@ -8491,7 +8490,7 @@ class Exportar_Documentos extends CI_Controller
         $nombre_reporte='Doc_Excel_Motivos_Bloqueos_Puntos_Suministros_'.$fecha.".xls";
         $objPHPExcel = new PHPExcel(); //nueva instancia         
         $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
-        $objPHPExcel->getProperties()->setTitle("Doc Excel Motivos Puntos Suministros"); //titulo 
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Motivos Direcciones Suministros"); //titulo 
         $titulo = new PHPExcel_Style(); //nuevo estilo
         $titulo2 = new PHPExcel_Style(); //nuevo estilo
         $titulo3 = new PHPExcel_Style(); //nuevo estilo
@@ -8588,7 +8587,7 @@ class Exportar_Documentos extends CI_Controller
         //fin estilos        
         $objPHPExcel->createSheet(0);
         $objPHPExcel->setActiveSheetIndex(0);
-        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Motivos Puntos Suministros"); 
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Motivos Direcciones Suministros"); 
         $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
@@ -8609,7 +8608,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE MOTIVOS BLOQUEOS PUNTOS SUMINISTROS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE MOTIVOS BLOQUEOS DIRECCIONES DE SUMINISTRO");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
@@ -8654,18 +8653,18 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO PUNTO DE SUMINISTRO";
+            $nombre_filtro="TODOS LOS MOTIVOS BLOQUEO Dirección de Suministro";
             $Tipo_Cliente="";
             $Resultado=$this->Reportes_model->get_data_all_motivos_Contactos();
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -8721,7 +8720,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -8736,7 +8735,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -8747,7 +8746,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }   
        
@@ -8922,7 +8921,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -8933,7 +8932,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -8989,7 +8988,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -9004,7 +9003,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -9015,7 +9014,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
        
@@ -9190,7 +9189,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -9201,7 +9200,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -9257,7 +9256,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -9272,7 +9271,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -9283,7 +9282,7 @@ class Exportar_Documentos extends CI_Controller
         }   
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
        
@@ -9458,7 +9457,7 @@ class Exportar_Documentos extends CI_Controller
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -9472,19 +9471,19 @@ class Exportar_Documentos extends CI_Controller
             $CodCli = urldecode($this->uri->segment(5));
             if($CodCli==null)
             {
-                echo "DEBE COLOCAR UN CÓDIGO DE CLIENTE.";
+                echo "Debe introducir un Código de Cliente";
                 return false; 
             }
             $ResCodCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_Cliente','CodCli',$CodCli);
             if($ResCodCli!=false)
             {
-                $nombre_filtro="CLIENTE: ";
+                $nombre_filtro="Cliente";
                 $Tipo_Cliente=$ResCodCli->NumCifCli." - ".$ResCodCli->RazSocCli;
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.CodCli',$CodCli);
             } 
             else
             {
-               echo "EL CÓDIGO DE CLIENTE NO EXISTE EN NUESTRA BASE DE DATOS.";
+               echo "El Código de Cliente no se encuentra registrado";
                 return false;   
             }            
         } 
@@ -9493,19 +9492,19 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Documento = urldecode($this->uri->segment(5));
             if($Tipo_Documento==null)
             {
-                echo "DEBE COLOCAR UN TIPO DE DOCUMENTO.";
+                echo "Debe introducir un Tipo de Documento";
                 return false; 
             }
             $ResDocumento=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoDocumento','CodTipDoc',$Tipo_Documento);
             if($ResDocumento!=false)
             {
-                $nombre_filtro="DOCUMENTO: ";
+                $nombre_filtro="Documento";
                 $Tipo_Cliente=$ResDocumento->DesTipDoc;
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.CodTipDoc',$Tipo_Documento);
             } 
             else
             {
-               echo "EL TIPO DE DOCUMENTO NO EXISTE EN NUESTRA BASE DE DATOS.";
+               echo "El Tipo de Documento no se encuentra registrado";
                 return false;   
             }            
         } 
@@ -9514,32 +9513,32 @@ class Exportar_Documentos extends CI_Controller
             $Tiene_Venci = urldecode($this->uri->segment(5));
             if($Tiene_Venci==null)
             {
-                echo "DEBE COLOCAR SI TIENE O NO VENCIMIENTO.";
+                echo "Debe indicar si el Documento tiene o no vencimiento";
                 return false; 
             }
 
             if($Tiene_Venci==1)
             {
-                $nombre_filtro="TIENE VENCIMIENTO: ";
+                $nombre_filtro="Tiene Vencimiento";
                 $Tipo_Cliente="SI";
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.TieVen',1);
             }
             elseif ($Tiene_Venci==2)
             {
-                $nombre_filtro="TIENE VENCIMIENTO: ";
+                $nombre_filtro="Tiene Vencimiento";
                 $Tipo_Cliente="NO";
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.TieVen',2);
             }
             else
             {  
-                echo "EL TIPO DE VENCIMIENTO ES INCORRECTO.";
+                echo "El Tipo de Vencimiento es Incorrecto";
                 return false;
                 
             }            
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -9601,7 +9600,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="2"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="2"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -9616,7 +9615,7 @@ class Exportar_Documentos extends CI_Controller
        $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
         if($tipo_filtro==0)
@@ -9630,7 +9629,7 @@ class Exportar_Documentos extends CI_Controller
             $CodCli = urldecode($this->uri->segment(5));
             if($CodCli==null)
             {
-                echo "DEBE COLOCAR UN CÓDIGO DE CLIENTE.";
+                echo "Debe introducir un Código de Cliente";
                 return false; 
             }
             $ResCodCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_Cliente','CodCli',$CodCli);
@@ -9642,7 +9641,7 @@ class Exportar_Documentos extends CI_Controller
             } 
             else
             {
-               echo "EL CÓDIGO DE CLIENTE NO EXISTE EN NUESTRA BASE DE DATOS.";
+               echo "El Código de Cliente no se encuentra registrado";
                 return false;   
             }            
         } 
@@ -9651,7 +9650,7 @@ class Exportar_Documentos extends CI_Controller
             $Tipo_Documento = urldecode($this->uri->segment(5));
             if($Tipo_Documento==null)
             {
-                echo "DEBE COLOCAR UN TIPO DE DOCUMENTO.";
+                echo "Debe introducir un Tipo de Documento";
                 return false; 
             }
             $ResDocumento=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoDocumento','CodTipDoc',$Tipo_Documento);
@@ -9663,7 +9662,7 @@ class Exportar_Documentos extends CI_Controller
             } 
             else
             {
-               echo "EL TIPO DE DOCUMENTO NO EXISTE EN NUESTRA BASE DE DATOS.";
+               echo "El Tipo de Documento no se encuentra registrado";
                 return false;   
             }            
         } 
@@ -9672,32 +9671,32 @@ class Exportar_Documentos extends CI_Controller
             $Tiene_Venci = urldecode($this->uri->segment(5));
             if($Tiene_Venci==null)
             {
-                echo "DEBE COLOCAR SI TIENE O NO VENCIMIENTO.";
+                echo "Debe indicar si el Documento tiene o no vencimiento";
                 return false; 
             }
 
             if($Tiene_Venci==1)
             {
-                $nombre_filtro="TIENE VENCIMIENTO: ";
+                $nombre_filtro="Tiene Vencimiento";
                 $Tipo_Cliente="SI";
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.TieVen',1);
             }
             elseif ($Tiene_Venci==2)
             {
-                $nombre_filtro="TIENE VENCIMIENTO: ";
+                $nombre_filtro="Tiene Vencimiento";
                 $Tipo_Cliente="NO";
                 $Resultado=$this->Reportes_model->get_all_documentos_filtrado('a.TieVen',2);
             }
             else
             {  
-                echo "EL TIPO DE VENCIMIENTO ES INCORRECTO.";
+                echo "El Tipo de Vencimiento es Incorrecto";
                 return false;
                 
             }            
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }       
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -9882,7 +9881,7 @@ class Exportar_Documentos extends CI_Controller
         $CodPunSum=  urldecode($this->uri->segment(5));      
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
        if($tipo_filtro==0)
@@ -9897,7 +9896,7 @@ class Exportar_Documentos extends CI_Controller
             $CodPunSum=  urldecode($this->uri->segment(6));
             if($TipServ=="Gas")
             {
-                $nombre_filtro="TIPO SERVICIO: ";
+                $nombre_filtro="Tipo de Suministro";
                 $Tipo_Cliente=$TipServ;
                 $Where="TipServ";
                 $AND="CodPunSum";
@@ -9906,7 +9905,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($TipServ=="Eléctrico")
             {
-                $nombre_filtro="TIPO SERVICIO: ";
+                $nombre_filtro="Tipo de Suministro";
                 $Tipo_Cliente=$TipServ;
                 $Where="TipServ";
                 $AND="CodPunSum";
@@ -9914,7 +9913,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "El Tipo de Servicio debe ser Gas o Eléctrico";
+                echo "El Tipo de Suministro debe ser Gas o Eléctrico";
                 return false;
             } 
         } 
@@ -9964,13 +9963,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "No se Encontro ninguna tarifa.";
+                    echo "No existen Tarifas registradas";
                     return false;
                 }               
             }
             else
             {
-                echo "El Tipo de Servicio debe ser Gas o Eléctrico";
+                echo "El Tipo de Suministro debe ser Gas o Eléctrico";
                 return false;
             }         
         } 
@@ -9978,7 +9977,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Estatus = urldecode($this->uri->segment(5));
             $CodPunSum = urldecode($this->uri->segment(6));
-            $nombre_filtro="TIPO SERVICIO: ";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Cliente=$Estatus;
             $Where="EstCUPs";
             $AND="CodPunSum";
@@ -9986,7 +9985,7 @@ class Exportar_Documentos extends CI_Controller
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -10046,7 +10045,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="4"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="4"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -10062,7 +10061,7 @@ class Exportar_Documentos extends CI_Controller
         $CodPunSum=  urldecode($this->uri->segment(5));      
         if($tipo_filtro==null)
         {
-            echo "DEBE COLOCAR UN TIPO DE FILTRO.";
+            echo "Debe introducir un Tipo de Filtro";
             return false; 
         }
        if($tipo_filtro==0)
@@ -10077,7 +10076,7 @@ class Exportar_Documentos extends CI_Controller
             $CodPunSum=  urldecode($this->uri->segment(6));
             if($TipServ=="Gas")
             {
-                $nombre_filtro="TIPO SERVICIO: ";
+                $nombre_filtro="Tipo de Suministro";
                 $Tipo_Cliente=$TipServ;
                 $Where="TipServ";
                 $AND="CodPunSum";
@@ -10086,7 +10085,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($TipServ=="Eléctrico")
             {
-                $nombre_filtro="TIPO SERVICIO: ";
+                $nombre_filtro="Tipo de Suministro";
                 $Tipo_Cliente=$TipServ;
                 $Where="TipServ";
                 $AND="CodPunSum";
@@ -10094,7 +10093,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {
-                echo "El Tipo de Servicio debe ser Gas o Eléctrico";
+                echo "El Tipo de Suministro debe ser Gas o Eléctrico";
                 return false;
             } 
         } 
@@ -10144,13 +10143,13 @@ class Exportar_Documentos extends CI_Controller
                 }
                 else
                 {
-                    echo "No se Encontro ninguna tarifa.";
+                    echo "No existen Tarifas registradas";
                     return false;
                 }               
             }
             else
             {
-                echo "El Tipo de Servicio debe ser Gas o Eléctrico";
+                echo "El Tipo de Suministro debe ser Gas o Eléctrico";
                 return false;
             }         
         } 
@@ -10158,7 +10157,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Estatus = urldecode($this->uri->segment(5));
             $CodPunSum = urldecode($this->uri->segment(6));
-            $nombre_filtro="TIPO SERVICIO: ";
+            $nombre_filtro="Tipo de Suministro";
             $Tipo_Cliente=$Estatus;
             $Where="EstCUPs";
             $AND="CodPunSum";
@@ -10166,7 +10165,7 @@ class Exportar_Documentos extends CI_Controller
         }     
         else
         {
-          echo "El Número de filtro es incorrecto"; 
+          echo "El Tipo de Filtro es incorrecto"; 
           return false; 
         }    
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
@@ -10416,7 +10415,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $html.='
                     <tr>
-                    <td align="center" colspan="3"><b>Actualmente no hemos encontrados datos.</b></td>              
+                    <td align="center" colspan="3"><b>No existen datos registrados</b></td>              
                     </tr>'; 
                 }   
             $html .= '</table>' ;
@@ -10467,7 +10466,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
                 </tr>';  
             }
             $html .= '</table>' ;
@@ -10820,7 +10819,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $html.='
                     <tr>
-                    <td align="center" colspan="3"><b>Actualmente no hemos encontrados datos.</b></td>              
+                    <td align="center" colspan="3"><b>No existen datos registrados</b></td>              
                     </tr>'; 
                 }   
             $html .= '</table>' ;
@@ -10872,7 +10871,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
                 </tr>';  
             }
             $html .= '</table>' ;
@@ -11231,7 +11230,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos.</b></td>              
+                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;

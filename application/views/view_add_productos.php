@@ -194,10 +194,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </section>
 
-<div id="Guardando" class="loader loader-default"  data-text="Registrando Producto, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Producto, Por Favor Espere..."></div>
-<div id="carganto_servicio" class="loader loader-default"  data-text="Cargnado Datos del Modulo, Por Favor Espere..."></div>
-<div id="List_Produc" class="loader loader-default"  data-text="Cargando Lista de Productos, Por Favor Espere..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Registrando Producto, por favor espere ..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Producto, por favor espere ..."></div>
+<div id="carganto_servicio" class="loader loader-default"  data-text="Cargando información, por favor espere ..."></div>
+<div id="List_Produc" class="loader loader-default"  data-text="Cargando Listado de Productos, por favor espere ..."></div>
 
 </div>
 </body>

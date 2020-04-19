@@ -263,22 +263,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 			resultado = false;
 		}*/
             if (scope.TComisionesRangoGrib[i].ConMinAnu == undefined || scope.TComisionesRangoGrib[i].ConMinAnu == null || scope.TComisionesRangoGrib[i].ConMinAnu == '') {
-                Swal.fire({ title: 'Consumo Mínimo', text: 'El Campo Consumo Mínimo es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Consumo Mínimo', text: 'El Campo Consumo Mínimo es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConMaxAnu == undefined || scope.TComisionesRangoGrib[i].ConMaxAnu == null || scope.TComisionesRangoGrib[i].ConMaxAnu == '') {
-                Swal.fire({ title: 'Consumo Máximo', text: 'El Campo Consumo Máximo es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Consumo Máximo', text: 'El Campo Consumo Máximo es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConSer == undefined || scope.TComisionesRangoGrib[i].ConSer == null || scope.TComisionesRangoGrib[i].ConSer == '') {
-                Swal.fire({ title: 'Comisión Servicio', text: 'El Campo Comisión de Servicios es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Comisión Servicio', text: 'El Campo Comisión de Servicios es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConCerVer == undefined || scope.TComisionesRangoGrib[i].ConCerVer == null || scope.TComisionesRangoGrib[i].ConCerVer == '') {
-                Swal.fire({ title: 'Comisión Certificado Verde', text: 'El Campo Comisión Certificado Verde es Requerido.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Comisión Certificado Verde', text: 'El Campo Comisión Certificado Verde es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }

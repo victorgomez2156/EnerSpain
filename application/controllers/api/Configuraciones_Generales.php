@@ -1248,7 +1248,7 @@ class Configuraciones_Generales extends REST_Controller
 
 
 
-	/////PARA LOS BLOQUEOS DEL PUNTO DE SUMINISTRO  START////
+	/////PARA LOS BLOQUEOS DEL Dirección de Suministro  START////
 
      public function list_motPumSum_get()
     {
@@ -1258,7 +1258,7 @@ class Configuraciones_Generales extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
         $data = $this->Configuraciones_generales_model->get_list_MotPumSum();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',0,$this->input->ip_address(),'Cargando Lista de Motivos de Puntos de Suministros');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',0,$this->input->ip_address(),'Cargando Lista de Motivos de Direcciones de Suministros');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -1278,13 +1278,13 @@ class Configuraciones_Generales extends REST_Controller
 		if(isset($objSalida->CodMotBloPun))
 		{
 			$this->Configuraciones_generales_model->actualizar_MotBloPunSum($objSalida->CodMotBloPun,$objSalida->DesMotBloPun);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','UPDATE',$objSalida->CodMotBloPun,$this->input->ip_address(),'Actualizando Motivo de Bloqueo Punto de Suministros');	
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','UPDATE',$objSalida->CodMotBloPun,$this->input->ip_address(),'Actualizando Motivo de Bloqueo Dirección de Suministros');	
 		}
 		else
 		{			
 			$id = $this->Configuraciones_generales_model->agregar_MotBloPunSum($objSalida->DesMotBloPun);		
 			$objSalida->CodMotBloPun=$id;	
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','INSERT',$objSalida->CodMotBloPu,$this->input->ip_address(),'Agregando Motivo de Bloqueo Punto de Suministros');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','INSERT',$objSalida->CodMotBloPu,$this->input->ip_address(),'Agregando Motivo de Bloqueo Dirección de Suministros');
 		}			
 		$this->db->trans_complete();
 		$this->response($objSalida);
@@ -1324,7 +1324,7 @@ class Configuraciones_Generales extends REST_Controller
 		$this->response($data);
 				
     }
-    /////PARA LOS BLOQUEOS DEL PUNTO DE SUMINISTRO  END////
+    /////PARA LOS BLOQUEOS DEL Dirección de Suministro  END////
 
 
     /////PARA LOS BLOQUEOS DE LAS COMERCIALIZADORAS START////

@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b></label>
         <select class="form-control" id="CodDis" name="CodDis" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined">
         <option ng-repeat="dato in vm.T_PuntoSuministros" value="{{dato.CodPunSum}}">{{dato.NumCifCli}} - {{dato.RazSocCli}},
         {{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</option>                          
@@ -130,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Punto de Suministro</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro</label>
        <input type="text" class="form-control" ng-model="vm.Cups_Dir" onkeyup="this.value=this.value.toUpperCase();" readonly maxlength="100"/>       
        </div>
        </div>

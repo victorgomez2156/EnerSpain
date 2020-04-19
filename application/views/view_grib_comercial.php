@@ -131,12 +131,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_comercial()">
                 <tbody>
                   <tr>                    
-                    <th ng-show="vm.NomCom==true"><i class="fa fa-building"></i> Nombre</th>
-                    <th ng-show="vm.NIFCom==true"><i class="fa fa-vcard"></i> DNI/NIE</th>                    
+                    <th ng-show="vm.NomCom==true">Nombre</th>
+                    <th ng-show="vm.NIFCom==true">DNI/NIE</th>                    
                     <th ng-show="vm.TelFijCom==true"><i class="fa fa-archive"></i> Teléfono Fijo</th>
                     <th ng-show="vm.TelCelCom==true"><i class="fa fa-crop"></i> Teléfono Celular</th>
                     <th ng-show="vm.EmaCom==true"><i class="fa fa-bookmark"></i> Email</th>
-                    <th ng-show="vm.EstCom==true"><i class="fa fa-bolt"></i> Estatus</th>                    
+                    <th ng-show="vm.EstCom==true">Estatus</th>                    
                     <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <tr ng-show="vm.TComercial.length==0"> 
@@ -163,12 +163,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                     <th ng-show="vm.NomCom==true"><i class="fa fa-building"></i> Nombre</th>
-                    <th ng-show="vm.NIFCom==true"><i class="fa fa-vcard"></i> DNI/NIE</th>                    
+                     <th ng-show="vm.NomCom==true">Nombre</th>
+                    <th ng-show="vm.NIFCom==true">DNI/NIE</th>                    
                     <th ng-show="vm.TelFijCom==true"><i class="fa fa-archive"></i> Teléfono Fijo</th>
                     <th ng-show="vm.TelCelCom==true"><i class="fa fa-crop"></i> Teléfono Celular</th>
                     <th ng-show="vm.EmaCom==true"><i class="fa fa-bookmark"></i> Email</th>
-                    <th ng-show="vm.EstCom==true"><i class="fa fa-bolt"></i> Estatus</th>                    
+                    <th ng-show="vm.EstCom==true">Estatus</th>                    
                     <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
                 </tfoot>
               </table>

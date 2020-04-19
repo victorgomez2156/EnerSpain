@@ -369,8 +369,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
          <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''" ng-disabled="vm.disabled_button==1"><i class="fa fa-save"></i> Guardar</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCom>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button==1" ><i class="fa fa-save"></i> Actualizar</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''" ng-disabled="vm.disabled_button==1"> Guardar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCom>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button==1" > Actualizar</button>
             
             <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button-->
 

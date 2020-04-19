@@ -340,7 +340,7 @@
          var FecIniCli1 = document.getElementById("FecIniCli").value;
          scope.FecIniCli = FecIniCli1;
          if (scope.FecIniCli == null || scope.FecIniCli == undefined || scope.FecIniCli == '') {
-             Swal.fire({ title: "El Campo Fecha de Inicio Es Requerida.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "La Fecha de Inicio es requerida", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          } else {
              var FecIniCli = (scope.FecIniCli).split("/");

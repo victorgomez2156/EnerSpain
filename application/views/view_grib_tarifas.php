@@ -84,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               
-              <li><i class="fa fa-users"></i>TARIFAS</li>
+              <li>TARIFAS</li>
               
             </ol>-->
           </div>
@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div id="tabs_clientes" class="ui-tabs-nav ui-corner-all">
     <ul >
       <li>
-        <a href="#tabs-1"><i class="fa fa-bolt"></i> Tarifa Eléctrica</a>
+        <a href="#tabs-1">Tarifa Eléctrica</a>
       </li>       
       <li>
         <a href="#tabs-2"><i class="fa fa-tint"></i> Tarifa Gas</a>
@@ -160,8 +160,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_Tarifa_Electrica()">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.TipTen==true"><i class="fa fa-building"></i> Tipo Tensión</th>
-                    <th ng-show="vm.NomTarEle==true"><i class="fa fa-vcard"></i> Tarifa</th>                    
+                    <th ng-show="vm.TipTen==true">Tipo Tensión</th>
+                    <th ng-show="vm.NomTarEle==true">Tarifa</th>                    
                     <th ng-show="vm.CanPerTar==true"><i class="fa fa-archive"></i> Periodos</th>
                     <th ng-show="vm.MinPotCon==true"><i class="fa fa-crop"></i> Minimo Potencia</th>
                     <th ng-show="vm.MaxPotCom==true"><i class="fa fa-crosshairs"></i> Maximo Potencia</th> 
@@ -184,8 +184,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.TipTen==true"><i class="fa fa-building"></i> Tipo Tensión</th>
-                    <th ng-show="vm.NomTarEle==true"><i class="fa fa-vcard"></i> Tarifa</th>                    
+                   <th ng-show="vm.TipTen==true">Tipo Tensión</th>
+                    <th ng-show="vm.NomTarEle==true">Tarifa</th>                    
                     <th ng-show="vm.CanPerTar==true"><i class="fa fa-archive"></i> Periodos</th>
                     <th ng-show="vm.MinPotCon==true"><i class="fa fa-crop"></i> Minimo Potencia</th>
                     <th ng-show="vm.MaxPotCom==true"><i class="fa fa-crosshairs"></i> Maximo Potencia</th> 
@@ -370,7 +370,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_Tarifa_Gas()">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NomTarGas==true"><i class="fa fa-vcard"></i> Nomenclatura</th>
+                    <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
                     <th ng-show="vm.MinConAnu==true"><i class="fa fa-crop"></i> Minimo Consumo Anual</th>
                     <th ng-show="vm.MaxConAnu==true"><i class="fa fa-crosshairs"></i> Maximo Consumo Anual</th> 
                     <th ng-show="vm.AccTarGas==true"><i class="icon_cogs"></i> Acción</th>
@@ -391,7 +391,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th ng-show="vm.NomTarGas==true"><i class="fa fa-vcard"></i> Nomenclatura</th>
+                    <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
                     <th ng-show="vm.MinConAnu==true"><i class="fa fa-crop"></i> Minimo Consumo Anual</th>
                     <th ng-show="vm.MaxConAnu==true"><i class="fa fa-crosshairs"></i> Maximo Consumo Anual</th> 
                     <th ng-show="vm.AccTarGas==true"><i class="icon_cogs"></i> Acción</th>

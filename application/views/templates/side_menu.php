@@ -158,7 +158,7 @@
 
              <li class="sub-menu">
             <a href="javascript:;" class="">
-              <i class="fa fa-users"></i>
+              
               <span>Clientes</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>

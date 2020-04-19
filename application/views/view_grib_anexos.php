@@ -102,8 +102,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
                         <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Productos</b></li></li>
                         <li><input type="checkbox" ng-model="vm.DesAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción Anexos</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Servicio Eléctrico</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Suministro Gas</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Suministro Eléctrico</b></li>
                         <li><input type="checkbox" ng-model="vm.TipPreAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Precio</b></li>
                         <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Comisión</b></li>
                         <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>
@@ -146,8 +146,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
                     <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
+                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Suministro Gas</th>
+                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
                     <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
                     <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
                     <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
@@ -188,8 +188,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
                     <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
                     <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Servicio Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Servicio Eléctrico</th>
+                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Suministro Gas</th>
+                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
                     <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
                     <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
                     <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
@@ -253,8 +253,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipServ3" name="TipServ" ng-model="vm.tmodal_anexos.TipServ">
-        <option value="1">Servicio Gas</option>
-        <option value="2">Servicio Eléctrico</option>        
+        <option value="1">Suministro Gas</option>
+        <option value="2">Suministro Eléctrico</option>        
       </select>   
      </div>
      </div>
@@ -304,7 +304,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltroAnexos.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.quitar_filtro_anexos()" ng-show="vm.tmodal_anexos.ttipofiltrosAnexos>0"><i class="fa fa-trash"></i> Quitar</a>
+      <a class="btn btn-danger" ng-click="vm.quitar_filtro_anexos()" ng-show="vm.tmodal_anexos.ttipofiltrosAnexos>0">Quitar</a>
       </div>
 </form>
    </div>

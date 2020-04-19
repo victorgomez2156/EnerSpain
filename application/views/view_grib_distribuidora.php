@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <h3 class="page-header">Registrar Distribuidor</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>              
-              <li><i class="fa fa-users"></i> Distribuidoras</li>
+              <li> Distribuidoras</li>
             </ol>-->
           </div>
         </div>
@@ -133,8 +133,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_distribuidoras()">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NumCifDis==true"><i class="fa fa-vcard"></i> CIF</th> 
-                    <th ng-show="vm.RazSocDis==true"><i class="fa fa-building"></i> Razón Social</th>                   
+                    <th ng-show="vm.NumCifDis==true">CIF</th> 
+                    <th ng-show="vm.RazSocDis==true">Razón Social</th>                   
                     <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
                     <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
                     <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>
@@ -161,8 +161,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                   
-                   <th ng-show="vm.NumCifDis==true"><i class="fa fa-vcard"></i> CIF</th> 
-                    <th ng-show="vm.RazSocDis==true"><i class="fa fa-building"></i> Razón Social</th>                   
+                   <th ng-show="vm.NumCifDis==true">CIF</th> 
+                    <th ng-show="vm.RazSocDis==true">Razón Social</th>                   
                     <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
                     <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
                     <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>

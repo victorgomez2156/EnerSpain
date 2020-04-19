@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <h3 class="page-header">Listado de Clientes</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
-              <li><i class="fa fa-users"></i>Clientes</li>
+              <li>Clientes</li>
             </ol>-->
           </div>
         </div>
@@ -320,7 +320,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <br>
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_clientes()" ng-show="vm.tmodal_data.tipo_filtro>0"><i class="fa fa-trash"></i> Quitar</a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_clientes()" ng-show="vm.tmodal_data.tipo_filtro>0">Quitar</a>
       </div>
 </form>
    </div>
@@ -408,7 +408,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF_Clientes($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i> Número de CIF:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
                               <input type="text" class="form-control" ng-model="vm.fdatos.Clientes_CIF" placeholder="* Introduzca CIF" maxlength="50" required/>   
                             </div>

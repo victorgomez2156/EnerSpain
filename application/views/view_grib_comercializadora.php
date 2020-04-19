@@ -394,7 +394,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
   
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar </button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()"><i class="fa fa-trash"></i> Quitar </a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()">Quitar </a>
       </div>
 </form>
    </div>
@@ -414,7 +414,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de CIF"></i>CIF</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
                               <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Introduzca CIF" maxlength="8" required/>   
                             </div>

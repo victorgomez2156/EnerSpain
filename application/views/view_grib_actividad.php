@@ -94,13 +94,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                  <li><input type="checkbox" ng-model="vm.DesSec"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Código CNAE</b></li>
-                  <li><input type="checkbox" ng-model="vm.DesGru"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.EstAct"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                  <li><input type="checkbox" ng-model="vm.FecIniAct1"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha Actividad</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.AccAct"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Action</b></li>
+                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+                  <li><input type="checkbox" ng-model="vm.DesSec"/> <b style="color:black;">Código CNAE</b></li>
+                  <li><input type="checkbox" ng-model="vm.DesGru"/> <b style="color:black;">Descripción</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.EstAct"/> <b style="color:black;">Estatus</b></li>
+                  <li><input type="checkbox" ng-model="vm.FecIniAct1"/> <b style="color:black;">Fecha Actividad</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.AccAct"/> <b style="color:black;">Action</b></li>
                 </ul> 
               </div>
               <div class="btn-group">
@@ -134,16 +134,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
-                    <th ng-show="vm.DesSec==true"><i class="fa fa-asterisk"></i> Código CNAE</th>
-                    <th ng-show="vm.DesGru==true"><i class="fa fa-vcard"></i> Descripción</th>
-                    <th ng-show="vm.EstAct==true"><i class="fa fa-bolt"></i> Estatus Actividad</th>
-                    <th ng-show="vm.FecIniAct1==true"><i class="fa fa-calendar"></i> Fecha Actividad</th>                    
-                    <th ng-show="vm.AccAct==true"><i class="icon_cogs"></i> Action</th>
+                    <th ng-show="vm.NumCifCli==true">CIF</th>
+                    <th ng-show="vm.RazSocCli==true">Razón Social</th>
+                    <th ng-show="vm.DesSec==true">Código CNAE</th>
+                    <th ng-show="vm.DesGru==true">Descripción</th>
+                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>
+                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>                    
+                    <th ng-show="vm.AccAct==true">Action</th>
                   </tr>
                   <tr ng-show="vm.TActividades.length==0"> 
-                     <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hemos encontrados actividades registradas.</div></td>           
+                     <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Actividades registradas</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TActividades | filter:paginate1 | filter:vm.fdatos.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
@@ -166,11 +166,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>  
-                  <th ng-show="vm.NumCifCli==true"><i class="fa fa-users"></i> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"><i class="fa fa-users"></i> Razón Social</th>
+                  <th ng-show="vm.NumCifCli==true"> CIF</th>
+                    <th ng-show="vm.RazSocCli==true"> Razón Social</th>
                     <th ng-show="vm.DesSec==true"><i class="fa fa-asterisk"></i> Código CNAE</th>
-                    <th ng-show="vm.DesGru==true"><i class="fa fa-vcard"></i> Descripción</th>
-                    <th ng-show="vm.EstAct==true"><i class="fa fa-bolt"></i> Estatus Actividad</th>
+                    <th ng-show="vm.DesGru==true">Descripción</th>
+                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>
                     <th ng-show="vm.FecIniAct1==true"><i class="fa fa-calendar"></i> Fecha Actividad</th>                    
                     <th ng-show="vm.AccAct==true"><i class="icon_cogs"></i> Action</th>
                 </tfoot>
@@ -240,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltrAct.$invalid"><i class="fa fa-check-circle"></i> APLICAR</button>
-      <a class="btn btn-danger" ng-click="vm.quitar_filtro_actividad()" ><i class="fa fa-trash"></i> LIMPIAR FILTRO</a>
+      <a class="btn btn-danger" ng-click="vm.quitar_filtro_actividad()" >LIMPIAR FILTRO</a>
       </div>
 </form>
    </div>

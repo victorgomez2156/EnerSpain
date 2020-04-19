@@ -49,7 +49,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.TCups_ConsumoBack = [];
             }
             if (result.data.Datos_Puntos == false) {
-                Swal.fire({ title: "Error", text: "No se encontrados datos relacionados con el punto de suministro intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "No se encontrados datos relacionados con el Dirección de Suministro intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TCups_Consumo = [];
                 scope.disabled_button_add = false;
                 scope.TCups_ConsumoBack = [];
@@ -400,7 +400,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var desde = document.getElementById("desde").value;
         scope.fdatos_cups.FecIniCon = desde;
         if (scope.fdatos_cups.FecIniCon == null || scope.fdatos_cups.FecIniCon == undefined || scope.fdatos_cups.FecIniCon == '') {
-            Swal.fire({ title: "El Campo Fecha Desde Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Fecha Desde Es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniCon = (scope.fdatos_cups.FecIniCon).split("/");
@@ -434,7 +434,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var hasta = document.getElementById("hasta").value;
         scope.fdatos_cups.FecFinCon = hasta;
         if (scope.fdatos_cups.FecFinCon == null || scope.fdatos_cups.FecFinCon == undefined || scope.fdatos_cups.FecFinCon == '') {
-            Swal.fire({ title: "El Campo Fecha de Hasta es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Fecha de Hasta es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecFinCon = (scope.fdatos_cups.FecFinCon).split("/");
@@ -466,37 +466,37 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.TipServ == 1) {
             if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
-                Swal.fire({ title: "El Campo P1 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
-                Swal.fire({ title: "El Campo P2 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '') {
-                Swal.fire({ title: "El Campo P3 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '') {
-                Swal.fire({ title: "El Campo P4 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotCon5 == null || scope.fdatos_cups.PotCon5 == undefined || scope.fdatos_cups.PotCon5 == '') {
-                Swal.fire({ title: "El CampoP5 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El CampoP5 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.PotCon6 == null || scope.fdatos_cups.PotCon6 == undefined || scope.fdatos_cups.PotCon6 == '') {
-                Swal.fire({ title: "El Campo P6 Es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo P6 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             if (scope.fdatos_cups.ConCup == null || scope.fdatos_cups.ConCup == undefined || scope.fdatos_cups.ConCup == '') {
-                Swal.fire({ title: "El Campo Consumo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo Consumo es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
         }
         if (scope.fdatos_cups.TipServ == 2) {
             if (scope.fdatos_cups.ConCup == null || scope.fdatos_cups.ConCup == undefined || scope.fdatos_cups.ConCup == '') {
-                Swal.fire({ title: "El Campo Consumo es Requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "El Campo Consumo es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             scope.fdatos_cups.PotCon1 = null;

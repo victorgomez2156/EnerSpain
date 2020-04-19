@@ -45,7 +45,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.tmodal_productos = {};
     scope.reporte_pdf_productos = 0;
     scope.reporte_excel_productos = 0;
-    scope.ttipofiltrosProductos = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Servicio' }, { id: 3, nombre: 'Fecha de Inicio' }, { id: 4, nombre: 'Estatus' }];
+    scope.ttipofiltrosProductos = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Suministro' }, { id: 3, nombre: 'Fecha de Inicio' }, { id: 4, nombre: 'Estatus' }];
     scope.productos.SerGas = false;
     scope.productos.SerEle = false;
 
