@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Comercial</h3>
+            <h3 class="page-header">Listado de Comerciales</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-bank"></i>Comerciales</li>
@@ -92,13 +92,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><input type="checkbox" ng-model="vm.NomCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li></li>
-            <li><input type="checkbox" ng-model="vm.NIFCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">DNI/NIE</b></li>
-            <li><input type="checkbox" ng-model="vm.TelFijCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Fijo</b></li></li>
-            <li><input type="checkbox" ng-model="vm.TelCelCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono Celular</b></li>
-            <li><input type="checkbox" ng-model="vm.EmaCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-            <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-            <li><input type="checkbox" ng-model="vm.AccCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+            <li><input type="checkbox" ng-model="vm.NomCom"/> <b style="color:black;">Nombre</b></li></li>
+            <li><input type="checkbox" ng-model="vm.NIFCom"/> <b style="color:black;">DNI/NIE</b></li>
+            <li><input type="checkbox" ng-model="vm.TelFijCom"/> <b style="color:black;">Telf. Fijo</b></li></li>
+            <li><input type="checkbox" ng-model="vm.TelCelCom"/> <b style="color:black;">Telf. Móvil</b></li>
+            <li><input type="checkbox" ng-model="vm.EmaCom"/> <b style="color:black;">Email</b></li>
+            <li><input type="checkbox" ng-model="vm.EstCom"/> <b style="color:black;">Estatus</b></li>
+            <li><input type="checkbox" ng-model="vm.AccCom"/> <b style="color:black;">Acción</b></li>
           </ul> 
         </div>
         <div class="btn-group">
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form-group">
           <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
       </div>                 
-      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercial" ng-click="vm.modal_agg_comercial()"><i class="fa fa-plus-square"></i></button>
+      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercial" ng-click="vm.modal_agg_comercial()">/button>
     </form>                    
   </div>
 </div>
@@ -133,11 +133,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>                    
                     <th ng-show="vm.NomCom==true">Nombre</th>
                     <th ng-show="vm.NIFCom==true">DNI/NIE</th>                    
-                    <th ng-show="vm.TelFijCom==true"><i class="fa fa-archive"></i> Teléfono Fijo</th>
-                    <th ng-show="vm.TelCelCom==true"><i class="fa fa-crop"></i> Teléfono Celular</th>
-                    <th ng-show="vm.EmaCom==true"><i class="fa fa-bookmark"></i> Email</th>
+                    <th ng-show="vm.TelFijCom==true">Telf. Fijo</th>
+                    <th ng-show="vm.TelCelCom==true">Telf. Móvil</th>
+                    <th ng-show="vm.EmaCom==true">Email</th>
                     <th ng-show="vm.EstCom==true">Estatus</th>                    
-                    <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
+                    <th ng-show="vm.AccCom==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TComercial.length==0"> 
                      <td colspan="7" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -165,11 +165,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>
                      <th ng-show="vm.NomCom==true">Nombre</th>
                     <th ng-show="vm.NIFCom==true">DNI/NIE</th>                    
-                    <th ng-show="vm.TelFijCom==true"><i class="fa fa-archive"></i> Teléfono Fijo</th>
-                    <th ng-show="vm.TelCelCom==true"><i class="fa fa-crop"></i> Teléfono Celular</th>
-                    <th ng-show="vm.EmaCom==true"><i class="fa fa-bookmark"></i> Email</th>
+                    <th ng-show="vm.TelFijCom==true">Telf. Fijo</th>
+                    <th ng-show="vm.TelCelCom==true">Telf. Móvil</th>
+                    <th ng-show="vm.EmaCom==true">Email</th>
                     <th ng-show="vm.EstCom==true">Estatus</th>                    
-                    <th ng-show="vm.AccCom==true"><i class="icon_cogs"></i> Action</th>
+                    <th ng-show="vm.AccCom==true">Acción</th>
                 </tfoot>
               </table>
         </div>
@@ -227,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">NOMBRE COMERCIAL</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Comercial</label>
      <input type="text" class="form-control" ng-model="vm.NomCom" required readonly />     
      </div>
      </div>
@@ -291,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" ng-model="vm.tmodal_data.tipo_filtro">
-        <option value="1">ESTATUS COMERCIAL</option> 
+        <option value="1">Estatus Comercial</option> 
                                 
       </select>    
      </div>
@@ -352,8 +352,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--modal modal_dni_comprobar section END -->
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista Comercial, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Comercial, Por Favor Espere..."></div>
-<div id="bloqueando" class="loader loader-default"  data-text="Bloqueando Comercial, Por Favor Espere..."></div>
-<div id="comprobando_dni" class="loader loader-default"  data-text="Comprobando Disponiblidad del DNI/NIE, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista Comercial, por favor espere ..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Borrando Comercial, por favor espere ..."></div>
+<div id="bloqueando" class="loader loader-default"  data-text="Bloqueando Comercial, por favor espere ..."></div>
+<div id="comprobando_dni" class="loader loader-default"  data-text="Comprobando Disponiblidad del DNI/NIE, por favor espere ..."></div>
 </html>

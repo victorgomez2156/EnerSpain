@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Colaborador</h3>
+            <h3 class="page-header">Listado de Colaboradores</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>               
               <li> Colaboradores</li>
@@ -94,15 +94,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="{{ 'Add_Columns'  }}" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.NomCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
-                        <li><input type="checkbox" ng-model="vm.NumIdeFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.TipCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo</b></li>
-                        <li><input type="checkbox" ng-model="vm.PorCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Porcentaje</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelCelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tel. Móvil</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelFijCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tel. Fijo</b></li>
-                        <li><input type="checkbox" ng-model="vm.EmaCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li> 
+                        <li><input type="checkbox" ng-model="vm.NomCol"/> <b style="color:black;">Nombre</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumIdeFis"/> <b style="color:black;">CIF/NIF</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TipCol"/> <b style="color:black;">Tipo</b></li>
+                        <li><input type="checkbox" ng-model="vm.PorCol"/> <b style="color:black;">% Comisión</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelCelCol"/> <b style="color:black;">Tel. Móvil</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijCol"/> <b style="color:black;">Tel. Fijo</b></li>
+                        <li><input type="checkbox" ng-model="vm.EmaCol"/> <b style="color:black;">Email</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstCol"/> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccCol"/> <b style="color:black;">Acción</b></li> 
                       </ul> 
                     </div>                    
                     <div class="btn-group">
@@ -137,15 +137,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                                       
                     
-                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
+                    <th ng-show="vm.NomCol==true">Nombre</th>
                     <th ng-show="vm.NumIdeFis==true">CIF/NIF</th>
                     <th ng-show="vm.TipCol==true">Tipo</th>
-                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
-                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
-                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
-                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> Email</th>
-                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>                       
+                    <th ng-show="vm.PorCol==true">% Comisión</th>
+                    <th ng-show="vm.TelCelCol==true">Tel. Móvil</th>
+                    <th ng-show="vm.TelFijCol==true">Tel. Fijo</th>
+                    <th ng-show="vm.EmaCol==true">Email</th>
+                    <th ng-show="vm.EstCol==true">Estatus</th>
+                    <th ng-show="vm.AccCol==true">Acción</th>                       
                   </tr>
                   <tr ng-show="vm.tColaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -173,12 +173,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
                     <th ng-show="vm.NumIdeFis==true">CIF/NIF</th>
                     <th ng-show="vm.TipCol==true">Tipo</th>
-                    <th ng-show="vm.PorCol==true"><i class="fa fa-bar-chart"></i> % Porcentaje</th>
-                    <th ng-show="vm.TelCelCol==true"><i class="fa fa-phone"></i> Tel. Móvil</th>
-                    <th ng-show="vm.TelFijCol==true"><i class="fa fa-phone"></i> Tel. Fijo</th>
-                    <th ng-show="vm.EmaCol==true"><i class="fa fa-phone"></i> Email</th>
-                    <th ng-show="vm.EstCol==true"><i class="fa fa-bar-exclamation-circle"></i> Estatus</th>
-                    <th ng-show="vm.AccCol==true"><i class="fa fa-bullseye"></i> Acción</th>     
+                    <th ng-show="vm.PorCol==true"><% Comisión</th>
+                    <th ng-show="vm.TelCelCol==true">Tel. Móvil</th>
+                    <th ng-show="vm.TelFijCol==true">Tel. Fijo</th>
+                    <th ng-show="vm.EmaCol==true">Email</th>
+                    <th ng-show="vm.EstCol==true">Estatus</th>
+                    <th ng-show="vm.AccCol==true">Acción</th>     
                 </tfoot>
               </table>
         </div> 
@@ -341,7 +341,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Colaboradores, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Colaborador, Por Favor Espere..."></div>
-<div id="NumCifCli" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando listado de Colaboradores, por favor espere ..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Borrando Colaborador, por favor espere ..."></div>
+<div id="NumCifCli" class="loader loader-default"  data-text="Comprobando Número de CIF, por favor espere ..."></div>
 </html>

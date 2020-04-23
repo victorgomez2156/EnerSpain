@@ -41,12 +41,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <table class="table table-striped table-advance table-hover" ng-init="vm.cargar_lista_empleados()">
                 <tbody>
                   <tr>
-                    <th><i class="icon_profile"></i> Nombres & Apellidos</th>
-                    <th><i class="icon_mail_alt"></i> Email</th>
-                    <th><i class="icon_pin_alt"></i> Rol</th>
-                    <th><i class="icon_calendar"></i> Fecha Registro</th>
-                    <th><i class="icon_mobile"></i> Estatus</th>
-                    <th><i class="icon_cogs"></i> Action</th>
+                    <th>Nombre Completo</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Fecha Registro</th>
+                    <th>Estatus</th>
+                    <th>Acción</th>
                   </tr>
                   <tr ng-show="vm.Templeados.length==0"> 
                      <td colspan="6" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td>
                       <span class="label label-primary" ng-show="dato.nivel==1">Super Administrador</span>
                       <span class="label label-info" ng-show="dato.nivel==2">Administrador</span>
-                      <span class="label label-warning" ng-show="dato.nivel==3">Estandar</span>
+                      <span class="label label-warning" ng-show="dato.nivel==3">Estándar</span>
                     </td>                    
                     <td>{{dato.fecha_registro}}</td>
                     <td>
@@ -110,6 +110,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- container section end -->
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Empleados, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Empleado, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista de Empleados, por favor espere ..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Borrando Empleado, por favor espere ..."></div>
 </html>

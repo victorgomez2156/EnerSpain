@@ -168,11 +168,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>  
                   <th ng-show="vm.NumCifCli==true"> CIF</th>
                     <th ng-show="vm.RazSocCli==true"> Razón Social</th>
-                    <th ng-show="vm.DesSec==true"><i class="fa fa-asterisk"></i> Código CNAE</th>
+                    <th ng-show="vm.DesSec==true">Código CNAE</th>
                     <th ng-show="vm.DesGru==true">Descripción</th>
                     <th ng-show="vm.EstAct==true">Estatus Actividad</th>
-                    <th ng-show="vm.FecIniAct1==true"><i class="fa fa-calendar"></i> Fecha Actividad</th>                    
-                    <th ng-show="vm.AccAct==true"><i class="icon_cogs"></i> Action</th>
+                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>                    
+                    <th ng-show="vm.AccAct==true">Acción</th>
                 </tfoot>
               </table>
         </div> 

@@ -233,6 +233,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div> 
 </div>
 </body>
-<div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas, Por Favor Espere..."></div>
-<div id="Guar_Deta" class="loader loader-default"  data-text="Realizando Proceso de Comisión, Por Favor Espere..."></div>
+<div id="Car_Det" class="loader loader-default"  data-text="Cargando Tarifas, por favor espere ..."></div>
+<div id="Guar_Deta" class="loader loader-default"  data-text="Realizando Proceso de Comisión, por favor espere ..."></div>
 </html>

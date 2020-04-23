@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="cargando_I" class="loader loader-default"  data-text="Cargarndo Lista de Distribuidoras, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Distribuidora, Por Favor Espere..."></div>
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Distribuidora, Por Favor Espere..."></div>
+<div id="cargando_I" class="loader loader-default"  data-text="Cargarndo Lista de Distribuidoras, por favor espere ..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Distribuidora, por favor espere ..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Distribuidora, por favor espere ..."></div>
 </html>

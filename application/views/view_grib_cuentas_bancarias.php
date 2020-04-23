@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-show="vm.tCuentaBan.length==0"> 
                     <td colspan="6" align="center">
-                      <div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay cuentas bancarias registradas.</div>
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No existen Cuentas Bancarias registradas</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.tCuentaBan | filter:paginate3 | filter:vm.tgribBancos.filtrar" ng-class-odd="odd">

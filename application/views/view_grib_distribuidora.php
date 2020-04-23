@@ -74,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Distribuidor</h3>
+            <h3 class="page-header">Listado de Distribuidoras</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>              
               <li> Distribuidoras</li>
@@ -95,11 +95,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <!--li><input type="checkbox" ng-model="vm.fdatos.Cod"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CodCli</b></li-->
-                        <li><input type="checkbox" ng-model="vm.NumCifDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.TelFijDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.EstDist"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccDis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifDis"/> <b style="color:black;">CIF</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocDis"/> <b style="color:black;">Razón Social</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijDis"/> <b style="color:black;">Teléfono</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.EstDist"/> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccDis"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>
                     
@@ -135,9 +135,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                     <th ng-show="vm.NumCifDis==true">CIF</th> 
                     <th ng-show="vm.RazSocDis==true">Razón Social</th>                   
-                    <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
-                    <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
-                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.TelFijDis==true">Teléfono</th>
+                    <th ng-show="vm.EstDist==true">Estatus</th>      
+                    <th ng-show="vm.AccDis==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TDistribuidora.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -163,9 +163,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>                   
                    <th ng-show="vm.NumCifDis==true">CIF</th> 
                     <th ng-show="vm.RazSocDis==true">Razón Social</th>                   
-                    <th ng-show="vm.TelFijDis==true"><i class="fa fa-archive"></i> Teléfono</th>
-                    <th ng-show="vm.EstDist==true"><i class="fa fa-crop"></i> Estatus</th>      
-                    <th ng-show="vm.AccDis==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.TelFijDis==true"><Teléfono</th>
+                    <th ng-show="vm.EstDist==true"> Estatus</th>      
+                    <th ng-show="vm.AccDis==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -351,7 +351,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </div>
 </body>
-<div id="cargando" class="loader loader-default"  data-text="Cargando lista de distribuidoras, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Distribuidora, Por Favor Espere..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando lista de distribuidoras, por favor espere ..."></div>
+<div id="borrando" class="loader loader-default"  data-text="Borrando Distribuidora, por favor espere ..."></div>
 <div id="NumCifDis" class="loader loader-default"  data-text="Comprobando Número de CIF, Por Favor Espere"></div>
 </html>

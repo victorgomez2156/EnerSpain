@@ -98,18 +98,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Productos</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.DesAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Descripción Anexos</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Suministro Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Suministro Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.TipPreAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Precio</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Tipo Comisión</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Observación</b></li>
-                        <li><input type="checkbox" ng-model="vm.FecIniAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Fecha de Inicio</b></li>   
-                        <li><input type="checkbox" ng-model="vm.EstAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccTAne"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <b style="color:black;">CIF</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <b style="color:black;">Razón Social</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodAneTPro"/> <b style="color:black;">Producto</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DesAnePro"/> <b style="color:black;">Descripción</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.SerGasAne"/> <b style="color:black;">Suministro Gas</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <b style="color:black;">Suministro Eléctrico</b></li>
+                        <li><input type="checkbox" ng-model="vm.TipPreAne"/> <b style="color:black;">Tipo Precio</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <b style="color:black;">Tipo Comisión</b></li>
+                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <b style="color:black;">Observación</b></li>
+                        <li><input type="checkbox" ng-model="vm.FecIniAne"/> <b style="color:black;">Fecha de Inicio</b></li>   
+                        <li><input type="checkbox" ng-model="vm.EstAne"/> <b style="color:black;">Estatus</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccTAne"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
                     <div class="btn-group">

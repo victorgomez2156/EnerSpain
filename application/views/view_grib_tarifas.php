@@ -79,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Tarifa</h3>
+            <h3 class="page-header">Listado de Tarifas</h3>
             <!--<ol class="breadcrumb">
             
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="#tabs-1">Tarifa Eléctrica</a>
       </li>       
       <li>
-        <a href="#tabs-2"><i class="fa fa-tint"></i> Tarifa Gas</a>
+        <a href="#tabs-2">Tarifa Gas</a>
       </li>    
     </ul>
     <!--INICIO TABS 1 TARIFA ELÉCTRICA -->
@@ -122,12 +122,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <!--li><input type="checkbox" ng-model="vm.fdatos.Cod"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CodCli</b></li-->
-                        <li><input type="checkbox" ng-model="vm.TipTen"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO TENSIÓN</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomTarEle"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.CanPerTar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">PERIODOS</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.MinPotCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">POTENCIA MÍNIMA</b></li>
-                        <li><input type="checkbox" ng-model="vm.MaxPotCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">POTENCIA MÁXIMA</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccTarElec"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                        <li><input type="checkbox" ng-model="vm.TipTen"/> <b style="color:black;">TIPO TENSIÓN</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomTarEle"/> <b style="color:black;">TARIFA</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.CanPerTar"/> <b style="color:black;">PERIODOS</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.MinPotCon"/> <b style="color:black;">POTENCIA MÍNIMA</b></li>
+                        <li><input type="checkbox" ng-model="vm.MaxPotCom"/> <b style="color:black;">POTENCIA MÁXIMA</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccTarElec"/> <b style="color:black;">ACCIÓN</b></li>
                       </ul> 
                     </div>
                     
@@ -162,10 +162,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                     <th ng-show="vm.TipTen==true">Tipo Tensión</th>
                     <th ng-show="vm.NomTarEle==true">Tarifa</th>                    
-                    <th ng-show="vm.CanPerTar==true"><i class="fa fa-archive"></i> Periodos</th>
-                    <th ng-show="vm.MinPotCon==true"><i class="fa fa-crop"></i> Minimo Potencia</th>
-                    <th ng-show="vm.MaxPotCom==true"><i class="fa fa-crosshairs"></i> Maximo Potencia</th> 
-                    <th ng-show="vm.AccTarElec==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.CanPerTar==true">Períodos</th>
+                    <th ng-show="vm.MinPotCon==true">Mínimo Potencia</th>
+                    <th ng-show="vm.MaxPotCom==true">Máximo Potencia</th> 
+                    <th ng-show="vm.AccTarElec==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.T_TarifasEle.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -186,10 +186,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>
                    <th ng-show="vm.TipTen==true">Tipo Tensión</th>
                     <th ng-show="vm.NomTarEle==true">Tarifa</th>                    
-                    <th ng-show="vm.CanPerTar==true"><i class="fa fa-archive"></i> Periodos</th>
-                    <th ng-show="vm.MinPotCon==true"><i class="fa fa-crop"></i> Minimo Potencia</th>
-                    <th ng-show="vm.MaxPotCom==true"><i class="fa fa-crosshairs"></i> Maximo Potencia</th> 
-                    <th ng-show="vm.AccTarElec==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.CanPerTar==true">Períodos</th>
+                    <th ng-show="vm.MinPotCon==true">Mínimo Potencia</th>
+                    <th ng-show="vm.MaxPotCom==true">Máximo Potencia</th> 
+                    <th ng-show="vm.AccTarElec==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -230,9 +230,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" id="TipTen" name="TipTen" ng-model="vm.tmodal_TarEle.TipTen">
-        <option value="BAJA">BAJA</option> 
-        <option value="ALTA">ALTA</option>
-        <option value="AMBAS">AMBAS</option>                         
+        <option value="BAJA">Baja</option> 
+        <option value="ALTA">Alta</option>
+        <option value="AMBAS">Ambas</option>                         
       </select>   
      </div>
      </div>
@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="col-12 col-sm-3">
                <div class="form">                          
                <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Cantidad Periodos <b style="color:red;">(*)</b></label>
+               <label class="font-weight-bold nexa-dark" style="color:black;">Cantidad Períodos <b style="color:red;">(*)</b></label>
                 <input class=" form-control" id="CanPerTar" name="CanPerTar" maxlength="2" type="text" required ng-model="vm.fdatos_tar_elec.CanPerTar" ng-change="vm.validarsinumeroTarEle(1,vm.fdatos_tar_elec.CanPerTar)" ng-disabled="vm.disabled_form_TarEle==1"/>              
                </div>
                </div>
@@ -337,10 +337,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">                        
-                        <li><input type="checkbox" ng-model="vm.NomTarGas"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.MinConAnu"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CONSUMO MÍNINO</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.MaxConAnu"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CONSUMO MÁXIMO</b></li>
-                        <li><input type="checkbox" ng-model="vm.AccTarGas"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomTarGas"/> <b style="color:black;">Tarifa</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.MinConAnu"/> <b style="color:black;">Consumo Mínimo</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.MaxConAnu"/> <b style="color:black;">Consumo Máximo</b></li>
+                        <li><input type="checkbox" ng-model="vm.AccTarGas"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>
                     
@@ -371,9 +371,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
-                    <th ng-show="vm.MinConAnu==true"><i class="fa fa-crop"></i> Minimo Consumo Anual</th>
-                    <th ng-show="vm.MaxConAnu==true"><i class="fa fa-crosshairs"></i> Maximo Consumo Anual</th> 
-                    <th ng-show="vm.AccTarGas==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.MinConAnu==true">Mínimo Consumo Anual</th>
+                    <th ng-show="vm.MaxConAnu==true">Máximo Consumo Anual</th> 
+                    <th ng-show="vm.AccTarGas==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.T_TarifasGas.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -392,9 +392,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
-                    <th ng-show="vm.MinConAnu==true"><i class="fa fa-crop"></i> Minimo Consumo Anual</th>
-                    <th ng-show="vm.MaxConAnu==true"><i class="fa fa-crosshairs"></i> Maximo Consumo Anual</th> 
-                    <th ng-show="vm.AccTarGas==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.MinConAnu==true">Mínimo Consumo Anual</th>
+                    <th ng-show="vm.MaxConAnu==true">Máximo Consumo Anual</th> 
+                    <th ng-show="vm.AccTarGas==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -507,10 +507,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </script>
 </body>
 
-<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, Por Favor Espere..."></div>
-<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, Por Favor Espere..."></div>
-<div id="cargando" class="loader loader-default"  data-text="Cargando Lista de Tarifas, Por Favor Espere..."></div>
-<div id="borrando" class="loader loader-default"  data-text="Borrando Tarifa, Por Favor Espere..."></div>
+<div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, por favor espere ..."></div>
+<div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, por favor espere ..."></div>
+<div id="Cargando" class="loader loader-default"  data-text="Cargando Listado de Tarifas, por favor espere ..."></div>
+<div id="Borrando" class="loader loader-default"  data-text="Borrando Tarifa, por favor espere ..."></div>
 
 
 

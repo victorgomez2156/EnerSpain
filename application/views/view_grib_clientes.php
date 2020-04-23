@@ -190,8 +190,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                   <th ng-show="vm.RazSoc==true">Razón Social</th>
-                    <th ng-show="vm.NumCif==true">CIF</th>                    
+                   <th ng-show="vm.NumCif==true">CIF</th>
+                   <th ng-show="vm.RazSoc==true">Razón Social</th>                    
                     <th ng-show="vm.NomCli==true">Nombre Comercial</th>
                     <th ng-show="vm.NomVia==true">Domicilio Social</th>
                     <th ng-show="vm.NomViaFis==true">Domicilio Fiscal</th>
