@@ -73,7 +73,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Producto</h3>
+            <!--<h3 class="page-header">Datos Básicos del Producto</h3>-->
+            <h3 class="page-header" ng-show="vm.fdatos.CodPro==undefined">Registrar Producto</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodPro>0">Datos Básicos del Producto </h3>
             <!-- <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>           
               <li><i class="fa fa-briefcase"></i> Registro de Productos</li>

@@ -28,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-lg-12">
             <h3 class="page-header" ng-show="vm.fdatos.CodCli==undefined">Registrar Cliente</h3>
-            <h3 class="page-header" ng-show="vm.fdatos.CodCli>0">Modificar Cliente </h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCli>0">Datos Básicos del Cliente </h3>
             <!--<ol class="breadcrumb">
             
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
