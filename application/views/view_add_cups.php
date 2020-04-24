@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>      
       <div style="margin-top: 8px;">
-       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO SERVICIO</b></label></div></div>
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>  TIPO SUMINISTRO</b></label></div></div>
       
       <div class="col-12 col-sm-4">
        <div class="form">                          

@@ -4688,7 +4688,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">SERVICIO ESPECIAL</td>
             <td style="color:white;">CARACTERISTICA DEL SERVICIO</td>
             <td style="color:white;">TIPO CLIENTE</td>
-            <td style="color:white;">TIPO SERVICIO</td>
+            <td style="color:white;">TIPO SUMINISTRO</td>
             <td style="color:white;">TIPO COMISIÓN</td>
             <td style="color:white;">FECHA</td>
             <td style="color:white;">ESTATUS</td>
@@ -5027,7 +5027,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TIPO CLIENTE");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "TIPO SERVICIO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "TIPO SUMINISTRO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
         $objPHPExcel->getActiveSheet()->SetCellValue("F9", "TIPO COMISIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
@@ -5201,7 +5201,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">CIF</td> 
             <td style="color:white;">RAZÓN SOCIAL</td>
             <td style="color:white;">TELÉFONO</td>
-            <td style="color:white;">TIPO SERVICIO</td>
+            <td style="color:white;">TIPO SUMINISTRO</td>
             <td style="color:white;">ESTATUS</td>
         </tr>';
         if($Resultado!=false)
@@ -5445,7 +5445,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $objPHPExcel->getActiveSheet()->SetCellValue("C9", "TELÉFONO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TIPO SERVICIO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TIPO SUMINISTRO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
         $objPHPExcel->getActiveSheet()->SetCellValue("E9", "ESTATUS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
@@ -10024,7 +10024,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">CUPS</td>
-            <td style="color:white;">TIPO SERVICIO</td>
+            <td style="color:white;">TIPO SUMINISTRO</td>
             <td style="color:white;">TARIFA</td>
             <td style="color:white;">ESTATUS</td>
         </tr>';
@@ -10299,7 +10299,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CUPS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO SERVICIO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO SUMINISTRO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $objPHPExcel->getActiveSheet()->SetCellValue("C9", "TARIFA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");

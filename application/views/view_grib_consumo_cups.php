@@ -99,14 +99,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><input type="checkbox" ng-model="vm.Cups"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CUPS</b></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SERVICIO</b></li></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
-            <li><input type="checkbox" ng-model="vm.FecIniCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">FECHA INICIO</b></li></li>
-            <li><input type="checkbox" ng-model="vm.FecFinCon"/> <i class="fa fa-plus-square"></i> <b style="color:black;">FECHA FIN</b></li></li>
-            <li><input type="checkbox" ng-model="vm.ConCup"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CONSUMO</b></li></li>
-            <!--li><input type="checkbox" ng-model="vm.EstConCup"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ESTATUS</b></li></li-->
-            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups"/> <b style="color:black;">CUPS</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <b style="color:black;">TIPO SUMINISTRO</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <b style="color:black;">TARIFA</b></li></li>
+            <li><input type="checkbox" ng-model="vm.FecIniCon"/> <b style="color:black;">FECHA INICIO</b></li></li>
+            <li><input type="checkbox" ng-model="vm.FecFinCon"/> <b style="color:black;">FECHA FIN</b></li></li>
+            <li><input type="checkbox" ng-model="vm.ConCup"/> <b style="color:black;">CONSUMO</b></li></li>
+            <!--li><input type="checkbox" ng-model="vm.EstConCup"/> <b style="color:black;">ESTATUS</b></li></li-->
+            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <b style="color:black;">ACCIÓN</b></li>
           </ul> 
         </div>                    
         <div class="btn-group">
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form-group">
         <input type="text" class="form-control" ng-model="vm.filtrar_consumo_cups" minlength="1" placeholder="Escribe para filtrar...">
       </div>                 
-      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Consumos CUPs" ng-disabled="vm.disabled_button_add==false" ng-click="vm.agregar_consumo_cups()"><i class="fa fa-plus-square"></i></button>
+      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Consumos CUPs" ng-disabled="vm.disabled_button_add==false" ng-click="vm.agregar_consumo_cups()"</button>
     </form>                    
  </div>
 </div>
@@ -140,16 +140,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.Cups==true">CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                        
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th>
-                    <th ng-show="vm.FecIniCon==true"><i class="fa fa-calendar"></i> FECHA INICIO</th>
-                    <th ng-show="vm.FecFinCon==true"><i class="fa fa-calendar"></i> FECHA FIN</th>
+                    <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                        
+                    <th ng-show="vm.Cups_Tar==true">TARIFA</th>
+                    <th ng-show="vm.FecIniCon==true">FECHA INICIO</th>
+                    <th ng-show="vm.FecFinCon==true">FECHA FIN</th>
                     <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups_Consumo.length==0"> 
-                     <td colspan="8" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> Actualmente no hay consumos registrados.</div></td>
+                     <td colspan="8" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen consumos registrados</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TCups_Consumo | filter:paginate | filter:vm.filtrar_consumo_cups" ng-class-odd="odd">                    
                     <td ng-show="vm.Cups==true">{{dato.CUPs}}</td>
@@ -173,10 +173,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <th ng-show="vm.Cups==true">CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                        
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th>
-                    <th ng-show="vm.FecIniCon==true"><i class="fa fa-calendar"></i> FECHA INICIO</th>
-                    <th ng-show="vm.FecFinCon==true"><i class="fa fa-calendar"></i> FECHA FIN</th>
+                    <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                        
+                    <th ng-show="vm.Cups_Tar==true">TARIFA</th>
+                    <th ng-show="vm.FecIniCon==true">FECHA INICIO</th>
+                    <th ng-show="vm.FecFinCon==true">FECHA FIN</th>
                     <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
@@ -343,7 +343,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">  
-       <label class="font-weight-bold nexa-dark" style="color:black;">TIPO SERVICIO</label>     
+       <label class="font-weight-bold nexa-dark" style="color:black;">TIPO SUMINISTRO</label>     
        <input type="text" class="form-control" ng-model="vm.TipServ" onkeyup="this.value=this.value.toUpperCase();" readonly maxlength="16" ng-disabled="vm.validate_info==1"/>
        </div>
        </div>

@@ -242,7 +242,7 @@
          }
          if (scope.tmodal_servicio_especiales.ttipofiltrosServicioEspecial == 2) {
              if (!scope.tmodal_servicio_especiales.TipServ > 0) {
-                 Swal.fire({ title: 'Tipo Servicio', text: 'Debe Seleccionar un Tipo de Suministro de la lista.', type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Tipo Suministro', text: 'Debe Seleccionar un Tipo de Suministro de la lista.', type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              /*if(!scope.tmodal_servicio_especiales.Select>0)

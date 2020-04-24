@@ -57,7 +57,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.ruta_reportes_pdf_cups = 0;
     scope.ruta_reportes_excel_cups = 0;
     scope.topciones = [{ id: 1, nombre: 'EDITAR' }, { id: 2, nombre: 'VER' }, { id: 3, nombre: 'CONSUMO' }, { id: 4, nombre: 'DAR BAJA' }, { id: 5, nombre: 'HISTORIAL' }];
-    scope.Filtro_CUPs = [{ id: 1, nombre: 'TIPO SERVICIO' }, { id: 2, nombre: 'TARIFA' }, { id: 3, nombre: 'ESTATUS' }];
+    scope.Filtro_CUPs = [{ id: 1, nombre: 'TIPO SUMINISTRO' }, { id: 2, nombre: 'TARIFA' }, { id: 3, nombre: 'ESTATUS' }];
 
     scope.cargar_lista_cups = function() {
         $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");

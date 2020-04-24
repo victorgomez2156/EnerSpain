@@ -108,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <li><input type="checkbox" ng-model="vm.Cups"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CUPS</b></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SERVICIO</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SUMINISTRO</b></li></li>
             <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
             <li><input type="checkbox" ng-model="vm.EstCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ESTATUS</b></li></li>
             <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.Cups==true">CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                                            
+                    <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                                            
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
                     <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
@@ -172,7 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.Cups==true">CUPS</th>
-                    <th ng-show="vm.Cups_Ser==true">TIPO SERVICIO</th>                                                            
+                    <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                                            
                     <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
                     <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
                     <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
@@ -439,7 +439,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>      
       <div style="margin-top: 8px;">
-       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO SERVICIO</b></label></div></div>
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>TIPO SUMINISTRO</b></label></div></div>
       
       <div class="col-12 col-sm-4">
        <div class="form">                          
