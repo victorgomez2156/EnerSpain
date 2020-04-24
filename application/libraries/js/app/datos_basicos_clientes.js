@@ -381,7 +381,7 @@
              return false;
          }
          if (scope.fdatos.NomComCli == null || scope.fdatos.NomComCli == undefined || scope.fdatos.NomComCli == '') {
-             Swal.fire({ title: "El Nombre Comercial del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre Comercial del Cliente es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodTipCli > 0) {
@@ -397,11 +397,11 @@
              return false;
          }
          if (scope.fdatos.NomViaDomSoc == null || scope.fdatos.NomViaDomSoc == undefined || scope.fdatos.NomViaDomSoc == '') {
-             Swal.fire({ title: "El Nombre del Domicilio Social del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.NumViaDomSoc == null || scope.fdatos.NumViaDomSoc == undefined || scope.fdatos.NumViaDomSoc == '') {
-             Swal.fire({ title: "El Número del Domicilio del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fdatos.CodProSoc > 0) {
@@ -422,7 +422,7 @@
                  return false;
              }
              if (scope.fdatos.NumViaDomFis == null || scope.fdatos.NumViaDomFis == undefined || scope.fdatos.NumViaDomFis == '') {
-                 Swal.fire({ title: "El Número del Domicilio Fiscal del Cliente es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "El Número del Domicilio Fiscal del Cliente es requerido", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
              if (!scope.fdatos.CodProFis > 0) {
@@ -435,11 +435,11 @@
              }
          }
          if (scope.fdatos.TelFijCli == null || scope.fdatos.TelFijCli == undefined || scope.fdatos.TelFijCli == '') {
-             Swal.fire({ title: "El Número de Teléfono es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número de Teléfono es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.EmaCli == null || scope.fdatos.EmaCli == undefined || scope.fdatos.EmaCli == '') {
-             Swal.fire({ title: "El Correo Electrónico es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Correo Electrónico es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
 

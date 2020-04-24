@@ -180,7 +180,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     $scope.Consultar_CIF = function(event) {
         if (scope.fdatos.NumCifCom == undefined || scope.fdatos.NumCifCom == null || scope.fdatos.NumCifCom == '') {
-            Swal.fire({ text: 'El CIF es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El CIF es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             $("#NumCifCom").removeClass("loader loader-default").addClass("loader loader-default  is-active");

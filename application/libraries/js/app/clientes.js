@@ -188,7 +188,7 @@
 
      $scope.Consultar_CIF_Clientes = function(event) {
          if (scope.fdatos.Clientes_CIF == undefined || scope.fdatos.Clientes_CIF == null || scope.fdatos.Clientes_CIF == '') {
-             Swal.fire({ title: "Error.", text: "El campo CIF es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Error.", text: "El campo CIF es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          } else {
              $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default  is-active");

@@ -7630,7 +7630,7 @@ class Exportar_Documentos extends CI_Controller
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
             <td style="color:white;">OBSERVACIÓN</td>
-            <td style="color:white;">ES OBLIGATORIO</td>
+            <td style="color:white;">es requerido</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -7808,7 +7808,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "ES OBLIGATORIO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "es requerido");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 

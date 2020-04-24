@@ -746,23 +746,23 @@
              return false;
          }
          if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
-             Swal.fire({ title: "El Cargo del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Cargo del Contacto es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
-             Swal.fire({ title: "El Nombre del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre del Contacto es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
-             Swal.fire({ title: "El Teléfono Fijo del Contato es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Teléfono Fijo del Contato es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
-             Swal.fire({ title: "El Teléfono Celular del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Teléfono Celular del Contacto es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
-             Swal.fire({ title: "El Email del Contacto es obligatorio", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Email del Contacto es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.CanMinRep <= 0) {

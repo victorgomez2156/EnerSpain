@@ -610,15 +610,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_TarGas = function() {
         resultado = true;
         if (scope.fdatos_tar_gas.NomTarGas == null || scope.fdatos_tar_gas.NomTarGas == undefined || scope.fdatos_tar_gas.NomTarGas == '') {
-            Swal.fire({ text: 'El nombre de la Tarifa es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El nombre de la Tarifa es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_gas.MinConAnu == null || scope.fdatos_tar_gas.MinConAnu == undefined || scope.fdatos_tar_gas.MinConAnu == '') {
-            Swal.fire({ text: 'El Consumo Mínimo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Consumo Mínimo es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos_tar_gas.MaxConAnu == null || scope.fdatos_tar_gas.MaxConAnu == undefined || scope.fdatos_tar_gas.MaxConAnu == '') {
-            Swal.fire({ text: 'El Consumo Máximo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Consumo Máximo es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
 
@@ -713,7 +713,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var text = '¿Seguro que desea cerrar sin crear la Tarifa de Gas';
         } else {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa de Gas';
+            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa de Gas?';
         }
         Swal.fire({
             title: title,

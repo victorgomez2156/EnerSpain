@@ -288,12 +288,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 			resultado = false;
 		}*/
             if (scope.TComisionesRangoGrib[i].ConMinAnu == undefined || scope.TComisionesRangoGrib[i].ConMinAnu == null || scope.TComisionesRangoGrib[i].ConMinAnu == '') {
-                Swal.fire({ title: 'Consumo Mínimo', text: 'El Consumo Mínimo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Consumo Mínimo', text: 'El Consumo Mínimo es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConMaxAnu == undefined || scope.TComisionesRangoGrib[i].ConMaxAnu == null || scope.TComisionesRangoGrib[i].ConMaxAnu == '') {
-                Swal.fire({ title: 'Consumo Máximo', text: 'El Consumo Máximo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Consumo Máximo', text: 'El Consumo Máximo es requerido', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }

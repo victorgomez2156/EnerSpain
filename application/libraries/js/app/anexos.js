@@ -790,7 +790,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.anexos.DesAnePro == null || scope.anexos.DesAnePro == undefined || scope.anexos.DesAnePro == '') {
-            Swal.fire({ title: 'Anexos', text: 'El Nombre del Anexo es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Anexos', text: 'El Nombre del Anexo es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         var FecIniAneA1 = document.getElementById("FecIniAneA").value;

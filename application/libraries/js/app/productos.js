@@ -613,7 +613,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.productos.DesPro == null || scope.productos.DesPro == undefined || scope.productos.DesPro == '') {
-            Swal.fire({ text: 'El Nombre del Producto es obligatorio', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'El Nombre del Producto es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         var FecIniPro1 = document.getElementById("FecIniPro").value;

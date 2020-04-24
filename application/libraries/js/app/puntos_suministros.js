@@ -789,11 +789,11 @@
              return false;
          }
          if (scope.fpuntosuministro.NomViaPunSum == null || scope.fpuntosuministro.NomViaPunSum == undefined || scope.fpuntosuministro.NomViaPunSum == '') {
-             Swal.fire({ title: "El Nombre del Domicilio es requerido", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Nombre de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fpuntosuministro.NumViaPunSum == null || scope.fpuntosuministro.NumViaPunSum == undefined || scope.fpuntosuministro.NumViaPunSum == '') {
-             Swal.fire({ title: "El Número del Domicilio es requerido", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "El Número de la Vía es requerido", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (!scope.fpuntosuministro.CodProPunSum > 0) {
