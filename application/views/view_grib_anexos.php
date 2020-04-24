@@ -142,18 +142,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                    <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
-                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Suministro Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
-                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.NumCifCom==true"> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"> Razón Social</th>
+                    <th ng-show="vm.CodAneTPro==true"> Productos</th>
+                    <th ng-show="vm.DesAnePro==true"> Descripción Anexo</th>
+                    <th ng-show="vm.SerGasAne==true"> Suministro Gas</th>
+                    <th ng-show="vm.SerTEleAne==true"> Suministro Eléctrico</th>
+                    <th ng-show="vm.TipPreAne==true"> Tipo Precio</th>
+                    <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
+                    <th ng-show="vm.ObsAnePro==true"> Observación</th>
+                    <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>
+                    <th ng-show="vm.EstAne==true"> Estatus</th>
+                    <th ng-show="vm.AccTAne==true"> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TAnexos.length==0"> 
                     <td colspan="12" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
@@ -184,18 +184,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                     <th ng-show="vm.NumCifCom==true"><i class="icon_cogs"></i> CIF</th>
-                    <th ng-show="vm.RazSocCom==true"><i class="icon_cogs"></i> Razón Social</th>
-                    <th ng-show="vm.CodAneTPro==true"><i class="icon_cogs"></i> Productos</th>
-                    <th ng-show="vm.DesAnePro==true"><i class="icon_cogs"></i> Descripción Anexo</th>
-                    <th ng-show="vm.SerGasAne==true"><i class="icon_cogs"></i> Suministro Gas</th>
-                    <th ng-show="vm.SerTEleAne==true"><i class="icon_cogs"></i> Suministro Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"><i class="icon_cogs"></i> Tipo Precio</th>
-                    <th ng-show="vm.CodTipComAne==true"><i class="icon_cogs"></i> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"><i class="icon_cogs"></i> Observación</th>
-                    <th ng-show="vm.FecIniAne==true"><i class="icon_cogs"></i> Fecha de Inicio</th>
-                    <th ng-show="vm.EstAne==true"><i class="icon_cogs"></i> Estatus</th>
-                    <th ng-show="vm.AccTAne==true"><i class="icon_cogs"></i> Acción</th>
+                     <th ng-show="vm.NumCifCom==true"> CIF</th>
+                    <th ng-show="vm.RazSocCom==true"> Razón Social</th>
+                    <th ng-show="vm.CodAneTPro==true"> Productos</th>
+                    <th ng-show="vm.DesAnePro==true"> Descripción Anexo</th>
+                    <th ng-show="vm.SerGasAne==true"> Suministro Gas</th>
+                    <th ng-show="vm.SerTEleAne==true"> Suministro Eléctrico</th>
+                    <th ng-show="vm.TipPreAne==true"> Tipo Precio</th>
+                    <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
+                    <th ng-show="vm.ObsAnePro==true"> Observación</th>
+                    <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>
+                    <th ng-show="vm.EstAne==true"> Estatus</th>
+                    <th ng-show="vm.AccTAne==true"> Acción</th>
                 </tfoot>
               </table>
         </div> 
