@@ -124,8 +124,10 @@
      scope.regresar = function() {
          if (scope.validate_info == undefined) {
              if (scope.fdatos.CodCli == undefined) {
+                 var title = 'Guardando';
                  var text = "¿Seguro que desea cerrar sin grabar la información?";
              } else {
+                 var title = 'Actualizando';
                  var text = "¿Seguro que desea cerrar sin actualizar la información?";
              }
              Swal.fire({

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Clientes_model extends CI_Model 
 { 
-    //////////////////////////////////////////////// CLIENTES START /////////////////////////////////////////////////////////
+/////////////////////////////////////////// CLIENTES START ///////////////////////////////////////
     public function get_list_clientes() 
     {
         $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "BLOQUEADO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
@@ -27,7 +27,7 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
-    public function agregar($BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$FecIniCli,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumCifCli,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli)
+    public function agregar($BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$FecIniCli,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumCifCli,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$CPLocSoc,$CPLocFis)
     {
         $this->db->select('NumCifCli');
         $this->db->from('T_Cliente');
@@ -39,28 +39,120 @@ class Clientes_model extends CI_Model
         }
         else
         {
-            $this->db->insert('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'NumCifCli'=>$NumCifCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'FecIniCli'=>$FecIniCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli));
+            $this->db->insert('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'NumCifCli'=>$NumCifCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'FecIniCli'=>$FecIniCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis));
             return $this->db->insert_id();
-        }   
-        /*$check_exists_NumCifCli = $this->db->get_where("T_Cliente", array("NumCifCli"=> $NumCifCli));
-        if($check_exists_NumCifCli->num_rows()>0)
-        {
-            return true;
-        }
-        else
-        {
-            $this->db->insert('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'NumCifCli'=>$NumCifCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'FecIniCli'=>$FecIniCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli));
-            return $this->db->insert_id();
-        }*/
+        } 
     }
     public function actualizar($CodCli,$BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$FecIniCli,$CPLocSoc,$CPLocFis)
     {   
         $this->db->where('CodCli', $CodCli);        
         return $this->db->update('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'FecIniCli'=>$FecIniCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis));
     }
+public function get_data_cliente($CodCli)
+{
+    $sql = $this->db->query("SELECT a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,CONCAT(d.IniTipVia,' - ',d.DesTipVia,' ',a.NomViaDomSoc,' ',a.NumViaDomSoc) AS DomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,b.DesLoc as DesLocSoc,c.DesPro as DesProSoc,a.CodLocSoc,b.CodPro,a.CPLocSoc as CPLocSoc,
+        CONCAT(g.IniTipVia,' - ',g.DesTipVia,' ',a.NomViaDomFis,' ',a.NumViaDomFis) AS DomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,
+        e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli
+        FROM T_Cliente a 
+        JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
+        JOIN T_Provincia c on b.CodPro=c.CodPro
+        JOIN T_TipoVia   d on a.CodTipViaSoc=d.CodTipVia
+
+        JOIN T_Localidad e on a.CodLocFis=e.CodLoc
+        JOIN T_Provincia f on e.CodPro=f.CodPro
+        JOIN T_TipoVia   g on a.CodTipViaFis=g.CodTipVia
+        where CodCli='$CodCli'");
+        if ($sql->num_rows() > 0)
+          return $sql->row();
+        else
+        return false;     
+}
+public function get_data_puntos_suministros($CodCli)
+{
+    $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,CONCAT(d.IniTipVia,' - ',d.DesTipVia,' ',a.NomViaPunSum,' ',a.NumViaPunSum) AS DirPumSum,c.DesPro,b.DesLoc,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CPLocSoc from T_PuntoSuministro a
+    JOIN T_Localidad b on b.CodLoc=a.CodLoc
+    JOIN T_Provincia c on b.CodPro=c.CodPro
+    JOIN T_TipoVia   d on a.CodTipVia=d.CodTipVia where CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
+public function get_data_cliente_contactos($CodCli)
+{
+    $this->db->select('NomConCli,NIFConCli,CarConCli,case TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,EsRepLeg,DocNIF,DocPod',false);
+    $this->db->from('T_ContactoCliente');
+    $this->db->where('CodCli',$CodCli);
+    $this->db->where('EsRepLeg=1');         
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
+}
+public function get_data_cliente_cuentas($CodCli)
+{
+    $this->db->select('a.*,b.DesBan');
+    $this->db->from('T_CuentaBancaria a');
+     $this->db->join('T_Banco b','a.CodBan=b.CodBan');
+    $this->db->where('CodCli',$CodCli);        
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
+}
+public function get_data_cliente_documentos($CodCli)
+{
+    $this->db->select('b.DesTipDoc,a.DesDoc,a.ArcDoc');
+    $this->db->from('T_Documentos a');
+    $this->db->join('T_TipoDocumento b','a.CodTipDoc=b.CodTipDoc');
+    $this->db->where('CodCli',$CodCli);        
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
+}
+public function get_CUPs_Gas($CodPunSum)
+{
+    $sql = $this->db->query("SELECT a.CupsGas,c.RazSocDis,b.NomTarGas from T_CUPsGas a
+    JOIN T_TarifaGas b on a.CodTarGas=b.CodTarGas
+    JOIN T_Distribuidora c on a.CodDis=c.CodDist
+    where a.CodPunSum='$CodPunSum'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;   
+}
+public function get_CUPs_Electricos($CodPunSum)
+{
+   $sql = $this->db->query("SELECT a.CUPsEle,c.RazSocDis,b.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6 from T_CUPsElectrico a
+    JOIN T_TarifaElectrica b on a.CodTarElec=b.CodTarEle
+    JOIN T_Distribuidora c on a.CodDis=c.CodDist
+    where a.CodPunSum='$CodPunSum'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;    
+}
 
 
-    //////////////////////////////////////////////// CLIENTES END /////////////////////////////////////////////////////////
+
+
+////////////////////////////////////// CLIENTES END /////////////////////////////////////////////////
 
 
 
@@ -757,17 +849,15 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->where('CodCli', $CodCli);
         $this->db->where('CodCueBan', $CodCueBan);         
         return $this->db->update('T_CuentaBancaria',array('EstCue'=>$EstCue));
+    }   
+    public function getclientessearch($SearchText)
+    {
+       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%'");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else
+        return false;        
     }
-
-   
-
-
-
-
-
-   
-   
-   
     public function get_all_contactos($CodCli)
     {
        $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,a.TipRegDir,case a.TipRegDir when 0 then 'Nuevo' when 1 then 'Misma Dirección Social' when 2 then 'Misma Dirección Fiscal' end as TipDir,b.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,d.DesPro,c.DesLoc,c.CPLoc,e.DesTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,a.TelPunSum,a.EstPunSum,case a.EstPunSum when 1 then 'Activo' when 2 then 'Bloqueado' end as EstuPunSum,c.CodLoc as CodLocPunSum,d.CodPro as CodProPunSum,a.CodTipVia,a.CodTipInm,c.CPLoc as ZonPosPunSum FROM T_PuntoSuministro a JOIN T_TipoVia b on a.CodTipVia=b.CodTipVia JOIN T_Localidad c ON a.CodLoc=c.CodLoc JOIN T_Provincia d ON c.CodPro=d.CodPro JOIN T_TipoInmueble e ON a.CodTipInm=e.CodTipInm where CodCli='$CodCli'");
@@ -780,9 +870,5 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     {
         $this->db->insert('T_ActividadCliente',array('CodCli'=>$CodCli,'CodActEco'=>$CodActEco,'FecIniAct'=>$FecIniAct));
         return $this->db->insert_id();
-    }
-   
-
-    
-    
+    }    
 }

@@ -492,9 +492,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         $http.post(url, scope.status_comer).then(function(result) {
             if (result.data.resultado != false) {
                 if (opciones_comercializadoras == 1) {
+
+                    var title = 'Activando';
                     var text = 'La Comercializadora se ha activado de forma correcta';
                 }
                 if (opciones_comercializadoras == 2) {
+                    var title = 'Bloqueando';
                     var text = 'La Comercializadora ha sido bloqueada de forma correcta';
                     $("#modal_motivo_bloqueo_comercializadora").modal('hide');
                 }

@@ -57,6 +57,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'funciones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'servicios.js'?>"></script>
   
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'dashboard.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'empleados.js'?>"></script>  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'distribuidora.js'?>"></script>  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'colaboradores.js'?>"></script> 

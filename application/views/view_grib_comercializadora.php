@@ -428,6 +428,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
 <!--modal modal_cif_comercializadora section END -->
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
 <div id="List_Comer" class="loader loader-default"  data-text="Cargando listado de Comercializadoras"></div>
+<div id="estatus" class="loader loader-default"  data-text="Modificando Estatus"></div>
 <div id="borrando" class="loader loader-default"  data-text="Eliminando Comercializadora"></div>
 <div id="NumCifCom" class="loader loader-default"  data-text="Comprobando CIF"></div>
 </div>

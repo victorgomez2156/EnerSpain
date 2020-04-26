@@ -182,12 +182,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.ConCupHis=true;*/
         }
     }
-    scope.regresar_cups = function() {
+    scope.regresar_cups = function(){
 
         if (scope.validate_info == undefined) {
             if (scope.fdatos_cups.CodCup == undefined) {
+                var title="Guardando";
                 var text = "¿Seguro que desea cerrar sin grabar la información?";
             } else {
+                var title="Actualizando";
                 var text = "¿Seguro que desea cerrar sin actualizar la información?";
             }
             Swal.fire({

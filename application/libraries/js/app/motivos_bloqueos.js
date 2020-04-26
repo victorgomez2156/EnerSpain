@@ -153,12 +153,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormMotClientes = function(event) {
         console.log(scope.fdatos_mot_clientes);
         if (scope.fdatos_mot_clientes.CodMotBloCli > 0) {
-
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Motivo?';
             var response = "El Motivo Bloqueo de Cliente modificado de forma correcta";
         }
         if (scope.fdatos_mot_clientes.CodMotBloCli == undefined) {
 
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Motivo de Bloqueo?';
             var response = "El Motivo Bloqueo de Cliente ha sido registrado de forma correcta";
         }
@@ -388,13 +389,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     $scope.submitFormActividad = function(event) {
         console.log(scope.fdatos_mot_actividad);
-        if (scope.fdatos_mot_actividad.CodMotBloAct > 0) {
-
+        if (scope.fdatos_mot_actividad.CodMotBloAct > 0){
+            var title = 'Actualizando';
             var text = '¿Seguro que desea modificar el Motivo de Bloqueo de la Actividad?';
             var response = "El Motivo de Bloqueo de la Actividad ha sido actualizado de forma correcta";
         }
         if (scope.fdatos_mot_actividad.CodMotBloAct == undefined) {
 
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Motivo de Bloqueo de la Actividad?';
             var response = "El Motivo de Bloqueo de la Actividad ha sido registrado de forma correcta";
         }
@@ -623,6 +625,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_mot_PunSum);
         if (scope.fdatos_mot_PunSum.CodMotBloPun > 0) {
 
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Motivo de Bloqueo de la Dirección de Suministro?';
             var response = "El Motivo de Bloqueo de la Dirección de Suministro ha sido modificado de forma correcta";
         }
@@ -803,7 +806,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error.", text: "No hemos encontrado motivos bloqueo contacto registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TMotivo_BloContacto = undefined;
             }
-        }, function(error) {
+        }, function(error)
+        {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
@@ -857,12 +861,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.submitFormContactos = function(event) {
         console.log(scope.fdatos_mot_contacto);
         if (scope.fdatos_mot_contacto.CodMotBloCon > 0) {
-
+            var title = 'Actualizando';
             var text = '¿Seguro que desea modificar el Motivo de Bloqueo del Contacto?';
             var response = "El Motivo de Bloqueo del Contacto ha sido modificado de forma correcta";
         }
         if (scope.fdatos_mot_contacto.CodMotBloCon == undefined) {
 
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Motivo de Bloqueo del Contacto?';
             var response = "El Motivo de Bloqueo del Contacto ha sido registrado de formar correcta";
         }
@@ -1094,11 +1099,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_mot_comercializadora);
         if (scope.fdatos_mot_comercializadora.CodMotBloCom > 0) {
 
+            var title = 'Actualizando';
             var text = '¿Seguro que desea actualizar el Motivo de Bloqueo de la Comercializadora?';
             var response = "El Motivo de Bloqueo de la Comercializadora ha sido modificado de forma correcta";
         }
         if (scope.fdatos_mot_comercializadora.CodMotBloCom == undefined) {
 
+            var title = 'Guardando';
             var text = '¿Seguro que desea grabar el Notivo de Bloqueo de la Comercializadora?';
             var response = "El Motivo de Bloqueo de la Comercializadora ha sido registrado de forma correcta";
         }

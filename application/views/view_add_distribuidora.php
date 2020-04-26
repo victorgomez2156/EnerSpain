@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodDist>0 && vm.disabled_form==undefined" ng-disabled="register_form.$invalid"> Actualizar</button>
                         <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodDist>0 && vm.Nivel==1 && vm.disabled_form==undefined" ng-disabled="vm.Nivel==3">{{ 'DELETE' | translate }}</button-->
                         <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodDist==undefined||vm.fdatos.CodDist==null||vm.fdatos.CodDist==''">Limpiar</button>
-                        <a class="btn btn-info" href="#/Add_Distribuidora"><i class="fa fa-arrow-left"></i> Volver</a>
+                        <a class="btn btn-info" ng-click="vm.regresar()"><i class="fa fa-arrow-left"></i> Volver</a>
                       </div>
                     </div>
                     <input class="form-control " id="CodDist" name="CodDist" type="hidden" ng-model="vm.fdatos.CodDist" readonly />

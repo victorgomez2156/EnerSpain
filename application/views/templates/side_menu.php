@@ -3,7 +3,7 @@
         <div class="icon-reorder tooltips" data-original-title="Menu Principal" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
       <!--logo start-->
-      <a class="logo"><img src="<?php echo ESTILOS;?>img/logo_web_destock.png" >   </a>
+      <a class="logo"><img src="<?php echo ESTILOS;?>img/logo_web_destock.png"></a>
       <!--logo end-->
        <!--  search form start -->
       <!--div class="nav search-row" id="top_menu">       
@@ -156,7 +156,7 @@
             </ul>
           </li>
 
-             <li class="sub-menu">
+            <li class="sub-menu">
             <a href="javascript:;" class="">
               <i class="fa fa-user"></i>
               <span>Clientes</span>
@@ -170,6 +170,20 @@
               <li><a href="#/Contactos"> Contactos</a></li>  
               <li><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
               <li><a href="#/Documentos"> Documentos</a></li> 
+                
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
+              <i class="fa fa-cube"></i>
+              <span>Gestión Comercial</span>
+              <span class="menu-arrow arrow_carrot-right"></span>
+            </a>
+            <ul class="sub">
+              <li><a href="#/"> Propuesta Comercial</a></li>
+              <li><a href="#/"> Contratos</a></li>
+              <li><a href="#/"> Otras Gestiones</a></li>
                 
             </ul>
           </li>
