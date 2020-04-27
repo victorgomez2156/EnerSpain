@@ -586,13 +586,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodCup > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro de Actualizar el CUPs?';
-            var response = "CUPs modificado satisfactoriamente";
+            var text = '¿Seguro que desea modificar los datos del CUPs?';
+            var response = "CUPs actualizado de forma correcta";
         }
         if (scope.fdatos_cups.CodCup == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro de registrar el CUPs?';
-            var response = "CUPs creado satisfactoriamente";
+            var text = '¿Seguro que desea registrar el CUPs?';
+            var response = "CUPs creado de forma correcta";
         }
         Swal.fire({
             title: title,

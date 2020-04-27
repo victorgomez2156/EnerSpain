@@ -524,7 +524,7 @@ protected function buscar_xID_get()
 				$id = $this->Clientes_model->agregar_contacto($objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod);
 				$objSalida->CodConCli=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto.');	
-				$arrayName = array('status' =>true ,'menssage'=>'Contacto creado satisfactoriamente.','response'=>true,'objSalida'=>$objSalida);
+				$arrayName = array('status' =>true ,'menssage'=>'Contacto creado de forma correcta','response'=>true,'objSalida'=>$objSalida);
 				$this->db->trans_complete();
 				$this->response($arrayName);	
 			}		

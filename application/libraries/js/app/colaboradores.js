@@ -328,9 +328,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#comprobar_cif").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 if (result.data != false) {
                     scope.habilitar_button = 1;
-                    Swal.fire({ title: "Error", text: "El Número de DNI/NIE no se encuentra disponible.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Error", text: "El Número de DNI/NIE no existe", type: "error", confirmButtonColor: "#188ae2" });
                 } else {
-                    Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE se encuentra disponible.", type: "success", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE ya existe", type: "success", confirmButtonColor: "#188ae2" });
                     scope.habilitar_button = 2;
                 }
                 scope.fdatos.habilitar_button = scope.habilitar_button;

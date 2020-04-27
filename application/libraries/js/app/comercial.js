@@ -55,14 +55,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos);
         if (scope.fdatos.CodCom > 0) {
             var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar Este Comercial?';
-            var response = "Los datos del Comercial Fueron Actualizados Correctamente.";
+            var text = '¿Seguro que desea modificar los datos del Comercial?';
+            var response = "Comercial actualizado de forma correcta";
         }
         if (scope.fdatos.CodCom == undefined) {
             $cookies.remove('CIF_COMERCIAL');
             var title = 'Guardando';
-            var text = '¿Esta Seguro de Incluir Este Comercial?';
-            var response = "Comercial creado satisfactoriamente.";
+            var text = '¿Seguro que desea registrar el Comercial?';
+            var response = "Comercial creado de forma correcta";
         }
         Swal.fire({
             title: title,
@@ -239,13 +239,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         $http.get(url).then(function(result) {
             $("#comprobando_dni").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) {
-                Swal.fire({ title: 'DNI/NIE', text: "El Comercial ya se encuentra registrado.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'DNI/NIE', text: "El Comercial ya se encuentra registrado", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             } else {
                 $("#modal_dni_comprobar").modal('hide');
                 $cookies.put('CIF_COMERCIAL', scope.fdatos.NumDNI_NIECli);
                 location.href = "#/Agregar_Comercial/";
-                Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE Esta Disponible.", type: "success", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE ya existe", type: "success", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#comprobando_dni").removeClass("loader loader-default is-active").addClass("loader loader-default");

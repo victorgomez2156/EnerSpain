@@ -146,9 +146,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                     <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                                            
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
-                    <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                    <th ng-show="vm.Cups_Tar==true">TARIFA</th> 
+                    <th ng-show="vm.EstCUPs==true">ESTATUS</th>      
+                    <th ng-show="vm.Cups_Acc==true">ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups.length==0"> 
                      <td colspan="14" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
@@ -173,9 +173,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>
                    <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">TIPO SUMINISTRO</th>                                                            
-                    <th ng-show="vm.Cups_Tar==true"><i class="fa fa-archive"></i> TARIFA</th> 
-                    <th ng-show="vm.EstCUPs==true"><i class="fa fa-archive"></i> ESTATUS</th>      
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                    <th ng-show="vm.Cups_Tar==true">TARIFA</th> 
+                    <th ng-show="vm.EstCUPs==true">ESTATUS</th>      
+                    <th ng-show="vm.Cups_Acc==true">ACCIÓN</th>
                 </tfoot>
               </table>
         </div>

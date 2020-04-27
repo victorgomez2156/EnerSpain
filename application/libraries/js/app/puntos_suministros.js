@@ -725,13 +725,13 @@
          }
          if (scope.fpuntosuministro.CodPunSum > 0) {
              var title = 'Actualizando';
-             var text = '¿Esta Seguro de Actualizar el Dirección de Suministro?';
-             var response = "Dirección de Suministro modificado satisfactoriamente.";
+             var text = '¿Seguro que desea modificar la Dirección de Suministro?';
+             var response = "Dirección de Suministro actualizada de forma correcta";
          }
          if (scope.fpuntosuministro.CodPunSum == undefined) {
              var title = 'Guardando';
-             var text = '¿Esta Seguro de Incluir Un Nuevo Registro?';
-             var response = "Dirección de Suministro creado satisfactoriamente.";
+             var text = '¿Seguro que desea registrar la Dirección de Suministro?';
+             var response = "Dirección de Suministro creada de forma correcta";
          }
          Swal.fire({
              title: text,

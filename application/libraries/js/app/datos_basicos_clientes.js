@@ -311,13 +311,13 @@
          }
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Esta Seguro de Actualizar Este Cliente?';
-             var response = "Cliente modificado satisfactoriamente.";
+             var text = '¿Seguro que desea modificar los datos del Cliente?';
+             var response = "Cliente actualizado de forma correcta";
          }
          if (scope.fdatos.CodCli == undefined) {
              var title = 'Guardando';
-             var text = '¿Esta Seguro de Incluir Este Cliente?';
-             var response = "Cliente creado satisfactoriamente.";
+             var text = '¿Seguro que desea registrar el Cliente?';
+             var response = "Cliente creado de forma correcta";
          }
          Swal.fire({
              title: title,

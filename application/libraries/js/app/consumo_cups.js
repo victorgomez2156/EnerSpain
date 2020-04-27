@@ -343,13 +343,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodConCup > 0) {
             var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar Este CUPs?';
-            var response = "Consumo de CUPs modificado satisfactoriamente";
+            var text = '¿Seguro que desea modificar los datos del CUPs?';
+            var response = "CUPs actualizado de forma correcta";
         }
         if (scope.fdatos_cups.CodConCup == undefined) {
             var title = 'Guardando';
-            var text = '¿Esta Seguro de Incluir Un Nuevo CUPs?';
-            var response = "Consumo de CUPs registrado satisfactoriamente.";
+            var text = '¿Seguro que desea regitrar el consumo de CUPs?';
+            var response = "Consumo de CUPs creado de forma correcta";
         }
         Swal.fire({
             title: title,

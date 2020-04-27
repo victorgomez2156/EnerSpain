@@ -392,7 +392,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>                    
                     <th ng-show="vm.DesTipCon==true">Descripción</th> 
                     <th ng-show="vm.ObsTipCon==true">Observación</th>   
-                    <th ng-show="vm.AccTipCon==true"><i class="icon_cogs"></i> Acción</th>
+                    <th ng-show="vm.AccTipCon==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Contacto.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           

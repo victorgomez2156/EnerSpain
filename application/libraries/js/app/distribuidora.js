@@ -501,7 +501,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             $http.post(url, scope.NumCifDisConsulta).then(function(result) {
                 if (result.data != false) {
                     $("#NumCifDis").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    Swal.fire({ title: "DNI/NIE.", text: 'El Número de CIF no se encuentra disponible.', type: "info", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "DNI/NIE.", text: 'El Número de CIF no existe', type: "info", confirmButtonColor: "#188ae2" });
                 } else {
                     $("#NumCifDis").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     $("#modal_cif_distribuidora").modal('hide');

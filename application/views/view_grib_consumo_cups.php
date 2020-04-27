@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.FecFinCon==true">FECHA FIN</th>
                     <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                    <th ng-show="vm.Cups_Acc==true"><ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups_Consumo.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen consumos registrados</div></td>
@@ -179,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.FecFinCon==true">FECHA FIN</th>
                     <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
-                    <th ng-show="vm.Cups_Acc==true"><i class="icon_cogs"></i> ACCIÓN</th>
+                    <th ng-show="vm.Cups_Acc==true">ACCIÓN</th>
                 </tfoot>
               </table>
         </div>

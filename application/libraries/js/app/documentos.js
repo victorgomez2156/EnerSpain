@@ -317,13 +317,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fagregar_documentos.CodTipDocAI > 0) {
             var title = 'Actualizando';
-            var text = '¿Esta Seguro de Actualizar Este Documento?';
-            var response = "Documento modificado satisfactoriamente.";
+            var text = '¿Seguro que desea modificar los datos del Documento?';
+            var response = "Documento actualizado de forma correcta";
         }
         if (scope.fagregar_documentos.CodTipDocAI == undefined) {
             var title = 'Guardando';
-            var text = '¿Esta Seguro de Incluir Este Documento?';
-            var response = "Documento creado satisfactoriamente.";
+            var text = '¿Seguro que desea agregar el Documento?';
+            var response = "Documento registrado de forma correcta";
         }
         Swal.fire({
             title: title,
