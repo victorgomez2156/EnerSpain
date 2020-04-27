@@ -96,15 +96,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                         <li><input type="checkbox" ng-model="vm.NomComCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Nombre</b></li>
-                         <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF o NIF</b></li></li>
-                         <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                         <li><input type="checkbox" ng-model="vm.CupsCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Cups</b></li>
-                         <li><input type="checkbox" ng-model="vm.NomVia"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección Social</b></li>
-                         <li><input type="checkbox" ng-model="vm.NomViaFis"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección Fiscal</b></li>
-                         <li><input type="checkbox" ng-model="vm.DireccionCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección BBDD</b></li>
-                         <li><input type="checkbox" ng-model="vm.EmailCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Email</b></li>
-                         <li><input type="checkbox" ng-model="vm.TelCol"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
+                         <li><input type="checkbox" ng-model="vm.NomComCli"/> <b style="color:black;">Nombre</b></li>
+                         <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF o NIF</b></li></li>
+                         <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+                         <li><input type="checkbox" ng-model="vm.CupsCol"/> <b style="color:black;">Cups</b></li>
+                         <li><input type="checkbox" ng-model="vm.NomVia"/> <b style="color:black;">Dirección Social</b></li>
+                         <li><input type="checkbox" ng-model="vm.NomViaFis"/> <b style="color:black;">Dirección Fiscal</b></li>
+                         <li><input type="checkbox" ng-model="vm.DireccionCol"/> <b style="color:black;">Dirección BBDD</b></li>
+                         <li><input type="checkbox" ng-model="vm.EmailCol"/> <b style="color:black;">Email</b></li>
+                         <li><input type="checkbox" ng-model="vm.TelCol"/> <b style="color:black;">Teléfono</b></li>
                   </ul> 
               </div>
               <div class="btn-group">
@@ -150,15 +150,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>                                       
-                    <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
+                    <th ng-show="vm.NomComCli==true">NOMBRE</th>
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
-                    <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
-                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i> DIRECCIÓN BBDD</th>
-                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i> EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i> TELÉFONO</th>
+                    <th ng-show="vm.CupsCol==true">CUPS</th>
+                    <th ng-show="vm.NomVia==true"> DIRECCIÓN SOCIAL</th>
+                    <th ng-show="vm.NomViaFis==true"> DIRECCIÓN FISCAL</th>
+                    <th ng-show="vm.DireccionCol==true"> DIRECCIÓN BBDD</th>
+                    <th ng-show="vm.EmailCol==true"> EMAIL</th>
+                    <th ng-show="vm.TelCol==true"> TELÉFONO</th>
                   </tr>
                   <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -176,15 +176,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                   <th ng-show="vm.NomComCli==true"><i class="fa fa-user-circle"></i> NOMBRE</th>
+                   <th ng-show="vm.NomComCli==true"> NOMBRE</th>
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true"><i class="fa fa-bar-chart"></i> CUPS</th>
-                    <th ng-show="vm.NomVia==true"><i class="fa fa-phone"></i> DIRECCIÓN SOCIAL</th>
-                    <th ng-show="vm.NomViaFis==true"><i class="fa fa-phone"></i> DIRECCIÓN FISCAL</th>
-                    <th ng-show="vm.DireccionCol==true"><i class="fa fa-phone"></i> DIRECCIÓN BBDD</th>
-                    <th ng-show="vm.EmailCol==true"><i class="fa fa-phone"></i> EMAIL</th>
-                    <th ng-show="vm.TelCol==true"><i class="fa fa-phone"></i> TELÉFONO</th>
+                    <th ng-show="vm.CupsCol==true"> CUPS</th>
+                    <th ng-show="vm.NomVia==true"> DIRECCIÓN SOCIAL</th>
+                    <th ng-show="vm.NomViaFis==true"> DIRECCIÓN FISCAL</th>
+                    <th ng-show="vm.DireccionCol==true"> DIRECCIÓN BBDD</th>
+                    <th ng-show="vm.EmailCol==true"> EMAIL</th>
+                    <th ng-show="vm.TelCol==true"> TELÉFONO</th>
                 </tfoot>
               </table>
         </div>       

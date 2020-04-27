@@ -107,11 +107,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="btn-group">
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><input type="checkbox" ng-model="vm.Cups"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CUPS</b></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TIPO SUMINISTRO</b></li></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <i class="fa fa-plus-square"></i> <b style="color:black;">TARIFA</b></li></li>
-            <li><input type="checkbox" ng-model="vm.EstCUPs"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ESTATUS</b></li></li>
-            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">ACCIÓN</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups"/> <b style="color:black;">CUPS</b></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <b style="color:black;">TIPO SUMINISTRO</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Tar"/> <b style="color:black;">TARIFA</b></li></li>
+            <li><input type="checkbox" ng-model="vm.EstCUPs"/> <b style="color:black;">ESTATUS</b></li></li>
+            <li><input type="checkbox" ng-model="vm.Cups_Acc"/> <b style="color:black;">ACCIÓN</b></li>
           </ul> 
         </div>                    
         <div class="btn-group">
@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form-group">
         <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" placeholder="Escribe para filtrar...">
       </div>                 
-      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Cups" ng-disabled="vm.disabled_button_add_punt==false" ng-click="vm.agregar_cups()"><i class="fa fa-plus-square"></i></button>
+      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Cups" ng-disabled="vm.disabled_button_add_punt==false" ng-click="vm.agregar_cups()"</button>
     </form>                    
  </div>
 </div>

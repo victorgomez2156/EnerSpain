@@ -93,17 +93,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="btn-group">
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
-                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Comercializadora</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.DirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>
-                        <li><input type="checkbox" ng-model="vm.ProDirCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Provincia</b></li>
-                        <li><input type="checkbox" ng-model="vm.CodLoc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Localidad</b></li>
-                        <li><input type="checkbox" ng-model="vm.TelFijCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Teléfono</b></li>
-                        <li><input type="checkbox" ng-model="vm.EmaCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Correo Eléctronico</b></li>
-                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Persona Contacto</b></li>
-                        <li><input type="checkbox" ng-model="vm.EstCom"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>                     
-                        <li><input type="checkbox" ng-model="vm.Acc"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li>
+                        <li><input type="checkbox" ng-model="vm.RazSocCom"/> <b style="color:black;">Razón Social</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.NumCifCom"/> <b style="color:black;">CIF</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomComCom"/> <b style="color:black;">Comercializadora</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.DirCom"/> <b style="color:black;">Dirección</b></li>
+                        <li><input type="checkbox" ng-model="vm.ProDirCom"/> <b style="color:black;">Provincia</b></li>
+                        <li><input type="checkbox" ng-model="vm.CodLoc"/> <b style="color:black;">Localidad</b></li>
+                        <li><input type="checkbox" ng-model="vm.TelFijCom"/> <b style="color:black;">Teléfono</b></li>
+                        <li><input type="checkbox" ng-model="vm.EmaCom"/> <b style="color:black;">Correo Eléctronico</b></li>
+                        <li><input type="checkbox" ng-model="vm.NomConCom"/> <b style="color:black;">Persona Contacto</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstCom"/> <b style="color:black;">Estatus</b></li>                     
+                        <li><input type="checkbox" ng-model="vm.Acc"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>
                     
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" title="Escribe para Filtrar..." placeholder="Escribe para Filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i></button>
+                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"</button>
                   </form>                    
                   </div>
               </div>

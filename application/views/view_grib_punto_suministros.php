@@ -95,13 +95,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   
-                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">CIF</b></li>
-                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Razón Social</b></li>
-                  <li><input type="checkbox" ng-model="vm.DirPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Dirección</b></li>                  
-                  <li><input type="checkbox" ng-model="vm.CodProPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Provincia</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.CodLocPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Localidad</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.EstPunSumGrid"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.ActPunSum"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Acción</b></li></li>
+                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+                  <li><input type="checkbox" ng-model="vm.DirPunSum"/> <b style="color:black;">Dirección</b></li>                  
+                  <li><input type="checkbox" ng-model="vm.CodProPunSum"/> <b style="color:black;">Provincia</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.CodLocPunSum"/> <b style="color:black;">Localidad</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.EstPunSumGrid"/> <b style="color:black;">Estatus</b></li></li>
+                  <li><input type="checkbox" ng-model="vm.ActPunSum"/> <b style="color:black;">Acción</b></li></li>
                 </ul> 
               </div>
               <div class="btn-group">
@@ -123,8 +123,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="form-group">
                     <input type="text" class="form-control" ng-model="vm.filtrar_PumSum" minlength="1" placeholder="Escribe para filtrar...">
                   </div>  
-                   <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a-->
-                    <a title="Agregar Punto Suministro" style="margin-right: 5px;" href="#/Add_Puntos_Suministros" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>              
+                   <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div</div></a-->
+                    <a title="Agregar Punto Suministro" style="margin-right: 5px;" href="#/Add_Puntos_Suministros" class="btn btn-info"><div</div></a>              
                   
                 </form>                    
             </div>

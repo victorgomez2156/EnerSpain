@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
    
    
   <div ng-show="vm.response_customer.CodCli==undefined">      
-    <div align="center"><label style="color:black;">No Existe información.</label></div>
+    <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
   <div ng-show="vm.response_customer.CodCli>0">
@@ -218,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Povincia </label>          
+              <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
              <input type="text" class="form-control" ng-model="vm.response_customer.ProSoc" placeholder="Provincia" readonly/>     
              </div>
              </div>
@@ -264,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Povincia </label>          
+              <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
              <input type="text" class="form-control" ng-model="vm.response_customer.DesProFis" placeholder="Provincia" readonly/>     
              </div>
              </div>
@@ -316,7 +316,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
 
   <div ng-show="vm.response_customer.Contactos.length==0">      
-    <div align="center"><label style="color:black;">No Existe información.</label></div>
+    <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
   <div class="row" ng-repeat="dato in vm.response_customer.Contactos"> 
@@ -371,7 +371,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
 
   <div ng-show="vm.response_customer.Puntos_Suministros.length==0">      
-    <div align="center"><label style="color:black;">No Existe información.</label></div>
+    <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
   <div ng-show="vm.response_customer.Puntos_Suministros.length>0">      
@@ -414,7 +414,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Povincia </label>          
+              <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
              <input type="text" class="form-control" ng-model="vm.response_customer.DesProPumSum" placeholder="Provincia" readonly/>     
              </div>
              </div>
@@ -432,7 +432,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!--- PARA LOS CUPS ELECTRICOS START -->
           <div ng-show="vm.response_customer.CUPs_Electrico.length==0 || vm.response_customer.CUPs_Electrico==false">      
-            <div align="center"><label style="color:black;">No Existe información de CUPs Eléctricos.</label></div>
+            <div align="center"><label style="color:black;">No hay CUPs Eléctricos registrados para el Cliente seleccionado</label></div>
           </div>
           <div class="row" ng-repeat="dato in vm.response_customer.CUPs_Electrico">
           <div class="col-12 col-sm-2">
@@ -520,7 +520,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!--- PARA LOS CUPS GAS START -->
           <div ng-show="vm.response_customer.CUPs_Gas.length==0 || vm.response_customer.CUPs_Gas==false">      
-            <div align="center"><label style="color:black;">No Existe información de CUPs Gas.</label></div>
+            <div align="center"><label style="color:black;">No hay CUPs Gas registrados para el Cliente seleccionado</label></div>
           </div>
           <div class="row" ng-repeat="dato in vm.response_customer.CUPs_Gas">
           <div class="col-12 col-sm-4">
@@ -564,7 +564,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div ng-if="vm.showCuentasBancarias">
       
   <div ng-show="vm.response_customer.Cuentas_Bancarias.length==0">      
-    <div align="center"><label style="color:black;">No Existe información.</label></div>
+    <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
     <div class="row" ng-repeat="dato in vm.response_customer.Cuentas_Bancarias">
@@ -597,7 +597,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div ng-if="vm.showDocumentos">
   
   <div ng-show="vm.response_customer.documentos.length==0">      
-    <div align="center"><label style="color:black;">No Existe información.</label></div>
+    <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
   <div class="row" ng-repeat="dato in vm.response_customer.documentos">
