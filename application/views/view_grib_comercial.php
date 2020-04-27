@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form-group">
           <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
       </div>                 
-      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercial" ng-click="vm.modal_agg_comercial()">/button>
+      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercial" ng-click="vm.modal_agg_comercial()"><i class="fa fa-plus-square"> </i> </button>
     </form>                    
   </div>
 </div>

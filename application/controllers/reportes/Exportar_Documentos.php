@@ -7667,7 +7667,7 @@ class Exportar_Documentos extends CI_Controller
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="Todos los Tipos de Documentos"
+            $nombre_filtro="Todos los Tipos de Documentos";
             $Resultado=$this->Reportes_model->get_data_all_tipo_documentos();
         }   
         else
@@ -11396,7 +11396,6 @@ class Exportar_Documentos extends CI_Controller
             +$Resultado[$i]->EscDomFis+' '+$Resultado[$i]->PlaDomFis+' '+$Resultado[$i]->PueDomFis+' '+$Resultado[$i]->DesLocFis;
             
             $DIRECCION = ($Resultado[$i]->DireccionBBDD!='') ? $Resultado[$i]->DireccionBBDD : $CONCATENADA;
-
             $fila+=1;
             $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->NomComCli);
             $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->NumCifCli);
@@ -11409,7 +11408,7 @@ class Exportar_Documentos extends CI_Controller
         } 
         $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Colaborador Consultado:");
         $objPHPExcel->getActiveSheet()->SetCellValue("B7", $Resultado[0]->NomCol);
-              
+
         foreach (range('A', 'G') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);

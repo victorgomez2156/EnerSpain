@@ -314,7 +314,7 @@ table tr th {
 /*sidebar navigation*/
 
 #sidebar {
-    width: 186px;
+    width: 200px;
     height: 100%;
     position: fixed;
     background: #394a59;
@@ -593,7 +593,7 @@ ul.sidebar-menu li.active a i {
 /*main content*/
 
 #main-content {
-    margin-left: 180px;
+    margin-left: 200px;
 }
 
 .header,
@@ -1032,6 +1032,7 @@ div[data-role="editor-toolbar"] {
     position: relative;
     margin: 0 0 19px 0;
     overflow: hidden;
+    background-color: #d4d4d4
 }
 
 .breadcrumb li {

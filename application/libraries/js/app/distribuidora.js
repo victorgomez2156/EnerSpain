@@ -668,6 +668,35 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         }
 
     };
+    scope.regresar = function(){
+
+        if (scope.validate_info == undefined) {
+            if (scope.fdatos.CodDist == undefined){
+                var title="Guardando";
+                var text = "¿Seguro que desea cerrar sin grabar la información?";
+            } else {
+                var title="Actualizando";
+                var text = "¿Seguro que desea cerrar sin actualizar la información?";
+            }
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "question",
+                showCancelButton: !0,
+                confirmButtonColor: "#31ce77",
+                cancelButtonColor: "#f34943",
+                confirmButtonText: "OK"
+            }).then(function(t) {
+                if (t.value == true) {
+                    location.href = "#/Distribuidora";
+                } else {
+                    console.log('Cancelando ando...');
+                }
+            });
+        } else {
+            location.href = "#/Distribuidora";
+        }
+    }
     scope.regresar_filtro_distribuidora = function() {
         scope.tmodal_distribuidora = {};
         $scope.predicate = 'id';
