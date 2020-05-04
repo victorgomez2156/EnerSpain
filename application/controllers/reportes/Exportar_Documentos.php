@@ -12,7 +12,9 @@ class Exportar_Documentos extends CI_Controller
 	{
 		parent::__construct(); 
         $this->load->model('Reportes_model'); 
-        $this->load->model('Auditoria_model'); 	
+        $this->load->model('Auditoria_model');
+        $this->load->model('Contratos_model');
+        $this->load->model('Propuesta_model'); 	
         $this->load->helper('array');	
         $this->load->library('user_agent');  
         $this->load->helper('cookie');
@@ -11423,9 +11425,21 @@ class Exportar_Documentos extends CI_Controller
     }
      public function Doc_Propuesta_Comercial_Cliente_PDF()
     {
-        $nombre_filtro=null;
-        $Tipo_Cliente=null;
-        $Resultado_PropuestaComercial=false;
+        
+        $CodProCom = urldecode($this->uri->segment(4));
+        if($CodProCom==null)
+        {
+            echo 'Error debe seleccionar una propuesta comercial.';
+            return false;
+        }
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
+        if($PropuestaComercial==false)
+        {
+           echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
+           return false; 
+        }
+        //var_dump($PropuestaComercial);
+
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial '.date('d/m/Y'));
@@ -11444,28 +11458,199 @@ class Exportar_Documentos extends CI_Controller
         $pdf->AddPage();        
         $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
         $html .= '<h1 align="center">Propuesta Comercial</h1>';
+        
         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
-            <td border="0" align="left" colspan="4">Propuesta Nº: </td>
-            <td border="0" colspan="1">Fecha: '.date('d/m/Y').'</td>
+            <td border="0" align="left" colspan="4">Propuesta Nº: '.$PropuestaComercial->RefProCom.'</td>
+            <td border="0" colspan="1">Fecha: '.$PropuestaComercial->FecProCom.'</td>
         </tr>
         </table>'; 
 
-        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
-        <tr bgcolor="#636161">
-            <td style="color:white;" align="center"><b>DATOS DEL CLIENTE</b></td>            
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CLIENTE</b></td>            
         </tr>
         </table>'; 
 
 
          $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
-            <td border="1" colspan="3">Razón Social: </td>
-            <td border="1" colspan="2">CIF: '.date('d/m/Y').'</td> 
+            <td style="border-style:none;" colspan="4">Razón Social: '.$PropuestaComercial->RazSocCli.'</td>
+            <td border="0" colspan="1">CIF: '.$PropuestaComercial->NumCifCli.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->TipVia.' '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$PropuestaComercial->DesPro.'</td>
+            <td border="0" colspan="1">Código Postal: '.$PropuestaComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
         </tr>
         </table>'; 
+
+         $html .= '<br><br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1">CUP Eléctrico</td>
+                            <td border="1">Dirección</td>
+                            <td border="1">Localidad</td>
+                            <td border="1">Provincia</td>
+                            <td border="1">Código Postal</td>
+                            </tr>
+                            <tr>
+                            <td border="1">'.$PropuestaComercial->CUPsEle.'</td>
+                            <td border="1">'.$PropuestaComercial->TipViaPunSumEle.' '.$PropuestaComercial->NomViaPunSumEle.' '.$PropuestaComercial->NumViaPunSumEle.' '.$PropuestaComercial->BloPunSumEle.' '.$PropuestaComercial->EscPunSumEle.' '.$PropuestaComercial->PlaPunSumEle.' '.$PropuestaComercial->PuePunSumEle.' </td>
+                            <td border="1">'.$PropuestaComercial->DesLocPunSumEle.'</td>
+                            <td border="1">'.$PropuestaComercial->DesProPunSumEle.'</td>
+                            <td border="1">'.$PropuestaComercial->CPLocPunSumEle.'</td>
+                            </tr>
+
+                            <tr>
+                            <td class="borde"><h3>Tarifa</h3> '.$PropuestaComercial->NomTarEle.'</td>                            
+                            
+                            <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">P1</td>
+                                    <td border="1">P2</td>
+                                    <td border="1">P3</td>
+                                    <td border="1">P4</td>
+                                    <td border="1">P5</td>
+                                    <td border="1">P6</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.$PropuestaComercial->PotConP1.'</td>
+                                    <td border="1">'.$PropuestaComercial->PotConP2.'</td>
+                                    <td border="1">'.$PropuestaComercial->PotConP3.'</td>
+                                    <td border="1">'.$PropuestaComercial->PotConP4.'</td>
+                                    <td border="1">'.$PropuestaComercial->PotConP5.'</td>
+                                    <td border="1">'.$PropuestaComercial->PotConP6.'</td>
+                                </tr>
+                                </table>
+                            </td>
+                              <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.$PropuestaComercial->ImpAhoEle.'</td>
+                                    <td border="1">'.$PropuestaComercial->PorAhoEle.'</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>'.$PropuestaComercial->RenConEle.'                                                   
+                        </td>
+                        <td>Observación:                                                    
+                        </td >
+                        <td colspan="2">'.$PropuestaComercial->ObsAhoEle.'                                                    
+                        </td>
+                        </tr>
+
+                          
+                            </table>'; 
+
+                        $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1">CUP Gas</td>
+                            <td border="1">Dirección</td>
+                            <td border="1">Localidad</td>
+                            <td border="1">Provincia</td>
+                            <td border="1">Código Postal</td>
+                            </tr>
+                            <tr>
+                            <td border="1">'.$PropuestaComercial->CupsGas.'</td>
+                            <td border="1">'.$PropuestaComercial->TipViaPunSumGas.' '.$PropuestaComercial->NomViaPunSumGas.' '.$PropuestaComercial->NumViaPunSumGas.' '.$PropuestaComercial->BloPunSumGas.' '.$PropuestaComercial->EscPunSumGas.' '.$PropuestaComercial->PlaPunSumGas.' '.$PropuestaComercial->PuePunSumGas.'</td>
+                            <td border="1">'.$PropuestaComercial->DesLocPunSumGas.'</td>
+                            <td border="1">'.$PropuestaComercial->DesProPunSumGas.'</td>
+                            <td border="1">'.$PropuestaComercial->CPLocPunSumGas.'</td>
+                            </tr>
+                            
+                            <tr>
+                            <td class="borde"><h3>Tarifa</h3> '.$PropuestaComercial->NomTarGas.'</td> 
+
+                            <td class="borde"><h3>Consumo</h3> '.$PropuestaComercial->Consumo.'</td>
+
+                            <td class="borde"><h3>Caudal Diario</h3> '.$PropuestaComercial->CauDia.'</td>
+
+                            <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.$PropuestaComercial->ImpAhoGas.'</td>
+                                    <td border="1">'.$PropuestaComercial->PorAhoGas.'</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>'.$PropuestaComercial->RenConGas.'                                                    
+                        </td>
+                        <td>Observación:                                                    
+                        </td >
+                        <td colspan="2">'.$PropuestaComercial->ObsAhoGas.'                                                    
+                        </td>
+                        </tr>
+                    </table>'; 
+
+                    $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b> '.$PropuestaComercial->ImpAhoTot.'</td>
+                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
+                            
+                            </tr>                           
+                        
+                    </table><br><br>'; 
+ $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1">Comercializadora:</td>
+            <td colspan="1">'.$PropuestaComercial->CodCom.'</td>
+            <td colspan="1">Anexo:</td>
+            <td colspan="1">'.$PropuestaComercial->DesAnePro.' </td>
+        </tr>
+        <tr>
+            <td colspan="1">Producto:</td>
+            <td colspan="1">'.$PropuestaComercial->DesProNom.'</td>
+            <td colspan="1">Tipo Precio:</td>
+            <td colspan="1">'.$PropuestaComercial->TipPre.'</td>
+        </tr>      
+        </table>';
+
+
+         $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
+        </tr>
+            
+        </table>';
+
        
-/*<tr bgcolor="#636161">
+        /*<tr bgcolor="#636161">
+         <tr bgcolor="#636161">
+            <td style="color:white; " colspan="5" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
+        </tr>
             <td style="color:white;">CLIENTES</td>
             <td style="color:white;">BANCO</td> 
             <td style="color:white;">IBAN</td>
