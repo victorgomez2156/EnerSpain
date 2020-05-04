@@ -73,7 +73,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else 
             {               
-                $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente_all(); 
+                $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente_all(); 
             }
         }
         elseif($tipo_filtro==1)
@@ -90,7 +90,7 @@ class Exportar_Documentos extends CI_Controller
                 $CodTipCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoCliente','DesTipCli',$Tipo_Cliente); 
                 if($CodTipCli!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodTipCli',$CodTipCli->CodTipCli);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodTipCli',$CodTipCli->CodTipCli);
                 }
                 else
                 {
@@ -113,7 +113,7 @@ class Exportar_Documentos extends CI_Controller
                 $CodTipCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_SectorCliente','DesSecCli',$Tipo_Cliente); 
                 if($CodTipCli!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodSecCli',$CodTipCli->CodSecCli);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodSecCli',$CodTipCli->CodSecCli);
                 }
                 else
                 {
@@ -136,7 +136,7 @@ class Exportar_Documentos extends CI_Controller
                 $Provincia_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Provincia','DesPro',$Tipo_Cliente);
                 if($Provincia_Resultado!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('b.CodPro',$Provincia_Resultado->CodPro);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('b.CodPro',$Provincia_Resultado->CodPro);
                 } 
                 else
                 {
@@ -165,7 +165,7 @@ class Exportar_Documentos extends CI_Controller
                 $Localidad_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Localidad','DesLoc',$Tipo_Cliente);
                 if($Localidad_Resultado!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodLocFis',$Localidad_Resultado->CodLoc); 
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodLocFis',$Localidad_Resultado->CodLoc); 
                 }
                 else
                 {
@@ -188,7 +188,7 @@ class Exportar_Documentos extends CI_Controller
                 $Comercial_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Comercial','NomCom',$Tipo_Cliente);
                 if($Comercial_Resultado!=false)
                 {   
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodCom',$Comercial_Resultado->CodCom);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodCom',$Comercial_Resultado->CodCom);
                 }
                 else
                 {
@@ -211,7 +211,7 @@ class Exportar_Documentos extends CI_Controller
                 $Colaborador_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Colaborador','NomCol',$Tipo_Cliente);
                 if($Colaborador_Resultado!=false)
                 {   
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodCol',$Colaborador_Resultado->CodCol);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodCol',$Colaborador_Resultado->CodCol);
                 }
                 else
                 {
@@ -231,7 +231,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {                
-                $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
+                $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
                 if($Tipo_Cliente==3)
                 {
                     $Tipo_Cliente="ACTIVO";
@@ -298,9 +298,9 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">FECHA INICIO</td>
             <td style="color:white;">ESTATUS</td>
 		</tr>';
-        if($Resultado_Filtros_Clientes!=false)
+        if($Resultado_PropuestaComercial!=false)
 		{
-		 	foreach ($Resultado_Filtros_Clientes as $record): 
+		 	foreach ($Resultado_PropuestaComercial as $record): 
 		 	{
 		 		$html.='<tr>
                         <td>'.$record->NumCifCli.'</td>
@@ -347,7 +347,7 @@ class Exportar_Documentos extends CI_Controller
             }
             else 
             {               
-                $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente_all(); 
+                $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente_all(); 
             }
         }
         elseif($tipo_filtro==1)
@@ -364,7 +364,7 @@ class Exportar_Documentos extends CI_Controller
                 $CodTipCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_TipoCliente','DesTipCli',$Tipo_Cliente); 
                 if($CodTipCli!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodTipCli',$CodTipCli->CodTipCli);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodTipCli',$CodTipCli->CodTipCli);
                 }
                 else
                 {
@@ -387,7 +387,7 @@ class Exportar_Documentos extends CI_Controller
                 $CodTipCli=$this->Reportes_model->get_tipo_filtro_busqueda('T_SectorCliente','DesSecCli',$Tipo_Cliente); 
                 if($CodTipCli!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodSecCli',$CodTipCli->CodSecCli);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodSecCli',$CodTipCli->CodSecCli);
                 }
                 else
                 {
@@ -410,7 +410,7 @@ class Exportar_Documentos extends CI_Controller
                 $Provincia_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Provincia','DesPro',$Tipo_Cliente);
                 if($Provincia_Resultado!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('b.CodPro',$Provincia_Resultado->CodPro);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('b.CodPro',$Provincia_Resultado->CodPro);
                 } 
                 else
                 {
@@ -439,7 +439,7 @@ class Exportar_Documentos extends CI_Controller
                 $Localidad_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Localidad','DesLoc',$Tipo_Cliente);
                 if($Localidad_Resultado!=false)
                 {
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodLocFis',$Localidad_Resultado->CodLoc); 
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodLocFis',$Localidad_Resultado->CodLoc); 
                 }
                 else
                 {
@@ -462,7 +462,7 @@ class Exportar_Documentos extends CI_Controller
                 $Comercial_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Comercial','NomCom',$Tipo_Cliente);
                 if($Comercial_Resultado!=false)
                 {   
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodCom',$Comercial_Resultado->CodCom);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodCom',$Comercial_Resultado->CodCom);
                 }
                 else
                 {
@@ -485,7 +485,7 @@ class Exportar_Documentos extends CI_Controller
                 $Colaborador_Resultado=$this->Reportes_model->get_tipo_filtro_busqueda('T_Colaborador','NomCol',$Tipo_Cliente);
                 if($Colaborador_Resultado!=false)
                 {   
-                    $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.CodCol',$Colaborador_Resultado->CodCol);
+                    $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.CodCol',$Colaborador_Resultado->CodCol);
                 }
                 else
                 {
@@ -506,7 +506,7 @@ class Exportar_Documentos extends CI_Controller
             else
             {
                 
-                $Resultado_Filtros_Clientes=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
+                $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
                 if($Tipo_Cliente==3)
                 {
                     $Tipo_Cliente="ACTIVO";
@@ -685,26 +685,26 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "Q9");
         //$objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "A9:G9");
 		$fila=9;
-		for($i=0; $i<count($Resultado_Filtros_Clientes); $i++) 
+		for($i=0; $i<count($Resultado_PropuestaComercial); $i++) 
 		{
 			$fila+=1;
-			$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtros_Clientes[$i]->NumCifCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtros_Clientes[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtros_Clientes[$i]->NomComCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtros_Clientes[$i]->DesTipVia.' '.$Resultado_Filtros_Clientes[$i]->NomViaDomSoc.' '.$Resultado_Filtros_Clientes[$i]->NumViaDomSoc.' '.$Resultado_Filtros_Clientes[$i]->BloDomSoc.' '.$Resultado_Filtros_Clientes[$i]->EscDomSoc.' '.$Resultado_Filtros_Clientes[$i]->PlaDomSoc.' '.$Resultado_Filtros_Clientes[$i]->PueDomSoc);
-			$objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtros_Clientes[$i]->DesPro);
-			$objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtros_Clientes[$i]->DesLoc);
-            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtros_Clientes[$i]->DesTipViaFis.' '.$Resultado_Filtros_Clientes[$i]->NomViaDomFis.' '.$Resultado_Filtros_Clientes[$i]->NumViaDomFis.' '.$Resultado_Filtros_Clientes[$i]->BloDomFis.' '.$Resultado_Filtros_Clientes[$i]->EscDomFis.' '.$Resultado_Filtros_Clientes[$i]->PlaDomFis.' '.$Resultado_Filtros_Clientes[$i]->PueDomFis);
-            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtros_Clientes[$i]->DesProFis);
-            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Filtros_Clientes[$i]->DesLocFis);
-            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Filtros_Clientes[$i]->TelFijCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Filtros_Clientes[$i]->EmaCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Filtros_Clientes[$i]->DesTipCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Filtros_Clientes[$i]->DesSecCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado_Filtros_Clientes[$i]->NomCom);
-            $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", $Resultado_Filtros_Clientes[$i]->NomCol);
-            $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", $Resultado_Filtros_Clientes[$i]->FecIniCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", $Resultado_Filtros_Clientes[$i]->EstCli); 
+			$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_PropuestaComercial[$i]->NumCifCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_PropuestaComercial[$i]->RazSocCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_PropuestaComercial[$i]->NomComCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_PropuestaComercial[$i]->DesTipVia.' '.$Resultado_PropuestaComercial[$i]->NomViaDomSoc.' '.$Resultado_PropuestaComercial[$i]->NumViaDomSoc.' '.$Resultado_PropuestaComercial[$i]->BloDomSoc.' '.$Resultado_PropuestaComercial[$i]->EscDomSoc.' '.$Resultado_PropuestaComercial[$i]->PlaDomSoc.' '.$Resultado_PropuestaComercial[$i]->PueDomSoc);
+			$objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_PropuestaComercial[$i]->DesPro);
+			$objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_PropuestaComercial[$i]->DesLoc);
+            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_PropuestaComercial[$i]->DesTipViaFis.' '.$Resultado_PropuestaComercial[$i]->NomViaDomFis.' '.$Resultado_PropuestaComercial[$i]->NumViaDomFis.' '.$Resultado_PropuestaComercial[$i]->BloDomFis.' '.$Resultado_PropuestaComercial[$i]->EscDomFis.' '.$Resultado_PropuestaComercial[$i]->PlaDomFis.' '.$Resultado_PropuestaComercial[$i]->PueDomFis);
+            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_PropuestaComercial[$i]->DesProFis);
+            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_PropuestaComercial[$i]->DesLocFis);
+            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_PropuestaComercial[$i]->TelFijCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_PropuestaComercial[$i]->EmaCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_PropuestaComercial[$i]->DesTipCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_PropuestaComercial[$i]->DesSecCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado_PropuestaComercial[$i]->NomCom);
+            $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", $Resultado_PropuestaComercial[$i]->NomCol);
+            $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", $Resultado_PropuestaComercial[$i]->FecIniCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("Q$fila", $Resultado_PropuestaComercial[$i]->EstCli); 
             $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:Q$fila");           
             //$objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila"); //unir celdas
 		}		 
@@ -11420,6 +11420,63 @@ class Exportar_Documentos extends CI_Controller
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL COLABORADORES FILTRADOS');
         $objWriter->save('php://output');
         exit;   
+    }
+     public function Doc_Propuesta_Comercial_Cliente_PDF()
+    {
+        $nombre_filtro=null;
+        $Tipo_Cliente=null;
+        $Resultado_PropuestaComercial=false;
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Propuesta Comercial '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Propuesta Comercial');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h1 align="center">Propuesta Comercial</h1>';
+        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="0" align="left" colspan="4">Propuesta Nº: </td>
+            <td border="0" colspan="1">Fecha: '.date('d/m/Y').'</td>
+        </tr>
+        </table>'; 
+
+        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#636161">
+            <td style="color:white;" align="center"><b>DATOS DEL CLIENTE</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="1" colspan="3">Razón Social: </td>
+            <td border="1" colspan="2">CIF: '.date('d/m/Y').'</td> 
+        </tr>
+        </table>'; 
+       
+/*<tr bgcolor="#636161">
+            <td style="color:white;">CLIENTES</td>
+            <td style="color:white;">BANCO</td> 
+            <td style="color:white;">IBAN</td>
+            <td style="color:white;">ESTATUS</td>
+        </tr>'*/
+
+
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',null,$this->input->ip_address(),'GENERANDO REPORTE PDF PROPUESTA COMERCIAL');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
     }
 
 }?>
