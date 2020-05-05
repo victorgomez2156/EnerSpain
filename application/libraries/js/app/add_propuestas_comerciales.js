@@ -98,7 +98,6 @@
     scope.filter_DirPumSum=function(CodPunSum)
     {
         console.log(CodPunSum);
-
         scope.fdatos.CodCupSEle=undefined;
         scope.fdatos.CodTarEle=undefined;
         scope.fdatos.PotConP1=undefined;
@@ -135,13 +134,9 @@
                 scope.List_CUPsEle=result.data.CUPs_Electricos;
                 scope.List_CUPs_Gas=result.data.CUPs_Gas; 
             }
-            if(result.data.CUPs_Electricos==false)
+            if(result.data.CUPs_Electricos==false && result.data.CUPs_Gas==false)
             {
-                Swal.fire({ title: "CUPs", text: "este cliente no tienes CUPs Eléctricos asignados", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if(result.data.CUPs_Gas==false)
-            {
-                Swal.fire({ title: "CUPs", text: "este cliente no tienes CUPs de Gas asignados", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "CUPs", text: "Este debe tener al menos un tipo de cups registrado para generar una propuesta comercial.", type: "error", confirmButtonColor: "#188ae2" });
             }
         },function(error)
         {
@@ -369,87 +364,114 @@
              Swal.fire({ title: "El Estatus de la propuesta es requerido.", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
-         if (!scope.fdatos.CodPunSum > 0) {
+         
+        if (!scope.fdatos.CodPunSum > 0){
              Swal.fire({ title: "Debe seleccionar un punto de suministro.", type: "error", confirmButtonColor: "#188ae2" });
              return false;
-         }
-        if (!scope.fdatos.CodCupSEle > 0) {
-             Swal.fire({ title: "Debe seleccionar un CUPs Eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (!scope.fdatos.CodTarEle > 0) {
-             Swal.fire({ title: "Debe seleccionar una Tarifa Eléctrica.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
         }
-        if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-             Swal.fire({ title: "La potencia P1 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+        if (!scope.fdatos.CodCupSEle > 0 && !scope.fdatos.CodCupGas > 0){
+             Swal.fire({ title: "Debe seleccionar un Tipo de CUPs Para generer una propuesta comercial", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
-        if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-             Swal.fire({ title: "La potencia P2 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
+         if (scope.fdatos.CodCupSEle > 0)
+         {
+            if (!scope.fdatos.CodTarEle > 0){
+                 Swal.fire({ title: "Debe seleccionar una Tarifa Eléctrica.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                 Swal.fire({ title: "La potencia P1 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                 Swal.fire({ title: "La potencia P2 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
+                 Swal.fire({ title: "La potencia P3 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
+                 Swal.fire({ title: "La potencia P4 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
+                 Swal.fire({ title: "La potencia P5 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
+                 Swal.fire({ title: "La potencia P6 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.ImpAhoEle == null || scope.fdatos.ImpAhoEle == undefined || scope.fdatos.ImpAhoEle == '') {
+                 Swal.fire({ title: "Debe indicar un importe de ahorro eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+            if (scope.fdatos.PorAhoEle == null || scope.fdatos.PorAhoEle == undefined || scope.fdatos.PorAhoEle == '') {
+                 Swal.fire({ title: "Debe indicar un porcentaje eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.ObsAhoEle == null || scope.fdatos.ObsAhoEle == undefined || scope.fdatos.ObsAhoEle == ''){
+                scope.fdatos.ObsAhoEle=null;
+            }
+            else
+            {
+                scope.fdatos.ObsAhoEle=scope.fdatos.ObsAhoEle;
+            } 
          }
-        if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-             Swal.fire({ title: "La potencia P3 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-             Swal.fire({ title: "La potencia P4 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
-             Swal.fire({ title: "La potencia P5 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
-             Swal.fire({ title: "La potencia P6 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (scope.fdatos.ImpAhoEle == null || scope.fdatos.ImpAhoEle == undefined || scope.fdatos.ImpAhoEle == '') {
-             Swal.fire({ title: "Debe indicar un importe de ahorro eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-         }
-        if (scope.fdatos.PorAhoEle == null || scope.fdatos.PorAhoEle == undefined || scope.fdatos.PorAhoEle == '') {
-             Swal.fire({ title: "Debe indicar un porcentaje eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.ObsAhoEle == null || scope.fdatos.ObsAhoEle == undefined || scope.fdatos.ObsAhoEle == ''){
+        else
+        {
+            scope.fdatos.CodCupSEle=null;
+            scope.fdatos.CodTarEle=null;
+            scope.fdatos.PotConP1=null;
+            scope.fdatos.PotConP2=null;
+            scope.fdatos.PotConP3=null;
+            scope.fdatos.PotConP4=null;
+            scope.fdatos.PotConP5=null;
+            scope.fdatos.PotConP6=null;
+            scope.fdatos.ImpAhoEle=null;
+            scope.fdatos.PorAhoEle=null;
             scope.fdatos.ObsAhoEle=null;
         }
-        else
+        if(scope.fdatos.CodCupGas > 0)
         {
-            scope.fdatos.ObsAhoEle=scope.fdatos.ObsAhoEle;
-        }
-        if (!scope.fdatos.CodCupGas > 0) {
-             Swal.fire({ title: "Debe seleccionar un CUPs Gas.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (!scope.fdatos.CodTarGas > 0) {
+            if (!scope.fdatos.CodTarGas > 0) {
              Swal.fire({ title: "Debe seleccionar una Tarifa de Gas.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.Consumo == null || scope.fdatos.Consumo == undefined || scope.fdatos.Consumo == '') {
-             Swal.fire({ title: "Debe indicar un consumo.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.CauDia == null || scope.fdatos.CauDia == undefined || scope.fdatos.CauDia == '') {
-             Swal.fire({ title: "Debe indicar un Caudal Diario.", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.ImpAhoGas == null || scope.fdatos.ImpAhoGas == undefined || scope.fdatos.ImpAhoGas == '') {
-             Swal.fire({ title: "Debe indicar un importe de ahorro de gas..", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.PorAhoGas == null || scope.fdatos.PorAhoGas == undefined || scope.fdatos.PorAhoGas == '') {
-             Swal.fire({ title: "Debe indicar un porcentaje de gas..", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
-        }
-        if (scope.fdatos.ObsAhoGas == null || scope.fdatos.ObsAhoGas == undefined || scope.fdatos.ObsAhoGas == ''){
-            scope.fdatos.ObsAhoGas=null;
+                 return false;
+            }
+            if (scope.fdatos.Consumo == null || scope.fdatos.Consumo == undefined || scope.fdatos.Consumo == '') {
+                 Swal.fire({ title: "Debe indicar un consumo.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.CauDia == null || scope.fdatos.CauDia == undefined || scope.fdatos.CauDia == '') {
+                 Swal.fire({ title: "Debe indicar un Caudal Diario.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.ImpAhoGas == null || scope.fdatos.ImpAhoGas == undefined || scope.fdatos.ImpAhoGas == '') {
+                 Swal.fire({ title: "Debe indicar un importe de ahorro de gas..", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.PorAhoGas == null || scope.fdatos.PorAhoGas == undefined || scope.fdatos.PorAhoGas == '') {
+                 Swal.fire({ title: "Debe indicar un porcentaje de gas..", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+            }
+            if (scope.fdatos.ObsAhoGas == null || scope.fdatos.ObsAhoGas == undefined || scope.fdatos.ObsAhoGas == ''){
+                scope.fdatos.ObsAhoGas=null;
+            }
+            else
+            {
+                scope.fdatos.ObsAhoGas=scope.fdatos.ObsAhoGas;
+            }
         }
         else
         {
-            scope.fdatos.ObsAhoGas=scope.fdatos.ObsAhoGas;
+            scope.fdatos.CodCupGas=null;
+            scope.fdatos.CodTarGas=null;
+            scope.fdatos.Consumo=null;
+            scope.fdatos.CauDia=null;
+            scope.fdatos.ImpAhoGas=null;
+            scope.fdatos.PorAhoGas=null;
+            scope.fdatos.ObsAhoGas=null;
         }
          if (!scope.fdatos.CodCom > 0) {
              Swal.fire({ title: "Debe seleccionar una Comercializadora.", type: "error", confirmButtonColor: "#188ae2" });
@@ -566,6 +588,11 @@
                 scope.fdatos.ImpAhoTot= Math.max(parseFloat(scope.fdatos.ImpAhoEle),0) + Math.max(parseFloat(scope.fdatos.ImpAhoGas),0);
                 //scope.fdatos.ImpAhoTot = Math.max(parseInt(scope.fdatos.ImpAhoEle).toFixed(2)) + Math.max(parseInt(scope.fdatos.ImpAhoGas).toFixed(2));
              }
+             if(scope.fdatos.ImpAhoGas==undefined||scope.fdatos.ImpAhoGas==null||scope.fdatos.ImpAhoGas=='')
+             {
+                scope.fdatos.ImpAhoTot=scope.fdatos.ImpAhoEle;
+             }
+
         }
         if (metodo == 9) {
              if (object != undefined) {
@@ -577,6 +604,10 @@
              {
                 scope.fdatos.PorAhoTot= Math.max(parseFloat(scope.fdatos.PorAhoEle),0) + Math.max(parseFloat(scope.fdatos.PorAhoGas),0);
                 //scope.fdatos.PorAhoTot = Math.max(parseInt(scope.fdatos.PorAhoEle).toFixed(2)) + Math.max(parseInt(scope.fdatos.PorAhoGas).toFixed(2));
+             }
+             if(scope.fdatos.PorAhoGas==undefined||scope.fdatos.PorAhoGas==null||scope.fdatos.PorAhoGas=='')
+             {
+                scope.fdatos.PorAhoTot=scope.fdatos.PorAhoEle;
              }
         }
         if (metodo == 10) {
@@ -604,6 +635,10 @@
                 scope.fdatos.ImpAhoTot= Math.max(parseFloat(scope.fdatos.ImpAhoEle),0) + Math.max(parseFloat(scope.fdatos.ImpAhoGas),0);
                 //scope.fdatos.ImpAhoTot = Math.max(parseInt(scope.fdatos.ImpAhoEle).toFixed(2)) + Math.max(parseInt(scope.fdatos.ImpAhoGas).toFixed(2));
              }
+             if(scope.fdatos.ImpAhoEle==undefined||scope.fdatos.ImpAhoEle==null||scope.fdatos.ImpAhoEle=='')
+             {
+                scope.fdatos.ImpAhoTot=scope.fdatos.ImpAhoGas;
+             }
 
         }
         if (metodo == 13) {
@@ -617,6 +652,10 @@
                 scope.fdatos.PorAhoTot= Math.max(parseFloat(scope.fdatos.PorAhoEle),0) + Math.max(parseFloat(scope.fdatos.PorAhoGas),0);
                 //scope.fdatos.PorAhoTot = Math.max(parseInt(scope.fdatos.PorAhoEle).toFixed(2)) + Math.max(parseInt(scope.fdatos.PorAhoGas).toFixed(2));
             }
+            if(scope.fdatos.PorAhoEle==undefined||scope.fdatos.PorAhoEle==null||scope.fdatos.PorAhoEle=='')
+             {
+                scope.fdatos.PorAhoTot=scope.fdatos.PorAhoGas;
+             }
         }
     }
 

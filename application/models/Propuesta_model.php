@@ -18,8 +18,8 @@ class Propuesta_model extends CI_Model
         $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle');
-        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas');
+        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle',"left");
+        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas',"left");
         $this->db->order_by('a.FecProCom DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

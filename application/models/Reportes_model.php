@@ -865,24 +865,24 @@ class Reportes_model extends CI_Model
     }
     public function PropuestaComercial($CodProCom)
     {
-        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,b.RazSocCli,b.NumCifCli,CONCAT(c.IniTipVia,'-',c.DesTipVia) as TipVia,b.NomViaDomSoc,b.NumViaDomSoc,b.BloDomSoc,b.EscDomSoc,b.PlaDomSoc,b.PueDomSoc,d.DesLoc,e.DesPro,b.CPLocSoc,f.CUPsEle,,CONCAT(h.IniTipVia,'-',h.DesTipVia) as TipViaPunSumEle,g.NomViaPunSum as NomViaPunSumEle,g.NumViaPunSum as NumViaPunSumEle,g.BloPunSum as BloPunSumEle,g.EscPunSum as EscPunSumEle,g.PlaPunSum as PlaPunSumEle,g.PuePunSum as PuePunSumEle,i.DesLoc as DesLocPunSumEle,j.DesPro as DesProPunSumEle,g.CPLocSoc as CPLocPunSumEle,k.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,(CASE WHEN a.RenConEle = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConEle,a.ObsAhoEle,l.CupsGas,CONCAT(n.IniTipVia,'-',n.DesTipVia) as TipViaPunSumGas,m.NomViaPunSum as NomViaPunSumGas,m.NumViaPunSum as NumViaPunSumGas,m.BloPunSum as BloPunSumGas,m.EscPunSum as EscPunSumGas,m.PlaPunSum as PlaPunSumGas,m.PuePunSum as PuePunSumGas,o.DesLoc as DesLocPunSumGas,j.DesPro as DesProPunSumGas,m.CPLocSoc as CPLocPunSumGas,q.NomTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,(CASE WHEN a.RenConGas = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConGas,a.ObsAhoGas,a.ImpAhoTot,a.ObsProCom,CONCAT(r.RazSocCom,' - ',r.NumCifCom) as CodCom,t.DesAnePro,s.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre",false);
+        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,b.RazSocCli,b.NumCifCli,CONCAT(c.IniTipVia,'-',c.DesTipVia) as TipVia,b.NomViaDomSoc,b.NumViaDomSoc,b.BloDomSoc,b.EscDomSoc,b.PlaDomSoc,b.PueDomSoc,d.DesLoc,e.DesPro,b.CPLocSoc,f.CUPsEle,,CONCAT(h.IniTipVia,'-',h.DesTipVia) as TipViaPunSumEle,g.NomViaPunSum as NomViaPunSumEle,g.NumViaPunSum as NumViaPunSumEle,g.BloPunSum as BloPunSumEle,g.EscPunSum as EscPunSumEle,g.PlaPunSum as PlaPunSumEle,g.PuePunSum as PuePunSumEle,i.DesLoc as DesLocPunSumEle,j.DesPro as DesProPunSumEle,g.CPLocSoc as CPLocPunSumEle,k.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,(CASE WHEN a.RenConEle = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConEle,a.ObsAhoEle,l.CupsGas,CONCAT(n.IniTipVia,'-',n.DesTipVia) as TipViaPunSumGas,m.NomViaPunSum as NomViaPunSumGas,m.NumViaPunSum as NumViaPunSumGas,m.BloPunSum as BloPunSumGas,m.EscPunSum as EscPunSumGas,m.PlaPunSum as PlaPunSumGas,m.PuePunSum as PuePunSumGas,o.DesLoc as DesLocPunSumGas,p.DesPro as DesProPunSumGas,m.CPLocSoc as CPLocPunSumGas,q.NomTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,(CASE WHEN a.RenConGas = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConGas,a.ObsAhoGas,a.ImpAhoTot,a.ObsProCom,CONCAT(r.RazSocCom,' - ',r.NumCifCom) as CodCom,t.DesAnePro,s.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre",false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Cliente b', 'a.CodCli = b.CodCli');
         $this->db->join('T_TipoVia c', 'b.CodTipViaSoc=c.CodTipVia');
         $this->db->join('T_Localidad d', 'd.CodLoc = b.CodLocSoc');
         $this->db->join('T_Provincia e', 'e.CodPro = d.CodPro');
-        $this->db->join('T_CUPsElectrico f', 'f.CodCupsEle = a.CodCupsEle');
-        $this->db->join('T_PuntoSuministro g', 'g.CodPunSum = f.CodPunSum');
-        $this->db->join('T_TipoVia h', 'h.CodTipVia=g.CodTipVia'); 
-        $this->db->join('T_Localidad i', 'i.CodLoc = g.CodLoc');
-        $this->db->join('T_Provincia j', 'j.CodPro = i.CodPro');
-        $this->db->join('T_TarifaElectrica k', 'k.CodTarEle = a.CodTarEle');
-        $this->db->join('T_CUPsGas l', 'l.CodCupGas = a.CodCupsGas');
-        $this->db->join('T_PuntoSuministro m', 'm.CodPunSum = l.CodPunSum');
-        $this->db->join('T_TipoVia n', 'n.CodTipVia=m.CodTipVia'); 
-        $this->db->join('T_Localidad o', 'o.CodLoc = m.CodLoc');
-        $this->db->join('T_Provincia p', 'p.CodPro = o.CodPro');
-        $this->db->join('T_TarifaGas q', 'q.CodTarGas = a.CodTarGas');
+        $this->db->join('T_CUPsElectrico f', 'f.CodCupsEle = a.CodCupsEle',"left");
+        $this->db->join('T_PuntoSuministro g', 'g.CodPunSum = f.CodPunSum',"left");
+        $this->db->join('T_TipoVia h', 'h.CodTipVia=g.CodTipVia',"left"); 
+        $this->db->join('T_Localidad i', 'i.CodLoc = g.CodLoc',"left");
+        $this->db->join('T_Provincia j', 'j.CodPro = i.CodPro',"left");
+        $this->db->join('T_TarifaElectrica k', 'k.CodTarEle = a.CodTarEle',"left");
+        $this->db->join('T_CUPsGas l', 'l.CodCupGas = a.CodCupsGas',"left");
+        $this->db->join('T_PuntoSuministro m', 'm.CodPunSum = l.CodPunSum',"left");
+        $this->db->join('T_TipoVia n', 'n.CodTipVia=m.CodTipVia',"left"); 
+        $this->db->join('T_Localidad o', 'o.CodLoc = m.CodLoc',"left");
+        $this->db->join('T_Provincia p', 'p.CodPro = o.CodPro',"left");
+        $this->db->join('T_TarifaGas q', 'q.CodTarGas = a.CodTarGas',"left");
         $this->db->join('T_Comercializadora r', 'r.CodCom = a.CodCom');
         $this->db->join('T_Producto s', 's.CodPro = a.CodPro');
         $this->db->join('T_AnexoProducto t', 't.CodAnePro = a.CodAnePro'); 

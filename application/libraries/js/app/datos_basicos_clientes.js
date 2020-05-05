@@ -641,12 +641,13 @@
      }
      if (scope.nID != undefined) {
          scope.buscarXID();
-         var promise = $interval(function() {
-             scope.filtrarLocalidad()
+         var promise = $interval(function()
+         {
+             scope.filtrarLocalidad();
                  //scope.filtrar_zona_postal();
                  //scope.filtrarLocalidadFisc();
                  //scope.filtrar_zona_postalFis();
-         }, 5000);
+         }, 10000);
          $scope.$on('$destroy', function() {
              $interval.cancel(promise);
          });
