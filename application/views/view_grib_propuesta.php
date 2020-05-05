@@ -88,6 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 #searchResult li:hover{
   cursor: pointer;
 }
+.datepicker{z-index:1151 !important;}
 </style>
 <body>
  <div ng-controller="Controlador_Propuestas_Comerciales as vm">
@@ -168,10 +169,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CUPsEle==true">{{dato.CUPsEle}}</td>
                     <td ng-show="vm.CUPsGas==true">{{dato.CupsGas}}</td> 
                     <td ng-show="vm.EstPro==true">
-                      <span class="label label-warning" ng-show="dato.EstProCom=='Pendiente'"><i class="fa fa-clock-o"></i> {{dato.EstProCom}}</span>
-                      <span class="label label-info" ng-show="dato.EstProCom=='Aprobada'"><i class="fa fa-check-circle"></i> {{dato.EstProCom}}</span>
-                      <span class="label label-success" ng-show="dato.EstProCom=='Completada'"><i class="fa fa-check-circle"></i> {{dato.EstProCom}}</span>  
-                      <span class="label label-danger" ng-show="dato.EstProCom=='Rechazada'"><i class="fa fa-ban"></i> {{dato.EstProCom}}</span>
+                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                      <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
+                      <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
+                      <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
                    </td>
                     <td ng-show="vm.ActPro==true">
                       <div class="btn-group">
@@ -211,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
                         <div class="panel">                  
-      <form class="form-validate" id="frmfiltrobancos" name="frmfiltrobancos" ng-submit="SubmitFormFiltrosBancos($event)">                 
+      <form class="form-validate" id="frmfiltroPropuestas" name="frmfiltroPropuestas" ng-submit="SubmitFormFiltrosPropuestas($event)">                 
      
      <div class="col-12 col-sm-12">
      <div class="form">                          
@@ -225,10 +226,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
 
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" name="RangFec" id="RangFec" class="form-control RangFec" ng-model="vm.RangFec" placeholder="DD/MM/YYYY">   
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
+            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul>   
+     </div>
+     </div>
+     <input type="hidden" name="CodCliFil" id="CodCliFil" ng-model="vm.CodCliFil">
+     </div>
+
+      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3" ng-click="vm.containerClicked()">
+         <div class="form">                          
+         <div class="form-group">
+          <select class="form-control" id="EstProCom" name="EstProCom" ng-model="vm.EstProComFil">
+         <option value="P">Pendiente</option>
+         <option value="A">Aprobada</option> 
+         <option value="C">Completada</option> 
+         <option value="R">Rechazada</option>                         
+        </select>
+         
+         </div>
+         </div>
+      </div>
 
 
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltrobancos.$invalid">Aplicar</button>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroPropuestas.$invalid">Aplicar</button>
       <a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a>
       </div>
 </form>
@@ -252,9 +288,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
-                              <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+                              <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
                             </ul> 
@@ -277,6 +313,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </section>
 
 </div>
+
+<script>
+  $('.RangFec').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+
+  $('#RangFec').on('changeDate', function() 
+  {
+     var RangFec=document.getElementById("RangFec").value;
+     console.log("RangFec: "+RangFec);
+  });
+</script>
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
 <div id="PropuestasComerciales" class="loader loader-default"  data-text="Cargando listado de Propuestas Comerciales"></div>

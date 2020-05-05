@@ -102,8 +102,8 @@ if (!defined('K_PATH_IMAGES')) {
 
 if (!defined('PDF_HEADER_LOGO')) {
 	$tcpdf_header_logo = '';
-	if (@file_exists(K_PATH_IMAGES.'logo-eadic.png')) {
-		$tcpdf_header_logo = 'logo-eadic.png';
+	if (@file_exists(K_PATH_IMAGES.'logo-enerspain.png')) {
+		$tcpdf_header_logo = 'logo-enerspain.png';
 	}
 	define ('PDF_HEADER_LOGO', $tcpdf_header_logo);
 }

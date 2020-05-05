@@ -57,6 +57,10 @@
         scope.ruta_reportes_pdf_Propuestas = 0;
         scope.ruta_reportes_excel_Propuestas = 0;
         scope.tmodal_filtros = {};
+        scope.RangFec=undefined;
+        scope.NumCifCli=undefined;
+        scope.CodCliFil=undefined;
+        scope.EstProCom=undefined;
     }
     $scope.Consultar_CIF=function(event)
     {
@@ -180,51 +184,117 @@
 
         });    
     }
-    scope.fetchClientes = function()
+    scope.fetchClientes = function(metodo)
    {
-        var searchText_len = scope.NumCifCli.trim().length;
-        scope.fdatos.NumCifCli=scope.NumCifCli;   
-        if(searchText_len > 0)
+        if(metodo==1)
         {
-            var url = base_urlHome()+"api/PropuestaComercial/getclientes";
-            $http.post(url,scope.fdatos).then(function(result)
+            var searchText_len = scope.NumCifCli.trim().length;
+            scope.fdatos.NumCifCli=scope.NumCifCli;   
+            if(searchText_len > 0)
             {
-                console.log(result);
-                if (result.data != false)
+                var url = base_urlHome()+"api/PropuestaComercial/getclientes";
+                $http.post(url,scope.fdatos).then(function(result)
                 {
-                    scope.searchResult = result.data;
-                    console.log(scope.searchResult);
-                }
-                else
+                    console.log(result);
+                    if (result.data != false)
+                    {
+                        scope.searchResult = result.data;
+                        console.log(scope.searchResult);
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.searchResult = {};
+                    }
+                }, function(error)
                 {
-                    Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });                    
-                    scope.searchResult = {};
-                }
-            }, function(error)
+                    if (error.status == 404 && error.statusText == "Not Found")
+                    {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized")
+                    {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden")
+                    {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+            else
             {
-                if (error.status == 404 && error.statusText == "Not Found")
-                {
-                    Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 401 && error.statusText == "Unauthorized")
-                {
-                    Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 403 && error.statusText == "Forbidden")
-                {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 500 && error.statusText == "Internal Server Error") {
-                    Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                }
-            });
+                scope.searchResult = {};
+            }      
         }
-        else
+        if(metodo==2)
         {
-            scope.searchResult = {};
-        }               
+            var searchText_len = scope.NumCifCli.trim().length;
+            scope.fdatos.NumCifCli=scope.NumCifCli;   
+            if(searchText_len > 0)
+            {
+                var url = base_urlHome()+"api/PropuestaComercial/getclientes";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result);
+                    if (result.data != false)
+                    {
+                        scope.searchResult = result.data;
+                        console.log(scope.searchResult);
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.searchResult = {};
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found")
+                    {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized")
+                    {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden")
+                    {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+            else
+            {
+                scope.searchResult = {};
+            }      
+        }
+
+                 
     }
-   scope.setValue = function(index,$event,result)
+   scope.setValue = function(index,$event,result,metodo)
+   {
+        if(metodo==1)
+        {
+            scope.NumCifCli=scope.searchResult[index].NumCifCli;
+            scope.searchResult = {};
+            $event.stopPropagation();
+        }
+        if(metodo==2)
+        {
+            scope.CodCliFil=scope.searchResult[index].CodCli;
+            scope.NumCifCli=scope.searchResult[index].NumCifCli;
+            scope.searchResult = {};
+            $event.stopPropagation(); 
+        }
+        
+   }
+   scope.setValueFilter = function(index,$event,result)
    {
         scope.NumCifCli=scope.searchResult[index].NumCifCli;
         scope.searchResult = {};
@@ -237,6 +307,99 @@
     {
       scope.searchResult = {};
     }
+    $scope.SubmitFormFiltrosPropuestas = function(event) 
+    {   
+        if(scope.tmodal_filtros.tipo_filtro==1)
+        {
+            var RangFec1 = document.getElementById("RangFec").value;
+            scope.RangFec = RangFec1;
+            if(scope.RangFec==undefined || scope.RangFec==null || scope.RangFec=='')
+            {
+                Swal.fire({ title: "Error", text: "Debe indicar una fecha para poder aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" }); 
+                return false;
+            }
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
+             //scope.Tabla_Contacto=result.data;
+            scope.TPropuesta_Comerciales = $filter('filter')(scope.TPropuesta_ComercialesBack, { FecProCom: scope.RangFec }, true);
+            $scope.totalItems = scope.TPropuesta_Comerciales.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.TPropuesta_Comerciales.indexOf(value);
+                return (begin <= index && index < end);
+            }
+            scope.ruta_reportes_pdf_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.RangFec;
+            scope.ruta_reportes_excel_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.RangFec;
+
+        }
+        if(scope.tmodal_filtros.tipo_filtro==2)
+        {
+            if(scope.CodCliFil==undefined || scope.CodCliFil==null || scope.CodCliFil=='')
+            {
+                Swal.fire({ title: "Error", text: "Debe buscar un cliente para poder aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" }); 
+                return false;
+            }
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
+             //scope.Tabla_Contacto=result.data;
+            scope.TPropuesta_Comerciales = $filter('filter')(scope.TPropuesta_ComercialesBack, { CodCli: scope.CodCliFil }, true);
+            $scope.totalItems = scope.TPropuesta_Comerciales.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.TPropuesta_Comerciales.indexOf(value);
+                return (begin <= index && index < end);
+            }
+            scope.ruta_reportes_pdf_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.CodCliFil;
+            scope.ruta_reportes_excel_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.CodCliFil;
+
+        }
+        if(scope.tmodal_filtros.tipo_filtro==3)
+        {
+            if(!scope.EstProComFil>0)
+            {
+                Swal.fire({ title: "Error", text: "Debe seleccionar un estatus para poder aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" }); 
+                return false;
+            }
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
+             //scope.Tabla_Contacto=result.data;
+            scope.TPropuesta_Comerciales = $filter('filter')(scope.TPropuesta_ComercialesBack, { EstProCom: scope.EstProComFil }, true);
+            $scope.totalItems = scope.TPropuesta_Comerciales.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.TPropuesta_Comerciales.indexOf(value);
+                return (begin <= index && index < end);
+            }
+            scope.ruta_reportes_pdf_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.EstProComFil;
+            scope.ruta_reportes_excel_Propuestas = scope.tmodal_filtros.tipo_filtro + "/" + scope.EstProComFil;
+
+        }
+                           
+    };
 
 
 

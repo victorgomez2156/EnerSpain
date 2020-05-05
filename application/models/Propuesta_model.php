@@ -12,10 +12,10 @@ class Propuesta_model extends CI_Model
        	return $query->row();
         else
         return false;              
-    } 
+    } ##case a.EstProCom when "P" then "Pendiente" when "A" then "Aprobada" when "C" then "Completada" when "R" then "Rechazada" end as EstProCom,
     public function get_list_propuesta_clientes_all()
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,case a.EstProCom when "P" then "Pendiente" when "A" then "Aprobada" when "C" then "Completada" when "R" then "Rechazada" end as EstProCom,c.CUPsEle,d.CupsGas',false);
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle');
@@ -26,7 +26,22 @@ class Propuesta_model extends CI_Model
        	return $query->result();
         else
         return false;              
-    }   
+    }
+    public function get_list_propuesta_comerciales_filtro($where,$Variable)
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle');
+        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas');
+        $this->db->where($where,$Variable);
+        $this->db->order_by('a.FecProCom DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }     
     public function Buscar_Propuesta($Variable,$tabla,$where)
     {
         $this->db->select('*',false);
