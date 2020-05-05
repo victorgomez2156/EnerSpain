@@ -11990,18 +11990,22 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("E9", "ESTATUS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
         $fila=9;
-        for($i=0; $i<count($Resultado_Filtro_Propuestas); $i++) 
+        if($Resultado_Filtro_Propuestas!=false)
         {
-            if($Resultado_Filtro_Propuestas[$i]->EstProCom=="P")
-            {$EstProComNom='Pendiente';}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
-            $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Propuestas[$i]->FecProCom);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli.' - '.$Resultado_Filtro_Propuestas[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->CUPsEle);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->CupsGas);
-            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $EstProComNom);
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:E$fila");  
-        } 
+            for($i=0; $i<count($Resultado_Filtro_Propuestas); $i++) 
+            {
+                if($Resultado_Filtro_Propuestas[$i]->EstProCom=="P")
+                {$EstProComNom='Pendiente';}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Propuestas[$i]->FecProCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli.' - '.$Resultado_Filtro_Propuestas[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $EstProComNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:E$fila");  
+            }   
+        }
+        
         foreach (range('A', 'E') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
