@@ -28,10 +28,10 @@ class Contratos_model extends CI_Model
         $this->db->join('T_TipoVia c','b.CodTipVia=c.CodTipVia'); 
         $this->db->join('T_Localidad d','b.CodLoc=d.CodLoc');
         $this->db->join('T_Provincia e','e.CodPro=d.CodPro');     
-        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCupsEle');
-        $this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTarEle');
-        $this->db->join('T_CUPsGas h','h.CodCupGas=a.CodCupsGas');
-        $this->db->join('T_TarifaGas i','i.CodTarGas=a.CodTarGas');
+        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCupsEle',"left");
+        $this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTarEle',"left");
+        $this->db->join('T_CUPsGas h','h.CodCupGas=a.CodCupsGas',"left");
+        $this->db->join('T_TarifaGas i','i.CodTarGas=a.CodTarGas',"left");
         $this->db->join('T_Comercializadora j','j.CodCom=a.CodCom');
         $this->db->join('T_Producto k','k.CodPro=a.CodPro');
         $this->db->join('T_AnexoProducto l','l.CodAnePro=a.CodAnePro');
