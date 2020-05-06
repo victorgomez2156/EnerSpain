@@ -518,7 +518,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.productos.SerEle = true;
                 }
             } else {
-                Swal.fire({ title: "Error", text: 'No existe información registrada', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No hay información registrada', type: "error", confirmButtonColor: "#188ae2" });
                 scope.validate_info_productos = 1;
                 scope.productos = {};
                 scope.productos.CodTPro = scope.nID;

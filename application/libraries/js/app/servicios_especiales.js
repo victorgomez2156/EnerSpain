@@ -1120,7 +1120,7 @@
                  //console.log(result.data);
                  console.log(scope.servicio_especial);
              } else {
-                 Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: 'No hay información', type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");

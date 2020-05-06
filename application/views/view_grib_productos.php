@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccTPro==true">Acción</th>
                   </tr> 
                   <tr ng-show="vm.TProductos.length==0"> 
-                    <td colspan="9" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
+                    <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TProductos | filter:paginate1 | filter:vm.filtrar" ng-class-odd="odd">                   
                     

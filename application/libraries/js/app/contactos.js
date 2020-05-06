@@ -599,7 +599,7 @@
              if (result.data != false) {
                  scope.tContacto_data_modal = result.data;
              } else {
-                 Swal.fire({ title: "Error.", text: "No existe información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "No hay información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
 
              }

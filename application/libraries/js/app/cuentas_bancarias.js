@@ -509,7 +509,7 @@
                  scope.IBAN4 = result.data.IBAN4;
                  scope.IBAN5 = result.data.IBAN5;
              } else {
-                 Swal.fire({ title: "Error.", text: "No existe información de la Cuenta Bancaria", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "No hay información de la Cuenta Bancaria", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
              }
          }, function(error) {

@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccSerEsp==true">Acción</th>
                   </tr> 
                   <tr ng-show="vm.TServicioEspeciales.length==0"> 
-                    <td colspan="10" align="center"><div class="td-usuario-table">No existe información</div></td>
+                    <td colspan="10" align="center"><div class="td-usuario-table">No hay información</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>

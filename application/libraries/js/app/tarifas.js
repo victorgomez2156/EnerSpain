@@ -382,7 +382,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos_tar_elec);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No hay información', type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -491,7 +491,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
             } else {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ text: 'No existe información', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No hay información', type: "info", confirmButtonColor: "#188ae2" });
                 scope.T_TarifasGas = [];
                 scope.T_TarifasGasBack = [];
             }
@@ -637,7 +637,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos_tar_gas);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No existe información', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No hay información', type: "error", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
