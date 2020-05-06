@@ -11,7 +11,6 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
         $routeProvider
         //Se debe colocar  para cada uno de los controladores que desea para el acceso todos los formularios
             .when('/Dashboard/', { templateUrl: 'application/views/view_dashboard.php' })
-            .when('/Tablero/', { templateUrl: 'application/views/view_dashboard.php' })
 
         .when('/Comercializadora/', { templateUrl: 'application/views/view_grib_comercializadora.php' })
             .when('/Datos_Basicos_Comercializadora/', { templateUrl: 'application/views/view_comercializadora.php' })
@@ -30,10 +29,10 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Comisiones_Anexos/:CodAnePro/:NumCifCom/:RazSocCom/:DesPro/:DesAnePro', { templateUrl: 'application/views/view_add_comisiones_anexos.php' })
 
         .when('/Servicios_Adicionales/', { templateUrl: 'application/views/view_grib_servicios_especiales.php' })
-            .when('/Add_Servicios_Adicionales/', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
-            .when('/Edit_Servicios_Adicionales/:ID', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
-            .when('/Ver_Servicios_Adicionales/:ID/:INF', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
-            .when('/Comisiones_Servicios_Adicionales/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp', { templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php' })
+        .when('/Add_Servicios_Adicionales/', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
+        .when('/Edit_Servicios_Adicionales/:ID', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
+        .when('/Ver_Servicios_Adicionales/:ID/:INF', { templateUrl: 'application/views/view_add_servicios_especiales.php' })
+        .when('/Comisiones_Servicios_Adicionales/:CodSerEsp/:NumCifCom/:RazSocCom/:DesSerEsp', { templateUrl: 'application/views/view_add_comisiones_servicios_especiales.php' })
 
         .when('/Clientes/', { templateUrl: 'application/views/view_grib_clientes.php' })
             .when('/Datos_Basicos_Clientes/', { templateUrl: 'application/views/view_datos_basicos_clientes.php' })
@@ -63,6 +62,18 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', { templateUrl: 'application/views/view_grib_consumo_cups.php' })
             .when('/Historial_Consumo_Cups/:CodCup/:TipServ', { templateUrl: 'application/views/view_grib_historial_cups.php' })
             .when('/Reporte_Cups_Colaboradores', { templateUrl: 'application/views/view_reporte_cups_colaboradores.php' })
+
+            .when('/Propuesta_Comercial/', { templateUrl: 'application/views/view_grib_propuesta.php' })
+            .when('/Add_Propuesta_Comercial/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
+            .when('/Ver_Propuesta_Comercial/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
+            .when('/Edit_Propuesta_Comercial/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
+            .when('/Renovar_Propuesta_Comercial/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
+            
+
+            .when('/Contratos/', { templateUrl: 'application/views/view_grib_contratos.php' })
+            .when('/Add_Contrato/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+            .when('/Ver_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+            .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
 
         ////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  START//////////////////////////////////////////////////////////////////////////
         .when('/Distribuidora/', { templateUrl: 'application/views/view_grib_distribuidora.php' })

@@ -181,9 +181,9 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a href="#/"> Propuesta Comercial</a></li>
-              <li><a href="#/"> Contratos</a></li>
-              <li><a href="#/"> Otras Gestiones</a></li>
+              <li><a href="#/Propuesta_Comercial"> Propuesta Comercial</a></li>
+              <li><a href="#/Contratos"> Contratos</a></li>
+              <li><a href="#/Otras_Gestiones"> Otras Gestiones</a></li>
                 
             </ul>
           </li>
