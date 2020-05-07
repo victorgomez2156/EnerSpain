@@ -326,8 +326,86 @@ class Tipos extends REST_Controller
     }
 
   
-    ////////////////////////////////////////////////////////////////////// PARA TIPO DOCUMENTO END/////////////////////////////////////////////////////////////
-    
+    //////////////////////// PARA TIPO DOCUMENTO END/////////////////////////////////////////////////////////////
+  
+
+
+  /////////////// PARA TIPO GESTIONES START////////////////////////
+    public function list_tipo_gestiones_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Tipos_model->get_list_tipo_gestiones();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',NULL,$this->input->ip_address(),'Cargando Lista Tipo de Gestiones');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function crear_tipo_gestion_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodTipGes))
+		{		
+			$this->Tipos_model->actualizar_tipo_gestion($objSalida->CodTipGes,$objSalida->DesTipGes,$objSalida->ActTipGes);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','UPDATE',$objSalida->CodTipGes,$this->input->ip_address(),'Actualizando Tipo de Gestión');
+		}
+		else
+		{
+			$id = $this->Tipos_model->agregar_tipo_gestion($objSalida->DesTipGes,$objSalida->ActTipGes);		
+			$objSalida->CodTipGes=$id;			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','INSERT',$objSalida->CodTipGes,$this->input->ip_address(),'Creando Tipo de Getión');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+    }
+     public function buscar_xID_Tipo_Gestion_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodTipGes=$this->get('CodTipGes');		
+        $data = $this->Tipos_model->get_tipo_gestion_data($CodTipGes);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',$CodTipGes,$this->input->ip_address(),'Consultando datos Tipo de Gestión');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
+    public function borrar_row_tipo_gestion_delete()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}	
+		$CodTipGes=$this->get('CodTipGes');
+        $data = $this->Tipos_model->borrar_tipo_gestion_data($CodTipGes);
+		if (empty($data))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','DELETE',$CodTipGes,$this->input->ip_address(),'Borrando Tipo Gestión Fallido.');
+			$this->response(false);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','DELETE',$CodTipGes,$this->input->ip_address(),'Borrando Tipo Gestión.');		
+		$this->response($data);
+				
+    }
+    ///////////////////////////////////////////////////// PARA TIPO GESTIONES END///////////////////////////////////////////////
+   
 	
 }
 ?>

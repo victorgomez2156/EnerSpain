@@ -159,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.Cups_Acc==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TCups.length==0"> 
-                     <td colspan="7" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
+                     <td colspan="8" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TCups | filter:paginate | filter:vm.filtrar_cups" ng-class-odd="odd">                    
                     <td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td>

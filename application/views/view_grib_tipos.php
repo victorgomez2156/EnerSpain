@@ -106,7 +106,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
       <li>
         <a href="#tabs-4">DOCUMENTO</a>
-      </li>    
+      </li>
+      <li>
+        <a href="#tabs-5">TIPO GESTION</a>
+      </li>     
     </ul>
 
     <!--INICIO TABS 1 TIPO CLIENTE -->
@@ -144,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar_cliente" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo  Cliente" ng-click="vm.agg_cliente()"</button>
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo  Cliente" ng-click="vm.agg_cliente()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -261,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar_sector" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Sector" ng-click="vm.agg_sector()"</button>
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Sector" ng-click="vm.agg_sector()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -380,7 +383,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar_contacto" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Contacto" ng-click="vm.agg_contacto()"</button>
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Contacto" ng-click="vm.agg_contacto()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -503,7 +506,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtro_documento" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Documento" ng-click="vm.agg_documentos()"</button>
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Documento" ng-click="vm.agg_documentos()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
                   </div>
               </div>
@@ -549,13 +552,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <pagination total-items="totalItems3" ng-model="currentPage3" max-size="5" boundary-links="true" items-per-page="numPerPage3" class="pagination-sm">  
             </pagination>
           </div>
-        </div>
-
-
-
-          
-
-      
+        </div>      
     </div><!--FINAL DIV NG-SHOW TVISTADOCUMENTOS 1-->
 
     <!--INICIO DIV NG-SHOW TVISTADOCUMENTOS 2-->
@@ -605,6 +602,142 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- FINAL DE TABS 4 TIPO DOCUMENTO-->
 
+
+
+  <!--INICIO TABS 4 TIPO GESTIONES START-->
+  <div id="tabs-5">
+     <!--INICIO DIV NG-SHOW TVistagGestiones 1-->
+    <div ng-show="vm.TVistaGestiones==1">
+    <!--t-0002 start-->                  
+<div id="t-0002">
+  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile">                   
+    <div class="t-0029">
+      <div class="t-0031" style="margin-top: -8px; ">
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><input type="checkbox" ng-model="vm.DesTipGes"/> <b style="color:black;">Descripción</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ActTipGes"/> <b style="color:black;">Estatus</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.AccTipGes"/> <b style="color:black;">Acción</b></li>
+                      </ul> 
+                    </div>                    
+                    <div class="btn-group">
+                      <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                      <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Tipo_Gestiones/{{vm.ruta_reportes_pdf_gestiones}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Tipo_GestionesGestiones/{{vm.ruta_reportes_excel_gestiones}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                      </ul>
+                    </div>                   
+                  </div>
+                </div>
+              </div>              
+              <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+                <div class="t-0029">
+                  <form class="form-inline" role="form">
+                    <div class="form-group">
+                      <input type="text" class="form-control" ng-model="vm.filtro_gestion" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    </div>                 
+                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo de Gestión" ng-click="vm.agg_gestion()"><i class="fa fa-plus-square"></i></button>
+                  </form>                    
+                  </div>
+              </div>
+</div>  <!--t-0002 end-->    
+<br><br><br><br>
+      <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_tipo_gestiones()">
+                <tbody>
+                  <tr>                    
+                    <th ng-show="vm.DesTipGes==true">Descripción</th> 
+                    <th ng-show="vm.ActTipGes==true">Estatus</th>
+                    <th ng-show="vm.AccTipGes==true">Acción</th>
+                  </tr>
+                  <tr ng-show="vm.Tipo_Gestiones.length==0"> 
+                     <td colspan="4" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.Tipo_Gestiones | filter:paginate5 | filter:vm.filtro_gestion" ng-class-odd="odd">
+                    
+                     <td ng-show="vm.DesTipDoc==true">{{dato.DesTipGes}}</td>
+                      <td ng-show="vm.EstReq==true">
+                      <span class="label label-info" ng-show="dato.ActTipGes==1"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.ActTipGes==0"><i class="fa fa-ban"></i> Inactivo</span></td>
+                    <td ng-show="vm.AccTipDoc==true">
+                      <div class="btn-group">
+                        <select class="form-control" id="opciones_gestiones" name="opciones_gestiones" ng-model="vm.opciones_gestiones[$index]" ng-change="vm.validar_opcion_gestiones($index,vm.opciones_gestiones[$index],dato)">
+                          <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <th ng-show="vm.DesTipGes==true">Descripción</th> 
+                  <th ng-show="vm.ActTipGes==true">Estatus</th>
+                  <th ng-show="vm.AccTipGes==true">Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_tipo_gestiones()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems5" ng-model="currentPage5" max-size="5" boundary-links="true" items-per-page="numPerPage5" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>      
+    </div><!--FINAL DIV NG-SHOW TVistagGestiones 1-->
+
+
+
+ <!--INICIO DIV NG-SHOW TVISTADOCUMENTOS 2-->
+    <div ng-show="vm.TVistaGestiones==2">
+    <form id="form_gestiones" name="form_gestiones" ng-submit="submitFormGestiones($event)">
+     
+     <div class='row'> 
+      
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Descripción <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.fdatos_gestiones.DesTipGes" required onkeyup="this.value=this.value.toUpperCase();" placeholder="* Descripción" maxlength="50" ng-disabled="vm.validate_gestiones==1"/>
+       </div>
+       </div>
+       </div>
+
+      <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Estatus</label>
+       <input type="checkbox" class="form-control" ng-model="vm.fdatos_gestiones.ActTipGes" ng-disabled="vm.validate_gestiones==1"/>       
+       </div>
+       </div>
+       </div>
+      <br><br><br><br>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_gestiones.CodTipGes==undefined||vm.fdatos_gestiones.CodTipGes==null||vm.fdatos_gestiones.CodTipGes==''" ng-disabled="form_gestiones.$invalid">Crear</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos_gestiones.CodTipGes>0 && vm.validate_gestiones==undefined" ng-disabled="form_gestiones.$invalid">Actualizar</button>
+            <button class="btn btn-danger" type="button"  ng-click="vm.borrar_gestion()" ng-show="vm.fdatos_gestiones.CodTipGes>0 && vm.validate_gestiones==undefined" ng-disabled="vm.Nivel==3">Borrar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.limpiar_documento()" ng-show="vm.fdatos_gestiones.CodTipGes==undefined">Limpiar</button>
+            <button class="btn btn-info" type="button" ng-click="vm.regresar_gestiones()">Volver</button>
+          </div>
+        </div>
+        <input class="form-control " id="CodTipGes" name="CodTipGes" type="hidden" ng-model="vm.fdatos_gestiones.CodTipGes" readonly />
+         </div><!--FINAL ROW -->
+        </form>
+          
+    </div>
+    <!--FINAL DIV NG-SHOW TVISTADOCUMENTOS 2-->
+
+
+
+
+
+
+
+
+
+
+  </div>
+  <!--INICIO TABS 5 TIPO GESTIONES END-->
 </div>
 <!-- FINAL DE TABS MAESTRO--> 
 

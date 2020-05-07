@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="form-group">
                       <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" title="Escribe para Filtrar..." placeholder="Escribe para Filtrar...">
                     </div>                 
-                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"</button>
+                    <button style="margin-right: 10px;" id="btn_modal_cif_com" class="btn btn-info" title="Agregar Comercializadora" ng-click="vm.modal_cif_comercializadora()"><i class="fa fa-plus-square"></i> </button>
                   </form>                    
                   </div>
               </div>

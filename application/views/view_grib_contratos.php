@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
                         <div class="panel">                  
-      <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltros($event)">                 
+      <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltrosContratos($event)">                 
      
      <div class="col-12 col-sm-12">
      <div class="form">                          
@@ -233,6 +233,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
      </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" name="RangFec" id="RangFec" class="form-control RangFec" ng-model="vm.RangFec" placeholder="DD/MM/YYYY" ng-change="vm.validar_formatos_input(3,vm.RangFec)">   
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
+            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul>   
+     </div>
+     </div>
+     <input type="hidden" name="CodCliFil" id="CodCliFil" ng-model="vm.CodCliFil" readonly>
+     </div>
+
+      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3" ng-click="vm.containerClicked()">
+         <div class="form">                          
+         <div class="form-group">
+          <select class="form-control" id="EstBajCon" name="EstBajCon" ng-model="vm.EstBajConFil">
+         <option value="0">Activo</option>
+         <option value="1">Dado de Baja</option> 
+         <option value="2">Vencido</option> 
+         <option value="3">Renovado</option>                         
+        </select>
+         
+         </div>
+         </div>
+      </div>
+
      <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid">Aplicar</button>
       <a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a>
@@ -259,9 +296,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
-                              <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+                              <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
                             </ul> 
@@ -304,7 +341,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Baja</label>
-         <input type="text" class="form-control FecBajCon" ng-model="vm.FecBajCon" required name="FecBajCon" id="FecBajCon"/>    
+         <input type="text" class="form-control FecBajCon" ng-model="vm.FecBajCon" required name="FecBajCon" id="FecBajCon" ng-change="vm.validar_formatos_input(2,vm.FecBajCon)"/>    
          </div>
          </div>
         </div>
@@ -436,7 +473,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <script type="text/javascript">
   $('.FecBajCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
-   $('.FecIniCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+  $('.FecIniCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+
+  $('.RangFec').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+
+  $('#RangFec').on('changeDate', function() 
+  {
+     var RangFec=document.getElementById("RangFec").value;
+     console.log("RangFec: "+RangFec);
+  });
 </script>
 </body>
 

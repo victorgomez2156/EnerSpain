@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccAct==true">Action</th>
                   </tr>
                   <tr ng-show="vm.TActividades.length==0"> 
-                     <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Actividades registradas</div></td>           
+                     <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Actividades registradas</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TActividades | filter:paginate1 | filter:vm.fdatos.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>

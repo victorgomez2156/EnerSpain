@@ -891,6 +891,23 @@ class Reportes_model extends CI_Model
         if($query->num_rows()>0)
         {return $query->row();}else{return false;}  
     }
+    public function get_list_contratos_comerciales_filtro($where,$Variable)
+    {
+        $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
+            CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
+        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
+        $this->db->where($where,$Variable);
+        $this->db->order_by('a.FecConCom DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;            
+    }
  
 }
 ?>

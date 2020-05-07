@@ -185,7 +185,7 @@
         });    
     }
     scope.fetchClientes = function(metodo)
-   {
+    {
         if(metodo==1)
         {
             var searchText_len = scope.NumCifCli.trim().length;

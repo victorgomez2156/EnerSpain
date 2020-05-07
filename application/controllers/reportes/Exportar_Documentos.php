@@ -12018,5 +12018,380 @@ class Exportar_Documentos extends CI_Controller
         $objWriter->save('php://output');
         exit;   
     }
+    public function Doc_Contratos_PDF()
+    {        
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todos los contratos comerciales";
+            $Resultado_Filtro_Contratos=$this->Contratos_model->get_list_contratos();
+        }
+       elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='a.FecConCom';
+            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='a.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstBajCon = urldecode($this->uri->segment(5));
+            if($EstBajCon==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstBajCon==0)
+            {$EstBajConNom='Activo';}elseif ($EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($EstBajCon==2){$EstBajConNom="Vencido";}elseif ($EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstBajConNom;
+            $where='a.EstBajCon';
+            $Variable=$EstBajCon;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Contratos Comerciales '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Contratos Comerciales');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE CONTRATOS COMERCIALES</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left">Filtro Aplicado</td>
+                <td border="0" colspan="2">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">FECHA</td> 
+            <td style="color:white;">CLIENTE</td>
+            <td style="color:white;">COMERCIALIZADORA</td>
+            <td style="color:white;">ANEXO</td>
+            <td style="color:white;">DURACIÓN</td>
+            <td style="color:white;">VENCIMIENTO</td>
+            <td style="color:white;">ESTATUS</td>
+        </tr>';
+        if($Resultado_Filtro_Contratos!=false)
+        {
+            foreach ($Resultado_Filtro_Contratos as $record): 
+            {
+                if($record->EstBajCon==0)
+                {$EstBajCon='Activo';}elseif ($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
+                $html.='<tr>
+                        <td>'.$record->FecConCom.'</td>
+                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.'</td>
+                        <td>'.$record->CodCom.'</td>
+                        <td>'.$record->Anexo.'</td>
+                        <td>'.$record->DurCon.' Meses</td>
+                        <td>'.$record->FecVenCon.'</td>
+                        <td>'.$EstBajCon.'</td>                       
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="5"><b>Actualmente no hemos encontrado contratos registrados.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'Filtro Contratos');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
+    }
+    public function Doc_Contratos_Excel()
+    {       
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todos los contratos comerciales";
+            $Resultado_Filtro_Contratos=$this->Contratos_model->get_list_contratos();
+        }
+       elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='a.FecConCom';
+            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='a.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstBajCon = urldecode($this->uri->segment(5));
+            if($EstBajCon==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstBajCon==0)
+            {$EstBajConNom='Activo';}elseif ($EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($EstBajCon==2){$EstBajConNom="Vencido";}elseif ($EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstBajConNom;
+            $where='a.EstBajCon';
+            $Variable=$EstBajCon;
+            $Resultado_Filtro_Contratos=$this->Reportes_model->get_list_contratos_comerciales_filtro($where,$Variable);
+
+        }       
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc_Excel_Contratos_Comerciales_'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Contratos Comerciales"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Contratos Comerciales"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTRATOS COMERCIALES");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "COMERCIALIZADORA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "ANEXO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "DURACIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+         $objPHPExcel->getActiveSheet()->SetCellValue("F9", "VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+         $objPHPExcel->getActiveSheet()->SetCellValue("G9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $fila=9;
+        if($Resultado_Filtro_Contratos!=false)
+        {
+            for($i=0; $i<count($Resultado_Filtro_Contratos); $i++) 
+            {
+                if($Resultado_Filtro_Contratos[$i]->EstBajCon==0)
+                {$EstBajConNom='Activo';}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==2){$EstBajConNom="Vencido";}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Contratos[$i]->FecConCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Contratos[$i]->NumCifCli.' - '.$Resultado_Filtro_Contratos[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contratos[$i]->CodCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contratos[$i]->Anexo);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contratos[$i]->DurCon.' Meses');
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contratos[$i]->FecVenCon);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $EstBajConNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:G$fila");  
+            }   
+        }
+        
+        foreach (range('A', 'E') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL CONTRATOS COMERCIALES FILTRAD0S');
+        $objWriter->save('php://output');
+        exit;   
+    }
 
 }?>

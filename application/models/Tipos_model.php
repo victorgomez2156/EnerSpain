@@ -145,13 +145,8 @@ class Tipos_model extends CI_Model
         }       
     }
     /// PARA TIPO CONTACTO END//////
-
-
-
-
-
    
-    /////////////////////////////////////////////////////////////////////////// PARA TIPO DOCUMENTO START///////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// PARA TIPO DOCUMENTO START/////////////////////////////////
     public function get_list_tipo_documentos()
     {
         $this->db->select('CodTipDoc,DesTipDoc,ObsTipDoc,case EstReq when 0 then "NO" WHEN 1 THEN "SI" end as EstReq',false);
@@ -195,9 +190,53 @@ class Tipos_model extends CI_Model
         {
             return false;
         }       
-    }
+    }  
+    /////////////////////////////////////////// PARA TIPO DOCUMENTO END////////////////////////////////////////////////////////////
 
-  
-    /////////////////////////////////////////////////////////////////////////// PARA TIPO DOCUMENTO END////////////////////////////////////////////////////////////
-    
+ /// PARA TIPO CLIENTE START/////
+    public function get_list_tipo_gestiones()
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_TipoGestion');
+        $this->db->order_by('DesTipGes ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function agregar_tipo_gestion($DesTipGes,$ActTipGes)
+    {
+        $this->db->insert('T_TipoGestion',array('DesTipGes'=>$DesTipGes,'ActTipGes'=>$ActTipGes));
+        return $this->db->insert_id();
+    }
+    public function actualizar_tipo_gestion($CodTipGes,$DesTipGes,$ActTipGes)
+    {   
+        $this->db->where('CodTipGes', $CodTipGes);        
+        return $this->db->update('T_TipoGestion',array('DesTipGes'=>$DesTipGes,'ActTipGes'=>$ActTipGes));
+    }
+    public function borrar_tipo_gestion_data($CodTipGes)
+    { 
+        return $this->db->delete('T_TipoGestion', array('CodTipGes' => $CodTipGes));
+    }
+    public function get_tipo_gestion_data($CodTipGes)
+    {
+        $this->db->select('*');
+        $this->db->from('T_TipoGestion');  
+        $this->db->where('CodTipGes',$CodTipGes);          
+        $query = $this->db->get(); 
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }  
+    /// PARA TIPO CLIENTE END//////  
 }
