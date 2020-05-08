@@ -144,12 +144,30 @@ class OtrasGestiones extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-
-		$CodGesGen=$this->Otrasgestiones_model->save_gestion_comercial($objSalida->CodCli,$objSalida->FecGesGen,$objSalida->TipGesGen,$objSalida->RefGesGen,$objSalida->MecGesGen,$objSalida->EstGesGen,$objSalida->PreGesGen,$objSalida->CodCups,$objSalida->DesAnaGesGen,$objSalida->ObsGesGen,$objSalida->TipCups,$objSalida->NGesGen);
-		$objSalida->CodGesGen=$CodGesGen;
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','INSERT',$CodGesGen,$this->input->ip_address(),'Creando Gestión Comercial');
-		
-		$response = array('status' =>200 ,'menssage' =>'Gestión Comercial Registrada Correctamente.','statusText'=>'OK','Gestion'=>$objSalida);
+		if (isset($objSalida->CodGesGen))
+		{
+			$tabla="T_OtrasGestiones";
+			$where="CodGesGen";	
+			$select='*'; 
+			$Gestion_Old = $this->Propuesta_model->Funcion_Verificadora($objSalida->CodGesGen,$tabla,$where,$select);
+			if($Gestion_Old->EstGesGen!='P')
+			{
+				$response = array('status' =>201 ,'menssage' =>'La gestión comercial no se puede modificar si su estatus no es Pendiente.','statusText'=>'OK','Gestion'=>$objSalida);
+			}
+			else
+			{
+				$this->Otrasgestiones_model->update_gestion_comercial($objSalida->CodGesGen,$objSalida->CodCli,$objSalida->FecGesGen,$objSalida->TipGesGen,$objSalida->RefGesGen,$objSalida->MecGesGen,$objSalida->EstGesGen,$objSalida->PreGesGen,$objSalida->CodCups,$objSalida->DesAnaGesGen,$objSalida->ObsGesGen,$objSalida->TipCups,$objSalida->NGesGen);
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','UPDATE',$objSalida->CodGesGen,$this->input->ip_address(),'Creando Gestión Comercial');
+				$response = array('status' =>200 ,'menssage' =>'Gestión Comercial modificada correctamente.','statusText'=>'OK','Gestion'=>$objSalida);
+			}			
+		}
+		else
+		{
+			$CodGesGen=$this->Otrasgestiones_model->save_gestion_comercial($objSalida->CodCli,$objSalida->FecGesGen,$objSalida->TipGesGen,$objSalida->RefGesGen,$objSalida->MecGesGen,$objSalida->EstGesGen,$objSalida->PreGesGen,$objSalida->CodCups,$objSalida->DesAnaGesGen,$objSalida->ObsGesGen,$objSalida->TipCups,$objSalida->NGesGen);
+			$objSalida->CodGesGen=$CodGesGen;
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','INSERT',$CodGesGen,$this->input->ip_address(),'Creando Gestión Comercial');
+			$response = array('status' =>200 ,'menssage' =>'Gestión Comercial Registrada Correctamente.','statusText'=>'OK','Gestion'=>$objSalida);
+		}		
 		$this->db->trans_complete();
 		$this->response($response);
 	}
@@ -178,10 +196,17 @@ class OtrasGestiones extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
 		$CodGesGen=$this->get('CodGesGen');
-		
-		//$response = array('status' =>200 ,'menssage' =>'Datos Encontrados.','statusText'=>'OK','Cups'=>$Cups);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_cups,'GET',$CodGesGen,$this->input->ip_address(),'Buscando Gestión Comercial');		
-		$this->response($CodCli);
+		$GestionComercial= $this->Otrasgestiones_model->get_gestionComercial($CodGesGen);
+		if (empty($GestionComercial))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'No se encontro registro relacinado con este código de gestión.');
+			$this->response(false);
+			return false;
+		}
+		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
+		$response = array('status' =>200 ,'menssage' =>'Mostrando datos.','statusText'=>'OK','GestionComercial'=>$GestionComercial,'List_Gestiones'=>$List_Gestiones,'FechaServer'=>date('d/m/Y'));
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'Buscando Gestión Comercial');		
+		$this->response($response);
     }
       
 

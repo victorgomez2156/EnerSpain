@@ -244,6 +244,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if(result.data!=false)
             {
                 scope.ListCUPs=result.data.Cups;
+                //console.log(scope.ListCUPs);
             }   
             else
             {
@@ -270,6 +271,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.filter_Cups=function(CodCups)
     {
         console.log(CodCups);
+        console.log(scope.ListCUPs);
         scope.ComerNom=undefined;
         for (var i = 0; i < scope.ListCUPs.length; i++) 
         {
@@ -312,6 +314,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     {
                         Swal.fire({ title: "Gestión Comercial", text: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
                         location.href="#/Edit_Gestion_Comercial/"+result.data.Gestion.CodGesGen+"/editar";
+                        return false;                       
+                    }
+                    if(result.data.status==201 && result.data.statusText=='OK')
+                    {
+                        Swal.fire({ title: "Gestión Comercial", text: result.data.menssage, type: "info", confirmButtonColor: "#188ae2" });
                         return false;                       
                     }
                     /*if(result.data.status==true && result.data.statusText=='Propuesta Comercial')
@@ -476,7 +483,53 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if(result.data!=false)
             {
-
+                if(result.data.status==200 && result.data.statusText=="OK")
+                {
+                    //scope.fdatos=result.data;
+                    scope.RazSocCli=result.data.GestionComercial.RazSocCli;
+                    scope.NumCifCli=result.data.GestionComercial.NumCifCli;
+                    scope.FecGesGen=result.data.GestionComercial.FecGesGen;
+                    $('.FecGesGen').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate",scope.FecGesGen);
+                    scope.FechaServer=result.data.FechaServer;
+                    scope.fdatos.NGesGen=result.data.GestionComercial.NGesGen;
+                    scope.fdatos.EstGesGen=result.data.GestionComercial.EstGesGen;
+                    scope.fdatos.CodCli=result.data.GestionComercial.CodCli;
+                    if(result.data.GestionComercial.CodCupsEle!=null && result.data.GestionComercial.CodCupsGas==null)
+                    {
+                        scope.fdatos.TipCups=0;
+                        scope.traer_cups(scope.fdatos.TipCups,1);
+                        scope.fdatos.CodCups=result.data.GestionComercial.CodCupsEle;
+                        
+                        setTimeout(function()
+                            {console.log('hola');scope.filter_Cups(scope.fdatos.CodCups);scope.GestionesComercialesAll();},5000)
+                        
+                    }
+                    if(result.data.GestionComercial.CodCupsGas!=null && result.data.GestionComercial.CodCupsEle==null)
+                    {
+                        scope.fdatos.TipCups=1;
+                        scope.traer_cups(scope.fdatos.TipCups,2);
+                        scope.fdatos.CodCups=result.data.GestionComercial.CodCupsGas;
+                        setTimeout(function()
+                            {console.log('hola');scope.filter_Cups(scope.fdatos.CodCups);scope.GestionesComercialesAll();},5000)
+                    }
+                    if(result.data.GestionComercial.MecGesGen==0)
+                    {
+                        scope.fdatos.MecGesGen=0;
+                    }
+                    if(result.data.GestionComercial.MecGesGen==1)
+                    {
+                        scope.fdatos.MecGesGen=1;
+                    }
+                    scope.fdatos.PreGesGen=result.data.GestionComercial.PreGesGen;
+                    scope.fdatos.RefGesGen=result.data.GestionComercial.RefGesGen;
+                    scope.fdatos.DesAnaGesGen=result.data.GestionComercial.DesAnaGesGen;
+                    scope.fdatos.ObsGesGen=result.data.GestionComercial.ObsGesGen;
+                    scope.fdatos.CodGesGen=result.data.GestionComercial.CodGesGen;
+                    scope.List_GestionesComerciales=result.data.List_Gestiones;
+                    scope.fdatos.TipGesGen=result.data.GestionComercial.TipGesGen;
+                }
+               
+                                
             }
             else
             {
@@ -499,20 +552,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
-        });
-
-
-
-        
-        
+        });        
     }
     scope.GestionesComercialesAll=function()
     {
-       $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
+       $("#cargando1").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome()+"api/OtrasGestiones/get_list_gestiones_comerciales";
         $http.get(url).then(function(result)
         {
-            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            $("#cargando1").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if(result.data!=false)
             {
                 $scope.predicate = 'id';
@@ -538,12 +586,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             {
                 Swal.fire({ title: "Erro", text: "no existen gestiones comerciales registradas.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TListGestiones=[];
+                scope.TListGestionesBack=[];
                 //location.href="#/Otras_Gestiones";
             }
 
         },function(error)
         {
-            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            $("#cargando1").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
@@ -557,6 +606,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
         }); 
+    }
+    scope.regresar=function()
+    {       
+       Swal.fire({
+            title:"Estás seguro de regresar y no realizar los cambios?",
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "OK"
+        }).then(function(t){
+        if (t.value == true)
+        {
+             location.href="#/Otras_Gestiones"; 
+        }else 
+        {
+            console.log('Cancelando ando...');
+        }});    
     }
     if(scope.fdatos.CodCli!=undefined && scope.fdatos.tipo=="nueva")
     {

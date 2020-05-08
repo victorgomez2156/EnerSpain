@@ -841,11 +841,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_documento);
         if (scope.fdatos_documento.CodTipDoc > 0) {
 
+            var title="Actualizando";
             var text = '¿Seguro que desea actualizar el Tipo de Documento?';
             var response = "El Tipo de Documento ha sido modificado de forma correcta";
         }
         if (scope.fdatos_documento.CodTipDoc == undefined) {
 
+            var title="Guardando";
             var text = '¿Seguro que desea grabar el Tipo de Documento?';
             var response = "El Tipo de Documento ha sido registrado de forma correcta";
         }

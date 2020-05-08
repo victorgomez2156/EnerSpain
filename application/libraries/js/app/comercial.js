@@ -74,11 +74,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             confirmButtonText: "OK"
         }).then(function(t) {
             if (t.value == true) {
-                $("#crear_comercial").removeClass("loader loader-default").addClass("loader loader-default is-active");
+                $("#"+title).removeClass("loader loader-default").addClass("loader loader-default is-active");
                 var url = base_urlHome() + "api/Comercial/crear_comercial/";
                 $http.post(url, scope.fdatos).then(function(result) {
                     scope.nID = result.data.CodCom;
-                    $("#crear_comercial").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    $("#"+title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (scope.nID > 0) {
                         console.log(result.data);
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
@@ -88,7 +88,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error", text: "Ha ocurrido durante el proceso, Por Favor Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
-                    $("#crear_comercial").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    $("#"+title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }

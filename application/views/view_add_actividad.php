@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código IAE <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_actividades.CodIAE" readonly="readonly" required placeholder="* CodIAE"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos_actividades.CodIAE" readonly="readonly" placeholder="* CodIAE"/>       
        </div>
        </div>
        </div> 

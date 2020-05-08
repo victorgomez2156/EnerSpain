@@ -203,12 +203,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <textarea class="form-control" name="ObsGesGen" id="ObsGesGen" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsGesGen" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
          </div>
          </div>
-            <input class="form-control" id="CodGesGen" name="CodGesGen" type="text" ng-model="vm.fdatos.CodGesGen" readonly/>
+            <input class="form-control" id="CodGesGen" name="CodGesGen" type="hidden" ng-model="vm.fdatos.CodGesGen" readonly/>
          <div class="form-group" >
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nueva'">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'">Actualizar</button>
-            <!--a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Contrato_Cliente_PDF/{{vm.fdatos.CodGesGen}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a-->
+            <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Gestion_Comercial_PDF/{{vm.fdatos.CodGesGen}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             <!--button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodGesGen>0 " >Actualizar</button-->            
             <!--button class="btn btn-warning" type="button"  ng-click="vm.limpiar()" ng-show="vm.fdatos.CodGesGen==undefined||vm.fdatos.CodGesGen==null||vm.fdatos.CodGesGen==''">Limpiar</button-->
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>

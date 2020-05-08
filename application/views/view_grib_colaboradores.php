@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
       <select class="form-control" id="TipColFil" name="TipColFil" ng-model="vm.tmodal_colaboradores.TipColFil">
         <option value="1">Persona Física</option> 
-        <option value="2">Emnpresa</option>                       
+        <option value="2">Empresa</option>                       
       </select>   
      </div>
      </div>

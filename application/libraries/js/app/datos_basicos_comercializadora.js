@@ -309,28 +309,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.FecIniCom = FecIniCom;
         if (scope.FecIniCom == null || scope.FecIniCom == undefined || scope.FecIniCom == '') {
-            Swal.fire({ title: $translate('Fec_Ini_Vali'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'La fecha de inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniCom = (scope.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
-                Swal.fire({ text: $translate('format_fec_ini'), type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniCom[0].length > 2 || FecIniCom[0].length < 2) {
-                    Swal.fire({ text: $translate('format_fec_ini_dia'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecIniCom[1].length > 2 || FecIniCom[1].length < 2) {
-                    Swal.fire({ text: $translate('format_fec_ini_mes'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniCom[2].length < 4 || FecIniCom[2].length > 4) {
-                    Swal.fire({ text: $translate('format_fec_ini_ano'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -340,54 +340,54 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: $translate('FECH_INI'), text: $translate('FECH_INI_1') + scope.fecha_server + $translate('FECH_INI_2'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: 'Fecha de Inicio', text: 'La fecha de inicio no puede ser mayor a: ' + scope.fecha_server + 'Verifique he intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.fdatos.FecIniCom = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
             }
         }
         if (scope.fdatos.RazSocCom == null || scope.fdatos.RazSocCom == undefined || scope.fdatos.RazSocCom == '') {
-            Swal.fire({ title: $translate('RAZ_SOC_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'La Razón social es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NomComCom == null || scope.fdatos.NomComCom == undefined || scope.fdatos.NomComCom == '') {
-            Swal.fire({ title: $translate('NOM_SOC_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'El nombre comercial es requerido.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.fdatos.CodTipVia > 0) {
-            Swal.fire({ title: $translate('TIP_VIA_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe seleccionar un tipo de vía.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NomViaDirCom == null || scope.fdatos.NomViaDirCom == undefined || scope.fdatos.NomViaDirCom == '') {
-            Swal.fire({ title: $translate('NOM_VIA_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'El nombre de la vía es requerido.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NumViaDirCom == null || scope.fdatos.NumViaDirCom == undefined || scope.fdatos.NumViaDirCom == '') {
-            Swal.fire({ title: $translate('NUM_VIA_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'El numero de vía es requerido', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.fdatos.CodPro > 0) {
-            Swal.fire({ title: $translate('PROVI_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe seleccionar un Provincia', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.fdatos.CodLoc > 0) {
-            Swal.fire({ title: $translate('LOC_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe seleccionar una localidad', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: $translate('TEL_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title:'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
-            Swal.fire({ title: $translate('EMAIL_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'El email es requerido.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.NomConCom == null || scope.fdatos.NomConCom == undefined || scope.fdatos.NomConCom == '') {
-            Swal.fire({ title: $translate('PER_CON_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'el campo persona de contacto es requerido.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.CarConCom == null || scope.fdatos.CarConCom == undefined || scope.fdatos.CarConCom == '') {
-            Swal.fire({ title: $translate('CAR_PER_REQ'), type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe indicar el cargo de la persona de contacto', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         var FecConCom1 = document.getElementById("FecConCom").value;
@@ -398,23 +398,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var FecConCom = (scope.FecConCom).split("/");
             console.log(FecConCom);
             if (FecConCom.length < 3) {
-                Swal.fire({ text: $translate('FecComCom'), type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'Error en formato de la fecha de contrato.', type: "error", confirmButtonColor: "#188ae2" });
                 //event.preventDefault();	
                 return false;
             } else {
                 if (FecConCom[0].length > 2 || FecConCom[0].length < 2) {
-                    Swal.fire({ text: $translate('FecComComDay'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'El formato del dia es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
 
                 }
                 if (FecConCom[1].length > 2 || FecConCom[1].length < 2) {
-                    Swal.fire({ text: $translate('FecComComMonth'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'El formato del mes es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
                 }
                 if (FecConCom[2].length < 4 || FecConCom[2].length > 4) {
-                    Swal.fire({ text: $translate('FecComComYear'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'EL formato del año es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
                 }
@@ -430,23 +430,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             var FecVenConCom = (scope.FecVenConCom).split("/");
             if (FecVenConCom.length < 3) {
-                Swal.fire({ text: $translate('FecVenConCom'), type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'Error en la fecha de vencimiento..', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecVenConCom[0].length > 2 || FecVenConCom[0].length < 2) {
-                    Swal.fire({ text: $translate('FecVenConDay'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del dia es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecVenConCom[1].length > 2 || FecVenConCom[1].length < 2) {
-                    Swal.fire({ text: $translate('FecVenConMonth'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del mes es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecVenConCom[2].length < 4 || FecVenConCom[2].length > 4) {
-                    Swal.fire({ text: $translate('FecVenConYear'), type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del año es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }

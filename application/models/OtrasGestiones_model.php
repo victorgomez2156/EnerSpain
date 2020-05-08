@@ -30,6 +30,20 @@ class Otrasgestiones_model extends CI_Model
         else
         return false;              
     }
+     public function update_gestion_comercial($CodGesGen,$CodCli,$FecGesGen,$TipGesGen,$RefGesGen,$MecGesGen,$EstGesGen,$PreGesGen,$CodCups,$DesAnaGesGen,$ObsGesGen,$TipCups,$NGesGen)
+    {   
+    	if($TipCups==0)
+    	{
+    		$CUPS='CodCupsEle';
+    	}
+    	if($TipCups==1)
+    	{
+    		$CUPS='CodCupsGas';
+    	}
+        $this->db->where('CodGesGen', $CodGesGen); 
+        $this->db->where('NGesGen', $NGesGen);       
+        return $this->db->update('T_OtrasGestiones',array('FecGesGen'=>$FecGesGen,'TipGesGen'=>$TipGesGen,'RefGesGen'=>$RefGesGen,'MecGesGen'=>$MecGesGen,'PreGesGen'=>$PreGesGen,'DesAnaGesGen'=>$DesAnaGesGen,'ObsGesGen'=>$ObsGesGen,$CUPS=>$CodCups));
+    }
     public function save_gestion_comercial($CodCli,$FecGesGen,$TipGesGen,$RefGesGen,$MecGesGen,$EstGesGen,$PreGesGen,$CodCups,$DesAnaGesGen,$ObsGesGen,$TipCups,$NGesGen)
     {        
     	if($TipCups==0)
@@ -53,6 +67,20 @@ class Otrasgestiones_model extends CI_Model
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
+        else
+        return false;              
+    }
+    public function get_gestionComercial($CodGesGen)
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,a.NGesGen,a.RefGesGen,a.MecGesGen,a.EstGesGen,a.PreGesGen,a.CodCupsEle,a.CodCupsGas,a.DesAnaGesGen,a.ObsGesGen,a.UltTipSeg,b.RazSocCli,b.NumCifCli',false);
+        $this->db->from('T_OtrasGestiones a');
+        //$this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        //$this->db->order_by('a.FecGesGen DESC');
+        $this->db->where('CodGesGen',$CodGesGen); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
         else
         return false;              
     }

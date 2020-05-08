@@ -346,7 +346,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 </body>
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
-<div id="PropuestasComerciales" class="loader loader-default"  data-text="Cargando listado de Propuestas Comerciales"></div>
+<div id="cargando1" class="loader loader-default"  data-text="Cargando listado de Gestiones Comerciales"></div>
 <div id="NumCifCli" class="loader loader-default"  data-text="Comprobando si el Cliente posee una Propuesta Comercial"></div>
 
 </html>
