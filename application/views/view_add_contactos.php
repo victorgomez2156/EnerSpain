@@ -152,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">  
-              <label class="font-weight-bold nexa-dark" style="color:black;">Falcultad de Escrituras <b style="color:red;">(*)</b></label>           
+              <label class="font-weight-bold nexa-dark" style="color:black;">Facultad en Escrituras <b style="color:red;">(*)</b></label>           
              <br>
              <input type="radio" name="TieFacEsc" value="1" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined" ng-click="vm.verificar_facultad_escrituras()">
             <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>

@@ -790,7 +790,7 @@
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == undefined) {
-             Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Indique si el Firmante tiene o no facultad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == 0) {
