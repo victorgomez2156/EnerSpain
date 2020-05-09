@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <input type="text" class="form-control" ng-model="vm.filtrar_PumSum" minlength="1" placeholder="Escribe para filtrar...">
                   </div>  
                    <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div</div></a-->
-                    <a title="Agregar Punto Suministro" style="margin-right: 5px;" href="#/Add_Puntos_Suministros" class="btn btn-info"><div</div></a>              
+                    <a title="Agregar Punto Suministro" style="margin-right: 5px;" href="#/Add_Puntos_Suministros" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>              
                   
                 </form>                    
             </div>
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.ActPunSum==true"> Acción</th>
                   </tr>
                   <tr ng-show="vm.tPuntosSuminitros.length==0"> 
-                    <td colspan="6" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Direcciones de Sumninistro registradas</div></td>           
+                    <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Direcciones de Sumninistro registradas</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2 | filter:vm.filtrar" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
@@ -301,7 +301,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-     <input type="text" class="form-control" ng-model="vm.tPunSum.NumCifCli" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.tPunSum.NumCifCli" readonly/>     
      </div>
      </div>
      </div>

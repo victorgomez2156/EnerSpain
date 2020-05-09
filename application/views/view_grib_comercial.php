@@ -287,7 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="panel">                  
       <form class="form-validate" id="frmfiltros" name="frmfiltros" ng-submit="SubmitFormFiltrosComercial($event)">                 
      
-     <div class="col-12 col-sm-6">
+     <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
       <select class="form-control" id="tipo_filtro" name="tipo_filtro" ng-model="vm.tmodal_data.tipo_filtro">
@@ -297,11 +297,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
      </div>
-     <br>
-     <br>
-     <br>
-     <br> 
-    <div class="col-12 col-sm-6" ng-show="vm.tmodal_data.tipo_filtro==1">
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_data.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">
      
@@ -311,10 +307,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </select>     
      </div> 
      </div>
-     </div>     
-    <br ng-show="vm.tmodal_data.tipo_filtro==1">
-     <br ng-show="vm.tmodal_data.tipo_filtro==1"> 
-    <br>
+     </div> 
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid">Aplicar</button>
       <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercial()" ng-show="vm.tmodal_data.tipo_filtro>0&&vm.tmodal_data.EstCom>0">Quitar Filtro</a>

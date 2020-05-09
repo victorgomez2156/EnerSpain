@@ -88,8 +88,12 @@
 
   <script src="<?php echo PATH_ESTILOS_JS_APP.'propuestas_comerciales.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuestas_comerciales.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script> 
- 
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script>   
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'otras_gestiones.js'?>"></script>
+
+
+
+  
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script-->
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'clientes.js'?>"></script>

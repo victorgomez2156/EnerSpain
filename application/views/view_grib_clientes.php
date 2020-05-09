@@ -346,7 +346,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-     <input type="text" class="form-control" ng-model="vm.tmodal_data.NumCif" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.NumCif" readonly/>     
      </div>
      </div>
      </div>

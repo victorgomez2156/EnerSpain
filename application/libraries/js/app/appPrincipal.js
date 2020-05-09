@@ -69,11 +69,16 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Edit_Propuesta_Comercial/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
             .when('/Renovar_Propuesta_Comercial/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })
             
-
             .when('/Contratos/', { templateUrl: 'application/views/view_grib_contratos.php' })
             .when('/Add_Contrato/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Ver_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+
+            .when('/Otras_Gestiones/', { templateUrl: 'application/views/view_grib_gestiones.php' })
+            .when('/Add_Gestion_Comercial/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })
+            .when('/Edit_Gestion_Comercial/:CodGesGen/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })
+            //.when('/Ver_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+            // .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
 
         ////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  START//////////////////////////////////////////////////////////////////////////
         .when('/Distribuidora/', { templateUrl: 'application/views/view_grib_distribuidora.php' })

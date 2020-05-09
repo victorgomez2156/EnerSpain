@@ -52,6 +52,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.fdatos_documento = {};
     scope.ruta_reportes_pdf_documento = 0;
     scope.ruta_reportes_excel_documento = 0;
+
+    scope.TVistaGestiones = 1;
+    scope.Tipo_Gestiones = [];
+    scope.DesTipGes=true;
+    scope.ActTipGes=true;
+    scope.AccTipGes=true;
+    scope.fdatos_gestioens = {};
+    scope.ruta_reportes_pdf_gestiones = 0;
+    scope.ruta_reportes_excel_gestiones = 0;
     //////////////////////////////////////////////////////////////////////////////TIPO CLIENTE START////////////////////////////////////////////////////////////////////////
     scope.cargar_lista_tipo_clientes = function() {
         $("#cargando_lista").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -832,11 +841,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_documento);
         if (scope.fdatos_documento.CodTipDoc > 0) {
 
+            var title="Actualizando";
             var text = '¿Seguro que desea actualizar el Tipo de Documento?';
             var response = "El Tipo de Documento ha sido modificado de forma correcta";
         }
         if (scope.fdatos_documento.CodTipDoc == undefined) {
 
+            var title="Guardando";
             var text = '¿Seguro que desea grabar el Tipo de Documento?';
             var response = "El Tipo de Documento ha sido registrado de forma correcta";
         }
@@ -996,7 +1007,256 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.validate_documento = undefined;
         }
     }
+////////////////////////////////////////////////////////////////////////TIPO DOCUMENTOS END///////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////TIPO DOCUMENTOS END///////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////TIPO GESTIONES START///////////////////////////////////////////////////////////////////////////
+scope.cargar_lista_tipo_gestiones = function() {
+        $("#cargando_lista").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+        var url = base_urlHome() + "api/Tipos/list_tipo_gestiones/";
+        $http.get(url).then(function(result) {
+            $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (result.data != false) {
+                $scope.predicate5 = 'id';
+                $scope.reverse5 = true;
+                $scope.currentPage5 = 1;
+                $scope.order5 = function(predicate5) {
+                    $scope.reverse5 = ($scope.predicate5 === predicate5) ? !$scope.reverse5 : false;
+                    $scope.predicate5 = predicate5;
+                };
+                scope.Tipo_Gestiones = result.data;
+                $scope.totalItems5 = scope.Tipo_Gestiones.length;
+                $scope.numPerPage5 = 50;
+                $scope.paginate5 = function(value5) {
+                    var begin5, end5, index5;
+                    begin5 = ($scope.currentPage5 - 1) * $scope.numPerPage5;
+                    end5 = begin5 + $scope.numPerPage5;
+                    index5 = scope.Tipo_Gestiones.indexOf(value5);
+                    return (begin5 <= index5 && index5 < end5);
+                };
+                console.log(scope.Tipo_Gestiones);
+            } else {
+                Swal.fire({ title: "Error.", text: "No hemos encontrado tipos de gestiones registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.Tipo_Gestiones = [];
+            }
+        }, function(error) {
+            $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (error.status == 404 && error.statusText == "Not Found") {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized") {
+                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden") {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+        });
+    }
+    scope.agg_gestion = function() {
+        scope.fdatos_gestiones = {};
+        scope.TVistaGestiones = 2;
+        scope.validate_gestiones = undefined;
+        scope.fdatos_gestiones.ActTipGes=false;
+    }
+    scope.regresar_gestiones = function(){
+        
+        if(scope.fdatos_gestiones.CodTipGes==undefined)
+        {
+            var text="¿Seguro que desea cerrar sin guardar el Tipo de Gestión ?"
+        }
+        if(scope.fdatos_gestiones.CodTipGes>0)
+        {
+            var text="¿Seguro que desea cerrar sin actualizar el Tipo de Gestión ?"
+        }
+        Swal.fire({
+            text: text,
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Continuar"
+        }).then(function(t) {
+            if (t.value == true) {
+                scope.fdatos_gestiones = {};
+                scope.TVistaGestiones = 1;
+                scope.validate_gestiones = undefined;
+                scope.cargar_lista_tipo_gestiones();
+                return false;
+            } else {
+                console.log('Cancelando Ando...');
+                return false;
+            }
+        });
+    }
+$scope.submitFormGestiones = function(event) {
+        console.log(scope.fdatos_gestiones);
+        if (scope.fdatos_gestiones.CodTipGes > 0) {
+
+            var title = "Actualizando";
+            var text = '¿Seguro que desea actualizar el Tipo de Gestión?';
+            var response = "El Tipo de Gestión ha sido modificado de forma correcta";
+        }
+        if (scope.fdatos_gestiones.CodTipGes == undefined) {
+
+            var title = "Guardando";
+            var text = '¿Seguro que desea grabar el Tipo de Gestión?';
+            var response = "El Tipo de Gestión ha sido registrado de forma correcta";
+        }       
+        Swal.fire({
+            title: title,
+            text: text,
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Continuar"
+        }).then(function(t) {
+            if (t.value == true) {
+                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+                var url = base_urlHome() + "api/Tipos/crear_tipo_gestion/";
+                $http.post(url, scope.fdatos_gestiones).then(function(result) {
+                    scope.nIDCodTipGes = result.data.CodTipGes;
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (scope.nIDCodTipGes > 0) {
+                        console.log(result.data);
+                        Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
+                        scope.buscarXID_Gestiones();
+                    } else{
+                        Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                }, function(error) {
+                    console.log(error);
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (error.status == 404 && error.statusText == "Not Found") {
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                        Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden") {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            } else {
+                event.preventDefault();
+            }
+        });
+    };
+ scope.buscarXID_Gestiones = function()
+ {
+        $("#cargando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+        var url = base_urlHome() + "api/Tipos/buscar_xID_Tipo_Gestion/CodTipGes/" + scope.nIDCodTipGes;
+        $http.get(url).then(function(result) {
+            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (result.data != false) {
+                scope.fdatos_gestiones = result.data;
+                if (result.data.ActTipGes == 0) {
+                    scope.fdatos_gestiones.ActTipGes = false;
+                } else {
+                    scope.fdatos_gestiones.ActTipGes = true;
+                }
+                console.log(scope.fdatos_gestiones);
+            } else {
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error cargando la información", type: "error", confirmButtonColor: "#188ae2" });
+            }
+        }, function(error) {
+            console.log(error);
+            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (error.status == 404 && error.statusText == "Not Found") {
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized") {
+                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden") {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+        });
+    }
+    scope.limpiar_documento = function() {
+        scope.fdatos_gestiones = {};
+    }
+    scope.borrar_gestion = function() {
+        var event = true;
+        if (scope.Nivel == 3) {
+            Swal.fire({ title: "Usuario no Autorizado", text: "No tiene permisos para realizar esta operación", type: "error", confirmButtonColor: "#188ae2" });
+            return false;
+        }
+        Swal.fire({
+
+            text: "¿Seguro que desea eliminar el Tipo de Gestión?",
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Continuar"
+        }).then(function(t) {
+            if (t.value == true) {
+                $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+                var url = base_urlHome() + "api/Tipos/borrar_row_tipo_gestion/CodTipGes/" + scope.fdatos_gestiones.CodTipGes;
+                $http.delete(url).then(function(result) {
+                    $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (result.data != false) {
+                        Swal.fire({ text: "Registro eliminado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                        scope.TVistaGestiones = 1;
+                        scope.cargar_lista_tipo_gestiones();
+                    } else {
+                        Swal.fire({ title: "Error", text: "No se ha podido eliminar el registro, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                }, function(error) {
+                    $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (error.status == 404 && error.statusText == "Not Found") {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                        Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden") {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            } else {
+                event.preventDefault();
+            }
+        });
+    }
+   scope.validar_opcion_gestiones = function(index, opciones_gestiones, datos)
+   {
+        scope.opciones_gestiones[index] = undefined;
+        if (opciones_gestiones == 1) {
+            scope.TVistaGestiones = 2;
+            scope.fdatos_gestiones = datos;
+            if (datos.ActTipGes == 0) {
+                scope.fdatos_gestiones.ActTipGes = false;
+            }
+            if (datos.ActTipGes == 1) {
+                scope.fdatos_gestiones.ActTipGes = true;
+            }
+            scope.validate_gestiones = 1;
+        }
+        if (opciones_gestiones == 2) {
+            scope.TVistaGestiones = 2;
+            scope.fdatos_gestiones = datos;
+            if (datos.ActTipGes == 0) {
+                scope.fdatos_gestiones.ActTipGes = false;
+            }
+            if (datos.ActTipGes == 1) {
+                scope.fdatos_gestiones.ActTipGes = true;
+            }
+            scope.validate_gestiones = undefined;
+        }
+    }
+////////////////////////////////////////////////////////////////////////TIPO GESTIONES END///////////////////////////////////////////////////////////////////////////
 }

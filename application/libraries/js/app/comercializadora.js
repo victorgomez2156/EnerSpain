@@ -123,7 +123,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     resultado = false;
     scope.Topciones_comercializadoras = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }];
     scope.ttipofiltros = [{ id: 1, nombre: 'Tipo de Suministro' }, { id: 2, nombre: 'Provincia' }, { id: 3, nombre: 'Localidad' }, { id: 4, nombre: 'Estatus' }];
-    scope.EstComFil = [{ id: 1, nombre: 'Activo' }, { id: 2, nombre: 'Bloqueado' }];
+    scope.EstComFil = [{ id: 1, nombre: 'ACTIVA' }, { id: 2, nombre: 'BLOQUEADA' }];
     scope.TipServ = [{ id: 1, nom_serv: 'Gas' }, { id: 2, nom_serv: 'Eléctrico' }, { id: 3, nom_serv: 'Servicio Especial' }];
     scope.tmodal_comercializadora = {};
     scope.reporte_pdf_comercializadora = 0;

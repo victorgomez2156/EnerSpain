@@ -260,8 +260,13 @@
         if (!scope.validar_campos_propuestas()){
              return false;
         }
-        if(scope.fdatos.tipo=="nueva"||scope.fdatos.tipo=="renovar"){var title ='¿Estás seguro de generar una nueva propuesta comercial?';}
-        if(scope.fdatos.tipo=="ver"||scope.fdatos.tipo=="editar"){var title ='¿Estás seguro de cambiar la propuesta comercial?';}
+        if(scope.fdatos.tipo=="nueva"||scope.fdatos.tipo=="renovar")
+        {var title ='¿Estás seguro de generar una nueva propuesta comercial?';
+		 var loader="Guardando";}
+        if(scope.fdatos.tipo=="ver"||scope.fdatos.tipo=="editar")
+        {var title ='¿Estás seguro de cambiar la propuesta comercial?';
+		 var loader="Actualizando";}
+        
         Swal.fire({
             title:title,
             type: "question",
@@ -271,10 +276,12 @@
             confirmButtonText: "OK"
         }).then(function(t){
             if (t.value == true){
+                $("#"+loader).removeClass("loader loader-default").addClass("loader loader-default is-active");
                 var url = base_urlHome() + "api/PropuestaComercial/generar_propuesta/";
                 $http.post(url, scope.fdatos).then(function(result){
                 if (result.data != false)
                 {
+                    $("#"+loader).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if(result.data.status==false && result.data.statusText=='Error')
                     {
                         Swal.fire({ title: "Error", text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
@@ -295,6 +302,7 @@
                     Swal.fire({ text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });                             
                 }
         }, function(error){
+            $("#"+loader).removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
@@ -665,9 +673,11 @@
     }*/
     scope.BuscarXidCodPro=function()
     {
+        $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome()+"api/PropuestaComercial/get_propuesta_comercial/CodProCom/"+scope.CodProCom;
         $http.get(url).then(function(result)
         {
+            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if(result.data!=false)
             {   
                 scope.RazSocCli=result.data.Cliente.RazSocCli;
@@ -742,6 +752,7 @@
 
         },function(error)
         {
+        	$("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
