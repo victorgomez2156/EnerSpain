@@ -12393,5 +12393,122 @@ class Exportar_Documentos extends CI_Controller
         $objWriter->save('php://output');
         exit;   
     }
+    public function Doc_Reporte_Seguimiento_PDF()
+    {        
+        $CodCli = urldecode($this->uri->segment(4));
+        $TipGes = urldecode($this->uri->segment(5));
+        $CodRef = urldecode($this->uri->segment(6));
+        $NombreFiltro='filtro';
+        //$Resultado_Seguimientos=false;
+        if($CodCli==null) 
+        {
+            echo 'Error debe elegir un cliente.';
+            return false;
+        }
+        elseif($TipGes==null)
+        {
+            echo 'Error debe elegir un tipo de gestión.';
+            return false;
+        }
+        elseif ($CodRef==null){
+             echo 'Error debe elegir una gestión Comercial';
+            return false;
+        }
+        if($TipGes=='P')
+        {
+            $NombreFiltro="Propuestas Comerciales";
+            $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
+           
+        }
+        elseif($TipGes=='C')
+        {
+            $NombreFiltro="Contratos Comerciales";
+            $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
+        }
+        elseif($TipGes=='G')
+        {      
+            $NombreFiltro="Otras Gestiones Comerciales";    
+            $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
+        }
+        else
+        {
+            echo 'Error en el tipo de gestión de comercial.';
+            return false;          
+        }
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Listado de Seguimientos '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Listado de Seguimientos');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE SEGUIMIENTOS</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left">Tipo de Gestión</td>
+                <td border="0" colspan="2">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">FECHA</td> 
+            <td style="color:white;">Nº SEGUIMIENTO</td>
+            <td style="color:white;">DESCRIPCIÓN</td>
+            <td style="color:white;">REFERENCIA</td>
+            <td style="color:white;">RESULTADO</td>
+            <td style="color:white;">OBSERVACIÓN</td>
+        </tr>';
+        if($Resultado_Seguimientos!=false)
+        {
+            foreach ($Resultado_Seguimientos as $record): 
+            {
+                if($record->ResSeg=='P')
+                {$ResSeg='En Proceso';}elseif ($record->ResSeg=='C'){$ResSeg="Completado";}elseif ($record->ResSeg=='R'){$ResSeg="Rechazado";}else{$ResSeg="N/A";}
+                $html.='<tr>
+                        <td>'.$record->FecSeg.'</td>
+                        <td>'.$record->NumSeg.'</td>
+                        <td>'.$record->DesSeg.'</td>
+                        <td>'.$record->RefSeg.'</td>
+                        <td>'.$ResSeg.'</td>
+                        <td>'.$record->ObsSeg.'</td>                     
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="6"><b>Actualmente no hemos encontrado seguimientos.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Seguimiento','GET',null,$this->input->ip_address(),'Consultando seguimientos');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Seguimientos Comerciales'.'.pdf', 'I');
+    }
 
 }?>

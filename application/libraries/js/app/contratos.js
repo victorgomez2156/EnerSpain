@@ -972,7 +972,8 @@
         if (scope.FecBajCon == undefined || scope.FecBajCon == null || scope.FecBajCon == '') {
             Swal.fire({ text: 'La Fecha de Baja es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
             return false;
-        } else {
+        } 
+        else {
             var FecBajCon = (scope.FecBajCon).split("/");
             if (FecBajCon.length < 3) {
                 Swal.fire({ text: 'Error en Fecha de Baja, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });

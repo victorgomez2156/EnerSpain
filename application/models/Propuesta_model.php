@@ -165,7 +165,61 @@ class Propuesta_model extends CI_Model
         return $this->db->update('T_PropuestaComercial',array('CodPunSum'=>$CodPunSum,'CodCupsEle'=>$CodCupSEle,'CodTarEle'=>$CodTarEle,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'ImpAhoEle'=>$ImpAhoEle,'PorAhoEle'=>$PorAhoEle,'RenConEle'=>$RenConEle,'ObsAhoEle'=>$ObsAhoEle,'CodCupsGas'=>$CodCupGas,'CodTarGas'=>$CodTarGas,'Consumo'=>$Consumo,'CauDia'=>$CauDia,'ImpAhoGas'=>$ImpAhoGas,'PorAhoGas'=>$PorAhoGas,'RenConGas'=>$RenConGas,'ObsAhoGas'=>$ObsAhoGas,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
     }
     
+    public function BuscandoGestiones($Tabla,$order_by,$select,$where,$CodCli)
+    {
+        $this->db->select($select,false);
+        $this->db->from($Tabla);
+        $this->db->where($where,$CodCli); 
+        $this->db->order_by($order_by); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
 
+     public function save_seguimientos($CodCli,$CodRef,$FecSeg,$NumSeg,$ObsSeg,$RefSeg,$ResSeg,$TipSeg,$DesSeg)
+    {
+        $this->db->insert('T_Seguimiento',array('TipSeg'=>$TipSeg,'CodRef'=>$CodRef,'FecSeg'=>$FecSeg,'RefSeg'=>$RefSeg,'NumSeg'=>$NumSeg,'EstNotSeg'=>false,'ResSeg'=>$ResSeg,'ObsSeg'=>$ObsSeg,'CodCli'=>$CodCli,'DesSeg'=>$DesSeg));
+        return $this->db->insert_id();
+    }
+    public function update_PropuestaComercial($CodCli,$CodRef,$ResSeg)
+    {   
+        $this->db->where('CodCli', $CodCli); 
+        $this->db->where('CodProCom', $CodRef);       
+        return $this->db->update('T_PropuestaComercial',array('UltTipSeg'=>$ResSeg));
+    }
+     public function update_ContratoComercial($CodCli,$CodRef,$ResSeg)
+    {   
+        $this->db->where('CodCli', $CodCli); 
+        $this->db->where('CodConCom', $CodRef);       
+        return $this->db->update('T_Contrato',array('UltTipSeg'=>$ResSeg));
+    }
+    public function update_OtrasGestionesComercial($CodCli,$CodRef,$ResSeg)
+    {   
+        $this->db->where('CodCli', $CodCli); 
+        $this->db->where('CodGesGen', $CodRef);       
+        return $this->db->update('T_OtrasGestiones',array('UltTipSeg'=>$ResSeg));
+    }
+     public function get_seguimientos($TipSeg,$CodRef,$CodCli)
+    {
+        $this->db->select('CodSeg,TipSeg,CodCli,CodRef,date_format(FecSeg,"%d/%m/%Y") as FecSeg,RefSeg,NumSeg,DesSeg,EstNotSeg,ResSeg,ObsSeg',false);
+        $this->db->from('T_Seguimiento');
+        $this->db->where('TipSeg',$TipSeg);
+        $this->db->where('CodRef',$CodRef); 
+        $this->db->where('CodCli',$CodCli);  
+        $this->db->order_by('FecSeg desc'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function updateemailseguimiento($CodSeg,$EstNotSeg)
+    {   
+        $this->db->where('CodSeg', $CodSeg);  
+        return $this->db->update('T_Seguimiento',array('EstNotSeg'=>$EstNotSeg));
+    }
 
 
 

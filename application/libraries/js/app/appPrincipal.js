@@ -77,8 +77,12 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Otras_Gestiones/', { templateUrl: 'application/views/view_grib_gestiones.php' })
             .when('/Add_Gestion_Comercial/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })
             .when('/Edit_Gestion_Comercial/:CodGesGen/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })
-            //.when('/Ver_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+            
+            .when('/Seguimientos', { templateUrl: 'application/views/view_grib_seguimientos.php' })
             // .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
+
+
+
 
         ////////////////////////////PARA EL MODULO DE CONFIGURACIONES GENERALES  START//////////////////////////////////////////////////////////////////////////
         .when('/Distribuidora/', { templateUrl: 'application/views/view_grib_distribuidora.php' })
