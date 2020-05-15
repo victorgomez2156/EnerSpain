@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td ng-show="vm.ActPunSum==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_PunSum" name="opciones_PunSum"  ng-model="vm.opciones_PunSum[$index]" ng-change="vm.validar_PunSum($index,vm.opciones_PunSum[$index],dato)">
+                        <select class="form-control" style="width: auto;" id="opciones_PunSum" name="opciones_PunSum"  ng-model="vm.opciones_PunSum[$index]" ng-change="vm.validar_PunSum($index,vm.opciones_PunSum[$index],dato)">
                           <option ng-repeat="opcion in vm.topcionesPunSum" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

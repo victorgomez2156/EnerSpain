@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td ng-show="vm.AccTAne==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_anexos" name="opciones_anexos" ng-model="vm.opciones_anexos[$index]" ng-change="vm.validar_opcion_anexos($index,vm.opciones_anexos[$index],dato)">
+                        <select class="form-control" id="opciones_anexos" name="opciones_anexos" style="width: auto;" ng-model="vm.opciones_anexos[$index]" ng-change="vm.validar_opcion_anexos($index,vm.opciones_anexos[$index],dato)">
                           <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

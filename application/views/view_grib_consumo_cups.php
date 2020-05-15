@@ -73,7 +73,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registrar Consumo del CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodConCup==undefined">Registrar Consumo del CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodConCup>0">Actualizando Consumo del CUP</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-cube"></i>Consumo Cups</li>
@@ -128,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form-group">
         <input type="text" class="form-control" ng-model="vm.filtrar_consumo_cups" minlength="1" placeholder="Escribe para filtrar...">
       </div>                 
-      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Consumos CUPs" ng-disabled="vm.disabled_button_add==false" ng-click="vm.agregar_consumo_cups()"</button>
+      <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Consumos CUPs" ng-disabled="vm.disabled_button_add==false" ng-click="vm.agregar_consumo_cups()"><i class="fa fa-plus-square"></i> </button>
     </form>                    
  </div>
 </div>
@@ -146,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.FecFinCon==true">FECHA FIN</th>
                     <th ng-show="vm.ConCup==true">CONSUMO</th>
                     <!--th ng-show="vm.EstConCup==true"><i class="fa fa-archive"></i> ESTATUS</th-->       
-                    <th ng-show="vm.Cups_Acc==true"><ACCIÓN</th>
+                    <th ng-show="vm.Cups_Acc==true">ACCIÓN</th>
                   </tr>
                   <tr ng-show="vm.TCups_Consumo.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen consumos registrados</div></td>
@@ -359,62 +360,65 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div style="margin-top: 8px;">
        
 <div ng-show="vm.fdatos_cups.TipServ==1">		
-	<div class="col-12 col-sm-2">
+	
+
+
+<div style="margin-top: 8px; margin-left: 15px; margin-bottom: -20px;" ng-show="vm.totalPot>0">
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"> Potencia Contratada (Kw)</label></div></div>
+
+  <div ng-show="vm.totalPot==1"> 
+
+    <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;">Potencia </label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P1" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.PotCon1)"/>
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P1" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.PotCon1)"/>
        </div>
        </div>
        </div>
 
+  </div>     
 
-	<div class="col-12 col-sm-2">
+   <div ng-show="vm.totalPot==2"> 
+  
+  <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;"> Contratada </label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P2" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.PotCon2)"/>
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P1" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.PotCon1)"/>
+       </div>
+       </div>
+       </div>
+
+  <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P2" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.PotCon2)"/>
        </div>
        </div>
     </div>
+  </div>     
 
-       <div class="col-12 col-sm-2">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:black;">  (Kw)</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P3" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.PotCon3)"/>
-       </div>
-       </div>
-       </div>
+<div ng-show="vm.totalPot==3"> 
 
-       <div class="col-12 col-sm-2">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P4" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotCon4)"/>
-       </div>
-       </div>
-       </div>
+  </div>     
 
-        <div class="col-12 col-sm-2">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P5" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotCon5)"/>
-       </div>
-       </div>
-       </div>
+<div ng-show="vm.totalPot==4"> 
 
-       <div class="col-12 col-sm-2">
-       <div class="form">                          
-       <div class="form-group">
-       	<label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       	<input type="text" class="form-control" ng-model="vm.fdatos_cups.PotCon6" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info==1" placeholder="P6" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotCon6)"/>
-       </div>
-       </div>
-       </div>       
+  </div>     
 
-      
+<div ng-show="vm.totalPot==5"> 
+
+  </div>     
+   
+   <div ng-show="vm.totalPot==6"> 
+
+  </div>     
+
+
+
+
 	</div> 
  <div class="col-12 col-sm-4">
        <div class="form">                          

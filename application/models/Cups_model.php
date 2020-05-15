@@ -39,7 +39,7 @@ class Cups_model extends CI_Model
             return false;
         }       
     }
-    public function get_PumSum_for_cups() 
+    public function get_PumSum_for_cups($CodCli) 
     {
         $this->db->select('a.CodPunSum,b.NumCifCli,b.RazSocCli,e.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,c.DesLoc,d.DesPro,c.CPLoc',FALSE);
         $this->db->from('T_PuntoSuministro a'); 
@@ -47,7 +47,7 @@ class Cups_model extends CI_Model
         $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
         $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
         $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
-        //$this->db->where('a.CodPunSum',$CodPunSum); 
+        $this->db->where('a.CodCli',$CodCli); 
         $this->db->order_by('b.RazSocCli ASC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -64,7 +64,7 @@ class Cups_model extends CI_Model
         $this->db->select('*',FALSE);
         $this->db->from('T_Distribuidora');
         $this->db->where($Where,$Variable); 
-       // $this->db->order_by('CupsGas ASC');              
+        $this->db->or_where('TipSerDis=2');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         { 
@@ -123,11 +123,16 @@ class Cups_model extends CI_Model
     { 
         return $this->db->delete($Tabla_Delete, array($where => $CodCup));
     }
-     public function get_data_Cups($Select,$Tabla,$Where,$CodCup) 
+     public function get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ) 
     {
         $this->db->select($Select,FALSE);
         $this->db->from($Tabla);
-        //$this->db->join("$Tabla");    
+        $this->db->join("T_PuntoSuministro b",'b.CodPunSum=a.CodPunSum');
+        $this->db->join("T_Cliente c",'c.CodCli=b.CodCli');    
+        if($TipServ==1)
+        {
+            $this->db->join("T_TarifaElectrica d",'d.CodTarEle=a.CodTarElec');
+        }
         $this->db->where($Where,$CodCup);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

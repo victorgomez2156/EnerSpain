@@ -68,6 +68,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
 }
 </style>
 
+<style>
+
+        .file-item{
+            background: white;
+    height: 35px;
+    padding: 10px;
+    margin-left: 0;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+        }
+
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }     
+
+        #file-wrap{
+            position:relative;
+            width:100%;
+            padding: 5px;
+            display: block;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing:border-box;
+            border-radius: 5px;
+        }
+
+      
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    </style>
   
 </head>
 
@@ -78,7 +122,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-lg-12">
             <h3 class="page-header" ng-show="vm.fdatos.CodCom==undefined">Registrar Comercializadora</h3>
-            <h3 class="page-header" ng-show="vm.fdatos.CodCom>0">Modificar Comercializadora</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCom>0 && vm.validate_info==undefined">Modificar Comercializadora</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCom>0 && vm.validate_info!=undefined">Consultando Comercializadora</h3>
           </div>
         </div>
         <!-- Form validations -->
@@ -145,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Vía<b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Vía <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTipVia" name="CodTipVia"  placeholder="* Tipo de Vía" ng-model="vm.fdatos.CodTipVia" ng-disabled="vm.validate_info!=undefined">
          <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
         </select>
@@ -314,11 +359,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
       <div class="form">                          
        <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Contrato <a title='Descargar Documentos' ng-show="vm.fdatos.DocConCom!=null && vm.fdatos.CodCom>0" href="{{vm.fdatos.DocConCom}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>
-         
-      	<input type="file" id="file"  accept="*/*" class="form-control btn-info"  uploader-model="file" ng-disabled="vm.validate_info!=undefined">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Contrato <a title='Descargar Documentos' ng-show="vm.fdatos.DocConCom!=null && vm.fdatos.CodCom>0" href="{{vm.fdatos.DocConCom}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>  
 
-
+         <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input type="file" id="file" class="file_b" uploader-model="file" ng-disabled="vm.validate_info!=undefined" draggable="true">
+            <div id="filenameDocCont"></div>                       
+          </div>
+    <script>         
+      $('#file').on('change', function() 
+      {   
+        const $Archivo_DocCont = document.querySelector("#file");       
+        let Archivo_DocCont = $Archivo_DocCont.files;                      
+        filenameDocCont = '<i class="fa fa-file"> '+$Archivo_DocCont.files[0].name+'</i>';
+          $('#filenameDocCont').html(filenameDocCont);
+      });     
+</script>
        </div>
        </div>
 

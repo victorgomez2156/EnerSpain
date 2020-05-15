@@ -27,7 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Actividad</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_actividades.CodTActCli==undefined">Registro de Actividad</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_actividades.CodTActCli>0">Modificando Actividad</h3>
            <!-- <ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-briefcase"></i>Registro de Actividades</li>

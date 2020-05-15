@@ -10,6 +10,7 @@ class Cups extends REST_Controller
         $this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
 		$this->load->model('Cups_model');
+		$this->load->model('Clientes_model');
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -81,14 +82,12 @@ class Cups extends REST_Controller
 	}
 	$objSalida = json_decode(file_get_contents("php://input"));				
 	$this->db->trans_start();
-	//$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
-	
 	if($objSalida->TipServ==1)
 	{
 		$Where="TipSerDis";
 		$Variable=0;
 		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable);
-		$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar";
+		$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar,CanPerTar";
 		$Tarifas_Electricas=$this->Cups_model->get_Tarifas('T_TarifaElectrica',$Select_Tarifa);
 		$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifas_Electricas);
 	}
@@ -206,18 +205,19 @@ public function Buscar_XID_Servicio_get()
        	 	$CodCup=$this->get('CodCup');
        	 	if($TipServ==1)
        	 	{
-       	 		$Select="a.CodCupsEle as CodCup,a.CodPunSum,SUBSTRING(a.CUPsEle,1,2)AS cups,SUBSTRING(a.CUPsEle,3,16)AS cups1,SUBSTRING(a.CUPsEle,19,20)AS cups2,a.CodTarElec as CodTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.PotMaxBie,a.CodDis,DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt";
+       	 		$Select="a.CodCupsEle as CodCup,a.CodPunSum,SUBSTRING(a.CUPsEle,1,2)AS cups,SUBSTRING(a.CUPsEle,3,16)AS cups1,SUBSTRING(a.CUPsEle,19,20)AS cups2,a.CodTarElec as CodTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.PotMaxBie,a.CodDis,DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli,d.CanPerTar";
        	 		$Tabla="T_CUPsElectrico a";
        	 		$Where="a.CodCupsEle";
-       	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup); 
+       	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ); 
        	 	}
-       	 	elseif ($TipServ==2) 
+       	 	elseif ($TipServ==2) // T_TarifaElectrica
        	 	{
        	 		$Select="a.CodCupGas as CodCup,a.CodPunSum,SUBSTRING(a.CupsGas,1,2)AS cups,SUBSTRING(a.CupsGas,3,16)AS cups1,SUBSTRING(a.CupsGas,19,20)AS cups2,a.CodTarGas as CodTar,a.CodDis,
-				DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt";
+				DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli,d.";
        	 		$Tabla="T_CUPsGas a";
        	 		$Where="a.CodCupGas";
-       	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup);
+       	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ);
+       	 		//$Result->RazSocCli=
        	 	}
        	 	else
        	 	{
@@ -238,7 +238,8 @@ public function Buscar_XID_Servicio_get()
 		{
 			redirect(base_url(), 'location', 301);
 		}
-		$Result = $this->Cups_model->get_PumSum_for_cups(); 
+		$CodCli=$this->get('CodCli');
+		$Result = $this->Cups_model->get_PumSum_for_cups($CodCli); 
 	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Direcciones de Suministros');
 		if (empty($Result))
 		{
@@ -271,8 +272,7 @@ public function Buscar_XID_Servicio_get()
 		redirect(base_url(), 'location', 301);
 	}
 	$objSalida = json_decode(file_get_contents("php://input"));				
-	$this->db->trans_start();
-	//$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
+	$this->db->trans_start();						
 	$fecha_volteada=explode("/",$objSalida->FecBaj);
 	$fecha_final_volteada=$fecha_volteada[2]."-".$fecha_volteada[1]."-".$fecha_volteada[0];
 	if($objSalida->TipServ=="Gas")
@@ -341,7 +341,21 @@ public function Buscar_XID_Servicio_get()
 		}		
 		$this->response($data);		
     }
-////////////////////////////////////////////////////////////////////////// PARA CUPS END //////////////////////////////////////////////////////////////////////////
+    public function getclientes_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getclientessearch($objSalida->Cups_Cif);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+///////////////////////////////////////// PARA CUPS END //////////////////////////////////////////////////////////////////////////
 
 
 
@@ -390,7 +404,7 @@ public function get_Historicos_Consumos_CUPs_get()
        		$Where="a.CodCupEle";
        		$response = $this->Cups_model->get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc,$Where,$CodCup);
        		
-       		$Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar";
+       		$Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar,b.CanPerTar";
        		$Tabla2="T_CUPsElectrico a";
        		$Join3="T_TarifaElectrica b";
        		$JoinWhere="a.CodTarElec=b.CodTarEle";
@@ -493,8 +507,6 @@ public function buscar_datos_electrico_get()
 	}
 	$objSalida = json_decode(file_get_contents("php://input"));				
 	$this->db->trans_start();
-	//$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
-	
 	if($objSalida->TipServ=="Gas")
 	{		
 		$Tabla_Update="T_HistorialCUPsGas";
@@ -554,9 +566,6 @@ public function buscar_datos_electrico_get()
 			$total_consumo=$this->Cups_model->sum_consumo_cups($desde,$hasta,$objSalida->CodCup,$Tabla,$Where,'FecIniCon');
 			$data = array('result' =>$response,'total_consumo'=>$total_consumo->AcumConCup,'desde'=>$desde,'hasta'=>$hasta,'CodCup'=>$objSalida->CodCup);
 		}
-
-
-
 	}
 	elseif($objSalida->TipServ=="Gas")
 	{
@@ -583,12 +592,7 @@ public function buscar_datos_electrico_get()
 	$this->db->trans_complete();
 	$this->response($data);
 }
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////// PARA CONSUMO CUPS END ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////// PARA CONSUMO CUPS END /////////////////////////////////////////////////
 
 }
 ?>

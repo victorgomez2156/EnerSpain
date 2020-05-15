@@ -4,7 +4,7 @@
              restrict: 'A',
              link: function(scope, iElement, iAttrs) {
                  iElement.on("change", function(e) {
-                     $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+                    $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);                  
                  });
              }
          };
@@ -620,6 +620,9 @@
          });
 
      }
+     $scope.uploadImage = function() {
+    console.log('Changed');
+}
      $scope.submitFormRegistroContacto = function(event) {
          let Archivo_DocNIF = $Archivo_DocNIF.files;
          if ($Archivo_DocNIF.files.length > 0) {
@@ -713,6 +716,8 @@
                          Swal.fire({ title: title, text: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
                          document.getElementById('DocNIF').value = '';
                          document.getElementById('DocPod').value = '';
+                         $('#filenameDocNIF').html('');
+                         $('#filenameDocPod').html('');
                          location.href = "#/Edit_Contactos/" + result.data.objSalida.CodConCli;
                      }
                  }, function(error) {
@@ -790,7 +795,7 @@
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == undefined) {
-             Swal.fire({ title: "Indique si el Firmante tiene o no facultad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.tContacto_data_modal.TieFacEsc == 0) {

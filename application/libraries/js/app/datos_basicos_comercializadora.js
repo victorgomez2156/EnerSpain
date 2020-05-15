@@ -276,6 +276,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                         Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         document.getElementById('file').value = '';
+                         $('#filenameDocCont').html('');
                         $cookies.remove('CIF_COM');
                         location.href = "#/Datos_Basicos_Comercializadora/" + scope.nID;
                         //scope.fdatos=result.data;"/Datos_Basicos_Comercializadora

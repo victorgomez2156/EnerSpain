@@ -20,6 +20,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	background-color:transparent;
   }
 </style>
+<style>
+
+        .file-item{
+            background: white;
+    height: 35px;
+    padding: 10px;
+    margin-left: 0;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+        }
+
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }     
+
+        #file-wrap{
+            position:relative;
+            width:100%;
+            padding: 5px;
+            display: block;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing:border-box;
+            border-radius: 5px;
+        }
+
+      
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    </style>
 <body>
  <div ng-controller="Controlador_Contactos as vm">
     <!--main content start-->
@@ -152,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">  
-              <label class="font-weight-bold nexa-dark" style="color:black;">Facultad en Escrituras <b style="color:red;">(*)</b></label>           
+              <label class="font-weight-bold nexa-dark" style="color:black;">Falcultad de Escrituras <b style="color:red;">(*)</b></label>           
              <br>
              <input type="radio" name="TieFacEsc" value="1" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined" ng-click="vm.verificar_facultad_escrituras()">
             <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
@@ -171,17 +215,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del DNI/NIE <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocNIF!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocNIF}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>
          
-        <input type="file" id="DocNIF" accept="application/pdf" class="form-control btn-info" uploader-model="DocNIF" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined">
+         <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input type="file" id="DocNIF" class="file_b" uploader-model="DocNIF" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined" draggable="true">
+            <div id="filenameDocNIF"></div>                       
+          </div>
+
       </div>
        </div>
        
        <div class="form">                          
        <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>
-         
-        <input type="file" id="DocPod" accept="application/pdf" class="form-control btn-info"  uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
 
+          <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true">
+            <div id="filenameDocPod"></div>                       
+          </div>
 
+<script>
+          
+      $('#DocNIF').on('change', function() 
+      { const $Archivo_DocNIF = document.querySelector("#DocNIF");         
+        let Archivo_DocNIF = $Archivo_DocNIF.files;                      
+        namefileDocNIF = '<i class="fa fa-file"> '+$Archivo_DocNIF.files[0].name+'</i>';
+          $('#filenameDocNIF').html(namefileDocNIF);
+      });
+          
+      $('#DocPod').on('change', function() 
+      {
+        const $Archivo_DocPod = document.querySelector("#DocPod");           
+        let Archivo_DocPod = $Archivo_DocPod.files;                      
+        namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
+          $('#filenameDocPod').html(namefile);
+      });
+</script>
        </div>
        </div>
 

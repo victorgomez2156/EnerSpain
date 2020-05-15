@@ -174,7 +174,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>                   
                     <td ng-show="vm.Cups_Acc==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_cups" name="opciones_cups" ng-model="vm.opciones_cups[$index]" ng-change="vm.validar_opcion_cups($index,vm.opciones_cups[$index],dato)">
+                        <select class="form-control" style="width: auto;" id="opciones_cups" name="opciones_cups" ng-model="vm.opciones_cups[$index]" ng-change="vm.validar_opcion_cups($index,vm.opciones_cups[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>
