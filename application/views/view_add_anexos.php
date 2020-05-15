@@ -20,6 +20,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	background-color:transparent;
   }
 </style>
+
+<style>
+
+        .file-item{
+            background: white;
+    height: 35px;
+    padding: 10px;
+    margin-left: 0;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+        }
+
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }     
+
+        #file-wrap{
+            position:relative;
+            width:100%;
+            padding: 5px;
+            display: block;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing:border-box;
+            border-radius: 5px;
+        }
+
+      
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    </style>
 <body>
  <div ng-controller="Controlador_Anexos as vm">
     <!--main content start-->
@@ -27,7 +72,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Anexo</h3>
+            <h3 class="page-header" ng-show="vm.anexos.CodAnePro==undefined">Registro de Anexo</h3>
+            <h3 class="page-header" ng-show="vm.anexos.CodAnePro>0&&vm.validate_info_anexos!=undefined">Cosultando Anexo</h3>
+            <h3 class="page-header" ng-show="vm.anexos.CodAnePro>0&&vm.validate_info_anexos==undefined">Actualizando Anexo</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>         
               <li><i class="fa fa-bullseye"></i> Registro de Anexos</li>
@@ -210,10 +257,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group"><br>
            <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
-          <input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined">
+          
+          <!--input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined"-->
+        
+ <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input  type="file" id="file_anexo" class="file_b" uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined" draggable="true">
+            <div id="filenameDocAnexo"></div>                       
+          </div>
         </div>
       </div>
 </div>
+
+<script>
+      $('#file_anexo').on('change', function() 
+      {  
+        const $Archivo_DocAne = document.querySelector("#file_anexo");         
+        let Archivo_DocAne= $Archivo_DocAne.files;                      
+        filenameDocAnexo = '<i class="fa fa-file"> '+$Archivo_DocAne.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
+          $('#filenameDocAnexo').html(filenameDocAnexo);
+      });
+</script>
+
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">

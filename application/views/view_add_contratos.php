@@ -21,6 +21,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
   .datepicker{z-index:1151 !important;}
 </style>
+
+<style>
+
+        .file-item{
+            background: white;
+    height: 35px;
+    padding: 10px;
+    margin-left: 0;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+        }
+
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }     
+
+        #file-wrap{
+            position:relative;
+            width:100%;
+            padding: 5px;
+            display: block;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing:border-box;
+            border-radius: 5px;
+        }
+
+      
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    </style>
 <body>
  <div ng-controller="Controlador_Contratos as vm">
     <!--main content start-->
@@ -156,10 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;"> Tarifa</label>          
-        <!--select class="form-control" id="CodTarEle" name="CodTarEle" required ng-model="vm.fdatos.CodTarEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'"> 
-                <option ng-repeat="dato_act in vm.List_TarEle" value="{{dato_act.CodTarEle}}">{{dato_act.NomTarEle}}</option>
-        </select--> 
+              <label class="font-weight-bold nexa-dark" style="color:black;"> Tarifa</label>    
         <input type="text"  class="form-control" ng-model="vm.CodTarEle" placeholder="Tarifa" readonly="readonly"/>                 
              </div>
              </div>
@@ -229,9 +271,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Gas </label>
-             <!--select class="form-control" id="CodCupGas" name="CodCupGas" required ng-model="vm.fdatos.CodCupGas" ng-change="vm.CUPsFilter(2,vm.fdatos.CodCupGas)" ng-disabled="vm.fdatos.CodPunSum==undefined || vm.fdatos.tipo=='ver'"> 
-                <option ng-repeat="dato_act in vm.List_CUPs_Gas" value="{{dato_act.CodCupGas}}">{{dato_act.CupsGas}}</option>
-              </select--> <input type="text"  class="form-control" ng-model="vm.CodCupGas" placeholder="CUP Gas" readonly="readonly"/>    
+             <input type="text"  class="form-control" ng-model="vm.CodCupGas" placeholder="CUP Gas" readonly="readonly"/>    
              </div>
              </div>
           </div>
@@ -240,9 +280,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa </label>          
-             <!--select class="form-control" id="CodTarGas" name="CodTarGas" required ng-model="vm.fdatos.CodTarGas" ng-disabled="vm.fdatos.tipo=='ver'"> 
-                <option ng-repeat="dato_act in vm.List_TarGas" value="{{dato_act.CodTarGas}}">{{dato_act.NomTarGas}}</option>
-        </select--> <input type="text"  class="form-control" ng-model="vm.CodTarGas" placeholder="Tarifa" readonly="readonly"/>                 
+            
+            <input type="text"  class="form-control" ng-model="vm.CodTarGas" placeholder="Tarifa" readonly="readonly"/>                 
              </div>
              </div>
           </div>        
@@ -272,9 +311,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora </label>
-             <!--select class="form-control" id="CodCom" name="CodCom" required ng-model="vm.fdatos.CodCom" ng-change="vm.realizar_filtro(1,vm.fdatos.CodCom)" ng-disabled="vm.fdatos.tipo=='ver'"> 
-                <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NumCifCom}} - {{dato_act.NomComCom}}</option>
-        </select-->     
          <input type="text"  class="form-control" ng-model="vm.CodCom" placeholder="Comercializadora" readonly="readonly"/>
              </div>
              </div>
@@ -283,10 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Producto </label>          
-             <!--select class="form-control" id="CodPro" name="CodPro" required ng-model="vm.fdatos.CodPro" ng-disabled="vm.fdatos.CodCom==undefined || vm.List_Productos.length==0 || vm.fdatos.tipo=='ver'" ng-change="vm.realizar_filtro(2,vm.fdatos.CodPro)"> 
-                <option ng-repeat="dato_act in vm.List_Productos" value="{{dato_act.CodPro}}">{{dato_act.DesPro}}</option>
-        </select-->
+              <label class="font-weight-bold nexa-dark" style="color:black;">Producto </label>
         <input type="text" class="form-control" ng-model="vm.CodPro" placeholder="Producto" readonly="readonly"/>               
              </div>
              </div>
@@ -296,9 +329,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
-             <!--select class="form-control" id="CodAnePro" name="CodAnePro" required ng-model="vm.fdatos.CodAnePro" ng-disabled="vm.fdatos.CodCom==undefined || vm.fdatos.CodPro==undefined || vm.fdatos.tipo=='ver'" ng-change="vm.realizar_filtro(3,vm.fdatos.CodAnePro)"> 
-                <option ng-repeat="dato_act in vm.List_fdatos" value="{{dato_act.CodAnePro}}">{{dato_act.DesAnePro}}</option>
-        </select-->
         <input type="text"  class="form-control" ng-model="vm.CodAnePro" placeholder="Anexo" readonly="readonly"/>     
              </div>
              </div>
@@ -308,9 +338,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
-             <!--select class="form-control" id="TipPre" name="TipPre" required ng-model="vm.fdatos.TipPre" ng-disabled="vm.fdatos.CodAnePro==undefined || vm.fdatos.tipo=='ver'"> 
-                <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
-        </select--> 
+         
         <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>                 
              </div>
              </div>
@@ -365,8 +393,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Contrato <a title='Descargar Documento' ng-show="vm.fdatos.DocConRut!=null && vm.fdatos.CodConCom>0" href="{{vm.fdatos.DocConRut}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
-        <!--input type="file" class="form-control btn-info" name="DocConRut" id="DocConRut" ng-model="vm.fdatos.DocConRut"/-->
-        <input type="file" id="file_fotocopia"  accept="*/*" class="form-control btn-info" updloadfotocopia-model="file_fotocopia">
+
+
+
+          <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input type="file" id="file_fotocopia"  name="file_fotocopia" class="file_b" updloadfotocopia-model="file_fotocopia" draggable="true">
+            <div id="file_fotocopia1"></div>                       
+          </div>
+        <script>      
+      $('#file_fotocopia').on('change', function() 
+      {          
+        const $file_fotocopia = document.querySelector("#file_fotocopia");
+        console.log($file_fotocopia);
+        let file_fotocopia = $file_fotocopia.files;                      
+        filenameDocCliDoc = '<i class="fa fa-file"> '+$file_fotocopia.files[0].name+'</i>';
+        $('#file_fotocopia1').html(filenameDocCliDoc);
+        console.log($file_fotocopia.files[0].name);
+      });
+     
+</script>     
+
+        <!--input type="file" id="file_fotocopia"  accept="*/*" class="form-control btn-info" updloadfotocopia-model="file_fotocopia"-->
          
          </div>
          </div>

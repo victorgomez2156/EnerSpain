@@ -64,7 +64,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
 </style>
+
 <body>
  <div ng-controller="Controlador_Cups as vm">
  <!--main content start-->
@@ -73,7 +97,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"></i>Registrar CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup==undefined"></i>Registrar CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info!=undefined"></i>Consultando CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info==undefined"></i>Modificando CUP</h3>
+
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-cube"></i>Registrar Cups</li>
@@ -91,52 +118,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
  <form id="register_form" name="register_form" ng-submit="submitFormCups($event)"> 
      <div class='row'>              
-        <div class="col-12 col-sm-12">
+      
+      <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Cliente <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" placeholder="* Razón Social / Número CIF / Email / Teléfono" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
+         <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+           <div ng-show="result.NumCifCli!=''">{{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
+          </li>
+        </ul>
+        <input type="hidden" ng-model="vm.fdatos_cups.CodCli" placeholder="CodCli" readonly />
+
+
+       </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodDis" name="CodDis" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined">
-        <option ng-repeat="dato in vm.T_PuntoSuministros" value="{{dato.CodPunSum}}">{{dato.NumCifCli}} - {{dato.RazSocCli}},
-        {{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</option>                          
+        <select class="form-control" id="CodPunSum" name="CodPunSum" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined">
+        <option ng-repeat="dato in vm.T_PuntoSuministros" value="{{dato.CodPunSum}}">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</option>                          
         </select>
        </div>
        </div>
-       </div>
-       
-       <!--div ng-show="vm.fdatos_cups.CodPunSum!=undefined">
-
-       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-       <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" readonly placeholder="* Número del CIF del Cliente"/>
-       
-       </div>
-       </div>
-       </div>       
-       <div class="col-12 col-sm-8">
-       <div class="form"> 
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>       
-        <div class="input-append date">
-          <input class="form-control" size="16" type="text" readonly ng-model="vm.Cups_RazSocCli" placeholder="* Razón Social del Cliente">      
       </div>
-      
-       </div>
-       </div>
-       </div>
-       
-
-       <div class="col-12 col-sm-12">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro</label>
-       <input type="text" class="form-control" ng-model="vm.Cups_Dir" onkeyup="this.value=this.value.toUpperCase();" readonly maxlength="100"/>       
-       </div>
-       </div>
-       </div>
-       
-       </div-->
 
 
       <div class="col-12 col-sm-2">
@@ -194,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodTar" name="CodTar"  ng-model="vm.fdatos_cups.CodTar" ng-disabled="vm.fdatos_cups.TipServ==0||vm.validate_info!=undefined">
+        <select class="form-control" id="CodTar" name="CodTar"  ng-model="vm.fdatos_cups.CodTar" ng-disabled="vm.fdatos_cups.TipServ==0||vm.validate_info!=undefined" ng-change="vm.PeriodosTarifas(vm.fdatos_cups.TipServ,vm.fdatos_cups.CodTar)">
         <option ng-repeat="dato in vm.T_Tarifas" value="{{dato.CodTar}}">{{dato.NomTar}}</option>                          
         </select>
        </div>
@@ -202,69 +210,292 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
 
-<div ng-show="vm.fdatos_cups.TipServ==1">   
-  <div class="col-12 col-sm-1">
+<div ng-show="vm.fdatos_cups.TipServ==1">
+
+ <div style="margin-top: 8px; margin-left: 15px; margin-bottom: -20px;" ng-show="vm.totalPot>0">
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"> Potencia Contratada (Kw)</label></div></div>
+ 
+
+
+    <div ng-show="vm.totalPot==1">
+        
+      <div class="col-12 col-sm-6" id="PotConP1">
        <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia </label>
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
-       </div>
+       </div> 
 
-  <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"> Contratada </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
-       </div>
-       </div>
-    </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">  (Kw)</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
-       </div>
-       </div>
-       </div>
-
-        <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
-       </div>
-       </div>
-       </div>
-
-       <div class="col-12 col-sm-1">
-       <div class="form">                          
-       <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP6" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P6" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.PotConP6)"/>
-       </div>
-       </div>
-       </div>
-
-        <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
+
+    </div>
+
+     <div ng-show="vm.totalPot==2">
+        
+      <div class="col-12 col-sm-3" id="PotConP1">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+       </div>
+       </div>
+       </div> 
+
+      <div class="col-12 col-sm-3" id="PotConP2">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-6" id="PotMaxBie">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+       </div>
+       </div>
+       </div>
+       
+    </div>
+
+
+     <div ng-show="vm.totalPot==3">
+        
+      <div class="col-12 col-sm-3" id="PotConP1">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+       </div>
+       </div>
+       </div> 
+
+      <div class="col-12 col-sm-3" id="PotConP2">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+        </div>
+      </div>
+      </div>
+
+       <div class="col-12 col-sm-3" id="PotConP3">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-3" id="PotMaxBie">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+       </div>
+       </div>
+       </div>
+       
+    </div>
+
+   <div ng-show="vm.totalPot==4">
+        
+      <div class="col-12 col-sm-2" id="PotConP1">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+       </div>
+       </div>
+       </div> 
+
+      <div class="col-12 col-sm-2" id="PotConP2">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+        </div>
+      </div>
+      </div>
+
+       <div class="col-12 col-sm-2" id="PotConP3">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-2" id="PotConP4">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-4" id="PotMaxBie">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+       </div>
+       </div>
+       </div>
+       
+    </div>
+
+
+
+    <div ng-show="vm.totalPot==5">
+        
+      <div class="col-12 col-sm-2" id="PotConP1">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+       </div>
+       </div>
+       </div> 
+
+      <div class="col-12 col-sm-2" id="PotConP2">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+        </div>
+      </div>
+      </div>
+      
+       <div class="col-12 col-sm-2" id="PotConP3">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-2" id="PotConP4">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+        </div>
+      </div>
+      </div>
+
+       <div class="col-12 col-sm-2" id="PotConP5">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-2" id="PotMaxBie">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+       </div>
+       </div>
+       </div>
+       
+    </div>
+
+
+
+    <div ng-show="vm.totalPot==6">
+        
+      <div class="col-12 col-sm-1" id="PotConP1">
+       <div class="form">                          
+       <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+       </div>
+       </div>
+       </div> 
+
+      <div class="col-12 col-sm-1" id="PotConP2">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+        </div>
+      </div>
+      </div>
+      
+       <div class="col-12 col-sm-1" id="PotConP3">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-1" id="PotConP4">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+        </div>
+      </div>
+      </div>
+
+       <div class="col-12 col-sm-1" id="PotConP5">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
+        </div>
+      </div>
+      </div>
+
+       <div class="col-12 col-sm-1" id="PotConP6">
+      <div class="form">                          
+        <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP6" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P6" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.PotConP6)"/>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-12 col-sm-6" id="PotMaxBie">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+       </div>
+       </div>
+       </div>
+       
+    </div>
+
+
+
+
+
+
+
+     
 
        
   </div> 

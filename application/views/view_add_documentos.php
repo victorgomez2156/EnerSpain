@@ -20,6 +20,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	background-color:transparent;
   }
 </style>
+
+<style>
+
+        .file-item{
+            background: white;
+    height: 35px;
+    padding: 10px;
+    margin-left: 0;
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+        }
+
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }     
+
+        #file-wrap{
+            position:relative;
+            width:100%;
+            padding: 5px;
+            display: block;
+            border: 2px dashed #ccc;
+            margin: 0 auto;
+            text-align: center;
+            box-sizing:border-box;
+            border-radius: 5px;
+        }
+
+      
+        .file_b{
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+            width:100%;
+            height:100%;
+            opacity:0;
+        }
+    </style>
 <body>
  <div ng-controller="Controlador_Documentos as vm">
     <!--main content start-->
@@ -27,7 +72,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Documento</h3>
+            <h3 class="page-header" ng-show="vm.fagregar_documentos.CodTipDocAI==undefined">Agregando Documento</h3>
+            <h3 class="page-header" ng-show="vm.fagregar_documentos.CodTipDocAI>0">Modificando Documento</h3>
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-file"></i>Registro de Documentos</li>
@@ -68,8 +114,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-12">
             <div class="form">                          
              <div class="form-group">
-              <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Documento: <a title='Descargar Documento' ng-show="vm.fagregar_documentos.ArcDoc!=null && vm.fagregar_documentos.CodTipDocAI>0" href="{{vm.fagregar_documentos.ArcDoc}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>             
-             <input type="file" class="form-control" accept="application/pdf" id="DocCliDoc" name="DocCliDoc" uploader-model="DocCliDoc"/>     
+              <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Documento: <a title='Descargar Documento' ng-show="vm.fagregar_documentos.ArcDoc!=null && vm.fagregar_documentos.CodTipDocAI>0" href="{{vm.fagregar_documentos.ArcDoc}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label> 
+
+            <div id="file-wrap">
+            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <input type="file" id="DocCliDoc" name="DocCliDoc" class="file_b" uploader-model="DocCliDoc" draggable="true">
+            <div id="filenameDocCli"></div>                       
+          </div>
+    <script>
+
+      
+      $('#DocCliDoc').on('change', function() 
+      {          
+        const $Archivo_DocCli1 = document.querySelector("#DocCliDoc");
+        //console.log($Archivo_DocCli1);
+        let Archivo_DocCli1 = $Archivo_DocCli1.files;                      
+        filenameDocCli = '<i class="fa fa-file"> '+$Archivo_DocCli1.files[0].name+'</i>';
+          $('#filenameDocCli').html(filenameDocCli);
+      });
+     
+</script>            
+             <!--input type="file" class="form-control" accept="application/pdf" id="DocCliDoc" name="DocCliDoc" uploader-model="DocCliDoc"/-->     
              </div>
              </div>
           </div>

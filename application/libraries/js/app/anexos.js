@@ -754,6 +754,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     if (result.data != false) {
                         Swal.fire({ title: titulo2, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         document.getElementById('file_anexo').value = '';
+                        $('#filenameDocAnexo').html('');
                         location.href = "#/Edit_Anexos/" + scope.nIDAnexos;
                     } else {
                         Swal.fire({ title: "Error", text: "No se ha completado la operación, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });

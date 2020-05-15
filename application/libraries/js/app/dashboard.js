@@ -147,6 +147,7 @@
         console.log(index);
         console.log($event);
         console.log(result);
+
         scope.response_customer.CUPs_Electrico=[];
         scope.response_customer.CUPs_Gas=[];
         console.log(scope.searchResult[index].CodCli);
@@ -200,6 +201,11 @@
     }
     scope.view_information=function()
     {
+        scope.response_customer.DirPumSum=undefined;
+        scope.response_customer.EscPlaPuerPumSum=undefined;
+        scope.response_customer.DesLocPumSum=undefined;
+        scope.response_customer.DesProPumSum=undefined;
+        scope.response_customer.CPLocPumSum=undefined;
         scope.response_customer.CUPs_Electrico=[];
         scope.response_customer.CUPs_Gas=[];
         if(scope.fdatos.CodCli=='' || scope.fdatos.CodCli==null || scope.fdatos.CodCli==undefined)
@@ -244,6 +250,16 @@
                 if(result.data.Puntos_Suministros!=false)
                 {
                    scope.response_customer.Puntos_Suministros=result.data.Puntos_Suministros; 
+                   if(result.data.Puntos_Suministros.length==1)
+                   {
+                        console.log(result.data.Puntos_Suministros.length);
+                        console.log(result.data.Puntos_Suministros[0].CodPunSum);
+                        scope.fdatos.DirPumSum=result.data.Puntos_Suministros[0].CodPunSum;
+                        scope.filter_DirPumSum(scope.fdatos.DirPumSum);
+                   }
+                   
+
+
                 }
                 else
                 {
@@ -292,7 +308,7 @@
                             }                       
                         });
                    }
-                console.log(result.data.customer);
+                //console.log(result.data.customer);
                 //console.log(scope.response_customer.Puntos_Suministros);
                 ///console.log(scope.response_customer.Contactos);
                 //console.log(scope.response_customer.Cuentas_Bancarias);
@@ -326,6 +342,13 @@
     scope.filter_DirPumSum=function(CodPunSum)
     {
         //console.log(CodPunSum);
+        scope.response_customer.DirPumSum=undefined;
+        scope.response_customer.EscPlaPuerPumSum=undefined;
+        scope.response_customer.DesLocPumSum=undefined;
+        scope.response_customer.DesProPumSum=undefined;
+        scope.response_customer.CPLocPumSum=undefined;        
+        scope.response_customer.CUPs_Electrico=[];
+        scope.response_customer.CUPs_Gas=[];
         for (var i = 0; i < scope.response_customer.Puntos_Suministros.length; i++) 
         {
             if(scope.response_customer.Puntos_Suministros[i].CodPunSum==CodPunSum)
@@ -337,9 +360,7 @@
                 scope.response_customer.DesProPumSum=scope.response_customer.Puntos_Suministros[i].DesPro;
                 scope.response_customer.CPLocPumSum=scope.response_customer.Puntos_Suministros[i].CPLocSoc;
             }
-        }
-        scope.response_customer.CUPs_Electrico=[];
-        scope.response_customer.CUPs_Gas=[];        
+        }        
         $("#Buscando_Informacion").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome()+"api/Dashboard/Search_CUPs_Customer/CodPumSum/"+CodPunSum;
         $http.get(url).then(function(result)

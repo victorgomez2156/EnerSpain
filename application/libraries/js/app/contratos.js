@@ -550,6 +550,7 @@
                         {
                             Swal.fire({ title: titulo, text: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
                             document.getElementById('file_fotocopia').value = '';
+                            $('#file_fotocopia1').html('');
                             location.href="#/Contratos";
                         }//location.href = "#/Edit_fdatos/" + scope.nIDfdatos;
                     } else {

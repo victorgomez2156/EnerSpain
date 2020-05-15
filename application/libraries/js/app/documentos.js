@@ -348,6 +348,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.fagregar_documentos = result.data;
                         scope.restringir_cliente_doc = 1;
                         document.getElementById('DocCliDoc').value = '';
+                        $('#filenameDocCli').html('');
                         console.log(result.data);
                     } else {
                         Swal.fire({ title: "Error.", text: "Error en el proceso intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -421,7 +422,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             Swal.fire({ title: "Indicar si el Documento tiene o no Fecha de Vencimiento", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
-        if (scope.fagregar_documentos.TieVen == 1) {
+        if (scope.fagregar_documentos.TieVen == 1) 
+        {
+            
+            var FecVenDocAco = document.getElementById("FecVenDocAco").value;
+            scope.FecVenDocAco = FecVenDocAco;
             if (scope.FecVenDocAco == undefined) {
                 Swal.fire({ title: "Colocar Fecha de Vencimiento con el formato DD/MM/YYYY", type: "info", confirmButtonColor: "#188ae2" });
                 return false;

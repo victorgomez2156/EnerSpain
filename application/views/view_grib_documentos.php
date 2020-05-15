@@ -154,7 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <td ng-show="vm.FecVenDoc==true">{{dato.FecVenDoc}}</td> 
                   <td ng-show="vm.AccDoc==true">
                     <div class="btn-group">
-                      <select class="form-control" id="opciones_documentos" name="opciones_documentos" ng-model="vm.opciones_documentos[$index]" ng-change="vm.validar_opc_documentos($index,vm.opciones_documentos[$index],dato)">
+                      <select class="form-control" style="width: auto;" id="opciones_documentos" name="opciones_documentos" ng-model="vm.opciones_documentos[$index]" ng-change="vm.validar_opc_documentos($index,vm.opciones_documentos[$index],dato)">
                         <option ng-repeat="opcion in vm.topciondocumentos" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                       </select>
                     </div>

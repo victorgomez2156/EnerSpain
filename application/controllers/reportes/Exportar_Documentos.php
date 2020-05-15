@@ -10802,7 +10802,7 @@ class Exportar_Documentos extends CI_Controller
             //$Resultado=false;
             if($Resultado!=false)
             {                
-                $total_consumo=$this->Reportes_model->sum_consumo_cups($CodCup,$Tabla,$Where);
+                $total_consumo=$this->Reportes_model->sum_consumo_cups2($CodCup,$Tabla,$Where);
                 foreach ($Resultado as $record): 
                 {
                     $html.='<tr>
@@ -10848,7 +10848,7 @@ class Exportar_Documentos extends CI_Controller
             //$Resultado=false;
             if($Resultado!=false)
             {
-                $total_consumo=$this->Reportes_model->sum_consumo_cups($CodCup,$Tabla,$Where);
+                $total_consumo=$this->Reportes_model->sum_consumo_cups2($CodCup,$Tabla,$Where);
                 foreach ($Resultado as $record): 
                 {
                     $html.='<tr>

@@ -27,7 +27,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro Dirección de Suministro</h3>
+            <h3 class="page-header" ng-show="vm.fpuntosuministro.CodPunSum==undefined">Registro Dirección de Suministro</h3>
+            <h3 class="page-header" ng-show="vm.fpuntosuministro.CodPunSum>0&&vm.validate_info_PunSum!=undefined">Consultando Dirección de Suministro</h3>
+            <h3 class="page-header" ng-show="vm.fpuntosuministro.CodPunSum>0&&vm.validate_info_PunSum==undefined">Modificando Dirección de Suministro</h3>
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-bullseye"></i>Registro Direccón de Suministros</li>

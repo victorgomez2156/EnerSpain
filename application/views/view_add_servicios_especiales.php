@@ -27,7 +27,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Servicio Especial</h3>
+            <h3 class="page-header" ng-show="vm.servicio_especial.CodSerEsp==undefined">Registro de Servicio Especial</h3>
+            <h3 class="page-header" ng-show="vm.servicio_especial.CodSerEsp>0&&vm.validate_info_servicio_especiales!=undefined">Consultando Servicio Especial</h3> 
+            <h3 class="page-header" ng-show="vm.servicio_especial.CodSerEsp>0&&vm.validate_info_servicio_especiales==undefined">Modificando Servicio Especial</h3> 
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard"> Dashboard</a></li>            
               <li><i class="fa fa-bullseye"></i> Registro de Servicios Especiales</li>
