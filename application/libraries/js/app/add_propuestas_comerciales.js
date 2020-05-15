@@ -387,29 +387,48 @@
                  Swal.fire({ title: "Debe seleccionar una Tarifa Eléctrica.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
             }
+
             if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                 Swal.fire({ title: "La potencia P1 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                 scope.fdatos.PotConP1 = null;
+             }
+             else
+             {
+                scope.fdatos.PotConP1 =scope.fdatos.PotConP1;
              }
             if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                 Swal.fire({ title: "La potencia P2 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                scope.fdatos.PotConP2 = null;
+             }
+             else
+             {
+                 scope.fdatos.PotConP2 = scope.fdatos.PotConP2;
              }
             if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                 Swal.fire({ title: "La potencia P3 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                 scope.fdatos.PotConP3 = null;
+             }
+             else
+             {
+                scope.fdatos.PotConP3 = scope.fdatos.PotConP3;
              }
             if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-                 Swal.fire({ title: "La potencia P4 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                 scope.fdatos.PotConP4 = null;
+             }
+             else
+             {
+                scope.fdatos.PotConP4=scope.fdatos.PotConP4;
              }
             if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
-                 Swal.fire({ title: "La potencia P5 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                 scope.fdatos.PotConP5 = null;
+             }
+             else
+             {
+                 scope.fdatos.PotConP5 = scope.fdatos.PotConP5;
              }
             if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
-                 Swal.fire({ title: "La potencia P6 es requerido.", type: "error", confirmButtonColor: "#188ae2" });
-                 return false;
+                scope.fdatos.PotConP6=null;
+             }
+             else
+             {
+                scope.fdatos.PotConP6=scope.fdatos.PotConP6; 
              }
             if (scope.fdatos.ImpAhoEle == null || scope.fdatos.ImpAhoEle == undefined || scope.fdatos.ImpAhoEle == '') {
                  Swal.fire({ title: "Debe indicar un importe de ahorro eléctrico.", type: "error", confirmButtonColor: "#188ae2" });

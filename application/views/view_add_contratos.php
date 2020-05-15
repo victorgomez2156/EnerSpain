@@ -374,7 +374,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
-        <input type="text" class="form-control" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" readonly ng-disabled="vm.fdatos.tipo=='ver'"/>
+        <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'"/>
          
          </div>
          </div>

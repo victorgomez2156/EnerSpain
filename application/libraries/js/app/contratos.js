@@ -924,6 +924,7 @@
                 scope.fdatos.DocConRut=result.data.Contrato.DocConRut;
                 scope.fdatos.ObsCon=result.data.Contrato.ObsCon;
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecIniCon);
+                $('.datepicker_Vencimiento').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecVenCon);
                 console.log(result.data.List_Pro);
                 console.log(scope.fdatos);
             }

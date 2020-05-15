@@ -53,8 +53,10 @@ class PropuestaComercial extends REST_Controller
 			$response = array('status' =>true ,'menssage' =>'Cliente sin ningun contrato puede generar una propuesta.','statusText'=>'Propuesta_Nueva','CodCli'=>$Cliente->CodCli);
 			$this->response($response);
 			return false;
-		}		
-		foreach ($BuscarContrato as $record): 
+		}	
+
+		$response = array('status' =>true ,'menssage' =>'Creando Propuesta Comercial','statusText'=>'Propuesta_Nueva','CodCli'=>$Cliente->CodCli);	
+		/*foreach ($BuscarContrato as $record): 
 		{
 			if($record->ProRenPen==1)
 			{
@@ -65,7 +67,7 @@ class PropuestaComercial extends REST_Controller
 				$response = array('status' =>false ,'menssage' =>'Este cliente ya tiene un contrato vigente.','statusText'=>'Error');	
 			}
 		}
-		endforeach;
+		endforeach;*/
 		$this->response($response);
 
 		/*if($BuscarContrato->ProRenPen==1)
@@ -185,19 +187,19 @@ class PropuestaComercial extends REST_Controller
 				$this->response($response);	
 				return false;
 			}
-			$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($objSalida->CodCli);
-			if($BuscarContrato==false)
-			{
+			//$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($objSalida->CodCli);
+			//if($BuscarContrato==false)
+			//{
 				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->CodCli,$objSalida->FecProCom,$objSalida->CodPunSum,$objSalida->CodCupSEle,$objSalida->CodTarEle,$objSalida->ImpAhoEle,$objSalida->PorAhoEle,$objSalida->RenConEle,$objSalida->ObsAhoEle,$objSalida->CodCupGas,$objSalida->CodTarGas,$objSalida->ImpAhoGas,$objSalida->PorAhoGas,$objSalida->RenConGas,$objSalida->ObsAhoGas,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,$objSalida->JusRecProCom,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->CauDia,$objSalida->Consumo);			
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$CodProCom,$this->input->ip_address(),'Generando Propuesta Comercial Para Contrato.');
 				$this->db->trans_complete();
 				$this->response($objSalida);
-			}
+			/*}
 			else
 			{
 				$arrayName = array('status' =>false,'menssage'=>'Cliente con contrato valla al modulo de contrato para mas información.','statusText'=>"Error" );
 				$this->response($arrayName);
-			}
+			}*/
 		}
 		elseif($objSalida->tipo=='ver')
 		{
