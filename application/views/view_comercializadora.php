@@ -362,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Contrato <a title='Descargar Documentos' ng-show="vm.fdatos.DocConCom!=null && vm.fdatos.CodCom>0" href="{{vm.fdatos.DocConCom}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>  
 
          <div id="file-wrap">
-            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltarlo</strong> aquí</p>                       
             <input type="file" id="file" class="file_b" uploader-model="file" ng-disabled="vm.validate_info!=undefined" draggable="true">
             <div id="filenameDocCont"></div>                       
           </div>

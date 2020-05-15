@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Documento: <a title='Descargar Documento' ng-show="vm.fagregar_documentos.ArcDoc!=null && vm.fagregar_documentos.CodTipDocAI>0" href="{{vm.fagregar_documentos.ArcDoc}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label> 
 
             <div id="file-wrap">
-            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
             <input type="file" id="DocCliDoc" name="DocCliDoc" class="file_b" uploader-model="DocCliDoc" draggable="true">
             <div id="filenameDocCli"></div>                       
           </div>

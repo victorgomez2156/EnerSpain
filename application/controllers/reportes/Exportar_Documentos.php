@@ -12407,32 +12407,32 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($TipGes==null)
         {
-            echo 'Error debe elegir un tipo de gestión.';
+            echo 'El Tipo de Gestión es requerido';
             return false;
         }
         elseif ($CodRef==null){
-             echo 'Error debe elegir una gestión Comercial';
+             echo 'La Gestión Comercial es requerida';
             return false;
         }
         if($TipGes=='P')
         {
-            $NombreFiltro="Propuestas Comerciales";
+            $NombreFiltro="Propuesta Comercial";
             $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
            
         }
         elseif($TipGes=='C')
         {
-            $NombreFiltro="Contratos Comerciales";
+            $NombreFiltro="Contrato Comercial";
             $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
         }
         elseif($TipGes=='G')
         {      
-            $NombreFiltro="Otras Gestiones Comerciales";    
+            $NombreFiltro="Otra Gestión Comercial";    
             $Resultado_Seguimientos=$this->Propuesta_model->get_seguimientos($TipGes,$CodRef,$CodCli);
         }
         else
         {
-            echo 'Error en el tipo de gestión de comercial.';
+            echo 'Error en el Tipo de Gestión Comercial';
             return false;          
         }
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
@@ -12455,7 +12455,7 @@ class Exportar_Documentos extends CI_Controller
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
             <tr>
-                <td border="0" align="left" colspan="2"><h4>LISTADO DE SEGUIMIENTOS</h4></td>
+                <td border="0" align="left" colspan="2"><h4>Listado de Seguimientos</h4></td>
                 
                 <td border="0"><h4></h4></td>
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
@@ -12473,12 +12473,12 @@ class Exportar_Documentos extends CI_Controller
                 ';          
         $html.='
         <tr bgcolor="#636161">
-            <td style="color:white;">FECHA</td> 
-            <td style="color:white;">Nº SEGUIMIENTO</td>
-            <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">REFERENCIA</td>
-            <td style="color:white;">RESULTADO</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Fecha</td> 
+            <td style="color:white;">Nº Seguimiento</td>
+            <td style="color:white;">Descripción</td>
+            <td style="color:white;">Referencia</td>
+            <td style="color:white;">Resultado</td>
+            <td style="color:white;">Observación</td>
         </tr>';
         if($Resultado_Seguimientos!=false)
         {
@@ -12501,7 +12501,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="6"><b>Actualmente no hemos encontrado seguimientos.</b></td>              
+                <td align="center" colspan="6"><b>No hay Seguimientos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ; 

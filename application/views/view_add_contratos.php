@@ -397,7 +397,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
           <div id="file-wrap">
-            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
             <input type="file" id="file_fotocopia"  name="file_fotocopia" class="file_b" updloadfotocopia-model="file_fotocopia" draggable="true">
             <div id="file_fotocopia1"></div>                       
           </div>

@@ -261,7 +261,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!--input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined"-->
         
  <div id="file-wrap">
-            <p>Haga Click AQUÍ para adjuntar un archivo,también puede <strong>Arrastrar</strong> el archivo y <strong>Soltarlo</strong> en este recuadro.</p>                       
+            <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
             <input  type="file" id="file_anexo" class="file_b" uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined" draggable="true">
             <div id="filenameDocAnexo"></div>                       
           </div>
