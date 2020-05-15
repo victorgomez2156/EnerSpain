@@ -125,10 +125,10 @@
          if (scope.validate_info == undefined) {
              if (scope.fdatos.CodCli == undefined) {
                  var title = 'Guardando';
-                 var text = "¿Seguro que desea cerrar sin grabar la información?";
+                 var text = "¿Seguro que desea cerrar sin registrar el Cliente?";
              } else {
                  var title = 'Actualizando';
-                 var text = "¿Seguro que desea cerrar sin actualizar la información?";
+                 var text = "¿Seguro que desea cerrar sin actualizar la información del Cliente?";
              }
              Swal.fire({
                  title: title,
@@ -137,7 +137,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "OK"
+                 confirmButtonText: "Confirmar"
              }).then(function(t) {
                  if (t.value == true) {
                      $cookies.remove('CIF');
@@ -313,7 +313,7 @@
          }
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Seguro que desea modificar los datos del Cliente?';
+             var text = '¿Seguro que desea modificar la información del Cliente?';
              var response = "Cliente actualizado de forma correcta";
          }
          if (scope.fdatos.CodCli == undefined) {
@@ -328,7 +328,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "SI"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  scope.guardar();
@@ -347,22 +347,22 @@
          } else {
              var FecIniCli = (scope.FecIniCli).split("/");
              if (FecIniCli.length < 3) {
-                 Swal.fire({ text: "El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ text: "El formato de Fecha de Inicio correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              } else {
                  if (FecIniCli[0].length > 2 || FecIniCli[0].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecIniCli[1].length > 2 || FecIniCli[1].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecIniCli[2].length < 4 || FecIniCli[2].length > 4) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -372,7 +372,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ text: "La Fecha de Inicio no puede ser mayor al " + scope.Fecha_Server + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "La Fecha de Inicio no puede ser mayor al " + scope.Fecha_Server + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
                  scope.fdatos.FecIniCli = FecIniCli[2] + "-" + FecIniCli[1] + "-" + FecIniCli[0];
@@ -524,7 +524,7 @@
          }
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Seguro que desea actualizar el Cliente?';
+             var text = '¿Seguro que desea actualizar la información del Cliente?';
              var response = "El Cliente ha sido modificado de forma correcta";
          }
          if (scope.fdatos.CodCli == undefined) {
@@ -641,12 +641,11 @@
      }
      if (scope.nID != undefined) {
          scope.buscarXID();
-         var promise = $interval(function()
-         {
+         var promise = $interval(function() {
              scope.filtrarLocalidad();
-                 //scope.filtrar_zona_postal();
-                 //scope.filtrarLocalidadFisc();
-                 //scope.filtrar_zona_postalFis();
+             //scope.filtrar_zona_postal();
+             //scope.filtrarLocalidadFisc();
+             //scope.filtrar_zona_postalFis();
          }, 10000);
          $scope.$on('$destroy', function() {
              $interval.cancel(promise);

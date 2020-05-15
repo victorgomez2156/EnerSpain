@@ -286,13 +286,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
     scope.regresar_documentos = function() {
-        if (scope.fagregar_documentos.CodTipDocAI == undefined){
-            var title="Guardando";
-            var text = "¿Seguro que desea cerrar sin grabar el Documento?";
+        if (scope.fagregar_documentos.CodTipDocAI == undefined) {
+            var title = "Guardando";
+            var text = "¿Seguro que desea cerrar sin registrar el Documento?";
         }
-        if (scope.fagregar_documentos.CodTipDocAI > 0){
-            var title="Actualizando";
-            var text = "¿Seguro que desea cerrar sin actualizar el Documento?";
+        if (scope.fagregar_documentos.CodTipDocAI > 0) {
+            var title = "Actualizando";
+            var text = "¿Seguro que desea cerrar sin actualizar la información del Documento?";
         }
         Swal.fire({
             title: title,
@@ -301,7 +301,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 location.href = "#/Documentos";
@@ -316,12 +316,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fagregar_documentos.CodTipDocAI > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea modificar los datos del Documento?';
+            var text = '¿Seguro que desea modificar la información del Documento?';
             var response = "Documento actualizado de forma correcta";
         }
         if (scope.fagregar_documentos.CodTipDocAI == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea agregar el Documento?';
+            var text = '¿Seguro que desea registrar el Documento?';
             var response = "Documento registrado de forma correcta";
         }
         Swal.fire({
@@ -331,7 +331,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.validar_archivos();

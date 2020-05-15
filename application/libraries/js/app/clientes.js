@@ -452,7 +452,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "Activar"
+                 confirmButtonText: "Confirmar"
              }).then(function(t) {
                  if (t.value == true) {
                      scope.datos_update = {};
@@ -509,20 +509,20 @@
                  $("#modal_motivo_bloqueo").modal('show');
                  scope.tMotivosBloqueos = result.data;
              } else {
-                 Swal.fire({ title: "Error.", text: "No hemos encontrados motivos de bloqueos registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: "No hay Motivos de Bloqueo registrados", type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
              }
          });
      }
@@ -531,28 +531,28 @@
          var FechBlo = document.getElementById("FechBlo").value;
          scope.FechBlo = FechBlo;
          if (scope.FechBlo == undefined || scope.FechBlo == null || scope.FechBlo == '') {
-             Swal.fire({ text: "El Campo Fecha de Bloqueo no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ text: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          } else {
              var FechBlo = (scope.FechBlo).split("/");
              if (FechBlo.length < 3) {
-                 Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ text: "El dormato de Fecha de Bloqueo debe ser DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              } else {
                  if (FechBlo[0].length > 2 || FechBlo[0].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FechBlo[1].length > 2 || FechBlo[1].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FechBlo[2].length < 4 || FechBlo[2].length > 4) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -562,19 +562,19 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor a" + scope.fecha_server + "verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
                  scope.tmodal_data.FechBlo = scope.FechBlo;
              }
          }
          Swal.fire({
-             title: "¿Esta Seguro de Bloquear Este Cliente?",
+             title: "¿Seguro que desea Bloquear el Cliente?",
              type: "info",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "Bloquear"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  scope.datos_update = {};
@@ -593,10 +593,10 @@
                  $http.post(url, scope.datos_update).then(function(result) {
                      if (result.data != false) {
                          $("#modal_motivo_bloqueo").modal('hide');
-                         Swal.fire({ title: "Exito!.", text: "El Cliente fue bloqueado correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Procesado", text: "El Cliente ha sido bloqueado de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                          scope.cargar_lista_clientes();
                      } else {
-                         Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                          scope.cargar_lista_clientes();
                      }
                  }, function(error) {

@@ -19,7 +19,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos);
         bootbox.confirm({
             title: "Confirmación",
-            message: "¿Está seguro que desea incluir este nuevo registro?",
+            message: "¿Seguro que desea crear el Usuario?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'
@@ -51,7 +51,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             } else {
                 $("#generar_key").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "ha ocurrido un error intentando generar el key intente nuevamente.",
+                    message: "Ha ocurrido un error intentando generar el key, intente nuevamente",
                     size: 'middle'
                 });
                 scope.disabled_button = false;
@@ -61,7 +61,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 404 && error.statusText == "Not Found") {
                 $("#generar_key").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "El método que esté intentando usar no puede ser localizado",
+                    message: "El método que está intentando usar no puede ser localizado",
                     size: 'middle'
                 });
             }
@@ -97,14 +97,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(result.data);
                 $("#crear_usuario").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "El usuario a sido registrado correctamente.",
+                    message: "El usuario ha sido registrado de forma correcta",
                     size: 'middle'
                 });
                 scope.buscarXID();
             } else {
                 $("#crear_usuario").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "ha ocurrido un error intentando guardar el usuario por favor intente nuevamente.",
+                    message: "Ha ocurrido un error intentando grabar el Usuario, por favor intente nuevamente",
                     size: 'middle'
                 });
             }
@@ -112,7 +112,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 404 && error.statusText == "Not Found") {
                 $("#crear_usuario").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "El método que esté intentando usar no puede ser localizado",
+                    message: "El método que está intentando usar no puede ser localizado",
                     size: 'middle'
                 });
             }
@@ -146,7 +146,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         bootbox.confirm({
             title: "Confirmación",
-            message: "¿Seguro que desea borrar el Registro?",
+            message: "¿Seguro que desea eliminar el Usuario?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'
@@ -217,7 +217,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         bootbox.confirm({
             title: "Confirmación",
-            message: "¿Seguro que desea borrar el Registro?",
+            message: "¿Seguro que desea eliminar el Usuario?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'

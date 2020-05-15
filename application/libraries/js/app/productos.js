@@ -336,7 +336,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: 'Bloquear'
+            confirmButtonText: 'Confirmar'
         }).then(function(t) {
             if (t.value == true) {
                 console.log(scope.t_modal_data);
@@ -414,7 +414,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: 'Activar'
+                confirmButtonText: 'Confirmar'
             }).then(function(t) {
                 if (t.value == true) {
                     scope.cambiar_estatus_productos(opciones_productos, dato.CodPro, index);
@@ -463,7 +463,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var text = '¿Seguro que desea cerrar sin registrar el Producto?';
             } else {
                 var title = 'Actualizando';
-                var text = '¿Seguro que desea cerrar sin actualizar el Producto';
+                var text = '¿Seguro que desea cerrar sin actualizar la información del Producto';
             }
             Swal.fire({
                 title: title,
@@ -554,7 +554,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var response = 'El Producto se ha creado de forma correcta';
         } else {
             var titulo = 'Actualizando';
-            var texto = '¿Seguro que desea modificar el Producto?';
+            var texto = '¿Seguro que desea modificar la información del Producto?';
             var response = 'El Producto se ha actualizado de forma correcta';
         }
         if (scope.productos.ObsPro == undefined || scope.productos.ObsPro == null || scope.productos.ObsPro == '') {

@@ -272,7 +272,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var text = '¿Seguro que desea cerrar sin registrar la Tarifa Eléctrica?';
         } else {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa Elétrica?';
+            var text = '¿Seguro que desea cerrar sin actualizar la información de la Tarifa Elétrica?';
         }
         Swal.fire({
             title: title,
@@ -281,7 +281,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_tar_elec = {};
@@ -298,11 +298,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_tar_elec.CodTarEle == undefined) {
             var titulo = 'Guardando';
-            var text = '¿Seguro que desea crear la Tarifa Eléctrica?';
+            var text = '¿Seguro que desea registrar la Tarifa Eléctrica?';
             var response = 'La Tarifa Eléctrica se ha registrado de forma correcta';
         } else {
             var titulo = 'Actualizando';
-            var text = '¿Seguro que desea actualizar la Tarifa Eléctrica?';
+            var text = '¿Seguro que desea actualizar la información de la Tarifa Eléctrica?';
             var response = 'La Tarifa Eléctrica se ha modificado de forma correcta';
         }
         console.log(scope.fdatos_tar_elec);
@@ -313,7 +313,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + titulo).removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -557,11 +557,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.fdatos_tar_gas.CodTarGas == undefined) {
             var titulo = 'Guardando';
             var titulo2 = 'La Tarifa de Gas ha sido registrada de forma correcta';
-            var texto = '¿Seguro que desea crear la Tarifa de Gas?';
+            var texto = '¿Seguro que desea registrar la Tarifa de Gas?';
         } else {
             var titulo = 'Actualizando';
             var titulo2 = 'La Tarifa de Gas ha sido modificada de forma correcta';
-            var texto = '¿Seguro que desea actualizar la Tarifa de Gas?';
+            var texto = '¿Seguro que desea actualizar la información de la Tarifa de Gas?';
         }
         console.log(scope.fdatos_tar_gas);
         Swal.fire({
@@ -571,7 +571,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + titulo).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -668,7 +668,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -710,10 +710,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_TarGas = function() {
         if (scope.fdatos_tar_gas.CodTarGas == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea cerrar sin crear la Tarifa de Gas';
+            var text = '¿Seguro que desea cerrar sin registrar la Tarifa de Gas';
         } else {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea cerrar sin actualizar la Tarifa de Gas?';
+            var text = '¿Seguro que desea cerrar sin actualizar la información de la Tarifa de Gas?';
         }
         Swal.fire({
             title: title,
@@ -722,7 +722,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_tar_gas = {};

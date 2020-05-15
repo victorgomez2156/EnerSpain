@@ -131,12 +131,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Confirmación",
-            text: "¿Está seguro que desea incluir este nuevo registro?",
+            text: "¿Seguro que desea incluir el Colaborador?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.guardar();
@@ -429,12 +429,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         Swal.fire({
-            title: "¿Seguro que desea borrar el Registro?",
+            title: "¿Seguro que desea eliminar el Colaborador?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "CONFIRMAR"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -474,12 +474,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         Swal.fire({
-            title: "¿Seguro que desea borrar el Registro?",
+            title: "¿Seguro que desea eliminar el Colaborador?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "CONFIRMAR"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -587,10 +587,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_info == undefined) {
             if (scope.fdatos.CodCol == undefined) {
                 var title = 'Guardando';
-                var text = '¿Seguro que desea cerrar y no grabar la Información?';
+                var text = '¿Seguro que desea cerrar sin crear el Colaborador?';
             } else {
                 var title = 'Actualizando';
-                var text = '¿Seguro que desea cerrar y no actualizar la Información';
+                var text = '¿Seguro que desea cerrar y no actualizar la información del Colaborador';
             }
             Swal.fire({
                 title: title,
@@ -599,7 +599,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     location.href = "#/Colaboradores";
@@ -664,12 +664,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.t_modal_data.opcion = 2;
         console.log(scope.t_modal_data);
         Swal.fire({
-            title: "¿Seguro que desea Bloquear el Colaborador?",
+            title: "¿Seguro que desea bloquear el Colaborador?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Bloquear"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
 

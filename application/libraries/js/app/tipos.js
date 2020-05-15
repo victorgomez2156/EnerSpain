@@ -55,9 +55,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
     scope.TVistaGestiones = 1;
     scope.Tipo_Gestiones = [];
-    scope.DesTipGes=true;
-    scope.ActTipGes=true;
-    scope.AccTipGes=true;
+    scope.DesTipGes = true;
+    scope.ActTipGes = true;
+    scope.AccTipGes = true;
     scope.fdatos_gestioens = {};
     scope.ruta_reportes_pdf_gestiones = 0;
     scope.ruta_reportes_excel_gestiones = 0;
@@ -114,12 +114,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_cliente = function() {
         Swal.fire({
 
-            text: "¿Seguro que desea cerrar sin actualizar el Tipo de Cliente ?",
+            text: "¿Seguro que desea cerrar sin actualizar la información del Tipo de Cliente ?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_clientes = {};
@@ -137,12 +137,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_clientes);
         if (scope.fdatos_clientes.CodTipCli > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea actualizar el Tipo de Cliente?';
+            var text = '¿Seguro que desea actualizar la información del Tipo de Cliente?';
             var response = "El Tipo de Cliente ha sido modificar de forma correcta";
         }
         if (scope.fdatos_clientes.CodTipCli == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea grabar el Tipo de Cliente?';
+            var text = '¿Seguro que desea registrar el Tipo de Cliente?';
             var response = "El Tipo de Cliente ha sido registrado de forma correcta";
         }
         if (scope.fdatos_clientes.ObsTipCli == undefined || scope.fdatos_clientes.ObsTipCli == null || scope.fdatos_clientes.ObsTipCli == "") {
@@ -157,7 +157,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -237,7 +237,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -342,12 +342,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_sector == undefined) {
             Swal.fire({
 
-                text: "¿Seguro que desea cerrar sin actualizar el Sector?",
+                text: "¿Seguro que desea cerrar sin actualizar la información del Sector?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_sector = {};
@@ -371,12 +371,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_sector);
         if (scope.fdatos_sector.CodSecCli > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea actualizar el Sector?';
+            var text = '¿Seguro que desea actualizar la información del Sector?';
             var response = "El Sector ha sido modificado de forma correcta";
         }
         if (scope.fdatos_sector.CodSecCli == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea grabar el Sector?';
+            var text = '¿Seguro que desea registrar el Sector?';
             var response = "El Sector ha sido registrado de forma correcta";
         }
         if (scope.fdatos_sector.ObsSecCli == undefined || scope.fdatos_sector.ObsSecCli == null || scope.fdatos_sector.ObsSecCli == "") {
@@ -391,7 +391,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -466,12 +466,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -577,12 +577,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_contacto == undefined) {
             Swal.fire({
 
-                text: "¿Seguro que desea cerrar sin actualizar el Tipo de Contacto?",
+                text: "¿Seguro que desea cerrar sin actualizar la información del Tipo de Contacto?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_contacto = {};
@@ -606,12 +606,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_contacto);
         if (scope.fdatos_contacto.CodTipCon > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea actualizar el Tipo de Contacto?';
+            var text = '¿Seguro que desea actualizar la información del Tipo de Contacto?';
             var response = "El Tipo de Contacto ha sido modificado de forma correcta";
         }
         if (scope.fdatos_contacto.CodTipCon == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea grabar el Tipo de Contacto?';
+            var text = '¿Seguro que desea registrar el Tipo de Contacto?';
             var response = "El Tipo de Contacto ha sido registrado de forma correcta";
         }
         if (scope.fdatos_contacto.ObsTipCon == undefined || scope.fdatos_contacto.ObsTipCon == null || scope.fdatos_contacto.ObsTipCon == "") {
@@ -626,7 +626,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -701,12 +701,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -812,12 +812,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_documento == undefined) {
             Swal.fire({
 
-                text: "¿Seguro que desea cerrar sin actualizar el Documento?",
+                text: "¿Seguro que desea cerrar sin actualizar la información del Tipo de Documento?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_documento = {};
@@ -841,14 +841,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos_documento);
         if (scope.fdatos_documento.CodTipDoc > 0) {
 
-            var title="Actualizando";
-            var text = '¿Seguro que desea actualizar el Tipo de Documento?';
+            var title = "Actualizando";
+            var text = '¿Seguro que desea actualizar la información del Tipo de Documento?';
             var response = "El Tipo de Documento ha sido modificado de forma correcta";
         }
         if (scope.fdatos_documento.CodTipDoc == undefined) {
 
-            var title="Guardando";
-            var text = '¿Seguro que desea grabar el Tipo de Documento?';
+            var title = "Guardando";
+            var text = '¿Seguro que desea registrar el Tipo de Documento?';
             var response = "El Tipo de Documento ha sido registrado de forma correcta";
         }
         if (scope.fdatos_documento.ObsTipDoc == undefined || scope.fdatos_documento.ObsTipDoc == null || scope.fdatos_documento.ObsTipDoc == "") {
@@ -863,7 +863,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -948,7 +948,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -983,35 +983,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     scope.validar_opcion_documentos = function(index, opciones_documento, datos) {
-        scope.opciones_documento[index] = undefined;
-        if (opciones_documento == 1) {
-            scope.TVistaDocumentos = 2;
-            scope.fdatos_documento = datos;
-            if (datos.EstReq == "NO") {
-                scope.fdatos_documento.EstReq = false;
+            scope.opciones_documento[index] = undefined;
+            if (opciones_documento == 1) {
+                scope.TVistaDocumentos = 2;
+                scope.fdatos_documento = datos;
+                if (datos.EstReq == "NO") {
+                    scope.fdatos_documento.EstReq = false;
+                }
+                if (datos.EstReq == "SI") {
+                    scope.fdatos_documento.EstReq = true;
+                }
+                scope.validate_documento = 1;
             }
-            if (datos.EstReq == "SI") {
-                scope.fdatos_documento.EstReq = true;
+            if (opciones_documento == 2) {
+                scope.TVistaDocumentos = 2;
+                scope.fdatos_documento = datos;
+                if (datos.EstReq == "NO") {
+                    scope.fdatos_documento.EstReq = false;
+                }
+                if (datos.EstReq == "SI") {
+                    scope.fdatos_documento.EstReq = true;
+                }
+                scope.validate_documento = undefined;
             }
-            scope.validate_documento = 1;
         }
-        if (opciones_documento == 2) {
-            scope.TVistaDocumentos = 2;
-            scope.fdatos_documento = datos;
-            if (datos.EstReq == "NO") {
-                scope.fdatos_documento.EstReq = false;
-            }
-            if (datos.EstReq == "SI") {
-                scope.fdatos_documento.EstReq = true;
-            }
-            scope.validate_documento = undefined;
-        }
-    }
-////////////////////////////////////////////////////////////////////////TIPO DOCUMENTOS END///////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////TIPO DOCUMENTOS END///////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////////////////////TIPO GESTIONES START///////////////////////////////////////////////////////////////////////////
-scope.cargar_lista_tipo_gestiones = function() {
+    ////////////////////////////////////////////////////////////////////////TIPO GESTIONES START///////////////////////////////////////////////////////////////////////////
+    scope.cargar_lista_tipo_gestiones = function() {
         $("#cargando_lista").removeClass("loader loader-default").addClass("loader loader-default  is-active");
         var url = base_urlHome() + "api/Tipos/list_tipo_gestiones/";
         $http.get(url).then(function(result) {
@@ -1059,17 +1059,15 @@ scope.cargar_lista_tipo_gestiones = function() {
         scope.fdatos_gestiones = {};
         scope.TVistaGestiones = 2;
         scope.validate_gestiones = undefined;
-        scope.fdatos_gestiones.ActTipGes=false;
+        scope.fdatos_gestiones.ActTipGes = false;
     }
-    scope.regresar_gestiones = function(){
-        
-        if(scope.fdatos_gestiones.CodTipGes==undefined)
-        {
-            var text="¿Seguro que desea cerrar sin guardar el Tipo de Gestión ?"
+    scope.regresar_gestiones = function() {
+
+        if (scope.fdatos_gestiones.CodTipGes == undefined) {
+            var text = "¿Seguro que desea cerrar sin registrar el Tipo de Gestión ?"
         }
-        if(scope.fdatos_gestiones.CodTipGes>0)
-        {
-            var text="¿Seguro que desea cerrar sin actualizar el Tipo de Gestión ?"
+        if (scope.fdatos_gestiones.CodTipGes > 0) {
+            var text = "¿Seguro que desea cerrar sin actualizar la información del Tipo de Gestión ?"
         }
         Swal.fire({
             text: text,
@@ -1077,7 +1075,7 @@ scope.cargar_lista_tipo_gestiones = function() {
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 scope.fdatos_gestiones = {};
@@ -1091,20 +1089,20 @@ scope.cargar_lista_tipo_gestiones = function() {
             }
         });
     }
-$scope.submitFormGestiones = function(event) {
+    $scope.submitFormGestiones = function(event) {
         console.log(scope.fdatos_gestiones);
         if (scope.fdatos_gestiones.CodTipGes > 0) {
 
             var title = "Actualizando";
-            var text = '¿Seguro que desea actualizar el Tipo de Gestión?';
+            var text = '¿Seguro que desea actualizar la información del Tipo de Gestión?';
             var response = "El Tipo de Gestión ha sido modificado de forma correcta";
         }
         if (scope.fdatos_gestiones.CodTipGes == undefined) {
 
             var title = "Guardando";
-            var text = '¿Seguro que desea grabar el Tipo de Gestión?';
+            var text = '¿Seguro que desea registrar el Tipo de Gestión?';
             var response = "El Tipo de Gestión ha sido registrado de forma correcta";
-        }       
+        }
         Swal.fire({
             title: title,
             text: text,
@@ -1112,7 +1110,7 @@ $scope.submitFormGestiones = function(event) {
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -1124,7 +1122,7 @@ $scope.submitFormGestiones = function(event) {
                         console.log(result.data);
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         scope.buscarXID_Gestiones();
-                    } else{
+                    } else {
                         Swal.fire({ title: "Error", text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
@@ -1148,8 +1146,7 @@ $scope.submitFormGestiones = function(event) {
             }
         });
     };
- scope.buscarXID_Gestiones = function()
- {
+    scope.buscarXID_Gestiones = function() {
         $("#cargando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
         var url = base_urlHome() + "api/Tipos/buscar_xID_Tipo_Gestion/CodTipGes/" + scope.nIDCodTipGes;
         $http.get(url).then(function(result) {
@@ -1198,7 +1195,7 @@ $scope.submitFormGestiones = function(event) {
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -1232,31 +1229,30 @@ $scope.submitFormGestiones = function(event) {
             }
         });
     }
-   scope.validar_opcion_gestiones = function(index, opciones_gestiones, datos)
-   {
-        scope.opciones_gestiones[index] = undefined;
-        if (opciones_gestiones == 1) {
-            scope.TVistaGestiones = 2;
-            scope.fdatos_gestiones = datos;
-            if (datos.ActTipGes == 0) {
-                scope.fdatos_gestiones.ActTipGes = false;
+    scope.validar_opcion_gestiones = function(index, opciones_gestiones, datos) {
+            scope.opciones_gestiones[index] = undefined;
+            if (opciones_gestiones == 1) {
+                scope.TVistaGestiones = 2;
+                scope.fdatos_gestiones = datos;
+                if (datos.ActTipGes == 0) {
+                    scope.fdatos_gestiones.ActTipGes = false;
+                }
+                if (datos.ActTipGes == 1) {
+                    scope.fdatos_gestiones.ActTipGes = true;
+                }
+                scope.validate_gestiones = 1;
             }
-            if (datos.ActTipGes == 1) {
-                scope.fdatos_gestiones.ActTipGes = true;
+            if (opciones_gestiones == 2) {
+                scope.TVistaGestiones = 2;
+                scope.fdatos_gestiones = datos;
+                if (datos.ActTipGes == 0) {
+                    scope.fdatos_gestiones.ActTipGes = false;
+                }
+                if (datos.ActTipGes == 1) {
+                    scope.fdatos_gestiones.ActTipGes = true;
+                }
+                scope.validate_gestiones = undefined;
             }
-            scope.validate_gestiones = 1;
         }
-        if (opciones_gestiones == 2) {
-            scope.TVistaGestiones = 2;
-            scope.fdatos_gestiones = datos;
-            if (datos.ActTipGes == 0) {
-                scope.fdatos_gestiones.ActTipGes = false;
-            }
-            if (datos.ActTipGes == 1) {
-                scope.fdatos_gestiones.ActTipGes = true;
-            }
-            scope.validate_gestiones = undefined;
-        }
-    }
-////////////////////////////////////////////////////////////////////////TIPO GESTIONES END///////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////TIPO GESTIONES END///////////////////////////////////////////////////////////////////////////
 }

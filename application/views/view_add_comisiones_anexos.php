@@ -176,10 +176,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <!--th><i class="fa fa-arrow-down"></i> Rango de Consumo</th-->
-                    <th><i class="fa fa-arrow-down"></i> Consumo Mínimo Anual</th>
-                    <th><i class="fa fa-arrow-down"></i> Consumo Máximo Anual</th>
-                    <th><i class="fa fa-arrow-down"></i> Comisión Servicios</th>
-                    <th><i class="fa fa-arrow-down"></i> Comisión Certificado Verde</th>
+                    <th>Consumo Mínimo Anual</th>
+                    <th>Consumo Máximo Anual</th>
+                    <th>Comisión Servicios</th>
+                    <th>Comisión Certificado Verde</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesRangoGrib.length==0"> 
                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
@@ -198,10 +198,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                     <!--th><i class="fa fa-arrow-up"></i> Rango de Consumo</th-->
-                    <th><i class="fa fa-arrow-up"></i> Consumo Mínimo Anual</th>
-                    <th><i class="fa fa-arrow-up"></i> Consumo Máximo Anual</th>
-                    <th><i class="fa fa-arrow-up"></i> Comisión Suministros</th>
-                    <th><i class="fa fa-arrow-up"></i> Comisión Certificado Verde</th>
+                    <th>Consumo Mínimo Anual</th>
+                    <th>Consumo Máximo Anual</th>
+                    <th>Comisión Suministros</th>
+                    <th>Comisión Certificado Verde</th>
                 </tfoot>
               </table></div>
 

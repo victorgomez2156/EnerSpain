@@ -354,7 +354,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: 'Activar'
+                confirmButtonText: 'Confirmar'
             }).then(function(t) {
                 if (t.value == true) {
                     scope.cambiar_estatus_comercializadora(opciones_comercializadoras, dato.CodCom);
@@ -466,7 +466,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: 'Bloquear'
+            confirmButtonText: 'Confirmar'
         }).then(function(t) {
             if (t.value == true) {
                 console.log(scope.t_modal_data);

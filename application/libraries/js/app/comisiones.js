@@ -211,12 +211,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         Swal.fire({
             title: 'Comisiones',
-            text: 'Estás Seguro de continuar con el proceso de comisiones?',
+            text: '¿Seguro que desea cerrar sin registrar las Comisiones?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#Guar_Deta").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -321,12 +321,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_comisiones = function() {
         Swal.fire({
             title: 'Volver',
-            text: '¿Seguro de no continuar con la actualización de Comisiones?',
+            text: '¿Seguro que desea cerrar sin actualizar la información de las Comisiones?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: 'Volver'
+            confirmButtonText: 'Confirmar'
         }).then(function(t) {
             if (t.value == true) {
                 location.href = "#/Anexos";

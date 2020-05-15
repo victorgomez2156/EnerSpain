@@ -343,12 +343,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodConCup > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea modificar los datos del CUPs?';
+            var text = '¿Seguro que desea modificar la información del CUPs?';
             var response = "CUPs actualizado de forma correcta";
         }
         if (scope.fdatos_cups.CodConCup == undefined) {
             var title = 'Guardando';
-            var text = '¿Seguro que desea regitrar el consumo de CUPs?';
+            var text = '¿Seguro que desea registrar el consumo de CUPs?';
             var response = "Consumo de CUPs creado de forma correcta";
         }
         Swal.fire({
@@ -358,7 +358,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "SI"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
 
             if (t.value == true) {
@@ -434,12 +434,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var hasta = document.getElementById("hasta").value;
         scope.fdatos_cups.FecFinCon = hasta;
         if (scope.fdatos_cups.FecFinCon == null || scope.fdatos_cups.FecFinCon == undefined || scope.fdatos_cups.FecFinCon == '') {
-            Swal.fire({ title: "El Campo Fecha de Hasta es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "La Fecha Hasta es requerida", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecFinCon = (scope.fdatos_cups.FecFinCon).split("/");
             if (FecFinCon.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha Hasta debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha Hasta correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 //event.preventDefault();	
                 return false;
             } else {

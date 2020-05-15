@@ -227,12 +227,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope);
         if (scope.fdatos.CodCom == undefined) {
             var titulo = 'Guardando';
-            var texto = '¿Estás seguro de guardar este nuevo registro?';
-            var response = 'Comercializadora creada correctamente.';
+            var texto = '¿Seguro que desea registrar la Comercializadora?';
+            var response = 'Comercializadora registrada de forma correcta';
         } else {
             var titulo = 'Actualizando';
-            var texto = '¿Estás seguro de actualizar este registro?';
-            var response = 'Comercializadora modificada correctamente.';
+            var texto = '¿Seguro que desea actualizar la información de la Comercializadora?';
+            var response = 'Comercializadora modificada de forma correcta';
         }
         if (!scope.validar_campos_datos_basicos()) {
             return false;
@@ -309,28 +309,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.FecIniCom = FecIniCom;
         if (scope.FecIniCom == null || scope.FecIniCom == undefined || scope.FecIniCom == '') {
-            Swal.fire({ title: 'La fecha de inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniCom = (scope.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
-                Swal.fire({ text: 'El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'El formato Fecha de Inicio correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniCom[0].length > 2 || FecIniCom[0].length < 2) {
-                    Swal.fire({ text: 'Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecIniCom[1].length > 2 || FecIniCom[1].length < 2) {
-                    Swal.fire({ text: 'Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniCom[2].length < 4 || FecIniCom[2].length > 4) {
-                    Swal.fire({ text: 'Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -340,7 +340,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'La fecha de inicio no puede ser mayor a: ' + scope.fecha_server + 'Verifique he intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio no puede ser mayor al ' + scope.fecha_server + 'Verifique e intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.fdatos.FecIniCom = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
@@ -375,7 +375,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title:'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
@@ -534,10 +534,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.INF == undefined) {
             if (scope.fdatos.CodCom == undefined) {
                 var title = 'Guardando';
-                var text = '¿Seguro que desea cerrar sin grabar la información?';
+                var text = '¿Seguro que desea cerrar sin registrar la Comercializadora?';
             } else {
                 var title = 'Actualizando';
-                var text = '¿Seguro que desea cerrar sin actualizar la información?';
+                var text = '¿Seguro que desea cerrar sin actualizar la información de la Comercializadora?';
             }
             Swal.fire({
                 title: title,

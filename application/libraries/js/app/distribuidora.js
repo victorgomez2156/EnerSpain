@@ -187,7 +187,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             return false;
         }
         if (scope.disabled_form == 1) {
-            Swal.fire({ title: "Error.", text: 'No se puede continuar con la operación.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error", text: 'No es posible continuar con la operación', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (!scope.validar_campos_null()) {
@@ -196,13 +196,13 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
 
         if (scope.fdatos.CodDist > 0) {
             var title = 'Actualizando';
-            var text = '¿Estás seguro de actualizar este registro?';
-            var response = 'Distribuidora modificada correctamente.';
+            var text = '¿Seguro que desea actualizar la información de la Distribuidora?';
+            var response = 'Distribuidora modificada de forma correcta';
         }
         if (scope.fdatos.CodDist == undefined) {
             var title = 'Guardando';
-            var text = 'Estás seguro de registra este nuevo registro?';
-            var response = 'Distribuidora creado correctamente.';
+            var text = '¿Seguro que desea registrar la Distribuidora?';
+            var response = 'Distribuidora creado de forma correcta';
         }
         console.log(scope.fdatos);
         Swal.fire({
@@ -668,15 +668,15 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         }
 
     };
-    scope.regresar = function(){
+    scope.regresar = function() {
 
         if (scope.validate_info == undefined) {
-            if (scope.fdatos.CodDist == undefined){
-                var title="Guardando";
-                var text = "¿Seguro que desea cerrar sin grabar la información?";
+            if (scope.fdatos.CodDist == undefined) {
+                var title = "Guardando";
+                var text = "¿Seguro que desea cerrar sin registrar la Distribuidora?";
             } else {
-                var title="Actualizando";
-                var text = "¿Seguro que desea cerrar sin actualizar la información?";
+                var title = "Actualizando";
+                var text = "¿Seguro que desea cerrar sin actualizar la información de la Distribuidora?";
             }
             Swal.fire({
                 title: title,
@@ -685,7 +685,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     location.href = "#/Distribuidora";

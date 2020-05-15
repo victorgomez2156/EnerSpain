@@ -463,28 +463,28 @@
          var FecBloPun = document.getElementById("FecBloPun").value;
          scope.FecBloPun = FecBloPun;
          if (scope.FecBloPun == undefined || scope.FecBloPun == null || scope.FecBloPun == '') {
-             Swal.fire({ text: "El Campo Fecha de Bloqueo no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ text: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          } else {
              var FecBloPun = (scope.FecBloPun).split("/");
              if (FecBloPun.length < 3) {
-                 Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ text: "El formato Fecha de Bloqueo correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              } else {
                  if (FecBloPun[0].length > 2 || FecBloPun[0].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloPun[1].length > 2 || FecBloPun[1].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloPun[2].length < 4 || FecBloPun[2].length > 4) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -494,7 +494,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
                  scope.tPunSum.FecBloPun = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -507,7 +507,7 @@
          }
 
          Swal.fire({
-             title: "¿Esta Seguro de Bloquear esta Dirección de Suministro?",
+             title: "¿Seguro que desea Bloquear la Dirección de Suministro?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
@@ -521,16 +521,16 @@
                      $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      scope.tPunSum = result.data;
                      if (result.data != false) {
-                         Swal.fire({ title: "Exito!.", text: "El Dirección de Suministro a sido bloqueado correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Procesaro", text: "El Dirección de Suministro ha sido bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                          $("#modal_motivo_bloqueo_punto_suministro").modal('hide');
                          scope.mostrar_all_puntos();
                      } else {
-                         Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error", text: "Hubo un error en el proceso, por favor intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                      }
                  }, function(error) {
                      $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 401 && error.statusText == "Unauthorized") {
                          Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -739,7 +739,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  $("#" + title).removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -833,7 +833,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "Continuar"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  location.href = "#/Puntos_Suministros";

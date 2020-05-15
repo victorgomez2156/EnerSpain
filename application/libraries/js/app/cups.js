@@ -182,15 +182,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.ConCupHis=true;*/
         }
     }
-    scope.regresar_cups = function(){
+    scope.regresar_cups = function() {
 
         if (scope.validate_info == undefined) {
             if (scope.fdatos_cups.CodCup == undefined) {
-                var title="Guardando";
-                var text = "¿Seguro que desea cerrar sin grabar la información?";
+                var title = "Guardando";
+                var text = "¿Seguro que desea cerrar sin registrar el CUPs?";
             } else {
-                var title="Actualizando";
-                var text = "¿Seguro que desea cerrar sin actualizar la información?";
+                var title = "Actualizando";
+                var text = "¿Seguro que desea cerrar sin actualizar la información del CUPs?";
             }
             Swal.fire({
                 title: title,
@@ -199,7 +199,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "OK"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     location.href = "#/Gestionar_Cups";
@@ -319,28 +319,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecBaj = document.getElementById("FecBaj").value;
         scope.tmodal_data.FecBaj = FecBaj;
         if (scope.tmodal_data.FecBaj == undefined || scope.tmodal_data.FecBaj == null || scope.tmodal_data.FecBaj == '') {
-            Swal.fire({ text: "El Campo Fecha de Bloqueo no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
             event.preventDefault();
             return false;
         } else {
             var FecBaj = (scope.tmodal_data.FecBaj).split("/");
             if (FecBaj.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha de Bloqueo correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecBaj[0].length > 2 || FecBaj[0].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecBaj[1].length > 2 || FecBaj[1].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecBaj[2].length < 4 || FecBaj[2].length > 4) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -350,7 +350,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
             }
@@ -588,7 +588,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodCup > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea modificar los datos del CUPs?';
+            var text = '¿Seguro que desea modificar la información del CUPs?';
             var response = "CUPs actualizado de forma correcta";
         }
         if (scope.fdatos_cups.CodCup == undefined) {
@@ -603,7 +603,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "SI"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -748,12 +748,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecAltCup = document.getElementById("FecAltCup").value;
         scope.fdatos_cups.FecAltCup = FecAltCup;
         if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
-            Swal.fire({ title: "El Campo Fecha de Alta Es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "La Fecha de Alta es requerida", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
             if (FecAltCup.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha de Alta debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha de Alta correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 //event.preventDefault();	
                 return false;
             } else {
@@ -782,12 +782,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecUltLec = document.getElementById("FecUltLec").value;
         scope.fdatos_cups.FecUltLec = FecUltLec;
         if (scope.fdatos_cups.FecUltLec == null || scope.fdatos_cups.FecUltLec == undefined || scope.fdatos_cups.FecUltLec == '') {
-            Swal.fire({ title: "El Campo Fecha de Última Lectura es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "La Fecha de Última Lectura es requerida", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecUltLec = (scope.fdatos_cups.FecUltLec).split("/");
             if (FecUltLec.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha Última Lectura debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha Última Lectura correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 //event.preventDefault();	
                 return false;
             } else {
@@ -977,7 +977,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         resultado = true;
         var desde = (scope.historial.desde).split("/");
         if (desde.length < 3) {
-            Swal.fire({ text: "El Formato de Fecha DESDE Debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: "El formato Fecha Desde correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (desde[0].length > 2 || desde[0].length < 2) {
@@ -1000,7 +1000,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         var hasta = (scope.historial.hasta).split("/");
         if (hasta.length < 3) {
-            Swal.fire({ text: "El Formato de Fecha HASTA Debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: "El formato Fecha Hasta correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (hasta[0].length > 2 || hasta[0].length < 2) {

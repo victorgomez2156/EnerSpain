@@ -125,12 +125,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.validate_mot_bloqueo_cliente == undefined) {
             Swal.fire({
 
-                text: "¿Seguro que desea cerrar y no completar el proceso?",
+                text: "¿Seguro que desea cerrar sin bloquear el Cliente?",
                 type: "question",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_clientes = {};
@@ -160,7 +160,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.fdatos_mot_clientes.CodMotBloCli == undefined) {
 
             var title = 'Guardando';
-            var text = '¿Seguro que desea grabar el Motivo de Bloqueo?';
+            var text = '¿Seguro que desea registrar el Motivo de Bloqueo?';
             var response = "El Motivo Bloqueo de Cliente ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_clientes.ObsMotBloCli == undefined || scope.fdatos_mot_clientes.ObsMotBloCli == null || scope.fdatos_mot_clientes.ObsMotBloCli == "") {
@@ -175,7 +175,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -250,12 +250,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -367,7 +367,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_actividad = {};
@@ -389,7 +389,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     $scope.submitFormActividad = function(event) {
         console.log(scope.fdatos_mot_actividad);
-        if (scope.fdatos_mot_actividad.CodMotBloAct > 0){
+        if (scope.fdatos_mot_actividad.CodMotBloAct > 0) {
             var title = 'Actualizando';
             var text = '¿Seguro que desea modificar el Motivo de Bloqueo de la Actividad?';
             var response = "El Motivo de Bloqueo de la Actividad ha sido actualizado de forma correcta";
@@ -397,7 +397,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (scope.fdatos_mot_actividad.CodMotBloAct == undefined) {
 
             var title = 'Guardando';
-            var text = '¿Seguro que desea grabar el Motivo de Bloqueo de la Actividad?';
+            var text = '¿Seguro que desea registrar el Motivo de Bloqueo de la Actividad?';
             var response = "El Motivo de Bloqueo de la Actividad ha sido registrado de forma correcta";
         }
         if (scope.fdatos_mot_actividad.ObsMotBloAct == undefined || scope.fdatos_mot_actividad.ObsMotBloAct == null || scope.fdatos_mot_actividad.ObsMotBloAct == "") {
@@ -412,7 +412,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -487,12 +487,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -601,7 +601,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_PunSum = {};
@@ -646,7 +646,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -722,12 +722,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -806,8 +806,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error.", text: "No hemos encontrado motivos bloqueo contacto registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TMotivo_BloContacto = undefined;
             }
-        }, function(error)
-        {
+        }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
@@ -838,7 +837,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_contacto = {};
@@ -883,7 +882,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -959,12 +958,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -1075,7 +1074,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_comercializadora = {};
@@ -1121,7 +1120,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -1197,12 +1196,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         Swal.fire({
             title: "Borrar",
-            text: "¿Está Seguro de Eliminar Este Registro?",
+            text: "¿Seguro que desea eliminar el Motivo?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Si, Deseo continuar!"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -1329,7 +1328,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.fdatos_mot_cups = {};
@@ -1402,7 +1401,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Continuar"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -1451,7 +1450,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Continuar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     $("#borrando").removeClass("loader loader-default").addClass("loader loader-default  is-active");

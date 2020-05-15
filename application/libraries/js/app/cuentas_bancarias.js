@@ -370,10 +370,10 @@
              console.log(scope.VAL_TIR_RES4);
              console.log(scope.VAL_RES_TIR_RES2);
              if (scope.VAL_RES_TIR_RES2 == 1) {
-                 Swal.fire({ title: "IBAN.", text: "El Número de IBAN es Correcto Puede Continuar.", type: "success", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "IBAN.", text: "El IBAN que introdujo es válido, presione el botón Continuar", type: "success", confirmButtonColor: "#188ae2" });
                  scope.numIBanValidado = true;
              } else {
-                 Swal.fire({ title: "Error.", text: "El Número de IBAN es Incorrecto Por Favor Verifiquelo e Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "El IBAN que introdujo es incorrecto, verifique e intente de nuevo", type: "error", confirmButtonColor: "#188ae2" });
                  scope.numIBanValidado = false;
              }
          } else {
@@ -391,7 +391,7 @@
              } else {
                  if (scope.tgribBancos.CodCueBan > 0) {
                      var title = 'Actualizando';
-                     var text = '¿Seguro que desea modificar los datos de la Cuenta Bancaria?';
+                     var text = '¿Seguro que desea modificar la información de la Cuenta Bancaria?';
                      var response = "Cuenta Bancaria actualizada de forma correcta";
                  }
                  if (scope.tgribBancos.CodCueBan == undefined) {
@@ -406,7 +406,7 @@
                      showCancelButton: !0,
                      confirmButtonColor: "#31ce77",
                      cancelButtonColor: "#f34943",
-                     confirmButtonText: "OK"
+                     confirmButtonText: "Confirmar"
                  }).then(function(t) {
                      if (t.value == true) {
                          $("#" + title).removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -483,7 +483,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  location.href = "#/Cuentas_Bancarias";

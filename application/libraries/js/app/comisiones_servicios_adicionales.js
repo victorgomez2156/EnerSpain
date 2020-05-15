@@ -236,12 +236,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.datos_enviar);
         Swal.fire({
             title: 'Comisiones',
-            text: '¿Seguro de continuar con la operación?',
+            text: '¿Seguro que desea registrar la Comisión?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#Guar_Deta").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -316,12 +316,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.regresar_comisiones = function() {
         Swal.fire({
             title: 'Volver',
-            text: '¿Seguro de no continuar con la actualización de Comisiones?',
+            text: '¿Seguro que desea cerrar sin actualizar la información de las Comisiones?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: 'Volver'
+            confirmButtonText: 'Confirmar'
         }).then(function(t) {
             if (t.value == true) {
                 location.href = "#/Servicios_Adicionales";

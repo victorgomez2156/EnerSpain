@@ -465,12 +465,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             Swal.fire({
                 title: 'Activando',
-                text: "¿Estás seguro de Activar este Anexo?",
+                text: "¿Seguro que desea Activar el Anexo?",
                 type: "info",
                 showCancelButton: !0,
                 confirmButtonColor: "#31ce77",
                 cancelButtonColor: "#f34943",
-                confirmButtonText: "Activar"
+                confirmButtonText: "Confirmar"
             }).then(function(t) {
                 if (t.value == true) {
                     scope.cambiar_estatus_anexos(opciones_anexos, dato.CodAnePro, index);

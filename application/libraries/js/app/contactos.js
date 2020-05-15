@@ -449,28 +449,28 @@
          var FechBlo1 = document.getElementById("FechBlo").value;
          scope.FechBlo = FechBlo1;
          if (scope.FechBlo == undefined || scope.FechBlo == null || scope.FechBlo == '') {
-             Swal.fire({ text: "El Campo Fecha de Bloqueo no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ text: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
              event.preventDefault();
              return false;
          } else {
              var FechBlo = (scope.FechBlo).split("/");
              if (FechBlo.length < 3) {
-                 Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: " + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ text: "El formato Fecha de Bloqueo correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                  event.preventDefault();
                  return false;
              } else {
                  if (FechBlo[0].length > 2 || FechBlo[0].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FechBlo[1].length > 2 || FechBlo[1].length < 2) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
                  if (FechBlo[2].length < 4 || FechBlo[2].length > 4) {
-                     Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Año, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -480,7 +480,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
                  scope.tmodal_data.FechBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -522,13 +522,13 @@
                  $("#NIFConCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
                  if (result.data != false) {
                      Swal.fire({
-                         title: "DNI/NIE Encontrado",
-                         text: "¿El Número DNI/NIE se encuentra registrado si desea asignarlo a otro cliente presione continuar?",
+                         title: "DNI/NIE registrado",
+                         text: "El DNI/NIE ya se encuentra registrado, presione el botón Continuar si desea asignarlo a otro Cliente",
                          type: "question",
                          showCancelButton: !0,
                          confirmButtonColor: "#31ce77",
                          cancelButtonColor: "#f34943",
-                         confirmButtonText: "CONTINUAR"
+                         confirmButtonText: "Continuar"
                      }).then(function(t) {
                          if (t.value == true) {
                              $("#modal_cif_cliente_contacto").modal('hide');
@@ -566,10 +566,10 @@
          if (scope.no_editable == undefined) {
              if (scope.tContacto_data_modal.CodConCli == undefined) {
                  var title = "Guardando";
-                 var text = "¿Seguro que desea cerrar y no grabar la información?";
+                 var text = "¿Seguro que desea cerrar sin registrar el Contacto?";
              } else {
                  var title = "Actualizando";
-                 var text = "¿Seguro que desea cerrar y no actualizar la información?";
+                 var text = "¿Seguro que desea cerrar sin actualizar la información del Contacto?";
              }
              Swal.fire({
                  title: title,
@@ -578,7 +578,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "OK"
+                 confirmButtonText: "Confirmar"
              }).then(function(t) {
                  if (t.value == true) {
                      location.href = "#/Contactos";
@@ -678,11 +678,11 @@
          }
          if (scope.tContacto_data_modal.CodConCli > 0) {
              var title = 'Actualizando';
-             var text = '¿Seguro que desea Actualizar el Contacto?';
+             var text = '¿Seguro que desea actualizar la información del Contacto?';
          }
          if (scope.tContacto_data_modal.CodConCli == undefined) {
              var title = 'Guardando';
-             var text = '¿Seguro que desea Registrar el Contacto?';
+             var text = '¿Seguro que desea registrar el Contacto?';
          }
          Swal.fire({
              title: text,
@@ -690,7 +690,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  if ($Archivo_DocNIF.files.length > 0) {

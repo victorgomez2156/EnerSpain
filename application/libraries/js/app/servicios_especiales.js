@@ -465,12 +465,12 @@
              }
              Swal.fire({
                  title: 'Activando',
-                 text: '¿Estás seguro de activar este servicio especial?',
+                 text: '¿Seguro que desea activar el Servicio Especial?',
                  type: "question",
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: 'Activar'
+                 confirmButtonText: 'Confirmar'
              }).then(function(t) {
                  if (t.value == true) {
                      scope.cambiar_estatus_servicio_especial(opciones_servicio_especiales, dato.CodSerEsp, index);
@@ -1013,7 +1013,7 @@
                  var text = '¿Seguro que desea cerrar sin registrar el Servicio Especial?';
              } else {
                  var title = 'Actualizando';
-                 var text = '¿Seguro que desea cerrar sin actualizar el Servicio Especial?';
+                 var text = '¿Seguro que desea cerrar sin actualizar la información del Servicio Especial?';
              }
              Swal.fire({
                  title: title,
@@ -1022,7 +1022,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "Continuar"
+                 confirmButtonText: "Confirmar"
              }).then(function(t) {
                  if (t.value == true) {
                      //scope.TvistaServiciosEspeciales=1;

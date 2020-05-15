@@ -55,7 +55,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos);
         if (scope.fdatos.CodCom > 0) {
             var title = 'Actualizando';
-            var text = '¿Seguro que desea modificar los datos del Comercial?';
+            var text = '¿Seguro que desea modificar la información del Comercial?';
             var response = "Comercial actualizado de forma correcta";
         }
         if (scope.fdatos.CodCom == undefined) {
@@ -71,14 +71,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
-                $("#"+title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
                 var url = base_urlHome() + "api/Comercial/crear_comercial/";
                 $http.post(url, scope.fdatos).then(function(result) {
                     scope.nID = result.data.CodCom;
-                    $("#"+title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (scope.nID > 0) {
                         console.log(result.data);
                         Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
@@ -88,7 +88,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error", text: "Ha ocurrido durante el proceso, Por Favor Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 }, function(error) {
-                    $("#"+title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
@@ -111,7 +111,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_datos_basicos = function() {
         resultado = true;
         if (scope.fdatos.NomCom == null || scope.fdatos.NomCom == undefined || scope.fdatos.NomCom == '') {
-            Swal.fire({ title: "El Campo Nombre Comercial es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Nombre Comercial es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.CarCom == null || scope.fdatos.CarCom == undefined || scope.fdatos.CarCom == '') {
@@ -126,22 +126,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             var FecIniCom = (scope.fdatos.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha de Inicio debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha de Inicio correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniCom[0].length > 2 || FecIniCom[0].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Inicio deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniCom[1].length > 2 || FecIniCom[1].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Inicio deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniCom[2].length < 4 || FecIniCom[2].length > 4) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Inicio Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -151,26 +151,26 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: "La Fecha de Inicio no puede ser mayor al " + fecha + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "La Fecha de Inicio no debe ser mayor al " + fecha + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.fdatos.FecIniCom = valuesStart[0] + "/" + valuesStart[1] + "/" + valuesStart[2];
             }
         }
         if (scope.fdatos.PorComCom == null || scope.fdatos.PorComCom == undefined || scope.fdatos.PorComCom == '') {
-            Swal.fire({ title: "El Campo Porcentaje del Beneficio es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Porcentaje del Beneficio es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: "El Campo Teléfono Fijo es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Teléfono Fijo es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.TelCelCom == null || scope.fdatos.TelCelCom == undefined || scope.fdatos.TelCelCom == '') {
-            Swal.fire({ title: "El Campo Teléfono Celular es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Teléfono Celular es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
-            Swal.fire({ title: "El Campo Email es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Email es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.ObsCom == null || scope.fdatos.ObsCom == undefined || scope.fdatos.ObsCom == '') {
@@ -425,7 +425,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         bootbox.confirm({
             title: "Confirmación",
-            message: "¿Seguro que desea borrar el Registro?",
+            message: "¿Seguro que desea eliminar el Comercial?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'
@@ -474,7 +474,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         bootbox.confirm({
             title: "Confirmación",
-            message: "¿Seguro que desea borrar el Registro?",
+            message: "¿Seguro que desea eliminar el Comercial?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancelar'
@@ -594,27 +594,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FechBloCom = document.getElementById("FechBloCom").value;
         scope.FechBloCom = FechBloCom;
         if (scope.FechBloCom == null || scope.FechBloCom == undefined || scope.FechBloCom == '') {
-            Swal.fire({ title: "El Campo Fecha de Bloqueo Es Requerida.", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FechBloCom = (scope.FechBloCom).split("/");
             if (FechBloCom.length < 3) {
-                Swal.fire({ text: "El Formato de Fecha de Bloqueo debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: "El formato Fecha de Bloqueo correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
                 if (FechBloCom[0].length > 2 || FechBloCom[0].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del dia en la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FechBloCom[1].length > 2 || FechBloCom[1].length < 2) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del mes de la Fecha de Bloqueo deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FechBloCom[2].length < 4 || FechBloCom[2].length > 4) {
-                    Swal.fire({ text: "Por Favor Corrija el Formato del ano en la Fecha de Bloqueo Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -624,7 +624,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + fecha + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: "La Fecha de Bloqueo no puede ser mayor al " + fecha + " Verifique e intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.datos_update.FechBloCom = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
@@ -638,12 +638,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.datos_update);
         Swal.fire({
             title: 'BLOQUEAR',
-            text: "¿Está Seguro de Bloquear Este Comercial?",
+            text: "¿Seguro que desea de bloquear el Comercial?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "OK"
+            confirmButtonText: "Confirmar"
         }).then(function(t) {
             if (t.value == true) {
                 $("#bloqueando").removeClass("loader loader-default").addClass("loader loader-default is-active");

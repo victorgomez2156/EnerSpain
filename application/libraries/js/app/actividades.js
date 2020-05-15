@@ -351,7 +351,7 @@
                  showCancelButton: !0,
                  confirmButtonColor: "#31ce77",
                  cancelButtonColor: "#f34943",
-                 confirmButtonText: "Activar"
+                 confirmButtonText: "Confirmar"
              }).then(function(t) {
                  if (t.value == true) {
                      $("#estatus_actividad").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -499,7 +499,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "Bloquear"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  $("#estatus_actividad").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -678,10 +678,10 @@
 
          if (scope.fdatos_actividades.CodTActCli == undefined) {
              var title = "Guardando";
-             var text = "¿Estás seguro de salir y no grabar los datos?";
+             var text = "¿Seguro que desea cerrar sin registrar la Actividad?";
          } else {
              var title = "Actualizando";
-             var text = "¿Estás seguro de salir y no actualizar los datos?";
+             var text = "¿Seguro que desea cerrar sin actualizar la información de la Actividad?";
          }
          Swal.fire({
              title: title,
@@ -690,7 +690,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Confirmar"
          }).then(function(t) {
              if (t.value == true) {
                  location.href = "#/Actividades";
