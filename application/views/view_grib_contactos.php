@@ -133,16 +133,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Introduzca CIF: <b style="color:red;">(*)</b></h4>
+                        <h4 class="modal-title">Introduzca DNI/NIE: <b style="color:red;">(*)</b></h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="dni_contacto" name="dni_contacto" ng-submit="Consultar_CIF_Contacto($event)"> 
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de DNI/NIE:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NIFConCli" placeholder="* Ingrese Número de DNI/NIE" maxlength="50" required/>   
+                              <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NIFConCli" placeholder="* Ingrese Número de DNI/NIE" onkeyup="this.value=this.value.toUpperCase();" id="NIFConCli" name="NIFConCli" maxlength="9" required/>   
                             </div>
                           </div>
+                          <p id="iLetter"></p>
                           <button class="btn btn-info" type="submit" ng-disabled="dni_contacto.$invalid">CONSULTAR</button>
                         </form>
                       </div>

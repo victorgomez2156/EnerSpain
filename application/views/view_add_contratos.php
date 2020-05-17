@@ -412,10 +412,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         console.log($file_fotocopia.files[0].name);
       });
      
-</script>     
-
-        <!--input type="file" id="file_fotocopia"  accept="*/*" class="form-control btn-info" updloadfotocopia-model="file_fotocopia"-->
-         
+</script> 
          </div>
          </div>
      
@@ -434,9 +431,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
 
-            <!--a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Contrato_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a-->
-            <!--button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodConCom>0 " >Actualizar</button-->            
-            <!--button class="btn btn-warning" type="button"  ng-click="vm.limpiar()" ng-show="vm.fdatos.CodConCom==undefined||vm.fdatos.CodConCom==null||vm.fdatos.CodConCom==''">Limpiar</button-->
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
@@ -475,20 +469,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
 
-//datepicker_Vencimiento
-  /*$('#FecIniCon').on('changeDate', function() 
-  {
-     var FecIniCon=document.getElementById("FecIniCon").value;
-     console.log("FecIniCon: "+FecIniCon);
-  });*/
-
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
-  <!-- custom form validation script for this page-->
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>
-  <!--custome script for all page-->
-  <!--script src="application/libraries/estilos/js/scripts.js"></script-->
-</body>
 <div id="Guardando" class="loader loader-default"  data-text="Grabando Contrato"></div>
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando Contrato"></div>
 <div id="cargando" class="loader loader-default"  data-text="Cargando datos del Contrato"></div>

@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/"><i class="fa fa-file"></i> Exportar en PDF</a></li>
                         <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
                 </ul>
-              </div>              
+              </div> <div id="xcontainer"></div>              
             </div><!--t-0031 end--> 
           </div><!--t-0029 end--> 
         </div><!--DIV removeformobile end-->
@@ -156,6 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </form>
       <br><br><br><br>
+      
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(1)">
     <h4 class="breadcrumb">     
       <span class="foreign-supplier-text" style="color:black;"> Datos Generales</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showDatosGenerales?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
@@ -176,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre </label>
-       <input type="text"  class="form-control" placeholder="Razón Social / Apellidos, Nombre" ng-model="vm.response_customer.RazSocCli" readonly /> 
+       <input type="text" class="form-control" id="RazSocCli" name="RazSocCli" placeholder="Razón Social / Apellidos, Nombre" ng-model="vm.response_customer.RazSocCli" readonly ng-click="vm.copyText(1)" /> 
        </div>
        </div>
        </div>
@@ -185,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Nº Documento </label>
-             <input type="text"  class="form-control" placeholder="Nº Documento" ng-model="vm.response_customer.NumCifCli" readonly/>
+             <input type="text"  class="form-control" placeholder="Nº Documento" ng-model="vm.response_customer.NumCifCli" id="NumCifCli" name="NumCifCli" readonly ng-click="vm.copyText(2)"/>
              </div>
              </div>
         </div>
@@ -194,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Domicilio Social</label> <label ng-show="vm.response_customer.CodPro==vm.response_customer.CodProFis" class="font-weight-bold nexa-dark" style="color:black;"> / Domicilio Fiscal</label>
-             <input type="text" class="form-control" placeholder="Domicilio Social" ng-model="vm.response_customer.DomSoc" readonly/>     
+             <input type="text" class="form-control" placeholder="Domicilio Social" ng-model="vm.response_customer.DomSoc" id="DomSoc" name="DomSoc" readonly ng-click="vm.copyText(3)"/>     
              </div>
              </div>
           </div>
@@ -203,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Escalera / Planta / Puerta </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerSoc" placeholder="Escalera / Planta / Puerta" readonly/>  
+             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerSoc" placeholder="Escalera / Planta / Puerta" id="EscPlaPuerSoc" name="EscPlaPuerSoc" readonly ng-click="vm.copyText(4)"/>  
              </div>
              </div>
           </div>
@@ -211,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Localidad </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.DesLocFis" placeholder="Localidad" readonly />     
+             <input type="text" class="form-control" ng-model="vm.response_customer.DesSoc" placeholder="Localidad" readonly id="DesLocSoc" name="DesLocSoc" ng-click="vm.copyText(5)"/>     
              </div>
              </div>
           </div>
@@ -219,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
-             <input type="text" class="form-control" ng-model="vm.response_customer.ProSoc" placeholder="Provincia" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.ProSoc" placeholder="Provincia" readonly id="DesProSoc" name="DesProSoc" ng-click="vm.copyText(6)"/>     
              </div>
              </div>
           </div>
@@ -228,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.LocSoc" placeholder="Código Postal" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.LocSoc" placeholder="Código Postal" readonly id="LocSoc" name="LocSoc" ng-click="vm.copyText(7)"/>     
              </div>
              </div>
           </div>
@@ -240,7 +241,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Domicilio Fiscal </label>
-             <input type="text" class="form-control" placeholder="Domicilio Fiscal" ng-model="vm.response_customer.DomFis" readonly/>     
+             <input type="text" class="form-control" placeholder="Domicilio Fiscal" ng-model="vm.response_customer.DomFis" id="DomFis" name="DomFis" readonly ng-click="vm.copyText(8)"/>     
              </div>
              </div>
           </div>
@@ -249,7 +250,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Escalera / Planta / Puerta </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerFis" placeholder="Escalera / Planta / Puerta"  readonly/>  
+             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerFis" placeholder="Escalera / Planta / Puerta" id="EscPlaPuerFis" name="EscPlaPuerFis"  readonly ng-click="vm.copyText(9)"/>  
              </div>
              </div>
           </div>
@@ -257,7 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Localidad </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.DesLocFis" placeholder="Localidad" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.DesLocFis" placeholder="Localidad" readonly ng-click="vm.copyText(10)" id="DesLocFis" name="DesLocFis"/>     
              </div>
              </div>
           </div>
@@ -265,7 +266,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
-             <input type="text" class="form-control" ng-model="vm.response_customer.DesProFis" placeholder="Provincia" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.DesProFis" placeholder="Provincia" readonly ng-click="vm.copyText(11)" id="DesProFis" name="DesProFis"/>     
              </div>
              </div>
           </div>
@@ -274,14 +275,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CPLocFis" placeholder="Código Postal" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CPLocFis" placeholder="Código Postal" readonly ng-click="vm.copyText(12)" id="CPLocFis" name="CPLocFis"/>     
              </div>
              </div>
           </div>
-
-
-
-
           </div><!-- FINAL DIV SHOW DOM SOC DIST DOM FIS-->
           
 
@@ -289,7 +286,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono </label>           
-             <input type="email" class="form-control" ng-model="vm.response_customer.TelFijCli" readonly/>     
+             <input type="email" class="form-control" id="TelFijCli" name="TelFijCli" ng-model="vm.response_customer.TelFijCli" readonly ng-click="vm.copyText(13)"/>     
              </div>
              </div>
           </div>
@@ -298,7 +295,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;"> Email</label>           
-             <input type="email" class="form-control" ng-model="vm.response_customer.EmaCli" readonly/>     
+             <input type="email" class="form-control" id="EmaCli" name="EmaCli" ng-model="vm.response_customer.EmaCli" readonly ng-click="vm.copyText(14)"/>     
              </div>
              </div>
           </div> 
@@ -325,7 +322,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
           <div class="form-group">
             <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Completo </label>
-            <input type="text" class="form-control" placeholder="Nombre Completo" ng-model="vm.response_customer.Contactos[$index].NomConCli" readonly/>     
+            <input type="text" class="form-control" placeholder="Nombre Completo" ng-model="vm.response_customer.Contactos[$index].NomConCli" readonly id="NomConCli_{{$index}}" name="NomConCli_{{$index}}" ng-click="vm.copyTextArray(1,$index)"/>     
           </div>
         </div>
     </div>
@@ -334,7 +331,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:black;">Nº Documento </label>
-          <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].NIFConCli" placeholder="Nº Documento" readonly/>  
+          <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].NIFConCli" placeholder="Nº Documento" readonly ng-click="vm.copyTextArray(2,$index)" id="NIFConCli_{{$index}}" name="NIFConCli_{{$index}}"/>  
         </div>
       </div>
     </div>
@@ -343,7 +340,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:black;">Cargo </label>
-          <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].CarConCli" placeholder="Cargo" readonly/>     
+          <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].CarConCli" placeholder="Cargo" readonly  ng-click="vm.copyTextArray(3,$index)" id="CarConCli_{{$index}}" name="CarConCli_{{$index}}"/>     
         </div>
       </div>
     </div>
@@ -352,7 +349,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">   
           <label class="font-weight-bold nexa-dark" style="color:black;">Representación </label>
-            <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].TipRepr" placeholder="Representación" readonly/>     
+            <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].TipRepr" placeholder="Representación" readonly  ng-click="vm.copyTextArray(4,$index)" id="TipRepr_{{$index}}" name="TipRepr_{{$index}}"/>     
         </div>
       </div>
     </div>
@@ -390,7 +387,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Dirección </label>
-             <input type="text" class="form-control" placeholder="Domicilio Social" ng-model="vm.response_customer.DirPumSum" readonly />     
+             <input type="text" class="form-control" placeholder="Domicilio Social" ng-model="vm.response_customer.DirDesPumSum" readonly id="DirDesPumSum" name="DirDesPumSum" ng-click="vm.copyText(15)"/>     
              </div>
              </div>
           </div>
@@ -399,7 +396,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Escalera / Planta / Puerta </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerPumSum" placeholder="Escalera / Planta / Puerta" readonly/>  
+             <input type="text" class="form-control" ng-model="vm.response_customer.EscPlaPuerPumSum" placeholder="Escalera / Planta / Puerta" readonly id="EscPlaPuerPumSum" name="EscPlaPuerPumSum" ng-click="vm.copyText(16)"/>  
              </div>
              </div>
           </div>
@@ -407,7 +404,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Localidad </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.DesLocPumSum" placeholder="Localidad" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.DesLocPumSum" placeholder="Localidad" readonly id="DesLocPumSum" name="DesLocPumSum" ng-click="vm.copyText(17)"/>     
              </div>
              </div>
           </div>
@@ -415,7 +412,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
-             <input type="text" class="form-control" ng-model="vm.response_customer.DesProPumSum" placeholder="Provincia" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.DesProPumSum" placeholder="Provincia" readonly id="DesProPumSum" name="DesProPumSum" ng-click="vm.copyText(18)"/>     
              </div>
              </div>
           </div>
@@ -424,7 +421,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CPLocPumSum" placeholder="Código Postal" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CPLocPumSum" placeholder="Código Postal" readonly id="CPLocPumSum" name="CPLocPumSum" ng-click="vm.copyText(19)"/>     
              </div>
              </div>
           </div>  
@@ -438,8 +435,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].CUPsEle" placeholder="CUP Eléctrico" readonly/>     
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico</label>
+             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].CUPsEle" placeholder="CUP Eléctrico" readonly id="CUPsEle_{{$index}}" name="CUPsEle_{{$index}}" ng-click="vm.copyTextArray(5,$index)"/>     
              </div>
              </div>
           </div>
@@ -447,8 +444,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
-              <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].RazSocDis" placeholder="Distribuidora" readonly/>     
+              <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora</label>         
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].RazSocDis" placeholder="Distribuidora" readonly id="RazSocDis_{{$index}}" name="RazSocDis_{{$index}}" ng-click="vm.copyTextArray(6,$index)"/>     
              </div>
              </div>
           </div> 
@@ -457,7 +454,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa </label>          
-             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].NomTarEle" placeholder="Tarifa" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].NomTarEle" placeholder="Tarifa" readonly id="NomTarEle_{{$index}}" name="NomTarEle_{{$index}}" ng-click="vm.copyTextArray(7,$index)"/>     
              </div>
              </div>
           </div>        
@@ -466,7 +463,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP1" placeholder="P1" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP1" placeholder="P1" readonly id="P1_{{$index}}" name="P1_{{$index}}" ng-click="vm.copyTextArray(8,$index)"/>     
              </div>
              </div>
           </div>
@@ -475,7 +472,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP2" placeholder="P2" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP2" placeholder="P2" readonly id="P2_{{$index}}" name="P2_{{$index}}" ng-click="vm.copyTextArray(9,$index)"/>     
              </div>
              </div>
           </div>
@@ -484,7 +481,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP3" placeholder="P3" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP3" placeholder="P3" readonly id="P3_{{$index}}" name="P3_{{$index}}" ng-click="vm.copyTextArray(10,$index)"/>     
              </div>
              </div>
           </div>
@@ -493,7 +490,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP4" placeholder="P4" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP4" placeholder="P4" readonly id="P4_{{$index}}" name="P4_{{$index}}" ng-click="vm.copyTextArray(11,$index)"/>     
              </div>
              </div>
           </div>
@@ -502,7 +499,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP5" placeholder="P5" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP5" placeholder="P5" readonly id="P5_{{$index}}" name="P5_{{$index}}" ng-click="vm.copyTextArray(12,$index)"/>     
              </div>
              </div>
           </div>
@@ -511,7 +508,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P6 </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP6" placeholder="P6"  readonly />     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].PotConP6" placeholder="P6" readonly id="P6_{{$index}}" name="P6_{{$index}}" ng-click="vm.copyTextArray(13,$index)"/>     
              </div>
              </div>
           </div>
@@ -527,7 +524,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Gas </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].CupsGas" placeholder="CUP Gas" readonly/>     
+             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].CupsGas" placeholder="CUP Gas" readonly id="CUPs_Gas_{{$index}}" name="CUPs_Gas_{{$index}}" ng-click="vm.copyTextArray(14,$index)"/>     
              </div>
              </div>
           </div>
@@ -536,7 +533,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].RazSocDis" placeholder="Distribuidora" readonly/>     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].RazSocDis" placeholder="Distribuidora" readonly id="RazSocDisGas_{{$index}}" name="RazSocDisGas_{{$index}}" ng-click="vm.copyTextArray(15,$index)"/>     
              </div>
              </div>
           </div> 
@@ -545,7 +542,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa </label>          
-             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].NomTarGas" placeholder="Tarifa" readonly />     
+             <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].NomTarGas" placeholder="Tarifa" readonly id="NomTarGas_{{$index}}" name="NomTarGas_{{$index}}" ng-click="vm.copyTextArray(16,$index)"/>     
              </div>
              </div>
           </div>       
@@ -572,7 +569,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Cuenta Bancaria </label>
-             <input type="text" class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].NumIBan" readonly placeholder="Cuenta Bancaria" />     
+             <input type="text" class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].NumIBan" readonly placeholder="Cuenta Bancaria" id="NumIBan_{{$index}}" name="NumIBan_{{$index}}" ng-click="vm.copyTextArray(17,$index)"/>     
              </div>
              </div>
           </div>          
@@ -581,7 +578,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Banco </label>         
-             <input type="text"  class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].DesBan" readonly placeholder="Banco" />     
+             <input type="text"  class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].DesBan" readonly placeholder="Banco" id="DesBan_{{$index}}" name="DesBan_{{$index}}" ng-click="vm.copyTextArray(18,$index)"/>     
              </div>
              </div>
           </div> 
@@ -605,7 +602,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="form">                          
       <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Documento </label>
-        <input type="text" class="form-control" ng-model="vm.response_customer.documentos[$index].DesTipDoc" placeholder="Tipo de Documento" readonly/>     
+        <input type="text" class="form-control" ng-model="vm.response_customer.documentos[$index].DesTipDoc" placeholder="Tipo de Documento" readonly id="DesTipDoc_{{$index}}" name="DesTipDoc_{{$index}}" ng-click="vm.copyTextArray(19,$index)"/>     
       </div>
     </div>
   </div>          
@@ -614,7 +611,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="form">                          
       <div class="form-group">    
         <label class="font-weight-bold nexa-dark" style="color:black;">Fichero </label>         
-        <input type="text"  class="form-control" ng-model="vm.response_customer.documentos[$index].DesDoc" placeholder="Fichero" readonly />     
+        <input type="text"  class="form-control" ng-model="vm.response_customer.documentos[$index].DesDoc" placeholder="Fichero" readonly id="DesDoc_{{$index}}" name="DesDoc_{{$index}}" ng-click="vm.copyTextArray(20,$index)"/>     
       </div>
     </div>
   </div> 
@@ -630,16 +627,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </div>
-
-
      </section>
 
           </div>
       </div>
-
-
-
-
 
      <div class="text-right">
       <div class="credits">
@@ -657,5 +648,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
    </div>
    <div id="List_Cli" class="loader loader-default"  data-text="Cargando listado de Clientes"></div>
    <div id="Buscando_Informacion" class="loader loader-default"  data-text="Buscando Información"></div>
+
+  <script language="JavaScript">
+    // Establecemos las variables
+    var DesSoc = document.getElementById("RazSocCli");
+    var contenedor = document.getElementById("xcontainer");
+    //var copy   = document.getElementById("d_clip_url1");
+    DesSoc.addEventListener('click', function(e) {
+       // Sleccionando el texto
+       console.log('pasando por aqui');
+       DesSoc.select(); 
+       try {
+           // Copiando el texto seleccionado
+           var successful = document.execCommand('DesSoc');     
+           if(successful) contenedor.innerHTML = 'Copiado!';
+           else contenedor.innerHTML = 'Incapaz de copiar!';
+       } catch (err) {
+           contenedor.innerHTML = 'Browser no soportado!';
+       }
+    });
+  </script>
+
+
 </body>
 </html>

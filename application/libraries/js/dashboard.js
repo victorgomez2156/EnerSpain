@@ -1,306 +1,959 @@
-/*
- * Author: Abdullah A Almsaeed
- * Date: 4 Jan 2014
- * Description:
- *      This is a demo file used only for the main dashboard (index.html)
- **/
+ app.controller('Controlador_Dashbord', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile' , Controlador]);    
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile) {
+     var scope = this;
+     scope.fdatos = {};
+     scope.searchResult={};
+     scope.list_customers=[];
+     scope.response_customer={};
+     scope.Nivel = $cookies.get('nivel');
+     var fecha = new Date();
+     var dd = fecha.getDate();
+     var mm = fecha.getMonth() + 1; //January is 0!
+     var yyyy = fecha.getFullYear();
+     if (dd < 10) {
+         dd = '0' + dd;
+     }
+     if (mm < 10) {
+         mm = '0' + mm;
+     }
+     var fecha = dd + '/' + mm + '/' + yyyy;
+     ////////////////////////////////////////////////// PARA EL DASHBOARD START ////////////////////////////////////////////////////////
+    //console.log($route.current.$$route.originalPath);
+    
+    scope.showDatosGenerales=true;
+    scope.showContactosRepresentante=true;
+    scope.showPuntosSuministros=true;
+    scope.showCuentasBancarias=true;
+    scope.showDocumentos=true;
+    scope.response_customer.Contactos=[];
+    scope.response_customer.Cuentas_Bancarias=[];
+    scope.response_customer.documentos=[];
+    scope.response_customer.Puntos_Suministros=[];
 
-$(function() {
-    "use strict";
-
-    //Make the dashboard widgets sortable Using jquery UI
-    $(".connectedSortable").sortable({
-        placeholder: "sort-highlight",
-        connectWith: ".connectedSortable",
-        handle: ".box-header, .nav-tabs",
-        forcePlaceholderSize: true,
-        zIndex: 999999
-    }).disableSelection();
-    $(".box-header, .nav-tabs").css("cursor","move");
-    //jQuery UI sortable for the todo list
-    $(".todo-list").sortable({
-        placeholder: "sort-highlight",
-        handle: ".handle",
-        forcePlaceholderSize: true,
-        zIndex: 999999
-    }).disableSelection();;
-
-    //bootstrap WYSIHTML5 - text editor
-    $(".textarea").wysihtml5();
-
-    $('.daterange').daterangepicker(
+    //console.log(scope.response_customer.Contactos);
+    //console.log(scope.response_customer.Cuentas_Bancarias);
+    //console.log(scope.response_customer.documentos);
+    scope.showDetails=function(menu)
+    {
+        if(menu==1)
+        {
+           if(scope.showDatosGenerales==true)
             {
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                    'Last 7 Days': [moment().subtract('days', 6), moment()],
-                    'Last 30 Days': [moment().subtract('days', 29), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-                },
-                startDate: moment().subtract('days', 29),
-                endDate: moment()
-            },
-    function(start, end) {
-        alert("You chose: " + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    });
-
-    /* jQueryKnob */
-    $(".knob").knob();
-
-    //jvectormap data
-    var visitorsData = {
-        "US": 398, //USA
-        "SA": 400, //Saudi Arabia
-        "CA": 1000, //Canada
-        "DE": 500, //Germany
-        "FR": 760, //France
-        "CN": 300, //China
-        "AU": 700, //Australia
-        "BR": 600, //Brazil
-        "IN": 800, //India
-        "GB": 320, //Great Britain
-        "RU": 3000 //Russia
-    };
-    //World map by jvectormap
-    $('#world-map').vectorMap({
-        map: 'world_mill_en',
-        backgroundColor: "#fff",
-        regionStyle: {
-            initial: {
-                fill: '#e4e4e4',
-                "fill-opacity": 1,
-                stroke: 'none',
-                "stroke-width": 0,
-                "stroke-opacity": 1
+                scope.showDatosGenerales=false;
             }
-        },
-        series: {
-            regions: [{
-                    values: visitorsData,
-                    scale: ["#3c8dbc", "#2D79A6"], //['#3E5E6B', '#A6BAC2'],
-                    normalizeFunction: 'polynomial'
-                }]
-        },
-        onRegionLabelShow: function(e, el, code) {
-            if (typeof visitorsData[code] != "undefined")
-                el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
+            else
+            {
+                scope.showDatosGenerales=true;
+            } 
         }
-    });
-
-    //Sparkline charts
-    var myvalues = [15, 19, 20, -22, -33, 27, 31, 27, 19, 30, 21];
-    $('#sparkline-1').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-    myvalues = [15, 19, 20, 22, -2, -10, -7, 27, 19, 30, 21];
-    $('#sparkline-2').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-    myvalues = [15, -19, -20, 22, 33, 27, 31, 27, 19, 30, 21];
-    $('#sparkline-3').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-    myvalues = [15, 19, 20, 22, 33, -27, -31, 27, 19, 30, 21];
-    $('#sparkline-4').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-    myvalues = [15, 19, 20, 22, 33, 27, 31, -27, -19, 30, 21];
-    $('#sparkline-5').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-    myvalues = [15, 19, -20, 22, -13, 27, 31, 27, 19, 30, 21];
-    $('#sparkline-6').sparkline(myvalues, {
-        type: 'bar',
-        barColor: '#00a65a',
-        negBarColor: "#f56954",
-        height: '20px'
-    });
-
-    //Date for the calendar events (dummy data)
-    var date = new Date();
-    var d = date.getDate(),
-            m = date.getMonth(),
-            y = date.getFullYear();
-
-    //Calendar
-    $('#calendar').fullCalendar({
-        editable: true, //Enable drag and drop
-        events: [
+        if(menu==2)
+        {
+           if(scope.showContactosRepresentante==true)
             {
-                title: 'All Day Event',
-                start: new Date(y, m, 1),
-                backgroundColor: "#3c8dbc", //light-blue 
-                borderColor: "#3c8dbc" //light-blue
-            },
-            {
-                title: 'Long Event',
-                start: new Date(y, m, d - 5),
-                end: new Date(y, m, d - 2),
-                backgroundColor: "#f39c12", //yellow
-                borderColor: "#f39c12" //yellow
-            },
-            {
-                title: 'Meeting',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false,
-                backgroundColor: "#0073b7", //Blue
-                borderColor: "#0073b7" //Blue
-            },
-            {
-                title: 'Lunch',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false,
-                backgroundColor: "#00c0ef", //Info (aqua)
-                borderColor: "#00c0ef" //Info (aqua)
-            },
-            {
-                title: 'Birthday Party',
-                start: new Date(y, m, d + 1, 19, 0),
-                end: new Date(y, m, d + 1, 22, 30),
-                allDay: false,
-                backgroundColor: "#00a65a", //Success (green)
-                borderColor: "#00a65a" //Success (green)
-            },
-            {
-                title: 'Click for Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/',
-                backgroundColor: "#f56954", //red
-                borderColor: "#f56954" //red
+                scope.showContactosRepresentante=false;
             }
-        ],
-        buttonText: {//This is to add icons to the visible buttons
-            prev: "<span class='fa fa-caret-left'></span>",
-            next: "<span class='fa fa-caret-right'></span>",
-            today: 'today',
-            month: 'month',
-            week: 'week',
-            day: 'day'
-        },
-        header: {
-            left: 'title',
-            center: '',
-            right: 'prev,next'
+            else
+            {
+                scope.showContactosRepresentante=true;
+            } 
         }
-    });
-
-    //SLIMSCROLL FOR CHAT WIDGET
-    $('#chat-box').slimScroll({
-        height: '250px'
-    });
-
-    /* Morris.js Charts */
-    // Sales chart
-    var area = new Morris.Area({
-        element: 'revenue-chart',
-        resize: true,
-        data: [
-            {y: '2011 Q1', item1: 2666, item2: 2666},
-            {y: '2011 Q2', item1: 2778, item2: 2294},
-            {y: '2011 Q3', item1: 4912, item2: 1969},
-            {y: '2011 Q4', item1: 3767, item2: 3597},
-            {y: '2012 Q1', item1: 6810, item2: 1914},
-            {y: '2012 Q2', item1: 5670, item2: 4293},
-            {y: '2012 Q3', item1: 4820, item2: 3795},
-            {y: '2012 Q4', item1: 15073, item2: 5967},
-            {y: '2013 Q1', item1: 10687, item2: 4460},
-            {y: '2013 Q2', item1: 8432, item2: 5713}
-        ],
-        xkey: 'y',
-        ykeys: ['item1', 'item2'],
-        labels: ['Item 1', 'Item 2'],
-        lineColors: ['#a0d0e0', '#3c8dbc'],
-        hideHover: 'auto'
-    });
-    //Donut Chart
-    var donut = new Morris.Donut({
-        element: 'sales-chart',
-        resize: true,
-        colors: ["#3c8dbc", "#f56954", "#00a65a"],
-        data: [
-            {label: "Download Sales", value: 12},
-            {label: "In-Store Sales", value: 30},
-            {label: "Mail-Order Sales", value: 20}
-        ],
-        hideHover: 'auto'
-    });
-    //Bar chart
-    var bar = new Morris.Bar({
-        element: 'bar-chart',
-        resize: true,
-        data: [
-            {y: '2006', a: 100, b: 90},
-            {y: '2007', a: 75, b: 65},
-            {y: '2008', a: 50, b: 40},
-            {y: '2009', a: 75, b: 65},
-            {y: '2010', a: 50, b: 40},
-            {y: '2011', a: 75, b: 65},
-            {y: '2012', a: 100, b: 90}
-        ],
-        barColors: ['#00a65a', '#f56954'],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['CPU', 'DISK'],
-        hideHover: 'auto'
-    });
-    //Fix for charts under tabs
-    $('.box ul.nav a').on('shown.bs.tab', function(e) {
-        area.redraw();
-        donut.redraw();
-    });
-
-
-    /* BOX REFRESH PLUGIN EXAMPLE (usage with morris charts) */
-    $("#loading-example").boxRefresh({
-        source: "ajax/dashboard-boxrefresh-demo.php",
-        onLoadDone: function(box) {
-            bar = new Morris.Bar({
-                element: 'bar-chart',
-                resize: true,
-                data: [
-                    {y: '2006', a: 100, b: 90},
-                    {y: '2007', a: 75, b: 65},
-                    {y: '2008', a: 50, b: 40},
-                    {y: '2009', a: 75, b: 65},
-                    {y: '2010', a: 50, b: 40},
-                    {y: '2011', a: 75, b: 65},
-                    {y: '2012', a: 100, b: 90}
-                ],
-                barColors: ['#00a65a', '#f56954'],
-                xkey: 'y',
-                ykeys: ['a', 'b'],
-                labels: ['CPU', 'DISK'],
-                hideHover: 'auto'
-            });
+        if(menu==3)
+        {
+           if(scope.showPuntosSuministros==true)
+            {
+                scope.showPuntosSuministros=false;
+            }
+            else
+            {
+                scope.showPuntosSuministros=true;
+            } 
         }
-    });
-
-    /* The todo list plugin */
-    $(".todo-list").todolist({
-        onCheck: function(ele) {
-            //console.log("The element has been checked")
-        },
-        onUncheck: function(ele) {
-            //console.log("The element has been unchecked")
+        if(menu==4)
+        {
+           if(scope.showCuentasBancarias==true)
+            {
+                scope.showCuentasBancarias=false;
+            }
+            else
+            {
+                scope.showCuentasBancarias=true;
+            } 
         }
-    });
+        if(menu==5)
+        {
+           if(scope.showDocumentos==true)
+            {
+                scope.showDocumentos=false;
+            }
+            else
+            {
+                scope.showDocumentos=true;
+            } 
+        }       
+    }
+   scope.fetchClientes = function()
+   {
+        //console.log(scope.searchText);
+        var searchText_len = scope.searchText.trim().length;
+        //console.log(searchText_len);
+        scope.fdatos.searchText=scope.searchText; 
+        scope.response_customer.CUPs_Electrico=[];
+        scope.response_customer.CUPs_Gas=[]; 
+        console.log(scope.response_customer.CUPs_Electrico); 
+        console.log(scope.response_customer.CUPs_Gas);      
+        if(searchText_len > 0)
+        {
+            var url = base_urlHome()+"api/Dashboard/getclientes";
+            $http.post(url,scope.fdatos).then(function(result)
+            {
+                console.log(result);
+                if (result.data != false)
+                {
+                    scope.searchResult = result.data;
+                    console.log(scope.searchResult);
+                }
+                else
+                {
+                    Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });                    
+                    scope.searchResult = {};
+                }
+         }, function(error)
+         {
+            if (error.status == 404 && error.statusText == "Not Found")
+            {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized")
+            {
+                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden")
+            {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+         });
+        }
+        else
+        {
+            scope.searchResult = {};
+        }               
+    }
+   // Set value to search box
+   scope.setValue = function(index,$event,result)
+    {
+        console.log(index);
+        console.log($event);
+        console.log(result);
 
-});
+        scope.response_customer.CUPs_Electrico=[];
+        scope.response_customer.CUPs_Gas=[];
+        console.log(scope.searchResult[index].CodCli);
+        scope.fdatos.CodCli=scope.searchResult[index].CodCli;
+        scope.searchResult = {};
+        $event.stopPropagation();
+        scope.view_information();
+    }
+    scope.searchboxClicked = function($event){
+      $event.stopPropagation();
+    }
+    scope.containerClicked = function()
+    {
+      scope.searchResult = {};
+    }
+    scope.load_customers=function()
+    {
+        $("#List_Cli").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+        var url = base_urlHome()+"api/Dashboard/get_all_list_customers";
+        $http.get(url).then(function(result)
+        {
+            $("#List_Cli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data!=false)
+            {
+                scope.list_customers=result.data;
+            }
+            else
+            {
+                Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
+                scope.searchResult = {};
+            }
+        },function(error)
+        {
+            $("#List_Cli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (error.status == 404 && error.statusText == "Not Found")
+            {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized")
+            {
+                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden")
+            {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+        });
+    }
+    scope.view_information=function()
+    {
+        scope.response_customer.DirPumSum=undefined;
+        scope.response_customer.EscPlaPuerPumSum=undefined;
+        scope.response_customer.DesLocPumSum=undefined;
+        scope.response_customer.DesProPumSum=undefined;
+        scope.response_customer.CPLocPumSum=undefined;
+        scope.response_customer.CUPs_Electrico=[];
+        scope.response_customer.CUPs_Gas=[];
+        if(scope.fdatos.CodCli=='' || scope.fdatos.CodCli==null || scope.fdatos.CodCli==undefined)
+        {
+           Swal.fire({ title: "Error", text: "Debe seleccionar un cliente de la lista.",
+            type: "error", confirmButtonColor: "#188ae2" }); 
+           $("#CodCli").addClass("btn-danger");
+           setTimeout(function(){
+            $("#CodCli").removeClass("btn-danger");
+           },3000);
+           return false;
+        }
+        $("#Buscando_Informacion").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url = base_urlHome()+"api/Dashboard/view_information_customers/CodCli/"+scope.fdatos.CodCli;
+        $http.get(url).then(function(result)
+        {
+            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data!=false)
+            {               
+                scope.response_customer.CodCli=result.data.customer.CodCli;
+                scope.response_customer.RazSocCli=result.data.customer.RazSocCli;
+                scope.response_customer.NumCifCli=result.data.customer.NumCifCli;
+                scope.response_customer.DomSoc=result.data.customer.DomSoc;
+                scope.response_customer.EscPlaPuerSoc=result.data.customer.EscDomSoc+" "+result.data.customer.PlaDomSoc+" "+result.data.customer.PueDomSoc;
+                scope.response_customer.DesSoc=result.data.customer.DesLocSoc;
+                scope.response_customer.ProSoc=result.data.customer.DesProSoc;
+                scope.response_customer.LocSoc=result.data.customer.CPLocSoc;
+                
+                scope.response_customer.CodPro=result.data.customer.CodPro;
+                scope.response_customer.CodProFis=result.data.customer.CodProFis;
+                scope.response_customer.DomFis=result.data.customer.DomFis;
+                scope.response_customer.EscPlaPuerFis=result.data.customer.EscDomFis+" "+result.data.customer.PlaDomFis+" "+result.data.customer.PueDomFis;
+                scope.response_customer.DesLocFis=result.data.customer.DesLocFis;
+                scope.response_customer.DesProFis=result.data.customer.DesProFis;
+                scope.response_customer.CPLocFis=result.data.customer.CodLocFis;
+
+
+
+                scope.response_customer.TelFijCli=result.data.customer.TelFijCli;
+                scope.response_customer.EmaCli=result.data.customer.EmaCli;
+
+                if(result.data.Puntos_Suministros!=false)
+                {
+                   scope.response_customer.Puntos_Suministros=result.data.Puntos_Suministros; 
+                   if(result.data.Puntos_Suministros.length==1)
+                   {
+                        console.log(result.data.Puntos_Suministros.length);
+                        console.log(result.data.Puntos_Suministros[0].CodPunSum);
+                        scope.fdatos.DirPumSum=result.data.Puntos_Suministros[0].CodPunSum;
+                        scope.filter_DirPumSum(scope.fdatos.DirPumSum);
+                   }
+                   
+
+
+                }
+                else
+                {
+                   scope.response_customer.Puntos_Suministros=[];
+                }
+
+                if(result.data.Contactos!=false)
+                {
+                   scope.response_customer.Contactos=result.data.Contactos;
+                }
+                else
+                {
+                   scope.response_customer.Contactos=[];
+                }
+
+                if(result.data.Cuenta_Bancarias!=false)
+                {
+                   scope.response_customer.Cuentas_Bancarias=result.data.Cuenta_Bancarias; 
+                }
+                else
+                {
+                   scope.response_customer.Cuentas_Bancarias=[];
+                }
+
+                if(result.data.Documentos!=false)
+                {
+                   scope.response_customer.documentos=result.data.Documentos;                  
+                      
+                }
+                else
+                {
+                   scope.response_customer.documentos=[];
+                }
+                if(result.data.Contactos!=false)
+                   {
+                        angular.forEach(result.data.Contactos, function(Contactos)
+                        {
+                            if(Contactos.EsRepLeg==1)
+                            {
+                              //Contactos.DocNIF
+                              var Fichero = (Contactos.DocNIF).split("/");
+                              //console.log(Fichero);
+                              var Fichero_Final=Fichero[1];
+                              //console.log(Fichero_Final);
+                              scope.response_customer.documentos.push({ArcDoc:Contactos.DocNIF,DesDoc:Fichero_Final,DesTipDoc:Contactos.TipRepr});                         
+                            }                       
+                        });
+                   }
+                //console.log(result.data.customer);
+                //console.log(scope.response_customer.Puntos_Suministros);
+                ///console.log(scope.response_customer.Contactos);
+                //console.log(scope.response_customer.Cuentas_Bancarias);
+                //console.log(scope.response_customer.documentos);
+            }
+            else
+            {
+                Swal.fire({ title: "Error", text: "No se encontraron datos relacionados con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
+            }
+        },function(error)
+        {
+            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (error.status == 404 && error.statusText == "Not Found")
+            {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized")
+            {
+                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden")
+            {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+
+        });
+    }
+    scope.filter_DirPumSum=function(CodPunSum)
+    {
+        //console.log(CodPunSum);
+        //scope.response_customer.DirPumSum=undefined;
+        scope.response_customer.EscPlaPuerPumSum=undefined;
+        scope.response_customer.DesLocPumSum=undefined;
+        scope.response_customer.DesProPumSum=undefined;
+        scope.response_customer.CPLocPumSum=undefined;        
+        scope.response_customer.CUPs_Electrico=[];
+        scope.response_customer.CUPs_Gas=[];
+        for (var i = 0; i < scope.response_customer.Puntos_Suministros.length; i++) 
+        {
+            if(scope.response_customer.Puntos_Suministros[i].CodPunSum==CodPunSum)
+            {
+               //console.log(scope.response_customer.Puntos_Suministros[i]);
+                scope.response_customer.DirDesPumSum=scope.response_customer.Puntos_Suministros[i].DirPumSum;
+                scope.response_customer.EscPlaPuerPumSum=scope.response_customer.Puntos_Suministros[i].EscPunSum+" "+scope.response_customer.Puntos_Suministros[i].PlaPunSum+" "+scope.response_customer.Puntos_Suministros[i].PuePunSum;
+                scope.response_customer.DesLocPumSum=scope.response_customer.Puntos_Suministros[i].DesLoc;
+                scope.response_customer.DesProPumSum=scope.response_customer.Puntos_Suministros[i].DesPro;
+                scope.response_customer.CPLocPumSum=scope.response_customer.Puntos_Suministros[i].CPLocSoc;
+            }
+        }        
+        $("#Buscando_Informacion").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url = base_urlHome()+"api/Dashboard/Search_CUPs_Customer/CodPumSum/"+CodPunSum;
+        $http.get(url).then(function(result)
+        {
+            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            console.log(result);
+            scope.response_customer.CUPs_Electrico=result.data.CUPs_Electricos;
+            scope.response_customer.CUPs_Gas=result.data.CUPs_Gas;
+
+        },function(error)
+        {
+            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            console.log(error);
+            if (error.status == 404 && error.statusText == "Not Found")
+            {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized")
+            {
+                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden")
+            {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+
+
+        });
+    }
+    scope.copyText=function(metodo)
+    {
+        if(metodo==1)
+        {
+            var RazSocCli = document.getElementById("RazSocCli");
+            var contenedor = document.getElementById("xcontainer");
+            RazSocCli.select(); 
+            try{var successful = document.execCommand('copy');
+            if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+            else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';}
+            catch (err) {
+                contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==2)
+        {
+            var NumCifCli = document.getElementById("NumCifCli");
+            var contenedor = document.getElementById("xcontainer");
+            NumCifCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==3)
+        {
+            var DomSoc = document.getElementById("DomSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DomSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==4)
+        {
+            var EscPlaPuerSoc = document.getElementById("EscPlaPuerSoc");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==5)
+        {
+            var DesLocSoc = document.getElementById("DesLocSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==6)
+        {
+            var DesProSoc = document.getElementById("DesProSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DesProSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==7)
+        {
+            var LocSoc = document.getElementById("LocSoc");
+            var contenedor = document.getElementById("xcontainer");
+            LocSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==8)
+        {
+            var DomFis = document.getElementById("DomFis");
+            var contenedor = document.getElementById("xcontainer");
+            DomFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==9)
+        {
+            var EscPlaPuerFis = document.getElementById("EscPlaPuerFis");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==10)
+        {
+            var DesLocFis = document.getElementById("DesLocFis");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==11)
+        {
+            var DesProFis = document.getElementById("DesProFis");
+            var contenedor = document.getElementById("xcontainer");
+            DesProFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==12)
+        {
+            var CPLocFis = document.getElementById("CPLocFis");
+            var contenedor = document.getElementById("xcontainer");
+            CPLocFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==13)
+        {
+            var TelFijCli = document.getElementById("TelFijCli");
+            var contenedor = document.getElementById("xcontainer");
+            TelFijCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==14)
+        {
+            var EmaCli = document.getElementById("EmaCli");
+            var contenedor = document.getElementById("xcontainer");
+            EmaCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+        if(metodo==15)
+        {
+            var DirDesPumSum = document.getElementById("DirDesPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DirDesPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==16)
+        {
+            var EscPlaPuerPumSum = document.getElementById("EscPlaPuerPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==17)
+        {
+            var DesLocPumSum = document.getElementById("DesLocPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==18)
+        {
+            var DesProPumSum = document.getElementById("DesProPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DesProPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==19)
+        {
+            var CPLocPumSum = document.getElementById("CPLocPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            CPLocPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+    }
+    scope.copyTextArray=function(metodo,index)
+    {
+        if(metodo==1)
+        {
+            var NomConCli = document.getElementById("NomConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==2)
+        {
+            var NIFConCli = document.getElementById("NIFConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NIFConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==3)
+        {
+            var CarConCli = document.getElementById("CarConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CarConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==4)
+        {
+            var TipRepr = document.getElementById("TipRepr_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            TipRepr.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+        if(metodo==5)
+        {
+            var CUPsEle = document.getElementById("CUPsEle_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CUPsEle.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==6)
+        {
+            var RazSocDis = document.getElementById("RazSocDis_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            RazSocDis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==7)
+        {
+            var NomTarEle = document.getElementById("NomTarEle_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomTarEle.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==8)
+        {
+            var P1 = document.getElementById("P1_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P1.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==9)
+        {
+            var P2 = document.getElementById("P2_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P2.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==10)
+        {
+            var P3 = document.getElementById("P3_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P3.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==11)
+        {
+            var P4 = document.getElementById("P4_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P4.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==12)
+        {
+            var P5 = document.getElementById("P5_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P5.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==13)
+        {
+            var P6 = document.getElementById("P6_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P6.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==14)
+        {
+            var CUPs_Gas = document.getElementById("CUPs_Gas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CUPs_Gas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==15)
+        {
+            var RazSocDisGas = document.getElementById("RazSocDisGas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            RazSocDisGas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==16)
+        {
+            var NomTarGas = document.getElementById("NomTarGas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomTarGas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+         if(metodo==17)
+        {
+            var NumIBan = document.getElementById("NumIBan_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NumIBan.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+         if(metodo==18)
+        {
+            var DesBan = document.getElementById("DesBan_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesBan.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==19)
+        {
+            var DesTipDoc = document.getElementById("DesTipDoc_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesTipDoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==20)
+        {
+            var DesDoc = document.getElementById("DesDoc_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesDoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+
+
+    }
+
+
+
+    scope.load_customers();
+    ///////////////////////////////////////////////// PARA EL DASHBOARD END ////////////////////////////////////////////////////////
+
+
+ }

@@ -36,23 +36,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     .table-responsive > .table {
         margin-bottom: 0
     }
-
     .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tbody > tr > th,
     .table-responsive > .table > tfoot > tr > td, .table-responsive > .table > tfoot > tr > th,
     .table-responsive > .table > thead > tr > td, .table-responsive > .table > thead > tr > th {
         white-space: nowrap
     }
-
     .table-responsive > .table-bordered {
         border: 0
     }
-
     .table-responsive > .table-bordered > tbody > tr > td:first-child, .table-responsive > .table-bordered > tbody > tr > th:first-child,
     .table-responsive > .table-bordered > tfoot > tr > td:first-child, .table-responsive > .table-bordered > tfoot > tr > th:first-child,
     .table-responsive > .table-bordered > thead > tr > td:first-child, .table-responsive > .table-bordered > thead > tr > th:first-child {
         border-left: 0
     }
-
     .table-responsive > .table-bordered > tbody > tr > td:last-child, .table-responsive > .table-bordered > tbody > tr > th:last-child,
     .table-responsive > .table-bordered > tfoot > tr > td:last-child, .table-responsive > .table-bordered > tfoot > tr > th:last-child,
     .table-responsive > .table-bordered > thead > tr > td:last-child, .table-responsive > .table-bordered > thead > tr > th:last-child {
@@ -64,7 +60,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }    
 }
-
 #searchResult{
   list-style: none;
   padding: 0px;
@@ -73,22 +68,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   margin: 0;
   z-index:1151 !important;
 }
-
 #searchResult li{
   background: lavender;
   padding: 4px;
   margin-bottom: 1px;
 }
-
 #searchResult li:nth-child(even){
   background: cadetblue;
   color: white;
 }
-
 #searchResult li:hover{
   cursor: pointer;
 }
-
 .datepicker{z-index:1151 !important;}
 </style>
 <body>
@@ -296,17 +287,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
+                              
+                              <!--input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'  onkeyup="this.value=this.value.toUpperCase();"/-->                                
+                             <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' name="NumCifCli1" id="NumCifCli1" onkeyup="this.value=this.value.toUpperCase();">
+                             
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
-                            </ul> 
-
-
+                            </ul>
 
                             </div>
                           </div>
+                          <!--p id="iLetter"></p-->
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>
                         </form>
                       </div>

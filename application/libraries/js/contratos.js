@@ -1189,9 +1189,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     ///////// PARA CALCULAR DNI/NIE START /////////////////
     scope.validarNIFDNI=function()
     {
-        var letter = scope.validar_dni_nfi($("#NumCifCli1").parent(),$("#NumCifCli1").val());
+        var letter = scope.validar_dni_nfi($("#NumCifCli").parent(),$("#NumCifCli").val());
         if(letter != false){
-            $("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter + "</strong> <br/> El DNI o NIE es: <strong>" + $("#NumCifCli1").val() + letter + "</strong> </p>");
+            $("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter + "</strong> <br/> El DNI o NIE es: <strong>" + $("#NumCifCli").val() + letter + "</strong> </p>");
         }else{
             $("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
         }
@@ -1211,8 +1211,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.validar_dni_nfi=function(field, txt)
     {
-        //console.log(field);
-        //console.log(txt);
+        console.log(field);
+        console.log(txt);
         var letter = ""
         // Si es un dni extrangero, es decir, empieza por X, Y, Z
         // Si la longitud es 8longitud total de los dni nacionales)

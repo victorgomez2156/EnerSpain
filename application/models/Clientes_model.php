@@ -139,7 +139,7 @@ public function get_CUPs_Gas($CodPunSum)
 }
 public function get_CUPs_Electricos($CodPunSum)
 {
-   $sql = $this->db->query("SELECT a.CodCupsEle,a.CUPsEle,c.RazSocDis,b.NomTarEle,a.CodTarElec,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6 from T_CUPsElectrico a
+   $sql = $this->db->query("SELECT a.CodCupsEle,a.CUPsEle,c.RazSocDis,b.NomTarEle,a.CodTarElec,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,b.CanPerTar from T_CUPsElectrico a
     JOIN T_TarifaElectrica b on a.CodTarElec=b.CodTarEle
     JOIN T_Distribuidora c on a.CodDis=c.CodDist
     where a.CodPunSum='$CodPunSum'");
