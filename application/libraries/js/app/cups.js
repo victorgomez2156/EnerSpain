@@ -41,11 +41,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     	
     }).catch(function(err){console.log(err);});	*/
     console.log($route.current.$$route.originalPath);
-    console.log(scope.CodCups);
-    console.log(scope.TipServ);
-    console.log(scope.Nivel);
-    console.log(fecha);
-    console.log(scope.CodCup);
+    //console.log(scope.CodCups);
+    //console.log(scope.TipServ);
+    //console.log(scope.Nivel);
+    ////console.log(fecha);
+   //// console.log(scope.CodCup);
     scope.Cif = true;
     scope.RazSoc = true;
     scope.Cups = true;
@@ -182,14 +182,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.ConCupHis=true;*/
         }
     }
-    scope.regresar_cups = function() {
+    scope.regresar_cups = function(){
 
         if (scope.validate_info == undefined) {
             if (scope.fdatos_cups.CodCup == undefined) {
-                var title = "Guardando";
+                var title="Guardando";
                 var text = "¿Seguro que desea cerrar sin registrar el CUPs?";
             } else {
-                var title = "Actualizando";
+                var title="Actualizando";
                 var text = "¿Seguro que desea cerrar sin actualizar la información del CUPs?";
             }
             Swal.fire({
@@ -319,7 +319,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecBaj = document.getElementById("FecBaj").value;
         scope.tmodal_data.FecBaj = FecBaj;
         if (scope.tmodal_data.FecBaj == undefined || scope.tmodal_data.FecBaj == null || scope.tmodal_data.FecBaj == '') {
-            Swal.fire({ text: "La Fecha de Bloqueo es requerida", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: "La Fecha de Bloqueo es requerida.", type: "error", confirmButtonColor: "#188ae2" });
             event.preventDefault();
             return false;
         } else {
@@ -900,7 +900,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecUltLec = document.getElementById("FecUltLec").value;
         scope.fdatos_cups.FecUltLec = FecUltLec;
         if (scope.fdatos_cups.FecUltLec == null || scope.fdatos_cups.FecUltLec == undefined || scope.fdatos_cups.FecUltLec == '') {
-            Swal.fire({ title: "La Fecha de Última Lectura es requerida", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "El Campo Fecha de Última Lectura es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecUltLec = (scope.fdatos_cups.FecUltLec).split("/");
@@ -1095,7 +1095,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         resultado = true;
         var desde = (scope.historial.desde).split("/");
         if (desde.length < 3) {
-            Swal.fire({ text: "El formato Fecha Desde correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: "El formato Fecha Desde correcto es DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             if (desde[0].length > 2 || desde[0].length < 2) {

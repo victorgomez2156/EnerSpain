@@ -342,7 +342,7 @@
     scope.filter_DirPumSum=function(CodPunSum)
     {
         //console.log(CodPunSum);
-        scope.response_customer.DirPumSum=undefined;
+        //scope.response_customer.DirPumSum=undefined;
         scope.response_customer.EscPlaPuerPumSum=undefined;
         scope.response_customer.DesLocPumSum=undefined;
         scope.response_customer.DesProPumSum=undefined;
@@ -354,7 +354,7 @@
             if(scope.response_customer.Puntos_Suministros[i].CodPunSum==CodPunSum)
             {
                //console.log(scope.response_customer.Puntos_Suministros[i]);
-                scope.response_customer.DirPumSum=scope.response_customer.Puntos_Suministros[i].DirPumSum;
+                scope.response_customer.DirDesPumSum=scope.response_customer.Puntos_Suministros[i].DirPumSum;
                 scope.response_customer.EscPlaPuerPumSum=scope.response_customer.Puntos_Suministros[i].EscPunSum+" "+scope.response_customer.Puntos_Suministros[i].PlaPunSum+" "+scope.response_customer.Puntos_Suministros[i].PuePunSum;
                 scope.response_customer.DesLocPumSum=scope.response_customer.Puntos_Suministros[i].DesLoc;
                 scope.response_customer.DesProPumSum=scope.response_customer.Puntos_Suministros[i].DesPro;
@@ -392,6 +392,562 @@
 
 
         });
+    }
+    scope.copyText=function(metodo)
+    {
+        if(metodo==1)
+        {
+            var RazSocCli = document.getElementById("RazSocCli");
+            var contenedor = document.getElementById("xcontainer");
+            RazSocCli.select(); 
+            try{var successful = document.execCommand('copy');
+            if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+            else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';}
+            catch (err) {
+                contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==2)
+        {
+            var NumCifCli = document.getElementById("NumCifCli");
+            var contenedor = document.getElementById("xcontainer");
+            NumCifCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==3)
+        {
+            var DomSoc = document.getElementById("DomSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DomSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==4)
+        {
+            var EscPlaPuerSoc = document.getElementById("EscPlaPuerSoc");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==5)
+        {
+            var DesLocSoc = document.getElementById("DesLocSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==6)
+        {
+            var DesProSoc = document.getElementById("DesProSoc");
+            var contenedor = document.getElementById("xcontainer");
+            DesProSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==7)
+        {
+            var LocSoc = document.getElementById("LocSoc");
+            var contenedor = document.getElementById("xcontainer");
+            LocSoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==8)
+        {
+            var DomFis = document.getElementById("DomFis");
+            var contenedor = document.getElementById("xcontainer");
+            DomFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==9)
+        {
+            var EscPlaPuerFis = document.getElementById("EscPlaPuerFis");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==10)
+        {
+            var DesLocFis = document.getElementById("DesLocFis");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==11)
+        {
+            var DesProFis = document.getElementById("DesProFis");
+            var contenedor = document.getElementById("xcontainer");
+            DesProFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==12)
+        {
+            var CPLocFis = document.getElementById("CPLocFis");
+            var contenedor = document.getElementById("xcontainer");
+            CPLocFis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==13)
+        {
+            var TelFijCli = document.getElementById("TelFijCli");
+            var contenedor = document.getElementById("xcontainer");
+            TelFijCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==14)
+        {
+            var EmaCli = document.getElementById("EmaCli");
+            var contenedor = document.getElementById("xcontainer");
+            EmaCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+        if(metodo==15)
+        {
+            var DirDesPumSum = document.getElementById("DirDesPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DirDesPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==16)
+        {
+            var EscPlaPuerPumSum = document.getElementById("EscPlaPuerPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            EscPlaPuerPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==17)
+        {
+            var DesLocPumSum = document.getElementById("DesLocPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DesLocPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==18)
+        {
+            var DesProPumSum = document.getElementById("DesProPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            DesProPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==19)
+        {
+            var CPLocPumSum = document.getElementById("CPLocPumSum");
+            var contenedor = document.getElementById("xcontainer");
+            CPLocPumSum.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+    }
+    scope.copyTextArray=function(metodo,index)
+    {
+        if(metodo==1)
+        {
+            var NomConCli = document.getElementById("NomConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==2)
+        {
+            var NIFConCli = document.getElementById("NIFConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NIFConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==3)
+        {
+            var CarConCli = document.getElementById("CarConCli_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CarConCli.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==4)
+        {
+            var TipRepr = document.getElementById("TipRepr_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            TipRepr.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+        if(metodo==5)
+        {
+            var CUPsEle = document.getElementById("CUPsEle_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CUPsEle.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==6)
+        {
+            var RazSocDis = document.getElementById("RazSocDis_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            RazSocDis.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==7)
+        {
+            var NomTarEle = document.getElementById("NomTarEle_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomTarEle.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==8)
+        {
+            var P1 = document.getElementById("P1_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P1.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==9)
+        {
+            var P2 = document.getElementById("P2_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P2.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==10)
+        {
+            var P3 = document.getElementById("P3_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P3.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==11)
+        {
+            var P4 = document.getElementById("P4_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P4.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==12)
+        {
+            var P5 = document.getElementById("P5_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P5.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==13)
+        {
+            var P6 = document.getElementById("P6_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            P6.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==14)
+        {
+            var CUPs_Gas = document.getElementById("CUPs_Gas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            CUPs_Gas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==15)
+        {
+            var RazSocDisGas = document.getElementById("RazSocDisGas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            RazSocDisGas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==16)
+        {
+            var NomTarGas = document.getElementById("NomTarGas_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NomTarGas.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+         if(metodo==17)
+        {
+            var NumIBan = document.getElementById("NumIBan_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            NumIBan.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+         if(metodo==18)
+        {
+            var DesBan = document.getElementById("DesBan_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesBan.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==19)
+        {
+            var DesTipDoc = document.getElementById("DesTipDoc_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesTipDoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+        if(metodo==20)
+        {
+            var DesDoc = document.getElementById("DesDoc_"+index);
+            var contenedor = document.getElementById("xcontainer");
+            DesDoc.select(); 
+            try{
+               var successful = document.execCommand('copy');     
+               if(successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+               else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+            } catch (err) {
+               contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+            }
+            setTimeout(function(){contenedor.innerHTML='';},3000);
+        }
+
+
+
     }
 
 

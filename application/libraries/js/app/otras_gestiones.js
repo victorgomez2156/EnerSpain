@@ -30,10 +30,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (searchText_len > 0) {
                 var url = base_urlHome() + "api/OtrasGestiones/getclientes";
                 $http.post(url, scope.fdatos).then(function(result) {
-                    console.log(result);
+                   // console.log(result);
                     if (result.data != false) {
                         scope.searchResult = result.data;
-                        console.log(scope.searchResult);
+                        //console.log(scope.searchResult);
                     } else {
                         Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                         scope.searchResult = {};
@@ -56,20 +56,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.searchResult = {};
             }
         }
-        /*if(metodo==2)
+        if(metodo==2)
         {
-            var searchText_len = scope.NumCifCli.trim().length;
-            scope.fdatos.NumCifCli=scope.NumCifCli;   
+            var searchText_len = scope.NumCifCliFil.trim().length;
+            scope.fdatos.NumCifCli=scope.NumCifCliFil;   
             if(searchText_len > 0)
             {
-                var url = base_urlHome()+"api/PropuestaComercial/getclientes";
+                var url = base_urlHome()+"api/OtrasGestiones/getclientes";
                 $http.post(url,scope.fdatos).then(function(result)
                 {
-                    console.log(result);
+                    //console.log(result);
                     if (result.data != false)
                     {
                         scope.searchResult = result.data;
-                        console.log(scope.searchResult);
+                        //console.log(scope.searchResult);
                     }
                     else
                     {
@@ -99,7 +99,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             {
                 scope.searchResult = {};
             }      
-        }*/
+        }
 
 
     }
@@ -109,13 +109,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.searchResult = {};
             $event.stopPropagation();
         }
-        /*if(metodo==2)
+        if(metodo==2)
         {
-            scope.CodCliFil=scope.searchResult[index].CodCli;
-            scope.NumCifCli=scope.searchResult[index].NumCifCli;
+            console.log(scope.searchResult[index]);
+            scope.tmodal_filtros.CodCliFil=scope.searchResult[index].CodCli;
+            if(scope.searchResult[index].NumCifCli==null||scope.searchResult[index].NumCifCli==undefined||scope.searchResult[index].NumCifCli=='')
+            {
+                scope.Cif='S/I';
+            }
+            else
+            {
+                scope.Cif=scope.searchResult[index].NumCifCli;
+            }
+            scope.NumCifCliFil= scope.Cif+" - "+  scope.searchResult[index].RazSocCli;
             scope.searchResult = {};
             $event.stopPropagation(); 
-        }*/
+        }
 
     }
     scope.searchboxClicked = function($event) {
@@ -279,15 +288,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             Swal.fire({ title: "Gestión Comercial", text: result.data.menssage, type: "info", confirmButtonColor: "#188ae2" });
                             return false;
                         }
-                        /*if(result.data.status==true && result.data.statusText=='Propuesta Comercial')
-                        {
-                            Swal.fire({ title:result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
-                            location.reload();
-                            return false;
-                            
-                        }
-                        Swal.fire({ title: "Propuesta Comercial", text: "Propuesta Comercial generada correctamente bajo el número de referencia: "+result.data.RefProCom, type: "success", confirmButtonColor: "#188ae2" });
-                        location.href="#/Propuesta_Comercial";*/
+                        
                     } else {
                         Swal.fire({ text: "Ha ocurrido un error, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
@@ -399,7 +400,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (object != undefined) {
                 numero = object;
                 if (!/^([/0-9])*$/.test(numero))
-                    scope.RangFec = numero.substring(0, numero.length - 1);
+                    scope.tmodal_filtros.RangFec = numero.substring(0, numero.length - 1);
             }
         }
         if (metodo == 2) {
@@ -518,11 +519,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     index = scope.TListGestiones.indexOf(value);
                     return (begin <= index && index < end);
                 }
+                scope.buscartiposgestiones();
             } else {
                 Swal.fire({ title: "Erro", text: "no existen gestiones comerciales registradas.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TListGestiones = [];
                 scope.TListGestionesBack = [];
-                //location.href="#/Otras_Gestiones";
             }
 
         }, function(error) {
@@ -590,6 +591,168 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             location.href = "#/Edit_Gestion_Comercial/" + dato.CodGesGen + "/editar";
         }
     }
+    $scope.SubmitFormFiltrosGestiones = function(event) 
+     {
+         if (scope.tmodal_filtros.tipo_filtro == 1) 
+         {
+
+            var RangFec1 = document.getElementById("RangFec").value;
+            scope.tmodal_filtros.RangFec = RangFec1;
+            if(scope.tmodal_filtros.RangFec==undefined || scope.tmodal_filtros.RangFec==null || scope.tmodal_filtros.RangFec=='')
+            {
+                Swal.fire({ title: "Error", text: "Debe indicar una fecha para poder aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" }); 
+                return false;
+            }
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+             $scope.order = function(predicate) {
+                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                 $scope.predicate = predicate;
+             };
+             //scope.TListGestiones=result.data;
+             scope.TListGestiones = $filter('filter')(scope.TListGestionesBack, { FecGesGen: scope.tmodal_filtros.RangFec}, true);
+             $scope.totalItems = scope.TListGestiones.length;
+             $scope.numPerPage = 50;
+             $scope.paginate = function(value) {
+                 var begin, end, index;
+                 begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                 end = begin + $scope.numPerPage;
+                 index = scope.TListGestiones.indexOf(value);
+                 return (begin <= index && index < end);
+             }
+             scope.ruta_reportes_pdf_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.RangFec;
+             scope.ruta_reportes_excel_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.RangFec;
+         }
+         if (scope.tmodal_filtros.tipo_filtro == 2) 
+         {
+             if (!scope.tmodal_filtros.CodCliFil > 0) {
+                 Swal.fire({ title: "Error.", text: "Debe seleccionar un cliente para aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+             $scope.predicate = 'id';
+             $scope.reverse = true;
+             $scope.currentPage = 1;
+             $scope.order = function(predicate) {
+                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                 $scope.predicate = predicate;
+             };
+             //scope.TListGestiones=result.data;
+             scope.TListGestiones = $filter('filter')(scope.TListGestionesBack, { CodCli:scope.tmodal_filtros.CodCliFil }, true);
+             $scope.totalItems = scope.TListGestiones.length;
+             $scope.numPerPage = 50;
+             $scope.paginate = function(value) {
+                 var begin, end, index;
+                 begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                 end = begin + $scope.numPerPage;
+                 index = scope.TListGestiones.indexOf(value);
+                 return (begin <= index && index < end);
+             }
+             scope.ruta_reportes_pdf_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.CodCliFil;
+             scope.ruta_reportes_excel_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.CodCliFil;
+         }
+         if (scope.tmodal_filtros.tipo_filtro == 3){
+             if (!scope.tmodal_filtros.EstGesGenFil > 0) {
+                 Swal.fire({ title: "Error.", text: "Debe seleccionar un estatus para aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+             $scope.predicate = 'id';
+             $scope.reverse = true;
+             $scope.currentPage = 1;
+             $scope.order = function(predicate) {
+                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                 $scope.predicate = predicate;
+             };
+             scope.TListGestiones = $filter('filter')(scope.TListGestionesBack, { EstGesGen: scope.tmodal_filtros.EstGesGenFil }, true);
+             $scope.totalItems = scope.TListGestiones.length;
+             $scope.numPerPage = 50;
+             $scope.paginate = function(value) {
+                 var begin, end, index;
+                 begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                 end = begin + $scope.numPerPage;
+                 index = scope.TListGestiones.indexOf(value);
+                 return (begin <= index && index < end);
+             }
+             scope.ruta_reportes_pdf_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.EstGesGenFil;
+             scope.ruta_reportes_excel_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.EstGesGenFil;
+         }
+        if (scope.tmodal_filtros.tipo_filtro == 4) {
+             if (!scope.tmodal_filtros.TipoGestion > 0) {
+                 Swal.fire({ title: "Error.", text: "Debe Seleccionar un Tipo de Gestión para aplicar el filtro.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             }
+             $scope.predicate = 'id';
+             $scope.reverse = true;
+             $scope.currentPage = 1;
+             $scope.order = function(predicate) {
+                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                 $scope.predicate = predicate;
+             };
+             //scope.TListGestiones=result.data;
+             scope.TListGestiones = $filter('filter')(scope.TListGestionesBack, { TipGesGen: scope.tmodal_filtros.TipoGestion }, true);
+             $scope.totalItems = scope.TListGestiones.length;
+             $scope.numPerPage = 50;
+             $scope.paginate = function(value) {
+                 var begin, end, index;
+                 begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                 end = begin + $scope.numPerPage;
+                 index = scope.TListGestiones.indexOf(value);
+                 return (begin <= index && index < end);
+             }
+             scope.ruta_reportes_pdf_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.TipoGestion;
+             scope.ruta_reportes_excel_gestiones = scope.tmodal_filtros.tipo_filtro + "/" + scope.tmodal_filtros.TipoGestion;
+         }
+     };
+     scope.regresar_filtro = function() {
+         $scope.predicate = 'id';
+         $scope.reverse = true;
+         $scope.currentPage = 1;
+         $scope.order = function(predicate) {
+             $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+             $scope.predicate = predicate;
+         };
+         scope.TListGestiones = scope.TListGestionesBack;
+         $scope.totalItems = scope.TListGestiones.length;
+         $scope.numPerPage = 50;
+         $scope.paginate = function(value) {
+             var begin, end, index;
+             begin = ($scope.currentPage - 1) * $scope.numPerPage;
+             end = begin + $scope.numPerPage;
+             index = scope.TListGestiones.indexOf(value);
+             return (begin <= index && index < end);
+         }
+         scope.ruta_reportes_pdf_gestiones = 0;
+         scope.ruta_reportes_excel_gestiones = 0;
+         scope.tmodal_filtros = {};
+         scope.NumCifCliFil=undefined;
+     }
+     scope.buscartiposgestiones=function()
+     {
+        var url = base_urlHome()+"api/OtrasGestiones/get_tipo_gestiones/";
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false){
+                scope.ListTipGes=result.data;
+            }else{
+                console.log('no se encontraron tipo de gestiones registradas.');
+            }
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found") {
+                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized") {
+                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden") {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+
+        });
+     }
 
 
 

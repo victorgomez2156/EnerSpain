@@ -240,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" name="RangFec" id="RangFec" class="form-control RangFec" ng-model="vm.RangFec" placeholder="DD/MM/YYYY" ng-change="vm.validar_formatos_input(1,vm.RangFec)">   
+        <input type="text" name="RangFec" id="RangFec" class="form-control RangFec" ng-model="vm.tmodal_filtros.RangFec" placeholder="DD/MM/YYYY" ng-change="vm.validar_formatos_input(1,vm.tmodal_filtros.RangFec)">   
      </div>
      </div>
      </div>
@@ -248,21 +248,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
             {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>
-        </ul>   
+        </ul> 
+
      </div>
      </div>
-     <input type="hidden" name="CodCliFil" id="CodCliFil" ng-model="vm.CodCliFil">
+     <input type="hidden" name="CodCliFil" id="CodCliFil" ng-model="vm.tmodal_filtros.CodCliFil" readonly>
      </div>
 
-      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3" ng-click="vm.containerClicked()">
+      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3">
          <div class="form">                          
          <div class="form-group">
-          <select class="form-control" id="EstGesGen" name="EstGesGen" ng-model="vm.EstGesGenFil">
+          <select class="form-control" id="EstGesGen" name="EstGesGen" ng-model="vm.tmodal_filtros.EstGesGenFil">
          <option value="P">Pendiente</option>
          <option value="R">Resuelto</option> 
          <option value="C">Cerrado</option>                         
@@ -275,8 +277,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==4">
          <div class="form">                          
          <div class="form-group">
-          <select class="form-control" id="TipGestion" name="TipGestion" ng-model="vm.TipoGestion">
-         <option value="P">Pendiente</option>                    
+        <select class="form-control" id="TipGestion" name="TipGestion" ng-model="vm.tmodal_filtros.TipoGestion">
+         <option ng-repeat="dato in vm.ListTipGes" value="{{dato.CodTipGes}}">{{dato.DesTipGes}}</option>                    
         </select>
          
          </div>

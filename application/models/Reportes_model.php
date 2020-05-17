@@ -908,6 +908,48 @@ class Reportes_model extends CI_Model
         else
         return false;            
     }
+     public function get_list_gestiones()
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen',false);
+        $this->db->from('T_OtrasGestiones a');
+        $this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->order_by('a.FecGesGen DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+     public function get_list_otras_gestiones_comerciales_filtro($where,$Variable)
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen',false);
+        $this->db->from('T_OtrasGestiones a');
+        $this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->where($where,$Variable);
+        $this->db->order_by('a.FecGesGen DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function get_gestionComercial($CodGesGen)
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,a.NGesGen,a.RefGesGen,(CASE WHEN a.MecGesGen = 0 THEN "Plataforma On Line" WHEN a.MecGesGen = 1 THEN "Presencial" ELSE "N/A" END) AS MecGesGen
+            ,(CASE WHEN a.EstGesGen = "P" THEN "Pendiente" WHEN a.EstGesGen = "R" THEN "Resuelto"  WHEN a.EstGesGen = "C" THEN "Cerrado" ELSE "N/A" END) AS EstGesGen,a.PreGesGen,a.CodCupsEle,a.CodCupsGas,a.DesAnaGesGen,a.ObsGesGen,a.UltTipSeg,b.RazSocCli,b.NumCifCli,c.DesTipGes',false);
+        $this->db->from('T_OtrasGestiones a');
+        $this->db->join('T_TipoGestion c','a.TipGesGen=c.CodTipGes');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        //$this->db->order_by('a.FecGesGen DESC');
+        $this->db->where('CodGesGen',$CodGesGen); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
  
 }
 ?>

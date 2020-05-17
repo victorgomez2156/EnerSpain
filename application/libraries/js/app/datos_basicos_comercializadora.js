@@ -310,12 +310,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.FecIniCom = FecIniCom;
         if (scope.FecIniCom == null || scope.FecIniCom == undefined || scope.FecIniCom == '') {
-            Swal.fire({ title: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'La fecha de inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniCom = (scope.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
-                Swal.fire({ text: 'El formato Fecha de Inicio correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'El formato Fecha de Inicio correcto es DD/MM/YYYY.', type: "error", confirmButtonColor: "#188ae2" });
                 event.preventDefault();
                 return false;
             } else {
@@ -331,7 +331,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return false;
                 }
                 if (FecIniCom[2].length < 4 || FecIniCom[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'Error en Año, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -376,7 +376,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: 'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title:'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {

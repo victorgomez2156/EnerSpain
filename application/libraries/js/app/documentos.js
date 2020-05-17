@@ -286,12 +286,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
     scope.regresar_documentos = function() {
-        if (scope.fagregar_documentos.CodTipDocAI == undefined) {
-            var title = "Guardando";
+        if (scope.fagregar_documentos.CodTipDocAI == undefined){
+            var title="Guardando";
             var text = "¿Seguro que desea cerrar sin registrar el Documento?";
         }
-        if (scope.fagregar_documentos.CodTipDocAI > 0) {
-            var title = "Actualizando";
+        if (scope.fagregar_documentos.CodTipDocAI > 0){
+            var title="Actualizando";
             var text = "¿Seguro que desea cerrar sin actualizar la información del Documento?";
         }
         Swal.fire({

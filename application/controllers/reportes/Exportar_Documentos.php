@@ -12510,5 +12510,555 @@ class Exportar_Documentos extends CI_Controller
         $pdf->lastPage();
         $pdf->Output('Seguimientos Comerciales'.'.pdf', 'I');
     }
+    public function Doc_Gestiones_PDF()
+    {
+        
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+       
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro='Todas las Otras Gestiones';
+            $Resultado_Filtro_Otras_Gestiones= $this->Reportes_model->get_list_gestiones();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='a.FecGesGen';
+            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='c.CodCli';
+            //$Variable=$CodCli;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstGesGen = urldecode($this->uri->segment(5));
+            if($EstGesGen==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstGesGen=="P")
+            {$EstGesGenNom='Pendiente';}elseif ($EstGesGen=="R"){$EstGesGenNom="Resuelto";}elseif ($EstGesGen=="C"){$EstGesGenNom="Cerrado";}else{$EstGesGenNom="N/A";}
+            $NombreFiltro="Estatus Otras Gestión: ".$EstGesGenNom;
+            $where='a.EstGesGen';
+            $Variable=$EstGesGen;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipGes = urldecode($this->uri->segment(5));
+            if($TipGes==null)
+            {
+                echo 'Error debe elegir un tipo de gestión para poder aplicar el filtro.';
+                return false;
+            }
+            $tabla="T_TipoGestion";
+            $where="CodTipGes";
+            $select="CodTipGes,DesTipGes";
+            $TipGesData=$this->Propuesta_model->Funcion_Verificadora($TipGes,$tabla,$where,$select);
+            $NombreFiltro="Tipo de Gestión: ".$TipGesData->DesTipGes;
+            $where='a.TipGesGen';
+            $Variable=$TipGes;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        else
+        {
+            echo 'Error en filtro.';
+            return false;
+        }
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Otras Gestiones Comerciales '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Otras Gestiones Comerciales');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="3"><h4>LISTADO DE OTRAS GESTIONES COMERCIALES</h4></td>
+                
+                
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left" colspan="3">Filtro Aplicado: '.$NombreFiltro.'</td>
+                
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">FECHA</td> 
+            <td style="color:white;">TIPO GESTIÓN</td>
+            <td style="color:white;">CLIENTE</td>
+            <td style="color:white;">IMPORTE</td>
+            <td style="color:white;">REFERENCIA</td>
+            <td style="color:white;">ESTATUS</td>
+        </tr>';
+        if($Resultado_Filtro_Otras_Gestiones!=false)
+        {
+            foreach ($Resultado_Filtro_Otras_Gestiones as $record): 
+            {
+                if($record->EstGesGen=="P")
+                {$EstGesGen='Pendiente';}elseif ($record->EstGesGen=="R"){$EstGesGen="Resuelto";}elseif ($record->EstGesGen=="C"){$EstGesGen="Cerrado";}else{$EstGesGen="N/A";}
+                $html.='<tr>
+                        <td>'.$record->FecGesGen.'</td>
+                        <td>'.$record->DesTipGes.'</td>
+                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.'</td>
+                        <td>'.$record->PreGesGen.'</td>
+                        <td>'.$record->RefGesGen.'</td>
+                        <td>'.$EstGesGen.'</td>                    
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="6"><b>Actualmente no hemos encontrado Otras Gestiones registradas.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'Filtro Otras Gestiones');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Otras Gestiones'.'.pdf', 'I');
+    }
+    public function Doc_Gestiones_Excel()
+    {       
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+       
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro='Todas las Otras Gestiones';
+            $Resultado_Filtro_Otras_Gestiones= $this->Reportes_model->get_list_gestiones();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='a.FecGesGen';
+            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='c.CodCli';
+            //$Variable=$CodCli;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstGesGen = urldecode($this->uri->segment(5));
+            if($EstGesGen==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstGesGen=="P")
+            {$EstGesGenNom='Pendiente';}elseif ($EstGesGen=="R"){$EstGesGenNom="Resuelto";}elseif ($EstGesGen=="C"){$EstGesGenNom="Cerrado";}else{$EstGesGenNom="N/A";}
+            $NombreFiltro="Estatus Otras Gestión: ".$EstGesGenNom;
+            $where='a.EstGesGen';
+            $Variable=$EstGesGen;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipGes = urldecode($this->uri->segment(5));
+            if($TipGes==null)
+            {
+                echo 'Error debe elegir un tipo de gestión para poder aplicar el filtro.';
+                return false;
+            }
+            $tabla="T_TipoGestion";
+            $where="CodTipGes";
+            $select="CodTipGes,DesTipGes";
+            $TipGesData=$this->Propuesta_model->Funcion_Verificadora($TipGes,$tabla,$where,$select);
+            $NombreFiltro="Tipo de Gestión: ".$TipGesData->DesTipGes;
+            $where='a.TipGesGen';
+            $Variable=$TipGes;
+            $Resultado_Filtro_Otras_Gestiones=$this->Reportes_model->get_list_otras_gestiones_comerciales_filtro($where,$Variable);
+
+        }
+        else
+        {
+            echo 'Error en filtro.';
+            return false;
+        }      
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc_Excel_Otras_Gestiones_'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Otras Gestiones Comerciales"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Otras Gestiones Comerciales"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE OTRAS GESTIONES COMERCIALES");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO GESTIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "IMPORTE");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "REFERENCIA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $fila=9;
+        if($Resultado_Filtro_Otras_Gestiones!=false)
+        {
+            for($i=0; $i<count($Resultado_Filtro_Otras_Gestiones); $i++) 
+            {
+                if($Resultado_Filtro_Otras_Gestiones[$i]->EstGesGen=='P')
+                {$EstGesGenNom='Pendiente';}elseif ($Resultado_Filtro_Otras_Gestiones[$i]->EstGesGen=='R'){$EstGesGenNom="Resuelto";}elseif ($Resultado_Filtro_Otras_Gestiones[$i]->EstGesGen=='C'){$EstGesGenNom="Cerrado";}else{$EstGesGenNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Otras_Gestiones[$i]->FecGesGen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Otras_Gestiones[$i]->DesTipGes);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Otras_Gestiones[$i]->NumCifCli.' - '.$Resultado_Filtro_Otras_Gestiones[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Otras_Gestiones[$i]->PreGesGen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Otras_Gestiones[$i]->RefGesGen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $EstGesGenNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");  
+            }   
+        }
+        
+        foreach (range('A', 'F') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL OTRAS GESTIONES COMERCIALES FILTRAD0S');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_Gestion_Comercial_PDF()
+    {
+        
+        $CodGesGen = urldecode($this->uri->segment(4));
+        if($CodGesGen==null)
+        {
+            echo 'Error debe indicar un código de gestión';
+            return false;
+        }
+        $NombreFiltro='Gestión Comercial';
+        $Resultado_Gestion_Comercial=$this->Reportes_model->get_gestionComercial($CodGesGen);
+        if(empty($Resultado_Gestion_Comercial))
+        {
+            echo "Error gestión comercial no existe";
+            return false;
+        }
+        if($Resultado_Gestion_Comercial->CodCupsEle!=null)
+        {
+            $TipSum="Eléctrico";
+            $tabla="T_CUPsElectrico";
+            $where="CodCupsEle";
+            $select="*";
+            $CUPsData=$this->Propuesta_model->Funcion_Verificadora($Resultado_Gestion_Comercial->CodCupsEle,$tabla,$where,$select);
+            $CUPs=$CUPsData->CUPsEle;     
+        }
+        if($Resultado_Gestion_Comercial->CodCupsGas!=null)
+        {
+            $TipSum="Gas";
+            $tabla="T_CUPsGas";
+            $where="CodCupGas";
+            $select="*";
+            $CUPsData=$this->Propuesta_model->Funcion_Verificadora($Resultado_Gestion_Comercial->CodCupsGas,$tabla,$where,$select);
+            $CUPs=$CUPsData->CupsGas;            
+        }   
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Gestón Comercial '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Gestión Comercial');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="3"><h4>GESTION COMERCIAL</h4></td>                
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td border="0">HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="0" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;" colspan="2">Razón Social / Apellidos, Nombre</td> 
+            <td style="color:white;" colspan="2">Nº Documento Fiscal</td>            
+        </tr>
+         <tr>
+            <td colspan="2">'.$Resultado_Gestion_Comercial->RazSocCli.'</td> 
+            <td colspan="2">'.$Resultado_Gestion_Comercial->NumCifCli.'</td>            
+        </tr>
+        <tr bgcolor="#636161">
+            <td style="color:white;">Tipo de Gestion General</td>
+            <td style="color:white;">Fecha de Registro</td> 
+            <td style="color:white;">Nº Gestión</td> 
+            <td style="color:white;">Resultado</td>  
+                       
+        </tr>
+         <tr>
+           <td>'.$Resultado_Gestion_Comercial->DesTipGes.'</td>
+            <td>'.$Resultado_Gestion_Comercial->FecGesGen.'</td> 
+            <td >'.$Resultado_Gestion_Comercial->NGesGen.'</td> 
+            <td>'.$Resultado_Gestion_Comercial->EstGesGen.'</td>              
+        </tr>
+
+        <tr bgcolor="#636161">
+            <td style="color:white;">Tipo Suministro</td>
+            <td style="color:white;"colspan="2">CUPs</td> 
+            <td style="color:white;">Comercializadora</td>                        
+        </tr>
+         <tr>
+           <td>'.$TipSum.'</td>
+            <td colspan="2">'.$CUPs.'</td> 
+            <td>N/R</td>           
+        </tr>
+        <tr bgcolor="#636161">
+            <td style="color:white;">Mecanismo</td>
+            <td style="color:white;"colspan="2">Precio (€) + IVA</td> 
+            <td style="color:white;">Referencia</td>                        
+        </tr>
+         <tr>
+           <td>'.$Resultado_Gestion_Comercial->MecGesGen.'</td>
+            <td colspan="2">'.$Resultado_Gestion_Comercial->PreGesGen.'</td> 
+            <td>'.$Resultado_Gestion_Comercial->RefGesGen.'</td>           
+        </tr>
+        <tr bgcolor="#636161">
+            <td style="color:white;" colspan="4">Analisis Previo</td>     
+        </tr>
+         <tr>
+           <td colspan="4">'.$Resultado_Gestion_Comercial->DesAnaGesGen.'</td>
+        </tr>
+
+        <tr bgcolor="#636161">
+            <td style="color:white;" colspan="4">Observación</td>     
+        </tr>
+         <tr>
+           <td colspan="4">'.$Resultado_Gestion_Comercial->ObsGesGen.'</td>
+        </tr>
+        '
+        ;
+         
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'Filtro Otras Gestiones');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Otras Gestiones'.'.pdf', 'I');
+    }
 
 }?>

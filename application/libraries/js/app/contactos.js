@@ -187,7 +187,8 @@
          });
      }
 
-     $scope.SubmitFormFiltrosContactos = function(event) {
+     $scope.SubmitFormFiltrosContactos = function(event) 
+     {
          if (scope.tmodal_contacto.tipo_filtro == 1) {
 
              if (!scope.tmodal_contacto.DesTipCon > 0) {
