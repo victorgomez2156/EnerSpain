@@ -470,7 +470,7 @@
                      return false;
                  }
                  if (FechBlo[2].length < 4 || FechBlo[2].length > 4) {
-                     Swal.fire({ text: "Error en Año, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ text: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
                      event.preventDefault();
                      return false;
                  }
@@ -507,7 +507,7 @@
              }
          });
      };
-     scope.asignar_contacto = function() {
+     scope.asignar_contacto = function(){
          scope.tContacto_data_modal = {};
          $("#modal_cif_cliente_contacto").modal('show');
      }
@@ -515,14 +515,19 @@
          if (scope.tContacto_data_modal.NIFConCli == undefined || scope.tContacto_data_modal.NIFConCli == null || scope.tContacto_data_modal.NIFConCli == '') {
              Swal.fire({ title: "Error.", text: "El Número de CIF no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
              return false;
-         } else {
-             $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
-             var url = base_urlHome() + "api/Clientes/comprobar_cif_contacto/";
-             $http.post(url, scope.tContacto_data_modal).then(function(result) {
+         } else{        
+
+            if (!scope.validarNIFDNI())
+            {
+                return false;
+            }
+            $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            var url = base_urlHome() + "api/Clientes/comprobar_cif_contacto/";
+            $http.post(url, scope.tContacto_data_modal).then(function(result) {
                  $("#NIFConCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
                  if (result.data != false) {
                      Swal.fire({
-                         title: "DNI/NIE registrado",
+                         title: "DNI/NIE Encontrado",
                          text: "El DNI/NIE ya se encuentra registrado, presione el botón Continuar si desea asignarlo a otro Cliente",
                          type: "question",
                          showCancelButton: !0,
@@ -599,7 +604,7 @@
              if (result.data != false) {
                  scope.tContacto_data_modal = result.data;
              } else {
-                 Swal.fire({ title: "Error.", text: "No hay información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error.", text: "No existe información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
 
              }
@@ -676,7 +681,8 @@
                  scope.tContacto_data_modal.DocPod = scope.tContacto_data_modal.DocPod;
              }
          }
-         if (!scope.validar_campos_contactos_null()) {
+         if (!scope.validar_campos_contactos_null())
+         {
              return false;
          }
          if (scope.tContacto_data_modal.CodConCli > 0) {
@@ -685,7 +691,7 @@
          }
          if (scope.tContacto_data_modal.CodConCli == undefined) {
              var title = 'Guardando';
-             var text = '¿Seguro que desea registrar el Contacto?';
+             var text = '¿Seguro que desea registrar el Contacto??';
          }
          Swal.fire({
              title: text,
@@ -693,7 +699,7 @@
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "Confirmar"
+             confirmButtonText: "OK"
          }).then(function(t) {
              if (t.value == true) {
                  if ($Archivo_DocNIF.files.length > 0) {
@@ -890,6 +896,91 @@
          }
 
      }
+     ///////// PARA CALCULAR DNI/NIE START /////////////////
+    scope.validarNIFDNI=function()
+    {
+        var letter = scope.validar_dni_nie($("#NIFConCli1").parent(),$("#NIFConCli1").val());
+        if(letter != false)
+        {
+            //$("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter+ "</strong></p>");
+            scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter;
+            if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
+            {
+                Swal.fire({ text: "El Número de DNI/NIE es Invalido Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
+            }
+            else
+            {
+                return true;
+            }  
+        }
+        else
+        {
+           Swal.fire({ text: "Debe ingresar los 9 Números de su DNI/NIE EJ: 12345678F/Y1234567B", type: "error", confirmButtonColor: "#188ae2" });
+            //$("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
+        }
+        //console.log(letter);
+        //console.log($("#NIFConCli").val() + letter);
+    }    
+    function isNumeric(expression) {
+    return (String(expression).search(/^\d+$/) != -1);
+    }
+    function calculateLetterForDni(dni)
+    {
+        // Letras en funcion del modulo de 23
+        string = "TRWAGMYFPDXBNJZSQVHLCKET"
+        // se obtiene la posiciÃ³n de la cadena anterior
+        position = dni % 23
+        // se extrae dicha posiciÃ³n de la cadena
+        letter = string.substring(position, position + 1)
+        return letter
+    }
+    scope.validar_dni_nie=function(field, txt)
+    {
+        var letter = ""
+        // Si es un dni extrangero, es decir, empieza por X, Y, Z
+        // Si la longitud es 8 longitud total de los dni nacionales)
+        if (txt.length == 9) 
+        {
+          
+            var first = txt.substring(0, 1)
+            var last = txt.substring(8,9)
+            if (first == 'X' || first == 'Y' || first == 'Z') 
+            {               
+                // Si la longitud es 9(longitud total de los dni extrangeros)
+                // Se calcula la letra para el numero de dni
+                var number = txt.substring(1, 8);
+                console.log(number)
+                if (first == 'X') {
+                    number = '0' + number
+                    //final = first + number
+                }
+                if (first == 'Y') {
+                    number = '1' + number
+                    //final = first + number
+                }
+                if (first == 'Z') {
+                    number = '2' + number
+                    //final = first + number
+                }
+                if (isNumeric(number)){
+                    letter = calculateLetterForDni(number)
+                }
+                return letter
+
+            } else {
+              
+                letter = calculateLetterForDni(txt.substring(0, 8))                
+                return letter
+            }
+        }
+        else
+        {
+            return false
+        }
+       
+    }
+    ///////// PARA CALCULAR DNI/NIE END /////////////////
      if (scope.nID != undefined) {
          scope.BuscarXIDContactos();
      }
