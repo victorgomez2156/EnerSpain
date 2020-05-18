@@ -342,7 +342,11 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
     }
 
     scope.limpiar = function() {
+        //var CIF_DISTRIBUIDORA =scope.fdatos.NumCifDis;
         scope.fdatos = {};
+        scope.fdatos.NumCifDis = scope.CIF_DISTRIBUIDORA;
+        scope.SerEle=false;
+        scope.SerGas=false;
     }
 
     scope.buscarXID = function() {

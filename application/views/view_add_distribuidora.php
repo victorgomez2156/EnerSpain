@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO ELÉCTRICO</label>
-                          <input type="checkbox" class="form-control" ng-model="vm.SerEle" ng-disabled="vm.disabled_form==1"/>
+                          <input type="checkbox" class="form-control" name="SerEle" ng-model="vm.SerEle" ng-disabled="vm.disabled_form==1"/>
                          </div>
                          </div>
                          </div>
@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">SUMINISTRO GAS</label>
-                          <input type="checkbox" class="form-control" ng-model="vm.SerGas" ng-disabled="vm.disabled_form==1"/>
+                          <input type="checkbox" class="form-control" name="SerGas" ng-model="vm.SerGas" ng-disabled="vm.disabled_form==1"/>
                          </div>
                          </div>
                          </div>
