@@ -852,7 +852,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }   
     public function getclientessearch($SearchText)
     {
-       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%'");
+       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%' or EmaCli like '%$SearchText%'");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else

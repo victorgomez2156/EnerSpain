@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--- PARA LOS CUPS ELECTRICOS START-->
         <div >
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico</label>
@@ -178,14 +178,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;"> Tarifa</label>          
-             <select class="form-control" id="CodTarEle" name="CodTarEle" required ng-model="vm.fdatos.CodTarEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
+             <select class="form-control" id="CodTarEle" name="CodTarEle" required ng-model="vm.fdatos.CodTarEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.filtrerCanPeriodos(vm.fdatos.CodTarEle)"> 
                 <option ng-repeat="dato_act in vm.List_TarEle" value="{{dato_act.CodTarEle}}">{{dato_act.NomTarEle}}</option>
         </select>                  
              </div>
              </div>
           </div>        
 
-           <div class="col-12 col-sm-1">
+        <div ng-show="vm.CanPerEle==6">
+          
+          <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
@@ -239,7 +241,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-1">
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.ImpAhoEle" placeholder="Ahorro (€)" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(8,vm.fdatos.ImpAhoEle)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+
+        <div ng-show="vm.CanPerEle==1">
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP1" placeholder="P1" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.fdatos.PotConP1)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.ImpAhoEle" placeholder="Ahorro (€)" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(8,vm.fdatos.ImpAhoEle)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+
+         <div ng-show="vm.CanPerEle==2">
+
+          <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP1" placeholder="P1" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.fdatos.PotConP1)"/>     
+             </div>
+             </div>
+          </div>
+
+            <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP2" placeholder="P2" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.fdatos.PotConP2)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
@@ -248,7 +300,149 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
+        </div>
+
+        <div ng-show="vm.CanPerEle==3">
+          
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP1" placeholder="P1" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.fdatos.PotConP1)"/>     
+             </div>
+             </div>
+          </div>
            <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP2" placeholder="P2" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.fdatos.PotConP2)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP3" placeholder="P3" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.fdatos.PotConP3)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.ImpAhoEle" placeholder="Ahorro (€)" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(8,vm.fdatos.ImpAhoEle)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+
+        <div ng-show="vm.CanPerEle==4">
+          
+          <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP1" placeholder="P1" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.fdatos.PotConP1)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP2" placeholder="P2" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.fdatos.PotConP2)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP3" placeholder="P3" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.fdatos.PotConP3)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP4" placeholder="P4" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(5,vm.fdatos.PotConP4)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.ImpAhoEle" placeholder="Ahorro (€)" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(8,vm.fdatos.ImpAhoEle)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+
+        <div ng-show="vm.CanPerEle==5">
+          
+          <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP1" placeholder="P1" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.fdatos.PotConP1)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP2" placeholder="P2" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.fdatos.PotConP2)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP3" placeholder="P3" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.fdatos.PotConP3)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP4" placeholder="P4" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(5,vm.fdatos.PotConP4)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.PotConP5" placeholder="P5" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(6,vm.fdatos.PotConP5)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro (€)</label>         
+             <input type="text"  class="form-control" ng-model="vm.fdatos.ImpAhoEle" placeholder="Ahorro (€)" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(8,vm.fdatos.ImpAhoEle)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+           
+
+
+
+
+
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">% </label>         

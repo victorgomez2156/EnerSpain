@@ -285,6 +285,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.BuscarXIDPropuestaContrato=function()
     {
         $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        scope.CanPerEle=6;
         var url = base_urlHome()+"api/Contratos/BuscarXIDPropuestaContrato/CodCli/"+scope.CodCli;
         $http.get(url).then(function(result)
         {
@@ -439,6 +440,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodPro=scope.List_Propuestas_Comerciales[i].DesProducto;
                 scope.CodAnePro=scope.List_Propuestas_Comerciales[i].DesAnePro;
                 scope.TipPre=scope.List_Propuestas_Comerciales[i].TipPre;
+                if(scope.List_Propuestas_Comerciales[i].CanPerTar==null)
+                {
+                    scope.CanPerEle=6;
+                }
+                else
+                {
+                    scope.CanPerEle=scope.List_Propuestas_Comerciales[i].CanPerTar;
+                }
+                
             }
         }
     }
@@ -550,6 +560,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             document.getElementById('file_fotocopia').value = '';
                             $('#file_fotocopia1').html('');
                             location.href="#/Contratos";
+                        }
+                        if(result.data.status==false && result.data.statusText=='Fecha')
+                        {
+                            Swal.fire({ title: titulo, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
+                            document.getElementById('file_fotocopia').value = '';
+                            $('#file_fotocopia1').html('');
+                            //location.href="#/Contratos";
                         }//location.href = "#/Edit_fdatos/" + scope.nIDfdatos;
                     } else {
                         Swal.fire({ title: "Error", text: "No se ha completado la operación, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });

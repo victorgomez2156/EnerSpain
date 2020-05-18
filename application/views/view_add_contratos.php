@@ -207,11 +207,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>        
 
-           <div class="col-12 col-sm-1">
+           <div ng-show="vm.CanPerEle==6">
+          
+          <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
-             <input type="text" class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
              </div>
              </div>
           </div>
@@ -220,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
-             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly />     
              </div>
              </div>
           </div>
@@ -229,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
-             <input type="text"  class="form-control" ng-model="vm.PotConP3" placeholder="P3" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP3" placeholder="P3" readonly />     
              </div>
              </div>
           </div>
@@ -238,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
-             <input type="text"  class="form-control" ng-model="vm.PotConP4" placeholder="P4" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP4" placeholder="P4" readonly />     
              </div>
              </div>
           </div>
@@ -247,7 +249,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
-             <input type="text"  class="form-control" ng-model="vm.PotConP5" placeholder="P5" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP5" placeholder="P5" readonly />     
              </div>
              </div>
           </div>
@@ -256,11 +258,163 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P6 </label>         
-             <input type="text"  class="form-control" ng-model="vm.PotConP6" placeholder="P6" readonly="readonly"/>     
+             <input type="text"  class="form-control" ng-model="vm.PotConP6" placeholder="P6" readonly />     
              </div>
              </div>
           </div>
-        
+
+         
+        </div>
+
+        <div ng-show="vm.CanPerEle==1">
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
+             </div>
+             </div>
+          </div>
+          
+        </div>
+
+         <div ng-show="vm.CanPerEle==2">
+
+          <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
+             </div>
+             </div>
+          </div>
+
+            <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly />     
+             </div>
+             </div>
+          </div>
+
+           
+
+        </div>
+
+        <div ng-show="vm.CanPerEle==3">
+          
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP3" placeholder="P3" readonly />     
+             </div>
+             </div>
+          </div>
+
+          
+        </div>
+
+        <div ng-show="vm.CanPerEle==4">
+          
+          <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP3" placeholder="P3" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP4" placeholder="P4" readonly />     
+             </div>
+             </div>
+          </div>
+
+          
+        </div>
+
+        <div ng-show="vm.CanPerEle==5">
+          
+          <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP1" placeholder="P1" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP2" placeholder="P2" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP3" placeholder="P3" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP4" placeholder="P4" readonly />     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-1">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotConP5" placeholder="P5" readonly />     
+             </div>
+             </div>
+          </div>
+           
+        </div>
+
           <!--- PARA LOS CUPS ELECTRICOS END -->
 
 
@@ -384,7 +538,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Referencia</label>
-        <input type="text" class="form-control" name="RefCon" id="RefCon" ng-model="vm.fdatos.RefCon" readonly="readonly" placeholder="Referencia" ng-disabled="vm.fdatos.tipo=='ver'"/>
+        <input type="text" class="form-control" name="RefCon" id="RefCon" ng-model="vm.fdatos.RefCon" placeholder="Referencia" ng-disabled="vm.fdatos.tipo=='ver'"/>
          
          </div>
          </div>

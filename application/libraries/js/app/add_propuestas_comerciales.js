@@ -22,6 +22,7 @@
          mm = '0' + mm
      }
      var fecha = dd + '/' + mm + '/' + yyyy;
+     scope.CanPerEle=6;
      ////////////////////////////////////////////////// PARA LOS CONTACTOS START ////////////////////////////////////////////////////////
     //console.log('CodCli: '+ scope.fdatos.CodCli);
     //console.log('CodConCom: '+scope.CodConCom);
@@ -177,6 +178,7 @@
                     scope.fdatos.PotConP4=scope.List_CUPsEle[i].PotConP4;
                     scope.fdatos.PotConP5=scope.List_CUPsEle[i].PotConP5;
                     scope.fdatos.PotConP6=scope.List_CUPsEle[i].PotConP6;
+                    scope.CanPerEle=scope.List_CUPsEle[i].CanPerTar;
                 }
             }
         }
@@ -387,48 +389,108 @@
                  return false;
             }
 
-            if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                 scope.fdatos.PotConP1 = null;
-             }
-             else
-             {
-                scope.fdatos.PotConP1 =scope.fdatos.PotConP1;
-             }
-            if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                scope.fdatos.PotConP2 = null;
-             }
-             else
-             {
-                 scope.fdatos.PotConP2 = scope.fdatos.PotConP2;
-             }
-            if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                 scope.fdatos.PotConP3 = null;
-             }
-             else
-             {
-                scope.fdatos.PotConP3 = scope.fdatos.PotConP3;
-             }
-            if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-                 scope.fdatos.PotConP4 = null;
-             }
-             else
-             {
-                scope.fdatos.PotConP4=scope.fdatos.PotConP4;
-             }
-            if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
-                 scope.fdatos.PotConP5 = null;
-             }
-             else
-             {
-                 scope.fdatos.PotConP5 = scope.fdatos.PotConP5;
-             }
-            if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
-                scope.fdatos.PotConP6=null;
-             }
-             else
-             {
-                scope.fdatos.PotConP6=scope.fdatos.PotConP6; 
-             }
+            if(scope.CanPerEle==1)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
+            if(scope.CanPerEle==2)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
+            if(scope.CanPerEle==3)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
+            if(scope.CanPerEle==4)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
+            if(scope.CanPerEle==5)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 5", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
+            if(scope.CanPerEle==6)
+            {
+                if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 5", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+                if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
+                Swal.fire({ title: "Debe indicar la Potencia 6", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+                }
+            }
             if (scope.fdatos.ImpAhoEle == null || scope.fdatos.ImpAhoEle == undefined || scope.fdatos.ImpAhoEle == '') {
                  Swal.fire({ title: "Debe indicar un importe de ahorro eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
@@ -758,6 +820,10 @@
                     scope.fdatos.Rech=true;
                     scope.fdatos.JusRecProCom=result.data.Propuesta.JusRecProCom;  
                 }
+                if(scope.fdatos.CodCupSEle!=null)
+                {
+                    scope.filtrerCanPeriodos(result.data.Propuesta.CodTarEle);
+                }
                 
                 
                 //console.log(scope.fdatos.CodCli);
@@ -863,6 +929,24 @@
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                 }
          });
+
+    }
+    scope.filtrerCanPeriodos=function(CodTarEle)
+    {
+        console.log(CodTarEle);
+        //scope.fdatos.PotConP1=undefined;
+        //scope.fdatos.PotConP2=undefined;
+        //scope.fdatos.PotConP3=undefined;
+        //scope.fdatos.PotConP4=undefined;
+        //scope.fdatos.PotConP5=undefined;
+        //scope.fdatos.PotConP6=undefined;
+        for (var i = 0; i < scope.List_TarEle.length; i++) 
+        {
+            if(scope.List_TarEle[i].CodTarEle==CodTarEle)
+            {
+                scope.CanPerEle=scope.List_TarEle[i].CanPerTar;
+            }
+        }
 
     }
     scope.regresar=function()
