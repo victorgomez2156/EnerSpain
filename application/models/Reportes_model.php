@@ -43,10 +43,6 @@ class Reportes_model extends CI_Model
     }    
     public function get_data_cliente($where,$Variable)
     {
-        /*$this->db->select('a.RazSocCli,a.NumCifCli,a.NomComCli,a.NomViaDomFis,c.DesPro,b.DesLoc,case a.EstCli when 3 then "ACTIVO" WHEN 4 THEN "BLOQUEADO" end as EstCli,a.TelFijCli',FALSE);
-        $this->db->from('T_Cliente a');
-        $this->db->join('T_Localidad b','a.CodLocFis=b.CodLoc');
-        $this->db->join('T_Provincia c','b.CodPro=c.CodPro');*/
         $this->db->select('a.RazSocCli,a.NumCifCli,a.NomComCli,d.DesTipVia,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,             c.DesPro,b.DesLoc,g.DesTipVia as DesTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,f.DesPro as DesProFis,e.DesLoc as DesLocFis,a.TelFijCli,a.EmaCli,h.DesTipCli,i.DesSecCli,j.NomCom,k.NomCol,date_format(a.FecIniCli, "%d-%m-%Y") as FecIniCli      ,case a.EstCli when 3 then "ACTIVO" WHEN 4 THEN "BLOQUEADO" end as EstCli',FALSE);
         $this->db->from('T_Cliente a');
         $this->db->join('T_Localidad b','a.CodLocFis=b.CodLoc');
@@ -76,8 +72,6 @@ class Reportes_model extends CI_Model
         $this->db->from('T_ActividadCliente a');
         $this->db->join('T_CNAE b','a.CodActCNAE=b.id');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        //$this->db->join('T_Provincia c','b.CodPro=c.CodPro');
-        //$this->db->where('a.CodCli',$CodCli);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -94,7 +88,6 @@ class Reportes_model extends CI_Model
         $this->db->from('T_ActividadCliente a');        
         $this->db->join('T_CNAE b','a.CodActCNAE=b.id');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        //$this->db->where($where2,$CodCli); 
         $this->db->where($where1,$Variable);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -115,7 +108,6 @@ class Reportes_model extends CI_Model
         $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
         $this->db->join('T_TipoInmueble e','a.CodTipInm=e.CodTipInm');
         $this->db->join('T_Cliente f','a.CodCli=f.CodCli');
-        //$this->db->where('a.CodCli',$CodCli);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -135,8 +127,7 @@ class Reportes_model extends CI_Model
         $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
         $this->db->join('T_TipoInmueble e','a.CodTipInm=e.CodTipInm');
         $this->db->join('T_Cliente f','a.CodCli=f.CodCli');
-        $this->db->where($where,$Variable); 
-        //$this->db->where($where1,$Variable2);           
+        $this->db->where($where,$Variable);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -153,9 +144,6 @@ class Reportes_model extends CI_Model
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        //$this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        //$this->db->join('T_TipoInmueble e','a.CodTipInm=e.CodTipInm');
-        //$this->db->where('a.CodCli',$CodCli);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -172,10 +160,7 @@ class Reportes_model extends CI_Model
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
          $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        //$this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        //$this->db->join('T_TipoInmueble e','a.CodTipInm=e.CodTipInm');
-        $this->db->where($where,$Variable1);
-        //$this->db->where($where2,$Variable2);          
+        $this->db->where($where,$Variable1);          
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -192,7 +177,6 @@ class Reportes_model extends CI_Model
         $this->db->from('T_CuentaBancaria a');
         $this->db->join('T_Banco b','a.CodBan=b.CodBan');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        //$this->db->where('a.CodCli',$CodCli);
         $this->db->order_by('b.DesBan asc');           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -211,7 +195,6 @@ class Reportes_model extends CI_Model
         $this->db->join('T_Banco b','a.CodBan=b.CodBan');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
         $this->db->where($where1,$Variable1);
-        //$this->db->where($where2,$Variable2);
         $this->db->order_by('b.DesBan asc');           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -225,7 +208,6 @@ class Reportes_model extends CI_Model
     }
     public function get_data_comercializadora_all()
     {
-        //$this->db->select('a.NumCifCom,a.RazSocCom,a.NomComCom,a.NomViaDirCom,c.DesPro,b.DesLoc,a.TelFijCom,a.EmaCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,DATE_FORMAT(a.FecConCom,"%d-%m-%Y") as FecConCom,a.DurConCom,DATE_FORMAT(a.FecVenConCom,"%d-%m-%Y") as FecVenConCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',FALSE);
         $this->db->select('a.NumCifCom,a.RazSocCom,a.NomComCom,d.DesTipVia,a.NomViaDirCom,c.DesPro,b.DesLoc,a.TelFijCom,a.EmaCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,a.NomConCom',FALSE);
         $this->db->from('T_Comercializadora a');
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
@@ -244,12 +226,10 @@ class Reportes_model extends CI_Model
     } 
     public function get_data_comercializadora_all_filtradas($where,$Variable)
     {
-        //$this->db->select('a.NumCifCom,a.RazSocCom,a.NomComCom,a.NomViaDirCom,c.DesPro,b.DesLoc,a.TelFijCom,a.EmaCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,DATE_FORMAT(a.FecConCom,"%d-%m-%Y") as FecConCom,a.DurConCom,DATE_FORMAT(a.FecVenConCom,"%d-%m-%Y") as FecVenConCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',FALSE);
         $this->db->select('a.NumCifCom,a.RazSocCom,a.NomComCom,d.DesTipVia,a.NomViaDirCom,c.DesPro,b.DesLoc,a.TelFijCom,a.EmaCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,a.NomConCom',FALSE);
         $this->db->from('T_Comercializadora a');
         $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
         $this->db->join('T_Provincia c','b.CodPro=c.CodPro');
-
         $this->db->join('T_TipoVia d','d.CodTipVia=a.CodTipVia');
         $this->db->where($where,$Variable); 
         $this->db->order_by('a.NomComCom ASC');           
@@ -694,7 +674,6 @@ class Reportes_model extends CI_Model
     {
         $this->db->select('*',false);
         $this->db->from('V_CupsGrib');
-        //$this->db->where($Where,$Variable);
         $this->db->order_by('CupsGas ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -711,7 +690,6 @@ class Reportes_model extends CI_Model
         $this->db->select('*',false);
         $this->db->from('V_CupsGrib');
         $this->db->where($Where,$TipServ);
-        //$this->db->where($AND,$CodPunSum);
         $this->db->order_by('CupsGas ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -729,7 +707,6 @@ class Reportes_model extends CI_Model
         $this->db->from($Tabla);
         $this->db->join($Join,$ON);
         $this->db->where($Where,$Variable);
-        //$this->db->where($AND,$CodPunSum);
         $this->db->order_by($Order_BY);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -778,7 +755,6 @@ class Reportes_model extends CI_Model
         $this->db->select('SUM(ConCup) AS AcumConCup',FALSE);
         $this->db->from($Tabla);
         $this->db->where($Where,$CodCup); 
-       // $this->db->where('FecIniCon BETWEEN"'.$desde.'" and "'.$hasta.'"');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         { 
@@ -949,7 +925,100 @@ class Reportes_model extends CI_Model
         return $query->row();
         else
         return false;              
+    }    
+    public function getcomercializadorasearch($SearchText)
+    {
+        $this->db->select('a.NumCifCom,a.RazSocCom,a.NomComCom,d.DesTipVia,a.NomViaDirCom,c.DesPro,b.DesLoc,a.TelFijCom,a.EmaCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,a.NomConCom',FALSE);
+        $this->db->from('T_Comercializadora a');
+        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
+        $this->db->join('T_Provincia c','b.CodPro=c.CodPro');
+        $this->db->join('T_TipoVia d','d.CodTipVia=a.CodTipVia');
+        $this->db->like('a.RazSocCom',$SearchText);
+        $this->db->or_like('a.NomComCom',$SearchText);
+        $this->db->or_like('a.NumCifCom',$SearchText);
+        $this->db->or_like('a.EmaCom',$SearchText);
+        $this->db->or_like('DATE_FORMAT(a.FecIniCom,"%d/%m/%Y")',$SearchText); 
+        $this->db->order_by('a.RazSocCom ASC');           
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        { 
+            return false;
+        }      
+    } 
+    public function getProductossearch($SearchText)
+    {
+        $this->db->select('a.CodPro,b.RazSocCom,b.NumCifCom,a.DesPro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,a.ObsPro,DATE_FORMAT(a.FecIniPro,"%d/%m/%Y")as FecIniPro,case a.EstPro when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstPro,a.CodCom',FALSE);
+        $this->db->from('T_Producto a');
+        $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
+        $this->db->like('b.RazSocCom',$SearchText);
+        $this->db->or_like('b.NumCifCom',$SearchText);
+        $this->db->or_like('a.DesPro',$SearchText);
+        //$this->db->or_like('a.SerGas',$SearchText);
+        //$this->db->or_like('a.SerEle',$SearchText);
+        $this->db->or_like('DATE_FORMAT(a.FecIniPro,"%d/%m/%Y")',$SearchText);
+        $this->db->order_by('a.DesPro ASC');          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }   
     }
+     public function getAnexossearch($SearchText)
+    {
+        $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,case a.TipPre when 0 then "FIJO" when 1 then "INDEXANDO" WHEN 2 THEN "AMBOS" end TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
+        $this->db->from('T_AnexoProducto a');
+        $this->db->join('T_Producto b','a.CodPro=b.CodPro');
+        $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
+        $this->db->join('T_TipoComision d','a.CodTipCom=d.CodTipCom');
+        $this->db->like('c.RazSocCom',$SearchText);
+        $this->db->or_like('c.NumCifCom',$SearchText);
+        $this->db->or_like('b.DesPro',$SearchText);
+        $this->db->or_like('a.DesAnePro',$SearchText);
+        $this->db->or_like('date_format(a.FecIniAne,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('d.DesTipCom',$SearchText);
+        $this->db->order_by('a.DesAnePro ASC');          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }       
+    } 
+    public function getServiciosEspecialessearch($SearchText)
+    {
+        $this->db->select('a.CodSerEsp,a.CodCom,b.RazSocCom,b.NumCifCom,a.DesSerEsp,case a.TipSumSerEsp when 0 then "GAS" when 1 then "ELÉCTRICO" WHEN 2 THEN "AMBOS" end TipSumSerEsp,a.CarSerEsp,case a.TipCli when 0 then "PARTICULAR" when 1 then "NEGOCIO" end TipCli,date_format(a.FecIniSerEsp,"%d/%m/%Y") as FecIniSerEsp,c.DesTipCom,a.CodTipCom,a.OsbSerEsp,case a.EstSerEsp when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstSerEsp',FALSE);
+        $this->db->from('T_ServicioEspecial a');
+        $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
+        $this->db->join('T_TipoComision c','a.CodTipCom=c.CodTipCom');  
+        $this->db->like('b.RazSocCom',$SearchText);
+        $this->db->or_like('b.NumCifCom',$SearchText);
+        $this->db->or_like('a.DesSerEsp',$SearchText);
+        $this->db->or_like('date_format(a.FecIniSerEsp,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('c.DesTipCom',$SearchText);
+        $this->db->order_by('a.DesSerEsp ASC');          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }     
+    }
+
+
  
 }
 ?>

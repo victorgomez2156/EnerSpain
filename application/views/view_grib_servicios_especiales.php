@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" title="Escriba para Filtrar listado ..." ng-model="vm.filtrar_servicio_esp" minlength="1" id="exampleInputEmail23" placeholder="Escribir para Filtrar...">
+                      <input type="text" class="form-control" title="Escriba para Filtrar listado ..." ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail23" placeholder="Escribir para Filtrar..." ng-keyup="vm.fetchServiciosEspeciales()">
                     </div>                 
                     <a style="margin-right: 10px;" class="btn btn-info" title="Agregar Servicio Especial" href="#/Add_Servicios_Adicionales"><i class="fa fa-plus-square"></i></a>
                   </form>                    
@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TServicioEspeciales.length==0"> 
                     <td colspan="10" align="center"><div class="td-usuario-table">No hay información</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3 | filter:vm.filtrar_servicio_esp" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.TServicioEspeciales | filter:paginate3" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
                      <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>
                     <td ng-show="vm.DesSerEsp==true">{{dato.DesSerEsp}}</td>
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td ng-show="vm.AccSerEsp==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_servicio_especiales" name="opciones_servicio_especiales" ng-model="vm.opciones_servicio_especiales[$index]" ng-change="vm.validar_opcion_servicios_especiales($index,vm.opciones_servicio_especiales[$index],dato)">
+                        <select class="form-control" id="opciones_servicio_especiales" style="width: auto;" name="opciones_servicio_especiales" ng-model="vm.opciones_servicio_especiales[$index]" ng-change="vm.validar_opcion_servicios_especiales($index,vm.opciones_servicio_especiales[$index],dato)">
                           <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

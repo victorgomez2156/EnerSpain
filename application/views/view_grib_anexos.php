@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_anexos" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail22" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_search" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail22" placeholder="Escribe para Filtrar..." ng-keyup="vm.fetchAnexos()">
                     </div>                 
                     <a style="margin-right: 10px;" class="btn btn-info" title="Agregar Anexos" href="#/Add_Anexos"><i class="fa fa-plus-square"></i></a>
                   </form>                    
@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TAnexos.length==0"> 
                     <td colspan="12" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.TAnexos | filter:paginate2 | filter:vm.filtrar_anexos" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.TAnexos | filter:paginate2" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
                     <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>
                     <td ng-show="vm.CodAneTPro==true">{{dato.DesPro}}</td>                  

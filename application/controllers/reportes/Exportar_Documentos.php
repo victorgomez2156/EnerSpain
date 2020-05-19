@@ -2835,7 +2835,23 @@ class Exportar_Documentos extends CI_Controller
                 }                            
             }            
         }
-
+        elseif($tipo_filtro==5)
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Filtro = urldecode($this->uri->segment(5));            
+            $Tipo_Filtro1 = urldecode($this->uri->segment(6)); 
+            $Tipo_Filtro2 = urldecode($this->uri->segment(7)); 
+            if($Tipo_Filtro==null)
+            {
+               echo "Error debe colocar una palabra para el filtro";
+               return false;  
+            }
+            if($Tipo_Filtro!=null&&$Tipo_Filtro1!=null&&$Tipo_Filtro2!=null)
+            {
+              $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1.'/'.$Tipo_Filtro2;
+            }
+            $Resultado_Filtro_Comercializadoras=$this->Reportes_model->getcomercializadorasearch($Tipo_Filtro);
+        }
         else
         {
            echo 'El Tipo de Filtro que introdujo es incorrecto';
@@ -3077,7 +3093,23 @@ class Exportar_Documentos extends CI_Controller
                 }                            
             }            
         }
-
+        elseif($tipo_filtro==5)
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Filtro = urldecode($this->uri->segment(5));            
+            $Tipo_Filtro1 = urldecode($this->uri->segment(6)); 
+            $Tipo_Filtro2 = urldecode($this->uri->segment(7)); 
+            if($Tipo_Filtro==null)
+            {
+               echo "Error debe colocar una palabra para el filtro";
+               return false;  
+            }
+            if($Tipo_Filtro!=null&&$Tipo_Filtro1!=null&&$Tipo_Filtro2!=null)
+            {
+              $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1.'/'.$Tipo_Filtro2;
+            }
+            $Resultado_Filtro_Comercializadoras=$this->Reportes_model->getcomercializadorasearch($Tipo_Filtro);
+        }
         else
         {
            echo 'El Tipo de Filtro que introdujo es incorrecto';
@@ -3418,7 +3450,29 @@ class Exportar_Documentos extends CI_Controller
                     echo "Tipo de Filtro incorrecto";
                     return false;
                 }                     
-        }        
+        } 
+        elseif($tipo_filtro==5) 
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Filtro = urldecode($this->uri->segment(5));            
+            $Tipo_Filtro1 = urldecode($this->uri->segment(6)); 
+            $Tipo_Filtro2 = urldecode($this->uri->segment(7)); 
+            //var_dump($Tipo_Filtro,$Tipo_Filtro1,$Tipo_Filtro2);
+            if($Tipo_Filtro==null)
+            {
+               echo "Error debe colocar una palabra para el filtro";
+               return false;  
+            }
+            if($Tipo_Filtro1!=null && $Tipo_Filtro2==null)
+            {
+                $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1;
+            }
+            if($Tipo_Filtro2!=null)
+            {
+                $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1.'/'.$Tipo_Filtro2;
+            }
+            $Resultado_Filtro_Productos=$this->Reportes_model->getProductossearch($Tipo_Filtro); 
+        }       
         else
         {
             echo 'El Tipo de Filtro que introdujo es incorrecto';
@@ -3635,7 +3689,29 @@ class Exportar_Documentos extends CI_Controller
                     echo "Tipo de Filtro incorrecto";
                     return false;
                 }                     
-        }        
+        }
+        elseif($tipo_filtro==5) 
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Filtro = urldecode($this->uri->segment(5));            
+            $Tipo_Filtro1 = urldecode($this->uri->segment(6)); 
+            $Tipo_Filtro2 = urldecode($this->uri->segment(7)); 
+            //var_dump($Tipo_Filtro,$Tipo_Filtro1,$Tipo_Filtro2);
+            if($Tipo_Filtro==null)
+            {
+               echo "Error debe colocar una palabra para el filtro";
+               return false;  
+            }
+            if($Tipo_Filtro1!=null && $Tipo_Filtro2==null)
+            {
+                $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1;
+            }
+            if($Tipo_Filtro2!=null)
+            {
+                $Tipo_Filtro=$Tipo_Filtro.'/'.$Tipo_Filtro1.'/'.$Tipo_Filtro2;
+            }
+            $Resultado_Filtro_Productos=$this->Reportes_model->getProductossearch($Tipo_Filtro); 
+        }            
         else
         {
             echo 'El Tipo de Filtro que introdujo es incorrecto';
@@ -4012,8 +4088,28 @@ class Exportar_Documentos extends CI_Controller
                 echo 'Error o el Estatus del Anexo es incorrecto';
                 return false;
             }
+        }
+        elseif ($tipo_filtro==7) 
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Cliente=urldecode($this->uri->segment(5));
+            $Tipo_Cliente1=urldecode($this->uri->segment(6));
+            $Tipo_Cliente2=urldecode($this->uri->segment(7));
+            if($Tipo_Cliente==null)
+            {
+                echo "Error debe colocar una palabra para el filtro";
+                return false;  
+            }
+            if($Tipo_Cliente1!=null && $Tipo_Cliente2==null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1;
+            }
+            if($Tipo_Cliente2!=null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1.'/'.$Tipo_Cliente2;
+            }
+            $Resultado_Filtro_Anexos=$this->Reportes_model->getAnexossearch($Tipo_Cliente);
            
-            //$this->Reportes_model->get_data_all_anexos_filtradas('a.FecIniAne',$fecha_busqueda);
         }
         else
         {
@@ -4286,6 +4382,28 @@ class Exportar_Documentos extends CI_Controller
             }
            
             //$this->Reportes_model->get_data_all_anexos_filtradas('a.FecIniAne',$fecha_busqueda);
+        }
+        elseif ($tipo_filtro==7) 
+        {
+            $nombre_filtro="Por Busqueda: ";
+            $Tipo_Cliente=urldecode($this->uri->segment(5));
+            $Tipo_Cliente1=urldecode($this->uri->segment(6));
+            $Tipo_Cliente2=urldecode($this->uri->segment(7));
+            if($Tipo_Cliente==null)
+            {
+                echo "Error debe colocar una palabra para el filtro";
+                return false;  
+            }
+            if($Tipo_Cliente1!=null && $Tipo_Cliente2==null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1;
+            }
+            if($Tipo_Cliente2!=null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1.'/'.$Tipo_Cliente2;
+            }
+            $Resultado_Filtro_Anexos=$this->Reportes_model->getAnexossearch($Tipo_Cliente);
+           
         }
         else
         {
@@ -4623,7 +4741,7 @@ class Exportar_Documentos extends CI_Controller
             $fecha_busqueda=$ano."-".$mes."-".$dia;
             $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicio_especiales_filtradas('a.FecIniSerEsp',$fecha_busqueda);
         }
-       elseif ($tipo_filtro==6) 
+        elseif ($tipo_filtro==6) 
         {
             $nombre_filtro="Estatus Anexo";
             $Tipo_Cliente=urldecode($this->uri->segment(5));
@@ -4645,6 +4763,28 @@ class Exportar_Documentos extends CI_Controller
                 echo 'Error o el Estatus del Anexo es incorrecto';
                 return false;
             }
+        }
+        elseif ($tipo_filtro==7) 
+        {
+            $nombre_filtro="Busqueda Por: ";
+            $Tipo_Cliente=urldecode($this->uri->segment(5));
+            $Tipo_Cliente1=urldecode($this->uri->segment(6));
+            $Tipo_Cliente2=urldecode($this->uri->segment(7));
+            if($Tipo_Cliente==null)
+            {
+                echo 'Error o no introdujo el filtro';
+                return false;  
+            }
+            if($Tipo_Cliente1!=null && $Tipo_Cliente2==null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1;  
+            }
+            if($Tipo_Cliente2!=null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1.'/'.$Tipo_Cliente2;  
+            }
+            $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->getServiciosEspecialessearch($Tipo_Cliente);
+           
         }
         else
         {
@@ -4885,6 +5025,28 @@ class Exportar_Documentos extends CI_Controller
                 echo 'Error o Estatus del Anexo es incorrecto';
                 return false;
             }
+        }
+        elseif ($tipo_filtro==7) 
+        {
+            $nombre_filtro="Busqueda Por: ";
+            $Tipo_Cliente=urldecode($this->uri->segment(5));
+            $Tipo_Cliente1=urldecode($this->uri->segment(6));
+            $Tipo_Cliente2=urldecode($this->uri->segment(7));
+            if($Tipo_Cliente==null)
+            {
+                echo 'Error o no introdujo el filtro';
+                return false;  
+            }
+            if($Tipo_Cliente1!=null && $Tipo_Cliente2==null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1;  
+            }
+            if($Tipo_Cliente2!=null)
+            {
+                $Tipo_Cliente=$Tipo_Cliente.'/'.$Tipo_Cliente1.'/'.$Tipo_Cliente2;  
+            }
+            $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->getServiciosEspecialessearch($Tipo_Cliente);
+           
         }
         else
         {
