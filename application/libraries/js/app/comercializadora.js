@@ -637,16 +637,5 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         
              
     }
-    /*scope.filtrar = function(expresion)
-    {
-       console.log(expresion);
-        if (expresion.length>0){
-            scope.Tcomercializadoras = $filter('filter')(scope.TcomercializadorasBack, {NumCifCom: expresion});
-        }
-        else
-        {
-            scope.Tcomercializadoras = scope.TcomercializadorasBack;
-        }                
-    }*/
-        //////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////	
 }
