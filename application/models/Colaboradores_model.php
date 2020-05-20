@@ -131,13 +131,29 @@ class Colaboradores_model extends CI_Model
         $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol');
         $this->db->join('T_PuntoSuministro b', 'a.CodCli = b.CodCli','left');
 		$this->db->join('T_CUPsElectrico d', 'b.CodPunSum = d.CodPunSum','left');
-		$this->db->join('T_CUPsGas e', 'b.CodPunSum = e.CodPunSum','left');
-	
+		$this->db->join('T_CUPsGas e', 'b.CodPunSum = e.CodPunSum','left');	
 		$this->db->where('c.CodCol',$CodCol);
-        $query = $this->db->get();
-        
+        $query = $this->db->get();        
 		return $query->result();
-
-
+    }
+    public function getColabordoresFilters($SearchText)
+    {
+        $this->db->select('*');
+        $this->db->from('T_Colaborador');
+        $this->db->like('NomCol',$SearchText);
+        $this->db->or_like('NumIdeFis',$SearchText);
+        $this->db->or_like('TelFijCol',$SearchText);
+        $this->db->or_like('TelCelCol',$SearchText);
+        $this->db->or_like('EmaCol',$SearchText);
+        $this->db->order_by('NomCol ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
     }
 }

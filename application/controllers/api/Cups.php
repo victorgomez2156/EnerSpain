@@ -18,9 +18,7 @@ class Cups extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     }
-
-
-////////////////////////////////////////////////////////////////////////// PARA CUPS START //////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////// PARA CUPS START ////////////////////////////////////////////////////////
      public function get_all_functions_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -352,6 +350,20 @@ public function Buscar_XID_Servicio_get()
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->getclientessearch($objSalida->Cups_Cif);						
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+	public function getCUPsFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Cups_model->getCUPssearchFilter($objSalida->filtrar_cups);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Buscando Lista de CUPs Filtrados');
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}

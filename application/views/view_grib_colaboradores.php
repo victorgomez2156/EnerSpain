@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" title="Escribe para Filtrar..." id="exampleInputEmail2" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" title="Escribe para Filtrar..." id="exampleInputEmail2" placeholder="Escribe para Filtrar..." ng-keyup="vm.FetchColaboradores()">
                     </div>
 
                     <a style="margin-right: 10px;" href="#/Add_Colaborador" title="Agregar Colaborador" class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-plus-square" style="color:white;"></i></div></a>
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.tColaboradores.length==0"> 
                      <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
-                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.tColaboradores | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.NomCol==true">{{dato.NomCol}}</td>
                     <td ng-show="vm.NumIdeFis==true">{{dato.NumIdeFis}}</td>
                     <td ng-show="vm.TipCol==true"><div ng-show="dato.TipCol==1">Persona Física</div><div ng-show="dato.TipCol==2">Empresa</div></td>
@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <span class="label label-danger" ng-show="dato.EstCol==2">Bloqueado</span>
                     </td>                                       
                     <td ng-show="vm.AccCol==true">
-                      <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
+                      <select class="form-control" style="width: auto;" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                       </select>
                     </td>

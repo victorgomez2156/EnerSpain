@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.tgribcontactos.filtrar" minlength="1" placeholder="Escribe para filtrar...">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" ng-keyup="vm.FetchContactos()" minlength="1" placeholder="Escribe para filtrar...">
                   </div> 
                     <a title="Agregar Contactos" style="margin-right: 5px;" ng-click="vm.asignar_contacto()" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>
                 </form> 
@@ -178,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="td-usuario-table">No existen Contactos registrados</div>
                     </td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate4 | filter:vm.tgribcontactos.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate4" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                      <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.NomConCli==true">{{dato.NomConCli}}</td>
@@ -196,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    </td>
                     <td ng-show="vm.ActCont==true">
                       <div class="btn-group">
-                        <select class="form-control" id="validar_OpcCont" name="validar_OpcCont" ng-model="vm.validar_OpcCont[$index]" ng-change="vm.validar_OpcCont($index,vm.validar_OpcCont[$index],dato)">
+                        <select class="form-control" id="validar_OpcCont" style="width: auto;" name="validar_OpcCont" ng-model="vm.validar_OpcCont[$index]" ng-change="vm.validar_OpcCont($index,vm.validar_OpcCont[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

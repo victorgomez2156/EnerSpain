@@ -117,18 +117,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Gestionar_Consumo_Cups_Excel/{{vm.ruta_reportes_excel_consumo_cups}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
             </ul>
         </div>
-        <div class="btn-group">
+        <!--div class="btn-group">
           <a data-toggle="modal" title='Filtros' data-target="#modal_filtro_cups" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
-        </div>
+        </div-->
       </div>
     </div>
    </div>              
 <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
   <div class="t-0029">
    <form class="form-inline" role="form">
-      <div class="form-group">
+      <!--div class="form-group">
         <input type="text" class="form-control" ng-model="vm.filtrar_consumo_cups" minlength="1" placeholder="Escribe para filtrar...">
-      </div>                 
+      </div-->                 
       <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Consumos CUPs" ng-disabled="vm.disabled_button_add==false" ng-click="vm.agregar_consumo_cups()"><i class="fa fa-plus-square"></i> </button>
     </form>                    
  </div>

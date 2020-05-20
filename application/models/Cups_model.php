@@ -219,6 +219,29 @@ class Cups_model extends CI_Model
             return false;
         }       
     }
+    public function getCUPssearchFilter($SearchText) 
+    {
+         $this->db->select('*',FALSE);
+        $this->db->from('V_CupsGrib'); 
+        $this->db->like('Cups_Cif',$SearchText);
+        $this->db->or_like('CupsGas',$SearchText); 
+        $this->db->or_like('Cups_RazSocCli',$SearchText);
+        $this->db->or_like('DesPro',$SearchText);
+        $this->db->or_like('DesLoc',$SearchText);
+        $this->db->or_like('TipServ',$SearchText); 
+        $this->db->or_like('NomTarGas',$SearchText);
+        $this->db->or_like('EstCUPs',$SearchText);
+       // $this->db->order_by('CupsGas ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
 
 
 
@@ -227,7 +250,7 @@ class Cups_model extends CI_Model
 
 
 
-////////////////////////////////////////////////////////////////////////// PARA CONSUMO CUPS START //////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////// PARA CONSUMO CUPS START ////////////////////////////////////////////////
 public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc,$Where,$CodCup) 
     {
         $this->db->select($Select,FALSE);
@@ -291,7 +314,7 @@ public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc
     }
 
 
-////////////////////////////////////////////////////////////////////////// PARA CONSUMO CUPS END ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////// PARA CONSUMO CUPS END //////////////////////////////////////////////////////
 
 }
 ?>

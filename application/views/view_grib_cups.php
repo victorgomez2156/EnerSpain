@@ -136,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="t-0029">
    <form class="form-inline" role="form">
       <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" placeholder="Escribe para filtrar...">
+        <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchCUPs()">
       </div>                 
       <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Cups" ng-disabled="vm.disabled_button_add_punt==false" ng-click="vm.agregar_cups()"><i class="fa fa-plus-square"></i></button>
     </form>                    
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TCups.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.TCups | filter:paginate | filter:vm.filtrar_cups" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.TCups | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td>
                     <td ng-show="vm.RazSoc==true">{{dato.Cups_RazSocCli}}</td>
                     <td ng-show="vm.Cups==true">{{dato.CupsGas}}</td>

@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social <b style="color:red;">(*)</b></label>
-                         <input type="text" class="form-control" ng-model="vm.fdatos.RazSocDis" maxlength="50" onkeyup="this.value=this.value.toUpperCase();" required placeholder="* Razón Social" ng-change="vm.misma_comercial()" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="text" class="form-control" ng-model="vm.fdatos.RazSocDis" onkeyup="this.value=this.value.toUpperCase();" required placeholder="* Razón Social" ng-change="vm.misma_comercial()" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div>  
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Comercial <b style="color:red;">(*)</b></label>
-                        <input type="text" class="form-control" ng-model="vm.fdatos.NomComDis" onkeyup="this.value=this.value.toUpperCase();" ng-disabled="vm.fdatos.misma_razon==false||vm.disabled_form==1" required maxlength="25" placeholder="* Nombre Comercial"/>
+                        <input type="text" class="form-control" ng-model="vm.fdatos.NomComDis" onkeyup="this.value=this.value.toUpperCase();" ng-disabled="vm.fdatos.misma_razon==false||vm.disabled_form==1" required placeholder="* Nombre Comercial"/>
                         </div>
                         </div>
                       </div>       
@@ -104,16 +104,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <input type="text" class="form-control" ng-model="vm.fdatos.PagWebDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Página Web" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
-                       </div> 
-                       
-                      
+                       </div>
+
+                       <div class="col-12 col-md-11">
                          <div class="form">                          
                          <div class="form-group">
-                         <label class="font-weight-bold nexa-dark" style="color:black; margin-left: 18px;"> Persona Contacto</label>
+                         <label class="font-weight-bold nexa-dark" style="color:black;"> Persona Contacto</label>
                          <input type="text" class="form-control" ng-model="vm.fdatos.PerConDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="100" placeholder="Persona Contacto" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
-
+                       </div>                       
+                     
                     <div style="margin-top: 8px;">
                          <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministro</b></label></div></div>
                         
@@ -134,17 +135,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          </div>
                          </div>
 
+                         <div class="col-12 col-sm-11">
                          <div class="form">                          
                          <div class="form-group">
-                         <label class="font-weight-bold nexa-dark" style="color:black; margin-left: 18px;">Observación</label>
-                         <textarea type="text" class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Observación" ng-disabled="vm.disabled_form==1"/> </textarea>                      
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+                         <textarea class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Observación" ng-disabled="vm.disabled_form==1"/></textarea>                  
                          </div>
                          </div>
-
+                       </div>
 
                     </div><!--final row-->
                     <div class="form-group">
-                      <div class="col-lg-offset-2 col-lg-10">                        
+                      <div class="col-12 col-sm-12">                        
                         <button class="btn btn-primary" type="submit" ng-show="vm.fdatos.CodDist==undefined||vm.fdatos.CodDist==null||vm.fdatos.CodDist==''" ng-disabled="register_form.$invalid" style="margin-top: 8px;"> Guardar</button>                        
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodDist>0 && vm.disabled_form==undefined" ng-disabled="register_form.$invalid"> Actualizar</button>
                         <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodDist>0 && vm.Nivel==1 && vm.disabled_form==undefined" ng-disabled="vm.Nivel==3">{{ 'DELETE' | translate }}</button-->

@@ -1203,6 +1203,84 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
                            
     };
+    scope.FetchContratos=function()
+     {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };            
+            scope.T_Contratos = scope.T_ContratosBack;
+            $scope.totalItems = scope.T_Contratos.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.T_Contratos.indexOf(value);
+                return (begin <= index && index < end);
+            }    
+
+            scope.ruta_reportes_pdf_Contratos = 0;
+            scope.ruta_reportes_excel_Contratos =0;
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=2)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Contratos/getContratosFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };            
+                        scope.T_Contratos = result.data;
+                        $scope.totalItems = scope.T_Contratos.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.T_Contratos.indexOf(value);
+                            return (begin <= index && index < end);
+                        }
+                        scope.ruta_reportes_pdf_Contratos = 4 + "/" + scope.filtrar_search;
+                        scope.ruta_reportes_excel_Contratos = 4 + "/" + scope.filtrar_search;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Contratos Comerciales registrados", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.T_Contratos=[];
+                        scope.ruta_reportes_pdf_Contratos = 0;
+                        scope.ruta_reportes_excel_Contratos =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }     
+     }
     ///////// PARA CALCULAR DNI/NIE START /////////////////
     scope.validarNIFDNI=function()
     {

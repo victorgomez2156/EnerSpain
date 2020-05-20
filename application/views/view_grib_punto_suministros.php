@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.filtrar_PumSum" minlength="1" placeholder="Escribe para filtrar...">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_PumSum" minlength="1" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPunSum()">
                   </div>  
                    <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div</div></a-->
                     <a title="Agregar Punto Suministro" style="margin-right: 5px;" href="#/Add_Puntos_Suministros" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>              
@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.tPuntosSuminitros.length==0"> 
                     <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Direcciones de Sumninistro registradas</div></td>           
                   </tr>
-                  <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2 | filter:vm.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                      <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.DirPunSum==true">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</td>

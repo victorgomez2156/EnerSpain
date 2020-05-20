@@ -71,4 +71,24 @@ class Distribuidoras_model extends CI_Model
         $this->db->insert('T_BloqueoDistribuidora',array('CodDist'=>$CodDist,'FecBloDis'=>$fecha,'MotBloqDis'=>$MotBloqDis,'ObsBloDis'=>$ObsBloDis));
         return $this->db->insert_id();
     }
+    public function getDistribuidorasFilter($SearchText)
+    {
+        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,case TipSerDis when 0 then "ELÉCTRICO" WHEN 1 THEN "GAS" WHEN 2 THEN "AMBOS SERVICIOS" end as TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstDist',false);
+        $this->db->from('T_Distribuidora');
+        $this->db->like('NumCifDis',$SearchText);
+        $this->db->or_like('RazSocDis',$SearchText); 
+        $this->db->or_like('NomComDis',$SearchText);
+        $this->db->or_like('TelFijDis',$SearchText);
+        $this->db->or_like('EmaDis',$SearchText);     
+        $this->db->order_by('RazSocDis ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }                
+    }
 }

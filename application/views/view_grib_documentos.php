@@ -118,7 +118,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.t_documentos.filtrar" minlength="1" placeholder="Escribe para filtrar...">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchDocumentos()">
                   </div>  
                    <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a-->
                     <a title="Agregar Documentos" style="margin-right: 5px;" href="#/Add_Documentos" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>              
@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="td-usuario-table"><i class="fa fa-close"></i> No existen Documentos registrados</div>
               </td>           
             </tr>
-                <tr ng-repeat="dato in vm.T_Documentos | filter:paginate7 | filter:vm.t_documentos.filtrar" ng-class-odd="odd">
+                <tr ng-repeat="dato in vm.T_Documentos | filter:paginate7" ng-class-odd="odd">
                    <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                      <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                   <td ng-show="vm.CodTipDoc==true">{{dato.DesTipDoc}}</td>

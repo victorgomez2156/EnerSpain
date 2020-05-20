@@ -74,13 +74,30 @@ class Otrasgestiones_model extends CI_Model
     {
         $this->db->select('a.CodGesGen,a.CodCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,a.NGesGen,a.RefGesGen,a.MecGesGen,a.EstGesGen,a.PreGesGen,a.CodCupsEle,a.CodCupsGas,a.DesAnaGesGen,a.ObsGesGen,a.UltTipSeg,b.RazSocCli,b.NumCifCli',false);
         $this->db->from('T_OtrasGestiones a');
-        //$this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        //$this->db->order_by('a.FecGesGen DESC');
         $this->db->where('CodGesGen',$CodGesGen); 
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->row();
+        else
+        return false;              
+    }
+    public function getOtrasGestionesFilter($SearchText)
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen',false);
+        $this->db->from('T_OtrasGestiones a');
+        $this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->like('DATE_FORMAT(a.FecGesGen,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('b.DesTipGes',$SearchText);
+        $this->db->or_like('c.NumCifCli',$SearchText);
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->or_like('a.PreGesGen',$SearchText);
+        $this->db->or_like('a.RefGesGen',$SearchText);
+        $this->db->order_by('a.FecGesGen DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
         else
         return false;              
     }

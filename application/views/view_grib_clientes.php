@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="t-0029">
    <form class="form-inline" role="form">
       <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.filtrar_clientes" minlength="1" placeholder="Escribe para filtrar...">
+        <input type="text" class="form-control" ng-model="vm.filtrar_clientes" ng-keyup="vm.fetchClientesFilter()" minlength="1" placeholder="Escribe para filtrar...">
       </div>                 
       <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Cliente" ng-click="vm.modal_cif_cliente()"><i class="fa fa-plus-square"></i></button>
     </form>                    
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.Tclientes.length==0"> 
                      <td colspan="14" align="center"><div class="td-usuario-table">No existe información</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.Tclientes | filter:paginate | filter:vm.filtrar_clientes" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.Tclientes | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCif==true">{{dato.NumCifCli}}</td>
                     <td ng-show="vm.RazSoc==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.NomCli==true">{{dato.NomComCli}}</td>

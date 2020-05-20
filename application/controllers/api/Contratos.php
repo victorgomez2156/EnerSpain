@@ -352,6 +352,20 @@ class Contratos extends REST_Controller
 			$this->response($arrayName);
 		}	
 	}
+	public function getContratosFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Contratos_model->getContratosFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Contratos Comerciales Filtrados');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
       
 
 }

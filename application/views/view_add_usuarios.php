@@ -42,12 +42,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="panel-body">
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" name="register_form" ng-submit="submitForm($event)">
+                    
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Nombres <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input class=" form-control" id="nombres" name="nombres" type="text" required ng-model="vm.fdatos.nombres"/>
                       </div>
                     </div>
+
                      <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Apellidos <span class="required">*</span></label>
                       <div class="col-lg-10">

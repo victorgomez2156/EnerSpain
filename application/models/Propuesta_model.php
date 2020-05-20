@@ -220,7 +220,26 @@ class Propuesta_model extends CI_Model
         $this->db->where('CodSeg', $CodSeg);  
         return $this->db->update('T_Seguimiento',array('EstNotSeg'=>$EstNotSeg));
     }
-
+    public function getPropuestaComercialesFilter($SearchText)
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle',"left");
+        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas',"left");
+        $this->db->like('DATE_FORMAT(a.FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('b.NumCifCli',$SearchText);
+        $this->db->or_like('b.RazSocCli',$SearchText);
+        $this->db->or_like('c.CUPsEle',$SearchText);
+        $this->db->or_like('d.CupsGas',$SearchText);
+        $this->db->or_like('a.RefProCom',$SearchText);
+        $this->db->order_by('a.FecProCom DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
 
 
 

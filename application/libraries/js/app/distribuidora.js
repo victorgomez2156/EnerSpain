@@ -30,8 +30,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         scope.EstDist = true;
         scope.AccDis = true;
         scope.tmodal_distribuidora = {};
-        scope.ruta_reportes_pdf_distribuidora = 0;
-        scope.ruta_reportes_excel_distribuidora = 0;
+        scope.ruta_reportes_pdf_distribuidora_distribuidora = 0;
+        scope.ruta_reportes_excel_distribuidora_distribuidora = 0;
         scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id: 3, nombre: 'Activar' }, { id: 4, nombre: 'Bloquear' }];
     }
     if ($route.current.$$route.originalPath == "/Add_Distribuidora/") {
@@ -503,9 +503,9 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             $("#NumCifDis").removeClass("loader loader-default").addClass("loader loader-default  is-active");
             var url = base_urlHome() + "api/Distribuidoras/comprobar_cif_distribuidora/";
             $http.post(url, scope.NumCifDisConsulta).then(function(result) {
-                if (result.data != false) {
+                if (result.data != false){
                     $("#NumCifDis").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    Swal.fire({ title: "DNI/NIE.", text: 'El Número de CIF no existe', type: "info", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "DNI/NIE.", text: 'El Número de CIF ya se encuentra asignado a una distribuidora, intente con otro', type: "info", confirmButtonColor: "#188ae2" });
                 } else {
                     $("#NumCifDis").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     $("#modal_cif_distribuidora").modal('hide');
@@ -646,8 +646,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 index = scope.TDistribuidora.indexOf(value);
                 return (begin <= index && index < end);
             };
-            scope.ruta_reportes_pdf_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
-            scope.ruta_reportes_excel_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
+            scope.ruta_reportes_pdf_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
+            scope.ruta_reportes_excel_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
         }
         if (scope.tmodal_distribuidora.tipo_filtro == 2) {
             $scope.predicate = 'id';
@@ -667,8 +667,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 index = scope.TDistribuidora.indexOf(value);
                 return (begin <= index && index < end);
             };
-            scope.ruta_reportes_pdf_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
-            scope.ruta_reportes_excel_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
+            scope.ruta_reportes_pdf_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
+            scope.ruta_reportes_excel_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
         }
 
     };
@@ -720,8 +720,103 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             index = scope.TDistribuidora.indexOf(value);
             return (begin <= index && index < end);
         };
-        scope.ruta_reportes_pdf_distribuidora = 0;
-        scope.ruta_reportes_excel_distribuidora = 0;
+        scope.ruta_reportes_pdf_distribuidora_distribuidora = 0;
+        scope.ruta_reportes_excel_distribuidora_distribuidora = 0;
+    }
+    scope.FetchDistribuidoras = function()
+    {
+        if(scope.filter_search==undefined||scope.filter_search==null||scope.filter_search=='')
+        {
+           
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
+             scope.TDistribuidora=scope.TDistribuidoraBack;
+            $scope.totalItems = scope.TDistribuidora.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.TDistribuidora.indexOf(value);
+                return (begin <= index && index < end);
+            };
+            scope.ruta_reportes_pdf_distribuidora = 0;
+            scope.ruta_reportes_excel_distribuidora =0;
+
+        }
+        else
+        {
+            if(scope.filter_search.length>=2)
+            {
+                scope.fdatos.filter_search=scope.filter_search;   
+                var url = base_urlHome()+"api/Distribuidoras/getDistribuidorasFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };
+                         scope.TDistribuidora=result.data;
+                        $scope.totalItems = scope.TDistribuidora.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.TDistribuidora.indexOf(value);
+                            return (begin <= index && index < end);
+                        };
+                        scope.ruta_reportes_pdf_distribuidora = 3 + "/" + scope.filter_search;
+                        scope.ruta_reportes_excel_distribuidora = 3 + "/" + scope.filter_search;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Distribuidoras registradas", type: "error", confirmButtonColor: "#188ae2" });                    
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };
+                         scope.TDistribuidora=scope.TDistribuidoraBack;
+                        $scope.totalItems = scope.TDistribuidora.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.TDistribuidora.indexOf(value);
+                            return (begin <= index && index < end);
+                        };
+                        scope.ruta_reportes_pdf_distribuidora = 0;
+                        scope.ruta_reportes_excel_distribuidora =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
     }
     if (scope.nID != undefined) {
         scope.buscarXID();

@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.fdatos.filtrar" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail2" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filter_search" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail2" placeholder="Escribe para Filtrar..." ng-keyup="vm.FetchDistribuidoras()">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Distribuidora" ng-click="vm.modal_cif_distribuidora()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TDistribuidora.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.TDistribuidora | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.TDistribuidora | filter:paginate" ng-class-odd="odd">
                     
                     <td ng-show="vm.NumCifDis==true">{{dato.NumCifDis}}</td>
                     <td ng-show="vm.RazSocDis==true">{{dato.RazSocDis}}</td>
@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>                   
                    <th ng-show="vm.NumCifDis==true">CIF</th> 
                     <th ng-show="vm.RazSocDis==true">Razón Social</th>                   
-                    <th ng-show="vm.TelFijDis==true"><Teléfono</th>
+                    <th ng-show="vm.TelFijDis==true">Teléfono</th>
                     <th ng-show="vm.EstDist==true"> Estatus</th>      
                     <th ng-show="vm.AccDis==true">Acción</th>
                 </tfoot>
