@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="t-0029">
     <form class="form-inline" role="form">
       <div class="form-group">
-          <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+          <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchComercial()">
       </div>                 
       <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Comercial" ng-click="vm.modal_agg_comercial()"><i class="fa fa-plus-square"> </i> </button>
     </form>                    
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TComercial.length==0"> 
                      <td colspan="7" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.TComercial | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.TComercial | filter:paginate" ng-class-odd="odd">
                     
                      <td ng-show="vm.NomCom==true">{{dato.NomCom}}</td>
                     <td ng-show="vm.NIFCom==true">{{dato.NIFCom}}</td>
@@ -155,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td> 
                     <td ng-show="vm.AccCom==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_comercial" name="opciones_comercial" ng-model="vm.opciones_comercial[$index]" ng-change="vm.validar_opcion($index,vm.opciones_comercial[$index],dato)">
+                        <select class="form-control" style="width: auto;" id="opciones_comercial" name="opciones_comercial" ng-model="vm.opciones_comercial[$index]" ng-change="vm.validar_opcion($index,vm.opciones_comercial[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

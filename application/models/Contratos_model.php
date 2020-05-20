@@ -96,6 +96,44 @@ class Contratos_model extends CI_Model
         $this->db->where('CodConCom', $CodConCom);
         return $this->db->update('T_Contrato',array('EstRen'=>$EstRen,'RenMod'=>$RenMod,'ProRenPen'=>$ProRenPen,'EstBajCon'=>$EstBajCon));
     }
+    public function getContratosFilter($SearchText)
+    {
+        $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
+            CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
+        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
+        $this->db->like('DATE_FORMAT(a.FecConCom,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('b.NumCifCli',$SearchText);
+        $this->db->or_like('b.RazSocCli',$SearchText);
+        $this->db->or_like('d.RazSocCom',$SearchText);
+        $this->db->or_like('d.NumCifCom',$SearchText);
+        $this->db->or_like('e.DesAnePro',$SearchText);
+        $this->db->or_like('a.DurCon',$SearchText);
+        $this->db->or_like('DATE_FORMAT(a.FecVenCon,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('a.RefCon',$SearchText);
+        $this->db->order_by('a.FecIniCon DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+        
+        /*$this->db->like('DATE_FORMAT(a.FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('b.NumCifCli',$SearchText);
+        $this->db->or_like('b.RazSocCli',$SearchText);
+        $this->db->or_like('c.CUPsEle',$SearchText);
+        $this->db->or_like('d.CupsGas',$SearchText);
+        $this->db->or_like('a.RefProCom',$SearchText);
+        $this->db->order_by('a.FecProCom DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;  */            
+    }
 
 
 

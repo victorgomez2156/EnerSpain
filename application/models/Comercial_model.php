@@ -73,5 +73,27 @@ class Comercial_model extends CI_Model
         $this->db->insert('T_BloqueoComercial',array('CodCom'=>$CodCom,'FecBloCom'=>$FecBloCom,'MotBloqCom'=>$MotBloqCom,'ObsBloCom'=>$ObsBloCom));
         return $this->db->insert_id();
     }
+    public function geTComercialFilter($SearchText)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_Comercial');
+        $this->db->like('NomCom',$SearchText);
+        $this->db->or_like('NIFCom',$SearchText);
+        $this->db->or_like('TelFijCom',$SearchText);
+        $this->db->or_like('TelCelCom',$SearchText);
+        $this->db->or_like('EmaCom',$SearchText);
+        $this->db->or_like('CarCom',$SearchText);
+        $this->db->or_like('DATE_FORMAT(FecIniCom,"%d/%m/%Y")',$SearchText);
+        $this->db->order_by('NomCom DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
     /////PARA COMERCIALES END////
 }

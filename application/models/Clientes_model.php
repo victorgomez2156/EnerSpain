@@ -57,7 +57,6 @@ public function get_data_cliente($CodCli)
         JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
         JOIN T_Provincia c on b.CodPro=c.CodPro
         JOIN T_TipoVia   d on a.CodTipViaSoc=d.CodTipVia
-
         JOIN T_Localidad e on a.CodLocFis=e.CodLoc
         JOIN T_Provincia f on e.CodPro=f.CodPro
         JOIN T_TipoVia   g on a.CodTipViaFis=g.CodTipVia
@@ -148,19 +147,42 @@ public function get_CUPs_Electricos($CodPunSum)
     else
     return false;    
 }
-
-
-
-
+public function getClientessearchFilter($filtrar_clientes) 
+    {
+        $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "BLOQUEADO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
+        $this->db->from('T_Cliente a'); 
+        $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia');       
+        $this->db->join('T_Localidad c','a.CodLocSoc=c.CodLoc'); 
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
+        $this->db->join('T_TipoCliente e','a.CodTipCli=e.CodTipCli');
+        $this->db->join('T_Comercial f','a.CodCom=f.CodCom');
+        $this->db->join('T_SectorCliente g','a.CodSecCli=g.CodSecCli');
+        $this->db->join('T_Colaborador h','a.CodCol=h.CodCol','LEFT'); 
+        $this->db->join('T_TipoVia i','a.CodTipViaFis=i.CodTipVia');
+        $this->db->join('T_Localidad j','a.CodLocFis=j.CodLoc'); 
+        $this->db->join('T_Provincia k','j.CodPro=k.CodPro');       
+        $this->db->like('a.NumCifCli',$filtrar_clientes);
+        $this->db->or_like('a.RazSocCli',$filtrar_clientes);        
+        $this->db->or_like('a.TelFijCli',$filtrar_clientes);
+        $this->db->or_like('g.DesSecCli',$filtrar_clientes);
+        $this->db->or_like('a.NomComCli',$filtrar_clientes);
+        $this->db->or_like('a.EmaCli',$filtrar_clientes);
+        $this->db->or_like('DATE_FORMAT(a.FecIniCli,"%d/%m/%Y")',$filtrar_clientes);
+        $this->db->order_by('a.RazSocCli ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
 ////////////////////////////////////// CLIENTES END /////////////////////////////////////////////////
 
-
-
-
     
-    ///////////////////////////////////////////////////////////////////// ACTIVIDADES START /////////////////////////////////////////////////////////////////
-
-
+    //////////////////////////////////////////////////// ACTIVIDADES START ///////////////////////////////////////////////////////
     public function get_activity_clientes()
     {
        $sql = $this->db->query("SELECT a.*,b.*,case a.EstAct when 1 then 'Activa' when 2 then 'Bloqueada' end as EstAct ,DATE_FORMAT(a.FecIniAct, '%d/%m/%Y') as FecIniAct,c.NumCifCli,c.RazSocCli FROM T_ActividadCliente a join T_CNAE b on a.CodActCNAE=b.id join T_Cliente c on c.CodCli=a.CodCli  order by b.DesActCNAE asc");
@@ -252,11 +274,33 @@ public function get_CUPs_Electricos($CodPunSum)
             return false;
         }       
     }
+    public function getActividadesFilter($filtrar_search)
+    {
+       $this->db->select('a.*,b.*,case a.EstAct when 1 then "Activa" when 2 then "Bloqueada" end as EstAct ,DATE_FORMAT(a.FecIniAct, "%d/%m/%Y") as FecIniAct,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->from('T_ActividadCliente a'); 
+        $this->db->join('T_CNAE b','a.CodActCNAE=b.id');       
+        $this->db->join('T_Cliente c','c.CodCli=a.CodCli');  
+        $this->db->like('c.NumCifCli',$filtrar_search);
+        $this->db->or_like('c.RazSocCli',$filtrar_search);        
+        $this->db->or_like('b.CodActCNAE',$filtrar_search);
+        $this->db->or_like('b.DesActCNAE',$filtrar_search);
+        $this->db->or_like("DATE_FORMAT(a.FecIniAct, '%d/%m/%Y')",$filtrar_search);
+        $this->db->order_by('b.DesActCNAE ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }   
+    }
       
-    ////////////////// ACTIVIDADES END ///////////////////////////////
+    //////////////////////////////////////////////// ACTIVIDADES END //////////////////////////////////////////
 
 
-    ////////////////////////////////////////////////////////////////////// Direcciones de SuministroS START /////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////// Direcciones de SuministroS START ///////////////////////////////////////////////
 
     /* public function get_puntos_suministros_clientes()
     {
@@ -362,14 +406,41 @@ public function get_CUPs_Electricos($CodPunSum)
         $this->db->insert('T_BloqueoPunto',array('CodPunSum'=>$CodPunSum,'FecBloPun'=>$fecha,'CodMotBloPun'=>$MotBloPunSum,'ObsBloPun'=>$ObsBloPun));
         return true;//$this->db->insert_id();
     }
-    ///////////////////////////////////////////////////////////////////// Direcciones de SuministroS END ///////////////////////////////////////////////
+    public function getPunSumFilter($filtrar_search)
+    {
+       $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum',FALSE);
+        $this->db->from('T_PuntoSuministro a');   
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
+        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
+        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
+        $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm'); 
+        $this->db->like('b.NumCifCli',$filtrar_search); 
+        $this->db->or_like('b.RazSocCli',$filtrar_search);
+        $this->db->or_like('d.DesPro',$filtrar_search);   
+        $this->db->or_like('c.DesLoc',$filtrar_search);
+        $this->db->or_like('d.DesPro',$filtrar_search);
+        $this->db->or_like('b.EmaCli',$filtrar_search);
+        $this->db->order_by('b.RazSocCli ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }  
+    }
+
+    /////////////////////////////////////////////////// Direcciones de SuministroS END ///////////////////////////////////////////////
 
 
 
 
 
 
-/////////////////////////////////////////////////////////////////////////////// CONTACTOS START ////////////////////////////////////////////
+///////////////////////////////////////////////////////////// CONTACTOS START ////////////////////////////////////////////
 public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     {
         $this->db->select('*',FALSE);
@@ -494,11 +565,33 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
             return false;
         }       
     }
+    public function getContactosFilter($SearchText)
+    {
+        $this->db->select("a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'BLOQUEADO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli",false);
+        $this->db->from('T_ContactoCliente a');
+        $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->like('c.NumCifCli',$SearchText);
+        $this->db->or_like('a.NomConCli',$SearchText);
+        $this->db->or_like('a.NIFConCli',$SearchText);
+        $this->db->or_like('a.EmaConCli',$SearchText);
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->order_by('a.NomConCli ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
 ///////////////////////////////////////////////////////////////////// CONTACTOS END ////////////////////////////////////////
 
 
 
-///////////////////////////////////////////////////////////////////// CUENTAS BANCARIAS START //////////////////////////////////////////////
+//////////////////////////////////////////////////////// CUENTAS BANCARIAS START //////////////////////////////////////////////
 
     public function get_all_Cuentas_Bancarias_clientes()
     {
@@ -540,13 +633,32 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->insert('T_CuentaBancaria',array('CodCli'=>$CodCli,'NumIBan'=>$NumIBan,'CodBan'=>$CodBan));
         return $this->db->insert_id();
     }
+    public function getCuentasBancariasFilter($SearchText)
+    {
+        //return false;
+        $this->db->select("a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli",false);
+        $this->db->from('T_CuentaBancaria a');
+        $this->db->join('T_Banco b','a.CodBan=b.CodBan');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->like('c.NumCifCli',$SearchText);
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->or_like('b.DesBan',$SearchText);        
+        $this->db->or_like('a.NumIBan',$SearchText);
+        $this->db->order_by('a.NumIBan ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }    
+    }
+////////////////////////////////////////////////////////// CUENTAS BANCARIAS END /////////////////////////////////////////////////////
 
 
-
-///////////////////////////////////////////////////////////////////// CUENTAS BANCARIAS END /////////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////////////// DOCUMENTOS START /////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////// DOCUMENTOS START //////////////////////////////////////////////////////////
  public function get_all_documentos()
     {
        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
@@ -564,6 +676,28 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         {
             return false;
         }          
+    }
+    public function getDocumentosFilter($SearchText)
+    {
+        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
+       $this->db->from('T_Documentos a');
+       $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+       $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc');
+       $this->db->like('b.NumCifCli',$SearchText);
+       $this->db->or_like('b.RazSocCli',$SearchText);
+       $this->db->or_like('c.DesTipDoc',$SearchText);
+       $this->db->or_like('a.DesDoc',$SearchText);
+       $this->db->or_like('DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y")',$SearchText);
+       $this->db->order_by('a.DesDoc ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        } 
     }
     public function get_xID_Documentos($CodTipDocAI)
     {
@@ -599,7 +733,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         return $this->db->insert_id();
     }
 
-///////////////////////////////////////////////////////////////////// DOCUMENTOS END /////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////// DOCUMENTOS END //////////////////////////////////////////////////////////
 
 
 

@@ -225,6 +225,20 @@ class OtrasGestiones extends REST_Controller
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'Cargando Lista de Tipo de Gestiones Comerciales');		
 		$this->response($List_Gestiones);
     }
+    public function getOtrasGestionesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Otrasgestiones_model->getOtrasGestionesFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Otras Gestiones Comerciales Filtrados');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
       
 
 }

@@ -120,9 +120,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.fdatos.filtrar" minlength="1" placeholder="Escribe para filtrar...">
-                  </div>  
-                   <!--a data-toggle="modal" title="Asignar Actividad" style="margin-right: 5px;" data-target="#modal_asignar_actividades" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a-->
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" placeholder="Escribe para filtrar..." ng-keyup="vm.fetchActividades()">
+                  </div>
                     <a title="Asignar Actividad" style="margin-right: 5px;" href="#/Add_Actividades" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>              
                   
                 </form>                    
@@ -138,23 +137,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.RazSocCli==true">Razón Social</th>
                     <th ng-show="vm.DesSec==true">Código CNAE</th>
                     <th ng-show="vm.DesGru==true">Descripción</th>
-                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>
-                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>                    
+                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>
+                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>                                        
                     <th ng-show="vm.AccAct==true">Action</th>
                   </tr>
                   <tr ng-show="vm.TActividades.length==0"> 
                      <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Actividades registradas</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.TActividades | filter:paginate1 | filter:vm.fdatos.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.TActividades | filter:paginate1" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                      <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.DesSec==true">{{dato.CodActCNAE}}</td>
                     <td ng-show="vm.DesGru==true">{{dato.DesActCNAE}}</td>
+                    <td ng-show="vm.FecIniAct1==true">{{dato.FecIniAct}}</td> 
                     <td ng-show="vm.EstAct==true">
                       <span class="label label-info" ng-show="dato.EstAct=='Activa'"><i class="fa fa-check-circle"></i>  {{dato.EstAct}}</span>
                       <span class="label label-danger" ng-show="dato.EstAct=='Bloqueada'"><i class="fa fa-ban"></i>  {{dato.EstAct}}</span>
                    </td>
-                    <td ng-show="vm.FecIniAct1==true">{{dato.FecIniAct}}</td>                   
+                                      
                     <td ng-show="vm.AccAct==true">
                       <div class="btn-group">
                         <select class="form-control" id="opciones_actividades" name="opciones_actividades" ng-model="vm.opciones_actividades[$index]" style="width: auto;" ng-change="vm.validar_actividad($index,vm.opciones_actividades[$index],dato)">
@@ -170,8 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.RazSocCli==true"> Razón Social</th>
                     <th ng-show="vm.DesSec==true">Código CNAE</th>
                     <th ng-show="vm.DesGru==true">Descripción</th>
-                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>
-                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>                    
+                    <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>
+                    <th ng-show="vm.EstAct==true">Estatus Actividad</th>                                        
                     <th ng-show="vm.AccAct==true">Acción</th>
                 </tfoot>
               </table>

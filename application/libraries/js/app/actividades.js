@@ -698,9 +698,106 @@
                  console.log('Cancelando ando...');
              }
          });
-
-
      }
 
-     ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB END //////////////////////////////////////////////////////////
+scope.fetchActividades = function()
+    {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {
+           
+             $scope.predicate1 = 'id';
+             $scope.reverse1 = true;
+             $scope.currentPage1 = 1;
+             $scope.order1 = function(predicate1) {
+                 $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                 $scope.predicate1 = predicate1;
+             };
+             scope.TActividades = scope.TActividadesBack;
+             $scope.totalItems1 = scope.TActividades.length;
+             $scope.numPerPage1 = 50;
+             $scope.paginate1 = function(value1) {
+                 var begin1, end1, index1;
+                 begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                 end1 = begin1 + $scope.numPerPage1;
+                 index1 = scope.TActividades.indexOf(value1);
+                 return (begin1 <= index1 && index1 < end1);
+             };
+            scope.ruta_reportes_pdf_actividad = 0;
+            scope.ruta_reportes_excel_actividad =0;
+
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=2)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Clientes/getActividadesFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate1 = 'id';
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                         };
+                        scope.TActividades = result.data;
+                        $scope.totalItems1 = scope.TActividades.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.TActividades.indexOf(value1);
+                            return (begin1 <= index1 && index1 < end1);
+                        };
+                        scope.ruta_reportes_pdf_actividad = 4 + "/" + scope.filtrar_search;
+                        scope.ruta_reportes_excel_actividad = 4 + "/" + scope.filtrar_search;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Actividades registradas", type: "error", confirmButtonColor: "#188ae2" });                    
+                        $scope.predicate1 = 'id';
+                         $scope.reverse1 = true;
+                         $scope.currentPage1 = 1;
+                         $scope.order1 = function(predicate1) {
+                             $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                             $scope.predicate1 = predicate1;
+                         };
+                         scope.TActividades = scope.TActividadesBack;
+                         $scope.totalItems1 = scope.TActividades.length;
+                         $scope.numPerPage1 = 50;
+                         $scope.paginate1 = function(value1) {
+                             var begin1, end1, index1;
+                             begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                             end1 = begin1 + $scope.numPerPage1;
+                             index1 = scope.TActividades.indexOf(value1);
+                             return (begin1 <= index1 && index1 < end1);
+                         };
+                        scope.ruta_reportes_pdf_actividad = 0;
+                        scope.ruta_reportes_excel_actividad =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
+    }
+
+
+
+
+////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB END //////////////////////////////////////////////////////////
  }

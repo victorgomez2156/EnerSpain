@@ -35,8 +35,7 @@ class Clientes extends REST_Controller
         $Bancos = $this->Clientes_model->get_list_bancos();
         $Tipo_Contacto = $this->Clientes_model->get_list_tipo_contacto();        
         $Tipos_Documentos=$this->Clientes_model->get_list_tipos_documentos();
-
-       	$Clientes=$this->Clientes_model->get_list_clientes();
+        $Clientes=$this->Clientes_model->get_list_clientes();
         $Actividades_Clientes=$this->Clientes_model->get_activity_clientes();
         $Puntos_Suministros_Clientes=$this->Clientes_model->get_puntos_suministros_clientes();
         $Contactos=$this->Clientes_model->get_lista_contactos();
@@ -53,7 +52,7 @@ class Clientes extends REST_Controller
 		}		
 		$this->response($data);		
     }
-////////////////////////////////////////////////////////////////////////// PARA CLIENTES START //////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// PARA CLIENTES START ////////////////////////////////////////////////
 public function list_clientes_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -139,7 +138,7 @@ protected function buscar_xID_get()
 	}	
 	$this->response($data);		
 } 
- public function crear_clientes_post()
+    public function crear_clientes_post()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -167,11 +166,24 @@ protected function buscar_xID_get()
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }  
+    } 
+    public function getClientesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getClientessearchFilter($objSalida->filtrar_clientes);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Clientes Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+/////////////////////////////////////////////////////////////////////////// PARA CLIENTES END //////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////// PARA CLIENTES END //////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES START //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// PARA LAS ACTIVIDADES CLIENTES START /////////////////////////////////////////////////
 	public function all_actividades_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -267,10 +279,24 @@ protected function buscar_xID_get()
 		}		
 		$this->response($data);		
     }
-    //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES END //////////////////////////////////////////////////////////////////////////
+    public function getActividadesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getActividadesFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Actividades Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+    //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES END ///////////////////////////////////////////////////////
    
 
-    ////////////////////////////////////// PARA LOS Direcciones de SuministroS START //////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// PARA LOS Direcciones de SuministroS START ////////////////////////////////////////////////
     public function BuscarXIDPunSumData_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -402,9 +428,23 @@ protected function buscar_xID_get()
 		$this->db->trans_complete();
 		$this->response(true);
     }
-    ////////////////////////////////////// PARA LOS Direcciones de SuministroS END //////////////////////////////////////////////////////////////////////////
+    public function getPunSumFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getPunSumFilter($objSalida->filtrar_PumSum);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Puntos de Suministros Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+    ////////////////////////////////////// PARA LOS Direcciones de SuministroS END ////////////////////////////////////////////////
 
-	////////////////////////////////////// PARA CONTACTOS CLIENTES START //////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////// PARA CONTACTOS CLIENTES START ///////////////////////////////////////////////////
 
      public function lista_contactos_get()
     {
@@ -568,11 +608,25 @@ protected function buscar_xID_get()
 	}		
 	$this->response($data);		
 }
+	public function getContactosFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getContactosFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Contactos Filtrados');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 
-	////////////////////////////////////// PARA CONTACTOS CLIENTES END //////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////// PARA CONTACTOS CLIENTES END ////////////////////////////////////////////////////
 
 
-	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES START //////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES START ///////////////////////////////////////////////////
 	 public function get_cuentas_bancarias_cliente_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -657,14 +711,26 @@ protected function buscar_xID_get()
 		$this->db->trans_complete();
 		$this->response($result);
     }
+    public function getCuentasBancariasFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getCuentasBancariasFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Contactos Filtrados');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 
 
 	
-	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES END //////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES END /////////////////////////////////////////////////////
 
-
-
-	////////////////////////////////////// PARA DOCUMENTOS CLIENTES START //////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////// PARA DOCUMENTOS CLIENTES START ////////////////////////////////////////////////
     public function get_all_documentos_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -681,7 +747,21 @@ protected function buscar_xID_get()
 	}		
 	$this->response($data);		
 }
-public function Buscar_xID_Documentos_get()
+	public function getDocumentosFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getDocumentosFilter($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Documentos Filtrados');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+	public function Buscar_xID_Documentos_get()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -719,12 +799,8 @@ public function Registrar_Documentos_post()
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-
-
-
-	
-	////////////////////////////////////// PARA DOCUMENTOS CLIENTES END //////////////////////////////////////////////////////////////////////////
+    }	
+	////////////////////////////////////// PARA DOCUMENTOS CLIENTES END ////////////////////////////////////////////////////////
 
 
 

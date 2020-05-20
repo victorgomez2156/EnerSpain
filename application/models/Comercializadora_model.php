@@ -2,7 +2,7 @@
 class Comercializadora_model extends CI_Model 
 {
 
-//////////////////////////////////////////////////////////////////////// COMERCIALIZADORAS START ////////////////////////////////////////////////////////////////    
+//////////////////////////////////////////// COMERCIALIZADORAS START ////////////////////////////////////////////////////////////////    
     public function get_list_comercializadora()
     {
         $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,d.DesTipVia,d.IniTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.DesLoc as CodLoc,b.CPLoc,c.DesPro as ProDirCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,case a.RenAutConCom when 0 then "NO" WHEN 1 THEN "SI" end as RenAutConCom,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.ObsCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',false);
@@ -217,11 +217,29 @@ class Comercializadora_model extends CI_Model
         $this->db->insert('T_BloqueoComercializadora',array('CodCom'=>$CodCom,'FecBloCom'=>$fecha,'CodMotBloCom'=>$MotBloq,'ObsBloCom'=>$ObsBloCom));
         return $this->db->insert_id();
     }
-//////////////////////////////////////////////////////////////////////// COMERCIALIZADORAS END ////////////////////////////////////////////////////////////////    
+    public function getcomercializadorasearch($SearchText)
+    {
+        $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,d.DesTipVia,d.IniTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.DesLoc as CodLoc,b.CPLoc,c.DesPro as ProDirCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,case a.RenAutConCom when 0 then "NO" WHEN 1 THEN "SI" end as RenAutConCom,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.ObsCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',false);
+        $this->db->from('T_Comercializadora a');
+        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
+        $this->db->join('T_Provincia c','c.CodPro=b.CodPro');
+        $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia');
+        $this->db->like('a.RazSocCom',$SearchText);
+        $this->db->or_like('a.NomComCom',$SearchText);
+        $this->db->or_like('a.NumCifCom',$SearchText);
+        $this->db->or_like('a.EmaCom',$SearchText);
+        $this->db->or_like('DATE_FORMAT(a.FecIniCom,"%d/%m/%Y")',$SearchText);       
+        $this->db->order_by('a.RazSocCom ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {return  $query->result();}else{return false;
+        }              
+    }
+////////////////////////////////////////////////////// COMERCIALIZADORAS END /////////////////////////////////////////////////    
  
 
 
-///////////////////////////////////////////PARA LOS PRODUCTOS START////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS PRODUCTOS START /////////////////////////////////////////////////////////////////////////
 
 public function get_list_productos()
 {
@@ -276,6 +294,28 @@ public function get_list_productos()
             return false;
         }       
     }
+    public function getProductossearch($SearchText)
+    {
+        $this->db->select('a.CodPro,b.RazSocCom,b.NumCifCom,a.DesPro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,a.ObsPro,DATE_FORMAT(a.FecIniPro,"%d/%m/%Y")as FecIniPro,case a.EstPro when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstPro,a.CodCom',FALSE);
+        $this->db->from('T_Producto a');
+        $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
+        $this->db->like('b.RazSocCom',$SearchText);
+        $this->db->or_like('b.NumCifCom',$SearchText);
+        $this->db->or_like('a.DesPro',$SearchText);
+        //$this->db->or_like('(CASE WHEN a.SerGas = "0" THEN "NO" WHEN a.SerGas = "1" THEN "SI" ELSE "N/A" END) AS SerGas',$SearchText);
+        //$this->db->or_like('(CASE WHEN a.SerEle = "0" THEN "NO" WHEN a.SerEle = "1" THEN "SI" ELSE "N/A" END) AS SerEle' ,$SearchText);
+        $this->db->or_like('DATE_FORMAT(a.FecIniPro,"%d/%m/%Y")',$SearchText);
+        $this->db->order_by('a.DesPro ASC');          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }       
+    } 
 ///////////////////////////////////////////PARA LOS PRODUCTOS END /////////////////////////////////////////////////////
 
 ///////////////////////////////////////////PARA LOS ANEXOS START///////////////////////////////////////////////////////
@@ -459,15 +499,33 @@ public function get_list_productos()
     {
         return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro,'CodTar' => $CodTarEle,'CodDetAne' => $CodDetAne));
     }
-///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
+    public function getAnexossearch($SearchText)
+    {
+       $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,case a.TipPre when 0 then "FIJO" when 1 then "INDEXANDO" WHEN 2 THEN "AMBOS" end TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
+        $this->db->from('T_AnexoProducto a');
+        $this->db->join('T_Producto b','a.CodPro=b.CodPro');
+        $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
+        $this->db->join('T_TipoComision d','a.CodTipCom=d.CodTipCom');
+        $this->db->like('c.RazSocCom',$SearchText);
+        $this->db->or_like('c.NumCifCom',$SearchText);
+        $this->db->or_like('b.DesPro',$SearchText);
+        $this->db->or_like('a.DesAnePro',$SearchText);
+        $this->db->or_like('date_format(a.FecIniAne,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('d.DesTipCom',$SearchText);
+        $this->db->order_by('a.DesAnePro ASC');          
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }      
+    } 
+///////////////////////////////////////////PARA LOS ANEXOS END//////////////////////////////////////////////////////////
 
-
-
-
-
-///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START ////////////////////////////////////////////////////////////////////
-
-
+////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START /////////////////////////////////////////////////
     public function get_list_servicos_especiales()
     {
         $this->db->select('a.CodSerEsp,a.CodCom,b.RazSocCom,b.NumCifCom,a.DesSerEsp,case a.TipSumSerEsp when 0 then "SI" when 1 then "NO" WHEN 2 THEN "SI" end SerEle,
@@ -633,6 +691,28 @@ case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGa
             return false;
         }      
     }
+    public function getServiciosEspecialessearch($SearchText)
+    {
+       $this->db->select('a.CodSerEsp,a.CodCom,b.RazSocCom,b.NumCifCom,a.DesSerEsp,case a.TipSumSerEsp when 0 then "SI" when 1 then "NO" WHEN 2 THEN "SI" end SerEle,case a.TipSumSerEsp when 1 then "SI" when 0 then "NO" WHEN 2 THEN "SI" end SerGas,a.CarSerEsp,case a.TipCli when 0 then "PARTICULAR" when 1 then "NEGOCIO" end TipCli,date_format(a.FecIniSerEsp,"%d/%m/%Y") as FecIniSerEsp,c.DesTipCom,a.CodTipCom,a.OsbSerEsp,case a.EstSerEsp when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstSerEsp',FALSE);
+        $this->db->from('T_ServicioEspecial a');
+        $this->db->join('T_Comercializadora b','a.CodCom=b.CodCom');
+        $this->db->join('T_TipoComision c','a.CodTipCom=c.CodTipCom');
+        $this->db->like('b.RazSocCom',$SearchText);
+        $this->db->or_like('b.NumCifCom',$SearchText);
+        $this->db->or_like('a.DesSerEsp',$SearchText);
+        $this->db->or_like('date_format(a.FecIniSerEsp,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('c.DesTipCom',$SearchText);
+        $this->db->order_by('a.DesSerEsp ASC');                    
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+             return false;
+        }      
+    } 
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END ////////////////////////////////////////////////

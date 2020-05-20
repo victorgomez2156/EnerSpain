@@ -17,8 +17,7 @@ class Comercializadora extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     }
-
-    ////////////////////////////////////////////////////////////////////////COMERCIALIZADORAS START ////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////COMERCIALIZADORAS START //////////////////////////////////////////////////////////
      public function get_list_comercializadora_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -102,7 +101,6 @@ class Comercializadora extends REST_Controller
 		}		
 		$this->response($data);		
     }
-
      public function comprobar_cif_comercializadora_post()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -142,9 +140,6 @@ class Comercializadora extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$resultado = $this->Comercializadora_model->update_status_comercializadora($objSalida->CodCom,$objSalida->EstCom);
-		
-
-
 		if($objSalida->EstCom==2)
 		{
 			
@@ -175,10 +170,24 @@ class Comercializadora extends REST_Controller
 		$this->response($data);
 				
     }
-    //////////////////////////////////////////////////////////////////////// COMERCIALIZADORAS END ////////////////////////////////////////////////////////////////////
+    public function getComercializadoraFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Comercializadora_model->getcomercializadorasearch($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Comercializadoras Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+    /////////////////////////////////////////////////// COMERCIALIZADORAS END ////////////////////////////////////////////////////////
     
 
-    //////////////////////////////////////////////////////////////////////// PRODUCTOS START ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////// PRODUCTOS START ///////////////////////////////////////////////////////////////
 	
 public function get_list_productos_get()
 {
@@ -258,11 +267,25 @@ public function registrar_productos_post()
 		$this->db->trans_complete();
 		$this->response($objSalida);
     }
-//////////////////////////////////////////////////////////////////////// PRODUCTOS END ////////////////////////////////////////////////////////////
+    public function getProductosFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Comercializadora_model->getProductossearch($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Producto','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Productos Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+/////////////////////////////////////////////////////// PRODUCTOS END ////////////////////////////////////////////////////////////
 
 
     
-///////////////////////////////////////////PARA LOS ANEXOS START////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////PARA LOS ANEXOS START////////////////////////////////////////////////////////////////////
 public function get_list_anexos_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -495,13 +518,25 @@ public function Buscar_xID_Anexos_get()
 		$this->db->trans_complete();
 		$this->response($objSalida);
     }
+    public function getAnexosFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Comercializadora_model->getAnexossearch($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_AnexoProducto','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Anexos Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 
-///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////PARA LOS ANEXOS END////////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START ///////////////////////////////////////////////
-
 public function get_list_servicos_especiales_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -736,9 +771,23 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesServiciosEspeciales','INSERT',$objSalida->CodSerEsp,$this->input->ip_address(),'Registrando Comisiones Servicios Especiales.');	
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
+    } 
+    public function getServiciosEspecialesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Comercializadora_model->getServiciosEspecialessearch($objSalida->filtrar_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ServicioEspecial','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Servicios Especiales Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 
-///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES END/////////////////////////////////////////////////////////////////////
+/////////////////////////// PARA LOS SERVICIOS ESPECIALES END /////////////////////////////////////////////////////////////////
 
 
 

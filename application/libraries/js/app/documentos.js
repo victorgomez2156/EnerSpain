@@ -532,6 +532,83 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         });
     }
+    scope.FetchDocumentos=function()
+     {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {
+            $scope.predicate7 = 'id';
+                $scope.reverse7 = true;
+                $scope.currentPage7 = 1;
+                $scope.order7 = function(predicate7) {
+                    $scope.reverse7 = ($scope.predicate7 === predicate7) ? !$scope.reverse7 : false;
+                    $scope.predicate7 = predicate7;
+                };
+                scope.T_Documentos = scope.T_DocumentosBack;
+                $scope.totalItems7 = scope.T_Documentos.length;
+                $scope.numPerPage7 = 50;
+                $scope.paginate7 = function(value7) {
+                    var begin7, end7, index7;
+                    begin7 = ($scope.currentPage7 - 1) * $scope.numPerPage7;
+                    end7 = begin7 + $scope.numPerPage7;
+                    index7 = scope.T_Documentos.indexOf(value7);
+                    return (begin7 <= index7 && index7 < end7);
+                }
+            scope.ruta_reportes_pdf_Documentos = 0;
+            scope.ruta_reportes_excel_Documentos =0;
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=2)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Clientes/getDocumentosFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate7 = 'id';
+                $scope.reverse7 = true;
+                $scope.currentPage7 = 1;
+                $scope.order7 = function(predicate7) {
+                    $scope.reverse7 = ($scope.predicate7 === predicate7) ? !$scope.reverse7 : false;
+                    $scope.predicate7 = predicate7;
+                };
+                scope.T_Documentos = result.data;
+                $scope.totalItems7 = scope.T_Documentos.length;
+                $scope.numPerPage7 = 50;
+                $scope.paginate7 = function(value7) {
+                    var begin7, end7, index7;
+                    begin7 = ($scope.currentPage7 - 1) * $scope.numPerPage7;
+                    end7 = begin7 + $scope.numPerPage7;
+                    index7 = scope.T_Documentos.indexOf(value7);
+                    return (begin7 <= index7 && index7 < end7);
+                }
+                        scope.ruta_reportes_pdf_Documentos = 4 + "/" + scope.filtrar_search;
+                        scope.ruta_reportes_excel_Documentos = 4 + "/" + scope.filtrar_search;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Documentos registradas", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.T_Documentos=[];
+                        scope.ruta_reportes_pdf_Documentos = 0;
+                        scope.ruta_reportes_excel_Documentos =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }     
+     }
     if (scope.nID != undefined) {
         scope.BuscarXIDDocumentos();
     }

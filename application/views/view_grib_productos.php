@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.RazSocCom"/> <b style="color:black;">Razón Social</b></li></li>
                         <li><input type="checkbox" ng-model="vm.DesTPro"/> <b style="color:black;">Descripción</b></li></li>
                         <li><input type="checkbox" ng-model="vm.SerTGas"/> <b style="color:black;">Gas</b></li>
-                        <li><input type="checkbox" ng-model="vm.SerTEle"/> <<b style="color:black;">Eléctrico</b></li>
+                        <li><input type="checkbox" ng-model="vm.SerTEle"/> <b style="color:black;">Eléctrico</b></li>
                         <li><input type="checkbox" ng-model="vm.ObsTPro"/> <b style="color:black;">Observación</b></li>
                         <li><input type="checkbox" ng-model="vm.FecIniTPro"/><b style="color:black;">Fecha de Inicio</b></li>   <li><input type="checkbox" ng-model="vm.EstTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
                         <li><input type="checkbox" ng-model="vm.AccTPro"/> <b style="color:black;">Acción</b></li>
@@ -120,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="t-0029">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail21" placeholder="Escribe para Filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_search" ng-keyup="vm.fetchProductos()" minlength="1" id="exampleInputEmail21" placeholder="Escribe para Filtrar...">
                     </div>                 
                     <a style="margin-right: 10px;" class="btn btn-info" title="Escribe texto a filtrar ..." href="#/Add_Productos"><i class="fa fa-plus-square"></i></a>
                   </form>                    
@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.TProductos.length==0"> 
                     <td colspan="9" align="center"><div class="td-usuario-table">No existe información disponible</div></td>
                   </tr>
-                  <tr ng-repeat="dato in vm.TProductos | filter:paginate1 | filter:vm.filtrar" ng-class-odd="odd">                   
+                  <tr ng-repeat="dato in vm.TProductos | filter:paginate1" ng-class-odd="odd">                   
                     
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>                  
                     <td ng-show="vm.RazSocCom==true">{{dato.RazSocCom}}</td>  
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td ng-show="vm.AccTPro==true">
                       <div class="btn-group">
-                        <select class="form-control" id="opciones_productos" name="opciones_productos" ng-model="vm.opciones_productos[$index]" ng-change="vm.validar_opcion_productos($index,vm.opciones_productos[$index],dato)">
+                        <select class="form-control" id="opciones_productos" style="width: auto;" name="opciones_productos" ng-model="vm.opciones_productos[$index]" ng-change="vm.validar_opcion_productos($index,vm.opciones_productos[$index],dato)">
                           <option ng-repeat="opcion in vm.Topciones_Grib" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
                         </select>
                       </div>

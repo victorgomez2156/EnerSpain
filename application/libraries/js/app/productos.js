@@ -9,8 +9,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.Nivel = $cookies.get('nivel');
     scope.TProductos = [];
     scope.TProductosBack = [];
-    scope.Tcomercializadoras = [];
-    scope.TcomercializadorasBack = [];
+    scope.TProductos = [];
+    scope.TProductosBack = [];
     scope.TProComercializadoras = [];
 
     var fecha = new Date();
@@ -50,8 +50,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.productos.SerEle = false;
 
     ServiceComercializadora.getAll().then(function(dato) {
-        scope.Tcomercializadoras = dato.Comercializadora;
-        scope.TcomercializadorasBack = dato.Comercializadora;
+        scope.TProductos = dato.Comercializadora;
+        scope.TProductosBack = dato.Comercializadora;
         scope.TProComercializadoras = dato.TProComercializadoras;
         scope.Fecha_Server = dato.fecha;
         if (scope.nID == undefined) {
@@ -672,6 +672,104 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (!/^([/0-9])*$/.test(numero))
                 scope.fecha_bloqueo = numero.substring(0, numero.length - 1);
         }
+    }
+    scope.fetchProductos = function()
+    {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {           
+            $scope.predicate1 = 'id';
+            $scope.reverse1 = true;
+            $scope.currentPage1 = 1;
+            $scope.order1 = function(predicate1) {
+                $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                $scope.predicate1 = predicate1;
+            };
+             scope.TProductos=scope.TProductosBack;
+            $scope.totalItems1 = scope.TProductos.length;
+            $scope.numPerPage1 = 50;
+            $scope.paginate1 = function(value1) {
+                var begin1, end1, index1;
+                begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                end1 = begin1 + $scope.numPerPage1;
+                index1 = scope.TProductos.indexOf(value1);
+                return (begin1 <= index1 && index1 < end1);
+            };
+            scope.reporte_pdf_productos = 0;
+            scope.reporte_excel_productos =0;
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=1)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Comercializadora/getProductosFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                       
+                        $scope.predicate1 = 'id';
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                        };
+                        scope.TProductos=result.data;
+                        $scope.totalItems1 = scope.TProductos.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.TProductos.indexOf(value1);
+                            return (begin1 <= index1 && index1 < end1);
+                        };
+                        scope.reporte_pdf_productos = 5 + "/" + scope.filtrar_search;
+                        scope.reporte_excel_productos = 5 + "/" + scope.filtrar_search;
+                    }
+                    else
+                    {
+                       $scope.predicate1 = 'id';
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                        };
+                         scope.TProductos=scope.TProductosBack;
+                        $scope.totalItems1 = scope.TProductos.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.TProductos.indexOf(value1);
+                            return (begin1 <= index1 && index1 < end1);
+                        };
+                        scope.reporte_pdf_productos = 0;
+                        scope.reporte_excel_productos =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found")
+                    {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized")
+                    {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden")
+                    {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
     }
     if (scope.nID != undefined) {
         scope.BuscarxID();

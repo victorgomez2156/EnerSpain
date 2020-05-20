@@ -1139,6 +1139,104 @@
 
          });
      }
+     scope.fetchServiciosEspeciales = function()
+    {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {           
+            $scope.predicate3 = 'id';
+             $scope.reverse3 = true;
+             $scope.currentPage3 = 1;
+             $scope.order3 = function(predicate3) {
+                 $scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;
+                 $scope.predicate3 = predicate3;
+             };
+             scope.TServicioEspeciales = scope.TServicioEspecialesBack;
+             $scope.totalItems3 = scope.TServicioEspeciales.length;
+             $scope.numPerPage3 = 50;
+             $scope.paginate3 = function(value3) {
+                 var begin3, end3, index3;
+                 begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;
+                 end3 = begin3 + $scope.numPerPage3;
+                 index3 = scope.TServicioEspeciales.indexOf(value3);
+                 return (begin3 <= index3 && index3 < end3);
+             };
+            scope.reporte_pdf_servicio_especiales = 0;
+            scope.reporte_excel_servicio_especiales =0;
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=1)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Comercializadora/getServiciosEspecialesFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                       
+                        $scope.predicate3 = 'id';
+                         $scope.reverse3 = true;
+                         $scope.currentPage3 = 1;
+                         $scope.order3 = function(predicate3) {
+                             $scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;
+                             $scope.predicate3 = predicate3;
+                         };
+                         scope.TServicioEspeciales = result.data;
+                         $scope.totalItems3 = scope.TServicioEspeciales.length;
+                         $scope.numPerPage3 = 50;
+                         $scope.paginate3 = function(value3) {
+                             var begin3, end3, index3;
+                             begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;
+                             end3 = begin3 + $scope.numPerPage3;
+                             index3 = scope.TServicioEspeciales.indexOf(value3);
+                             return (begin3 <= index3 && index3 < end3);
+                         };
+                        scope.reporte_pdf_servicio_especiales = 7 + "/" + scope.filtrar_search;
+                        scope.reporte_excel_servicio_especiales = 7 + "/" + scope.filtrar_search;
+                    }
+                    else
+                    {
+                        $scope.predicate3 = 'id';
+                         $scope.reverse3 = true;
+                         $scope.currentPage3 = 1;
+                         $scope.order3 = function(predicate3) {
+                             $scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;
+                             $scope.predicate3 = predicate3;
+                         };
+                         scope.TServicioEspeciales = scope.TServicioEspecialesBack;
+                         $scope.totalItems3 = scope.TServicioEspeciales.length;
+                         $scope.numPerPage3 = 50;
+                         $scope.paginate3 = function(value3) {
+                             var begin3, end3, index3;
+                             begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;
+                             end3 = begin3 + $scope.numPerPage3;
+                             index3 = scope.TServicioEspeciales.indexOf(value3);
+                             return (begin3 <= index3 && index3 < end3);
+                         };
+                        scope.reporte_pdf_servicio_especiales = 0;
+                        scope.reporte_excel_servicio_especiales =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found")
+                    {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized")
+                    {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden")
+                    {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
+    }
      if (scope.nIDSerEsp != undefined) {
          scope.buscarXIDServicioEspecial();
      }

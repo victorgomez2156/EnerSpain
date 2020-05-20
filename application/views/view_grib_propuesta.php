@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.filtrar" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPropuestaComerciales()">
                   </div>  
                    <a data-toggle="modal" title="Agregar Propuesta Comercial" style="margin-right: 5px;" data-target="#modal_add_propuesta" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>                  
                 </form>                    
@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información</div>
                     </td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.TPropuesta_Comerciales | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.TPropuesta_Comerciales | filter:paginate" ng-class-odd="odd">
                     
                     <td ng-show="vm.FecProCom==true">{{dato.FecProCom}}</td>
                     <td ng-show="vm.CodCli==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>

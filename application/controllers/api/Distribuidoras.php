@@ -123,6 +123,20 @@ class Distribuidoras extends REST_Controller
 		$this->db->trans_complete();
 		$this->response(true);
     }
+    public function getDistribuidorasFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Distribuidoras_model->getDistribuidorasFilter($objSalida->filter_search);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidoras','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Distribuidoras Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 	
 }
 ?>
