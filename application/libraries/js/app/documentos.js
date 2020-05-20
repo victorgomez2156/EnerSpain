@@ -143,7 +143,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }, function(error) {
             $("#cargar_documentos").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
@@ -286,12 +286,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
     scope.regresar_documentos = function() {
-        if (scope.fagregar_documentos.CodTipDocAI == undefined){
-            var title="Guardando";
+        if (scope.fagregar_documentos.CodTipDocAI == undefined) {
+            var title = "Guardando";
             var text = "¿Seguro que desea cerrar sin registrar el Documento?";
         }
-        if (scope.fagregar_documentos.CodTipDocAI > 0){
-            var title="Actualizando";
+        if (scope.fagregar_documentos.CodTipDocAI > 0) {
+            var title = "Actualizando";
             var text = "¿Seguro que desea cerrar sin actualizar la información del Documento?";
         }
         Swal.fire({
@@ -357,7 +357,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }, function(error) {
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
@@ -422,9 +422,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             Swal.fire({ title: "Indicar si el Documento tiene o no Fecha de Vencimiento", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
-        if (scope.fagregar_documentos.TieVen == 1) 
-        {
-            
+        if (scope.fagregar_documentos.TieVen == 1) {
+
             var FecVenDocAco = document.getElementById("FecVenDocAco").value;
             scope.FecVenDocAco = FecVenDocAco;
             if (scope.FecVenDocAco == undefined) {

@@ -180,7 +180,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         if (error.status == 404 && error.statusText == "Not Found") {
                             $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                             bootbox.alert({
-                                message: "El método que esté intentando usar no puede ser localizado",
+                                message: "El método que está intentando usar no puede ser localizado",
                                 size: 'middle'
                             });
                         }
@@ -252,7 +252,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         if (error.status == 404 && error.statusText == "Not Found") {
                             $("#borrando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                             bootbox.alert({
-                                message: "El método que esté intentando usar no puede ser localizado",
+                                message: "El método que está intentando usar no puede ser localizado",
                                 size: 'middle'
                             });
                         }
@@ -319,7 +319,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 404 && error.statusText == "Not Found") {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "El método que esté intentando usar no puede ser localizado",
+                    message: "El método que está intentando usar no puede ser localizado",
                     size: 'middle'
                 });
             }
@@ -369,7 +369,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 404 && error.statusText == "Not Found") {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 bootbox.alert({
-                    message: "El método que esté intentando usar no puede ser localizado",
+                    message: "El método que está intentando usar no puede ser localizado",
                     size: 'middle'
                 });
             }
@@ -420,7 +420,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 if (error.status == 404 && error.statusText == "Not Found") {
                     $("#comprobando_disponibilidad").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     bootbox.alert({
-                        message: "El método que esté intentando usar no puede ser localizado",
+                        message: "El método que está intentando usar no puede ser localizado",
                         size: 'middle'
                     });
                 }
@@ -468,7 +468,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 if (error.status == 404 && error.statusText == "Not Found") {
                     $("#comprobando_disponibilidad").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     bootbox.alert({
-                        message: "El método que esté intentando usar no puede ser localizado",
+                        message: "El método que está intentando usar no puede ser localizado",
                         size: 'middle'
                     });
                     scope.disponibilidad_username = undefined;
@@ -514,7 +514,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }, function(error) {
             if (error.status == 404 && error.statusText == "Not Found") {
                 bootbox.alert({
-                    message: "El método que esté intentando usar no puede ser localizado",
+                    message: "El método que está intentando usar no puede ser localizado",
                     size: 'middle'
                 });
             }

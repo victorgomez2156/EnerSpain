@@ -276,7 +276,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                         Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         document.getElementById('file').value = '';
-                         $('#filenameDocCont').html('');
+                        $('#filenameDocCont').html('');
                         $cookies.remove('CIF_COM');
                         location.href = "#/Datos_Basicos_Comercializadora/" + scope.nID;
                         //scope.fdatos=result.data;"/Datos_Basicos_Comercializadora
@@ -288,7 +288,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 401 && error.statusText == "Unauthorized") {
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -376,7 +376,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title:'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
@@ -517,7 +517,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             console.log(res);
         }, function(error) {
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -611,7 +611,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 401 && error.statusText == "Unauthorized") {
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });

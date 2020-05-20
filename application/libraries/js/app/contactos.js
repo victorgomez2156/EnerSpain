@@ -4,7 +4,7 @@
              restrict: 'A',
              link: function(scope, iElement, iAttrs) {
                  iElement.on("change", function(e) {
-                    $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);                  
+                     $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
                  });
              }
          };
@@ -173,7 +173,7 @@
          }, function(error) {
              $("#cargando_contactos").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
@@ -187,8 +187,7 @@
          });
      }
 
-     $scope.SubmitFormFiltrosContactos = function(event) 
-     {
+     $scope.SubmitFormFiltrosContactos = function(event) {
          if (scope.tmodal_contacto.tipo_filtro == 1) {
 
              if (!scope.tmodal_contacto.DesTipCon > 0) {
@@ -383,7 +382,7 @@
              }
          }, function(error) {
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -433,7 +432,7 @@
          }, function(error) {
              $("#estatus_contactos").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 401 && error.statusText == "Unauthorized") {
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
@@ -508,7 +507,7 @@
              }
          });
      };
-     scope.asignar_contacto = function(){
+     scope.asignar_contacto = function() {
          scope.tContacto_data_modal = {};
          $("#modal_cif_cliente_contacto").modal('show');
      }
@@ -516,15 +515,14 @@
          if (scope.tContacto_data_modal.NIFConCli == undefined || scope.tContacto_data_modal.NIFConCli == null || scope.tContacto_data_modal.NIFConCli == '') {
              Swal.fire({ title: "Error.", text: "El Número de CIF no puede estar vacio.", type: "error", confirmButtonColor: "#188ae2" });
              return false;
-         } else{        
+         } else {
 
-            if (!scope.validarNIFDNI())
-            {
-                return false;
-            }
-            $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
-            var url = base_urlHome() + "api/Clientes/comprobar_cif_contacto/";
-            $http.post(url, scope.tContacto_data_modal).then(function(result) {
+             if (!scope.validarNIFDNI()) {
+                 return false;
+             }
+             $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+             var url = base_urlHome() + "api/Clientes/comprobar_cif_contacto/";
+             $http.post(url, scope.tContacto_data_modal).then(function(result) {
                  $("#NIFConCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
                  if (result.data != false) {
                      Swal.fire({
@@ -553,7 +551,7 @@
              }, function(error) {
                  $("#NIFConCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
                  if (error.status == 404 && error.statusText == "Not Found") {
-                     Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 401 && error.statusText == "Unauthorized") {
                      Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
@@ -627,8 +625,8 @@
 
      }
      $scope.uploadImage = function() {
-    console.log('Changed');
-}
+         console.log('Changed');
+     }
      $scope.submitFormRegistroContacto = function(event) {
          let Archivo_DocNIF = $Archivo_DocNIF.files;
          if ($Archivo_DocNIF.files.length > 0) {
@@ -682,8 +680,7 @@
                  scope.tContacto_data_modal.DocPod = scope.tContacto_data_modal.DocPod;
              }
          }
-         if (!scope.validar_campos_contactos_null())
-         {
+         if (!scope.validar_campos_contactos_null()) {
              return false;
          }
          if (scope.tContacto_data_modal.CodConCli > 0) {
@@ -880,108 +877,97 @@
          });
      }
      scope.validarsinuermoContactos = function(object, metodo) {
-         if (object != undefined && metodo == 1) {
-             numero = object;
-             if (!/^([0-9])*$/.test(numero))
-                 scope.tContacto_data_modal.TelFijConCli = numero.substring(0, numero.length - 1);
-         }
-         if (object != undefined && metodo == 2) {
-             numero = object;
-             if (!/^([0-9])*$/.test(numero))
-                 scope.tContacto_data_modal.TelCelConCli = numero.substring(0, numero.length - 1);
-         }
-         if (object != undefined && metodo == 3) {
-             numero = object;
-             if (!/^([0-9])*$/.test(numero))
-                 scope.tContacto_data_modal.CanMinRep = numero.substring(0, numero.length - 1);
-         }
+             if (object != undefined && metodo == 1) {
+                 numero = object;
+                 if (!/^([0-9])*$/.test(numero))
+                     scope.tContacto_data_modal.TelFijConCli = numero.substring(0, numero.length - 1);
+             }
+             if (object != undefined && metodo == 2) {
+                 numero = object;
+                 if (!/^([0-9])*$/.test(numero))
+                     scope.tContacto_data_modal.TelCelConCli = numero.substring(0, numero.length - 1);
+             }
+             if (object != undefined && metodo == 3) {
+                 numero = object;
+                 if (!/^([0-9])*$/.test(numero))
+                     scope.tContacto_data_modal.CanMinRep = numero.substring(0, numero.length - 1);
+             }
 
+         }
+         ///////// PARA CALCULAR DNI/NIE START /////////////////
+     scope.validarNIFDNI = function() {
+         var letter = scope.validar_dni_nie($("#NIFConCli1").parent(), $("#NIFConCli1").val());
+         if (letter != false) {
+             //$("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter+ "</strong></p>");
+             scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0, 8) + letter;
+             if (scope.dni_nie_validar != scope.tContacto_data_modal.NIFConCli) {
+                 Swal.fire({ text: "El Número de DNI/NIE es Invalido Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                 return false;
+             } else {
+                 return true;
+             }
+         } else {
+             Swal.fire({ text: "Debe ingresar los 9 Números de su DNI/NIE EJ: 12345678F/Y1234567B", type: "error", confirmButtonColor: "#188ae2" });
+             //$("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
+         }
+         //console.log(letter);
+         //console.log($("#NIFConCli").val() + letter);
      }
-     ///////// PARA CALCULAR DNI/NIE START /////////////////
-    scope.validarNIFDNI=function()
-    {
-        var letter = scope.validar_dni_nie($("#NIFConCli1").parent(),$("#NIFConCli1").val());
-        if(letter != false)
-        {
-            //$("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter+ "</strong></p>");
-            scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter;
-            if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
-            {
-                Swal.fire({ text: "El Número de DNI/NIE es Invalido Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
-                return false;
-            }
-            else
-            {
-                return true;
-            }  
-        }
-        else
-        {
-           Swal.fire({ text: "Debe ingresar los 9 Números de su DNI/NIE EJ: 12345678F/Y1234567B", type: "error", confirmButtonColor: "#188ae2" });
-            //$("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
-        }
-        //console.log(letter);
-        //console.log($("#NIFConCli").val() + letter);
-    }    
-    function isNumeric(expression) {
-    return (String(expression).search(/^\d+$/) != -1);
-    }
-    function calculateLetterForDni(dni)
-    {
-        // Letras en funcion del modulo de 23
-        string = "TRWAGMYFPDXBNJZSQVHLCKET"
-        // se obtiene la posiciÃ³n de la cadena anterior
-        position = dni % 23
-        // se extrae dicha posiciÃ³n de la cadena
-        letter = string.substring(position, position + 1)
-        return letter
-    }
-    scope.validar_dni_nie=function(field, txt)
-    {
-        var letter = ""
-        // Si es un dni extrangero, es decir, empieza por X, Y, Z
-        // Si la longitud es 8 longitud total de los dni nacionales)
-        if (txt.length == 9) 
-        {
-          
-            var first = txt.substring(0, 1)
-            var last = txt.substring(8,9)
-            if (first == 'X' || first == 'Y' || first == 'Z') 
-            {               
-                // Si la longitud es 9(longitud total de los dni extrangeros)
-                // Se calcula la letra para el numero de dni
-                var number = txt.substring(1, 8);
-                console.log(number)
-                if (first == 'X') {
-                    number = '0' + number
-                    //final = first + number
-                }
-                if (first == 'Y') {
-                    number = '1' + number
-                    //final = first + number
-                }
-                if (first == 'Z') {
-                    number = '2' + number
-                    //final = first + number
-                }
-                if (isNumeric(number)){
-                    letter = calculateLetterForDni(number)
-                }
-                return letter
 
-            } else {
-              
-                letter = calculateLetterForDni(txt.substring(0, 8))                
-                return letter
-            }
-        }
-        else
-        {
-            return false
-        }
-       
-    }
-    ///////// PARA CALCULAR DNI/NIE END /////////////////
+     function isNumeric(expression) {
+         return (String(expression).search(/^\d+$/) != -1);
+     }
+
+     function calculateLetterForDni(dni) {
+         // Letras en funcion del modulo de 23
+         string = "TRWAGMYFPDXBNJZSQVHLCKET"
+             // se obtiene la posiciÃ³n de la cadena anterior
+         position = dni % 23
+             // se extrae dicha posiciÃ³n de la cadena
+         letter = string.substring(position, position + 1)
+         return letter
+     }
+     scope.validar_dni_nie = function(field, txt) {
+             var letter = ""
+                 // Si es un dni extrangero, es decir, empieza por X, Y, Z
+                 // Si la longitud es 8 longitud total de los dni nacionales)
+             if (txt.length == 9) {
+
+                 var first = txt.substring(0, 1)
+                 var last = txt.substring(8, 9)
+                 if (first == 'X' || first == 'Y' || first == 'Z') {
+                     // Si la longitud es 9(longitud total de los dni extrangeros)
+                     // Se calcula la letra para el numero de dni
+                     var number = txt.substring(1, 8);
+                     console.log(number)
+                     if (first == 'X') {
+                         number = '0' + number
+                             //final = first + number
+                     }
+                     if (first == 'Y') {
+                         number = '1' + number
+                             //final = first + number
+                     }
+                     if (first == 'Z') {
+                         number = '2' + number
+                             //final = first + number
+                     }
+                     if (isNumeric(number)) {
+                         letter = calculateLetterForDni(number)
+                     }
+                     return letter
+
+                 } else {
+
+                     letter = calculateLetterForDni(txt.substring(0, 8))
+                     return letter
+                 }
+             } else {
+                 return false
+             }
+
+         }
+         ///////// PARA CALCULAR DNI/NIE END /////////////////
      if (scope.nID != undefined) {
          scope.BuscarXIDContactos();
      }

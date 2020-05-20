@@ -657,7 +657,7 @@
                  }, function(error) {
                      $("#asignando_actividad").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error General", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 401 && error.statusText == "Unauthorized") {
                          Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
