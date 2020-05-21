@@ -359,7 +359,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
       <div class="form">                          
        <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black; padding-left:5px">Fotocopia del Contrato <a title='Descargar Documentos' ng-show="vm.fdatos.DocConCom!=null && vm.fdatos.CodCom>0" href="{{vm.fdatos.DocConCom}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>  
+         <label class="font-weight-bold nexa-dark" style="color:black; padding-left:15px">Fotocopia del Contrato <a title='Descargar Documentos' ng-show="vm.fdatos.DocConCom!=null && vm.fdatos.CodCom>0" href="{{vm.fdatos.DocConCom}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>  
 
          <div id="file-wrap">
             <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltarlo</strong> aquí</p>                       
@@ -417,7 +417,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
        <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observaciones</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Observaciones</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsCom" name="ObsCom" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCom" ng-disabled="vm.validate_info!=undefined"></textarea>
         <input class="form-control" name="CodCom" type="hidden" ng-model="vm.fdatos.CodCom" readonly/>
        </div>
