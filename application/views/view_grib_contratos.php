@@ -296,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
                             </ul>
-
+                            <span class="label label-success" ng-show="vm.ClienteSelect==true"><i class="fa fa-check-circle"></i> Cliente Seleccionado</span>
                             </div>
                           </div>
                           <!--p id="iLetter"></p-->

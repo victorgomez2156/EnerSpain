@@ -46,12 +46,28 @@ class Tarifas_model extends CI_Model
             return false;
         }       
     }
-     /////PARA LAS TARIFAS ELECTRICAS END//// 
+    public function getTarEleFilter($SearchText)
+    {
+        $this->db->select('CodTarEle,case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon ',FALSE);
+        $this->db->from('T_TarifaElectrica');
+        $this->db->like('NomTarEle',$SearchText);
+        $this->db->or_like('CanPerTar',$SearchText);
+        $this->db->or_like('MinPotCon',$SearchText);
+        $this->db->or_like('MaxPotCon',$SearchText);
+        $this->db->order_by('NomTarEle ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
+     /////////////////////////////////////////////// PARA LAS TARIFAS ELECTRICAS END /////////////////////////////////////// 
 
-
-
-
-    ///////////////////////////////////////////////////////////PARA LAS TARIFAS GAS START///////////////////////////////////////////////////
+    /////////////////////////////////////////////// PARA LAS TARIFAS GAS START ///////////////////////////////////////////////////
     public function get_list_tarifa_Gas()
     {
         $this->db->select('*');
@@ -96,5 +112,23 @@ class Tarifas_model extends CI_Model
             return false;
         }       
     }
-    ///////////////////////////////////////////////////////////PARA LAS TARIFAS GAS END///////////////////////////////////////////////////
+    public function getTarGasFilter($SearchText)
+    {        
+        $this->db->select('*');
+        $this->db->from('T_TarifaGas');
+        $this->db->like('NomTarGas',$SearchText);
+        $this->db->or_like('MinConAnu',$SearchText); 
+        $this->db->or_like('MaxConAnu',$SearchText);  
+        $this->db->order_by('NomTarGas ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }         
+    }
+    ///////////////////////////////////////PARA LAS TARIFAS GAS END///////////////////////////////////////////////////
 }

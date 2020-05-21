@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''" ng-disabled="vm.habilitar_button==1">Crear</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined||vm.habilitar_button==1" >Actualizar</button>
             
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">Borrar</button>
+            <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCol>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">Borrar</button-->
 
             <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCol==undefined||vm.fdatos.CodCol==null||vm.fdatos.CodCol==''">Limpiar</button>
             <a class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</a>

@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_tarifa_electrinca" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_tarifa_electrinca" minlength="1" id="exampleInputEmail" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchTarEle()">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tarifa Eléctrica" ng-click="vm.agregar_tarifa_electrica()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -170,7 +170,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.T_TarifasEle.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.T_TarifasEle | filter:paginate | filter:vm.filtrar_tarifa_electrinca" ng-class-odd="odd">                    
+                  <tr ng-repeat="dato in vm.T_TarifasEle | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.TipTen==true">{{dato.TipTen}}</td>
                     <td ng-show="vm.NomTarEle==true">{{dato.NomTarEle}}</td>
                     <td ng-show="vm.CanPerTar==true">{{dato.CanPerTar}}</td>
@@ -222,10 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
      </div>
-     <br>
-     <br>
-     <br>
-     <br> 
+
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_TarEle.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">     
@@ -261,9 +258,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">       
-        <input type="radio" name="tipo_cliente" id="tipo_cliente" value="0" ng-model="vm.fdatos_tar_elec.TipTen" ng-disabled="vm.disabled_form_TarEle==1">
+        <input type="radio" name="tipo_clienteBaja" id="tipo_clienteBaja" value="0" ng-model="vm.fdatos_tar_elec.TipTen" ng-disabled="vm.disabled_form_TarEle==1">
         <label class="font-weight-bold nexa-dark" style="color:black;">Baja</label>
-        <input type="radio" name="tipo_cliente" id="tipo_cliente" value="1" ng-model="vm.fdatos_tar_elec.TipTen" ng-disabled="vm.disabled_form_TarEle==1">
+        <input type="radio" name="tipo_clienteAlta" id="tipo_clienteAlta" value="1" ng-model="vm.fdatos_tar_elec.TipTen" ng-disabled="vm.disabled_form_TarEle==1">
         <label class="font-weight-bold nexa-dark" style="color:black;">Alta</label> 
        </div>
        </div>
@@ -358,7 +355,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_gas" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_gas" minlength="1" id="exampleInputEmail1" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchTarGas()">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tarifa Gas" ng-click="vm.agg_TarGas()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -378,7 +375,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-show="vm.T_TarifasGas.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
-                  <tr ng-repeat="dato in vm.T_TarifasGas | filter:paginate1 | filter:vm.filtrar_gas" ng-class-odd="odd">
+                  <tr ng-repeat="dato in vm.T_TarifasGas | filter:paginate1" ng-class-odd="odd">
                     
                     <td ng-show="vm.NomTarGas==true">{{dato.NomTarGas}}</td>
                     <td ng-show="vm.MinConAnu==true">{{dato.MinConAnu}} kWh</td>

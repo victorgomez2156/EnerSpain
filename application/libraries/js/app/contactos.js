@@ -902,23 +902,23 @@
     {
         if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
         {
-            $scope.predicate = 'id';
-            $scope.reverse = true;
-            $scope.currentPage = 1;
-            $scope.order = function(predicate) {
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
-            scope.Tabla_Contacto = scope.Tabla_ContactoBack;
-            $scope.totalItems = scope.Tabla_Contacto.length;
-            $scope.numPerPage = 50;
-            $scope.paginate = function(value) {
-                var begin, end, index;
-                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                end = begin + $scope.numPerPage;
-                index = scope.Tabla_Contacto.indexOf(value);
-                return (begin <= index && index < end);
-            };
+            $scope.predicate4 = 'id';
+                        $scope.reverse4 = true;
+                        $scope.currentPage4 = 1;
+                        $scope.order4 = function(predicate4) {
+                            $scope.reverse4 = ($scope.predicate4 === predicate4) ? !$scope.reverse4 : false;
+                            $scope.predicate4 = predicate4;
+                        };
+                        scope.Tabla_Contacto =  scope.Tabla_ContactoBack;
+                        $scope.totalItems4 = scope.Tabla_Contacto.length;
+                        $scope.numPerPage4 = 50;
+                        $scope.paginate4 = function(value4) {
+                            var begin4, end4, index4;
+                            begin4 = ($scope.currentPage4 - 1) * $scope.numPerPage4;
+                            end4 = begin4 + $scope.numPerPage4;
+                            index4 = scope.Tabla_Contacto.indexOf(value4);
+                            return (begin4 <= index4 && index4 < end4);
+                        };
             scope.ruta_reportes_pdf_Contactos = 0;
             scope.ruta_reportes_excel_Contactos =0;
         }

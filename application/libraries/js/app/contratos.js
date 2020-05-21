@@ -58,6 +58,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     //console.log(scope.CodConCom);
     //console.log(scope.CodCli);
     //console.log(scope.fdatos.tipo);
+    scope.ClienteSelect=false;
     const $archivofotocopia = document.querySelector("#file_fotocopia");
    
      scope.get_list_contratos=function()
@@ -116,11 +117,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     {
         if(metodo==1)
         {
+            scope.ClienteSelect=false;
             var searchText_len = scope.NumCifCli.trim().length;
             scope.fdatos.NumCifCli=scope.NumCifCli;   
             if(searchText_len > 0)
             {
-                    var url = base_urlHome()+"api/Contratos/getclientes";
+                var url = base_urlHome()+"api/Contratos/getclientes";
                 $http.post(url,scope.fdatos).then(function(result)
                 {
                     console.log(result);
@@ -211,6 +213,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         {
             scope.NumCifCli=scope.searchResult[index].NumCifCli;
             scope.searchResult = {};
+            scope.ClienteSelect=true;
             $event.stopPropagation();  
         } 
         if(metodo==2)
@@ -859,10 +862,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_renovacion = function() 
     {
          resultado = true;
-        
-
-
-
         if(scope.tmodal_data.SinMod==false && scope.tmodal_data.ConMod==false)
         {
             Swal.fire({ title: "Error", text: "Debe indicar que tipo de renovación es el contrato.", type: "error", confirmButtonColor: "#188ae2" });
