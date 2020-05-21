@@ -43,8 +43,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.Cups_RazSocCli = result.data.Datos_Puntos.RazSocCli;
             scope.Cups_Dir = result.data.Datos_Puntos.DesTipVia + " " + result.data.Datos_Puntos.NomViaPunSum + " " + result.data.Datos_Puntos.NumViaPunSum + " " + result.data.Datos_Puntos.BloPunSum + " " + result.data.Datos_Puntos.EscPunSum + " " + result.data.Datos_Puntos.PlaPunSum + " " + result.data.Datos_Puntos.PuePunSum + " " + result.data.Datos_Puntos.DesPro + " " + result.data.Datos_Puntos.DesLoc + " " + result.data.Datos_Puntos.CPLoc;
             scope.fdatos_cups.CodTar = result.data.Name_CUPs.CodTar;
-            scope.totalPot=result.data.Name_CUPs.CanPerTar;
-            
+            scope.totalPot = result.data.Name_CUPs.CanPerTar;
+
             if (result.data.Consumo_CUPs == false) {
                 Swal.fire({ title: "Error", text: "No se encontrados consumos regitrados actualmente.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TCups_Consumo = [];
@@ -93,7 +93,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -169,7 +169,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -215,7 +215,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -246,7 +246,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.DirPunSumCUPs = scope.Cups_Dir;
                     scope.tmodal_data.CodConCup = dato.CodConCup;
                 } else {
-                    Swal.fire({ title: "Información", text: "No se encontraron motivos de bloqueos registrados, contacte un administrador y notifiquelo.", type: "info", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Información", text: "No existen motivos de bloqueos registrados, contacte un administrador y notifiquelo.", type: "info", confirmButtonColor: "#188ae2" });
                 }
 
             }, function(error) {
@@ -258,7 +258,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -350,7 +350,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.CodConCup == undefined) {
             var title = 'Guardando';
-             var text = '¿Seguro que desea registrar el consumo de CUPs?';
+            var text = '¿Seguro que desea registrar el consumo de CUPs?';
             var response = "Consumo de CUPs creado de forma correcta";
         }
         Swal.fire({
@@ -385,7 +385,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -399,142 +399,114 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     };
     scope.validar_campos_cups = function() {
         resultado = true;
-        if (scope.fdatos_cups.TipServ == 1)
-        {
-            if(scope.totalPot==1)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+        if (scope.fdatos_cups.TipServ == 1) {
+            if (scope.totalPot == 1) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                scope.fdatos_cups.PotCon2=null;
-                scope.fdatos_cups.PotCon3=null;
-                scope.fdatos_cups.PotCon4=null;
-                scope.fdatos_cups.PotCon5=null;
-                scope.fdatos_cups.PotCon6=null;
+                scope.fdatos_cups.PotCon2 = null;
+                scope.fdatos_cups.PotCon3 = null;
+                scope.fdatos_cups.PotCon4 = null;
+                scope.fdatos_cups.PotCon5 = null;
+                scope.fdatos_cups.PotCon6 = null;
             }
-            if(scope.totalPot==2)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+            if (scope.totalPot == 2) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '')
-                {
+                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                scope.fdatos_cups.PotCon3=null;
-                scope.fdatos_cups.PotCon4=null;
-                scope.fdatos_cups.PotCon5=null;
-                scope.fdatos_cups.PotCon6=null;
+                scope.fdatos_cups.PotCon3 = null;
+                scope.fdatos_cups.PotCon4 = null;
+                scope.fdatos_cups.PotCon5 = null;
+                scope.fdatos_cups.PotCon6 = null;
             }
-            if(scope.totalPot==3)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+            if (scope.totalPot == 3) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '')
-                {
+                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '')
-                {
+                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '') {
                     Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                scope.fdatos_cups.PotCon4=null;
-                scope.fdatos_cups.PotCon5=null;
-                scope.fdatos_cups.PotCon6=null;
+                scope.fdatos_cups.PotCon4 = null;
+                scope.fdatos_cups.PotCon5 = null;
+                scope.fdatos_cups.PotCon6 = null;
             }
-            if(scope.totalPot==4)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+            if (scope.totalPot == 4) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '')
-                {
+                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '')
-                {
+                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '') {
                     Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '')
-                {
+                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '') {
                     Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                scope.fdatos_cups.PotCon5=null;
-                scope.fdatos_cups.PotCon6=null;
+                scope.fdatos_cups.PotCon5 = null;
+                scope.fdatos_cups.PotCon6 = null;
             }
-            if(scope.totalPot==5)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+            if (scope.totalPot == 5) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '')
-                {
+                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '')
-                {
+                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '') {
                     Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '')
-                {
+                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '') {
                     Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon5 == null || scope.fdatos_cups.PotCon5 == undefined || scope.fdatos_cups.PotCon5== '')
-                {
+                if (scope.fdatos_cups.PotCon5 == null || scope.fdatos_cups.PotCon5 == undefined || scope.fdatos_cups.PotCon5 == '') {
                     Swal.fire({ title: "El Campo P5 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                scope.fdatos_cups.PotCon6=null;
+                scope.fdatos_cups.PotCon6 = null;
             }
-            if(scope.totalPot==6)
-            {
-                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '')
-                {
+            if (scope.totalPot == 6) {
+                if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '')
-                {
+                if (scope.fdatos_cups.PotCon2 == null || scope.fdatos_cups.PotCon2 == undefined || scope.fdatos_cups.PotCon2 == '') {
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '')
-                {
+                if (scope.fdatos_cups.PotCon3 == null || scope.fdatos_cups.PotCon3 == undefined || scope.fdatos_cups.PotCon3 == '') {
                     Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '')
-                {
+                if (scope.fdatos_cups.PotCon4 == null || scope.fdatos_cups.PotCon4 == undefined || scope.fdatos_cups.PotCon4 == '') {
                     Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotCon5 == null || scope.fdatos_cups.PotCon5 == undefined || scope.fdatos_cups.PotCon5== '')
-                {
+                if (scope.fdatos_cups.PotCon5 == null || scope.fdatos_cups.PotCon5 == undefined || scope.fdatos_cups.PotCon5 == '') {
                     Swal.fire({ title: "El Campo P5 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                 if (scope.fdatos_cups.PotCon6 == null || scope.fdatos_cups.PotCon6 == undefined || scope.fdatos_cups.PotCon6== '')
-                {
+                if (scope.fdatos_cups.PotCon6 == null || scope.fdatos_cups.PotCon6 == undefined || scope.fdatos_cups.PotCon6 == '') {
                     Swal.fire({ title: "El Campo P6 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
@@ -674,7 +646,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.post(url, scope.tmodal_data).then(function(result) {
                     $("#Baja").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: 'CUPs', text: 'El CUPs ha sido dado de baja correctamente.', type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: 'CUPs', text: 'El CUPs ha sido dado de baja de forma correcta', type: "success", confirmButtonColor: "#188ae2" });
                         scope.tmodal_data = {};
                         $("#modal_motivo_bloqueo").modal('hide');
                         scope.cargar_lista_consumo_CUPs();
@@ -691,7 +663,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -707,3 +679,4 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
 
 }
+incorrecto

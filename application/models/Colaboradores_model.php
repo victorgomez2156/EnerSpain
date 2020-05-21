@@ -120,7 +120,7 @@ class Colaboradores_model extends CI_Model
     }
     public function get_clientes_x_colaborador($CodCol){
         
-        $this->db->select(  "c.CodCol,c.NomCol,c.NumIdeFis,(CASE WHEN c.TipCol =1 THEN 'Persona Física' WHEN c.TipCol = 2 THEN 'Empresa' ELSE 'Inválido' END) AS Tipo_Colaborador,
+        $this->db->select(  "c.CodCol,c.NomCol,c.NumIdeFis,(CASE WHEN c.TipCol =1 THEN 'Persona Física' WHEN c.TipCol = 2 THEN 'Empresa' ELSE 'incorrecto' END) AS Tipo_Colaborador,
                             a.RazSocCli,a.NomComCli,a.NumCifCli,a.NomViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,
                             a.NomViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.TelFijCli,a.EmaCli,a.FecIniCli,
                             a.ObsCli,d.CUPsEle,d.CodTarElec,d.PotConP1,d.PotConP2,d.PotConP3,d.PotConP4,d.PotConP5,d.PotConP6,

@@ -402,7 +402,7 @@ public function consultar_correo()
 		$this->email->message("Estimado Cliente: ".$full_name." Hemos Recibido Una Solicitud de Correo Electrónico En El Sesión Recuperación de Correo Con La Dirección Ip:  ".$ip." Nuestro Es Deber Es Proteger Tu Cuenta Revisa Esa Actividad"); 
 	    if($this->email->send())
 	    {
-	    	$this->session->set_flashdata('envio', "Estimado Cliente: ".$full_name." Su Dirección de Correo Electrónico Es: ".$correo_electronico." Ingrese Con Su Contraseña");
+	    	$this->session->set_flashdata('envio', "Estimado Cliente: ".$full_name." Su Dirección de Correo Electrónico Es: ".$correo_electronico." Introduzca su Contraseña");
 	    }
 	    else
 	    {

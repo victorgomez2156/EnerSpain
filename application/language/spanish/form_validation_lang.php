@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['form_validation_required']		= 'El campo {field} es requerido.';
 $lang['form_validation_isset']			= 'El campo {field} debe contener un valor.';
-$lang['form_validation_valid_email']		= 'El campo {field} debe contener un email válido.';
-$lang['form_validation_valid_emails']		= 'El campo {field} debe contener todos los emails válidos.';
+$lang['form_validation_valid_email']		= 'El campo {field} debe contener un email correcto';
+$lang['form_validation_valid_emails']		= 'El campo {field} debe contener todos los emails correctos.';
 $lang['form_validation_valid_url']		= 'El campo {field} debe contener una URL válida.';
 $lang['form_validation_valid_ip']		= 'El campo {field} debe contener una IP válida.';
 $lang['form_validation_min_length']		= 'El campo {field} debe ser de al menos {param} caracteres de longitud.';
@@ -26,7 +26,7 @@ $lang['form_validation_alpha_dash']		= 'El campo {field} solo puede contener car
 $lang['form_validation_numeric']		= 'El campo {field} solo puede contener números.';
 $lang['form_validation_is_numeric']		= 'El campo {field} solo puede contener caracteres numéricos.';
 $lang['form_validation_integer']		= 'El campo {field} debe contener un entero.';
-$lang['form_validation_regex_match']		= 'El campo {field} no está en el formato correcto.';
+$lang['form_validation_regex_match']		= 'El campo {field} no está en el formato correcto';
 $lang['form_validation_matches']		= 'El campo {field} no coincide con el campo {param}.';
 $lang['form_validation_differs']		= 'El campo {field} debe ser distinto al campo {param}.';
 $lang['form_validation_is_unique'] 		= 'El campo {field} debe contener un valor único.';

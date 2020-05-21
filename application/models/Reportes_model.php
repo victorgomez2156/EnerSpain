@@ -1308,6 +1308,79 @@ class Reportes_model extends CI_Model
             return false;
         }       
     }
+    public function get_FetchTarEle($SearchText)
+    {
+        $this->db->select('CodTarEle,case TipTen when 0 then "BAJA" WHEN 1 THEN "ALTA" WHEN 2 THEN "AMBAS" end as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon',false);
+        $this->db->from('T_TarifaElectrica');  
+        $this->db->like('NomTarEle',$SearchText);
+        $this->db->or_like('CanPerTar',$SearchText);
+        $this->db->or_like('MinPotCon',$SearchText);
+        $this->db->or_like('MaxPotCon',$SearchText);    
+        $this->db->order_by('NomTarEle ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function get_FetchTarGas($SearchText)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_TarifaGas');  
+        $this->db->like('NomTarGas',$SearchText);
+        $this->db->or_like('MinConAnu',$SearchText);
+        $this->db->or_like('MaxConAnu',$SearchText);  
+        $this->db->order_by('NomTarGas ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function getUsuariosFilter($SearchText)
+    {
+        $this->db->select('id,nombres,apellidos,username,correo_electronico,case nivel when 1 then "Super-Administrador" WHEN 2 THEN "Administrador" WHEN 3 THEN "Estandar" end as nivel,date_format(fecha_registro, "%d/%m/%Y") as fecha_registro,
+            case bloqueado when 1 then "Activo" WHEN 2 THEN "Bloqueo Seguridad" WHEN 3 THEN "Intentos Fallidos" end as bloqueado',false);
+        $this->db->from('T_Usuarios_Session');
+        $this->db->like('CONCAT(nombres," ",apellidos)',$SearchText);
+        $this->db->or_like('username',$SearchText);
+        $this->db->or_like('correo_electronico',$SearchText);
+        $this->db->or_like('date_format(fecha_registro, "%d/%m/%Y")',$SearchText);
+        $this->db->order_by('nombres,apellidos DESC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function getAllUsers()
+    {
+        $this->db->select('id,nombres,apellidos,username,correo_electronico,case nivel when 1 then "Super-Administrador" WHEN 2 THEN "Administrador" WHEN 3 THEN "Estandar" end as nivel,date_format(fecha_registro, "%d/%m/%Y") as fecha_registro,
+            case bloqueado when 1 then "Activo" WHEN 2 THEN "Bloqueo Seguridad" WHEN 3 THEN "Intentos Fallidos" end as bloqueado',false);
+        $this->db->from('T_Usuarios_Session');
+        $this->db->order_by('nombres,apellidos DESC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
 
 
  

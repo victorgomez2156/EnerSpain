@@ -161,7 +161,7 @@
                      return (begin <= index && index < end);
                  };
              } else {
-                 Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                  scope.Tclientes = [];
                  scope.TclientesBack = [];
              }
@@ -174,7 +174,7 @@
                  Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -212,7 +212,7 @@
                      Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 403 && error.statusText == "Forbidden") {
-                     Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 500 && error.statusText == "Internal Server Error") {
                      Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -476,7 +476,7 @@
                              Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                          }
                          if (error.status == 403 && error.statusText == "Forbidden") {
-                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                          }
                          if (error.status == 500 && error.statusText == "Internal Server Error") {
                              Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -519,7 +519,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -607,7 +607,7 @@
                          Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 500 && error.statusText == "Internal Server Error") {
                          Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -631,101 +631,94 @@
          scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { DesPro: scope.tmodal_data.CodPro }, true);
          console.log(scope.TLocalidadesfiltrada);
      }
-     scope.fetchClientesFilter = function()
-    {
-        if(scope.filtrar_clientes==undefined||scope.filtrar_clientes==null||scope.filtrar_clientes=='')
-        {
-           
-            $scope.predicate = 'id';
-            $scope.reverse = true;
-            $scope.currentPage = 1;
-            $scope.order = function(predicate) {
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
-             scope.Tclientes=scope.TclientesBack;
-            $scope.totalItems = scope.Tclientes.length;
-            $scope.numPerPage = 50;
-            $scope.paginate = function(value) {
-                var begin, end, index;
-                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                end = begin + $scope.numPerPage;
-                index = scope.Tclientes.indexOf(value);
-                return (begin <= index && index < end);
-            };
-            scope.ruta_reportes_pdf = 0;
-            scope.ruta_reportes_excel =0;
+     scope.fetchClientesFilter = function() {
+         if (scope.filtrar_clientes == undefined || scope.filtrar_clientes == null || scope.filtrar_clientes == '') {
 
-        }
-        else
-        {
-            if(scope.filtrar_clientes.length>=2)
-            {
-                scope.fdatos.filtrar_clientes=scope.filtrar_clientes;   
-                var url = base_urlHome()+"api/Clientes/getClientesFilter";
-                $http.post(url,scope.fdatos).then(function(result)
-                {
-                    console.log(result.data);
-                    if (result.data != false)
-                    {                        
-                        $scope.predicate = 'id';
-                        $scope.reverse = true;
-                        $scope.currentPage = 1;
-                        $scope.order = function(predicate) {
-                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                            $scope.predicate = predicate;
-                        };
-                         scope.Tclientes=result.data;
-                        $scope.totalItems = scope.Tclientes.length;
-                        $scope.numPerPage = 50;
-                        $scope.paginate = function(value) {
-                            var begin, end, index;
-                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                            end = begin + $scope.numPerPage;
-                            index = scope.Tclientes.indexOf(value);
-                            return (begin <= index && index < end);
-                        };
-                        scope.ruta_reportes_pdf = 8 + "/" + scope.filtrar_clientes;
-                        scope.ruta_reportes_excel = 8 + "/" + scope.filtrar_clientes;
-                    }
-                    else
-                    {
-                        Swal.fire({ title: "Error", text: "No existen Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });                    
-                        $scope.predicate = 'id';
-                        $scope.reverse = true;
-                        $scope.currentPage = 1;
-                        $scope.order = function(predicate) {
-                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                            $scope.predicate = predicate;
-                        };
-                         scope.Tclientes=scope.TclientesBack;
-                        $scope.totalItems = scope.Tclientes.length;
-                        $scope.numPerPage = 50;
-                        $scope.paginate = function(value) {
-                            var begin, end, index;
-                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                            end = begin + $scope.numPerPage;
-                            index = scope.Tclientes.indexOf(value);
-                            return (begin <= index && index < end);
-                        };
-                        scope.ruta_reportes_pdf = 0;
-                        scope.ruta_reportes_excel =0;
-                    }
-                }, function(error)
-                {
-                    if (error.status == 404 && error.statusText == "Not Found"){
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 401 && error.statusText == "Unauthorized"){
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 403 && error.statusText == "Forbidden"){
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
-            }
-        }              
-    }
+             $scope.predicate = 'id';
+             $scope.reverse = true;
+             $scope.currentPage = 1;
+             $scope.order = function(predicate) {
+                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                 $scope.predicate = predicate;
+             };
+             scope.Tclientes = scope.TclientesBack;
+             $scope.totalItems = scope.Tclientes.length;
+             $scope.numPerPage = 50;
+             $scope.paginate = function(value) {
+                 var begin, end, index;
+                 begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                 end = begin + $scope.numPerPage;
+                 index = scope.Tclientes.indexOf(value);
+                 return (begin <= index && index < end);
+             };
+             scope.ruta_reportes_pdf = 0;
+             scope.ruta_reportes_excel = 0;
+
+         } else {
+             if (scope.filtrar_clientes.length >= 2) {
+                 scope.fdatos.filtrar_clientes = scope.filtrar_clientes;
+                 var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                 $http.post(url, scope.fdatos).then(function(result) {
+                     console.log(result.data);
+                     if (result.data != false) {
+                         $scope.predicate = 'id';
+                         $scope.reverse = true;
+                         $scope.currentPage = 1;
+                         $scope.order = function(predicate) {
+                             $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                             $scope.predicate = predicate;
+                         };
+                         scope.Tclientes = result.data;
+                         $scope.totalItems = scope.Tclientes.length;
+                         $scope.numPerPage = 50;
+                         $scope.paginate = function(value) {
+                             var begin, end, index;
+                             begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                             end = begin + $scope.numPerPage;
+                             index = scope.Tclientes.indexOf(value);
+                             return (begin <= index && index < end);
+                         };
+                         scope.ruta_reportes_pdf = 8 + "/" + scope.filtrar_clientes;
+                         scope.ruta_reportes_excel = 8 + "/" + scope.filtrar_clientes;
+                     } else {
+                         Swal.fire({ title: "Error", text: "No hay Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });
+                         $scope.predicate = 'id';
+                         $scope.reverse = true;
+                         $scope.currentPage = 1;
+                         $scope.order = function(predicate) {
+                             $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                             $scope.predicate = predicate;
+                         };
+                         scope.Tclientes = scope.TclientesBack;
+                         $scope.totalItems = scope.Tclientes.length;
+                         $scope.numPerPage = 50;
+                         $scope.paginate = function(value) {
+                             var begin, end, index;
+                             begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                             end = begin + $scope.numPerPage;
+                             index = scope.Tclientes.indexOf(value);
+                             return (begin <= index && index < end);
+                         };
+                         scope.ruta_reportes_pdf = 0;
+                         scope.ruta_reportes_excel = 0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+         }
+     }
 
 
  }

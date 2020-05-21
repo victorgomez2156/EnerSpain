@@ -144,7 +144,7 @@
                      return (begin3 <= index3 && index3 < end3);
                  };
              } else {
-                 Swal.fire({ title: 'Cuentas Bancarias', text: "No se Encontraron Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: 'Cuentas Bancarias', text: "No existen Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#cuentas_bancarias").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -155,7 +155,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -272,10 +272,10 @@
          $http.post(url, total_datos).then(function(result) {
              if (result.data != false) {
                  if (total_datos.EstCue == 1) {
-                     Swal.fire({ title: 'Activando', text: "Cuenta Bancaria Activada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: 'Activando', text: "Cuenta Bancaria Activada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                  }
                  if (total_datos.EstCue == 2) {
-                     Swal.fire({ title: 'Bloqueando', text: "Cuenta Bancaria Bloqueada Correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: 'Bloqueando', text: "Cuenta Bancaria Bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                  }
                  scope.cargar_cuentas_bancarias();
              } else {
@@ -291,7 +291,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -370,7 +370,7 @@
              console.log(scope.VAL_TIR_RES4);
              console.log(scope.VAL_RES_TIR_RES2);
              if (scope.VAL_RES_TIR_RES2 == 1) {
-                 Swal.fire({ title: "IBAN.", text: "El IBAN que introdujo es válido, presione el botón Continuar", type: "success", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "IBAN.", text: "El IBAN que introdujo es correcto", type: "success", confirmButtonColor: "#188ae2" });
                  scope.numIBanValidado = true;
              } else {
                  Swal.fire({ title: "Error.", text: "El IBAN que introdujo es incorrecto, verifique e intente de nuevo", type: "error", confirmButtonColor: "#188ae2" });
@@ -435,7 +435,7 @@
                                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                              }
                              if (error.status == 403 && error.statusText == "Forbidden") {
-                                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                              }
                              if (error.status == 500 && error.statusText == "Internal Server Error") {
                                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -458,7 +458,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -521,7 +521,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

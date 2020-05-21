@@ -158,7 +158,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin <= index && index < end);
                 };
             } else {
-                Swal.fire({ text: 'No existen Comercializadoras registradas', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No hay Comercializadoras registradas', type: "info", confirmButtonColor: "#188ae2" });
                 scope.Tcomercializadoras = [];
                 scope.TcomercializadorasBack = [];
             }
@@ -171,7 +171,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -203,7 +203,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -394,7 +394,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.opciones_comercializadoras[index] = undefined;
                 $("#modal_motivo_bloqueo_comercializadora").modal('show');
             } else {
-                Swal.fire({ text: 'No existen Motivos de Bloqueo', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No hay Motivos de Bloqueo', type: "error", confirmButtonColor: "#188ae2" });
                 scope.opciones_comercializadoras[index] = undefined;
             }
 
@@ -407,7 +407,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -423,7 +423,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ text: 'La Fecha de Bloqueo es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
@@ -521,7 +521,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

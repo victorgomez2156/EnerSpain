@@ -53,7 +53,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin3 <= index3 && index3 < end3);
                 };
             } else {
-                Swal.fire({ title: "Error", text: 'No existen Tarifas registradas para el Anexo', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No hay Tarifas registradas para el Anexo', type: "info", confirmButtonColor: "#188ae2" });
                 scope.TComisionesDet = [];
                 scope.TComisionesRangoGrib = [];
                 scope.TComisionesRango = [];
@@ -69,7 +69,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -139,7 +139,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -224,7 +224,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.post(url, scope.datos_enviar).then(function(result) {
                     $("#Guar_Deta").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
-                        Swal.fire({ title: 'Comisiones', text: 'Proceso de comisiones realizado correctamente.', type: "success", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: 'Comisiones', text: 'Proceso de comisiones realizado de forma correcta', type: "success", confirmButtonColor: "#188ae2" });
                     } else {
                         Swal.fire({ title: "Error", text: 'ha ocurrido un error en el proceso, Por Favor intente Nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
                     }
@@ -237,7 +237,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

@@ -159,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-show="vm.TPropuesta_Comerciales.length==0"> 
                     <td colspan="6" align="center">
-                      <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información</div>
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TPropuesta_Comerciales | filter:paginate" ng-class-odd="odd">

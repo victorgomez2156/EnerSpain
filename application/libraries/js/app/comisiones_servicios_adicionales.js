@@ -52,7 +52,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin4 <= index4 && index4 < end4);
                 };
             } else {
-                Swal.fire({ title: "Error", text: 'No existen Tarifas registradas', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No hay Tarifas registradas', type: "info", confirmButtonColor: "#188ae2" });
                 scope.comisiones = false;
                 scope.TComisionesRangoGrib = [];
                 scope.TComisionesDet = [];
@@ -66,7 +66,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -163,7 +163,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -262,7 +262,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error del Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -298,12 +298,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConSer == undefined || scope.TComisionesRangoGrib[i].ConSer == null || scope.TComisionesRangoGrib[i].ConSer == '') {
-                Swal.fire({ title: 'Comisión Servicios', text: 'La Comisión de Servicio es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Comisión Servicios', text: 'La Comisión de Servicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }
             if (scope.TComisionesRangoGrib[i].ConCerVer == undefined || scope.TComisionesRangoGrib[i].ConCerVer == null || scope.TComisionesRangoGrib[i].ConCerVer == '') {
-                Swal.fire({ title: 'Comisión Certificado Verde', text: 'La Comisión de Certificado Verde es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: 'Comisión Certificado Verde', text: 'La Comisión de Certificado Verde es requerida', type: "error", confirmButtonColor: "#188ae2" });
                 i = scope.TComisionesRangoGrib.length;
                 resultado = false;
             }

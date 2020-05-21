@@ -584,7 +584,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
-
+            <a class="btn btn-warning" href="reportes/Exportar_Documentos/Contrato_Comercial_Audax_PDF/{{vm.CodCli}}/{{vm.CodConCom}}/{{vm.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</a>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>

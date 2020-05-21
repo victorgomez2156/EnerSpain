@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_bloqueo_cliente" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_bloqueo_cliente" minlength="1" id="exampleInputEmail" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Bloqueo Cliente" ng-click="vm.agg_bloqueo_cliente()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -380,7 +380,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_PunSum" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_PunSum" minlength="1" id="exampleInputEmail3" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Punto Suministro" ng-click="vm.agg_bloqueo_PunSum()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -501,7 +501,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_Contacto" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_Contacto" minlength="1" id="exampleInputEmail4" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo Contacto" ng-click="vm.agg_bloqueo_Contacto()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -623,7 +623,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_comercializadora" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_comercializadora" minlength="1" id="exampleInputEmail5" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo Comercializadora" ng-click="vm.agg_bloqueo_Comercializadora()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -741,7 +741,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_cups" minlength="1" id="exampleInputEmail6" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Motivo Bloqueo CUPs" ng-click="vm.agg_bloqueo_CUPs()"><i class="fa fa-plus-square"></i></button>
                   </form>                    

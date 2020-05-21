@@ -1,4 +1,4 @@
-var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCookies', 'ui.bootstrap', 'angular.ping', 'ngRoute', 'ngMaterial'])
+var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCookies', 'ui.bootstrap', 'angular.ping', 'ngRoute'])
     .config(function($httpProvider, $routeProvider) {
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.headers.common["Access-Control-Allow-Origin"] = "*";

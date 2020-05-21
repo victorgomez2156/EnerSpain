@@ -436,12 +436,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
         </div>
-           
-
-
-
-
-
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
@@ -626,8 +620,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar' && vm.fdatos.EstProCom!='C' || vm.fdatos.tipo=='ver' && vm.fdatos.EstProCom!='C'">Actualizar</button>
 
             <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_Cliente_PDF/{{vm.fdatos.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
-            <!--button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodProCom>0 " >Actualizar</button-->            
-            <!--button class="btn btn-warning" type="button"  ng-click="vm.limpiar()" ng-show="vm.fdatos.CodProCom==undefined||vm.fdatos.CodProCom==null||vm.fdatos.CodProCom==''">Limpiar</button-->
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>

@@ -230,7 +230,7 @@ class Contratos extends REST_Controller
 			$update_CUPsGas=$this->Contratos_model->update_contrato_documento($objSalida->CodConCom,$objSalida->DocConRut);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Documento.');
 			$this->db->trans_complete();
-			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado correctamente.','statusText'=>"OK" );
+			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK" );
 			$this->response($arrayName);
 		}
 		elseif($objSalida->tipo=='editar')
@@ -247,12 +247,12 @@ class Contratos extends REST_Controller
 			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial.');
 			$this->db->trans_complete();
-			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado correctamente.','statusText'=>"OK" );
+			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK" );
 			$this->response($arrayName);
 		}
 		else
 		{
-			$arrayName = array('status' =>false,'menssage'=>'Ruta invalida ingrese modulo/nueva.','statusText'=>"Error" );
+			$arrayName = array('status' =>false,'menssage'=>'Ruta invalida introduzca modulo/nueva.','statusText'=>"Error" );
 			$this->response($arrayName);
 		}
 	}
@@ -262,7 +262,7 @@ class Contratos extends REST_Controller
 		$this->db->trans_start();	
 		$this->Contratos_model->update_bajaContrato($objSalida->CodConCom,$objSalida->FecBajCon,$objSalida->JusBajCon,1);		
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Dando Baja Contrato Comercial.');			
-		$arrayName = array('status'=>200 ,'menssage'=>'Contrato Comercial Dado de Baja Correctamente. ','statusText'=>'OK');		
+		$arrayName = array('status'=>200 ,'menssage'=>'Contrato Comercial Dado de Baja de forma correcta ','statusText'=>'OK');		
 		$this->db->trans_complete();
 		$this->response($arrayName);			
 				
@@ -332,7 +332,7 @@ class Contratos extends REST_Controller
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','INSERT',$CodConCom,$this->input->ip_address(),'Generando Contrato Comercial.');			
 			$this->Contratos_model->update_status_contrato_old($objSalida->CodConCom,3);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato a Renovado.');
-			$arrayName = array('status' =>200 ,'menssage'=>'Contrato renovado correctamente.','statusText'=>'OK');
+			$arrayName = array('status' =>200 ,'menssage'=>'Contrato renovado de forma correcta','statusText'=>'OK');
 			$this->db->trans_complete();
 			$this->response($arrayName);
 		}

@@ -11,7 +11,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['email_must_be_array'] = 'Debes pasar un array al método de validación de email.';
-$lang['email_invalid_address'] = 'Correo electrónico no válido: %s';
+$lang['email_invalid_address'] = 'Correo electrónico incorrecto: %s';
 $lang['email_attachment_missing'] = 'No ha sido posible encontrar este adjunto: %s';
 $lang['email_attachment_unreadable'] = 'No ha sido posible abrir este adjunto: %s';
 $lang['email_no_from'] = 'No se puede enviar un email sin la cabecera "From".';

@@ -337,7 +337,7 @@
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -397,7 +397,7 @@
                      $http.post(url, scope.tPunSum).then(function(result) {
                          $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                          if (result.data != false) {
-                             Swal.fire({ title: "Exito!.", text: "El Dirección de Suministro a sido activo correctamente.", type: "success", confirmButtonColor: "#188ae2" });
+                             Swal.fire({ title: "Exito!.", text: "El Dirección de Suministro a sido activo de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                              scope.mostrar_all_puntos();
                          } else {
                              Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -411,7 +411,7 @@
                              Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                          }
                          if (error.status == 403 && error.statusText == "Forbidden") {
-                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                          }
                          if (error.status == 500 && error.statusText == "Internal Server Error") {
                              Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -444,7 +444,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -536,7 +536,7 @@
                          Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 500 && error.statusText == "Internal Server Error") {
                          Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -610,7 +610,7 @@
                      Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 403 && error.statusText == "Forbidden") {
-                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 500 && error.statusText == "Internal Server Error") {
                      Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -654,7 +654,7 @@
                      Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 403 && error.statusText == "Forbidden") {
-                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                  }
                  if (error.status == 500 && error.statusText == "Internal Server Error") {
                      Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -764,7 +764,7 @@
                          Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 500 && error.statusText == "Internal Server Error") {
                          Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -872,7 +872,7 @@
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -902,45 +902,38 @@
              }
          }
      }
-    scope.FetchPunSum = function()
-    {
-        if(scope.filtrar_PumSum==undefined||scope.filtrar_PumSum==null||scope.filtrar_PumSum=='')
-        {
-            $scope.predicate2 = 'id';
-                        $scope.reverse2 = true;
-                        $scope.currentPage2 = 1;
-                        $scope.order2 = function(predicate2) {
-                             $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
-                             $scope.predicate2 = predicate2;
-                         };
-                         scope.tPuntosSuminitros = scope.tPuntosSuminitrosBack;
-                         $scope.totalItems2 = scope.tPuntosSuminitros.length;
-                         $scope.numPerPage2 = 50;
-                         $scope.paginate2 = function(value2) {
-                             var begin2, end2, index2;
-                             begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
-                             end2 = begin2 + $scope.numPerPage2;
-                             index2 = scope.tPuntosSuminitros.indexOf(value2);
-                             return (begin2 <= index2 && index2 < end2);
-                         };
-            scope.ruta_reportes_pdf_puntos_suministros = 0;
-            scope.ruta_reportes_excel_puntos_suministros =0;
-        }
-        else
-        {
-            if(scope.filtrar_PumSum.length>=2)
-            {
-                scope.fdatos.filtrar_PumSum=scope.filtrar_PumSum;   
-                var url = base_urlHome()+"api/Clientes/getPunSumFilter";
-                $http.post(url,scope.fdatos).then(function(result)
-                {
-                    console.log(result.data);
-                    if (result.data != false)
-                    {                        
-                        $scope.predicate2 = 'id';
-                        $scope.reverse2 = true;
-                        $scope.currentPage2 = 1;
-                        $scope.order2 = function(predicate2) {
+     scope.FetchPunSum = function() {
+         if (scope.filtrar_PumSum == undefined || scope.filtrar_PumSum == null || scope.filtrar_PumSum == '') {
+             $scope.predicate2 = 'id';
+             $scope.reverse2 = true;
+             $scope.currentPage2 = 1;
+             $scope.order2 = function(predicate2) {
+                 $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
+                 $scope.predicate2 = predicate2;
+             };
+             scope.tPuntosSuminitros = scope.tPuntosSuminitrosBack;
+             $scope.totalItems2 = scope.tPuntosSuminitros.length;
+             $scope.numPerPage2 = 50;
+             $scope.paginate2 = function(value2) {
+                 var begin2, end2, index2;
+                 begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
+                 end2 = begin2 + $scope.numPerPage2;
+                 index2 = scope.tPuntosSuminitros.indexOf(value2);
+                 return (begin2 <= index2 && index2 < end2);
+             };
+             scope.ruta_reportes_pdf_puntos_suministros = 0;
+             scope.ruta_reportes_excel_puntos_suministros = 0;
+         } else {
+             if (scope.filtrar_PumSum.length >= 2) {
+                 scope.fdatos.filtrar_PumSum = scope.filtrar_PumSum;
+                 var url = base_urlHome() + "api/Clientes/getPunSumFilter";
+                 $http.post(url, scope.fdatos).then(function(result) {
+                     console.log(result.data);
+                     if (result.data != false) {
+                         $scope.predicate2 = 'id';
+                         $scope.reverse2 = true;
+                         $scope.currentPage2 = 1;
+                         $scope.order2 = function(predicate2) {
                              $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
                              $scope.predicate2 = predicate2;
                          };
@@ -954,17 +947,15 @@
                              index2 = scope.tPuntosSuminitros.indexOf(value2);
                              return (begin2 <= index2 && index2 < end2);
                          };
-                        scope.ruta_reportes_pdf_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
-                        scope.ruta_reportes_excel_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
-                    }
-                    else
-                    {
-                        Swal.fire({ title: "Error", text: "No existen Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });                    
-                       
-                        $scope.predicate2 = 'id';
-                        $scope.reverse2 = true;
-                        $scope.currentPage2 = 1;
-                        $scope.order2 = function(predicate2) {
+                         scope.ruta_reportes_pdf_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
+                         scope.ruta_reportes_excel_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
+                     } else {
+                         Swal.fire({ title: "Error", text: "No hay Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });
+
+                         $scope.predicate2 = 'id';
+                         $scope.reverse2 = true;
+                         $scope.currentPage2 = 1;
+                         $scope.order2 = function(predicate2) {
                              $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
                              $scope.predicate2 = predicate2;
                          };
@@ -978,24 +969,26 @@
                              index2 = scope.tPuntosSuminitros.indexOf(value2);
                              return (begin2 <= index2 && index2 < end2);
                          };
-                        scope.ruta_reportes_pdf_puntos_suministros = 0;
-                        scope.ruta_reportes_excel_puntos_suministros =0;
-                    }
-                }, function(error)
-                {
-                    if (error.status == 404 && error.statusText == "Not Found"){
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 401 && error.statusText == "Unauthorized"){
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 403 && error.statusText == "Forbidden"){
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
-            }
-        }              
-    }
+                         scope.ruta_reportes_pdf_puntos_suministros = 0;
+                         scope.ruta_reportes_excel_puntos_suministros = 0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+         }
+     }
 
      if (scope.nID != undefined) {
          scope.BuscarXIDPunSum();

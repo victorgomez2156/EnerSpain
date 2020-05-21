@@ -209,7 +209,7 @@ class PropuestaComercial extends REST_Controller
 				$updatePropuesta=$this->Propuesta_model->update_view_propuesta($objSalida->CodProCom,null,$objSalida->CodCli,'A');
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada correctamente.','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Aprobada.');
 					$this->db->trans_complete();
@@ -221,7 +221,7 @@ class PropuestaComercial extends REST_Controller
 				$updatePropuesta=$this->Propuesta_model->update_view_propuesta($objSalida->CodProCom,$objSalida->JusRecProCom,$objSalida->CodCli,'R');
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada correctamente.','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Rechazada.');
 					$this->db->trans_complete();
@@ -236,7 +236,7 @@ class PropuestaComercial extends REST_Controller
 				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida->CauDia,$objSalida->CodAnePro,$objSalida->CodCli,$objSalida->CodCom,$objSalida->CodCupGas,$objSalida->CodCupSEle,$objSalida->CodPro,$objSalida->CodProCom,$objSalida->CodPunSum,$objSalida->CodTarEle,$objSalida->CodTarGas,$objSalida->Consumo,'A',$objSalida->FecProCom,$objSalida->ImpAhoEle,$objSalida->ImpAhoGas,$objSalida->ImpAhoTot,$objSalida->JusRecProCom,$objSalida->ObsAhoEle,$objSalida->ObsAhoGas,$objSalida->ObsProCom,$objSalida->PorAhoEle,$objSalida->PorAhoGas,$objSalida->PorAhoTot,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->RefProCom,$objSalida->RenConEle,$objSalida->RenConGas,$objSalida->TipPre);
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada correctamente.','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Aprobada.');
 					$this->db->trans_complete();
@@ -248,7 +248,7 @@ class PropuestaComercial extends REST_Controller
 				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida->CauDia,$objSalida->CodAnePro,$objSalida->CodCli,$objSalida->CodCom,$objSalida->CodCupGas,$objSalida->CodCupSEle,$objSalida->CodPro,$objSalida->CodProCom,$objSalida->CodPunSum,$objSalida->CodTarEle,$objSalida->CodTarGas,$objSalida->Consumo,'R',$objSalida->FecProCom,$objSalida->ImpAhoEle,$objSalida->ImpAhoGas,$objSalida->ImpAhoTot,$objSalida->JusRecProCom,$objSalida->ObsAhoEle,$objSalida->ObsAhoGas,$objSalida->ObsProCom,$objSalida->PorAhoEle,$objSalida->PorAhoGas,$objSalida->PorAhoTot,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->RefProCom,$objSalida->RenConEle,$objSalida->RenConGas,$objSalida->TipPre);
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada correctamente.','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Aprobada.');
 					$this->db->trans_complete();
@@ -269,7 +269,7 @@ class PropuestaComercial extends REST_Controller
 
 		else
 		{
-			$arrayName = array('status' =>false,'menssage'=>'Ruta invalida ingrese modulo/nueva.','statusText'=>"Error" );
+			$arrayName = array('status' =>false,'menssage'=>'Ruta invalida introduzca modulo/nueva.','statusText'=>"Error" );
 			$this->response($arrayName);
 		}		
     }

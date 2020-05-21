@@ -379,7 +379,7 @@
              }
          }
          if (scope.fdatos.RazSocCli == null || scope.fdatos.RazSocCli == undefined || scope.fdatos.RazSocCli == '') {
-             Swal.fire({ title: "La Razón Social del Cliente es obligatoria", type: "error", confirmButtonColor: "#188ae2" });
+             Swal.fire({ title: "La Razón Social del Cliente es requerida", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
          if (scope.fdatos.NomComCli == null || scope.fdatos.NomComCli == undefined || scope.fdatos.NomComCli == '') {
@@ -568,7 +568,7 @@
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -632,7 +632,7 @@
                  Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

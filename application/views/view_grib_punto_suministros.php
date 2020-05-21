@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.ActPunSum==true"> Acción</th>
                   </tr>
                   <tr ng-show="vm.tPuntosSuminitros.length==0"> 
-                    <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No existen Direcciones de Sumninistro registradas</div></td>           
+                    <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No hay Direcciones de Sumninistro registradas</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2" ng-class-odd="odd">
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>

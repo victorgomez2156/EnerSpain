@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         	<br>
         	 <span class="material-input" ng-show="vm.spinner_loader==1" style="margin-left: 235px;"><img src="application/libraries/estilos/img/ajax-loader.gif"> <b style="color:black;">Buscando, por favor espere ...</b> </span>
             <span class="material-input" ng-show="vm.data_result==1" style="color:green;"><i class="fa fa-check-circle"></i> Datos encontrados...</span>
-            <span class="material-input" ng-show="vm.data_result==2" style="color:red;"><i class="fa fa-close"></i> No se encontraron datos...</span>
+            <span class="material-input" ng-show="vm.data_result==2" style="color:red;"><i class="fa fa-close"></i> No existen datos...</span>
             <br>
         </div>
         

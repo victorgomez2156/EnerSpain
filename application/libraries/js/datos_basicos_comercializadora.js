@@ -276,7 +276,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
                         Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
                         document.getElementById('file').value = '';
-                         $('#filenameDocCont').html('');
+                        $('#filenameDocCont').html('');
                         $cookies.remove('CIF_COM');
                         location.href = "#/Datos_Basicos_Comercializadora/" + scope.nID;
                         //scope.fdatos=result.data;"/Datos_Basicos_Comercializadora
@@ -294,7 +294,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -376,7 +376,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title:'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: 'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
@@ -404,18 +404,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 return false;
             } else {
                 if (FecConCom[0].length > 2 || FecConCom[0].length < 2) {
-                    Swal.fire({ text: 'El formato del dia es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'El formato del dia es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
 
                 }
                 if (FecConCom[1].length > 2 || FecConCom[1].length < 2) {
-                    Swal.fire({ text: 'El formato del mes es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'El formato del mes es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
                 }
                 if (FecConCom[2].length < 4 || FecConCom[2].length > 4) {
-                    Swal.fire({ text: 'EL formato del año es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'EL formato del año es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     //event.preventDefault();	
                     return false;
                 }
@@ -436,18 +436,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 return false;
             } else {
                 if (FecVenConCom[0].length > 2 || FecVenConCom[0].length < 2) {
-                    Swal.fire({ text: 'el formato del dia es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del dia es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecVenConCom[1].length > 2 || FecVenConCom[1].length < 2) {
-                    Swal.fire({ text: 'el formato del mes es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del mes es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
                 if (FecVenConCom[2].length < 4 || FecVenConCom[2].length > 4) {
-                    Swal.fire({ text: 'el formato del año es incorrecto.', type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ text: 'el formato del año es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -523,7 +523,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -604,7 +604,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No se encontraron datos con el código que esta intentando buscar.', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: 'No existen datos con el código que esta intentando buscar.', type: "error", confirmButtonColor: "#188ae2" });
                 location.href = "#/Comercializadora";
             }
 
@@ -617,7 +617,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

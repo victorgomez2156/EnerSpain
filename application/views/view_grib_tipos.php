@@ -145,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_cliente" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_cliente" minlength="1" id="exampleInputEmail" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo  Cliente" ng-click="vm.agg_cliente()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -381,7 +381,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtrar_contacto" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtrar_contacto" minlength="1" id="exampleInputEmail3" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Contacto" ng-click="vm.agg_contacto()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -504,7 +504,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtro_documento" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtro_documento" minlength="1" id="exampleInputEmail4" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo Documento" ng-click="vm.agg_documentos()"><i class="fa fa-plus-square"></i></button>
                   </form>                    
@@ -635,7 +635,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="t-0029">
                   <form class="form-inline" role="form">
                     <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filtro_gestion" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar...">
+                      <input type="text" class="form-control" ng-model="vm.filtro_gestion" minlength="1" id="exampleInputEmail5" placeholder="Escribe para filtrar...">
                     </div>                 
                     <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Tipo de Gestión" ng-click="vm.agg_gestion()"><i class="fa fa-plus-square"></i></button>
                   </form>                    

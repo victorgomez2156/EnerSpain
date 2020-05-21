@@ -89,6 +89,20 @@ class Tarifas extends REST_Controller
 		}				
 		$this->response($data);		
     }
+    public function getTarEleFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Tarifas_model->getTarEleFilter($objSalida->filtrar_tarifa_electrinca);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Tarifas Eléctricas Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
     ////PARA LAS TARIFAS ELECTRICAS END///////
 
 
@@ -167,6 +181,20 @@ class Tarifas extends REST_Controller
 		$this->response($data);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','DELETE',$CodTarGas,$this->input->ip_address(),'Borrando Tarifa Gas.');		
     }
+    public function getTarGasFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Tarifas_model->getTarGasFilter($objSalida->filtrar_gas);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Tarifas Gas Filtradas');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 
     ///////////////////////////////////////////PARA LAS TARIFAS GAS END//////////////////////////////
    

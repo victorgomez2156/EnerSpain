@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de DNI/NIE:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NIFConCli" placeholder="* Ingrese Número de DNI/NIE" onkeyup="this.value=this.value.toUpperCase();" id="NIFConCli1" name="NIFConCli1" maxlength="9" required/>   
+                              <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NIFConCli" placeholder="* introduzca Número de DNI/NIE" onkeyup="this.value=this.value.toUpperCase();" id="NIFConCli1" name="NIFConCli1" maxlength="9" required/>   
                             </div>
                           </div>
                           <p id="iLetter"></p>
@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-show="vm.Tabla_Contacto.length==0"> 
                     <td colspan="13" align="center">
-                      <div class="td-usuario-table">No existen Contactos registrados</div>
+                      <div class="td-usuario-table">No hay Contactos registrados</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate4" ng-class-odd="odd">

@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </tr>
             <tr ng-show="vm.T_Documentos.length==0"> 
               <td colspan="7" align="center">
-                <div class="td-usuario-table"><i class="fa fa-close"></i> No existen Documentos registrados</div>
+                <div class="td-usuario-table"><i class="fa fa-close"></i> No hay Documentos registrados</div>
               </td>           
             </tr>
                 <tr ng-repeat="dato in vm.T_Documentos | filter:paginate7" ng-class-odd="odd">

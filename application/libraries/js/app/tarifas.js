@@ -51,8 +51,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
     console.log($route.current.$$route.originalPath);
 
-    //cargar_lista_clientes();
-
     ///////////////////////TARIFAS ELECTRICAS START///////////////////////////
     scope.cargar_lista_Tarifa_Electrica = function() {
         $("#cargando").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -461,7 +459,84 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.ruta_reportes_pdf_tarifas_electrica = "AMBAS";
             scope.ruta_reportes_excel_tarifas_electrica = "AMBAS";
         }
-        /////////////////////////////////////////////////////////////////////////////////TARIFAS ELECTRIAS END///////////////////////////////////////////////////////////
+        scope.FetchTarEle = function()
+    {
+        if(scope.filtrar_tarifa_electrinca==undefined||scope.filtrar_tarifa_electrinca==null||scope.filtrar_tarifa_electrinca=='')
+        {
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
+            scope.T_TarifasEle = scope.T_TarifasEleBack;
+            $scope.totalItems = scope.T_TarifasEle.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.T_TarifasEle.indexOf(value);
+                return (begin <= index && index < end);
+            };
+            scope.ruta_reportes_pdf_tarifas_electrica = 0;
+            scope.ruta_reportes_excel_tarifas_electrica =0;
+        }
+        else
+        {
+            if(scope.filtrar_tarifa_electrinca.length>0)
+            {
+                scope.fdatos.filtrar_tarifa_electrinca=scope.filtrar_tarifa_electrinca;   
+                var url = base_urlHome()+"api/Tarifas/getTarEleFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };
+                        scope.T_TarifasEle = result.data;
+                        $scope.totalItems = scope.T_TarifasEle.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.T_TarifasEle.indexOf(value);
+                            return (begin <= index && index < end);
+                        };
+                        scope.ruta_reportes_pdf_tarifas_electrica = 2 + "/" + scope.filtrar_tarifa_electrinca;
+                        scope.ruta_reportes_excel_tarifas_electrica = 2 + "/" + scope.filtrar_tarifa_electrinca;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Tarifas Eléctricas registradas", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.T_TarifasEle=[];
+                        scope.ruta_reportes_pdf_tarifas_electrica = 0;
+                        scope.ruta_reportes_excel_tarifas_electrica =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
+    }
+ /////////////////////////////////////////////////////////////////////////////////TARIFAS ELECTRIAS END///////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////////TARIFAS GAS START///////////////////////////////////////////////////////////
 
@@ -732,6 +807,83 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log('Cancelando ando...');
             }
         });
+    }
+    scope.FetchTarGas = function()
+    {
+        if(scope.filtrar_gas==undefined||scope.filtrar_gas==null||scope.filtrar_gas=='')
+        {
+                $scope.predicate1 = 'id';
+                $scope.reverse1 = true;
+                $scope.currentPage1 = 1;
+                $scope.order1 = function(predicate1) {
+                    $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                    $scope.predicate1 = predicate1;
+                };
+                scope.T_TarifasGas = scope.T_TarifasGasBack;
+                $scope.totalItems1 = scope.T_TarifasGas.length;
+                $scope.numPerPage1 = 50;
+                $scope.paginate1 = function(value1) {
+                    var begin1, end1, index1;
+                    begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                    end1 = begin1 + $scope.numPerPage1;
+                    index1 = scope.T_TarifasGas.indexOf(value1);
+                    return (begin1 <= index1 && index1 < end1);
+                };
+            scope.ruta_reportes_pdf_tarifas_gas = 0;
+            scope.ruta_reportes_excel_tarifas_gas =0;
+        }
+        else
+        {
+            if(scope.filtrar_gas.length>0)
+            {
+                scope.fdatos.filtrar_gas=scope.filtrar_gas;   
+                var url = base_urlHome()+"api/Tarifas/getTarGasFilter";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate1 = 'id';
+                $scope.reverse1 = true;
+                $scope.currentPage1 = 1;
+                $scope.order1 = function(predicate1) {
+                    $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                    $scope.predicate1 = predicate1;
+                };
+                scope.T_TarifasGas = result.data;
+                $scope.totalItems1 = scope.T_TarifasGas.length;
+                $scope.numPerPage1 = 50;
+                $scope.paginate1 = function(value1) {
+                    var begin1, end1, index1;
+                    begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                    end1 = begin1 + $scope.numPerPage1;
+                    index1 = scope.T_TarifasGas.indexOf(value1);
+                    return (begin1 <= index1 && index1 < end1);
+                };
+                        scope.ruta_reportes_pdf_tarifas_gas = 1 + "/" + scope.filtrar_gas;
+                        scope.ruta_reportes_excel_tarifas_gas = 1 + "/" + scope.filtrar_gas;
+                    }
+                    else
+                    {
+                        Swal.fire({ title: "Error", text: "No existen Tarifas Gas registradas", type: "error", confirmButtonColor: "#188ae2" });                    
+                        scope.T_TarifasGas=[];
+                        scope.ruta_reportes_pdf_tarifas_gas = 0;
+                        scope.ruta_reportes_excel_tarifas_gas =0;
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+        }              
     }
 
 

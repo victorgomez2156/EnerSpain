@@ -136,7 +136,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin7 <= index7 && index7 < end7);
                 }
             } else {
-                Swal.fire({ title: "No se Encontraron Documentos Registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "No existen Documentos Registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.T_Documentos = [];
                 scope.T_DocumentosBack = [];
             }
@@ -149,7 +149,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -286,12 +286,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
     scope.regresar_documentos = function() {
-        if (scope.fagregar_documentos.CodTipDocAI == undefined){
-            var title="Guardando";
+        if (scope.fagregar_documentos.CodTipDocAI == undefined) {
+            var title = "Guardando";
             var text = "¿Seguro que desea cerrar sin registrar el Documento?";
         }
-        if (scope.fagregar_documentos.CodTipDocAI > 0){
-            var title="Actualizando";
+        if (scope.fagregar_documentos.CodTipDocAI > 0) {
+            var title = "Actualizando";
             var text = "¿Seguro que desea cerrar sin actualizar la información del Documento?";
         }
         Swal.fire({
@@ -363,7 +363,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -422,9 +422,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             Swal.fire({ title: "Indicar si el Documento tiene o no Fecha de Vencimiento", type: "error", confirmButtonColor: "#188ae2" });
             return false;
         }
-        if (scope.fagregar_documentos.TieVen == 1) 
-        {
-            
+        if (scope.fagregar_documentos.TieVen == 1) {
+
             var FecVenDocAco = document.getElementById("FecVenDocAco").value;
             scope.FecVenDocAco = FecVenDocAco;
             if (scope.FecVenDocAco == undefined) {
@@ -491,7 +490,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
                 bootbox.alert({
-                    message: "Está intentando usar un APIKEY inválido",
+                    message: "Está intentando usar un APIKEY incorrecto",
                     size: 'middle'
                 });
             }
@@ -526,7 +525,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401.", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403.", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403.", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });

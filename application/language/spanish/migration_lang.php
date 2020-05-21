@@ -17,4 +17,4 @@ $lang['migration_multiple_version']	= 'Hay múltiples migraciones con el mismo n
 $lang['migration_class_doesnt_exist']	= 'La clase de migración "%s" no ha podido ser encontrada.';
 $lang['migration_missing_up_method']	= 'A la clase de migración "%s" le falta el método "up".';
 $lang['migration_missing_down_method']	= 'A la clase de migración "%s" le falta el método "down".';
-$lang['migration_invalid_filename']	= 'La migración "%s" tiene un nombre de archivo no válido.';
+$lang['migration_invalid_filename']	= 'La migración "%s" tiene un nombre de archivo no correcto';

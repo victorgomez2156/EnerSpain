@@ -195,7 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-show="vm.T_Seguimientos.length==0"> 
                     <td colspan="6" align="center">
-                      <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información.</div>
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información.</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_Seguimientos | filter:paginate | filter:vm.filtrar" ng-class-odd="odd">                    

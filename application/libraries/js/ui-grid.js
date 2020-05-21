@@ -12121,8 +12121,8 @@ angular.module('ui.grid').directive('uiGridCell', ['$compile', '$parse', 'gridUt
                 importer: {
                     noHeaders: 'No fue posible derivar los nombres de las columnas, ¿el fichero tiene encabezados?',
                     noObjects: 'No fue posible obtener registros, ¿el fichero contiene información, además de los encabezados?',
-                    invalidCsv: 'No fue posible procesar el fichero, ¿es un CSV válido?',
-                    invalidJson: 'No fue posible procesar el fichero, ¿es un Json válido?',
+                    invalidCsv: 'No fue posible procesar el fichero, ¿es un CSV correcto?',
+                    invalidJson: 'No fue posible procesar el fichero, ¿es un Json correcto?',
                     jsonNotArray: 'El fichero json importado debe contener un array'
                 },
                 pagination: {
@@ -13017,8 +13017,8 @@ angular.module('ui.grid').directive('uiGridCell', ['$compile', '$parse', 'gridUt
                 importer: {
                     noHeaders: 'Nomes de colunas não puderam ser derivados. O arquivo tem um cabeçalho?',
                     noObjects: 'Objetos não puderam ser derivados. Havia dados no arquivo, além dos cabeçalhos?',
-                    invalidCsv: 'Arquivo não pode ser processado. É um CSV válido?',
-                    invalidJson: 'Arquivo não pode ser processado. É um Json válido?',
+                    invalidCsv: 'Arquivo não pode ser processado. É um CSV correcto?',
+                    invalidJson: 'Arquivo não pode ser processado. É um Json correcto?',
                     jsonNotArray: 'Arquivo json importado tem que conter um array. Abortando.'
                 },
                 pagination: {
@@ -13124,8 +13124,8 @@ angular.module('ui.grid').directive('uiGridCell', ['$compile', '$parse', 'gridUt
                 importer: {
                     noHeaders: 'Nomes de colunas não puderam ser derivados. O ficheiro tem um cabeçalho?',
                     noObjects: 'Objetos não puderam ser derivados. Havia dados no ficheiro, além dos cabeçalhos?',
-                    invalidCsv: 'Ficheiro não pode ser processado. É um CSV válido?',
-                    invalidJson: 'Ficheiro não pode ser processado. É um Json válido?',
+                    invalidCsv: 'Ficheiro não pode ser processado. É um CSV correcto?',
+                    invalidJson: 'Ficheiro não pode ser processado. É um Json correcto?',
                     jsonNotArray: 'Ficheiro json importado tem que conter um array. Interrompendo.'
                 },
                 pagination: {

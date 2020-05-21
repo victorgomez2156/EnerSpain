@@ -1,6 +1,6 @@
-var Script = function () {
+var Script = function() {
 
-   $().ready(function() {
+    $().ready(function() {
         // validate the comment form when it is submitted
         //$("#feedback_form").validate();
 
@@ -14,7 +14,7 @@ var Script = function () {
                 apellidos: {
                     required: true,
                     minlength: 4
-                },                
+                },
                 username: {
                     required: true,
                     minlength: 5
@@ -36,44 +36,44 @@ var Script = function () {
                     required: "#newsletter:checked",
                     minlength: 2
                 },
-                 apikey: {
+                apikey: {
                     required: true,
                     minlength: 40
                 },
                 agree: "required"
             },
-            messages: {                
+            messages: {
                 nombres: {
-                    required: "Ingrese sus Nombres.",
+                    required: "Introduzca Nombre",
                     minlength: "Your name must consist of at least 4 characters long."
                 },
-                 apellidos: {
-                    required: "Ingrese sus Apellidos.",
+                apellidos: {
+                    required: "Introduzca Apellidos",
                     minlength: "Your Full Name must consist of at least 4 characters long."
                 },
                 email: {
-                    required: "Ingrese su Correo Electrónico.",
+                    required: "Introduzca Correo Electrónico",
                     minlength: "Your Email must consist of at least 10 characters long."
                 },
                 username: {
-                    required: "Ingrese un Nombre de Usuario.",
+                    required: "Introduzca nombre de Usuario",
                     minlength: "Your username must consist of at least 5 characters long."
                 },
                 password: {
-                    required: "Ingrese Su Contraseña.",
+                    required: "Introduzca Contraseña",
                     minlength: "Your password must be at least 5 characters long."
                 },
                 confirm_password: {
-                    required: "Por favor Confirme su contraseña.",
+                    required: "Por favor confirme la Contraseña",
                     minlength: "Your password must be at least 5 characters long.",
                     equalTo: "Please enter the same password as above."
                 },
                 apikey: {
-                    required: "Debe Generar un Api-Key.",
+                    required: "Debe Generar un Api-Key",
                     minlength: "Your Api-Key must be at least 40 characters long."
                 },
                 //email: "Please enter a valid email address.",
-                agree: "Acepta los terminos & condiciones."
+                agree: "Acepta los Términos & Condiciones"
             }
         });
 
@@ -81,7 +81,7 @@ var Script = function () {
         $("#username").focus(function() {
             var firstname = $("#firstname").val();
             var lastname = $("#lastname").val();
-            if(firstname && lastname && !this.value) {
+            if (firstname && lastname && !this.value) {
                 this.value = firstname + "." + lastname;
             }
         });

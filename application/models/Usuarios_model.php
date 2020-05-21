@@ -89,7 +89,7 @@ class Usuarios_model extends CI_Model
     }
     public function get_list_empleados()
     {
-        $this->db->select('id,nombres,apellidos,username,correo_electronico,nivel,date_format(fecha_registro, "%d-%m-%Y") as fecha_registro,bloqueado');
+        $this->db->select('id,nombres,apellidos,username,correo_electronico,nivel,date_format(fecha_registro, "%d/%m/%Y") as fecha_registro,bloqueado');
         $this->db->from('T_Usuarios_Session');
         $this->db->order_by('nombres,apellidos DESC');
         $query = $this->db->get(); 
@@ -244,6 +244,25 @@ class Usuarios_model extends CI_Model
         $this->db->select('hcontroller as id,controller');
         $this->db->from('access');
         $this->db->where('huser',$huser);        
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function getUsuariosFilter($SearchText)
+    {
+        $this->db->select('id,nombres,apellidos,username,correo_electronico,nivel,date_format(fecha_registro, "%d/%m/%Y") as fecha_registro,bloqueado');
+        $this->db->from('T_Usuarios_Session');
+        $this->db->like('CONCAT(nombres," ",apellidos)',$SearchText);
+        $this->db->or_like('username',$SearchText);
+        $this->db->or_like('correo_electronico',$SearchText);
+        $this->db->or_like('date_format(fecha_registro, "%d/%m/%Y")',$SearchText);
+        $this->db->order_by('nombres,apellidos DESC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

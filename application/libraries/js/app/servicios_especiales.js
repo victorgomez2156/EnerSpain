@@ -157,7 +157,7 @@
          }
          if(error.status==403 && error.statusText=="Forbidden")
          {
-         	Swal.fire({title:"Seguridad.",text:"Está intentando utilizar un APIKEY inválido",type:"question",confirmButtonColor:"#188ae2"});
+         	Swal.fire({title:"Seguridad.",text:"Está intentando utilizar un APIKEY incorrecto",type:"question",confirmButtonColor:"#188ae2"});
          }
          if(error.status==500 && error.statusText=="Internal Server Error")
          {				
@@ -205,7 +205,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -522,11 +522,11 @@
              if (result.data.resultado != false) {
                  if (opciones_servicio_especiales == 1) {
                      var title = 'Activando';
-                     var text = 'El Servicio Especial ha sido activado correctamente.';
+                     var text = 'El Servicio Especial ha sido activado de forma correcta';
                  }
                  if (opciones_servicio_especiales == 2) {
                      var title = 'Bloqueando';
-                     var text = 'El Servicio Especial ha sido bloqueado correctamente.';
+                     var text = 'El Servicio Especial ha sido bloqueado de forma correcta';
                      $("#modal_motivo_bloqueo_servicio_especial").modal('hide');
                  }
                  $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -547,7 +547,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -625,13 +625,13 @@
          if (scope.servicio_especial.CodSerEsp == undefined) {
              //var titulo='Guardando_Anexo';
              var titulo = 'Guardando';
-             var texto = 'Estás seguro de ingresar este nuevo registro';
-             var response = 'Servicio Especial creado correctamente.';
+             var texto = 'Está seguro de registrar este nuevo registro';
+             var response = 'Servicio Especial creado de forma correcta';
          } else {
              //var titulo='Actualizando_Anexo';
              var titulo = 'Actualizando';
-             var texto = 'Estás seguro de ingresar este nuevo registro';
-             var response = 'Servicio Especial modificado correctamente.';
+             var texto = 'Está seguro de registrar este nuevo registro';
+             var response = 'Servicio Especial modificado de forma correcta';
          }
          if (!scope.validar_campos_servicio_especial()) {
              return false;
@@ -669,7 +669,7 @@
                          Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                      }
                      if (error.status == 500 && error.statusText == "Internal Server Error") {
                          Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -1131,7 +1131,7 @@
                  Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
              }
              if (error.status == 500 && error.statusText == "Internal Server Error") {
                  Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -1139,11 +1139,9 @@
 
          });
      }
-     scope.fetchServiciosEspeciales = function()
-    {
-        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
-        {           
-            $scope.predicate3 = 'id';
+     scope.fetchServiciosEspeciales = function() {
+         if (scope.filtrar_search == undefined || scope.filtrar_search == null || scope.filtrar_search == '') {
+             $scope.predicate3 = 'id';
              $scope.reverse3 = true;
              $scope.currentPage3 = 1;
              $scope.order3 = function(predicate3) {
@@ -1160,21 +1158,16 @@
                  index3 = scope.TServicioEspeciales.indexOf(value3);
                  return (begin3 <= index3 && index3 < end3);
              };
-            scope.reporte_pdf_servicio_especiales = 0;
-            scope.reporte_excel_servicio_especiales =0;
-        }
-        else
-        {
-            if(scope.filtrar_search.length>=1)
-            {
-                scope.fdatos.filtrar_search=scope.filtrar_search;   
-                var url = base_urlHome()+"api/Comercializadora/getServiciosEspecialesFilter";
-                $http.post(url,scope.fdatos).then(function(result)
-                {
-                    console.log(result.data);
-                    if (result.data != false)
-                    {                       
-                        $scope.predicate3 = 'id';
+             scope.reporte_pdf_servicio_especiales = 0;
+             scope.reporte_excel_servicio_especiales = 0;
+         } else {
+             if (scope.filtrar_search.length >= 1) {
+                 scope.fdatos.filtrar_search = scope.filtrar_search;
+                 var url = base_urlHome() + "api/Comercializadora/getServiciosEspecialesFilter";
+                 $http.post(url, scope.fdatos).then(function(result) {
+                     console.log(result.data);
+                     if (result.data != false) {
+                         $scope.predicate3 = 'id';
                          $scope.reverse3 = true;
                          $scope.currentPage3 = 1;
                          $scope.order3 = function(predicate3) {
@@ -1191,12 +1184,10 @@
                              index3 = scope.TServicioEspeciales.indexOf(value3);
                              return (begin3 <= index3 && index3 < end3);
                          };
-                        scope.reporte_pdf_servicio_especiales = 7 + "/" + scope.filtrar_search;
-                        scope.reporte_excel_servicio_especiales = 7 + "/" + scope.filtrar_search;
-                    }
-                    else
-                    {
-                        $scope.predicate3 = 'id';
+                         scope.reporte_pdf_servicio_especiales = 7 + "/" + scope.filtrar_search;
+                         scope.reporte_excel_servicio_especiales = 7 + "/" + scope.filtrar_search;
+                     } else {
+                         $scope.predicate3 = 'id';
                          $scope.reverse3 = true;
                          $scope.currentPage3 = 1;
                          $scope.order3 = function(predicate3) {
@@ -1213,30 +1204,26 @@
                              index3 = scope.TServicioEspeciales.indexOf(value3);
                              return (begin3 <= index3 && index3 < end3);
                          };
-                        scope.reporte_pdf_servicio_especiales = 0;
-                        scope.reporte_excel_servicio_especiales =0;
-                    }
-                }, function(error)
-                {
-                    if (error.status == 404 && error.statusText == "Not Found")
-                    {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized")
-                    {
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden")
-                    {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
-            }
-        }              
-    }
+                         scope.reporte_pdf_servicio_especiales = 0;
+                         scope.reporte_excel_servicio_especiales = 0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+         }
+     }
      if (scope.nIDSerEsp != undefined) {
          scope.buscarXIDServicioEspecial();
      }

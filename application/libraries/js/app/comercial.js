@@ -46,7 +46,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     }
 
-    $scope.submitForm = function(event) {
+    $scope.submitForm = function(event){
 
         if (!scope.validar_campos_datos_basicos()) {
             return false;
@@ -233,6 +233,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     $scope.Consultar_DNI_NIE = function(event) {
+        if (!scope.validarNIFDNI())
+            {
+                return false;
+            }
         $("#comprobando_dni").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome() + "api/Comercial/comprobar_dni_nie/NIFComCon/" + scope.fdatos.NumDNI_NIECli;
         $http.get(url).then(function(result) {
@@ -244,7 +248,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#modal_dni_comprobar").modal('hide');
                 $cookies.put('CIF_COMERCIAL', scope.fdatos.NumDNI_NIECli);
                 location.href = "#/Agregar_Comercial/";
-                Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE ya existe", type: "success", confirmButtonColor: "#188ae2" });
+                //Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE se encuentra disponible", type: "success", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#comprobando_dni").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -773,6 +777,90 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }              
     }
+     ///////// PARA CALCULAR DNI/NIE START /////////////////
+    scope.validarNIFDNI=function()
+    {
+        var letter = scope.validar_dni_nie($("#NumDNI_NIECli").parent(),$("#NumDNI_NIECli").val());
+        if(letter != false)
+        {
+            //$("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter+ "</strong></p>");
+            scope.dni_nie_validar = scope.fdatos.NumDNI_NIECli.substring(0,8)+letter;
+            if(scope.dni_nie_validar!=scope.fdatos.NumDNI_NIECli)
+            {
+                Swal.fire({ text: "El Número de DNI/NIE es Invalido Intente Nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
+            }
+            else
+            {
+                return true;
+            }  
+        }
+        else
+        {
+           Swal.fire({ text: "Debe ingresar los 9 Números de su DNI/NIE EJ: 12345678F/Y1234567B", type: "error", confirmButtonColor: "#188ae2" });
+            //$("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
+        }
+        //console.log(letter);
+        //console.log($("#NIFConCli").val() + letter);
+    }    
+    function isNumeric(expression) {
+    return (String(expression).search(/^\d+$/) != -1);
+    }
+    function calculateLetterForDni(dni)
+    {
+        // Letras en funcion del modulo de 23
+        string = "TRWAGMYFPDXBNJZSQVHLCKET"
+        // se obtiene la posiciÃ³n de la cadena anterior
+        position = dni % 23
+        // se extrae dicha posiciÃ³n de la cadena
+        letter = string.substring(position, position + 1)
+        return letter
+    }
+    scope.validar_dni_nie=function(field, txt)
+    {
+        var letter = ""
+        // Si es un dni extrangero, es decir, empieza por X, Y, Z
+        // Si la longitud es 8 longitud total de los dni nacionales)
+        if (txt.length == 9) 
+        {
+          
+            var first = txt.substring(0, 1)
+            var last = txt.substring(8,9)
+            if (first == 'X' || first == 'Y' || first == 'Z') 
+            {               
+                // Si la longitud es 9(longitud total de los dni extrangeros)
+                // Se calcula la letra para el numero de dni
+                var number = txt.substring(1, 8);
+                console.log(number)
+                if (first == 'X') {
+                    number = '0' + number
+                    //final = first + number
+                }
+                if (first == 'Y') {
+                    number = '1' + number
+                    //final = first + number
+                }
+                if (first == 'Z') {
+                    number = '2' + number
+                    //final = first + number
+                }
+                if (isNumeric(number)){
+                    letter = calculateLetterForDni(number)
+                }
+                return letter
+
+            } else {
+              
+                letter = calculateLetterForDni(txt.substring(0, 8))                
+                return letter
+            }
+        }
+        else
+        {
+            return false
+        }
+       
+    }  
     if (scope.nID != undefined) {
         scope.buscarXID();
     }

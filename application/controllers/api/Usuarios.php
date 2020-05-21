@@ -180,6 +180,20 @@ class Usuarios extends REST_Controller
 		$this->response($data);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'controller','GET',0,$this->input->ip_address(),'Cargando lista de controladores.');		
     }
+    public function getUsuariosFilter_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));
+		$this->db->trans_start();
+		$consulta=$this->Usuarios_model->getUsuariosFilter($objSalida->filter_search);		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Usuarios_Session','SEARCH',null,$this->input->ip_address(),'Filtrando Lista de Usuarios');
+		$this->db->trans_complete();
+		$this->response($consulta);
+    }
 	
 }
 ?>

@@ -158,7 +158,7 @@ class OtrasGestiones extends REST_Controller
 			{
 				$this->Otrasgestiones_model->update_gestion_comercial($objSalida->CodGesGen,$objSalida->CodCli,$objSalida->FecGesGen,$objSalida->TipGesGen,$objSalida->RefGesGen,$objSalida->MecGesGen,$objSalida->EstGesGen,$objSalida->PreGesGen,$objSalida->CodCups,$objSalida->DesAnaGesGen,$objSalida->ObsGesGen,$objSalida->TipCups,$objSalida->NGesGen);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','UPDATE',$objSalida->CodGesGen,$this->input->ip_address(),'Creando Gestión Comercial');
-				$response = array('status' =>200 ,'menssage' =>'Gestión Comercial modificada correctamente.','statusText'=>'OK','Gestion'=>$objSalida);
+				$response = array('status' =>200 ,'menssage' =>'Gestión Comercial modificada de forma correcta','statusText'=>'OK','Gestion'=>$objSalida);
 			}			
 		}
 		else
@@ -166,7 +166,7 @@ class OtrasGestiones extends REST_Controller
 			$CodGesGen=$this->Otrasgestiones_model->save_gestion_comercial($objSalida->CodCli,$objSalida->FecGesGen,$objSalida->TipGesGen,$objSalida->RefGesGen,$objSalida->MecGesGen,$objSalida->EstGesGen,$objSalida->PreGesGen,$objSalida->CodCups,$objSalida->DesAnaGesGen,$objSalida->ObsGesGen,$objSalida->TipCups,$objSalida->NGesGen);
 			$objSalida->CodGesGen=$CodGesGen;
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','INSERT',$CodGesGen,$this->input->ip_address(),'Creando Gestión Comercial');
-			$response = array('status' =>200 ,'menssage' =>'Gestión Comercial Registrada Correctamente.','statusText'=>'OK','Gestion'=>$objSalida);
+			$response = array('status' =>200 ,'menssage' =>'Gestión Comercial Registrada de forma correcta','statusText'=>'OK','Gestion'=>$objSalida);
 		}		
 		$this->db->trans_complete();
 		$this->response($response);
@@ -181,7 +181,7 @@ class OtrasGestiones extends REST_Controller
 		$Gestiones = $this->Otrasgestiones_model->get_list_gestiones();        
 		if (empty($Gestiones))
 		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No se encontraron gestiones registradas.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No existen gestiones registradas.');
 			$this->response(false);
 			return false;
 		}
@@ -218,7 +218,7 @@ class OtrasGestiones extends REST_Controller
 		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
 		if (empty($List_Gestiones))
 		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'No se encontraron tipo de Gestiones Comerciales registradas.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'No existen tipo de Gestiones Comerciales registradas.');
 			$this->response(false);
 			return false;
 		}

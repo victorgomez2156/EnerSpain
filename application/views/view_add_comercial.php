@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form"> 
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Comercial <b style="color:red;">(*)</b></label></label>       
-       <input class=" form-control" id="NomCom" name="NomCom" type="text"  ng-model="vm.fdatos.NomCom" ng-disabled="vm.validate_form==1"/>     
+       <input class=" form-control" id="NomCom" name="NomCom" type="text"  ng-model="vm.fdatos.NomCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>     
        </div>
        </div>
        </div>
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Cargo <b style="color:red;">(*)</b></label>
-       <input class="form-control " id="CarCom" name="CarCom" type="text"  ng-model="vm.fdatos.CarCom" ng-disabled="vm.validate_form==1"/>        
+       <input class="form-control " id="CarCom" name="CarCom" type="text"  ng-model="vm.fdatos.CarCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>        
        </div>
        </div>
        </div>
@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>
-       <input class="form-control " id="EmaCom" name="EmaCom" type="email"  ng-model="vm.fdatos.EmaCom" ng-disabled="vm.validate_form==1"/>       
+       <input class="form-control " id="EmaCom" name="EmaCom" type="email"  ng-model="vm.fdatos.EmaCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>       
        </div>
        </div>
        </div>   
@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.validate_form==1||vm.habilitar_button==1" >Actualizar</button>
             
-            <button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.Nivel==3 || vm.validate_form==1">Borrar</button>
+            <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCom>0 && vm.validate_form==undefined" ng-disabled="vm.Nivel==3 || vm.validate_form==1">Borrar</button-->
 
             <button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCom==undefined||vm.fdatos.CodCom==null||vm.fdatos.CodCom==''">Limpiar</button>            
             <button class="btn btn-primary" style="margin-top: 10px;" type="button" ng-click="vm.regresar()">Volver</button>

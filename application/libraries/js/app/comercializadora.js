@@ -158,7 +158,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin <= index && index < end);
                 };
             } else {
-                Swal.fire({ text: 'No existen Comercializadoras registradas', type: "info", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No hay Comercializadoras registradas', type: "info", confirmButtonColor: "#188ae2" });
                 scope.Tcomercializadoras = [];
                 scope.TcomercializadorasBack = [];
             }
@@ -171,7 +171,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -203,7 +203,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
                 }
                 if (error.status == 500 && error.statusText == "Internal Server Error") {
                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -394,7 +394,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.opciones_comercializadoras[index] = undefined;
                 $("#modal_motivo_bloqueo_comercializadora").modal('show');
             } else {
-                Swal.fire({ text: 'No existen Motivos de Bloqueo', type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ text: 'No hay Motivos de Bloqueo', type: "error", confirmButtonColor: "#188ae2" });
                 scope.opciones_comercializadoras[index] = undefined;
             }
 
@@ -407,7 +407,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -423,7 +423,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ text: 'La Fecha de Bloqueo es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
@@ -521,7 +521,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -529,115 +529,108 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     scope.filtrarLocalidad = function() {
-            scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { DesPro: scope.tmodal_data.CodPro }, true);
+        scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { DesPro: scope.tmodal_data.CodPro }, true);
 
-        }
-    scope.fetchComercializadoras = function()
-    {
-        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
-        {
-           
-            $scope.predicate = 'id';
-            $scope.reverse = true;
-            $scope.currentPage = 1;
-            $scope.order = function(predicate) {
-                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                $scope.predicate = predicate;
-            };
-             scope.Tcomercializadoras=scope.TcomercializadorasBack;
-            $scope.totalItems = scope.Tcomercializadoras.length;
-            $scope.numPerPage = 50;
-            $scope.paginate = function(value) {
-                var begin, end, index;
-                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                end = begin + $scope.numPerPage;
-                index = scope.Tcomercializadoras.indexOf(value);
-                return (begin <= index && index < end);
-            };
-            scope.reporte_pdf_comercializadora = 0;
-            scope.reporte_excel_comercializadora =0;
-
-        }
-        else
-        {
-            if(scope.filtrar_search.length>=1)
-            {
-                scope.fdatos.filtrar_search=scope.filtrar_search;   
-                var url = base_urlHome()+"api/Comercializadora/getComercializadoraFilter";
-                $http.post(url,scope.fdatos).then(function(result)
-                {
-                    console.log(result.data);
-                    if (result.data != false)
-                    {
-                        
-                        $scope.predicate = 'id';
-                        $scope.reverse = true;
-                        $scope.currentPage = 1;
-                        $scope.order = function(predicate) {
-                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                            $scope.predicate = predicate;
-                        };
-                         scope.Tcomercializadoras=result.data;
-                        $scope.totalItems = scope.Tcomercializadoras.length;
-                        $scope.numPerPage = 50;
-                        $scope.paginate = function(value) {
-                            var begin, end, index;
-                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                            end = begin + $scope.numPerPage;
-                            index = scope.Tcomercializadoras.indexOf(value);
-                            return (begin <= index && index < end);
-                        };
-                        scope.reporte_pdf_comercializadora = 5 + "/" + scope.filtrar_search;
-                        scope.reporte_excel_comercializadora = 5 + "/" + scope.filtrar_search;
-                    }
-                    else
-                    {
-                        Swal.fire({ title: "Error", text: "No existen Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });                    
-                        $scope.predicate = 'id';
-                        $scope.reverse = true;
-                        $scope.currentPage = 1;
-                        $scope.order = function(predicate) {
-                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                            $scope.predicate = predicate;
-                        };
-                         scope.Tcomercializadoras=scope.TcomercializadorasBack;
-                        $scope.totalItems = scope.Tcomercializadoras.length;
-                        $scope.numPerPage = 50;
-                        $scope.paginate = function(value) {
-                            var begin, end, index;
-                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                            end = begin + $scope.numPerPage;
-                            index = scope.Tcomercializadoras.indexOf(value);
-                            return (begin <= index && index < end);
-                        };
-                        scope.reporte_pdf_comercializadora = 0;
-                        scope.reporte_excel_comercializadora =0;
-                    }
-                }, function(error)
-                {
-                    if (error.status == 404 && error.statusText == "Not Found"){
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 401 && error.statusText == "Unauthorized"){
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 403 && error.statusText == "Forbidden"){
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
-                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
-            }
-        }              
     }
-    /*scope.filtrar = function(expresion)
-    {
-       console.log(expresion);
-        if (expresion.length>0){
-            scope.Tcomercializadoras = $filter('filter')(scope.TcomercializadorasBack, {NumCifCom: expresion});
+    scope.fetchComercializadoras = function() {
+            if (scope.filtrar_search == undefined || scope.filtrar_search == null || scope.filtrar_search == '') {
+
+                $scope.predicate = 'id';
+                $scope.reverse = true;
+                $scope.currentPage = 1;
+                $scope.order = function(predicate) {
+                    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                    $scope.predicate = predicate;
+                };
+                scope.Tcomercializadoras = scope.TcomercializadorasBack;
+                $scope.totalItems = scope.Tcomercializadoras.length;
+                $scope.numPerPage = 50;
+                $scope.paginate = function(value) {
+                    var begin, end, index;
+                    begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                    end = begin + $scope.numPerPage;
+                    index = scope.Tcomercializadoras.indexOf(value);
+                    return (begin <= index && index < end);
+                };
+                scope.reporte_pdf_comercializadora = 0;
+                scope.reporte_excel_comercializadora = 0;
+
+            } else {
+                if (scope.filtrar_search.length >= 1) {
+                    scope.fdatos.filtrar_search = scope.filtrar_search;
+                    var url = base_urlHome() + "api/Comercializadora/getComercializadoraFilter";
+                    $http.post(url, scope.fdatos).then(function(result) {
+                        console.log(result.data);
+                        if (result.data != false) {
+
+                            $scope.predicate = 'id';
+                            $scope.reverse = true;
+                            $scope.currentPage = 1;
+                            $scope.order = function(predicate) {
+                                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                $scope.predicate = predicate;
+                            };
+                            scope.Tcomercializadoras = result.data;
+                            $scope.totalItems = scope.Tcomercializadoras.length;
+                            $scope.numPerPage = 50;
+                            $scope.paginate = function(value) {
+                                var begin, end, index;
+                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                end = begin + $scope.numPerPage;
+                                index = scope.Tcomercializadoras.indexOf(value);
+                                return (begin <= index && index < end);
+                            };
+                            scope.reporte_pdf_comercializadora = 5 + "/" + scope.filtrar_search;
+                            scope.reporte_excel_comercializadora = 5 + "/" + scope.filtrar_search;
+                        } else {
+                            Swal.fire({ title: "Error", text: "No hay Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });
+                            $scope.predicate = 'id';
+                            $scope.reverse = true;
+                            $scope.currentPage = 1;
+                            $scope.order = function(predicate) {
+                                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                $scope.predicate = predicate;
+                            };
+                            scope.Tcomercializadoras = scope.TcomercializadorasBack;
+                            $scope.totalItems = scope.Tcomercializadoras.length;
+                            $scope.numPerPage = 50;
+                            $scope.paginate = function(value) {
+                                var begin, end, index;
+                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                end = begin + $scope.numPerPage;
+                                index = scope.Tcomercializadoras.indexOf(value);
+                                return (begin <= index && index < end);
+                            };
+                            scope.reporte_pdf_comercializadora = 0;
+                            scope.reporte_excel_comercializadora = 0;
+                        }
+                    }, function(error) {
+                        if (error.status == 404 && error.statusText == "Not Found") {
+                            Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                        }
+                        if (error.status == 401 && error.statusText == "Unauthorized") {
+                            Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                        }
+                        if (error.status == 403 && error.statusText == "Forbidden") {
+                            Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                        }
+                        if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                        }
+                    });
+                }
+            }
         }
-        else
+        /*scope.filtrar = function(expresion)
         {
-            scope.Tcomercializadoras = scope.TcomercializadorasBack;
-        }                
-    }*/
+           console.log(expresion);
+            if (expresion.length>0){
+                scope.Tcomercializadoras = $filter('filter')(scope.TcomercializadorasBack, {NumCifCom: expresion});
+            }
+            else
+            {
+                scope.Tcomercializadoras = scope.TcomercializadorasBack;
+            }                
+        }*/
         //////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////	
 }

@@ -88,7 +88,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             Swal.fire({ title: "Error 401", text: 'Usuario no autorizado', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Invalid API Key.") {
-            Swal.fire({ title: "Error 403", text: 'El API KEY que está intentando utilizar no es válido', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ title: "Error 403", text: 'El API KEY que está intentando utilizar no es correcto', type: "error", confirmButtonColor: "#188ae2" });
         }
         if (error.status == false && error.error == "Internal Server Error") {
             Swal.fire({ title: "Error 500", text: 'Ha ocurrido un error en el Servidor, intente más tarde', type: "error", confirmButtonColor: "#188ae2" });
@@ -120,8 +120,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin1 <= index1 && index1 < end1);
                 };
             } else {
-                console.log('No existen Productos registrados');
-                Swal.fire({ title: "Error 404", text: 'No existen Productos registrados', type: "error", confirmButtonColor: "#188ae2" });
+                console.log('No hay Productos registrados');
+                Swal.fire({ title: "Error 404", text: 'No hay Productos registrados', type: "error", confirmButtonColor: "#188ae2" });
                 scope.TProductos = [];
                 scope.TProductosBack = [];
             }
@@ -134,7 +134,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -294,7 +294,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ text: 'La Fecha de Bloqueo es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
@@ -390,7 +390,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -536,7 +536,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
             }
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -594,7 +594,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY inválido", type: "question", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -619,7 +619,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecIniPro1 = document.getElementById("FecIniPro").value;
         scope.FecIniPro = FecIniPro1;
         if (scope.FecIniPro == null || scope.FecIniPro == undefined || scope.FecIniPro == '') {
-            Swal.fire({ text: 'La Fecha de Inicio es obligatoria', type: "error", confirmButtonColor: "#188ae2" });
+            Swal.fire({ text: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
             return false;
         } else {
             var FecIniPro = (scope.FecIniPro).split("/");

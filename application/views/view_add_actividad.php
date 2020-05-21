@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código CNAE <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" placeholder="* Ingrese Código CNAE"/>       
+       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" placeholder="* introduzca Código CNAE"/>       
        </div>
        </div>
        </div>
@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Descripción <b style="color:red;">(*)</b></label>
        <textarea class="form-control" required ng-model="vm.fdatos_actividades.DesActCNAE" readonly></textarea>
-       <!--input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" required placeholder="* Ingrese Código CNAE"/-->
+       <!--input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" required placeholder="* introduzca Código CNAE"/-->
        </div>
        </div>
        </div>
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group" >
         <div class="col-12 col-sm-6">
           <button class="btn btn-info" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli==undefined" type="submit">Asignar</button>
-          <button class="btn btn-success" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli>0" type="submit">Aactualizar</button>           
+          <button class="btn btn-success" ng-disabled="form_actividades.$invalid" ng-show="vm.fdatos_actividades.CodTActCli>0" type="submit">Actualizar</button>           
           <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_actividad()">Volver</button>
         </div>
       </div>
