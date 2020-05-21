@@ -546,7 +546,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Contrato <a title='Descargar Documento' ng-show="vm.fdatos.DocConRut!=null && vm.fdatos.CodConCom>0" href="{{vm.fdatos.DocConRut}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
+         <label class="font-weight-bold nexa-dark" style="color:black; padding-left:15px">Fotocopia del Contrato <a title='Descargar Documento' ng-show="vm.fdatos.DocConRut!=null && vm.fdatos.CodConCom>0" href="{{vm.fdatos.DocConRut}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
 
 
 
@@ -572,7 +572,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+         <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Observación</label>
         <textarea class="form-control" name="ObsCon" id="ObsCon" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsCon" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
          </div>
          </div>
