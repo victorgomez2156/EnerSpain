@@ -307,7 +307,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div align="right">
                         <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_tar_elec.CodTarEle==undefined||vm.fdatos_tar_elec.CodTarEle==null||vm.fdatos_tar_elec.CodTarEle==''" ng-disabled="register_form_TarEle.$invalid">REGISTRAR</button>
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos_tar_elec.CodTarEle>0 && vm.disabled_form_TarEle==undefined" ng-disabled="register_form_TarEle.$invalid">ACTUALIZAR</button>
-                        <button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarEle()" ng-show="vm.fdatos_tar_elec.CodTarEle>0 && vm.Nivel==1" ng-disabled="vm.Nivel==3 && vm.disabled_form_TarEle==1">BORRAR</button>
+                        <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarEle()" ng-show="vm.fdatos_tar_elec.CodTarEle>0 && vm.Nivel==1" ng-disabled="vm.Nivel==3 && vm.disabled_form_TarEle==1">BORRAR</button-->
                         <button class="btn btn-warning" type="button" ng-click="vm.limpiar_TarEle()" ng-show="vm.disabled_form_TarEle==undefined">LIMPIAR</button>
                         <a class="btn btn-info" ng-click="vm.regresar_TarEle()">Volver</a>
                       </div>
@@ -444,7 +444,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div align="right">
                         <button class="btn btn-primary" type="submit" style="margin-top: 10px;" ng-show="vm.fdatos_tar_gas.CodTarGas==undefined||vm.fdatos_tar_gas.CodTarGas==null||vm.fdatos_tar_gas.CodTarGas==''" ng-disabled="register_form_TarGas.$invalid">Registrar</button>
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos_tar_gas.CodTarGas>0 && vm.disabled_form_TarGas==undefined" ng-disabled="register_form_TarGas.$invalid">Actualizar</button>
-                        <button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarGas()" ng-show="vm.fdatos_tar_gas.CodTarGas>0&& vm.disabled_form_TarGas==undefined && vm.Nivel==1" ng-disabled="vm.Nivel==3">Borrar</button>
+                        <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar_TarGas()" ng-show="vm.fdatos_tar_gas.CodTarGas>0&& vm.disabled_form_TarGas==undefined && vm.Nivel==1" ng-disabled="vm.Nivel==3">Borrar</button-->
                         <button class="btn btn-warning" type="button" ng-show="vm.disabled_form_TarGas==undefined" ng-click="vm.limpiar_TarGas()">Limpiar</button>
                         <a class="btn btn-info" ng-click="vm.regresar_TarGas()">Volver</a>
                       </div>

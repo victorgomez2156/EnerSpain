@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div><!--t-0002 end-->
           <br><br><br><br>
       <form role="form" name="formu">
-      <div class="col-12 col-sm-10">       
+      <div class="col-12 col-sm-12">       
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes</label>
@@ -147,15 +147,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>       
-       <div class="col-12 col-sm-2" style="margin-top: 24px; margin-left:-10px; ">
+       <!--div class="col-12 col-sm-2" style="margin-top: 24px; margin-left:-10px; ">
        <div class="form">                          
        <div class="form-group">
        <button class="btn btn-info" type="button" ng-click="vm.view_information()">Ver Información</button>    
        </div>
        </div>
-       </div>
+       </div-->
        </form>
-      <br><br><br><br>
+      <!--br><br><br><br-->
       
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(1)">
     <h4 class="breadcrumb">     

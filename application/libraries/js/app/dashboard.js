@@ -193,14 +193,11 @@
 
                  scope.response_customer.CodPro = result.data.customer.CodPro;
                  scope.response_customer.CodProFis = result.data.customer.CodProFis;
-                 incorrecto
                  scope.response_customer.DomFis = result.data.customer.DomFis;
                  scope.response_customer.EscPlaPuerFis = result.data.customer.EscDomFis + " " + result.data.customer.PlaDomFis + " " + result.data.customer.PueDomFis;
                  scope.response_customer.DesLocFis = result.data.customer.DesLocFis;
                  scope.response_customer.DesProFis = result.data.customer.DesProFis;
                  scope.response_customer.CPLocFis = result.data.customer.CodLocFis;
-
-
 
                  scope.response_customer.TelFijCli = result.data.customer.TelFijCli;
                  scope.response_customer.EmaCli = result.data.customer.EmaCli;

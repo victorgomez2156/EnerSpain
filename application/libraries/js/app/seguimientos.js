@@ -69,6 +69,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.fdatos.RefSeg = undefined;
         scope.fdatos.ObsSeg = undefined;
         scope.traer_datos_server();
+        scope.fdatos.UltTipSeg=undefined;
+        scope.T_Seguimientos=[];
     }
     scope.traer_datos_server = function() {
         var url = base_urlHome() + "api/Seguimientos/datos_server/";
@@ -275,10 +277,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(scope.fdatos.UltTipSeg);
         scope.search_seguimientos();
     }
-    scope.search_seguimientos = function() {
-        //$("#" + titulo).removeClass("loader loader-default").addClass("loader loader-default is-active");
+    scope.search_seguimientos = function(){
+        $("#buscando").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome() + "api/Seguimientos/get_seguimientos/TipSeg/" + scope.fdatos.TipSeg + "/CodRef/" + scope.fdatos.CodRef + "/CodCli/" + scope.fdatos.CodCli;
         $http.get(url).then(function(result) {
+            $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) {
                 $scope.predicate = 'id';
                 $scope.reverse = true;
@@ -303,10 +306,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.T_Seguimientos = [];
                 scope.T_SeguimientosBack = [];
             }
-            //$("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
+            
 
         }, function(error) {
-            //$("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
+            $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
@@ -322,13 +325,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         });
     }
-
-
-
-
-
-
-
     scope.traer_datos_server();
     ////////////////////////////////////////////////// PARA LOS CONTRATOS END ///////////////////////////////////////////////////////////////    
-}No existen
+}

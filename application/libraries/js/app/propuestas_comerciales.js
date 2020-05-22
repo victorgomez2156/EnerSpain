@@ -179,8 +179,7 @@
                                  Swal.fire({
                                              title: "Error",
                                              text: "No hay Clientes registrados",
-                                             incorrectorror ", confirmButtonColor: "
-                                             #188ae2" });
+                                             type:"error", confirmButtonColor: "#188ae2" });
                          scope.searchResult = {};
                                          }
                                      },
@@ -270,9 +269,7 @@
                              if (scope.RangFec == undefined || scope.RangFec == null || scope.RangFec == '') {
                                  Swal.fire({
                                          title: "Error",
-                                         text: "Debe indicar una fecha para poder aplicar el fincorrecto type: "
-                                         error ", confirmButtonColor: "
-                                         #188ae2" });
+                                         text: "Debe indicar una fecha para poder aplicar el fincorrecto", type:"error ", confirmButtonColor: "#188ae2" });
                  return false;
              }
              $scope.predicate = 'id';
@@ -437,4 +434,3 @@
                                  }
                                  ////////////////////////////////////////////////// PARA LOS CONTACTOS END ////////////////////////////////////////////////////////    
                              }
-                             incorrecto
