@@ -117,7 +117,7 @@ document.onmousedown = right;*/
   <!-- custome script for all page -->
   <script src="<?php echo ESTILOS;?>js/scripts.js"></script>
   
-
+  <script src="<?php echo ESTILOS;?>js/toastr.js"></script>
   <script src="<?php echo ESTILOS;?>js/sweetalert2.min.js"></script>  
   <script src="<?php echo ESTILOS;?>js/jquery.maskedinput.js"></script>
 

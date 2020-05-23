@@ -134,7 +134,18 @@ class Contratos_model extends CI_Model
         else
         return false;  */            
     }
-
+     public function getaudaxcontactos($CodCli,$CodConCom,$CodProCom)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_ContactoCliente');       
+        $this->db->where('CodCli',$CodCli);            
+        $this->db->order_by('NomConCli ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
 
 
 

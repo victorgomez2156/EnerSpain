@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/bootstrap-datetimepicker.css" />
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/colorpicker.css" />  
   <link href="<?php echo ESTILOS;?>css/jquery-ui-1.10.4.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="<?php echo ESTILOS;?>css/toastr.css" />
 
   <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
 

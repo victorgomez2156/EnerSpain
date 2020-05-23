@@ -248,14 +248,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (metodo == 2) {
             if (object != undefined) {
                 numero = object;
-                if (!/^([0-9])*$/.test(numero))
+                if (!/^([.0-9])*$/.test(numero))
                     scope.fdatos_tar_elec.MinPotCon = numero.substring(0, numero.length - 1);
             }
         }
         if (metodo == 3) {
             if (object != undefined) {
                 numero = object;
-                if (!/^([0-9])*$/.test(numero))
+                if (!/^([.0-9])*$/.test(numero))
                     scope.fdatos_tar_elec.MaxPotCon = numero.substring(0, numero.length - 1);
             }
         }
@@ -613,14 +613,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (metodo == 1) {
             if (object != undefined) {
                 numero = object;
-                if (!/^([0-9])*$/.test(numero))
+                if (!/^([.0-9])*$/.test(numero))
                     scope.fdatos_tar_gas.MinConAnu = numero.substring(0, numero.length - 1);
             }
         }
         if (metodo == 2) {
             if (object != undefined) {
                 numero = object;
-                if (!/^([0-9])*$/.test(numero))
+                if (!/^([.0-9])*$/.test(numero))
                     scope.fdatos_tar_gas.MaxConAnu = numero.substring(0, numero.length - 1);
             }
         }

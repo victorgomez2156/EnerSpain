@@ -366,6 +366,20 @@ class Contratos extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
+	public function generar_audax_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Contratos_model->getaudaxcontactos($objSalida->CodCli,$objSalida->CodConCom,$objSalida->CodProCom);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','SEARCH',null,$this->input->ip_address(),'Comprobando Representante Legal');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
       
 
 }

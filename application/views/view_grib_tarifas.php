@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Mínima Potencia <b style="color:red;">(*)</b></label>
-                 <input class=" form-control" id="MinPotCon" name="MinPotCon" maxlength="10" type="text" required ng-model="vm.fdatos_tar_elec.MinPotCon" ng-change="vm.validarsinumeroTarEle(2,vm.fdatos_tar_elec.MinPotCon)" placeholder="KW" ng-disabled="vm.disabled_form_TarEle==1"/>              
+                 <input class=" form-control" id="MinPotCon" name="MinPotCon" type="text" required ng-model="vm.fdatos_tar_elec.MinPotCon" ng-change="vm.validarsinumeroTarEle(2,vm.fdatos_tar_elec.MinPotCon)" placeholder="KW" ng-disabled="vm.disabled_form_TarEle==1"/>              
                </div>
                </div>
               </div>
@@ -298,7 +298,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Máxima Potencia <b style="color:red;">(*)</b></label>
-                  <input class=" form-control" id="MaxPotCon" name="MaxPotCon" maxlength="10" type="text" required ng-model="vm.fdatos_tar_elec.MaxPotCon" ng-change="vm.validarsinumeroTarEle(3,vm.fdatos_tar_elec.MaxPotCon)" placeholder="KW" ng-disabled="vm.disabled_form_TarEle==1"/>              
+                  <input class=" form-control" id="MaxPotCon" name="MaxPotCon" type="text" required ng-model="vm.fdatos_tar_elec.MaxPotCon" ng-change="vm.validarsinumeroTarEle(3,vm.fdatos_tar_elec.MaxPotCon)" placeholder="KW" ng-disabled="vm.disabled_form_TarEle==1"/>              
                </div>
                </div>
               </div>
@@ -426,7 +426,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Consumo Anual Mínimo <b style="color:red;">(*)</b></label>
-                <input class=" form-control" id="MinConAnu" name="MinConAnu" maxlength="10" type="text" required ng-model="vm.fdatos_tar_gas.MinConAnu" ng-change="vm.validarsinumeroTarGas(1,vm.fdatos_tar_gas.MinConAnu)" ng-disabled="vm.disabled_form_TarGas==1"/>              
+                <input class=" form-control" id="MinConAnu" name="MinConAnu" type="text" required ng-model="vm.fdatos_tar_gas.MinConAnu" ng-change="vm.validarsinumeroTarGas(1,vm.fdatos_tar_gas.MinConAnu)" ng-disabled="vm.disabled_form_TarGas==1"/>              
                </div>
                </div>
               </div>
@@ -435,7 +435,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Consumo Anual Máximo <b style="color:red;">(*)</b></label>
-                 <input class=" form-control" id="MaxConAnu" name="MaxConAnu" maxlength="10" type="text" required ng-model="vm.fdatos_tar_gas.MaxConAnu" ng-change="vm.validarsinumeroTarGas(2,vm.fdatos_tar_gas.MaxConAnu)"  placeholder="KW" ng-disabled="vm.disabled_form_TarGas==1"/>              
+                 <input class=" form-control" id="MaxConAnu" name="MaxConAnu" type="text" required ng-model="vm.fdatos_tar_gas.MaxConAnu" ng-change="vm.validarsinumeroTarGas(2,vm.fdatos_tar_gas.MaxConAnu)"  placeholder="KW" ng-disabled="vm.disabled_form_TarGas==1"/>              
                </div>
                </div>
               </div>
@@ -506,7 +506,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando Registro, por favor espere ..."></div>
 <div id="Guardando" class="loader loader-default"  data-text="Guardando Registro, por favor espere ..."></div>
-<div id="Cargando" class="loader loader-default"  data-text="Cargando Listado de Tarifas, por favor espere ..."></div>
+<div id="cargando" class="loader loader-default"  data-text="Cargando Listado de Tarifas, por favor espere ..."></div>
 <div id="Borrando" class="loader loader-default"  data-text="Borrando Tarifa, por favor espere ..."></div>
 
 

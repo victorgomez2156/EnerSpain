@@ -579,12 +579,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <input class="form-control" id="CodConCom" name="CodConCom" type="hidden" ng-model="vm.fdatos.CodConCom" readonly/>
          
 
-
+<!--href="http://pdfaudax.local/AudaxPDF/{{vm.CodCli}}/{{vm.CodConCom}}/{{vm.CodProCom}}"-->
          <div class="form-group" >
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
-            <a class="btn btn-warning" href="http://pdfaudax.local/AudaxPDF/{{vm.CodCli}}/{{vm.CodConCom}}/{{vm.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</a>
+            <button class="btn btn-info" id="showtoast" type="button" ng-click="vm.generar_audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
@@ -596,6 +596,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               </div>
             </section>
+
           </div>
         </div>
         <!-- page end-->
@@ -614,15 +615,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div>
   </section>
+  <!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_representante_legal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Quien Firma</h4>
+          </div>
+          <div class="modal-body">
+    <div class="panel">                 
+      <form class="form-validate" id="frmRepresentanteLegal" name="frmRepresentanteLegal" ng-submit="SubmitFormGenAudax($event)">
+
+    <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">
+        <!--select class="form-control" name="CodContCli" required ng-model="vm.CodContCli">
+          <option ng-repeat="dato in vm.List_Firmantes" value="{{dato.CodConCli}}" >{{dato.NIFConCli}} - {{dato.NomConCli}}</option>
+          
+        </select-->     
+        <select class="form-control" id="List_Firmantes" name="List_Firmantes" ng-model="vm.CodContCli">
+          <option ng-repeat="opcion in vm.List_Firmantes" value="{{opcion.CodConCli}}">{{opcion.NIFConCli}} - {{opcion.NomConCli}}</option>
+        </select>
+     </div>
+     </div>
+     </div>     
+
+     
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmRepresentanteLegal.$invalid">Firmar</button>
+      <!--a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a-->
+      </div>
+</form>
+   </div>
+    </div>
 </div>
-  <!-- container section end -->
+</div>
+</div>
+<!--modal container section end -->
+</div>
 
-<script>
 
-  
+<script>  
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
-
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>
