@@ -1,125 +1,27 @@
-<?php /** @package WordPress @subpackage Default_Theme  **/
-header("Access-Control-Allow-Origin: *"); 
-?>
-<!DOCTYPE html> 
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html>
-<style> 
-  #sinborde { 
-    border: 0;
-  background: inherit; 
-  background-color:transparent;
-  width: 120px;
-  }
-  #sinbordeAJUST {
-    border: 0;
-  background: inherit;
-  background-color:transparent;
-  }
-  .table-responsive {
-    min-height: .01%;
-    overflow-x: auto
-}
-
-@media screen and (max-width:767px) {
-    .table-responsive {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #ddd
-    }
-
-    .table-responsive > .table {
-        margin-bottom: 0
-    }
-
-    .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tbody > tr > th,
-    .table-responsive > .table > tfoot > tr > td, .table-responsive > .table > tfoot > tr > th,
-    .table-responsive > .table > thead > tr > td, .table-responsive > .table > thead > tr > th {
-        white-space: nowrap
-    }
-
-    .table-responsive > .table-bordered {
-        border: 0
-    }
-
-    .table-responsive > .table-bordered > tbody > tr > td:first-child, .table-responsive > .table-bordered > tbody > tr > th:first-child,
-    .table-responsive > .table-bordered > tfoot > tr > td:first-child, .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-    .table-responsive > .table-bordered > thead > tr > td:first-child, .table-responsive > .table-bordered > thead > tr > th:first-child {
-        border-left: 0
-    }
-
-    .table-responsive > .table-bordered > tbody > tr > td:last-child, .table-responsive > .table-bordered > tbody > tr > th:last-child,
-    .table-responsive > .table-bordered > tfoot > tr > td:last-child, .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-    .table-responsive > .table-bordered > thead > tr > td:last-child, .table-responsive > .table-bordered > thead > tr > th:last-child {
-        border-right: 0
-    }
-
-    .table-responsive > .table-bordered > tbody > tr:last-child > td, .table-responsive > .table-bordered > tbody > tr:last-child > th,
-    .table-responsive > .table-bordered > tfoot > tr:last-child > td, .table-responsive > .table-bordered > tfoot > tr:last-child > th {
-        border-bottom: 0
-    }
-}
-
-#searchResult{
-  list-style: none;
-  padding: 0px;
-  width: 250px;
-  position: absolute;
-  margin: 0;
-  z-index:1151 !important;
-}
-
-#searchResult li{
-  background: lavender;
-  padding: 4px;
-  margin-bottom: 1px;
-}
-
-#searchResult li:nth-child(even){
-  background: cadetblue;
-  color: white;
-}
-
-#searchResult li:hover{
-  cursor: pointer;
-}
-</style>
-<body>
-  <div ng-controller="Controlador_Dashbord as vm">
- <!--main content start-->
-    <section id="main-content">
-      <section class="wrapper">
-        <!--overview start-->
-
-       <!--Dashboard start -->
-        <div class="row" style="margin-top: 20px;">
+<div class="row" style="margin-top: 20px;">
           
-          <div class="col-md-6 portlets">
-            <!-- View Information -->
-            <div class="panel panel-default">
-              <div class="panel-body" ng-click='vm.containerClicked()'>
-                <div id="t-0002" ><!--t-0002 start-->   
-                  <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
-                      <div class="t-0029"><!--t-0029 start--> 
-                        <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
-                          
-                        <div class="btn-group">
-                          <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
-                          <ul class="dropdown-menu">
-                                  <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                                  <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
-                          </ul>
-                        </div> <div id="xcontainer"></div>              
-                      </div><!--t-0031 end--> 
-                    </div><!--t-0029 end--> 
-                  </div><!--DIV removeformobile end-->
-                </div>
-                 <div style="float: right; margin-left:-100px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+          <div class="col-lg-12">
+            <!--panel start-->
+<section class="panel container" ng-click='vm.containerClicked()'>
+
+    <div id="t-0002" ><!--t-0002 start-->   
+        <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
+            <div class="t-0029"><!--t-0029 start--> 
+              <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
+                
+              <div class="btn-group">
+                <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                <ul class="dropdown-menu">
+                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
+                </ul>
+              </div> <div id="xcontainer"></div>              
+            </div><!--t-0031 end--> 
+          </div><!--t-0029 end--> 
+        </div><!--DIV removeformobile end-->
+      </div>
+
+        <div style="float: right; margin-left:-100px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
@@ -136,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
           </div><!--t-0002 end-->
           <br><br><br><br>
-          <form role="form" name="formu">
+      <form role="form" name="formu">
       <div class="col-12 col-sm-12">       
        <div class="form">                          
        <div class="form-group">
@@ -154,7 +56,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <span class="foreign-supplier-text" style="color:black;"> Datos Generales</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showDatosGenerales?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
-<div ng-if="vm.showDatosGenerales">   
+<div ng-if="vm.showDatosGenerales">
+   
+   
   <div ng-show="vm.response_customer.CodCli==undefined">      
     <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
@@ -184,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:black;">Dom. Social</label> <label ng-show="vm.response_customer.CodPro!=vm.response_customer.CodProFis" class="font-weight-bold nexa-dark" style="color:black;"> / Dom. Fiscal</label>
+             <label class="font-weight-bold nexa-dark" style="color:black;">Domicilio Social</label> <label ng-show="vm.response_customer.CodPro==vm.response_customer.CodProFis" class="font-weight-bold nexa-dark" style="color:black;"> / Domicilio Fiscal</label>
              <input type="text" class="form-control" placeholder="Domicilio Social" ng-model="vm.response_customer.DomSoc" id="DomSoc" name="DomSoc" readonly ng-click="vm.copyText(3)"/>     
              </div>
              </div>
@@ -198,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Localidad </label>
@@ -206,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
@@ -215,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-4">
+           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>         
@@ -225,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
 
           
-      <div ng-show="vm.response_customer.CodPro!=vm.response_customer.CodProFis">
+          <div ng-show="vm.response_customer.CodPro!=vm.response_customer.CodProFis">
           
           <div class="col-12 col-sm-6">
             <div class="form">                          
@@ -298,13 +202,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <span class="foreign-supplier-text" style="color:black;"> Contactos / Representante Legal</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showContactosRepresentante?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
+
 <div ng-if="vm.showContactosRepresentante">
+  
+
   <div ng-show="vm.response_customer.Contactos.length==0">      
     <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
-  <div class="row" ng-repeat="dato in vm.response_customer.Contactos">
-   
+  <div class="row" ng-repeat="dato in vm.response_customer.Contactos"> 
+
    <div class="col-12 col-sm-3">
       <div class="form">                          
           <div class="form-group">
@@ -340,25 +247,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
     </div>
-  </div>
-</div>              
-               
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 portlets">
-            <!-- View Information -->
-            <div class="panel panel-default">
-              
-              <div class="panel-body" >
-                <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(3)">
+</div>
+
+</div>
+
+<div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(3)">
     <h4 class="breadcrumb">     
       <span class="foreign-supplier-text" style="color:black;"> Puntos de Suministros</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showPuntosSuministros?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
 
 <div ng-if="vm.showPuntosSuministros">
+     
+
   <div ng-show="vm.response_customer.Puntos_Suministros.length==0">      
     <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
@@ -424,7 +326,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div align="center"><label style="color:black;">No hay CUPs Eléctricos registrados para el Cliente seleccionado</label></div>
           </div>
           <div class="row" ng-repeat="dato in vm.response_customer.CUPs_Electrico">
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico</label>
@@ -433,7 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
           
-            <div class="col-12 col-sm-4">
+            <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora</label>         
@@ -442,7 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div> 
 
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa </label>          
@@ -451,7 +353,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>        
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
@@ -460,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
@@ -469,7 +371,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
@@ -478,7 +380,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
@@ -487,7 +389,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
@@ -496,7 +398,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-           <div class="col-12 col-sm-2">
+           <div class="col-12 col-sm-1">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">P6 </label>         
@@ -540,7 +442,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>       
           </div>
           <!--- PARA LOS CUPS GAS END -->
-  </div> 
+  </div>
+     
+    
 </div>
 
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(4)">
@@ -548,7 +452,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <span class="foreign-supplier-text" style="color:black;"> Datos Bancarios</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showCuentasBancarias?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
-
 <div ng-if="vm.showCuentasBancarias">
       
   <div ng-show="vm.response_customer.Cuentas_Bancarias.length==0">      
@@ -615,51 +518,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </div>
-               
-               
-              
-              </div>
-            </div>
+
+
+</div>
+     </section>
+
           </div>
-        </div>
-
-     <div class="text-right">
-      <div class="credits">
-          <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
-          -->
-          Diseñado por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
-        </div>
-    </div>
-    </section>
-        <!--main content end-->
-   </div>
-   <div id="List_Cli" class="loader loader-default"  data-text="Cargando listado de Clientes"></div>
-   <div id="Buscando_Informacion" class="loader loader-default"  data-text="Buscando Información"></div>
-
-  <script language="JavaScript">
-    // Establecemos las variables
-    var DesSoc = document.getElementById("RazSocCli");
-    var contenedor = document.getElementById("xcontainer");
-    //var copy   = document.getElementById("d_clip_url1");
-    DesSoc.addEventListener('click', function(e) {
-       // Sleccionando el texto
-       console.log('pasando por aqui');
-       DesSoc.select(); 
-       try {
-           // Copiando el texto seleccionado
-           var successful = document.execCommand('DesSoc');     
-           if(successful) contenedor.innerHTML = 'Copiado!';
-           else contenedor.innerHTML = 'Incapaz de copiar!';
-       } catch (err) {
-           contenedor.innerHTML = 'Browser no soportado!';
-       }
-    });
-  </script>
-
-
-</body>
-</html>
+      </div>

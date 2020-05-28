@@ -98,7 +98,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.TMotivo_BloCliente);
             } else {
                 Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de clientes registrados.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TMotivo_BloCliente = undefined;
+                scope.TMotivo_BloCliente = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -568,7 +568,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.TMotivo_BloPunSum);
             } else {
                 Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de clientes registrados.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TMotivo_BloActividad = undefined;
+                scope.TMotivo_BloPunSum = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");

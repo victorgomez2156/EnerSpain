@@ -330,7 +330,6 @@
              } catch (err) {
                  contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
              }
-             incorrecto
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
          if (metodo == 2) {
@@ -384,7 +383,6 @@
                  contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
              }
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
-             incorrecto
          }
          if (metodo == 6) {
              var DesProSoc = document.getElementById("DesProSoc");

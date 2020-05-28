@@ -396,7 +396,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsMotBloPun==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloPunSum==true">Acción</th>
                   </tr>
-                  <tr ng-show="vm.TMotivo_BloPunSum==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloPunSum.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloPunSum | filter:paginate3 | filter:vm.filtrar_PunSum" ng-class-odd="odd">

@@ -128,7 +128,11 @@ $(document).ready(function()
         </div>
         <div class="input-group">
           <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-          <input type="password" name="password" id="password" class="form-control" placeholder="Clave o Contraseña">
+          <!--input type="password" name="password" id="password" class="form-control" placeholder="Clave o Contraseña"-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"-->
+          
+          <input type="password" id="password" name="password"  class="form-control"  data-toggle="tooltip" data-trigger="manual" data-title="La tecla Bloq Mayús está activada" placeholder="Contrase&ntilde;a">
+        
+
         </div>
         <label class="checkbox">
                 <input type="checkbox" value="remember-me" name="remember-me" id="remember-me"> Recordar Datos
@@ -151,7 +155,27 @@ $(document).ready(function()
         </div>
     </div>
   </div>
-
+<script> 
+$('#password').keypress(function(e)
+{
+	var $password = $(this),
+  	tooltipVisible = $('.tooltip').is(':visible'),
+  	s = String.fromCharCode(e.which); 
+  	if ( s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey )
+  	{
+		if (!tooltipVisible)
+	  	$password.tooltip('show');
+	}	
+	else
+	{
+		if (tooltipVisible)
+  		$password.tooltip('hide');
+	}
+	$password.blur(function(e){
+	$password.tooltip('hide');
+	});
+});
+</script>
 <div id="sesion" class="loader loader-default"  data-text="Iniciando Sesión, por favor espere ..."></div>
 </body>
 
