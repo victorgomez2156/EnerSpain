@@ -50,6 +50,16 @@ class Exportar_Documentos extends CI_Controller
 		$os=$this->agent->platform();			
 		$cookie_sesion=$this->input->cookie('EnerSpain');
 		$hora_nueva=date('d/m/Y G:i:s');
+        $html='<!DOCTYPE html>
+        <html>
+        <head>
+            <title>Módulo de Reportes PDF y Excel</title>
+        </head>
+        <body>
+
+        </body>
+        </html>';
+        echo $html;
         echo $mes[date('m')].' '.$dia[date('l')].' '.$hora_nueva;
         echo '<br>';
         echo 'Este módulo muestra los Reportes en formato Excel y PDF';

@@ -146,7 +146,22 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
-
+    public function validar_renovacion($CodCli,$CodConCom,$diasAnticipacion)
+    {
+        $FechaActual=date('Y-m-d');
+        $FecVenCon='FecVenCon';
+        $this->db->select('*',false);
+        $this->db->from('T_Contrato');       
+        $this->db->where('CodCli',$CodCli);
+        $this->db->where('CodConCom',$CodConCom);
+        $this->db->where('FecVenCon BETWEEN "'. $FechaActual. '" AND "'.$diasAnticipacion.'"');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+//$this->db->where("$accommodation BETWEEN $minvalue AND $maxvalue");
 
 
 

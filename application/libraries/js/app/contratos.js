@@ -620,12 +620,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.RazSocCli = dato.RazSocCli;
             scope.CodCom = dato.CodCom;
             scope.Anexo = dato.Anexo;
-            if (dato.EstBajCon == 0) {
+            if (dato.EstBajCon == 0)
+            {
+                console.log(scope.tmodal_data);
                 var url = base_urlHome() + "api/Contratos/verificar_renovacion";
-                $http.post(url, scope.tmodal_data).then(function(result) {
-                    if (result.data != false) {
+                $http.post(url, scope.tmodal_data).then(function(result)
+                {
+                    if (result.data != false)
+                    {
                         console.log(result.data);
-                        if (result.data.status == 203 && result.data.statusText == "Error") {
+                        
+
+                        /*if (result.data.status == 203 && result.data.statusText == "Error") {
                             Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
                             scope.tmodal_data = {};
                             $("#Tipo_Renovacion").modal('hide');
@@ -636,7 +642,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             $("#Tipo_Renovacion").modal('show');
 
                             return false;
-                        }
+                        }*/
 
                     } else {
                         Swal.fire({ title: "Error General", text: "Error en el proceso intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
@@ -802,10 +808,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         return true;
     }
     scope.BuscarXIDContrato = function() {
-        $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome() + "api/Contratos/BuscarXIDContrato/CodCli/" + scope.CodCli + "/CodConCom/" + scope.CodConCom + "/CodProCom/" + scope.CodProCom;
         $http.get(url).then(function(result) {
-            $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) {
                 scope.RazSocCli = result.data.Cliente.RazSocCli;
                 scope.NumCifCli = result.data.Cliente.NumCifCli;
@@ -830,7 +836,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
 
         }, function(error) {
-            $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }

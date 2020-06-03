@@ -277,19 +277,26 @@ class Contratos extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		//$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
-		$FechaServer=date('Y-m-d');
-		$FecVenConVolteada=   explode("/", $objSalida->FecVenCon);
-		$FecVenConVolteadaFin=$FecVenConVolteada[2]."-".$FecVenConVolteada[1]."-".$FecVenConVolteada[0];
-		if(date($FechaServer)<date($FecVenConVolteadaFin))
+		$FechaServer=date('Y-m-d');	
+		$diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days")); 
+		$VerificarRenovacion=$this->Contratos_model	->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$diasAnticipacion);
+		$objSalida->FechaServer=$FechaServer;
+		$objSalida->diasAnticipacion=$diasAnticipacion;
+		$objSalida->VerificarRenovacion=$VerificarRenovacion;
+		/*$FecVenConVolteada=   explode("/", $objSalida->FecVenCon);
+		$FecVenConVolteadaFin=$FecVenConVolteada[2]."-".$FecVenConVolteada[1]."-".$FecVenConVolteada[0];*/
+		
+
+		/*if(date($FechaServer)<date($FecVenConVolteadaFin))
 		{
-			$arrayName = array('status' =>203 ,'menssage'=>'Este Contrato aun no se ha vencido. Fecha de renovación anticipada.','statusText'=>'Error');
+			$arrayName = array('status' =>203 ,'menssage'=>'Este Contrato aun no se ha vencido. Fecha de renovación anticipada.','statusText'=>'Error','FechaAnticipacion'=>$diasAnticipacion);
 			$this->response($arrayName);
 		}
 		elseif(date($FechaServer)>date($FecVenConVolteadaFin))
 		{
 			$arrayName = array('status' =>200 ,'menssage'=>'Contrato Vencido se procede a solicitar renovación.','statusText'=>'OK' );
 			$this->response($arrayName);
-		}
+		}*/
 
 
 
