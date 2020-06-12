@@ -449,7 +449,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Renovación </label>         
-             <input type="checkbox"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.RenConEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'|| vm.fdatos.tipo=='renovar'|| vm.fdatos.tipo=='nueva'"/>     
+             <input type="checkbox"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.RenConEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'|| vm.fdatos.tipo=='renovar'|| vm.fdatos.tipo=='nueva' || vm.ProRenPen==1|| vm.fdatos.tipo=='editar'"/>     
              </div>
              </div>
           </div>
@@ -527,7 +527,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Ren </label>         
-             <input type="checkbox"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.RenConGas" ng-disabled="vm.fdatos.CodCupGas==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C' || vm.fdatos.tipo=='renovar'|| vm.fdatos.tipo=='nueva'"/>     
+             <input type="checkbox"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.RenConGas" ng-disabled="vm.fdatos.CodCupGas==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C' || vm.fdatos.tipo=='renovar'|| vm.fdatos.tipo=='nueva'|| vm.ProRenPen==1|| vm.fdatos.tipo=='editar'"/>     
              </div>
              </div>
           </div>

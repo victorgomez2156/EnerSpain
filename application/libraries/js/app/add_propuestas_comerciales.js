@@ -219,6 +219,10 @@
          if (!scope.validar_campos_propuestas()) {
              return false;
          }
+         if(scope.fdatos.tipo=="renovar")
+         {
+            scope.fdatos.CodProCom=scope.CodProCom;
+         }
          if (scope.fdatos.tipo == "nueva" || scope.fdatos.tipo == "renovar") {
              var title = '¿Estás seguro de generar una nueva propuesta comercial?';
              var loader = "Guardando";
@@ -670,11 +674,8 @@
          }
      }
 
-     /*if (scope.fdatos.CodCli!=undefined && scope.CodConCom!=undefined && scope.CodProCom!=undefined) 
+     scope.BuscarXidCodPro = function()
      {
-         scope.buscar_propuestas();
-     }*/
-     scope.BuscarXidCodPro = function() {
          $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
          var url = base_urlHome() + "api/PropuestaComercial/get_propuesta_comercial/CodProCom/" + scope.CodProCom;
          $http.get(url).then(function(result) {
@@ -704,12 +705,9 @@
                          scope.CPLocPumSum = scope.List_Puntos_Suministros[i].CPLocSoc;
                      }
                  }
-                 //scope.filter_DirPumSum(result.data.Propuesta.CodPunSum); 
                  scope.fdatos.CodCupSEle = result.data.Propuesta.CodCupsEle;
                  scope.fdatos.CodCupGas = result.data.Propuesta.CodCupsGas;
                  if (result.data.Propuesta.RenConEle == 0) { scope.fdatos.RenConEle = false; } else { scope.fdatos.RenConEle = true; }
-
-
                  if (result.data.Propuesta.RenConGas == 0) { scope.fdatos.RenConGas = false; } else { scope.fdatos.RenConGas = true; }
                  scope.realizar_filtro(1, result.data.Propuesta.CodCom);
                  scope.realizar_filtro(2, result.data.Propuesta.CodPro);
@@ -733,8 +731,6 @@
                  if (scope.fdatos.CodCupSEle != null) {
                      scope.filtrerCanPeriodos(result.data.Propuesta.CodTarEle);
                  }
-
-
                  //console.log(scope.fdatos.CodCli);
              } else {
                  Swal.fire({ title: "Error", text: "Está propuesta no se encuentra registrada.", type: "error", confirmButtonColor: "#188ae2" });
@@ -766,6 +762,14 @@
          $http.get(url).then(function(result) {
              $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
+                 
+                if(result.data.BuscarPropuesta==false)
+                {
+                    Swal.fire({ title: "Error", text: "Esta renovación no pertenece a esta cliente o no existe.", type: "error", confirmButtonColor: "#188ae2" });
+                    location.href="#/Propuesta_Comercial";
+                    return false;
+                }
+
                  scope.disabled_status = true;
                  scope.RazSocCli = result.data.Cliente.RazSocCli;
                  scope.NumCifCli = result.data.Cliente.NumCifCli;
@@ -801,14 +805,19 @@
                  scope.fdatos.CodCom = result.data.BuscarPropuesta.CodCom;
                  scope.realizar_filtro(1, result.data.BuscarPropuesta.CodCom);
                  scope.realizar_filtro(2, result.data.BuscarPropuesta.CodPro);
-                 scope.fdatos.CodPro = result.data.BuscarPropuesta.CodCom;
+                 scope.fdatos.CodPro = result.data.BuscarPropuesta.CodPro;
                  scope.fdatos.CodAnePro = result.data.BuscarPropuesta.CodAnePro;
                  scope.fdatos.TipPre = result.data.BuscarPropuesta.TipPre;
                  scope.fdatos.ImpAhoTot = result.data.BuscarPropuesta.ImpAhoTot;
                  scope.fdatos.PorAhoTot = result.data.BuscarPropuesta.PorAhoTot;
                  scope.fdatos.ObsProCom = result.data.BuscarPropuesta.ObsProCom;
                  scope.Fecha_Propuesta = result.data.FechaServer;
+
                  scope.fdatos.CodConCom = scope.CodConCom;
+                 if (scope.fdatos.CodCupSEle != null) {
+                     scope.filtrerCanPeriodos(result.data.BuscarPropuesta.CodTarEle);
+                 }
+                 scope.ProRenPen=1;
              } else {
                  Swal.fire({ title: "Error", text: "El Número de CIF no se encuentra registrado.", type: "error", confirmButtonColor: "#188ae2" });
                  //location.href="#/Propuesta_Comercial";

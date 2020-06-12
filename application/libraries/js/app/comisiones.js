@@ -128,7 +128,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                     scope.TComisionesRangoGrib.push({ CodDetAne: dato.CodDetAneTarEle, CodAnePro: dato.CodAnePro, CodTarEle: dato.CodTarEle, TipServ: TipServ, ConSer: "0.00", ConCerVer: "0.00" });
                     console.log(scope.TComisionesRangoGrib);
-
                 }
             }, function(error) {
                 $("#Car_Det").removeClass("loader loader-default is-active").addClass("loader loader-default");

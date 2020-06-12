@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th ng-show="vm.FecProCom==true">Fecha</th>
+                  <th ng-show="vm.FecProCom==true">Fecha Inicio</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CUPsEle==true">CUPs Eléctrico</th>
                   <th ng-show="vm.CUPsGas==true">CUPs Gas</th> 
@@ -268,6 +268,86 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a>
       </div>
 </form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!--modal container section end -->
+
+
+<!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_contratosProRenPen" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Contratos Renovación Pendiente</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel">                  
+    <form class="form-validate" id="frmProRenPen" name="frmProRenPen" ng-submit="SubmitFormContratosProRenPen($event)">                  
+     <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                  <th></th>
+                  <th>Fecha Inicio</th>
+                  <th>Duración</th>  
+                  <th>Vencimiento</th>
+                  <th>Estatus</th>              
+                  
+                  </tr>
+                  <tr ng-show="vm.T_ContratosProRenPen.length==0"> 
+                    <td colspan="8" align="center">
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información.</div>
+                    </td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.T_ContratosProRenPen | filter:paginate6" ng-class-odd="odd">                    
+                    <td>
+
+                      <!--input type="checkbox" name="select_contra_{{$index}}" id="select_contra_{{$index}}" ng-model="vm.select_ContrProRenPen[$index]" ng-click="vm.SelectContrato($index,dato,vm.select_ContrProRenPen[$index])"-->
+                      <button type="button"  ng-click="vm.agregar_ContratoProRenPen($index,dato.CodConCom,dato)" title="Seleccionar" ng-show="!vm.select_DetProPenRen[dato.CodConCom]"><i class="fa fa fa-square-o" style="color:black;"></i></button>
+                                            
+                      <button type="button" ng-show="vm.select_DetProPenRen[dato.CodConCom]" ng-click="vm.quitar_ContratoProRenPen($index,dato.CodConCom,dato)"><i class="fa fa fa-check-circle" title="Quitar" style="color:green;"></i></button>  
+
+
+
+                    </td>
+                    
+
+
+
+                    <td>{{dato.FecIniCon}}</td>
+                    <td>{{dato.DurCon}} Meses</td> 
+                    <td>{{dato.FecVenCon}}</td>
+                    <td>
+                      <span class="label label-success" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
+                      <span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
+                      <span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
+                      <span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
+                   </td>
+                   
+                  </tr>
+                </tbody>
+                <tfoot> 
+                  <th></th>                
+                  <th>Fecha Inicio</th>                  
+                  <th>Duración</th>  
+                  <th>Vencimiento</th>
+                  <th>Estatus</th>  
+                </tfoot>
+              </table>
+        </div>
+     
+
+   
+
+      <div style="margin-left:15px; ">
+        <button class="btn btn-info" type="submit" ng-disabled="frmProRenPen.$invalid">Renovar</button>
+      </div>
+    </form>
    </div>
     </div>
 </div>

@@ -5,6 +5,8 @@
      scope.fdatos = {};
      scope.TPropuesta_Comerciales = [];
      scope.TPropuesta_ComercialesBack = [];
+     scope.T_ContratosProRenPen=[];
+     scope.select_DetProPenRen=[];
      scope.tmodal_filtros = {};
      scope.CodCli = $route.current.params.CodCli;
      scope.CodConCom = $route.current.params.CodConCom;
@@ -62,7 +64,7 @@
          scope.EstProCom = undefined;
      }
      $scope.Consultar_CIF = function(event) {
-         console.log(event);
+         //console.log(event);
          //event.preventDefault();
          if (scope.NumCifCli == undefined || scope.NumCifCli == null || scope.NumCifCli == '') {
              Swal.fire({ title: 'Número de CIF', text: 'El número de CIF del Cliente es requerido', type: "error", confirmButtonColor: "#188ae2" });
@@ -71,7 +73,7 @@
          $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
          var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_clientes/NumCifCli/" + scope.NumCifCli;
          $http.get(url).then(function(result) {
-             console.log(result);
+             //console.log(result);
              $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
                  if (result.data.status == false && result.data.statusText == "Error") {
@@ -79,13 +81,67 @@
                      return false;
                  }
                  if (result.data.status == true && result.data.statusText == 'Contrato') {
-                     $('#modal_add_propuesta').modal('hide');
-                     location.href = "#/Renovar_Propuesta_Comercial/" + result.data.Contrato.CodCli + "/" + result.data.Contrato.CodConCom + "/" + result.data.Contrato.CodProCom + "/renovar";
-                 }
+                    $('#modal_add_propuesta').modal('hide');
+                    location.href = "#/Renovar_Propuesta_Comercial/" + result.data.Contrato.CodCli + "/" + result.data.Contrato.CodConCom + "/" + result.data.Contrato.CodProCom + "/renovar";
+                 }                 
                  if (result.data.status == true && result.data.statusText == 'Propuesta_Nueva') {
                      $("#modal_add_propuesta").modal('hide');
                      location.href = "#/Add_Propuesta_Comercial/" + result.data.CodCli + "/nueva";
                  }
+                 if (result.data.status == 200 && result.data.statusText == 'OK') 
+                 {                     
+                    //$("#modal_add_propuesta").modal('hide');
+                    scope.fdatos.ContratosSinProPenRen = [];
+                    scope.fdatos.ContratosProRenPen = []; 
+                    angular.forEach(result.data.Contratos, function(Contratos)
+                    {
+                        if(Contratos.ProRenPen==1)
+                        {
+                           scope.fdatos.ContratosProRenPen.push({CodCli:Contratos.CodCli,CodConCom:Contratos.CodConCom
+                            ,CodProCom:Contratos.CodProCom,DocConRut:Contratos.DocConRut,DocGenCom:Contratos.DocGenCom
+                            ,DurCon:Contratos.DurCon,EstBajCon:Contratos.EstBajCon,EstRen:Contratos.EstRen
+                            ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
+                            ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
+                            ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
+                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg});                         
+                        }
+                        else
+                        {
+                           scope.fdatos.ContratosSinProPenRen.push({CodCli:Contratos.CodCli,CodConCom:Contratos.CodConCom
+                            ,CodProCom:Contratos.CodProCom,DocConRut:Contratos.DocConRut,DocGenCom:Contratos.DocGenCom
+                            ,DurCon:Contratos.DurCon,EstBajCon:Contratos.EstBajCon,EstRen:Contratos.EstRen
+                            ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
+                            ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
+                            ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
+                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg}); 
+                        }
+                    }); 
+                    console.log(scope.fdatos.ContratosProRenPen);
+                    console.log(scope.fdatos.ContratosSinProPenRen);
+                    if(scope.fdatos.ContratosProRenPen.length>0)
+                    {
+                        if(scope.fdatos.ContratosProRenPen.length==1)
+                        {
+                            $("#modal_add_propuesta").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial/" + scope.fdatos.ContratosProRenPen[0].CodCli + "/" + scope.fdatos.ContratosProRenPen[0].CodConCom + "/" + scope.fdatos.ContratosProRenPen[0].CodProCom + "/renovar";
+                            return false;
+                        }
+                        else
+                        {
+                            $("#modal_contratosProRenPen").modal('show');
+                            $("#modal_add_propuesta").modal('hide');
+                            scope.T_ContratosProRenPen=scope.fdatos.ContratosProRenPen;
+                            //alert('se detectaron mas de un contrato con ProRenPen');
+                            Swal.fire({ title: "Renovación Pendiente", text: "Se encontraron "+scope.fdatos.ContratosProRenPen.length+" Contratos Pendientes de Renovación, se le mostrara una lista con los contratos para que eliga cual va a modificar.", type: "info", confirmButtonColor: "#188ae2" });
+                        }
+                    }
+                    else if(scope.fdatos.ContratosProRenPen.length==0 && scope.fdatos.ContratosSinProPenRen.length>0)
+                    {
+                        $("#modal_add_propuesta").modal('hide');
+                        location.href = "#/Add_Propuesta_Comercial/" + scope.fdatos.ContratosSinProPenRen[0].CodCli + "/nueva";
+                        return false;
+                    }
+                }                 
              } else {
                  Swal.fire({ title: "Error", text: "El número del CIF no se encuentra asignando a ningun cliente.", type: "error", confirmButtonColor: "#188ae2" });
              }
@@ -106,6 +162,54 @@
 
          });
      }
+     scope.agregar_ContratoProRenPen=function(index,CodConCom,dato)
+     {
+        if(scope.Block_Deta==1)
+        {
+            Swal.fire({ title: "Error", text: "ya ha seleccionado un contrato para la renovación.", type: "error", confirmButtonColor: "#188ae2" });
+            return false;
+        }
+        //console.log(index);
+        //console.log(dato);
+        //console.log(CodConCom);
+        scope.select_DetProPenRen[CodConCom]=dato;
+        scope.Block_Deta = 1;
+        scope.url_location="#/Renovar_Propuesta_Comercial/" + dato.CodCli + "/" + dato.CodConCom + "/" + dato.CodProCom + "/renovar";
+        console.log(scope.select_DetProPenRen);
+        console.log(scope.Block_Deta);
+        console.log(scope.url_location);
+     }
+     scope.quitar_ContratoProRenPen = function(index, CodConCom, dato) {
+        scope.select_DetProPenRen[CodConCom] = false;        
+        scope.Block_Deta = 0;
+    }
+    $scope.SubmitFormContratosProRenPen = function(event) 
+    { 
+        if(scope.Block_Deta==0)
+        {
+            Swal.fire({ title: "Error", text: "Debe seleccionar un contrato para poder procesar la renovación.", type: "error", confirmButtonColor: "#188ae2" });
+            return false;
+        }
+        Swal.fire({
+            title: 'Contrato',
+            text: '¿Está seguro de ir a la renovación del contrato.?',
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Confirmar"
+        }).then(function(t) {
+            if (t.value == true) {
+               $("#modal_contratosProRenPen").modal('hide');
+               location.href=scope.url_location;
+            } else {
+                console.log('Cancelando Ando...');
+                event.preventDefault();
+            }
+        });
+        
+                    
+    };
      scope.validar_opcion_propuestas = function(index, opcion_select, dato) {
          scope.opcion_select[index] = undefined;
          //console.log('index: '+index);
@@ -171,10 +275,10 @@
                  if (searchText_len > 0) {
                      var url = base_urlHome() + "api/PropuestaComercial/getclientes";
                      $http.post(url, scope.fdatos).then(function(result) {
-                             console.log(result);
+                             //console.log(result);
                              if (result.data != false) {
                                  scope.searchResult = result.data;
-                                 console.log(scope.searchResult);
+                                 //console.log(scope.searchResult);
                              } else {
                                  Swal.fire({
                                              title: "Error",

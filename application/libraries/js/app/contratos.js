@@ -44,6 +44,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.fdatos.tipo = $route.current.params.Tipo;
     scope.Nivel = $cookies.get('nivel');
     scope.url_pdf_audax="http://pdfaudax.local/AudaxPDF/";
+    //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDF/";
+    //scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDF/";
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -279,25 +281,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
 
     }
-    scope.calcular_vencimiento = function() {
+    scope.calcular_vencimiento = function() 
+    {
         scope.parafechas = {};
-        var FecIniCon = document.getElementById("FecIniCon").value;
-        scope.parafechas.FechaCalcular = FecIniCon;
+        scope.FecIniCon = document.getElementById("FecIniCon").value;
+        scope.parafechas.FechaCalcular = scope.FecIniCon;
         scope.parafechas.DurCon = scope.fdatos.DurCon;
-        console.log(scope.fdatos);
+        scope.parafechas.tipo=scope.fdatos.tipo;
         var url = base_urlHome() + "api/Contratos/calcular_vencimiento/";
         $http.post(url, scope.parafechas).then(function(result) {
+
             if (result.data.status == false && result.data.statusText == "Fecha") {
                 Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
                 scope.FecVenCon = undefined;
-                scope.fdatos.DurCon = undefined;
-                $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
+                $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
+                scope.calcular_vencimiento();
                 return false;
             }
-
-            console.log(result);
             scope.FecVenCon = result.data.FecVenc;
-
         }, function(error) {
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
@@ -311,17 +312,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (error.status == 500 && error.statusText == "Internal Server Error") {
                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
             }
-
         });
     }
-    scope.validar_formatos_input = function(metodo, object) {
-        console.log(object);
-        console.log(metodo);
+   
+    scope.validar_formatos_input = function(metodo, object){
+        
         if (metodo == 1) {
-            if (object != undefined) {
+            if (object != undefined){
                 numero = object;
                 if (!/^([/0-9])*$/.test(numero))
                     scope.FecIniCon = numero.substring(0, numero.length - 1);
+            }
+            if(object.length==10 && scope.fdatos.DurCon!=undefined){
+                scope.calcular_vencimiento();
             }
         }
         if (metodo == 2) {
@@ -338,10 +341,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.RangFec = numero.substring(0, numero.length - 1);
             }
         }
-    }
-    scope.blurfechachange = function() {
-        if (scope.fdatos.DurCon != undefined) {
-            $('#FecIniCon').on('changeDate', function() {
+    }       
+    scope.blurfechachange = function()
+    {
+        scope.FecIniCon = document.getElementById("FecIniCon").value;
+        if (scope.fdatos.DurCon != undefined && scope.FecIniCon.length==10) {
+            $('#FecIniCon').on('changeDate', function()
+            {
                 scope.calcular_vencimiento();
             });
         }
@@ -604,8 +610,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             location.href = "#/Edit_Contrato/" + dato.CodCli + "/" + dato.CodConCom + "/" + dato.CodProCom + "/editar";
         }
         if (opcion_select == 3) {
-            if (dato.EstBajCon == 3) {
+            
+            if (dato.EstBajCon == 3)
+            {
                 Swal.fire({ title: "Error", text: "El Contrato ya fue renovado.", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
+            }
+            if (dato.EstBajCon == 4)
+            {
+                Swal.fire({ title: "Error", text: "Este contrato se encuentra en proceso de renovación.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
             scope.tmodal_data = {};
@@ -626,10 +639,73 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var url = base_urlHome() + "api/Contratos/verificar_renovacion";
                 $http.post(url, scope.tmodal_data).then(function(result)
                 {
-                    if (result.data != false)
+                    if (result.data!=false)
                     {
-                        console.log(result.data);
-                        
+                        //console.log(result.data); 
+                        if (result.data.status == 201 && result.data.statusText == "Renovación Anticipada") 
+                        {
+                            Swal.fire({title: result.data.statusText,text: result.data.message,type: "question",
+                            showCancelButton: !0,confirmButtonColor: "#31ce77",cancelButtonColor: "#f34943",
+                            confirmButtonText: "Continuar!"}).then(function(t) 
+                            {
+                                if (t.value == true) 
+                                {
+                                    var FecIniCon = (dato.FecVenCon).split("/");
+                                    var new_fecha= FecIniCon[1]+"/"+FecIniCon[0]+"/"+FecIniCon[2];
+                                    var TuFecha = new Date(new_fecha);
+                                    var numero=1;
+                                    var dias = parseInt(numero);
+                                    TuFecha.setDate(TuFecha.getDate() + dias);
+                                    var FecIniCon1 = TuFecha.getDate() + '/' + (TuFecha.getMonth() + 1) + '/' + TuFecha.getFullYear();
+                                    var FecIniConFinal=(FecIniCon1).split("/");
+                                    var dia=FecIniConFinal[0];
+                                    var mes=FecIniConFinal[1];
+                                    var ano=FecIniConFinal[2];
+                                    if(dia<10)
+                                    {dia='0'+dia;}
+                                    if(mes<10)
+                                    {mes='0'+mes;}
+                                    console.log(dia+"/"+mes+"/"+ano);
+                                    scope.FecIniCon= dia+"/"+mes+"/"+ano;
+                                    $('.FecIniCon').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCon);     
+                
+                                    $("#Tipo_Renovacion").modal('show');
+                                } else {
+                                    event.preventDefault();
+                                    console.log('Cancelando ando...');
+                                }
+                            });
+                            //Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "info", confirmButtonColor: "#188ae2" });
+                            //scope.tmodal_data = {};
+                            //$("#Tipo_Renovacion").modal('hide');
+                            return false;
+                        }
+                        if (result.data.status == 200 && result.data.statusText == "OK") {
+                            Swal.fire({ title: result.data.message, type: "success", confirmButtonColor: "#188ae2" });
+                            var FecIniCon = (dato.FecVenCon).split("/");
+                            var new_fecha= FecIniCon[1]+"/"+FecIniCon[0]+"/"+FecIniCon[2];
+                            var TuFecha = new Date(new_fecha);
+                            var numero=1;
+                            var dias = parseInt(numero);
+                            TuFecha.setDate(TuFecha.getDate() + dias);
+                            var FecIniCon1 = TuFecha.getDate() + '/' + (TuFecha.getMonth() + 1) + '/' + TuFecha.getFullYear();
+                            var FecIniConFinal=(FecIniCon1).split("/");
+                            var dia=FecIniConFinal[0];
+                            var mes=FecIniConFinal[1];
+                            var ano=FecIniConFinal[2];
+                            if(dia<10)
+                            {dia='0'+dia;}
+                            if(mes<10)
+                            {mes='0'+mes;}
+                            console.log(dia+"/"+mes+"/"+ano);
+                            scope.FecIniCon= dia+"/"+mes+"/"+ano;
+                            $('.FecIniCon').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCon);     
+                
+
+                            $("#Tipo_Renovacion").modal('show');
+
+                            return false;
+                        }
 
                         /*if (result.data.status == 203 && result.data.statusText == "Error") {
                             Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
@@ -663,18 +739,47 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
 
                 });
-            } else {
-                $("#Tipo_Renovacion").modal('show');
+            } 
+            else if (dato.EstBajCon == 1)
+            {
+                Swal.fire({ title: 'Este Contrato fue dado de baja. elabore una nueva propuesta comercial para crear un nuevo contrato.', type: "error", confirmButtonColor: "#188ae2" });
+                return false;
             }
-
+            else if (dato.EstBajCon == 2)
+            {
+                var FecIniCon = (dato.FecVenCon).split("/");
+                var new_fecha= FecIniCon[1]+"/"+FecIniCon[0]+"/"+FecIniCon[2];
+                var TuFecha = new Date(new_fecha);
+                var numero=1;
+                var dias = parseInt(numero);
+                TuFecha.setDate(TuFecha.getDate() + dias);
+                var FecIniCon1 = TuFecha.getDate() + '/' + (TuFecha.getMonth() + 1) + '/' + TuFecha.getFullYear();
+                var FecIniConFinal=(FecIniCon1).split("/");
+                var dia=FecIniConFinal[0];
+                var mes=FecIniConFinal[1];
+                var ano=FecIniConFinal[2];
+                if(dia<10)
+                {dia='0'+dia;}
+                if(mes<10)
+                {mes='0'+mes;}
+                console.log(dia+"/"+mes+"/"+ano);
+                scope.FecIniCon= dia+"/"+mes+"/"+ano;
+                $('.FecIniCon').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCon);     
+                $("#Tipo_Renovacion").modal('show');                
+                return false;
+            }
         }
-
         if (opcion_select == 4) {
             scope.tmodal_data = {};
             if (dato.EstBajCon == 1) {
                 Swal.fire({ title: "Error", text: "Este contrato ya fue dado de baja.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
+            if (dato.EstBajCon == 3){
+                Swal.fire({ title: "Error", text: "Este contrato fue renovado y no puede ser dado de baja.", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
+            }
+
             scope.RazSocCom = dato.NumCifCli + " " + dato.CodCom;
             scope.FecBajCon = fecha;
             $('.FecBajCon').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecBajCon);
@@ -684,11 +789,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
     }
     $scope.SubmitFormRenovacion = function(event) {
-        /**/
         if (!scope.validar_campos_renovacion()) {
             return false;
         }
-
         console.log(scope.tmodal_data);
         Swal.fire({
             text: '¿Seguro de Renovar el contrato?',
@@ -715,14 +818,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.get_list_contratos();
                         return false;
                     }
-
-
-
                     if (result.data != false) {
                         //Swal.fire({ title: "Contrato", text: "Contrato dado de baja sastifactoriamente.", type: "error", confirmButtonColor: "#188ae2" });
                         //$("#modal_baja_contrato").modal('hide');
-
-
                         scope.get_list_contratos();
                     } else {
                         Swal.fire({ title: "Error General", text: "Error durante el proceso, intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -753,10 +851,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     };
     scope.validar_campos_renovacion = function() {
         resultado = true;
-
-
-
-
         if (scope.tmodal_data.SinMod == false && scope.tmodal_data.ConMod == false) {
             Swal.fire({ title: "Error", text: "Debe indicar que tipo de renovación es el contrato.", type: "error", confirmButtonColor: "#188ae2" });
             return false;
@@ -910,8 +1004,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ text: 'Debe indicar una justicación de la baja del contrato.', type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
-
-
         }
         console.log(scope.tmodal_data);
         Swal.fire({
@@ -1152,7 +1244,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
      scope.generar_audax=function()
      {
      	scope.toast();
-     	scope.CodContCli=undefined;
+     	scope.CodContCli=0;
+        scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
      	var url=base_urlHome()+"api/Contratos/generar_audax/";
      	$http.post(url,scope.fdatos).then(function(result)
@@ -1160,20 +1253,33 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
      		console.log(result.data);
      		if(result.data!=false)
      		{
-     			if(result.data.length==1)
+     			if(result.data.Contactos.length==1)
      			{
-     				if(result.data[0].EsRepLeg==1)
+     				if(result.data.Contactos[0].EsRepLeg==1)
      				{
-     					scope.CodContCli=result.data[0].CodConCli;
+                        scope.CodContCli=result.data.Contactos[0].CodConCli;
      				}
      				else
      				{
      					scope.CodContCli=0;
      				}     				
      			}
-     			if(result.data.length>1)
+                if(result.data.CuentasBancarias.length==0)
+                {
+                    scope.CodCuenBan=0;                                      
+                }
+                else if(result.data.CuentasBancarias.length==1)
+                {
+                    scope.CodCuenBan=result.data.CuentasBancarias[0].CodCueBan
+                }
+                else
+                {                    
+                    scope.List_Cuentas=result.data.CuentasBancarias;
+                    console.log(scope.List_Cuentas);
+                }
+     			if(result.data.Contactos.length>1)
      			{
-     				angular.forEach(result.data,function(RepresentantesLegal)
+     				angular.forEach(result.data.Contactos,function(RepresentantesLegal)
 					{
 						if(RepresentantesLegal.EsRepLeg==1)
 						{
@@ -1182,22 +1288,50 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 							 scope.List_Firmantes = []; 
 							}
 							scope.List_Firmantes.push({CodConCli:RepresentantesLegal.CodConCli,NomConCli:RepresentantesLegal.NomConCli,NIFConCli:RepresentantesLegal.NIFConCli});
-
 						}
-					});
+					}); 
+                    scope.titulo_modal='Quien Firma';                    
 					scope.get_list_contratos();
 					console.log(scope.List_Firmantes);
+                    scope.List_Cuentas=result.data.CuentasBancarias;
+                    console.log(scope.List_Cuentas);
      				$("#modal_representante_legal").modal('show');
-     				return false;
+     				//return false;
      			}
-     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli;
-     			var win = window.open(url, '_blank');
+                if(result.data.CuentasBancarias.length>1)
+                {
+                    scope.titulo_modal='Cuentas Bancarias';
+                    scope.get_list_contratos();
+                    console.log(scope.List_Firmantes);                    
+                    scope.List_Cuentas=result.data.CuentasBancarias;
+                    console.log(scope.List_Cuentas);
+                    $("#modal_representante_legal").modal('show');
+                }
+                if(result.data.Contactos.length>1 && result.data.CuentasBancarias.length<=1)
+                {
+                    scope.titulo_modal='Quien Firma';
+                    return false;
+                }
+                else if (result.data.Contactos.length<=1 && result.data.CuentasBancarias.length>1)
+                {
+                    scope.titulo_modal='Cuentas Bancarias';
+                    return false;
+                }
+                /*else
+                {
+                    scope.titulo_modal='Quien Firma / Cuentas Bancarias';
+                    return false;
+                }*/
+     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
+     			console.log(url);
+                var win = window.open(url, '_blank');
 		        win.focus();
 		    }
      		else
      		{
      			scope.CodContCli=0;
-     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli;
+                scope.CodCuenBan=0;
+     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
      			var win = window.open(url, '_blank');
 		        win.focus();
      		}
@@ -1221,9 +1355,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
        		Swal.fire({ title: "Error", text: "Debe Seleccionar Quien Firma El Contrato Audax.", type: "error", confirmButtonColor: "#188ae2" });
        		return false;
        	}
+        if(!scope.CodCuenBan>0)
+        {
+            Swal.fire({ title: "Error", text: "Debe Seleccionar Una Cuenta Bancaria Para El Contrato Audax.", type: "error", confirmButtonColor: "#188ae2" });
+            return false;
+        }
         Swal.fire({
             title: 'Contrato Audax',
-            text: '¿Estás seguro de firmar con este representante legal?',
+            text: '¿Estás seguro de continuar con los datos seleccionado?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -1232,7 +1371,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }).then(function(t) {
             if (t.value == true)
             {
-            	var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli;
+            	var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
      			var win = window.open(url, '_blank');
 		        win.focus();
 		        scope.CodContCli=undefined;

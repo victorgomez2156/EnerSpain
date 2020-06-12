@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th ng-show="vm.FecCon==true">Fecha</th>
+                  <th ng-show="vm.FecCon==true">Fecha Inicio</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CodCom==true">Comercializadora</th>
                   <th ng-show="vm.CodAnePro==true">Anexo</th> 
@@ -159,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_Contratos | filter:paginate" ng-class-odd="odd">                    
-                    <td ng-show="vm.FecCon==true">{{dato.FecConCom}}</td>
+                    <td ng-show="vm.FecCon==true">{{dato.FecIniCon}}</td>
                     <td ng-show="vm.CodCli==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
                     <td ng-show="vm.CodCom==true">{{dato.CodCom}}</td>
                     <td ng-show="vm.CodAnePro==true">{{dato.Anexo}}</td> 
@@ -170,6 +170,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
                       <span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
                       <span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
+                      <span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
                    </td>
                     <td ng-show="vm.ActCont==true">
                       <div class="btn-group">
@@ -182,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th ng-show="vm.FecCon==true">Fecha</th>
+                  <th ng-show="vm.FecCon==true">Fecha Inicio</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CodCom==true">Comercializadora</th>
                   <th ng-show="vm.CodAnePro==true">Anexo</th> 
@@ -368,9 +369,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="panel">                  
     
     <form class="form-validate" id="frmRenovacion" name="frmRenovacion" ng-submit="SubmitFormRenovacion($event)">                 
-     <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodCli" name="CodCliModalReno" id="CodCliModalReno" readonly="readonly" />
-     <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodProCom" name="CodProComModalReno" id="CodProComModalReno" readonly="readonly" />
-     <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodConCom" name="CodConComModalReno" id="CodConComModalReno" readonly="readonly" />
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.CodCli" name="CodCliModalReno" id="CodCliModalReno" readonly="readonly" />
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.CodProCom" name="CodProComModalReno" id="CodProComModalReno" readonly="readonly" />
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.CodConCom" name="CodConComModalReno" id="CodConComModalReno" readonly="readonly" />
 
     <div class="col-12 col-sm-12">
      <div class="form">                          
@@ -455,6 +456,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 <!--modal container section end -->
+
+
 
 
               </section>

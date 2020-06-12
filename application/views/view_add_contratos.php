@@ -502,7 +502,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
-        <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(1,vm.FecIniCon)" ng-blur="vm.blurfechachange()" ng-disabled="vm.fdatos.tipo=='ver'"/>
+        <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'" ng-blur="vm.blurfechachange()"/>
          
          </div>
          </div>
@@ -528,7 +528,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
-        <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'"/>
+        <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'||vm.fdatos.tipo=='ver'"/>
          
          </div>
          </div>
@@ -564,8 +564,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         filenameDocCliDoc = '<i class="fa fa-file"> '+$file_fotocopia.files[0].name+'</i>';
         $('#file_fotocopia1').html(filenameDocCliDoc);
         console.log($file_fotocopia.files[0].name);
-      });
-     
+      });     
 </script> 
          </div>
          </div>
@@ -621,21 +620,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Quien Firma</h4>
+            <h4 class="modal-title">{{vm.titulo_modal}}</h4>
           </div>
           <div class="modal-body">
     <div class="panel">                 
       <form class="form-validate" id="frmRepresentanteLegal" name="frmRepresentanteLegal" ng-submit="SubmitFormGenAudax($event)">
 
-    <div class="col-12 col-sm-12">
+    <div class="col-12 col-sm-12" ng-show="vm.List_Firmantes.length>1">
      <div class="form">                          
      <div class="form-group">
-        <!--select class="form-control" name="CodContCli" required ng-model="vm.CodContCli">
-          <option ng-repeat="dato in vm.List_Firmantes" value="{{dato.CodConCli}}" >{{dato.NIFConCli}} - {{dato.NomConCli}}</option>
-          
-        </select-->     
+      <label class="font-weight-bold nexa-dark" style="color:black;">Quien Firma</label>         
         <select class="form-control" id="List_Firmantes" name="List_Firmantes" ng-model="vm.CodContCli">
           <option ng-repeat="opcion in vm.List_Firmantes" value="{{opcion.CodConCli}}">{{opcion.NIFConCli}} - {{opcion.NomConCli}}</option>
+        </select>
+     </div>
+     </div>
+     </div> 
+
+     <div class="col-12 col-sm-12" ng-show="vm.List_Cuentas.length>1">
+     <div class="form">                          
+     <div class="form-group">
+      <label class="font-weight-bold nexa-dark" style="color:black;">Cuentas Bancarias</label>         
+        <select class="form-control" id="List_Cuentas" name="List_Cuentas" ng-model="vm.CodCuenBan">
+          <option ng-repeat="opcion in vm.List_Cuentas" value="{{opcion.CodCueBan}}">{{opcion.NumIBan}}</option>
         </select>
      </div>
      </div>
@@ -643,7 +650,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmRepresentanteLegal.$invalid">Firmar</button>
+     <button class="btn btn-info" type="submit" ng-disabled="frmRepresentanteLegal.$invalid">{{vm.titulo_modal}}</button>
       <!--a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a-->
       </div>
 </form>

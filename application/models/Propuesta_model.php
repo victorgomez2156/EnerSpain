@@ -13,6 +13,18 @@ class Propuesta_model extends CI_Model
         else
         return false;              
     } ##case a.EstProCom when "P" then "Pendiente" when "A" then "Aprobada" when "C" then "Completada" when "R" then "Rechazada" end as EstProCom,
+    public function Funcion_Verificadora2($Variable,$tabla,$where,$select,$where2,$Variable2)
+    {
+        $this->db->select($select,false);
+        $this->db->from($tabla);       
+        $this->db->where($where,$Variable);
+        $this->db->where($where2,$Variable2);              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
     public function get_list_propuesta_clientes_all()
     {
         $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);

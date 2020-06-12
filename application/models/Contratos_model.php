@@ -13,7 +13,7 @@ class Contratos_model extends CI_Model
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
         $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
         $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
-        $this->db->order_by('a.FecConCom DESC');              
+        $this->db->order_by('a.FecIniCon desc');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -119,27 +119,25 @@ class Contratos_model extends CI_Model
         if($query->num_rows()>0)
         return $query->result();
         else
-        return false;              
-        
-        /*$this->db->like('DATE_FORMAT(a.FecProCom,"%d/%m/%Y")',$SearchText);
-        $this->db->or_like('b.NumCifCli',$SearchText);
-        $this->db->or_like('b.RazSocCli',$SearchText);
-        $this->db->or_like('c.CUPsEle',$SearchText);
-        $this->db->or_like('d.CupsGas',$SearchText);
-        $this->db->or_like('a.RefProCom',$SearchText);
-        $this->db->order_by('a.FecProCom DESC');              
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        return $query->result();
-        else
-        return false;  */            
+        return false;           
     }
-     public function getaudaxcontactos($CodCli,$CodConCom,$CodProCom)
+    public function getaudaxcontactos($CodCli,$CodConCom,$CodProCom)
     {
         $this->db->select('*',false);
         $this->db->from('T_ContactoCliente');       
         $this->db->where('CodCli',$CodCli);            
         $this->db->order_by('NomConCli ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function getaudaxcuentasbancarias($CodCli)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_CuentaBancaria');       
+        $this->db->where('CodCli',$CodCli);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
@@ -161,8 +159,21 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
-//$this->db->where("$accommodation BETWEEN $minvalue AND $maxvalue");
-
+	//$this->db->where("$accommodation BETWEEN $minvalue AND $maxvalue");
+    public function Buscar_Contratos_TipRen($Variable)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_Contrato');       
+        $this->db->where('CodCli',$Variable); 
+        $this->db->where('ProRenPen=1');         
+        //$this->db->order_by('FecConCom DESC');   
+        //$this->db->limit(1);           
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+       	return $query->result();
+        else
+        return false;              
+    }
 
 
 

@@ -185,18 +185,22 @@ class Contratos extends REST_Controller
     	$FechaServer=date("d/m/Y");
     	$FechaCalcular=explode("/", $objSalida->FechaCalcular);
     	$Fecha_Volteada=$FechaCalcular[2]."-".$FechaCalcular[1]."-".$FechaCalcular[0];
-
-    	if(date($Fecha_Volteada)<date('Y-m-d'))
+    	if($objSalida->tipo=='nuevo')
     	{
-    		$arrayName = array('status' =>false ,'menssage'=>'La Fecha de Inicio no puede ser menor a la fecha del servidor.','statusText'=>'Fecha','FechaServer'=>$FechaServer);
-    		$this->response($arrayName);
+    		if(date($Fecha_Volteada)<date('Y-m-d'))
+	    	{
+	    		$arrayName = array('status' =>false ,'menssage'=>'La Fecha de Inicio no puede ser menor a la fecha del servidor.','statusText'=>'Fecha','FechaServer'=>$FechaServer);
+	    		$this->response($arrayName);
+	    	}
     	}
-    	    	
+    	
+    	   	    	    	
     	$actual = strtotime($Fecha_Volteada);
   		$mesmenos = date("Y-m-d", strtotime("+".$objSalida->DurCon." month", $actual));
   		$FechaVenC=explode("-", $mesmenos);  		
   		$Fecha_Volteada=$FechaVenC[2]."/".$FechaVenC[1]."/".$FechaVenC[0];
   		$objSalida->FecVenc=$Fecha_Volteada;
+    	
     	$this->response($objSalida);	
 	
     }
@@ -235,15 +239,15 @@ class Contratos extends REST_Controller
 		}
 		elseif($objSalida->tipo=='editar')
 		{
-			$this->db->trans_start();
-			
-
-			if(date($objSalida->FecIniCon)<date('Y-m-d'))
-	    	{
-	    		$arrayName = array('status' =>false ,'menssage'=>'Error la fecha de inicio es menor a la fecha actual','statusText'=>'Fecha');
-	    		$this->response($arrayName);
-	    	}
-
+			$this->db->trans_start();			
+			/*if(empty($objSalida->CodConCom))
+			{	
+				if(date($objSalida->FecIniCon)<date('Y-m-d'))
+		    	{
+		    		$arrayName = array('status' =>false ,'menssage'=>'Error la fecha de inicio es menor a la fecha actual','statusText'=>'Fecha');
+		    		$this->response($arrayName);
+		    	}
+			}*/
 			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial.');
 			$this->db->trans_complete();
@@ -275,18 +279,27 @@ class Contratos extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();
-		//$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
+		$this->db->trans_start();				
 		$FechaServer=date('Y-m-d');	
 		$diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days")); 
 		$VerificarRenovacion=$this->Contratos_model	->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$diasAnticipacion);
-		$objSalida->FechaServer=$FechaServer;
-		$objSalida->diasAnticipacion=$diasAnticipacion;
-		$objSalida->VerificarRenovacion=$VerificarRenovacion;
+		if(empty($VerificarRenovacion))
+		{
+			$arrayName = array('status' =>201 , 'message'=>'Esta intentando hacer una renovación anticipada y su contrato tiene una fecha de vencimiento para la fecha: '.$objSalida->FecVenCon.' lo que quiere decir que hara cambios en el documento si esta de acuerdo puede continuar.','statusText'=>'Renovación Anticipada' );
+			$this->db->trans_complete();
+			$this->response($arrayName);
+		}
+		else
+		{
+			$arrayName = array('status' =>200 , 'message'=>'Procesando Renovación de Contrato Comercial.','statusText'=>'OK' );
+			$this->db->trans_complete();
+			$this->response($arrayName);
+		}
+		//$objSalida->FechaServer=$FechaServer;
+		//$objSalida->diasAnticipacion=$diasAnticipacion;
+		//$objSalida->VerificarRenovacion=$VerificarRenovacion;
 		/*$FecVenConVolteada=   explode("/", $objSalida->FecVenCon);
 		$FecVenConVolteadaFin=$FecVenConVolteada[2]."-".$FecVenConVolteada[1]."-".$FecVenConVolteada[0];*/
-		
-
 		/*if(date($FechaServer)<date($FecVenConVolteadaFin))
 		{
 			$arrayName = array('status' =>203 ,'menssage'=>'Este Contrato aun no se ha vencido. Fecha de renovación anticipada.','statusText'=>'Error','FechaAnticipacion'=>$diasAnticipacion);
@@ -297,12 +310,9 @@ class Contratos extends REST_Controller
 			$arrayName = array('status' =>200 ,'menssage'=>'Contrato Vencido se procede a solicitar renovación.','statusText'=>'OK' );
 			$this->response($arrayName);
 		}*/
-
-
-
 		//$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
-		$this->response($objSalida);
+		//$this->response($VerificarRenovacion);
 	}
 	public function RenovarContrato_post()
 	{
@@ -344,9 +354,8 @@ class Contratos extends REST_Controller
 			$this->response($arrayName);
 		}
 		elseif($objSalida->SinMod==false && $objSalida->ConMod==true)
-		{
-			
-			$this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,0,1,1,3);
+		{			
+			$this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,0,1,1,4);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato Con modificaciones.');
 			$arrayName = array('status' =>200,'menssage'=>'Valla a Propuesta Comercial para solicitar la modificion del contrato.','statusText'=>'OK' );
 			$this->db->trans_complete();
@@ -382,10 +391,14 @@ class Contratos extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-		$consulta=$this->Contratos_model->getaudaxcontactos($objSalida->CodCli,$objSalida->CodConCom,$objSalida->CodProCom);						
+		
+		$Contactos=$this->Contratos_model->getaudaxcontactos($objSalida->CodCli,$objSalida->CodConCom,$objSalida->CodProCom);
+		$CuentasBancarias=$this->Contratos_model->getaudaxcuentasbancarias($objSalida->CodCli);	
+		$arrayName = array('Contactos' =>$Contactos ,'CuentasBancarias'=>$CuentasBancarias );
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','SEARCH',null,$this->input->ip_address(),'Comprobando Representante Legal');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','SEARCH',null,$this->input->ip_address(),'Comprobando Cuentas Bancarias');
 		$this->db->trans_complete();
-		$this->response($consulta);
+		$this->response($arrayName);
 	}
       
 

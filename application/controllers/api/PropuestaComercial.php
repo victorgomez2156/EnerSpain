@@ -53,9 +53,14 @@ class PropuestaComercial extends REST_Controller
 			$response = array('status' =>true ,'menssage' =>'Cliente sin ningun contrato puede generar una propuesta.','statusText'=>'Propuesta_Nueva','CodCli'=>$Cliente->CodCli);
 			$this->response($response);
 			return false;
+		}
+		else
+		{
+			$response = array('status' =>200 ,'menssage' =>'Se encontraron contratos asignados al cliente','statusText'=>'OK','Contratos'=>$BuscarContrato);
+			$this->response($response);			
 		}	
 
-		$response = array('status' =>true ,'menssage' =>'Creando Propuesta Comercial','statusText'=>'Propuesta_Nueva','CodCli'=>$Cliente->CodCli);	
+		
 		/*foreach ($BuscarContrato as $record): 
 		{
 			if($record->ProRenPen==1)
@@ -68,7 +73,7 @@ class PropuestaComercial extends REST_Controller
 			}
 		}
 		endforeach;*/
-		$this->response($response);
+		//$this->response($response);
 
 		/*if($BuscarContrato->ProRenPen==1)
 		{
@@ -307,6 +312,7 @@ class PropuestaComercial extends REST_Controller
 	    $Tabla='T_Comercializadora';
 		$order_by="RazSocCom ASC";
 		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		
 		$arrayName = array('Propuesta' =>$BuscarPropuesta,'Cliente' =>$Cliente,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' =>$TarEle,'TarGas' =>$TarGas,'CUPs_Gas' =>$CUPs_Gas,'CUPs_Electricos' =>$CUPs_Electricos,'Comercializadoras' =>$Comercializadoras);
 		$this->response($arrayName);
     }
@@ -333,10 +339,11 @@ class PropuestaComercial extends REST_Controller
 			$FechaServer=date('d/m/Y');
 			$RefProCom=$this->generar_RefProCom();
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Movimientos','GET',null,$this->input->ip_address(),'Generando Número de Referencia.');
+			
 			$select="CodProCom,CodCli,CodPunSum,CodCupsEle,CodTarEle,ImpAhoEle,PorAhoEle,RenConEle,ObsAhoEle,CodCupsGas,CodTarGas,ImpAhoGas,PorAhoGas,RenConGas,ObsAhoGas,PorAhoTot,ImpAhoTot,EstProCom,JusRecProCom,CodCom,CodPro,CodAnePro,TipPre,UltTipSeg,ObsProCom,PotConP1,PotConP2,PotConP3,PotConP4,PotConP5,PotConP6,PotConP1,Consumo,CauDia";
 	        $tabla="T_PropuestaComercial";
 			$where="CodProCom";
-			$BuscarPropuesta=$this->Propuesta_model->Funcion_Verificadora($CodProCom,$tabla,$where,$select);
+			$BuscarPropuesta=$this->Propuesta_model->Funcion_Verificadora2($CodProCom,$tabla,$where,$select,'CodCli',$CodCli);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodProCom,$this->input->ip_address(),'Buscando Propuesta Comercial.');			
 			$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodProCom,$this->input->ip_address(),'Buscado Puntos de Suministros.');      
