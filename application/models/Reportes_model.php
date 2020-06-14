@@ -1382,6 +1382,27 @@ class Reportes_model extends CI_Model
         }       
     }
 
+    public function Proyeccion_Ingresos($ano)
+    {
+       $sql = $this->db->query("SELECT DATE_FORMAT(Proyeccion.FecVenCon,'%d/%m/%Y') AS FecVenCon,Proyeccion.NomComCom,Proyeccion.DesPro,Proyeccion.DurCon,Proyeccion.NomTarEle,Proyeccion.NomTarGas,Proyeccion.SerGas,Proyeccion.SerEle/*,nomina.dia_1*/
+			FROM (
+			SELECT a.FecVenCon,c.NomComCom,d.DesPro,a.DurCon,f.NomTarEle,g.NomTarGas,
+			(CASE WHEN e.SerGas =0 THEN 'NO' WHEN e.SerGas = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerGas, 
+			(CASE WHEN e.SerEle =0 THEN 'NO' WHEN e.SerEle = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerEle
+			FROM T_Contrato a 
+			JOIN T_PropuestaComercial b ON a.CodProCom=b.CodProCom 
+			JOIN T_Comercializadora c ON b.CodCom=c.CodCom
+			JOIN T_Producto d ON b.CodPro=d.CodPro
+			JOIN T_AnexoProducto e ON b.CodAnePro=e.CodAnePro
+			left JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
+			left JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas) Proyeccion 
+			WHERE DATE_FORMAT(Proyeccion.FecVenCon,'%Y')=$ano");
+	        if ($sql->num_rows() > 0)
+	          return $sql->result();
+	        else  
+	        return false;      
+    }
+
 
  
 }

@@ -90,8 +90,12 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuestas_comerciales.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script>   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'otras_gestiones.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'seguimientos.js'?>"></script>
-    
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'seguimientos.js'?>"></script>  
+
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'proyeccion_ingresos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'ingresos_reales.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'ingresos_vs_proyectado.js'?>"></script>
+ 
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'menu.js'?>"></script-->
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'clientes.js'?>"></script>
