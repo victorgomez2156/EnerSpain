@@ -128,7 +128,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         Diseñador Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019</a>
       </div>
     </div>
-  <div id="Proyeccion_Ingresos" class="loader loader-default"  data-text="Generando Reporte de Proyecciones de Ingresos Año {{vm.fdatos.ano}}"></div>
   </div> <!--fin div controller-->
 </body>
 </html>

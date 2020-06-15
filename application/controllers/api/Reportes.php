@@ -157,7 +157,8 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("E1", 'Proyección de Ingresos - Año '.$objSalida->ano);
         $objPHPExcel->getActiveSheet()->mergeCells("E1:AB4");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "E1:AB4");
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        
             
         $objPHPExcel->getActiveSheet()->SetCellValue("A5", "Comercializadora");
         $objPHPExcel->getActiveSheet()->mergeCells("A5:A6");
@@ -282,21 +283,29 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("AD6", "Ingreso Bruto");
         $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "AD6");     
 
-        $objPHPExcel->getActiveSheet()->getStyle('A5:AD5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $fila=0;		
+       $objPHPExcel->getActiveSheet()->getStyle('A5:AD5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);         
+		
+		//rellenar con contenido
+		/*for ($i = 0; $i < 10; $i++) 
+		{
+		  $fila+=1;
+		  $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'Blog');
+		  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'Kiuvox');
+		 
+		  //Establecer estilo
+		  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "A$fila:B$fila");
+		 
+		}*/
 		$Contratos= $this->Reportes_model->Proyeccion_Ingresos($objSalida->ano);
 		if(empty($Contratos))
-		{     
-            $fila=7;
+		{
 			$objPHPExcel->getActiveSheet()->SetCellValue("A7", "Sin Datos Disponibles.");
-            $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "A7");
-        	$objPHPExcel->getActiveSheet()->mergeCells("A7:Z7");
-        	$objPHPExcel->getActiveSheet()->getStyle('A7:Z7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        	$objPHPExcel->getActiveSheet()->mergeCells("A7:AD7");
+        	 $objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		}
 		else
 		{
-			
-            $fila=6;
+			$fila=6;
 			for($i=0; $i<count($Contratos); $i++) 
 			{
 				$fila+=1;
@@ -379,8 +388,7 @@ class Reportes extends REST_Controller
 		$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'SUMA');
 		$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", '=1+2');*/		 
 		//recorrer las columnas
-        $objSalida->fila=$fila;
-		foreach(range('A5','Z5') as $columnID)
+		foreach(range('A','Z') as $columnID)
 		{
 		    $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
 		}
@@ -554,7 +562,6 @@ class Reportes extends REST_Controller
             
         $objPHPExcel->getActiveSheet()->SetCellValue("A5", "GESTIÓN DE CONTRATOS");
         $objPHPExcel->getActiveSheet()->mergeCells("A5:AD5");
-        
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A5:AD5");
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "Comercializadora");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:A7");
@@ -672,18 +679,26 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("AC7", "Renovaciones");
         $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "AC7");
         $objPHPExcel->getActiveSheet()->SetCellValue("AD7", "Ingreso Bruto");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "AD7");        //$objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $fila=0;
-        $fila1=0;		
-		$Contratos=$this->Reportes_model->Proyeccion_Ingresos($objSalida->ano);
+        $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "AD7");    
+
+       $objPHPExcel->getActiveSheet()->getStyle('A6:AD6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		//rellenar con contenido
+		/*for ($i = 0; $i < 10; $i++) 
+		{
+		  $fila+=1;
+		  $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'Blog');
+		  $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", 'Kiuvox');
+		 
+		  //Establecer estilo
+		  $objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "A$fila:B$fila");
+		 
+		}*/
+		$Contratos= $this->Reportes_model->Proyeccion_Ingresos($objSalida->ano);
 		if(empty($Contratos))
 		{
-			$fila=8;
-            $fila1=9;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A8", "Sin Datos Disponibles.");
-        	$objPHPExcel->getActiveSheet()->mergeCells("A8:AD8");
-            $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "A8:AD8");
-        	 $objPHPExcel->getActiveSheet()->getStyle('A8:AD8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->SetCellValue("A7", "Sin Datos Disponibles.");
+        	$objPHPExcel->getActiveSheet()->mergeCells("A7:AD7");
+        	 $objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		}
 		else
 		{
@@ -706,7 +721,7 @@ class Reportes extends REST_Controller
 				$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $TipoSuministro);
 			}
 		}
-        $fila+=1;
+		$fila+=1;
 		$fila1+=2;
 		$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", "Acumulado Mensual");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A$fila");
@@ -768,10 +783,8 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AC$fila");
         $objPHPExcel->getActiveSheet()->SetCellValue("AD$fila", "");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AD$fila");
-        
         $fila+=2;
         $fila1+=1;
-        
         $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", "OTRAS GESTIONES");
         $objPHPExcel->getActiveSheet()->mergeCells("A$fila:AD$fila");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A$fila:AD$fila");
@@ -890,38 +903,25 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("AD$fila1", "Ingreso Bruto");
         $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "AD$fila1");    
 		
-        ##### REPARAR SUPERSQL PARA ESTA CONSULTA #####
-        $OtrasGestiones=$this->Reportes_model->Otras_Gestiones($objSalida->ano);
-        if(empty($OtrasGestiones))
-        {
-            $fila1+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila1", "Sin Datos Disponibles.");
-            $objPHPExcel->getActiveSheet()->mergeCells("A$fila1:AD$fila1");
-            $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "A$fila1:AD$fila1");
-        }
-        else
-        {
-            for($i=0; $i<count($OtrasGestiones); $i++) 
-            {
-                $fila1+=1;
-                if($OtrasGestiones[$i]->SerGas=='NO' && $OtrasGestiones[$i]->SerEle=='SI')
-                {$TipoSuministro='Eléctrico';}
-                elseif ($OtrasGestiones[$i]->SerGas=='SI' && $OtrasGestiones[$i]->SerEle=='NO'){
-                    $TipoSuministro='Gas';}
-                elseif($OtrasGestiones[$i]->SerGas=='SI' && $OtrasGestiones[$i]->SerEle=='SI'){
-                    $TipoSuministro='Ambos';}               
-                else{$TipoSuministro='N/A';}
-                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila1", $OtrasGestiones[$i]->NomComCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila1", $OtrasGestiones[$i]->DesPro);
-                $objPHPExcel->getActiveSheet()->mergeCells("B$fila1:D$fila1");
-                
-            }
-        }        
-        $objSalida->Contratos=$Contratos;
-        $objSalida->OtrasGestiones=$OtrasGestiones;
+        for($i=0; $i<count($Contratos); $i++) 
+		{
+			$fila1+=1;
+			//$fila1+=1;
+			if($Contratos[$i]->SerGas=='NO' && $Contratos[$i]->SerEle=='SI')
+			{$TipoSuministro='Eléctrico';}
+			elseif ($Contratos[$i]->SerGas=='SI' && $Contratos[$i]->SerEle=='NO'){
+				$TipoSuministro='Gas';}
+			elseif($Contratos[$i]->SerGas=='SI' && $Contratos[$i]->SerEle=='SI'){
+				$TipoSuministro='Ambos';}				
+			else{$TipoSuministro='N/A';}
+			$objPHPExcel->getActiveSheet()->SetCellValue("A$fila1", $Contratos[$i]->NomComCom);
+			$objPHPExcel->getActiveSheet()->SetCellValue("B$fila1", $Contratos[$i]->DesPro);
+			$objPHPExcel->getActiveSheet()->mergeCells("B$fila1:D$fila1");
+			/*$objPHPExcel->getActiveSheet()->SetCellValue("C$fila1", $Contratos[$i]->DurCon.' Meses '.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas);
+			$objPHPExcel->getActiveSheet()->SetCellValue("D$fila1", $TipoSuministro);*/
+		}
 		$fila+=1;
 		$fila1+=1;
-
 		$objPHPExcel->getActiveSheet()->SetCellValue("A$fila1", "Acumulado Mensual");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A$fila1");
         $objPHPExcel->getActiveSheet()->SetCellValue("B$fila1", "");
@@ -981,16 +981,23 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("AC$fila1", "");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AC$fila1");
         $objPHPExcel->getActiveSheet()->SetCellValue("AD$fila1", "");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AD$fila1");		
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AD$fila1");
+		
 		$fila1+=2;
 
 		$objPHPExcel->getActiveSheet()->SetCellValue("A$fila1", "TOTAL GENERAL");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A$fila1");       
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A$fila1");
+        
 
         $objPHPExcel->getActiveSheet()->SetCellValue("B$fila1", "");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B$fila1");        
         $objPHPExcel->getActiveSheet()->mergeCells("B$fila1:D$fila1");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B$fila1:D$fila1");        
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B$fila1:D$fila1");
+        /*$objPHPExcel->getActiveSheet()->SetCellValue("C$fila1", "");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C$fila1");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D$fila1", "");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D$fila1");*/
+        
 
         $objPHPExcel->getActiveSheet()->SetCellValue("E$fila1", "");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E$fila1");
@@ -1044,14 +1051,11 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AC$fila1");
         $objPHPExcel->getActiveSheet()->SetCellValue("AD$fila1", "");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "AD$fila1");
-		
-        //insertar formula
+		//insertar formula
 		/*$fila+=2;
 		$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", 'SUMA');
 		$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", '=1+2');*/		 
 		//recorrer las columnas
-        $objSalida->fila=$fila;
-        $objSalida->fila1=$fila1;
 		foreach(range('A','Z') as $columnID)
 		{
 		    $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
@@ -1098,7 +1102,7 @@ class Reportes extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));
 		$this->db->trans_start();
 
-		$fecha= date('Y m d H:i:s');	
+		$fecha= date('Y-m-d_H:i:s');	
 		$nombre_reporte='Comparación Ingresos Proyectados vs Reales '.$objSalida->ano.' '.$fecha.".reporte.xls";
 		$objSalida->nombre_reporte=$nombre_reporte;
 		$objPHPExcel = new PHPExcel(); //nueva instancia		 
@@ -1364,12 +1368,9 @@ class Reportes extends REST_Controller
 		$Contratos= $this->Reportes_model->Proyeccion_Ingresos($objSalida->ano);
 		if(empty($Contratos))
 		{
-			$fila=7;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Sin Datos Disponibles.");
+			$objPHPExcel->getActiveSheet()->SetCellValue("A7", "Sin Datos Disponibles.");
         	$objPHPExcel->getActiveSheet()->mergeCells("A7:AD7");
-            $objPHPExcel->getActiveSheet()->setSharedStyle($titulo, "A7:AD7");
-        	
-            $objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        	 $objPHPExcel->getActiveSheet()->getStyle('A7:AD7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		}
 		else
 		{

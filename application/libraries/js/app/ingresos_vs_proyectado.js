@@ -43,11 +43,9 @@
         }
         //console.log(event);
         console.log(scope.fdatos);
-        $("#Ingresos_Vs_Proyectados").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome()+"api/Reportes/Proyectado_Vs_Reales/";
         $http.post(url,scope.fdatos).then(function(result)
         {
-            $("#Ingresos_Vs_Proyectados").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if(result.data!=false)
             {
                 scope.excel_reales_vs_proyectado=true;
@@ -56,7 +54,6 @@
             }            
         },function(error)
         {
-            $("#Ingresos_Vs_Proyectados").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (error.status == 404 && error.statusText == "Not Found") {
                 Swal.fire({ title: "Error.", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
             }
