@@ -1423,6 +1423,47 @@ class Reportes_model extends CI_Model
 	        else  
 	        return false;      
     }
+    public function Contratos_Para_Rueda($Desde,$Hasta)
+    {
+        /*$this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
+            CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);*/
+        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,c.RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli           ,a.EstBajCon,CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro",false);
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
+        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro'); 
+        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','left');
+        $this->db->join('T_TarifaElectrica g','g.CodTarEle=c.CodTarEle','left');
+        $this->db->join('T_CUPsGas h','h.CodCupGas=c.CodCupsGas','left');
+        $this->db->join('T_TarifaGas i','i.CodTarGas=c.CodTarGas','left');
+        $this->db->join('T_Producto j','j.CodPro=c.CodPro');
+
+
+
+        $this->db->where('a.FecVenCon BETWEEN "'. $Desde. '" AND "'.$Hasta.'"');
+        $this->db->order_by('a.FecIniCon desc'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function validar_renovacion($CodCli,$CodConCom,$diasAnticipacion)
+    {
+        $FechaActual=date('Y-m-d');
+        $FecVenCon='FecVenCon';
+        $this->db->select('*',false);
+        $this->db->from('T_Contrato');       
+        $this->db->where('CodCli',$CodCli);
+        $this->db->where('CodConCom',$CodConCom);
+        $this->db->where('FecVenCon BETWEEN "'. $FechaActual. '" AND "'.$diasAnticipacion.'"');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
 
 
  

@@ -11,6 +11,8 @@ class Reportes extends REST_Controller
 		$this->load->database('default');
         $this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
+        $this->load->model('Propuesta_model');
+        $this->load->model('Contratos_model');
 		$this->load->model('Reportes_model');
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
@@ -1488,6 +1490,137 @@ class Reportes extends REST_Controller
 		$this->db->trans_complete();		
 		$this->response($objSalida);
 		exit;	
+    }
+
+    public function Fecha_Server_get()
+    {
+        $Desde=date("Y-m-d"); 
+        $FecDesde=explode("-", $Desde);         
+        $FecDesdeVol=$FecDesde[2]."/".$FecDesde[1]."/".$FecDesde[0];
+        $actual = strtotime($Desde);
+        $Hasta = date("Y-m-d", strtotime("+ 60 days", $actual));
+        $FecHasta=explode("-", $Hasta);         
+        $FecHastaVol=$FecHasta[2]."/".$FecHasta[1]."/".$FecHasta[0];
+        $arrayName = array('FecDesde' =>$FecDesdeVol ,'FecHasta' =>$FecHastaVol);               
+        $this->response($arrayName);
+    }
+    public function Generar_Rueda_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();
+        $ContratoComercial = $this->Reportes_model->Contratos_Para_Rueda($objSalida->FecDesde,$objSalida->FecHasta);
+        if(empty($ContratoComercial))
+        {
+            $this->db->trans_complete();
+            $this->response(false);
+            return false;
+        }
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','POST',null,$this->input->ip_address(),'Consultando Contratos Para Reporte Rueda.');
+        $this->db->trans_complete();
+        $this->response($ContratoComercial);
+    }
+    public function verificar_renovacion_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();               
+        $FechaServer=date('Y-m-d'); 
+        $diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days")); 
+        $VerificarRenovacion=$this->Reportes_model ->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$diasAnticipacion);
+        if(empty($VerificarRenovacion))
+        {
+            $arrayName = array('status' =>201 , 'message'=>'Esta intentando hacer una renovación anticipada y su contrato tiene una fecha de vencimiento para la fecha: '.$objSalida->FecVenCon.' lo que quiere decir que hara cambios en el documento si esta de acuerdo puede continuar.','statusText'=>'Renovación Anticipada' );
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }
+        else
+        {
+            $arrayName = array('status' =>200 , 'message'=>'Procesando Renovación de Contrato Comercial.','statusText'=>'OK' );
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }
+        $this->db->trans_complete();
+    }
+    public function RenovarContrato_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();
+        if($objSalida->SinMod==false && $objSalida->ConMod==false)
+        {
+            $arrayName = array('status' =>203,'menssage'=>'Debe indicar que tipo de renovación es el contrato.','statusText'=>'Error' );
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }
+        elseif($objSalida->SinMod==true && $objSalida->ConMod==false)
+        {
+            if(date($objSalida->FecIniCon)<date('Y-m-d'))
+            {
+                $arrayName = array('status' =>203 ,'menssage'=>'La Fecha de Inicio no puede ser menor a la fecha del servidor '.date('d/m/Y'),'statusText'=>'Error');
+                $this->response($arrayName);
+            }
+
+            $actual = strtotime($objSalida->FecIniCon);
+            $FecVenCon = date("Y-m-d", strtotime("+".$objSalida->DurCon." month", $actual));            
+            $ReferenciaContrato=$this->generar_RefProContrato();
+            $tabla="T_Contrato";
+            $where="CodConCom"; 
+            $select='ObsCon,DocConRut'; 
+            $ContratoComercial = $this->Propuesta_model->Funcion_Verificadora($objSalida->CodConCom,$tabla,$where,$select);
+            $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$objSalida->CodConCom,$this->input->ip_address(),'Consultando Propuesta Comercial En Contratos.');            
+            $CodConCom=$this->Contratos_model->agregar_contrato($objSalida->CodCli,$objSalida->CodProCom,date('Y-m-d'),false,false,false,$objSalida->FecIniCon,$objSalida->DurCon,$FecVenCon,$ReferenciaContrato,$ContratoComercial->ObsCon,$ContratoComercial->DocConRut);
+            $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','INSERT',$CodConCom,$this->input->ip_address(),'Generando Contrato Comercial.');            
+            $this->Contratos_model->update_status_contrato_old($objSalida->CodConCom,3);
+            $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato a Renovado.');
+            $arrayName = array('status' =>200 ,'menssage'=>'Contrato renovado de forma correcta','statusText'=>'OK');
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }
+        elseif($objSalida->SinMod==false && $objSalida->ConMod==true)
+        {           
+            $this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,0,1,1,4);
+            $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato Con modificaciones.');
+            $arrayName = array('status' =>200,'menssage'=>'Valla a Propuesta Comercial para solicitar la modificion del contrato.','statusText'=>'OK' );
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }
+        else
+        {
+            $arrayName = array('status' =>203,'menssage'=>'Error en Tipo de Renovación..','statusText'=>'Error' );
+            $this->db->trans_complete();
+            $this->response($arrayName);
+        }   
+    }
+    public function generar_RefProContrato()
+    {
+        $nCaracteresFaltantes = 0;
+        $numero_a = " ";
+        /*Ahora necesitamos el numero de la Referencia de la Propuesta*/
+        $queryIdentificador = $this->db->query("SELECT CodMov,DesMov,NrMov FROM T_Movimientos WHERE CodMov=2");
+        $rowIdentificador = $queryIdentificador->row();
+        //buscamos que longitud tiene el numero generado por la base de datos y completamos con ceros a la izquierda
+        $nCaracteresFaltantes = 12 - strlen($rowIdentificador->NrMov) ;
+        $numero_a = str_repeat('0',$nCaracteresFaltantes);
+        $numeroproximo = $rowIdentificador->NrMov + 1;
+        $nCaracteresFaltantesC = 12 - strlen($rowIdentificador->NrMov); //VERIFICAR CUANDO PASE DE 100
+        $numero_aC = str_repeat('0',$nCaracteresFaltantesC);
+        $numeroproximoC = $rowIdentificador->NrMov + 1;
+        $numeroC = $numero_aC . (string)$rowIdentificador->NrMov;
+        $this->db->query("UPDATE T_Movimientos SET NrMov=".$numeroproximo." WHERE CodMov=2");
+        return $numeroC;        
     }
  
 	

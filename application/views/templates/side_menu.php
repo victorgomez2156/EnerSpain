@@ -197,6 +197,7 @@
             </a>
             <ul class="sub">
               <li><a href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
+              <li><a href="#/Rueda">Rueda</a></li>
               <li><a href="#/Proyeccion_Ingresos">Proyección de Ingresos</a></li>
               <li><a href="#/Ingresos_Reales">Ingresos Reales </a></li>
               <li><a href="#/Ingresos_Vs_Proyectado">Ing. Reales Vs Proyectado</a></li>

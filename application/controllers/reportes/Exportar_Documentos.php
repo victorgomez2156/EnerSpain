@@ -5864,7 +5864,7 @@ class Exportar_Documentos extends CI_Controller
         exit;   
     }
 
-     public function Doc_PDF_Tarifa_Electrica()
+     public function Doc_PDF_Tárifa_Electrica()
     {
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
@@ -5876,19 +5876,19 @@ class Exportar_Documentos extends CI_Controller
         {
             $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas();
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas();
         }
         elseif ($tipo_filtro=="BAJA")
         {
             $nombre_filtro="Tipo de Tensión:";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',0);
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_filtradas('TipTen',0);
         }
         elseif ($tipo_filtro=="ALTA")
         {
             $nombre_filtro="Tipo de Tensión:";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',1);
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_filtradas('TipTen',1);
         }
         elseif($tipo_filtro==2)
         {
@@ -5904,9 +5904,9 @@ class Exportar_Documentos extends CI_Controller
         }       
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Tarifas Eléctricas PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Lista de Tárifas Eléctricas PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
-        $pdf->SetSubject('Doc_PDF_Tarifa_Eléctrica');
+        $pdf->SetSubject('Doc_PDF_Tárifa_Eléctrica');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -5922,7 +5922,7 @@ class Exportar_Documentos extends CI_Controller
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
             <tr>
-                <td border="0" align="left" colspan="3"><h4>LISTADO DE TARIFAS ELÉCTRICAS</h4></td>
+                <td border="0" align="left" colspan="3"><h4>LISTADO DE TárifaS ELÉCTRICAS</h4></td>
                 
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
             </tr>
@@ -5969,12 +5969,12 @@ class Exportar_Documentos extends CI_Controller
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidoras','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF TARIFA ELÉCTRICAS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidoras','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF Tárifa ELÉCTRICAS FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
-        $pdf->Output('Doc_PDF_Tarifa_Eléctrica'.'.pdf', 'I');
+        $pdf->Output('Doc_PDF_Tárifa_Eléctrica'.'.pdf', 'I');
     }
-    public function Doc_Excel_Tarifa_Electrica()
+    public function Doc_Excel_Tárifa_Electrica()
     {       
        $tipo_filtro = urldecode($this->uri->segment(4));
         
@@ -5988,20 +5988,20 @@ class Exportar_Documentos extends CI_Controller
         {
             $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas();
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas();
 
         }
         elseif ($tipo_filtro=="BAJA")
         {
             $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',0);
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_filtradas('TipTen',0);
         }
         elseif ($tipo_filtro=="ALTA")
         {
             $nombre_filtro="Tipo de Tensión";
             $Tipo_Cliente=$tipo_filtro;
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_filtradas('TipTen',1);
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_filtradas('TipTen',1);
         }
         elseif($tipo_filtro==2)
         {
@@ -6194,11 +6194,11 @@ class Exportar_Documentos extends CI_Controller
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TIPO DE TENSIÓN FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaElectrica','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TIPO DE TENSIÓN FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }
-    public function Doc_PDF_Tarifa_Gas()
+    public function Doc_PDF_Tárifa_Gas()
     {
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
@@ -6208,9 +6208,9 @@ class Exportar_Documentos extends CI_Controller
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TARIFA GAS";
+            $nombre_filtro="Tárifa GAS";
             $Tipo_Cliente="TODAS";
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_gas();
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_gas();
         }
         elseif($tipo_filtro==1)
         {
@@ -6225,9 +6225,9 @@ class Exportar_Documentos extends CI_Controller
         }  
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Lista de Tarifas Gas PDF '.date('d/m/Y'));
+        $pdf->SetTitle('Lista de Tárifas Gas PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
-        $pdf->SetSubject('Doc_PDF_Tarifa_Gas');
+        $pdf->SetSubject('Doc_PDF_Tárifa_Gas');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -6243,7 +6243,7 @@ class Exportar_Documentos extends CI_Controller
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
             <tr>
-                <td border="0" align="left" colspan="3"><h4>LISTADO DE TARIFAS GAS</h4></td>
+                <td border="0" align="left" colspan="3"><h4>LISTADO DE TárifaS GAS</h4></td>
                 
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
             </tr>
@@ -6258,7 +6258,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">';
         $html.='
         <tr bgcolor="#636161">
-            <td style="color:white;">NOMBRE TARIFA</td>
+            <td style="color:white;">NOMBRE Tárifa</td>
             <td style="color:white;">CONSUMO MÍNIMO</td>
             <td style="color:white;">CONSUMO MÁXIMO</td>
         </tr>';
@@ -6278,16 +6278,16 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos con la tarifa de gas.</b></td>              
+                <td align="center" colspan="9"><b>Actualmente no hemos encontrados datos con la Tárifa de gas.</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF TARIFA GAS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF Tárifa GAS FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
-        $pdf->Output('Doc_PDF_Tarifa_Gas'.'.pdf', 'I');
+        $pdf->Output('Doc_PDF_Tárifa_Gas'.'.pdf', 'I');
     }
-    public function Doc_Excel_Tarifa_Gas()
+    public function Doc_Excel_Tárifa_Gas()
     {       
         $tipo_filtro = urldecode($this->uri->segment(4));        
         if($tipo_filtro==null)
@@ -6297,9 +6297,9 @@ class Exportar_Documentos extends CI_Controller
         }
         if($tipo_filtro==0)
         {
-            $nombre_filtro="TARIFA GAS";
+            $nombre_filtro="Tárifa GAS";
             $Tipo_Cliente="TODAS";
-            $Resultado=$this->Reportes_model->get_data_all_tarifas_gas();
+            $Resultado=$this->Reportes_model->get_data_all_Tárifas_gas();
         } 
         elseif($tipo_filtro==1)
         {
@@ -6317,10 +6317,10 @@ class Exportar_Documentos extends CI_Controller
         PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
         $datausuario=$this->session->all_userdata();    
         $fecha= date('Y-m-d_H:i:s');        
-        $nombre_reporte='Doc_Excel_Tarifa_Gas_'.$fecha.".xls";
+        $nombre_reporte='Doc_Excel_Tárifa_Gas_'.$fecha.".xls";
         $objPHPExcel = new PHPExcel(); //nueva instancia         
         $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
-        $objPHPExcel->getProperties()->setTitle("Doc Excel Tarifa Gas"); //titulo 
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Tárifa Gas"); //titulo 
         $titulo = new PHPExcel_Style(); //nuevo estilo
         $titulo2 = new PHPExcel_Style(); //nuevo estilo
         $titulo3 = new PHPExcel_Style(); //nuevo estilo
@@ -6417,7 +6417,7 @@ class Exportar_Documentos extends CI_Controller
         //fin estilos        
         $objPHPExcel->createSheet(0);
         $objPHPExcel->setActiveSheetIndex(0);
-        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Tarifa Gas"); 
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Tárifa Gas"); 
         $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
@@ -6438,10 +6438,10 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE TARIFA GAS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE Tárifa GAS");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "NOMBRE TARIFA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "NOMBRE Tárifa");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CONSUMO MÍNIMO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
@@ -6477,7 +6477,7 @@ class Exportar_Documentos extends CI_Controller
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TARIFA GAS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL Tárifa GAS FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }
@@ -6617,7 +6617,7 @@ class Exportar_Documentos extends CI_Controller
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Doc_PDF_Colaboradores'.'.pdf', 'I');
@@ -10425,46 +10425,46 @@ class Exportar_Documentos extends CI_Controller
             $CodPunSum = urldecode($this->uri->segment(7));
              if($TipServ=="Gas")
             {
-                $nombre_filtro="TARIFA GAS: ";                
-                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaGas','NomTarGas',$NomTar);
-                if($Tarifa)
+                $nombre_filtro="Tárifa GAS: ";                
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaGas','NomTarGas',$NomTar);
+                if($Tárifa)
                 {
                     //,b.NomTarGas,case a.EstCUPs when 1 'ACTIVO' WHEN 2 THEN 'DADO DE BAJA' end as EstCUPs
                     $Select="a.CupsGas,case a.TipServ when 2 then 'Gas' end as TipServ, b.NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsGas a';                    
-                    $Join="T_TarifaGas b";
+                    $Join="T_TárifaGas b";
                     $ON="a.CodTarGas=b.CodTarGas";
                     $Order_BY="a.CupsGas ASC";
                     $Where='a.CodTarGas';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tarifa->NomTarGas;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarGas,$Order_BY);
+                    $Tipo_Cliente=$Tárifa->NomTarGas;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tárifa->CodTarGas,$Order_BY);
                 }
                 else
                 {
-                    echo "Error la tarifa no puede ser encontrada verifique he intente nuevamente.";
+                    echo "Error la Tárifa no puede ser encontrada verifique he intente nuevamente.";
                     return false;
                 }
             }
             elseif($TipServ=="Electrico")
             {
-                $nombre_filtro="TARIFA ELÉCTRICA: ";                
-                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaElectrica','NomTarEle',$NomTar);
-                if($Tarifa!=false)
+                $nombre_filtro="Tárifa ELÉCTRICA: ";                
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
+                if($Tárifa!=false)
                 {
                     $Select="a.CUPsEle as CupsGas,case a.TipServ when 1 then 'Eléctrico' end as TipServ, b.NomTarEle as NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsElectrico a';                    
-                    $Join="T_TarifaElectrica b";
+                    $Join="T_TárifaElectrica b";
                     $ON="a.CodTarElec=b.CodTarEle";
                     $Order_BY="a.CUPsEle ASC";
                     $Where='a.CodTarElec';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tarifa->NomTarEle;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarEle,$Order_BY);
+                    $Tipo_Cliente=$Tárifa->NomTarEle;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tárifa->CodTarEle,$Order_BY);
                 }
                 else
                 {
-                    echo "No existen Tarifas registradas";
+                    echo "No existen Tárifas registradas";
                     return false;
                 }               
             }
@@ -10532,7 +10532,7 @@ class Exportar_Documentos extends CI_Controller
         <tr bgcolor="#636161">
             <td style="color:white;">CUPS</td>
             <td style="color:white;">TIPO SUMINISTRO</td>
-            <td style="color:white;">TARIFA</td>
+            <td style="color:white;">Tárifa</td>
             <td style="color:white;">ESTATUS</td>
         </tr>';
         if($Resultado!=false)
@@ -10611,46 +10611,46 @@ class Exportar_Documentos extends CI_Controller
             $CodPunSum = urldecode($this->uri->segment(7));
              if($TipServ=="Gas")
             {
-                $nombre_filtro="TARIFA GAS: ";                
-                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaGas','NomTarGas',$NomTar);
-                if($Tarifa)
+                $nombre_filtro="Tárifa GAS: ";                
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaGas','NomTarGas',$NomTar);
+                if($Tárifa)
                 {
                     //,b.NomTarGas,case a.EstCUPs when 1 'ACTIVO' WHEN 2 THEN 'DADO DE BAJA' end as EstCUPs
                     $Select="a.CupsGas,case a.TipServ when 2 then 'Gas' end as TipServ, b.NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsGas a';                    
-                    $Join="T_TarifaGas b";
+                    $Join="T_TárifaGas b";
                     $ON="a.CodTarGas=b.CodTarGas";
                     $Order_BY="a.CupsGas ASC";
                     $Where='a.CodTarGas';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tarifa->NomTarGas;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tarifa->CodTarGas,$Order_BY);
+                    $Tipo_Cliente=$Tárifa->NomTarGas;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tárifa->CodTarGas,$Order_BY);
                 }
                 else
                 {
-                    echo "Error la tarifa no puede ser encontrada verifique he intente nuevamente.";
+                    echo "Error la Tárifa no puede ser encontrada verifique he intente nuevamente.";
                     return false;
                 }
             }
             elseif($TipServ=="Electrico")
             {
-                $nombre_filtro="TARIFA ELÉCTRICA: ";                
-                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaElectrica','NomTarEle',$NomTar);
-                if($Tarifa!=false)
+                $nombre_filtro="Tárifa ELÉCTRICA: ";                
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
+                if($Tárifa!=false)
                 {
                     $Select="a.CUPsEle as CupsGas,case a.TipServ when 1 then 'Eléctrico' end as TipServ, b.NomTarEle as NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsElectrico a';                    
-                    $Join="T_TarifaElectrica b";
+                    $Join="T_TárifaElectrica b";
                     $ON="a.CodTarElec=b.CodTarEle";
                     $Order_BY="a.CUPsEle ASC";
                     $Where='a.CodTarElec';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tarifa->NomTarEle;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tarifa->CodTarEle,$Order_BY);
+                    $Tipo_Cliente=$Tárifa->NomTarEle;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$AND,$CodPunSum,$Tárifa->CodTarEle,$Order_BY);
                 }
                 else
                 {
-                    echo "No existen Tarifas registradas";
+                    echo "No existen Tárifas registradas";
                     return false;
                 }               
             }            
@@ -10814,7 +10814,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO SUMINISTRO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "TARIFA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Tárifa");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $objPHPExcel->getActiveSheet()->SetCellValue("D9", "ESTATUS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
@@ -11234,7 +11234,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CupsGas as CUPs,b.NomTarGas as NomTar,b.CodTarGas as CodTar";
             $Tabla2="T_CUPsGas a";
-            $Join3="T_TarifaGas b";
+            $Join3="T_TárifaGas b";
             $JoinWhere="a.CodTarGas=b.CodTarGas";
             $Where="a.CodCupGas";              
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11253,7 +11253,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar";
             $Tabla2="T_CUPsElectrico a";
-            $Join3="T_TarifaElectrica b";
+            $Join3="T_TárifaElectrica b";
             $JoinWhere="a.CodTarElec=b.CodTarEle";
             $Where="a.CodCupsEle";            
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11292,7 +11292,7 @@ class Exportar_Documentos extends CI_Controller
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
             </tr>
             <tr>
-                <td border="0" align="left" colspan="3"><b>CUPs:</b> '.$CUPs.' <b>Tarifa:</b> '.$NomTar.'</td>
+                <td border="0" align="left" colspan="3"><b>CUPs:</b> '.$CUPs.' <b>Tárifa:</b> '.$NomTar.'</td>
                 <td border="0" >HORA: '.date('G:i:s').'</td>
             </tr>'
             ;           
@@ -11406,7 +11406,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CupsGas as CUPs,b.NomTarGas as NomTar,b.CodTarGas as CodTar";
             $Tabla2="T_CUPsGas a";
-            $Join3="T_TarifaGas b";
+            $Join3="T_TárifaGas b";
             $JoinWhere="a.CodTarGas=b.CodTarGas";
             $Where="a.CodCupGas";              
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11425,7 +11425,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar";
             $Tabla2="T_CUPsElectrico a";
-            $Join3="T_TarifaElectrica b";
+            $Join3="T_TárifaElectrica b";
             $JoinWhere="a.CodTarElec=b.CodTarEle";
             $Where="a.CodCupsEle";            
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11747,7 +11747,7 @@ class Exportar_Documentos extends CI_Controller
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Doc_PDF_Clientes_x_Colaboradores'.'.pdf', 'I');
@@ -12022,7 +12022,7 @@ class Exportar_Documentos extends CI_Controller
                             </tr>
 
                             <tr>
-                            <td class="borde"><h3>Tarifa</h3> '.$PropuestaComercial->NomTarEle.'</td>                            
+                            <td class="borde"><h3>Tárifa</h3> '.$PropuestaComercial->NomTarEle.'</td>                            
                             
                             <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
                                 <table class="borde">
@@ -12088,7 +12088,7 @@ class Exportar_Documentos extends CI_Controller
                             </tr>
                             
                             <tr>
-                            <td class="borde"><h3>Tarifa</h3> '.$PropuestaComercial->NomTarGas.'</td> 
+                            <td class="borde"><h3>Tárifa</h3> '.$PropuestaComercial->NomTarGas.'</td> 
 
                             <td class="borde"><h3>Consumo</h3> '.$PropuestaComercial->Consumo.'</td>
 
@@ -14068,6 +14068,330 @@ class Exportar_Documentos extends CI_Controller
         echo '<b>Sistema Operativo:</b> '. $os.' Con el <b>Navegador:</b> '.$agent.' <b>Versión:</b> '.$version;
         echo '<br>';
         
+    }
+    public function Doc_Reporte_Rueda_PDF()
+    {        
+        $NombreFiltro="Contratos Para Renovaciones";
+        $Tipo_Cliente="";
+        $FecDesdeDia = urldecode($this->uri->segment(4));
+        $FecDesdeMes = urldecode($this->uri->segment(5));
+        $FecDesdeAno = urldecode($this->uri->segment(6));
+
+        $FecHastaDia = urldecode($this->uri->segment(7));
+        $FecHastaMes = urldecode($this->uri->segment(8));
+        $FecHastaAno = urldecode($this->uri->segment(9));
+        $pdf = new TCPDF ('L','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('PDF Rueda Desde: '.$FecDesdeDia.'-'.$FecDesdeMes.'-'.$FecDesdeAno.' Hasta: '.$FecHastaDia.'-'.$FecHastaMes.'-'.$FecHastaAno);
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('PDF Rueda Desde: '.$FecDesdeDia.'-'.$FecDesdeMes.'-'.$FecDesdeAno.' Hasta: '.$FecHastaDia.'-'.$FecHastaMes.'-'.$FecHastaAno);
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE CONTRATOS PARA RENOVACIONES</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left" colspan="3">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">Fecha fin</td> 
+            <td style="color:white;">Propuesta</td>
+            <td style="color:white;">Nº Cliente</td>
+            <td style="color:white;">NombreCI</td>
+            <td style="color:white;">Comer.Act</td>
+            <td style="color:white;">CUPS Eléctrico</td>
+            <td style="color:white;">Tárifa Eléctrica</td>
+            <td style="color:white;">Consumo Eléctrico</td>
+
+            <td style="color:white;">CUPS Gas</td>
+            <td style="color:white;">Tárifa Gas</td>
+            <td style="color:white;">Consumo Gas</td>
+            <td style="color:white;">Producto</td>
+            <td style="color:white;">COMISIÓN</td>
+            <td style="color:white;">Estatus</td>
+        </tr>';
+        $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
+        $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
+        $Resultado_Renovacion_Contratos=$this->Reportes_model->Contratos_Para_Rueda($Desde,$Hasta);
+        if($Resultado_Renovacion_Contratos!=false)
+        {
+            foreach ($Resultado_Renovacion_Contratos as $record): 
+            {
+                if($record->EstBajCon==0)
+                {$EstBajCon='Activo';}elseif ($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
+                $html.='<tr>
+                        <td>'.$record->FecVenCon.'</td>
+                        <td>'.$record->RefProCom.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->RazSocCli.' '.$record->NumCifCli.'</td>
+                        <td>'.$record->CodCom.'</td>
+                        <td>'.$record->CUPsEle.'</td>
+                        <td>'.$record->NomTarEle.'</td>
+                        <td>0.00</td>
+                        <td>'.$record->CupsGas.'</td>
+                        <td>'.$record->NomTarGas.'</td> 
+                        <td>'.$record->Consumo.'</td>
+                        <td>'.$record->DesPro.'</td>
+                        <td></td> 
+                        <td>'.$EstBajCon.'</td>                      
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="14"><b>Actualmente no hemos encontrado contratos para renovaciones en este periodo de fecha.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'Generando Reporte PDF Rueda');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Reporte Rueda'.'.pdf', 'I');
+    }
+    public function Doc_Reporte_Rueda_Excel()
+    {       
+          
+        $NombreFiltro="Contratos Para Renovaciones";
+        $Tipo_Cliente="";
+        $FecDesdeDia = urldecode($this->uri->segment(4));
+        $FecDesdeMes = urldecode($this->uri->segment(5));
+        $FecDesdeAno = urldecode($this->uri->segment(6));
+        $FecHastaDia = urldecode($this->uri->segment(7));
+        $FecHastaMes = urldecode($this->uri->segment(8));
+        $FecHastaAno = urldecode($this->uri->segment(9));
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc_Excel_Contratos_Rueda_'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Contratos Rueda"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Contratos Rueda"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTRATOS RUEDA");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Fecha fin");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Propuesta");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Nº Cliente");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "NombreCI");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Comer.Act");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CUPS Eléctrico");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tárifa Eléctrica");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo Eléctrico");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "CUPS Gas");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Tárifa Gas");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Consumo Gas");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "Producto");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("M9", "Comisión");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("N9", "Estatus");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "N9");
+        $fila=9;
+        $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
+        $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
+        $Resultado_Renovacion_Contratos=$this->Reportes_model->Contratos_Para_Rueda($Desde,$Hasta);
+        if($Resultado_Renovacion_Contratos!=false)
+        {
+            for($i=0; $i<count($Resultado_Renovacion_Contratos); $i++) 
+            {
+                if($Resultado_Renovacion_Contratos[$i]->EstBajCon==0)
+                {$EstBajConNom='Activo';}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==2){$EstBajConNom="Vencido";}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Renovacion_Contratos[$i]->FecVenCon);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Renovacion_Contratos[$i]->RefProCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]->CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]->RazSocCli.' - '.
+$Resultado_Renovacion_Contratos[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]->CodCom);               
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]->CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]->NomTarEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", '0.00');
+                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]->CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]->NomTarGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]->Consumo);
+                $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Renovacion_Contratos[$i]->DesPro);
+                $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", 'N/A');
+
+
+                $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $EstBajConNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:N$fila"); 
+                /*
+                
+                
+                
+                
+                */ 
+            }   
+        }
+        
+        foreach (range('A', 'E') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL CONTRATOS RUEDA');
+        $objWriter->save('php://output');
+        exit;   
     }
 
 }?>

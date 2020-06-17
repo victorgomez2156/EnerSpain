@@ -600,7 +600,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.validar_opcion_contratos = function(index, opcion_select, dato) {
         //console.log('index: '+index);
-        //console.log('opcion: '+opcion_select);
+        console.log('opcion: '+opcion_select);
         //console.log(dato);
         scope.opcion_select[index] = undefined;
         if (opcion_select == 1) {
@@ -700,26 +700,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             console.log(dia+"/"+mes+"/"+ano);
                             scope.FecIniCon= dia+"/"+mes+"/"+ano;
                             $('.FecIniCon').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCon);     
-                
-
                             $("#Tipo_Renovacion").modal('show');
-
                             return false;
                         }
-
-                        /*if (result.data.status == 203 && result.data.statusText == "Error") {
-                            Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
-                            scope.tmodal_data = {};
-                            $("#Tipo_Renovacion").modal('hide');
-                            return false;
-                        }
-                        if (result.data.status == 200 && result.data.statusText == "OK") {
-                            Swal.fire({ title: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
-                            $("#Tipo_Renovacion").modal('show');
-
-                            return false;
-                        }*/
-
                     } else {
                         Swal.fire({ title: "Error General", text: "Error en el proceso intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
                     }
