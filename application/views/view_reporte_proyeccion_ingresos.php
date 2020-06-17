@@ -93,8 +93,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!--option ng-repeat="dato in vm.List_Ano" value="{{dato.ano}}">{{dato.ano}}</option-->
           <?php   
             $fsis = date("Y m d h i a");
-            list($sano, $smes, $sdia, $shora, $smin, $sap ) = explode(" ", $fsis);
-            for($i=2018; $i <=date('Y'); $i++)   
+            list($sano, $smes, $sdia, $shora, $smin, $sap ) = explode(" ", $fsis);            
+            $actual = strtotime($sano);
+            $Hasta = date("Y", strtotime("+ 10 year", $actual)); 
+            for($i=2020; $i <=$Hasta; $i++)   
             {
               echo "<option value=".$i." ng-model='vm.fdatos.ano' name='ano' id='ano'>".$i."</option>";
             }          
