@@ -108,12 +108,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
 
     }
-
     scope.agregar_cups = function() {
         location.href = "#/Add_Cups";
         scope.fdatos_cups_cups.TipServ = 0;
     }
-
     scope.validar_opcion_cups = function(index, opciones_cups, dato) {
         console.log(index);
         console.log(opciones_cups);
@@ -646,7 +644,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         });
     };
-    scope.validar_campos_cups = function() {
+    scope.validar_campos_cups = function()
+    {
         resultado = true;
         if (!scope.fdatos_cups.CodCli > 0) {
             Swal.fire({ title: "Debe seleccionar un Cliente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -928,11 +927,56 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_cups.FecUltLec = final_UltFec;
             }
         }
+        var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1+""+scope.fdatos_cups.cups2;
+        if (!scope.valida_cups(CUPS)) {
+            return false;
+        }
+
         if (resultado == false) {
             return false;
         }
         return true;
     }
+
+    //
+
+    Math.fmod = function (a,b) { return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); };
+    scope.valida_cups=function(CUPS)
+    { 
+        
+        console.log(CUPS);
+        var status=false;
+        var RegExPattern =/^ES[0-9]{16}[a-zA-Z]{2}[0-9]{0,1}[a-zA-Z]{0,1}$/;
+        if ((CUPS.match(RegExPattern)) && (CUPS!='')) {
+            var CUPS_16 = CUPS.substr(2,16);
+            var control = CUPS.substr(18,2);
+            var letters = Array('T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E');
+
+            var fmodv = Math.fmod(CUPS_16,529);
+            var imod = parseInt(fmodv);
+            var quotient = Math.floor(imod / 23);
+            var remainder = imod % 23;            
+            var dc1 = letters[quotient];
+            var dc2 = letters[remainder];
+            status = (control == dc1+dc2);
+        } else {
+            status=false;
+        }
+        if(!status){
+           //alert("ERROR: Código CUPS incorrecto");
+            Swal.fire({title:"Error CUPS", text: "Este CUPS es incorrecto por favor intente con otro", type: "error", confirmButtonColor: "#188ae2" });
+            $('#CUPSES').val("");
+            $('#CUPSNUM').val("");
+            $('#CUPSNUM2').val("");
+            $('#CUPSES').focus();
+            $('#CUPSNUM').focus();
+            $('#CUPSNUM2').focus();
+        }
+        console.log(status);
+        return status;  
+    }
+
+
     $scope.SubmitFormFiltrosCUPs = function(event) {
         console.log(scope.tmodal_filtro);
         if (scope.tmodal_filtro.tipo_filtro == 1) {
@@ -1367,6 +1411,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
     }
+
+
+
     if (scope.CodCups != undefined) {
         //scope.search_PunSum();
         scope.BuscarxIDCups();
