@@ -166,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico</label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Eléctrico</label>
              <select class="form-control" id="CodCupSEle" name="CodCupSEle" required ng-model="vm.fdatos.CodCupSEle" ng-change="vm.CUPsFilter(1,vm.fdatos.CodCupSEle)" ng-disabled="vm.fdatos.CodPunSum==undefined|| vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
                 <option ng-repeat="dato_act in vm.List_CUPsEle" value="{{dato_act.CodCupsEle}}">{{dato_act.CUPsEle}}</option>
         </select>     
@@ -468,7 +468,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Gas </label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Gas </label>
              <select class="form-control" id="CodCupGas" name="CodCupGas" required ng-model="vm.fdatos.CodCupGas" ng-change="vm.CUPsFilter(2,vm.fdatos.CodCupGas)" ng-disabled="vm.fdatos.CodPunSum==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
                 <option ng-repeat="dato_act in vm.List_CUPs_Gas" value="{{dato_act.CodCupGas}}">{{dato_act.CupsGas}}</option>
               </select>     

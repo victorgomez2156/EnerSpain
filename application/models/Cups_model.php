@@ -123,6 +123,27 @@ class Cups_model extends CI_Model
     { 
         return $this->db->delete($Tabla_Delete, array($where => $CodCup));
     }
+    public function get_data_Cups2($Select,$Tabla,$Where,$CodCup,$TipServ) 
+    {
+        $this->db->select($Select,FALSE);
+        $this->db->from($Tabla);
+        //$this->db->join("T_PuntoSuministro b",'b.CodPunSum=a.CodPunSum');
+        //$this->db->join("T_Cliente c",'c.CodCli=b.CodCli');    
+        if($TipServ==1)
+        {
+            $this->db->join("T_TarifaElectrica d",'d.CodTarEle=a.CodTarEle');
+        }
+        $this->db->where($Where,$CodCup);              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
      public function get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ) 
     {
         $this->db->select($Select,FALSE);

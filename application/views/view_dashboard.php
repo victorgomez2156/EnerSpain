@@ -421,13 +421,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!--- PARA LOS CUPS ELECTRICOS START -->
           <div ng-show="vm.response_customer.CUPs_Electrico.length==0 || vm.response_customer.CUPs_Electrico==false">      
-            <div align="center"><label style="color:black;">No hay CUPs Eléctricos registrados para el Cliente seleccionado</label></div>
+            <div align="center"><label style="color:black;">No hay CUPS Eléctricos registrados para el Cliente seleccionado</label></div>
           </div>
           <div class="row" ng-repeat="dato in vm.response_customer.CUPs_Electrico">
           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Eléctrico</label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPS Eléctrico</label>
              <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Electrico[$index].CUPsEle" placeholder="CUP Eléctrico" readonly id="CUPsEle_{{$index}}" name="CUPsEle_{{$index}}" ng-click="vm.copyTextArray(5,$index)"/>     
              </div>
              </div>
@@ -509,13 +509,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!--- PARA LOS CUPS GAS START -->
           <div ng-show="vm.response_customer.CUPs_Gas.length==0 || vm.response_customer.CUPs_Gas==false">      
-            <div align="center"><label style="color:black;">No hay CUPs Gas registrados para el Cliente seleccionado</label></div>
+            <div align="center"><label style="color:black;">No hay CUPS Gas registrados para el Cliente seleccionado</label></div>
           </div>
           <div class="row" ng-repeat="dato in vm.response_customer.CUPs_Gas">
           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Gas </label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPS Gas </label>
              <input type="text" class="form-control" ng-model="vm.response_customer.CUPs_Gas[$index].CupsGas" placeholder="CUP Gas" readonly id="CUPs_Gas_{{$index}}" name="CUPs_Gas_{{$index}}" ng-click="vm.copyTextArray(14,$index)"/>     
              </div>
              </div>

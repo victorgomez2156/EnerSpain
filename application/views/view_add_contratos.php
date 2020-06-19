@@ -424,7 +424,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUP Gas </label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Gas </label>
              <input type="text"  class="form-control" ng-model="vm.CodCupGas" placeholder="CUP Gas" readonly="readonly"/>    
              </div>
              </div>

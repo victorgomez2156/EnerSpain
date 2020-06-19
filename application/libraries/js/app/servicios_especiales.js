@@ -127,7 +127,11 @@
              index3 = scope.TServicioEspeciales.indexOf(value3);
              return (begin3 <= index3 && index3 < end3);
          };
-
+         if(scope.TServicioEspeciales==false || scope.TServicioEspeciales==undefined)
+         {
+            scope.TServicioEspeciales=[];
+         }
+         console.log(scope.TServicioEspeciales);
          angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica) {
              if (Tarifa_Electrica.TipTen == 'BAJA') {
                  var ObjTarifaElecBaj = new Object();
@@ -135,14 +139,14 @@
                      scope.Tarifa_Elec_Baja = [];
                  }
                  scope.Tarifa_Elec_Baja.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
-                 console.log(scope.Tarifa_Elec_Baja);
+                //console.log(scope.Tarifa_Elec_Baja);
              } else {
                  var ObjTarifaElecAlt = new Object();
                  if (scope.Tarifa_Elec_Alt == undefined || scope.Tarifa_Elec_Alt == false) {
                      scope.Tarifa_Elec_Alt = [];
                  }
                  scope.Tarifa_Elec_Alt.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
-                 console.log(scope.Tarifa_Elec_Alt);
+                //console.log(scope.Tarifa_Elec_Alt);
              }
          });
      }).catch(function(error) {

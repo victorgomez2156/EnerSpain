@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="#tabs-5">COMERCIALIZADORA</a>
       </li>    
       <li>
-        <a href="#tabs-6">CUP</a>
+        <a href="#tabs-6">CUPS</a>
       </li>
     </ul>
 

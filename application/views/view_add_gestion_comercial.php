@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-4">
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">CUP</label>
+         <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
           <select class="form-control" id="CodCups" name="CodCups" required ng-model="vm.fdatos.CodCups" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.filter_Cups(vm.fdatos.CodCups)"> 
         <option ng-repeat="dato_act in vm.ListCUPs" value="{{dato_act.CodCups}}">{{dato_act.CUPsNom}}</option>
         </select>

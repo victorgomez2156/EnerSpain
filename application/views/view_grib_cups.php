@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                     <th ng-show="vm.Cif==true">CIF</th>
                     <th ng-show="vm.RazSoc==true">Razón Social</th>
-                    <th ng-show="vm.Cups==true">CUP</th>
+                    <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>
                     <th ng-show="vm.Cups_Tar==true">Tarifa</th> 
                     <th ng-show="vm.Dir_Cups==true">Drección</th> 
@@ -184,7 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>
                    <th ng-show="vm.Cif==true">CIF</th>
                     <th ng-show="vm.RazSoc==true">Razón Social</th>
-                    <th ng-show="vm.Cups==true">CUP</th>
+                    <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>
                     <th ng-show="vm.Cups_Tar==true">Tarifa</th> 
                     <th ng-show="vm.Dir_Cups==true">Dirección</th> 

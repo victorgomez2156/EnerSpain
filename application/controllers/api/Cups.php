@@ -490,19 +490,18 @@ public function get_Historicos_Consumos_CUPs_get()
 	$this->db->trans_complete();
 	$this->response($objSalida);
 }
-public function buscar_datos_electrico_get()
+	public function buscar_datos_electrico_get()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
-		}        
-       	 	
-       	 	$CodConCup=$this->get('CodConCup');
-       	 	$Select="PotCon1,PotCon2,PotCon3,PotCon4,PotCon5,PotCon6";
-       	 	$Tabla="T_HistorialCUPsElectrico";
-       	 	$Where="CodConCupEle";
-       	 	$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodConCup);        	 	      	 	
+		}
+			$CodConCup=$this->get('CodConCup');
+       	 	$Select="a.PotCon1,a.PotCon2,a.PotCon3,a.PotCon4,a.PotCon5,a.PotCon6";
+       	 	$Tabla="T_HistorialCUPsElectrico a";
+       	 	$Where="a.CodConCupEle";
+       	 	$Result = $this->Cups_model->get_data_Cups2($Select,$Tabla,$Where,$CodConCup,1);        	 	      	 	
 	        $this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'GET',$CodConCup,$this->input->ip_address(),'Cargando Cups Por ID Eléctrico');
 			if (empty($Result)){
 				$this->response(false);
@@ -511,7 +510,7 @@ public function buscar_datos_electrico_get()
 			$this->response($Result);		
     }
      public function Dar_Baja_Consumo_Cups_post()
-{
+	{
 	$datausuario=$this->session->all_userdata();	
 	if (!isset($datausuario['sesion_clientes']))
 	{

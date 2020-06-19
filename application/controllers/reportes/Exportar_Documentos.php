@@ -11672,8 +11672,17 @@ class Exportar_Documentos extends CI_Controller
     {
         
         $CodCol = urldecode($this->uri->segment(4));   
+        if($CodCol==null)
+        {
+           echo "Debe introducir un nùmero de CIF/NIE/DNI Correcto.";
+            return false; 
+        }
         $Resultado=$this->Reportes_model->get_clientes_x_colaborador($CodCol);
-          
+        /*if(empty($Resultado))
+        {
+            echo "No se encontraon datos intente nuevamente.";
+            return false;
+        }*/
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Lista de Colaboradores PDF '.date('d/m/Y'));
@@ -11690,6 +11699,9 @@ class Exportar_Documentos extends CI_Controller
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('times', ' ', 10, ' ', true);
         $pdf->AddPage();        
+        if($Resultado!=false)
+        { $NomCol=$Resultado[0]->NomCol;}else{$NomCol="";}   
+        
         $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
@@ -11700,7 +11712,7 @@ class Exportar_Documentos extends CI_Controller
             </tr>
             <tr>
                 <td border="0" align="left">Colaborador Consultado:</td>
-                <td border="0" colspan="2">'.$Resultado[0]->NomCol.'</td>
+                <td border="0" colspan="2">'.$NomCol.'</td>
                 
                 <td border="0" >HORA: '.date('G:i:s').'</td>
             </tr>'
@@ -11719,10 +11731,8 @@ class Exportar_Documentos extends CI_Controller
         </tr>';
         if($Resultado!=false)
         {
-
             foreach ($Resultado as $record): 
             {
-                //VAR_DUMP($record->NomViaDomFis);
                 $CONCATENADA = $record->NomViaDomFis+ ' '+$record->NumViaDomFis+' '+$record->BloDomFis+' '
                 +$record->EscDomFis+' '+$record->PlaDomFis+' '+$record->PueDomFis+' '+$record->DesLocFis;
                 
@@ -11736,16 +11746,16 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->EmaCli.'</td>
                         <td>'.$record->TelFijCli.'</td>
                     </tr>';     
-                }
-                endforeach;
             }
-            else
-            {
-                $html.='
-                <tr>
-                <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
-                </tr>'; 
-            }   
+            endforeach;
+        }
+        else
+        {
+            $html.='
+            <tr>
+            <td align="center" colspan="9"><b>No existen datos registrados</b></td>              
+            </tr>'; 
+        }   
         $html .= '</table>' ;
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);

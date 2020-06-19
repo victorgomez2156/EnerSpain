@@ -97,9 +97,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup==undefined"></i>Registrar CUP</h3>
-            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info!=undefined"></i>Consultando CUP</h3>
-            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info==undefined"></i>Modificando CUP</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup==undefined"></i>Registrar CUPs</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info!=undefined"></i>Consultando CUPs</h3>
+            <h3 class="page-header" ng-show="vm.fdatos_cups.CodCup>0&&vm.validate_info==undefined"></i>Modificando CUPs</h3>
 
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-2">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">CUPS <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">CUPs <b style="color:red;">(*)</b></label>
        <input type="text" class="form-control" name="CUPSES" id="CUPSES" ng-model="vm.fdatos_cups.cups" onkeyup="this.value=this.value.toUpperCase();" placeholder="* ES" maxlength="2" ng-disabled=" vm.validate_info!=undefined"/>
        </div>
        </div>
@@ -533,16 +533,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar_cups()">Volver</button>
           </div>
         </div>
-
-
-
-
-
-
-
-
-        
-
         
          </div><!--FINAL ROW -->
         </form>
