@@ -416,7 +416,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Introduzca CIF" maxlength="8" required/>   
+                              <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Introduzca CIF" maxlength="9" required/>   
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>
