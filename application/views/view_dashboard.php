@@ -342,28 +342,67 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </div>              
-               
-              </div>
-            </div>
-          </div>
+</div>
+</div>
+</div>
 
-          <div class="col-md-6 portlets">
+  <div class="col-md-6 portlets">
             <!-- View Information -->
             <div class="panel panel-default">
               
               <div class="panel-body" >
-                <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(3)">
+
+<div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(3)">
     <h4 class="breadcrumb">     
       <span class="foreign-supplier-text" style="color:black;"> Puntos de Suministros</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showPuntosSuministros?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
 
-<div ng-if="vm.showPuntosSuministros">
-  <div ng-show="vm.response_customer.Puntos_Suministros.length==0">      
+<div ng-if="vm.showPuntosSuministros">  
+  
+  <div ng-show="vm.response_customer.All_CUPs.length==0">      
     <div align="center"><label style="color:black;">No hay información registrada</label></div>
   </div>
 
-  <div ng-show="vm.response_customer.Puntos_Suministros.length>0">      
+
+
+  <div class="table-responsive" ng-show="vm.response_customer.All_CUPs.length>0">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                  <th>CUPS</th>
+                  <th>Dirección de Suministro</th>
+                  <th>Eléct/Gas</th>
+                  <th>Acción</th> 
+                  </tr>
+                  <tr ng-show="vm.response_customer.All_CUPs.length==0"> 
+                    <td colspan="4" align="center">
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información.</div>
+                    </td>           
+                  </tr>
+                  <tr ng-repeat="dato in vm.response_customer.All_CUPs | filter:paginate" ng-class-odd="odd">                    
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].CUPsName" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="CUPs_{{$index}}" name="CUPs_{{$index}}" ng-click="vm.copyTextArray(5,$index)" style="width: auto;"> </td>
+                    
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].DirPunSum" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="DirPunSum_{{$index}}" name="DirPunSum_{{$index}}" ng-click="vm.copyTextArray(6,$index)" style="width: auto;">
+
+                    </td>
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)" style="width: auto;"> </td>                     
+                    <td> 
+                      <button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>                 
+                  <th>CUPS</th>
+                  <th>Dirección de Suministro</th>
+                  <th>Eléct/Gas</th>
+                  <th>Acción</th> 
+                </tfoot>
+              </table>
+          </div>
+  
+  <!--div ng-show="vm.response_customer.Puntos_Suministros.length>0">      
+     
      <div class="col-12 col-sm-12">       
        <div class="form">                          
        <div class="form-group">
@@ -419,7 +458,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>  
 
 
-          <!--- PARA LOS CUPS ELECTRICOS START -->
+          <PARA LOS CUPS ELECTRICOS START>
           <div ng-show="vm.response_customer.CUPs_Electrico.length==0 || vm.response_customer.CUPs_Electrico==false">      
             <div align="center"><label style="color:black;">No hay CUPS Eléctricos registrados para el Cliente seleccionado</label></div>
           </div>
@@ -505,9 +544,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
           </div>
-          <!--- PARA LOS CUPS ELECTRICOS END -->
+          <PARA LOS CUPS ELECTRICOS END>
 
-          <!--- PARA LOS CUPS GAS START -->
+          < PARA LOS CUPS GAS START >
           <div ng-show="vm.response_customer.CUPs_Gas.length==0 || vm.response_customer.CUPs_Gas==false">      
             <div align="center"><label style="color:black;">No hay CUPS Gas registrados para el Cliente seleccionado</label></div>
           </div>
@@ -539,9 +578,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>       
           </div>
-          <!--- PARA LOS CUPS GAS END -->
-  </div> 
+          < PARA LOS CUPS GAS END>
+  </div--> 
+
+
+
+
 </div>
+
+
+
+
+
+
 
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(4)">
     <h4 class="breadcrumb">     
@@ -635,6 +684,293 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </div>
     </section>
+
+    <!-- modal container section start -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_detalles_CUPs" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Detalles de CUPs {{vm.ModalTipServ}}</h4>
+          </div>
+          <div class="modal-body">
+                        <div class="panel">                  
+    <form class="form-validate" id="frmFormDetalles" name="frmFormDetalles" ng-submit="SubmitFormDetalles($event)">                 
+     
+     <div class="row">
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+      <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
+        <input type="text" class="form-control" id="CUpsNameModal" name="CUpsNameModal" required ng-model="vm.CUpsNameModal" readonly ng-click="vm.copyText(15)"/>
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+        <label class="font-weight-bold nexa-dark" style="color:black;">Dirección Suministro</label>
+        <input type="text" class="form-control" id="DirPunSumModal" name="DirPunSumModal" required ng-model="vm.DirPunSumModal" readonly ng-click="vm.copyText(16)"/>
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tárifa</label>
+        <input type="text" class="form-control" id="NomTarModal" name="NomTarModal" required ng-model="vm.NomTarModal" readonly ng-click="vm.copyText(17)"/>
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora</label>
+        <input type="text" class="form-control" id="RazSocDisModal" name="RazSocDisModal" required ng-model="vm.RazSocDisModal" readonly ng-click="vm.copyText(18)"/>
+     </div>
+     </div>
+     </div>
+
+     <div ng-if="vm.ModalTipServ=='Eléctrico'">
+       
+   <div ng-show="vm.CanPerTar==1">
+    <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_1" name="PotConP1Modal_1" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+    </div>
+
+ 
+  <div ng-show="vm.CanPerTar==2">   
+
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_2" name="PotConP1Modal_2" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+   
+
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P2</label>
+        <input type="text" class="form-control" id="PotConP2Modal_2" name="PotConP2Modal_2" required ng-model="vm.PotConP2Modal" readonly />
+     </div>
+     </div>
+     </div>
+
+  </div>
+
+   <div ng-show="vm.CanPerTar==3">   
+
+    <div class="col-12 col-sm-4" >
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_3" name="PotConP1Modal_3" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+   
+
+    <div class="col-12 col-sm-4">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P2</label>
+        <input type="text" class="form-control" id="PotConP2Modal_3" name="PotConP2Modal_3" required ng-model="vm.PotConP2Modal" readonly />
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-4">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P3</label>
+        <input type="text" class="form-control" id="PotConP3Modal_3" name="PotConP3Modal_3" required ng-model="vm.PotConP3Modal" readonly />
+     </div>
+     </div>
+     </div>
+
+  </div>
+
+  <div ng-show="vm.CanPerTar==4">   
+
+  <div class="col-12 col-sm-6" >
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_4" name="PotConP1Modal_4" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+   
+
+  <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P2</label>
+        <input type="text" class="form-control" id="PotConP2Modal_4" name="PotConP2Modal_4" required ng-model="vm.PotConP2Modal" readonly />
+     </div>
+     </div>
+  </div>
+    
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P3</label>
+        <input type="text" class="form-control" id="PotConP3Modal_4" name="PotConP3Modal_4" required ng-model="vm.PotConP3Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P4</label>
+        <input type="text" class="form-control" id="PotConP4Modal_4" name="PotConP4Modal_4" required ng-model="vm.PotConP4Modal" readonly />
+     </div>
+     </div>
+    </div>
+     
+  </div>
+
+  <div ng-show="vm.CanPerTar==5">   
+
+  <div class="col-12 col-sm-3" >
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_5" name="PotConP1Modal_5" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+   
+
+  <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P2</label>
+        <input type="text" class="form-control" id="PotConP2Modal_5" name="PotConP2Modal_5" required ng-model="vm.PotConP2Modal" readonly />
+     </div>
+     </div>
+  </div>
+    
+    <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P3</label>
+        <input type="text" class="form-control" id="PotConP3Modal_5" name="PotConP3Modal_5" required ng-model="vm.PotConP3Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P4</label>
+        <input type="text" class="form-control" id="PotConP4Modal_5" name="PotConP4Modal_5" required ng-model="vm.PotConP4Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P5</label>
+        <input type="text" class="form-control" id="PotConP5Modal_5" name="PotConP5Modal_5" required ng-model="vm.PotConP5Modal" readonly />
+     </div>
+     </div>
+    </div>
+     
+  </div>
+
+
+   <div ng-show="vm.CanPerTar==6">   
+
+  <div class="col-12 col-sm-3" >
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P1</label>
+        <input type="text" class="form-control" id="PotConP1Modal_6" name="PotConP1Modal_6" required ng-model="vm.PotConP1Modal" readonly />
+     </div>
+     </div>
+     </div>
+   
+
+  <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P2</label>
+        <input type="text" class="form-control" id="PotConP2Modal_6" name="PotConP2Modal_6" required ng-model="vm.PotConP2Modal" readonly />
+     </div>
+     </div>
+  </div>
+    
+    <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P3</label>
+        <input type="text" class="form-control" id="PotConP3Modal_6" name="PotConP3Modal_6" required ng-model="vm.PotConP3Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-3">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P4</label>
+        <input type="text" class="form-control" id="PotConP4Modal_6" name="PotConP4Modal_6" required ng-model="vm.PotConP4Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P5</label>
+        <input type="text" class="form-control" id="PotConP5Modal_6" name="PotConP5Modal_6" required ng-model="vm.PotConP5Modal" readonly />
+     </div>
+     </div>
+    </div>
+
+    <div class="col-12 col-sm-6">
+     <div class="form">                          
+     <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">P6</label>
+        <input type="text" class="form-control" id="PotConP6Modal_6" name="PotConP6Modal_6" required ng-model="vm.PotConP6Modal" readonly />
+     </div>
+     </div>
+    </div>
+     
+  </div>
+
+
+
+
+
+    </div>
+  
+  
+
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!--modal container section end -->
+
         <!--main content end-->
    </div>
    <div id="List_Cli" class="loader loader-default"  data-text="Cargando listado de Clientes"></div>

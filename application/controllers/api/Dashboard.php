@@ -17,7 +17,6 @@ class Dashboard extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     }
-
     public function getclientes_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -63,11 +62,13 @@ class Dashboard extends REST_Controller
 			$this->response(false);
 			return false;
 		}
-		$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
+		$Electricos=$this->Clientes_model->get_CUPs_Electricos_Dashboard($CodCli);
+		$Gas=$this->Clientes_model->get_CUPs_Gas_Dashboard($CodCli);
 		$Contactos=$this->Clientes_model->get_data_cliente_contactos($CodCli);
 		$Cuenta_Bancarias=$this->Clientes_model->get_data_cliente_cuentas($CodCli);
 		$Documentos=$this->Clientes_model->get_data_cliente_documentos($CodCli);
-		$response = array('customer' => $customer,'Puntos_Suministros'=>$Puntos_Suministros,'Contactos'=>$Contactos,'Cuenta_Bancarias' => $Cuenta_Bancarias,'Documentos' => $Documentos);
+		$Puntos_Suministros=false;
+		$response = array('customer' => $customer,'Puntos_Suministros'=>$Puntos_Suministros,'Contactos'=>$Contactos,'Cuenta_Bancarias' => $Cuenta_Bancarias,'Documentos' => $Documentos,'CUPs_Electricos'=>$Electricos,'CUPs_Gas'=>$Gas);
 
 		$this->response($response);		
 	}

@@ -77,6 +77,36 @@ public function get_data_puntos_suministros($CodCli)
     else
     return false;     
 }
+public function get_CUPs_Electricos_Dashboard($CodCli)
+{
+    $sql = $this->db->query("SELECT b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ
+        FROM T_CUPsElectrico a 
+        JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
+        JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        JOIN T_Provincia d on d.CodPro=c.CodPro
+        JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        JOIN T_TarifaElectrica f ON a.CodTarElec=f.CodTarEle
+        JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
+public function get_CUPs_Gas_Dashboard($CodCli)
+{
+    $sql = $this->db->query("SELECT b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ
+        FROM T_CUPsGas a 
+        JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
+        JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        JOIN T_Provincia d on d.CodPro=c.CodPro
+        JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        JOIN T_TarifaGas f ON a.CodTarGas=f.CodTarGas
+        JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
 public function get_data_cliente_contactos($CodCli)
 {
     $this->db->select('NomConCli,NIFConCli,CarConCli,case TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,EsRepLeg,DocNIF,DocPod',false);

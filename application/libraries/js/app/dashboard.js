@@ -164,6 +164,7 @@
          scope.response_customer.CPLocPumSum = undefined;
          scope.response_customer.CUPs_Electrico = [];
          scope.response_customer.CUPs_Gas = [];
+         scope.response_customer.All_CUPs=[];
          if (scope.fdatos.CodCli == '' || scope.fdatos.CodCli == null || scope.fdatos.CodCli == undefined) {
              Swal.fire({
                  title: "Error",
@@ -199,10 +200,47 @@
                  scope.response_customer.DesProFis = result.data.customer.DesProFis;
                  scope.response_customer.CPLocFis = result.data.customer.CodLocFis;
 
-                 scope.response_customer.TelFijCli = result.data.customer.TelFijCli;
-                 scope.response_customer.EmaCli = result.data.customer.EmaCli;
+                scope.response_customer.TelFijCli = result.data.customer.TelFijCli;
+                scope.response_customer.EmaCli = result.data.customer.EmaCli;
 
-                 if (result.data.Puntos_Suministros != false) {
+                if(result.data.CUPs_Electricos.length>0)
+                {
+                    angular.forEach(result.data.CUPs_Electricos, function(CUPs_Electricos)
+                    {
+                        scope.response_customer.All_CUPs.push({CUPsName:CUPs_Electricos.CUPsEle,
+                            DirPunSum:CUPs_Electricos.DirPumSum+" "+CUPs_Electricos.CPLocSoc+" "+CUPs_Electricos.EscPlaPue,CanPerTar:CUPs_Electricos.CanPerTar,PotConP1:CUPs_Electricos.PotConP1
+                            ,PotConP2:CUPs_Electricos.PotConP2,PotConP3:CUPs_Electricos.PotConP3,PotConP4:CUPs_Electricos.PotConP4
+                            ,PotConP5:CUPs_Electricos.PotConP5,PotConP6:CUPs_Electricos.PotConP6,NomTar:CUPs_Electricos.NomTarEle,
+                            RazSocDis:CUPs_Electricos.RazSocDis
+
+                        ,TipServ:CUPs_Electricos.TipServ
+                        });
+                     
+                    });
+
+                    //scope.response_customer.All_CUPs.push({CUPsName:result.data.CUPs_Electricos.CUPsEle});
+                    //alert('tienes cups electricos');
+                }
+                if(result.data.CUPs_Gas.length>0)
+                {
+                    angular.forEach(result.data.CUPs_Gas, function(CUPs_Gas)
+                    {
+                        scope.response_customer.All_CUPs.push({CUPsName:CUPs_Gas.CupsGas,DirPunSum:CUPs_Gas.DirPumSum+" "+CUPs_Gas.CPLocSoc+" "+CUPs_Gas.EscPlaPue
+                        ,NomTar:CUPs_Gas.NomTarGas,RazSocDis:CUPs_Gas.RazSocDis
+                        ,TipServ:CUPs_Gas.TipServ
+                    });
+                     
+
+
+                    });
+                    //scope.response_customer.All_CUPs.push({CUPsName:result.data.CUPs_Gas.CupsGas});
+                    //alert('tienes cups electricos');
+                }
+                console.log(scope.response_customer.All_CUPs);
+                //if(result.data.)
+                
+
+                /*if (result.data.Puntos_Suministros != false) {
                      scope.response_customer.Puntos_Suministros = result.data.Puntos_Suministros;
                      if (result.data.Puntos_Suministros.length == 1) {
                          console.log(result.data.Puntos_Suministros.length);
@@ -215,9 +253,13 @@
 
                  } else {
                      scope.response_customer.Puntos_Suministros = [];
-                 }
+                 }*/
 
-                 if (result.data.Contactos != false) {
+                
+
+
+
+                if (result.data.Contactos != false) {
                      scope.response_customer.Contactos = result.data.Contactos;
                  } else {
                      scope.response_customer.Contactos = [];
@@ -503,9 +545,11 @@
          }
 
          if (metodo == 15) {
-             var DirDesPumSum = document.getElementById("DirDesPumSum");
+             var CUpsNameModal = document.getElementById("CUpsNameModal");
              var contenedor = document.getElementById("xcontainer");
-             DirDesPumSum.select();
+             //console.log(DirDesPumSum);
+
+             CUpsNameModal.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -515,10 +559,10 @@
              }
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
-         if (metodo == 16) {
-             var EscPlaPuerPumSum = document.getElementById("EscPlaPuerPumSum");
+        if (metodo == 16) {
+             var DirPunSumModal = document.getElementById("DirPunSumModal");
              var contenedor = document.getElementById("xcontainer");
-             EscPlaPuerPumSum.select();
+             DirPunSumModal.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -529,9 +573,9 @@
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
          if (metodo == 17) {
-             var DesLocPumSum = document.getElementById("DesLocPumSum");
+             var NomTarModal = document.getElementById("NomTarModal");
              var contenedor = document.getElementById("xcontainer");
-             DesLocPumSum.select();
+             NomTarModal.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -542,9 +586,9 @@
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
          if (metodo == 18) {
-             var DesProPumSum = document.getElementById("DesProPumSum");
+             var RazSocDisModal = document.getElementById("RazSocDisModal");
              var contenedor = document.getElementById("xcontainer");
-             DesProPumSum.select();
+             RazSocDisModal.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -554,7 +598,8 @@
              }
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
-         if (metodo == 19) {
+        
+        /*if (metodo == 19) {
              var CPLocPumSum = document.getElementById("CPLocPumSum");
              var contenedor = document.getElementById("xcontainer");
              CPLocPumSum.select();
@@ -566,7 +611,7 @@
                  contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
              }
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
-         }
+        }*/
      }
      scope.copyTextArray = function(metodo, index) {
          if (metodo == 1) {
@@ -623,7 +668,7 @@
          }
 
          if (metodo == 5) {
-             var CUPsEle = document.getElementById("CUPsEle_" + index);
+             var CUPsEle = document.getElementById("CUPs_" + index);
              var contenedor = document.getElementById("xcontainer");
              CUPsEle.select();
              try {
@@ -636,9 +681,9 @@
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
          if (metodo == 6) {
-             var RazSocDis = document.getElementById("RazSocDis_" + index);
+             var DirPunSum = document.getElementById("DirPunSum_" + index);
              var contenedor = document.getElementById("xcontainer");
-             RazSocDis.select();
+             DirPunSum.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -649,9 +694,9 @@
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
          }
          if (metodo == 7) {
-             var NomTarEle = document.getElementById("NomTarEle_" + index);
+             var TipServ = document.getElementById("TipServ_" + index);
              var contenedor = document.getElementById("xcontainer");
-             NomTarEle.select();
+             TipServ.select();
              try {
                  var successful = document.execCommand('copy');
                  if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
@@ -834,7 +879,31 @@
 
 
      }
+     scope.VerDetallesCUPs=function(index,dato,TipServ)
+     {
+        console.log(index);
+        console.log(dato);
+        console.log(TipServ);
+        scope.CUpsNameModal=dato.CUPsName;
+        scope.DirPunSumModal=dato.DirPunSum;
+        scope.NomTarModal=dato.NomTar;
+        scope.RazSocDisModal=dato.RazSocDis;
+        scope.ModalTipServ=dato.TipServ;
+        if(TipServ=='Eléctrico')
+        {
+            scope.PotConP1Modal=dato.PotConP1;
+            scope.PotConP2Modal=dato.PotConP2;
+            scope.PotConP3Modal=dato.PotConP3;
+            scope.PotConP4Modal=dato.PotConP4;
+            scope.PotConP5Modal=dato.PotConP5;
+            scope.PotConP6Modal=dato.PotConP6;
+            scope.CanPerTar=dato.CanPerTar;
 
+
+        }
+
+        $('#modal_detalles_CUPs').modal('show');
+     }
 
 
      scope.load_customers();
