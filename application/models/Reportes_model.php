@@ -1390,12 +1390,12 @@ class Reportes_model extends CI_Model
 			(CASE WHEN e.SerGas =0 THEN 'NO' WHEN e.SerGas = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerGas, 
 			(CASE WHEN e.SerEle =0 THEN 'NO' WHEN e.SerEle = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerEle
 			FROM T_Contrato a 
-			JOIN T_PropuestaComercial b ON a.CodProCom=b.CodProCom 
-			JOIN T_Comercializadora c ON b.CodCom=c.CodCom
-			JOIN T_Producto d ON b.CodPro=d.CodPro
-			JOIN T_AnexoProducto e ON b.CodAnePro=e.CodAnePro
-			left JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
-			left JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas) Proyeccion 
+			LEFT JOIN T_PropuestaComercial b ON a.CodProCom=b.CodProCom 
+			LEFT JOIN T_Comercializadora c ON b.CodCom=c.CodCom
+			LEFT JOIN T_Producto d ON b.CodPro=d.CodPro
+			LEFT JOIN T_AnexoProducto e ON b.CodAnePro=e.CodAnePro
+			LEFT JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
+			LEFT JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas) Proyeccion 
 			WHERE DATE_FORMAT(Proyeccion.FecVenCon,'%Y')=$ano");
 	        if ($sql->num_rows() > 0)
 	          return $sql->result();
@@ -1427,22 +1427,20 @@ class Reportes_model extends CI_Model
     {
         /*$this->db->select("",false);*/
         $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,c.RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli           ,a.EstBajCon,CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
-            e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+            e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
-        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro'); 
+        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom','left');
+        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom','left');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro','left'); 
         $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','left');
         $this->db->join('T_TarifaElectrica g','g.CodTarEle=c.CodTarEle','left');
         $this->db->join('T_CUPsGas h','h.CodCupGas=c.CodCupsGas','left');
         $this->db->join('T_TarifaGas i','i.CodTarGas=c.CodTarGas','left');
         $this->db->join('T_Producto j','j.CodPro=c.CodPro');
 
-
-
         $this->db->where('a.FecVenCon BETWEEN "'. $Desde. '" AND "'.$Hasta.'"');
-        $this->db->order_by('a.FecIniCon desc'); 
+        $this->db->order_by('DATE_FORMAT(a.FecVenCon,"%Y/%m/%d") ASC'); 
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();

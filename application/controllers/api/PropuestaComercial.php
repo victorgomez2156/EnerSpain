@@ -312,7 +312,11 @@ class PropuestaComercial extends REST_Controller
 	    $Tabla='T_Comercializadora';
 		$order_by="RazSocCom ASC";
 		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
-		
+		if($BuscarPropuesta->RefProCom==null)
+		{		
+			$Referencia=$this->generar_RefProCom();
+			$BuscarPropuesta->RefProCom=$Referencia;
+		}
 		$arrayName = array('Propuesta' =>$BuscarPropuesta,'Cliente' =>$Cliente,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' =>$TarEle,'TarGas' =>$TarGas,'CUPs_Gas' =>$CUPs_Gas,'CUPs_Electricos' =>$CUPs_Electricos,'Comercializadoras' =>$Comercializadoras);
 		$this->response($arrayName);
     }

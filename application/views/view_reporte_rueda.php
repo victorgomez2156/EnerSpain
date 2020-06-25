@@ -131,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="form" align="center">                          
          <div class="form-group">
-         <button class="btn btn-info" type="submit">Generar Rueda</button>           
+         <button class="btn btn-info" type="submit">Generar Rueda <!--div ng-show="vm.Table_Contratos.length>0">{{vm.Table_Contratos.length}}</div></button-->           
          </div>
          </div>
           
@@ -140,7 +140,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </form>
 <div ng-show="vm.Table_Contratos.length>0">
   <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
-  <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
+<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
+
+<label style="margin-top: 0px;">Total: {{vm.Table_Contratos.length}}</label>
 
 <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
@@ -196,8 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tfoot>
               </table>
         </div>
-        <div align="center">
-
+        <div align="center">          
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>

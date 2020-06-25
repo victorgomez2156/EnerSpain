@@ -10,9 +10,9 @@ class Contratos_model extends CI_Model
         	"/*'a.CodProCom,,b.RazSocCli,b.NumCifCli,case a.EstProCom when "P" then "Pendiente" when "A" then "Aprobada" when "C" then "Completada" when "R" then "Rechazada" end as EstProCom,c.CUPsEle,d.CupsGas'*/,false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
-        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
+        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom','left');
+        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom','left');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro','left');
         $this->db->order_by('a.FecIniCon desc');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

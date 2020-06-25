@@ -14131,17 +14131,16 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">Fecha fin</td> 
             <td style="color:white;">Propuesta</td>
             <td style="color:white;">Nº Cliente</td>
-            <td style="color:white;">NombreCI</td>
-            <td style="color:white;">Comer.Act</td>
-            <td style="color:white;">CUPS Eléctrico</td>
+            <td style="color:white;">NombreCI</td>            
+            <td style="color:white;">CUPs Eléctrico</td>
             <td style="color:white;">Tárifa Eléctrica</td>
-            <td style="color:white;">Consumo Eléctrico</td>
-
-            <td style="color:white;">CUPS Gas</td>
+            <td style="color:white;">Consumo</td>
+            <td style="color:white;">CUPs Gas</td>
             <td style="color:white;">Tárifa Gas</td>
-            <td style="color:white;">Consumo Gas</td>
-            <td style="color:white;">Producto</td>
-            <td style="color:white;">COMISIÓN</td>
+            <td style="color:white;">Consumo</td>
+            <td style="color:white;">Tipo Renovación</td>
+            <td style="color:white;">EmailCon</td>
+            <td style="color:white;">Comercializadora</td>
             <td style="color:white;">Estatus</td>
         </tr>';
         $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
@@ -14153,20 +14152,29 @@ class Exportar_Documentos extends CI_Controller
             {
                 if($record->EstBajCon==0)
                 {$EstBajCon='Activo';}elseif ($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
+               if($record->RefProCom==null)
+               {
+                    $RefProCom=$record->CodProCom;
+               }
+               else
+               {
+                    $RefProCom=$record->RefProCom;
+               }
+
                 $html.='<tr>
                         <td>'.$record->FecVenCon.'</td>
-                        <td>'.$record->RefProCom.'</td>
+                        <td>'.$RefProCom.'</td>
                         <td>'.$record->CodCli.'</td>
-                        <td>'.$record->RazSocCli.' '.$record->NumCifCli.'</td>
-                        <td>'.$record->CodCom.'</td>
+                        <td>'.$record->RazSocCli.' '.$record->NumCifCli.'</td>                        
                         <td>'.$record->CUPsEle.'</td>
                         <td>'.$record->NomTarEle.'</td>
                         <td>0.00</td>
                         <td>'.$record->CupsGas.'</td>
                         <td>'.$record->NomTarGas.'</td> 
                         <td>'.$record->Consumo.'</td>
-                        <td>'.$record->DesPro.'</td>
-                        <td></td> 
+                        <td>N/A</td>
+                        <td>'.$record->EmaCli.'</td> 
+                        <td>'.$record->CodCom.'</td>
                         <td>'.$EstBajCon.'</td>                      
                     </tr>';     
                 }
@@ -14333,26 +14341,27 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $objPHPExcel->getActiveSheet()->SetCellValue("D9", "NombreCI");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Comer.Act");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CUPs Eléctrico");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CUPS Eléctrico");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "Tárifa Eléctrica");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tárifa Eléctrica");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Consumo");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo Eléctrico");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "CUPs Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "CUPS Gas");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Tárifa Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Tárifa Gas");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Consumo");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Consumo Gas");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Tipo Renovación");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "Producto");
+        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "EmailCon");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("M9", "Comisión");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("M9", "Comercializadora");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");        
         $objPHPExcel->getActiveSheet()->SetCellValue("N9", "Estatus");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "N9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:N9");  
         $fila=9;
         $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
         $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
@@ -14361,37 +14370,37 @@ class Exportar_Documentos extends CI_Controller
         {
             for($i=0; $i<count($Resultado_Renovacion_Contratos); $i++) 
             {
-                if($Resultado_Renovacion_Contratos[$i]->EstBajCon==0)
-                {$EstBajConNom='Activo';}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==2){$EstBajConNom="Vencido";}elseif ($Resultado_Renovacion_Contratos[$i]->EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+                if($Resultado_Renovacion_Contratos[$i]-> EstBajCon==0)
+                {$EstBajConNom='Activo';}elseif ($Resultado_Renovacion_Contratos[$i]-> EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($Resultado_Renovacion_Contratos[$i]-> EstBajCon==2){$EstBajConNom="Vencido";}elseif ($Resultado_Renovacion_Contratos[$i]-> EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
+                if($Resultado_Renovacion_Contratos[$i]-> RefProCom==null)
+               {
+                    $RefProCom=$Resultado_Renovacion_Contratos[$i]-> CodProCom;
+               }
+               else
+               {
+                    $RefProCom=$Resultado_Renovacion_Contratos[$i]->RefProCom;
+               }
                 $fila+=1;
-                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Renovacion_Contratos[$i]->FecVenCon);
-                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Renovacion_Contratos[$i]->RefProCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]->CodCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]->RazSocCli.' - '.
-$Resultado_Renovacion_Contratos[$i]->NumCifCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]->CodCom);               
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]->CUPsEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]->NomTarEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", '0.00');
-                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]->CupsGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]->NomTarGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]->Consumo);
-                $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Renovacion_Contratos[$i]->DesPro);
-                $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", 'N/A');
-
-
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Renovacion_Contratos[$i]-> FecVenCon);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila",  $RefProCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]-> CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli.' - '.
+                $Resultado_Renovacion_Contratos[$i]-> NumCifCli);                               
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", '0.00');
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Renovacion_Contratos[$i]-> CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]-> Consumo);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", 'N/A');
+                $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCli);    
+                $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Renovacion_Contratos[$i]-> CodCom);
+                
                 $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $EstBajConNom);
-                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:N$fila"); 
-                /*
-                
-                
-                
-                
-                */ 
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:N$fila");                
             }   
-        }
-        
-        foreach (range('A', 'E') as $columnID) 
+        }        
+        foreach (range('A', 'N') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }

@@ -6,16 +6,16 @@ class Clientes_model extends CI_Model
     {
         $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "BLOQUEADO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
         $this->db->from('T_Cliente a'); 
-        $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia');       
-        $this->db->join('T_Localidad c','a.CodLocSoc=c.CodLoc'); 
-        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        $this->db->join('T_TipoCliente e','a.CodTipCli=e.CodTipCli');
-        $this->db->join('T_Comercial f','a.CodCom=f.CodCom');
-        $this->db->join('T_SectorCliente g','a.CodSecCli=g.CodSecCli');
+        $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia','LEFT');       
+        $this->db->join('T_Localidad c','a.CodLocSoc=c.CodLoc','LEFT'); 
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro','LEFT');
+        $this->db->join('T_TipoCliente e','a.CodTipCli=e.CodTipCli','LEFT');
+        $this->db->join('T_Comercial f','a.CodCom=f.CodCom','LEFT');
+        $this->db->join('T_SectorCliente g','a.CodSecCli=g.CodSecCli','LEFT');
         $this->db->join('T_Colaborador h','a.CodCol=h.CodCol','LEFT'); 
-        $this->db->join('T_TipoVia i','a.CodTipViaFis=i.CodTipVia');
-        $this->db->join('T_Localidad j','a.CodLocFis=j.CodLoc'); 
-        $this->db->join('T_Provincia k','j.CodPro=k.CodPro');       
+        $this->db->join('T_TipoVia i','a.CodTipViaFis=i.CodTipVia','LEFT');
+        $this->db->join('T_Localidad j','a.CodLocFis=j.CodLoc','LEFT'); 
+        $this->db->join('T_Provincia k','j.CodPro=k.CodPro','LEFT');       
         $this->db->order_by('a.RazSocCli ASC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -364,11 +364,11 @@ public function getClientessearchFilter($filtrar_clientes)
     {
         $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum',FALSE);
         $this->db->from('T_PuntoSuministro a');   
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
-        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
-        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
-        $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm');    
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli','LEFT'); 
+        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc','LEFT');
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro','LEFT');
+        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia','LEFT');
+        $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm','LEFT');    
         $this->db->order_by('b.RazSocCli ASC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

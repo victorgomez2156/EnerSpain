@@ -696,21 +696,30 @@
                  scope.fdatos.tipo = $route.current.params.Tipo;
                  scope.List_Puntos_Suministros = result.data.Puntos_Suministros;
                  for (var i = 0; i < scope.List_Puntos_Suministros.length; i++) {
-                     if (scope.List_Puntos_Suministros[i].CodPunSum == result.data.Propuesta.CodPunSum) {
-                         //console.log(scope.List_Puntos_Suministros[i]);
-                         scope.DirPumSum = scope.List_Puntos_Suministros[i].DirPumSum;
-                         scope.EscPlaPuerPumSum = scope.List_Puntos_Suministros[i].EscPunSum + " " + scope.List_Puntos_Suministros[i].PlaPunSum + " " + scope.List_Puntos_Suministros[i].PuePunSum;
-                         scope.DesLocPumSum = scope.List_Puntos_Suministros[i].DesLoc;
-                         scope.DesProPumSum = scope.List_Puntos_Suministros[i].DesPro;
-                         scope.CPLocPumSum = scope.List_Puntos_Suministros[i].CPLocSoc;
-                     }
-                 }
+                    if (scope.List_Puntos_Suministros[i].CodPunSum == result.data.Propuesta.CodPunSum)
+                    {
+                        //console.log(scope.List_Puntos_Suministros[i]);
+                        scope.DirPumSum = scope.List_Puntos_Suministros[i].DirPumSum;
+                        scope.EscPlaPuerPumSum = scope.List_Puntos_Suministros[i].EscPunSum + " " + scope.List_Puntos_Suministros[i].PlaPunSum + " " + scope.List_Puntos_Suministros[i].PuePunSum;
+                        scope.DesLocPumSum = scope.List_Puntos_Suministros[i].DesLoc;
+                        scope.DesProPumSum = scope.List_Puntos_Suministros[i].DesPro;
+                        scope.CPLocPumSum = scope.List_Puntos_Suministros[i].CPLocSoc;
+                    }
+                }
                  scope.fdatos.CodCupSEle = result.data.Propuesta.CodCupsEle;
                  scope.fdatos.CodCupGas = result.data.Propuesta.CodCupsGas;
                  if (result.data.Propuesta.RenConEle == 0) { scope.fdatos.RenConEle = false; } else { scope.fdatos.RenConEle = true; }
                  if (result.data.Propuesta.RenConGas == 0) { scope.fdatos.RenConGas = false; } else { scope.fdatos.RenConGas = true; }
-                 scope.realizar_filtro(1, result.data.Propuesta.CodCom);
-                 scope.realizar_filtro(2, result.data.Propuesta.CodPro);
+                 //scope.realizar_filtro(1, result.data.Propuesta.CodCom);
+                 //scope.realizar_filtro(2, result.data.Propuesta.CodPro);
+                 if( result.data.Propuesta.CodCom!=null)
+                 {
+                    scope.realizar_filtro(1, result.data.Propuesta.CodCom);
+                 }
+                if( result.data.Propuesta.CodPro!=null)
+                {
+                    scope.realizar_filtro(2, result.data.Propuesta.CodPro);
+                }
                  if (scope.fdatos.EstProCom == "P") {
                      scope.fdatos.Apro = false;
                      scope.fdatos.Rech = false;
@@ -774,7 +783,7 @@
                  scope.RazSocCli = result.data.Cliente.RazSocCli;
                  scope.NumCifCli = result.data.Cliente.NumCifCli;
                  scope.FecProCom = result.data.FechaServer;
-                 scope.fdatos.RefProCom = result.data.RefProCom;
+                 scope.fdatos.RefProCom = result.data.RefProCom;                 
                  scope.List_Puntos_Suministros = result.data.Puntos_Suministros;
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
                  scope.fdatos.CodPunSum = result.data.BuscarPropuesta.CodPunSum;
@@ -803,8 +812,15 @@
                  scope.fdatos.ObsAhoGas = result.data.BuscarPropuesta.ObsAhoGas;
                  scope.List_Comercializadora = result.data.Comercializadora;
                  scope.fdatos.CodCom = result.data.BuscarPropuesta.CodCom;
-                 scope.realizar_filtro(1, result.data.BuscarPropuesta.CodCom);
-                 scope.realizar_filtro(2, result.data.BuscarPropuesta.CodPro);
+                 if( result.data.BuscarPropuesta.CodCom!=null)
+                 {
+                    scope.realizar_filtro(1, result.data.BuscarPropuesta.CodCom);
+                 }
+                if( result.data.BuscarPropuesta.CodPro!=null)
+                {
+                    scope.realizar_filtro(2, result.data.BuscarPropuesta.CodPro);
+                }
+
                  scope.fdatos.CodPro = result.data.BuscarPropuesta.CodPro;
                  scope.fdatos.CodAnePro = result.data.BuscarPropuesta.CodAnePro;
                  scope.fdatos.TipPre = result.data.BuscarPropuesta.TipPre;
