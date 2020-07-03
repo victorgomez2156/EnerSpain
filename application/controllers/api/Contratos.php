@@ -1,6 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-/*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class Contratos extends REST_Controller
 {
 	function __construct()
@@ -400,7 +399,109 @@ class Contratos extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($arrayName);
 	}
-      
+	public function AsignarPropuestaContrato_get()
+	{
+		$CodCli=$this->get('CodCli');
+		$RefProCom=$this->generar_RefProCom();
+		$FecProCom=date('d/m/Y');
+		$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
+		$tabla_Ele="T_TarifaElectrica";
+		$orderby="NomTarEle ASC";
+		$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+		$tabla_Gas="T_TarifaGas";
+		$orderby="NomTarGas ASC";
+		$TarGas=$this->Propuesta_model->Tarifas($tabla_Gas,$orderby);
+		$T_Comercializadora="T_Comercializadora";
+		$orderby="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->Tarifas($T_Comercializadora,$orderby);
 
+
+		$arrayName = array('RefProCom' =>$RefProCom ,'FecProCom' =>$FecProCom,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' =>$TarEle,'TarGas' =>$TarGas,'Comercializadoras'=>$Comercializadoras);
+		$this->response($arrayName);
+	}
+	 public function Search_CUPs_Customer_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodPumSum=$this->get('CodPumSum');		
+	    $CUPs_Gas=$this->Clientes_model->get_CUPs_Gas($CodPumSum);
+	    $CUPs_Electricos=$this->Clientes_model->get_CUPs_Electricos($CodPumSum);		
+		$response = array('CUPs_Gas' => $CUPs_Gas,'CUPs_Electricos'=>$CUPs_Electricos);		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$CodPumSum,$this->input->ip_address(),'Buscando CUPs Puntos Suministros');
+		$this->response($response);		
+	}
+	public function realizar_filtro_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$metodo=$this->get('metodo');	
+		$PrimaryKey=$this->get('PrimaryKey');	
+	    
+		if($metodo==1)
+		{
+			$tabla="T_Producto";
+			$buscando="Buscando Productos de Las Comercializadoras";
+			$response=$this->Propuesta_model->ProductosComercia($PrimaryKey);
+		}
+		elseif ($metodo==2) 
+		{
+			$tabla="T_AnexoProducto";
+			$buscando="Buscando Anexos de Las Comercializadoras";
+			$response=$this->Propuesta_model->ProductosAnexos($PrimaryKey);
+		}
+		elseif ($metodo==3) 
+		{
+			$tabla="T_AnexoProducto";
+			$buscando="Buscando Tipo de Precio del Anexo";			
+			$where="CodAnePro";	
+			$select='TipPre';	
+	        $response = $this->Propuesta_model->Funcion_Verificadora($PrimaryKey,$tabla,$where,$select); 
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$PrimaryKey,$this->input->ip_address(),$buscando);
+		$this->response($response);		
+	}       
+	public function generar_RefProCom()
+    {
+    	$nCaracteresFaltantes = 0;
+		$numero_a = " ";
+		/*Ahora necesitamos el numero de la Referencia de la Propuesta*/
+		$queryIdentificador = $this->db->query("SELECT CodMov,DesMov,NrMov FROM T_Movimientos WHERE CodMov=1");
+		$rowIdentificador = $queryIdentificador->row();
+		//buscamos que longitud tiene el numero generado por la base de datos y completamos con ceros a la izquierda
+		$nCaracteresFaltantes = 12 - strlen($rowIdentificador->NrMov) ;
+		$numero_a = str_repeat('0',$nCaracteresFaltantes);
+		$numeroproximo = $rowIdentificador->NrMov + 1;
+		$nCaracteresFaltantesC = 12 - strlen($rowIdentificador->NrMov); //VERIFICAR CUANDO PASE DE 100
+		$numero_aC = str_repeat('0',$nCaracteresFaltantesC);
+		$numeroproximoC = $rowIdentificador->NrMov + 1;
+		$numeroC = $numero_aC . (string)$rowIdentificador->NrMov;
+		$this->db->query("UPDATE T_Movimientos SET NrMov=".$numeroproximo." WHERE CodMov=1");
+		return $numeroC;		
+    }
+    public function AsignarPropuestaContrato_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		
+		$CodProCom=$this->Contratos_model->AsignarPropuesta($objSalida-> CodCli,$objSalida-> FecProCom,$objSalida-> CodPunSum,$objSalida-> CodCupSEle,$objSalida-> CodTarEle,$objSalida-> PotConP1,$objSalida-> PotConP2,$objSalida-> PotConP3,$objSalida-> PotConP4,$objSalida-> PotConP5,$objSalida-> PotConP6,$objSalida-> ImpAhoEle,$objSalida-> PorAhoEle,$objSalida-> RenConEle,$objSalida-> ObsAhoEle,$objSalida-> CodCupGas,$objSalida-> CodTarGas,$objSalida-> Consumo,$objSalida-> CauDia,$objSalida-> ImpAhoGas,$objSalida-> PorAhoGas,$objSalida-> RenConGas,$objSalida-> ObsAhoGas,$objSalida-> PorAhoTot,$objSalida-> ImpAhoTot,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ObsProCom,$objSalida-> RefProCom);
+		$objSalida-> CodProCom=$CodProCom;
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$CodProCom,$this->input->ip_address(),'Asignado Propuesta Comercial a Contrato');
+		$Contrato=$this->Contratos_model->UpdateContratoFromPropuesta($objSalida-> CodConCom,$objSalida-> CodCli,$CodProCom);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida-> CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial');
+		$arrayName = array('status' =>200 ,'statusText'=>'OK','objSalida'=>$objSalida,'menssage'=>'Propuesta Comercial Asignada correctamente ahora puede solicitar la renovación del contrato.' );		
+		$this->db->trans_complete();
+		$this->response($arrayName);
+	}
 }
 ?>

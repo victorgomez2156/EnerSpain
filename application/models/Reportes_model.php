@@ -1437,7 +1437,7 @@ class Reportes_model extends CI_Model
         $this->db->join('T_TarifaElectrica g','g.CodTarEle=c.CodTarEle','left');
         $this->db->join('T_CUPsGas h','h.CodCupGas=c.CodCupsGas','left');
         $this->db->join('T_TarifaGas i','i.CodTarGas=c.CodTarGas','left');
-        $this->db->join('T_Producto j','j.CodPro=c.CodPro');
+        $this->db->join('T_Producto j','j.CodPro=c.CodPro','left');
 
         $this->db->where('a.FecVenCon BETWEEN "'. $Desde. '" AND "'.$Hasta.'"');
         $this->db->order_by('DATE_FORMAT(a.FecVenCon,"%Y/%m/%d") ASC'); 

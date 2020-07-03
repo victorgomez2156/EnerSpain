@@ -174,6 +174,17 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
+    public function AsignarPropuesta($CodCli,$FecProCom,$CodPunSum,$CodCupsEle,$CodTarEle,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$ImpAhoEle,$PorAhoEle,$RenConEle,$ObsAhoEle,$CodCupsGas,$CodTarGas,$Consumo,$CauDia,$ImpAhoGas,$PorAhoGas,$RenConGas,$ObsAhoGas,$PorAhoTot,$ImpAhoTot,$CodCom,$CodPro,$CodAnePro,$TipPre,$ObsProCom,$RefProCom)
+    {
+        $this->db->insert('T_PropuestaComercial',array('CodCli'=>$CodCli,'FecProCom'=>$FecProCom,'CodPunSum'=>$CodPunSum,'CodCupsEle'=>$CodCupsEle,'CodTarEle'=>$CodTarEle,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'ImpAhoEle'=>$ImpAhoEle,'PorAhoEle'=>$PorAhoEle,'RenConEle'=>$RenConEle,'ObsAhoEle'=>$ObsAhoEle,'CodCupsGas'=>$CodCupsGas,'CodTarGas'=>$CodTarGas,'Consumo'=>$Consumo,'CauDia'=>$CauDia,'ImpAhoGas'=>$ImpAhoGas,'PorAhoGas'=>$PorAhoGas,'RenConGas'=>$RenConGas,'ObsAhoGas'=>$ObsAhoGas,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot  ,'EstProCom'=>'C'    ,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
+        return $this->db->insert_id();
+    }
+    public function UpdateContratoFromPropuesta($CodConCom,$CodCli,$CodProCom)
+    {   
+        $this->db->where('CodConCom', $CodConCom);
+        $this->db->where('CodCli', $CodCli);
+        return $this->db->update('T_Contrato',array('CodProCom'=>$CodProCom));
+    }
 
 
 
