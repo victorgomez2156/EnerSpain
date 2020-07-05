@@ -41,7 +41,7 @@ class Comercializadora extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
         $Provincias = $this->Comercializadora_model->get_list_providencias();
-        $Localidades = $this->Comercializadora_model->get_list_localidad();
+        $Localidades =false; //$this->Comercializadora_model->get_list_localidad();
         $Tipos_Vias = $this->Comercializadora_model->get_list_tipos_vias();
         $Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
         $Productos = $this->Comercializadora_model->get_list_productos();
@@ -58,7 +58,7 @@ class Comercializadora extends REST_Controller
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',0,$this->input->ip_address(),'Cargando Array de Consultas.');
 		if (empty($data)){
 			$this->response(false);
-			return false;
+			return false; 
 		}		
 		$this->response($data);		
     }
@@ -84,6 +84,22 @@ class Comercializadora extends REST_Controller
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
+    }
+    public function getLocalidadSearch_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $CodPro=$this->get('CodPro');
+        $data = $this->Comercializadora_model->get_list_localidadFilter($CodPro);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','GET',$CodPro,$this->input->ip_address(),'Consultando Localidades');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}
+		$this->response($data);		
     }
     public function Buscar_xID_Comercializadora_get()
     {

@@ -248,6 +248,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.reporte_excel_comercializadora = scope.tmodal_comercializadora.tipo_filtro + "/" + scope.tmodal_comercializadora.TipServ + "/" + scope.tmodal_comercializadora.Selec;
         }
         if (scope.tmodal_comercializadora.tipo_filtro == 2) {
+            
+            for (var i = 0; i < scope.TProvincias.length; i++) 
+            {
+                if (scope.TProvincias[i].CodPro == scope.tmodal_data.CodPro) {
+                    scope.FilterPro = scope.TProvincias[i].DesPro;
+                    console.log(scope.FilterPro);
+                }
+            }/*if (scope.TProvincias.CodPro == scope.tmodal_data.CodPro) 
+                {
+                    scope.FilterPro = scope.TcomercializadorasBack.CanPerTar;
+                    //console.log(scope.CanPerEle);
+                }*/
+
             console.log(scope.tmodal_comercializadora);
             $scope.predicate = 'id';
             $scope.reverse = true;
@@ -256,7 +269,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
             };
-            scope.Tcomercializadoras = $filter('filter')(scope.TcomercializadorasBack, { ProDirCom: scope.tmodal_data.CodPro }, true);
+            scope.Tcomercializadoras = $filter('filter')(scope.TcomercializadorasBack, { ProDirCom: scope.FilterPro }, true);
             $scope.totalItems = scope.Tcomercializadoras.length;
             $scope.numPerPage = 50;
             $scope.paginate = function(value) {
@@ -266,8 +279,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 index = scope.Tcomercializadoras.indexOf(value);
                 return (begin <= index && index < end);
             };
-            scope.reporte_pdf_comercializadora = scope.tmodal_comercializadora.tipo_filtro + "/" + scope.tmodal_data.CodPro;
-            scope.reporte_excel_comercializadora = scope.tmodal_comercializadora.tipo_filtro + "/" + scope.tmodal_data.CodPro;
+            scope.reporte_pdf_comercializadora = scope.tmodal_comercializadora.tipo_filtro + "/" + scope.FilterPro;
+            scope.reporte_excel_comercializadora = scope.tmodal_comercializadora.tipo_filtro + "/" + scope.FilterPro;
         }
         if (scope.tmodal_comercializadora.tipo_filtro == 3) {
             console.log(scope.tmodal_comercializadora);
@@ -530,6 +543,38 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.filtrarLocalidad = function() {
         scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { DesPro: scope.tmodal_data.CodPro }, true);
+
+    }
+    scope.SearchLocalidades=function()
+    {
+        var url = base_urlHome()+"api/Comercializadora/getLocalidadSearch/CodPro/"+scope.tmodal_data.CodPro;
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                scope.TLocalidadesfiltrada =result.data;
+            }
+            else
+            {
+                Swal.fire({ title: "Error", text: "Esta Provincia no tiene localidades asignadas.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.TLocalidadesfiltrada=[];
+            }
+        },function(error)
+        {   
+            if (error.status == 404 && error.statusText == "Not Found") {
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized") {
+                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden") {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+
+        });
 
     }
     scope.fetchComercializadoras = function() {

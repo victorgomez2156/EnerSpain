@@ -133,6 +133,11 @@
     width: auto !important;
 
 }
+.oscuro{ 
+  color:#1f1f1f;
+    background-color: #1f1f1f; 
+    color: #f1eded; 
+}
 .td-usuario-table{
     margin-top: 17px;
 }

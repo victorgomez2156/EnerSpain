@@ -36,11 +36,28 @@ class Comercializadora_model extends CI_Model
             return false;
         }       
     }
-     public function get_list_localidad()
+    public function get_list_localidad()
     {
         $this->db->select('a.CodLoc,b.DesPro,a.DesLoc,a.CPLoc,a.CodPro');
         $this->db->from('T_Localidad a');
         $this->db->join('T_Provincia b','a.CodPro=b.CodPro');
+        $this->db->order_by('b.DesPro,a.DesLoc ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function get_list_localidadFilter($CodPro)
+    {
+        $this->db->select('a.CodLoc,b.DesPro,a.DesLoc,a.CPLoc,a.CodPro');
+        $this->db->from('T_Localidad a');
+        $this->db->join('T_Provincia b','a.CodPro=b.CodPro');
+        $this->db->where('a.CodPro',$CodPro);
         $this->db->order_by('b.DesPro,a.DesLoc ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)

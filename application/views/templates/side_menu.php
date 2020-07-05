@@ -21,17 +21,17 @@
         <ul class="nav pull-right top-menu">
 
           <!-- task notificatoin start -->
-          <!--li id="task_notificatoin_bar" class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon-task-l"></i>
-                            <span class="badge bg-important">0</span>
-                        </a>
-            <ul class="dropdown-menu extended tasks-bar">
+          <li id="task_notificatoin_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" onclick="cambiarModo()" href="#">
+              <i class="fa fa-globe"></i>
+              <!--span class="badge bg-important">O / C</span-->
+            </a>
+            <!--ul class="dropdown-menu extended tasks-bar">
               <div class="notify-arrow notify-arrow-blue"></div>
               <li>
                 <p class="blue">Sin Cartas</p>
-              </li-->
-              <!--li>
+              </li>
+              <li>
                 <a href="#">
                   <div class="task-info">
                     <div class="desc">Design PSD </div>
@@ -43,12 +43,12 @@
                     </div>
                   </div>
                 </a>
-              </li-->           
-              <!--li class="external">
+              </li>           
+              <li class="external">
                 <a href="#">Ver Todas las Cartas</a>
               </li>
-            </ul>
-          </li-->
+            </ul-->
+          </li>
           <!-- task notificatoin end -->
           <!-- inbox notificatoin start-->
           <!--li id="mail_notificatoin_bar" class="dropdown">
@@ -244,7 +244,16 @@
       </div>
     </aside>
     <!--sidebar end-->
+    <script type="text/javascript"> 
+      function cambiarModo() { 
+        var cuerpoweb = document.body; 
+        cuerpoweb.classList.toggle("oscuro"); 
+      } 
+    </script>
+
+    
      <script>
+
 $(function(){
     var username = "<?php echo $this->usuario;?>";
  

@@ -335,7 +335,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
      </div>
      </div>
 
-     <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==1">
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_comercializadora.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">
      
@@ -362,8 +362,8 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
      <div class="form">                          
      <div class="form-group">
      
-      <select class="form-control" id="CodPro" name="CodPro" ng-model="vm.tmodal_data.CodPro" ng-change="vm.filtrarLocalidad()">
-        <option ng-repeat="dato in vm.TProvincias" value="{{dato.DesPro}}">{{dato.DesPro}}</option>                        
+      <select class="form-control" id="CodPro" name="CodPro" ng-model="vm.tmodal_data.CodPro" ng-change="vm.SearchLocalidades()">
+        <option ng-repeat="dato in vm.TProvincias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                        
       </select>   
      </div>
      </div>
