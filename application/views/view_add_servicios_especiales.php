@@ -79,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministros</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tipos de Suministros</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Eléctrico</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas de Acceso Eléctrico</b></label></div></div>
         
         <div class="col-lg-6">
                 <section class="panel">
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <div style="margin-top: 8px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas de Acceso Gas</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas de Acceso Gas</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
        <div class="form">                          
@@ -170,7 +170,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <input name="sample-checkbox-01" id="checkbox-013" type="checkbox" ng-model="vm.Todas_Gas_SerEsp" ng-click="vm.agregar_todas_detalle_SerEsp(vm.Todas_Gas_SerEsp)" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.servicio_especial.SerGas==false||vm.validate_info_servicio_especiales!=undefined" /> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div><br>
      <div style="margin-top: 10px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipo de Clientes</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tipo de Clientes</b></label></div></div>
 
       
       <div class="col-12 col-sm-12">

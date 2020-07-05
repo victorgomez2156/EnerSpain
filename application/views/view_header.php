@@ -149,7 +149,7 @@
 
 .btn-primary{
     color: #fff;
-    background-color: #337ab7 !important;
+    background-color: #6d6e71 !important;
     border-color: #2e6da4 !important;
     box-shadow: none !important;
     margin-bottom: 10px !important;

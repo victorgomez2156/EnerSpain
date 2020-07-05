@@ -120,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>      
       <div style="margin-top: 8px;">
       <div align="center">
-        <label ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" class="font-weight-bold nexa-dark" style="color:#394a59;"><b>DOMICILIO SOCIAL</b></label>
+        <label ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO SOCIAL</b></label>
       </div>
       </div>
             
@@ -228,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>DOMICILIO FISCAL</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label></div></div>
         <div align="left">
         <input type="checkbox" ng-model="vm.fdatos.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.fdatos.CodTipViaSoc==undefined|| vm.fdatos.NomViaDomSoc==undefined|| vm.fdatos.NumViaDomSoc==undefined|| vm.fdatos.CodProSoc==undefined|| vm.fdatos.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
        </div>

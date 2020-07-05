@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipos de Suministro</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tipos de Suministro</b></label></div></div>
       
       <div class="col-12 col-sm-6">
        <div class="form">                          
@@ -154,7 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tipo de Precio</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tipo de Precio</b></label></div></div>
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
@@ -176,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas Suministro Eléctrico</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro Eléctrico</b></label></div></div>
         
         <div class="col-lg-6">
                 <section class="panel">
@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <div style="margin-top: 8px;">
-      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;"><b>Tarifas Suministro de Gas</b></label></div></div>
+      <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro de Gas</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
        <div class="form">                          

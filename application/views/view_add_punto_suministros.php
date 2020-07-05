@@ -85,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      
       <div style="margin-top: 8px;">
-       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#394a59;;"><b>DIRECCIÓN</b></label></div></div>
+       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;;"><b>DIRECCIÓN</b></label></div></div>
       
       <div class="col-12 col-sm-3">
        <div class="form">                          
