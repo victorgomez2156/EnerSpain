@@ -150,7 +150,7 @@
 .btn-primary{
     color: #fff;
     background-color: #6d6e71 !important;
-    border-color: #2e6da4 !important;
+    border-color: #6d6e71!important;
     box-shadow: none !important;
     margin-bottom: 10px !important;
 }
