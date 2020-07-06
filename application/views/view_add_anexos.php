@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora <b style="color:red;">(*)</b></label>
        <select class="form-control" id="CodTProComAnex" name="CodTProComAnex" ng-model="vm.anexos.CodTProCom" ng-change="vm.filtrar_productos_com()" ng-disabled="vm.validate_info_anexos!=undefined">
-         <option ng-repeat="dato in vm.TProComercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
+         <option ng-repeat="dato in vm.Tcomercializadoras" value="{{dato.CodCom}}">{{dato.RazSocCom}} - {{dato.NumCifCom}}</option>                        
         </select>
        
        </div>
@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-        <div style="margin-top: 8px;">
+      <div style="margin-top: 8px;">
        <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro Eléctrico</b></label></div></div>
         
         <div class="col-lg-6">
@@ -184,29 +184,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div align="center"> <b>Baja Tensión</b> </div>
                   </header>
                    <div class="panel-body">
-                    <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
+                    
+                    <div ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
                         
-                         <button type="button"  ng-click="vm.agregar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.anexos.SerEle==false ||vm.validate_info_anexos!=undefined" ng-show="!vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                        
+                        <button type="button"  ng-click="vm.agregar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.anexos.SerEle==false ||vm.validate_info_anexos!=undefined" ng-show="!vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                        
 
                         <button type="button" ng-show="vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]" ng-click="vm.quitar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_baja.NomTarEle}}" style="color:green;"></i></button>
 
                         <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_baja.NomTarEle}}</label>
                     </div>
-                     <div align="center">
-                    <label>
+                    
+
+                    <div align="center">
+                      <label>
                         <input name="sample-checkbox-01" id="checkbox-016" type="checkbox" ng-click="vm.agregar_todas_baja_tension(vm.Tarifa_Elec_Baja,vm.anexos.AggAllBaj)" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllBaj"/> <b><i class="fa fa-check-circle"></i> Todas</b>
-                      </label></div>
+                      </label>
+                    </div>
                   </div>
                 </section> 
               </div>
 
-               <div class="col-lg-6">
+              <div class="col-lg-6">
                 <section class="panel">
                   <header class="panel-heading">
                    <div align="center"> <b>Alta Tensión</b> </div>
                   </header>
                    <div class="panel-body">
-                    <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
+                    <div ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
 
                         <button type="button" ng-disabled="vm.validate_info==1||vm.disabled_all_alta==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined " ng-show="!vm.select_tarifa_Elec_Alt[opcion_tension_alta.CodTarEle]" ng-click="vm.agregar_tarifa_elec_alta($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" title="Agregar {{opcion_tension_alta.NomTarEle}}"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
                         
@@ -231,7 +235,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-  <div style="margin-top: 8px;">
+      <div style="margin-top: 12px;">
       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro de Gas</b></label></div></div>
        
        <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">

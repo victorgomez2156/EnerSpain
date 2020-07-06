@@ -1,6 +1,6 @@
-app.controller('Controlador_Productos', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceComercializadora', Controlador]);
+app.controller('Controlador_Productos', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceProductos', Controlador]);
 
-function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceComercializadora) {
+function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceProductos) {
     var scope = this;
     scope.fdatos = {};
     scope.productos = {};
@@ -49,33 +49,43 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.productos.SerGas = false;
     scope.productos.SerEle = false;
 
-    ServiceComercializadora.getAll().then(function(dato) {
-        scope.TProductos = dato.Comercializadora;
-        scope.TProductosBack = dato.Comercializadora;
-        scope.TProComercializadoras = dato.TProComercializadoras;
+    ServiceProductos.getAll().then(function(dato) 
+    {
+        
+        if(dato.Productos==false)
+        {
+            scope.TProductos = [];
+            scope.TProductosBack = [];    
+        }
+        else
+        {
+            $scope.predicate1 = 'id';
+            $scope.reverse1 = true;
+            $scope.currentPage1 = 1;
+            $scope.order1 = function(predicate1) {
+                $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                $scope.predicate1 = predicate1;
+            };
+            scope.TProductos = dato.Productos;
+            scope.TProductosBack = dato.Productos;
+            $scope.totalItems1 = scope.TProductos.length;
+            $scope.numPerPage1 = 50;
+            $scope.paginate1 = function(value1) {
+                var begin1, end1, index1;
+                begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                end1 = begin1 + $scope.numPerPage1;
+                index1 = scope.TProductos.indexOf(value1);
+                return (begin1 <= index1 && index1 < end1);
+            }; 
+        }
+        scope.Tcomercializadoras=dato.Comercializadora;
+        scope.TProComercializadoras=dato.Comercializadora;
         scope.Fecha_Server = dato.fecha;
         if (scope.nID == undefined) {
             scope.FecIniPro = scope.Fecha_Server;
             $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniPro);
         }
-        $scope.predicate1 = 'id';
-        $scope.reverse1 = true;
-        $scope.currentPage1 = 1;
-        $scope.order1 = function(predicate1) {
-            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
-            $scope.predicate1 = predicate1;
-        };
-        scope.TProductos = dato.Productos;
-        scope.TProductosBack = dato.Productos;
-        $scope.totalItems1 = scope.TProductos.length;
-        $scope.numPerPage1 = 50;
-        $scope.paginate1 = function(value1) {
-            var begin1, end1, index1;
-            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
-            end1 = begin1 + $scope.numPerPage1;
-            index1 = scope.TProductos.indexOf(value1);
-            return (begin1 <= index1 && index1 < end1);
-        };
+        
     }).catch(function(error) {
         console.log(error); //Tratar el error
         if (error.status == false && error.error == "This API key does not have access to the requested controller.") {

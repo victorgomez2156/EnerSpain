@@ -30,6 +30,7 @@
      scope.response_customer.Cuentas_Bancarias = [];
      scope.response_customer.documentos = [];
      scope.response_customer.Puntos_Suministros = [];
+     scope.response_customer.All_CUPs=[];
 
      //console.log(scope.response_customer.Contactos);
      //console.log(scope.response_customer.Cuentas_Bancarias);

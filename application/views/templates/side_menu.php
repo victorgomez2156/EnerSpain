@@ -23,7 +23,7 @@
           <!-- task notificatoin start -->
           <li id="task_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" onclick="cambiarModo()" href="#">
-              <i class="fa fa-globe"></i>
+              <i class="fa fa-globe" title="Modo Oscuro / Claro"></i>
               <!--span class="badge bg-important">O / C</span-->
             </a>
             <!--ul class="dropdown-menu extended tasks-bar">

@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div align="center"> <b>Baja Tensión</b> </div>
                   </header>
                    <div class="panel-body">
-                    <div class="checkboxes"ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
+                    <div ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
                        
                          <button type="button" ng-click="vm.agregar_tarifa_elec_baja_SerEsp($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.disabled_all_baja==1||vm.servicio_especial.SerEle==false ||vm.validate_info_servicio_especiales!=undefined" ng-show="!vm.select_tarifa_Elec_Baj_SerEsp[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
                         
@@ -130,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div align="center"> <b>Alta Tensión</b> </div>
                   </header>
                    <div class="panel-body">
-                    <div class="checkboxes"ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
+                    <div ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
 
                         <button type="button" ng-disabled="vm.validate_info_servicio_especiales!=undefined||vm.disabled_all_alta==1||vm.servicio_especial.SerEle==false||vm.validate_info_servicio_especiales!=undefined " ng-show="!vm.select_tarifa_Elec_Alt_SerEsp[opcion_tension_alta.CodTarEle]" ng-click="vm.agregar_tarifa_elec_alta_SerEsp($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" title="Agregar {{opcion_tension_alta.NomTarEle}}"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                       
 

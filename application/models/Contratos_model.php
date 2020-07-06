@@ -74,11 +74,11 @@ class Contratos_model extends CI_Model
         $this->db->where('CodConCom', $CodConCom); 
         return $this->db->update('T_Contrato',array('DocConRut'=>$DocConRut));
     }
-    public function update_DBcontrato($CodCli,$CodProCom,$FecIniCon,$DurCon,$FecVenCon,$ObsCon,$DocConRut,$CodConCom,$RefCon)
+    public function update_DBcontrato($CodCli,$CodProCom,$FecIniCon,$DurCon,$FecVenCon,$ObsCon,$DocConRut,$CodConCom,$RefCon,$FecFirmCon)
     {   
         $this->db->where('CodConCom', $CodConCom);
         $this->db->where('CodCli', $CodCli);  
-        return $this->db->update('T_Contrato',array('FecIniCon'=>$FecIniCon,'DurCon'=>$DurCon,'FecVenCon'=>$FecVenCon,'DocConRut'=>$DocConRut,'ObsCon'=>$ObsCon,'RefCon'=>$RefCon));
+        return $this->db->update('T_Contrato',array('FecIniCon'=>$FecIniCon,'DurCon'=>$DurCon,'FecVenCon'=>$FecVenCon,'DocConRut'=>$DocConRut,'ObsCon'=>$ObsCon,'RefCon'=>$RefCon,'FecFirmCon'=>$FecFirmCon));
     }
     public function update_bajaContrato($CodConCom,$FecBajCon,$JusBajCon,$EstBajCon)
     {   

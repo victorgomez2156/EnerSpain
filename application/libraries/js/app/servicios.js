@@ -48,7 +48,7 @@ function ServiceComercializadora ($http, $q, $cookies) {
         var defered = $q.defer();
         var promise = defered.promise;
         $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
-        var url = base_urlHome()+"api/Comercializadora/get_all_functions_comercializadora";
+        var url = base_urlHome()+"api/Comercializadora/get_service_comercializadora";
         $http.get(url).success(function(data) 
         {
             $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
@@ -61,6 +61,73 @@ function ServiceComercializadora ($http, $q, $cookies) {
         return promise;
     }
 };
+function ServiceProductos ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+        var url = base_urlHome()+"api/Comercializadora/get_service_productos";
+        $http.get(url).success(function(data) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.resolve(data);
+        }).error(function(err) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.reject(err)
+        });
+        return promise;
+    }
+};
+function ServiceAnexos ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+        var url = base_urlHome()+"api/Comercializadora/get_service_anexos";
+        $http.get(url).success(function(data) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.resolve(data);
+        }).error(function(err) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.reject(err)
+        });
+        return promise;
+    }
+};
+function ServiceServiciosEspeciales ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active");
+        var url = base_urlHome()+"api/Comercializadora/get_service_ServiciosEspeciales";
+        $http.get(url).success(function(data) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.resolve(data);
+        }).error(function(err) 
+        {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+            defered.reject(err)
+        });
+        return promise;
+    }
+};
+
+
+
+
 function ServiceColaboradores ($http, $q, $cookies) {  
     return {
         getAll: getAll
@@ -126,6 +193,9 @@ function ServiceCups ($http, $q, $cookies) {
 app.service('ServiceMenu',ServiceMenu);
 app.service('ServiceMaster',ServiceMaster);
 app.service('ServiceComercializadora',ServiceComercializadora);
+app.service('ServiceProductos',ServiceProductos);
+app.service('ServiceAnexos',ServiceAnexos);
+app.service('ServiceServiciosEspeciales',ServiceServiciosEspeciales);
 app.service('ServiceColaboradores',ServiceColaboradores);
 app.service('ServiceCups',ServiceCups);
 app.service('ServiceOnlyColaboradores',ServiceOnlyColaboradores);

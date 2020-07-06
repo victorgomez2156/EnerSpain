@@ -203,6 +203,41 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos.NomComCom = scope.fdatos.RazSocCom;
         }
     }
+    
+    scope.SearchLocalidades=function()
+    {
+        scope.TLocalidadesfiltrada=[];
+        var url = base_urlHome()+"api/Comercializadora/getLocalidadSearch/CodPro/"+scope.fdatos.CodPro;
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                scope.TLocalidadesfiltrada =result.data;
+            }
+            else
+            {
+                Swal.fire({ title: "Error", text: "Esta Provincia no tiene localidades asignadas.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.TLocalidadesfiltrada=[];
+            }
+        },function(error)
+        {   
+            if (error.status == 404 && error.statusText == "Not Found") {
+                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 401 && error.statusText == "Unauthorized") {
+                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 403 && error.statusText == "Forbidden") {
+                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+            }
+            if (error.status == 500 && error.statusText == "Internal Server Error") {
+                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+            }
+
+        });
+
+    }
+
     scope.filtrarLocalidadCom = function() {
         scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { CodPro: scope.fdatos.CodPro }, true);
         if ($route.current.$$route.originalPath == "/Datos_Basicos_Comercializadora/:ID/:INF" || $route.current.$$route.originalPath == "/Datos_Basicos_Comercializadora/:ID") {
@@ -601,6 +636,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.fdatos.SerGas = false;
                 }
                 scope.fdatos.misma_razon = false;
+                scope.SearchLocalidades();
                 console.log(scope.fdatos);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -635,12 +671,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     if (scope.nID != undefined) {
         scope.buscarXID();
-        var promise = $interval(function() {
+        /*var promise = $interval(function() {
             scope.filtrarLocalidadCom();
         }, 7000);
         $scope.$on('$destroy', function() {
             $interval.cancel(promise);
-        });
+        });*/
     }
     //////////////////////////////////////////////////////////// DATOS BASICOS DE COMERCIALIZADORAS END ////////////////////////////////////////////////////////////////
 }

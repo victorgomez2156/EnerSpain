@@ -487,54 +487,62 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
+
+
           
-          <div class="col-12 col-sm-2">
+        <div class="col-12 col-sm-2">
             <div class="form">                          
-             <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
-         
-        <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>                 
-             </div>
-             </div>
-          </div>  
-
-      <div class="col-12 col-sm-3">
-         <div class="form">                          
-         <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
-        <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'" ng-blur="vm.blurfechachange()"/>
-         
-         </div>
-         </div>
-      </div>
-
-
-        <div class="col-12 col-sm-3">
-            <div class="form">                          
-             <div class="form-group">   
-              <label class="font-weight-bold nexa-dark" style="color:black;">Duración </label>          
-             <select class="form-control" id="DurCon" name="DurCon" required ng-model="vm.fdatos.DurCon" ng-change="vm.calcular_vencimiento()" ng-disabled="vm.fdatos.tipo=='ver'">   
-                <option value="12">12 Meses</option>
-                <option value="18">18 Meses</option>
-                <option value="24">24 Meses</option>
-                <option value="36">36 Meses</option>
-        </select> 
-                       
-             </div>
-             </div>
-          </div>
+              <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>
+                <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>
+              </div>
+            </div>
+        </div>  
 
       <div class="col-12 col-sm-2">
+        <div class="form">                          
+          <div class="form-group">
+            <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
+            <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'" ng-blur="vm.blurfechachange()"/>         
+         </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-2">
+        <div class="form">                          
+          <div class="form-group">   
+            <label class="font-weight-bold nexa-dark" style="color:black;">Duración </label>          
+            <select class="form-control" id="DurCon" name="DurCon" required ng-model="vm.fdatos.DurCon" ng-change="vm.calcular_vencimiento()" ng-disabled="vm.fdatos.tipo=='ver'">   
+              <option value="12">12 Meses</option>
+              <option value="18">18 Meses</option>
+              <option value="24">24 Meses</option>
+              <option value="36">36 Meses</option>
+            </select> 
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
-        <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'||vm.fdatos.tipo=='ver'"/>
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Firma</label>
+        <input type="text" class="form-control FecFirmCon" name="FecFirmCon" id="FecFirmCon" ng-model="vm.FecFirmCon" placeholder="Fecha de Firma de Contrato" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(17,vm.FecFirmCon)"/>
          
          </div>
          </div>
       </div> 
 
-     <div class="col-12 col-sm-2">
+      <div class="col-12 col-sm-2">
+        <div class="form">                          
+          <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
+          <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'||vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(18,vm.FecVenCon)"/>
+         
+         </div>
+        </div>
+      </div>
+
+     <div class="col-12 col-sm-4" id="RefConClass">
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Referencia</label>
@@ -542,7 +550,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
          </div>
          </div>
-      </div>      
+      </div>
+
+
 
          <div class="form">                          
          <div class="form-group">
@@ -666,6 +676,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>  
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('.FecFirmCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>

@@ -33,29 +33,30 @@ class Comercializadora extends REST_Controller
 		}				
 		$this->response($data);		
     }
-    public function get_all_functions_comercializadora_get()
+    public function get_service_comercializadora_get()
     { 
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
-		}		
-        $Provincias = $this->Comercializadora_model->get_list_providencias();
-        $Localidades =false; //$this->Comercializadora_model->get_list_localidad();
-        $Tipos_Vias = $this->Comercializadora_model->get_list_tipos_vias();
+		}
+		$fecha=date('d/m/Y');		
+        $Provincias = $this->Comercializadora_model->get_list_providencias();        
+        $Tipos_Vias = $this->Comercializadora_model->get_list_tipos_vias();        
         $Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
-        $Productos = $this->Comercializadora_model->get_list_productos();
-        $Anexos = $this->Comercializadora_model->get_list_anexos();
-        $Servicios_Especiales = $this->Comercializadora_model->get_list_servicos_especiales();
-        $ComAct = $this->Comercializadora_model->get_list_ComAct();
-       	$ProAct = $this->Comercializadora_model->get_list_ProAct();
-       	$TioCom = $this->Comercializadora_model->get_list_TipCom();
-       	$Tarifa_Gas= $this->Comercializadora_model->get_list_tarifa_Gas();
-       	$Tarifa_Ele= $this->Comercializadora_model->list_tarifa_electricas();
-       	$fecha=date('d/m/Y');
 
-        $data=array('Provincias'=>$Provincias,'Localidades'=>$Localidades,'Tipos_Vias'=>$Tipos_Vias,'Comercializadora'=>$Comercializadora,'Productos'=>$Productos,'Anexos'=>$Anexos,'Servicios_Especiales'=>$Servicios_Especiales,'TProComercializadoras' =>$ComAct,'TProductosActivos' =>$ProAct,'Tipos_Comision' =>$TioCom,'Tarifa_Gas' =>$Tarifa_Gas,'Tarifa_Ele' =>$Tarifa_Ele,'fecha' =>$fecha);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',0,$this->input->ip_address(),'Cargando Array de Consultas.');
+        $Localidades =false; //$this->Comercializadora_model->get_list_localidad();
+        $Productos = false;//$this->Comercializadora_model->get_list_productos();
+        $Anexos = //$this->Comercializadora_model->get_list_anexos();
+        $Servicios_Especiales = false;//$this->Comercializadora_model->get_list_servicos_especiales();
+        $ComAct = false;//$this->Comercializadora_model->get_list_ComAct();
+       	$ProAct = false;//$this->Comercializadora_model->get_list_ProAct();
+       	$TioCom = false;//$this->Comercializadora_model->get_list_TipCom();
+       	$Tarifa_Gas= false;//$this->Comercializadora_model->get_list_tarifa_Gas();
+       	$Tarifa_Ele= false;//$this->Comercializadora_model->list_tarifa_electricas();      	
+
+        $data=array('Provincias'=>$Provincias,'Tipos_Vias'=>$Tipos_Vias,'Comercializadora'=>$Comercializadora,'fecha' =>$fecha);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Array de Consultas.');
 		if (empty($data)){
 			$this->response(false);
 			return false; 
@@ -200,11 +201,29 @@ class Comercializadora extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
-    /////////////////////////////////////////////////// COMERCIALIZADORAS END ////////////////////////////////////////////////////////
+    ////////////////////////////////////////// COMERCIALIZADORAS END ////////////////////////////////////////////////////////
     
 
-    ////////////////////////////////////////////////// PRODUCTOS START ///////////////////////////////////////////////////////////////
+    /////////////////////////////////////// PRODUCTOS START ///////////////////////////////////////////////////////////////
 	
+	public function get_service_productos_get()
+    { 
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+		$Productos = $this->Comercializadora_model->get_list_productos();
+		$fecha=date('d/m/Y');
+        $data=array('Comercializadora'=>$Comercializadora,'fecha' =>$fecha,'Productos'=>$Productos);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Array de Consultas.');
+		if (empty($data)){
+			$this->response(false);
+			return false; 
+		}		
+		$this->response($data);		
+    }
 public function get_list_productos_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -302,6 +321,28 @@ public function registrar_productos_post()
 
     
 ///////////////////////////////////////////PARA LOS ANEXOS START////////////////////////////////////////////////////////////////////
+public function get_service_anexos_get()
+    { 
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+		$Productos = $this->Comercializadora_model->get_list_productos();
+		$fecha=date('d/m/Y');
+		$TiPCom =$this->Comercializadora_model->get_list_TipCom();
+		$Anexos = $this->Comercializadora_model->get_list_anexos();
+		$Tarifa_Gas= $this->Comercializadora_model->get_list_tarifa_Gas();
+       	$Tarifa_Ele= $this->Comercializadora_model->list_tarifa_electricas();
+		$data=array('Comercializadora'=>$Comercializadora,'fecha' =>$fecha,'Productos'=>$Productos,'TiPCom'=>$TiPCom,'Anexos'=>$Anexos,'Tarifa_Gas'=>$Tarifa_Gas,'Tarifa_Ele'=>$Tarifa_Ele);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Array de Consultas.');
+		if (empty($data)){
+			$this->response(false);
+			return false; 
+		}		
+		$this->response($data);		
+    }
 public function get_list_anexos_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -553,6 +594,28 @@ public function Buscar_xID_Anexos_get()
 
 
 ///////////////////////////////////////////PARA LOS SERVICIOS ESPECIALES START ///////////////////////////////////////////////
+public function get_service_ServiciosEspeciales_get()
+    { 
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$fecha=date('d/m/Y');		
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+        $TipCom = $this->Comercializadora_model->get_list_TipCom();
+		$Tarifa_Gas= $this->Comercializadora_model->get_list_tarifa_Gas();
+       	$Tarifa_Ele= $this->Comercializadora_model->list_tarifa_electricas(); 
+       	$Servicios_Especiales = $this->Comercializadora_model->get_list_servicos_especiales(); 
+
+		$data=array('Comercializadora'=>$Comercializadora,'fecha' =>$fecha,'Servicios_Especiales'=>$Servicios_Especiales,'TipCom'=>$TipCom,'Tarifa_Gas'=>$Tarifa_Gas,'Tarifa_Ele'=>$Tarifa_Ele);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Array de Consultas.');
+		if (empty($data)){
+			$this->response(false);
+			return false; 
+		}		
+		$this->response($data);		
+    }
 public function get_list_servicos_especiales_get()
 {
 	$datausuario=$this->session->all_userdata();	

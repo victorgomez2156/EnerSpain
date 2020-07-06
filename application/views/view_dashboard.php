@@ -135,10 +135,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </form>                    
             </div>
           </div><!--t-0002 end-->
-          <br><br><br><br>
-          <form role="form" name="formu">
+          <br><br><br><br><br>
+          <!--form role="form" name="formu">
       
-      <!--div class="col-12 col-sm-12">       
+      <div class="col-12 col-sm-12">       
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes</label>
@@ -147,8 +147,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </select>       
        </div>
        </div>
-       </div-->       
-      </form>
+       </div>       
+      </form-->
 
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(1)">
     <h4 class="breadcrumb">     

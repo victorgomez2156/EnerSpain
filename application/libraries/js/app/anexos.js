@@ -1,4 +1,4 @@
-app.controller('Controlador_Anexos', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceComercializadora', 'upload', Controlador])
+app.controller('Controlador_Anexos', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceAnexos', 'upload', Controlador])
     .directive('uploaderModel', ["$parse", function($parse) {
         return {
             restrict: 'A',
@@ -42,7 +42,7 @@ app.controller('Controlador_Anexos', ['$http', '$scope', '$filter', '$route', '$
         }
     }])
 
-function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceComercializadora, upload) {
+function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceAnexos, upload) {
     var scope = this;
     scope.fdatos = {};
     scope.anexos = {};
@@ -103,55 +103,75 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.anexos.T_DetalleAnexoTarifaElecAlt = [];
     scope.anexos.T_DetalleAnexoTarifaGas = [];
     scope.validate_info_anexos = scope.INF;
-    ServiceComercializadora.getAll().then(function(dato) {
-        scope.TProComercializadoras = dato.Comercializadora;
-        scope.TProductosActivos = dato.Productos;
-        scope.Tipos_Comision = dato.Tipos_Comision;
-        scope.Tcomercializadoras = dato.Comercializadora;
-        scope.TProductos = dato.Productos;
-        scope.Tarifa_Gas_Anexos = dato.Tarifa_Gas;
-        scope.Tarifa_Ele_Anexos = dato.Tarifa_Ele;
-
+    ServiceAnexos.getAll().then(function(dato) {
+        
+        scope.Tcomercializadoras=dato.Comercializadora;
+        scope.TProductos=dato.Productos;
+        scope.Tipos_Comision=dato.TiPCom;
+        scope.Fecha_Server = dato.fecha;
         if (scope.nIDAnexos == undefined) {
             scope.FecIniAneA = dato.fecha;
             $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniAneA);
         }
-        scope.Fecha_Server = dato.fecha;
-        angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica) {
-            if (Tarifa_Electrica.TipTen == 'BAJA') {
-                var ObjTarifaElecBaj = new Object();
-                if (scope.Tarifa_Elec_Baja == undefined || scope.Tarifa_Elec_Baja == false) {
-                    scope.Tarifa_Elec_Baja = [];
+        if(dato.Anexos==false)
+        {
+            scope.TAnexos = [];
+            scope.TAnexosBack = [];
+        }
+        else
+        {
+            $scope.predicate2 = 'id';
+            $scope.reverse2 = true;
+            $scope.currentPage2 = 1;
+            $scope.order2 = function(predicate2) {
+                $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
+                $scope.predicate2 = predicate2;
+            };
+            scope.TAnexos = dato.Anexos;
+            scope.TAnexosBack = dato.Anexos;
+            $scope.totalItems2 = scope.TAnexos.length;
+            $scope.numPerPage2 = 50;
+            $scope.paginate2 = function(value2) {
+                var begin2, end2, index2;
+                begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
+                end2 = begin2 + $scope.numPerPage2;
+                index2 = scope.TAnexos.indexOf(value2);
+                return (begin2 <= index2 && index2 < end2);
+            };
+        }
+        if($route.current.$$route.originalPath!="Anexos")
+        {
+            scope.Tarifa_Gas_Anexos = dato.Tarifa_Gas;
+            scope.Tarifa_Ele_Anexos = dato.Tarifa_Ele;        
+            angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica) {
+                if (Tarifa_Electrica.TipTen == 'BAJA') {
+                    var ObjTarifaElecBaj = new Object();
+                    if (scope.Tarifa_Elec_Baja == undefined || scope.Tarifa_Elec_Baja == false) {
+                        scope.Tarifa_Elec_Baja = [];
+                    }
+                    scope.Tarifa_Elec_Baja.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
+                    console.log(scope.Tarifa_Elec_Baja);
+                } else {
+                    var ObjTarifaElecAlt = new Object();
+                    if (scope.Tarifa_Elec_Alt == undefined || scope.Tarifa_Elec_Alt == false) {
+                        scope.Tarifa_Elec_Alt = [];
+                    }
+                    scope.Tarifa_Elec_Alt.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
+                    console.log(scope.Tarifa_Elec_Alt);
                 }
-                scope.Tarifa_Elec_Baja.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
-                console.log(scope.Tarifa_Elec_Baja);
-            } else {
-                var ObjTarifaElecAlt = new Object();
-                if (scope.Tarifa_Elec_Alt == undefined || scope.Tarifa_Elec_Alt == false) {
-                    scope.Tarifa_Elec_Alt = [];
-                }
-                scope.Tarifa_Elec_Alt.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
-                console.log(scope.Tarifa_Elec_Alt);
-            }
-        });
-        $scope.predicate2 = 'id';
-        $scope.reverse2 = true;
-        $scope.currentPage2 = 1;
-        $scope.order2 = function(predicate2) {
-            $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
-            $scope.predicate2 = predicate2;
-        };
-        scope.TAnexos = dato.Anexos;
-        scope.TAnexosBack = dato.Anexos;
-        $scope.totalItems2 = scope.TAnexos.length;
-        $scope.numPerPage2 = 50;
-        $scope.paginate2 = function(value2) {
-            var begin2, end2, index2;
-            begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
-            end2 = begin2 + $scope.numPerPage2;
-            index2 = scope.TAnexos.indexOf(value2);
-            return (begin2 <= index2 && index2 < end2);
-        };
+            });
+        }        
+
+
+
+        /*scope.TProComercializadoras = dato.Comercializadora;
+        scope.TProductosActivos = dato.Productos;
+        scope.Tipos_Comision = dato.Tipos_Comision;
+        scope.Tcomercializadoras = dato.Comercializadora;
+        scope.TProductos = dato.Productos;               
+        
+        
+       */
     }).catch(function(error) {
         console.log(error); //Tratar el error
         /*if(error.status==false && error.error=="This API key does not have access to the requested controller.")
@@ -622,7 +642,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     scope.filtrar_productos_com = function() {
-        scope.TProductosActivosFiltrados = $filter('filter')(scope.TProductosActivos, { CodCom: scope.anexos.CodTProCom }, true);
+        scope.TProductosActivosFiltrados = $filter('filter')(scope.TProductos, { CodCom: scope.anexos.CodTProCom }, true);
         console.log(scope.TProductosActivosFiltrados);
         if ($route.current.$$route.originalPath == "/Ver_Anexos/:ID/:INF" || $route.current.$$route.originalPath == "/Edit_Anexos/:ID") {
             scope.contador = 0;

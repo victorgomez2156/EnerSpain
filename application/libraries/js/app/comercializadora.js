@@ -88,7 +88,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return (begin <= index && index < end);
         };
         scope.fecha_server = dato.fecha;
-        console.log(scope.fecha_server);
+        //console.log(scope.fecha_server);
     }).catch(function(error) {
         console.log(error); //Tratar el error
         /*if(error.status==false && error.error=="This API key does not have access to the requested controller.")
@@ -113,7 +113,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }*/
 
     });
-
     scope.NumCifCom = true;
     scope.RazSocCom = true;
     scope.TelFijCom = true;

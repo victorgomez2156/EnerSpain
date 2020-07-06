@@ -1,4 +1,4 @@
- app.controller('Controlador_Servicios_Especiales', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceComercializadora', 'upload', Controlador])
+ app.controller('Controlador_Servicios_Especiales', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceServiciosEspeciales', 'upload', Controlador])
      .directive('uploaderModel', ["$parse", function($parse) {
          return {
              restrict: 'A',
@@ -42,7 +42,7 @@
          }
      }])
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceComercializadora, upload) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceServiciosEspeciales, upload) {
      //declaramos una variable llamada scope donde tendremos a vm
      /*inyectamos un controlador para acceder a sus variables y metodos*/
      //$controller('Controlador_Clientes as vmAE',{$scope:$scope});
@@ -100,39 +100,42 @@
      scope.TComisionesDet = [];
      scope.TComisionesRangoGrib = [];
      ////////////////////////////////////////////////// PARA LA LISTA Y CONFIGURACIONES DE SERVICIOS ESPECIALES START ////////////////////////////////////////////////////////
-     ServiceComercializadora.getAll().then(function(dato) {
+     ServiceServiciosEspeciales.getAll().then(function(dato) {
 
-         scope.Tcomercializadoras = dato.Comercializadora;
-         scope.Tipos_Comision = dato.Tipos_Comision;
-         scope.Tarifa_Gas_Anexos = dato.Tarifa_Gas;
-         scope.Tarifa_Ele_Anexos = dato.Tarifa_Ele;
-         scope.FecIniSerEspForm = dato.fecha;
-         $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniSerEspForm);
-         scope.Fecha_Server = dato.fecha;
-         $scope.predicate3 = 'id';
-         $scope.reverse3 = true;
-         $scope.currentPage3 = 1;
-         $scope.order3 = function(predicate3) {
-             $scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;
-             $scope.predicate3 = predicate3;
-         };
-         scope.TServicioEspeciales = dato.Servicios_Especiales;
-         scope.TServicioEspecialesBack = dato.Servicios_Especiales;
-         $scope.totalItems3 = scope.TServicioEspeciales.length;
-         $scope.numPerPage3 = 50;
-         $scope.paginate3 = function(value3) {
-             var begin3, end3, index3;
-             begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;
-             end3 = begin3 + $scope.numPerPage3;
-             index3 = scope.TServicioEspeciales.indexOf(value3);
-             return (begin3 <= index3 && index3 < end3);
-         };
-         if(scope.TServicioEspeciales==false || scope.TServicioEspeciales==undefined)
-         {
-            scope.TServicioEspeciales=[];
-         }
-         console.log(scope.TServicioEspeciales);
-         angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica) {
+        scope.Tcomercializadoras=dato.Comercializadora;
+        scope.Tipos_Comision=dato.TipCom;
+        scope.FecIniSerEspForm = dato.fecha;
+        $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniSerEspForm);
+        scope.Fecha_Server = dato.fecha;
+        if(dato.Servicios_Especiales==false)
+        {
+            scope.TServicioEspeciales = [];
+            scope.TServicioEspecialesBack = [];
+        }
+        else
+        {            
+            $scope.predicate3 = 'id';
+            $scope.reverse3 = true;
+            $scope.currentPage3 = 1;
+            $scope.order3 = function(predicate3) {
+                 $scope.reverse3 = ($scope.predicate3 === predicate3) ? !$scope.reverse3 : false;
+                 $scope.predicate3 = predicate3;
+            };
+            scope.TServicioEspeciales = dato.Servicios_Especiales;
+            scope.TServicioEspecialesBack = dato.Servicios_Especiales;
+            $scope.totalItems3 = scope.TServicioEspeciales.length;
+            $scope.numPerPage3 = 50;
+            $scope.paginate3 = function(value3) {
+                var begin3, end3, index3;
+                begin3 = ($scope.currentPage3 - 1) * $scope.numPerPage3;
+                end3 = begin3 + $scope.numPerPage3;
+                index3 = scope.TServicioEspeciales.indexOf(value3);
+                return (begin3 <= index3 && index3 < end3);
+            };
+        }
+        scope.Tarifa_Gas_Anexos = dato.Tarifa_Gas;
+        scope.Tarifa_Ele_Anexos = dato.Tarifa_Ele;
+        angular.forEach(scope.Tarifa_Ele_Anexos, function(Tarifa_Electrica) {
              if (Tarifa_Electrica.TipTen == 'BAJA') {
                  var ObjTarifaElecBaj = new Object();
                  if (scope.Tarifa_Elec_Baja == undefined || scope.Tarifa_Elec_Baja == false) {
@@ -151,7 +154,7 @@
          });
      }).catch(function(error) {
          console.log(error); //Tratar el error
-         /*if(error.status==404 && error.statusText=="Not Found")
+         if(error.status==404 && error.statusText=="Not Found")
          {
          	Swal.fire({title:"Error.",text:"El método que está intentando usar no puede ser localizado",type:"error",confirmButtonColor:"#188ae2"});
          }
@@ -166,8 +169,7 @@
          if(error.status==500 && error.statusText=="Internal Server Error")
          {				
          	Swal.fire({title:"Error.",text:"Ha ocurrido una falla en el Servidor, intente más tarde",type:"error",confirmButtonColor:"#188ae2"});
-         }*/
-
+         }
      });
 
      scope.cargar_lista_servicos_especiales = function() {

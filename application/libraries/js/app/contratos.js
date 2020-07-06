@@ -464,6 +464,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                  scope.fdatos.PorAhoTot = scope.fdatos.PorAhoGas;
              }
          }
+         if (metodo == 17) {
+            if (object != undefined){
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.FecFirmCon = numero.substring(0, numero.length - 1);
+            }            
+        }
+        if (metodo == 18) {
+            if (object != undefined){
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.FecVenCon = numero.substring(0, numero.length - 1);
+            }           
+        }
     }       
     scope.blurfechachange = function()
     {
@@ -710,6 +724,41 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos.FecVenCon = FecVenCon[2] + "-" + FecVenCon[1] + "-" + FecVenCon[0];
             }
         }
+        if(scope.fdatos.tipo=='editar')
+        {
+            var FecFirmCon1 = document.getElementById("FecFirmCon").value;
+            scope.FecFirmCon = FecFirmCon1;
+            if (scope.FecFirmCon == null || scope.FecFirmCon == undefined || scope.FecFirmCon == '') {
+                Swal.fire({ title: "La Fecha de Firma es requerida", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
+            } else {
+                var FecFirmCon = (scope.FecFirmCon).split("/");
+                if (FecFirmCon.length < 3) {
+                    Swal.fire({ title: "El formato Fecha de Inicio correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                    event.preventDefault();
+                    return false;
+                } else {
+                    if (FecFirmCon[0].length > 2 || FecFirmCon[0].length < 2) {
+                        Swal.fire({ title: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecFirmCon[1].length > 2 || FecFirmCon[1].length < 2) {
+                        Swal.fire({ title: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecFirmCon[2].length < 4 || FecFirmCon[2].length > 4) {
+                        Swal.fire({ title: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                        event.preventDefault();
+                        return false;
+                    }
+                    valuesStart = scope.FecFirmCon.split("/");
+                    scope.fdatos.FecFirmCon = FecFirmCon[2] + "-" + FecFirmCon[1] + "-" + FecFirmCon[0];
+                }
+            }
+        }
+        
         if (scope.fdatos.ObsCon == null || scope.fdatos.ObsCon == undefined || scope.fdatos.ObsCon == '') {
             scope.fdatos.ObsCon = null;
         } else {
@@ -1544,11 +1593,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos.RefCon = result.data.Contrato.RefCon;
                 scope.fdatos.DocConRut = result.data.Contrato.DocConRut;
                 scope.fdatos.ObsCon = result.data.Contrato.ObsCon;
+                scope.FecFirmCon = result.data.Contrato.FecFirmCon;
+                $("#RefConClass").removeClass("col-sm-4").addClass("col-sm-2");
+                //$("#cargando").removeClass("col-sm-4").addClass("col-sm-2");
+
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecIniCon);
                 $('.datepicker_Vencimiento').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecVenCon);
+                $('.FecFirmCon').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecFirmCon);
                 console.log(result.data.List_Pro);
                 console.log(scope.fdatos);
-            } else {
+            } 
+            else {
                 Swal.fire({ title: "Error", text: "El número de CIF no se encuentra asignado a ningun cliente.", type: "error", confirmButtonColor: "#188ae2" });
                 location.href = "#/Contratos";
             }
