@@ -356,7 +356,7 @@ class Contratos extends REST_Controller
 		{			
 			$this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,0,1,1,4);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato Con modificaciones.');
-			$arrayName = array('status' =>200,'menssage'=>'Valla a Propuesta Comercial para solicitar la modificion del contrato.','statusText'=>'OK' );
+			$arrayName = array('status' =>200,'menssage'=>'Debe registrar una nueva Propuesta Comercial','statusText'=>'OK' );
 			$this->db->trans_complete();
 			$this->response($arrayName);
 		}
