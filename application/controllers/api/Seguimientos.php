@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 /*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class Seguimientos extends REST_Controller
 {

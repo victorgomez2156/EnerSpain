@@ -1,8 +1,8 @@
 <?php
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 class Tareas_Programadas extends CI_Controller
 {
 	function __construct()
