@@ -19,6 +19,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	background: inherit;
 	background-color:transparent;
   }
+
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
 </style>
 <body>
  <div ng-controller="Controlador_Puntos_Suministros as vm">
@@ -50,21 +74,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliPunSum" name="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum" required ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.CodPunSum>0"> 
+          <input type="text" class="form-control" ng-model="vm.CodCliPunSumFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+          <ul id='searchResult'>
+            <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
+              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            </li>
+          </ul> 
+        <input type="hidden" name="CodCliPunSum" id="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum">
+
+       <!--select class="form-control" id="CodCliPunSum" name="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum" required ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.CodPunSum>0"> 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+        </select-->
+
+
+
        </div>
        </div>
        </div>
       
       <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Nuevo</label>
-      <input type="radio" class="form-control" name="punto_suministro"  ng-model="vm.fpuntosuministro.TipRegDir" value="0" ng-click="vm.punto_suministro(1,vm.fpuntosuministro.TipRegDir)" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.CodCliPunSum==undefined"/> 
-       </div>
-       </div>
-       </div>
+        <div class="form">                          
+          <div class="form-group">
+            <label class="font-weight-bold nexa-dark" style="color:black;">Nuevo</label>
+            <input type="radio" class="form-control" name="punto_suministro"  ng-model="vm.fpuntosuministro.TipRegDir" value="0" ng-click="vm.punto_suministro(1,vm.fpuntosuministro.TipRegDir)" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.CodCliPunSum==undefined"/> 
+          </div>
+        </div>
+      </div>
       <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
@@ -164,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" name="CodPro"  ng-model="vm.fpuntosuministro.CodProPunSum" ng-change="vm.filtrarLocalidadPunSum()" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required>
+        <select class="form-control" name="CodPro"  ng-model="vm.fpuntosuministro.CodProPunSum" ng-change="vm.BuscarLocalidadesPunSun(vm.fpuntosuministro.CodProPunSum,2)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required>
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>

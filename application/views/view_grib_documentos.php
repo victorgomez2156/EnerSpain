@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 }
 </style>
 <body>
- <div ng-controller="Controlador_Documentos as vm">
+ <div ng-controller="Controlador_Documentos as vm" ng-init="vm.cargar_documentos()">
  <!--main content start-->
     <section id="main-content">
       <!--wrapper start-->
@@ -207,9 +207,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-12" ng-show="vm.t_modal_documentos.tipo_filtro==1">
      <div class="form">                          
      <div class="form-group">     
-       <select class="form-control" name="CodCli" ng-model="vm.t_modal_documentos.CodCli" > 
+       
+        <input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_doc==1||vm.no_editable_doc==1"/>
+          <ul id='searchResult'>
+            <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            </li>
+          </ul> 
+        <input type="hidden" name="CodCli" id="CodCli" ng-model="vm.t_modal_documentos.CodCli" class="form-control">
+       <!--select class="form-control" name="CodCli" ng-model="vm.t_modal_documentos.CodCli" > 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>  
+        </select--> 
+
+
+
      </div>
      </div>
     </div>

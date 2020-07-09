@@ -109,7 +109,8 @@
      scope.Tabla_Contacto = [];
      scope.Tabla_ContactoBack = [];
      scope.Tclientes = [];
-     ServiceMaster.getAll().then(function(dato) {
+     
+     /*ServiceMaster.getAll().then(function(dato) {
          scope.tListaContactos = dato.Tipo_Contacto;
          scope.Tclientes = dato.Clientes;
          scope.fecha_server = dato.Fecha_Server;
@@ -135,7 +136,7 @@
              scope.Tabla_Contacto = [];
              scope.Tabla_ContactoBack = [];
          }
-     }).catch(function(err) { console.log(err); });
+     }).catch(function(err) { console.log(err); });*/
 
 
 
@@ -602,6 +603,7 @@
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
                  scope.tContacto_data_modal = result.data;
+                 scope.CodCliContacto=result.data.NumCifCli;
              } else {
                  Swal.fire({ title: "Error.", text: "No existe información del Contacto seleccionado", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
@@ -850,30 +852,21 @@
              var file = $scope.DocPod;
          }
          upload.uploadFile(file, name).then(function(res) {}, function(error) {
-             if (error.status == 404 && error.statusText == "Not Found") {
-                 bootbox.alert({
-                     message: "El método que está intentando usar no puede ser localizado",
-                     size: 'middle'
-                 });
-             }
-             if (error.status == 401 && error.statusText == "Unauthorized") {
-                 bootbox.alert({
-                     message: "Usted no tiene acceso a este controlador",
-                     size: 'middle'
-                 });
-             }
-             if (error.status == 403 && error.statusText == "Forbidden") {
-                 bootbox.alert({
-                     message: "Está intentando usar un APIKEY inválido",
-                     size: 'middle'
-                 });
-             }
-             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 bootbox.alert({
-                     message: "Actualmente estamos prensentado fallas en el servidor, por favor intente mas tarde",
-                     size: 'middle'
-                 });
-             }
+             
+
+
+            if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
          });
      }
      scope.validarsinuermoContactos = function(object, metodo) {
@@ -967,9 +960,105 @@
              }
 
          }
+         scope.cargar_tiposContactos=function()
+         {
+           var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+9;
+           $http.get(url).then(function (result)
+           {
+            if(result.data)
+            {
+                scope.tListaContactos=result.data;
+            }
+            else
+            {
+              Swal.fire({ title: "Error", text: "no se encontraron tipo de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });  
+              scope.tListaContactos=[];
+            }
+
+           },function(error)
+           {
+            if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+
+           });  
+         }
          ///////// PARA CALCULAR DNI/NIE END /////////////////
+         scope.containerClicked = function() {
+        scope.searchResult = {};
+    }
+    scope.searchboxClicked = function($event) {
+                     $event.stopPropagation();
+                 }
+    scope.setValue = function(index, $event, result) 
+    {
+        scope.CodCliContacto = scope.searchResult[index].NumCifCli;
+        scope.tContacto_data_modal.CodCli= scope.searchResult[index].CodCli;
+        scope.searchResult = {};
+        $event.stopPropagation(); 
+                            
+    }
+           scope.fetchClientes = function() {
+            
+                 var searchText_len = scope.CodCliContacto.trim().length;
+                 scope.fdatos.filtrar_clientes = scope.CodCliContacto;
+                 if (searchText_len > 0) {
+                     var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                     $http.post(url, scope.fdatos).then(function(result) {
+                             //console.log(result);
+                             if (result.data != false) {
+                                 scope.searchResult = result.data;
+                                 //console.log(scope.searchResult);
+                             } else {
+                                 Swal.fire({
+                                             title: "Error",
+                                             text: "No hay Clientes registrados",
+                                             type:"error", confirmButtonColor: "#188ae2" });
+                         scope.searchResult = {};
+                                         }
+                                     },
+                                     function(error) {
+                                         if (error.status == 404 && error.statusText == "Not Found") {
+                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 401 && error.statusText == "Unauthorized") {
+                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 403 && error.statusText == "Forbidden") {
+                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                     });
+                         } else {
+                             scope.searchResult = {};
+                         }
+                    
+
+
+                 }  
      if (scope.nID != undefined) {
          scope.BuscarXIDContactos();
+         scope.cargar_tiposContactos();
      }
+     else
+     {
+         scope.cargar_tiposContactos();
+     }
+     if($route.current.$$route.originalPath=="/Contactos/")
+     {
+        scope.cargar_lista_contactos();
+       
+    }
      ////////////////////////////////////////////////// PARA LOS CONTACTOS END ////////////////////////////////////////////////////////
  }

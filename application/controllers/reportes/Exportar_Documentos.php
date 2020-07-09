@@ -244,11 +244,11 @@ class Exportar_Documentos extends CI_Controller
             else
             {                
                 $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
-                if($Tipo_Cliente==3)
+                if($Tipo_Cliente==1)
                 {
                     $Tipo_Cliente="ACTIVO";
                 }
-                elseif($Tipo_Cliente==4) {
+                elseif($Tipo_Cliente==2) {
                     $Tipo_Cliente="BLOQUEADO";
                 }
                 else {
@@ -548,11 +548,11 @@ class Exportar_Documentos extends CI_Controller
             else
             {                
                 $Resultado_PropuestaComercial=$this->Reportes_model->get_data_cliente('a.EstCli',$Tipo_Cliente);
-                if($Tipo_Cliente==3)
+                if($Tipo_Cliente==1)
                 {
                     $Tipo_Cliente="ACTIVO";
                 }
-                elseif($Tipo_Cliente==4) {
+                elseif($Tipo_Cliente==2) {
                     $Tipo_Cliente="BLOQUEADO";
                 }
                 else {

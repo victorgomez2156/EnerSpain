@@ -197,7 +197,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_bancos.tipo_filtro">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_bancos.tipo_filtro" ng-change="vm.RealizarFiltro(vm.tmodal_bancos.tipo_filtro)">
           <option value="1">Bancos</option>
           <option value="2">Clientes</option>
         </select>     
@@ -205,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
 
-     <div class="col-12 col-sm-12" ng-show="vm.tmodal_bancos.tipo_filtro==1">
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_bancos.tipo_filtro==1" >
      <div class="form">                          
      <div class="form-group">
      
@@ -216,12 +216,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     </div>
 
-    <div class="col-12 col-sm-12" ng-show="vm.tmodal_bancos.tipo_filtro==2">
+    <div class="col-12 col-sm-12" ng-show="vm.tmodal_bancos.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
-     <div class="form-group">     
-       <select class="form-control" id="CodCliBanFil" name="CodCli" ng-model="vm.tmodal_bancos.CodCli" > 
+     <div class="form-group">
+       <input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>
+          <ul id='searchResult'>
+            <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            </li>
+          </ul> 
+        <input type="hidden" name="CodCliBan" id="CodCliBan" ng-model="vm.tmodal_bancos.CodCli" class="form-control">
+       <!--select class="form-control" id="CodCliBanFil" name="CodCli" ng-model="vm.tmodal_bancos.CodCli" > 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>  
+        </select-->  
+     
+
      </div>
      </div>
     </div>

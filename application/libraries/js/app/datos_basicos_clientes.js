@@ -1,4 +1,4 @@
- app.controller('Controlador_Datos_Basicos_Clientes', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceMaster', 'upload', Controlador])
+ app.controller('Controlador_Datos_Basicos_Clientes', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceAddClientes', 'upload', Controlador])
      .directive('stringToNumber', function() {
          return {
              require: 'ngModel',
@@ -44,7 +44,7 @@
      }
  }])
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceMaster, upload) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceAddClientes, upload) {
      //declaramos una variable llamada scope donde tendremos a vm
      /*inyectamos un controlador para acceder a sus variables y metodos*/
      //$controller('Controlador_Clientes as vmAE',{$scope:$scope});
@@ -90,26 +90,93 @@
          }
      }
      ////////////////////////////////////////////////// PARA LA LISTA Y CONFIGURACIONES DE SERVICIOS ESPECIALES START ////////////////////////////////////////////////////////
-     ServiceMaster.getAll().then(function(dato) {
+     ServiceAddClientes.getAll().then(function(dato) {
          scope.Fecha_Server = dato.Fecha_Server;
+         
          if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") {
              scope.FecIniCli = dato.Fecha_Server;
-         }
+         }         
          scope.tProvidencias = dato.Provincias;
          scope.tTipoCliente = dato.Tipo_Cliente;
          scope.tComerciales = dato.Comerciales;
          scope.tSectores = dato.Sector_Cliente;
          scope.tColaboradores = dato.Colaborador;
          scope.tTiposVias = dato.Tipo_Vias;
-         scope.TtiposInmuebles = dato.Tipo_Inmuebles;
-         scope.tListaContactos = dato.Tipo_Contacto;
-         scope.tLocalidades = dato.Localidades;
      }).catch(function(err) { console.log(err); });
 
 
 
 
      ////////////////////////////////////////////////////////////// MODULO CLIENTES DATOS BASICOS START ////////////////////////////////////////////////////////////////////
+     scope.BuscarLocalidad=function(metodo,CodPro)
+     {
+        console.log(metodo);
+        console.log(CodPro);
+        var url = base_urlHome()+"api/Clientes/BuscarLocalidadAddClientes/metodo/"+metodo+"/CodPro/"+CodPro;
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                if(metodo==1)
+                {
+                    if (scope.fdatos.distinto_a_social == false) {
+                        scope.TLocalidadesfiltradaFisc=result.data;
+                        scope.fdatos.CodProFis = scope.fdatos.CodProSoc;                         
+                    }
+                    //scope.fdatos.CodLocSoc=undefined;
+                    scope.TLocalidadesfiltrada=[];
+                    scope.TLocalidadesfiltrada=result.data;
+                }
+                else
+                {
+                    //scope.fdatos.CodLocFis=undefined;
+                    scope.TLocalidadesfiltradaFisc=[];
+                    scope.TLocalidadesfiltradaFisc=result.data;
+                }
+            }
+            else
+            {
+                if(metodo==1)
+                {
+                    scope.fdatos.CodLocSoc=undefined;
+                    scope.TLocalidadesfiltrada=[];
+                    Swal.fire({ title: "Error", text: "No se encontraron Localidades asignada a esta provincia.", type: "error", confirmButtonColor: "#188ae2" });
+                    //scope.TLocalidadesfiltrada=result.data;
+                }
+                else
+                {
+                    scope.fdatos.CodLocFis=undefined;
+                    scope.TLocalidadesfiltradaFisc=[];
+                    Swal.fire({ title: "Error", text: "No se encontraron Localidades asignada a esta provincia.", type: "error", confirmButtonColor: "#188ae2" });
+                    //scope.TLocalidadesfiltradaFisc=result.data;
+                }
+
+            }
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found") {
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+             }
+             if (error.status == 401 && error.statusText == "Unauthorized") {
+                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+             }
+             if (error.status == 403 && error.statusText == "Forbidden") {
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+             }
+             if (error.status == 500 && error.statusText == "Internal Server Error") {
+                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+             }
+
+        });
+
+
+
+
+     }
+     
+
+
+
 
      scope.misma_razon = function(opcion) {
          if (opcion == true) {
@@ -202,7 +269,13 @@
              scope.fdatos.CPLocFis = scope.fdatos.CPLocSoc;
          }
      }
+     scope.asignar_LocalidadFis = function() {
+         if (scope.fdatos.distinto_a_social == false) {
+             scope.fdatos.CodLocFis = scope.fdatos.CodLocSoc;
+         }
+     }
      scope.distinto_a_social = function() {
+         
          if (scope.fdatos.distinto_a_social == true) {
              scope.fdatos.CodTipViaFis = undefined;
              scope.fdatos.NomViaDomFis = undefined;
@@ -226,12 +299,13 @@
              scope.fdatos.CodProFis = scope.fdatos.CodProSoc;
              scope.fdatos.CodLocFis = scope.fdatos.CodLocSoc;
              scope.fdatos.CPLocFis = scope.fdatos.CPLocSoc;
-             scope.TLocalidadesfiltradaFisc = [];
-             scope.filtrarLocalidadFisc();
+             scope.TLocalidadesfiltradaFisc = scope.TLocalidadesfiltrada;
+             //scope.filtrarLocalidadFisc();
          }
      }
 
-     scope.filtrarLocalidad = function() {
+     scope.filtrarLocalidad = function()
+     {
          scope.TLocalidadesfiltrada = $filter('filter')(scope.tLocalidades, { CodPro: scope.fdatos.CodProSoc }, true);
          if (scope.fdatos.distinto_a_social == false) {
              scope.fdatos.CodProFis = scope.fdatos.CodProSoc;
@@ -449,14 +523,6 @@
              Swal.fire({ title: "Seleccionar un Comercial", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
-         if (resultado == false) {
-             //quiere decir que al menos un renglon no paso la validacion
-             return false;
-         }
-         return true;
-     }
-     scope.guardar = function() {
-
          if (scope.fdatos.BloDomSoc == undefined || scope.fdatos.BloDomSoc == null || scope.fdatos.BloDomSoc == '') {
              scope.fdatos.BloDomSoc = null;
          } else {
@@ -522,6 +588,14 @@
          } else {
              scope.fdatos.CPLocFis = scope.fdatos.CPLocFis;
          }
+         if (resultado == false) {
+             //quiere decir que al menos un renglon no paso la validacion
+             return false;
+         }
+         return true;
+     }
+     scope.guardar = function() {
+         
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
              var text = '¿Seguro que desea actualizar la información del Cliente?';
@@ -597,12 +671,19 @@
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
                  scope.fdatos = result.data;
+                 
                  scope.FecIniCli = undefined;
                  if (result.data.CodLocSoc == result.data.CodLocFis) {
-                     scope.fdatos.distinto_a_social = false;
+                    scope.fdatos.distinto_a_social = false;
+                    scope.BuscarLocalidad(1,result.data.CodProSoc);
+
                  } else {
                      scope.fdatos.distinto_a_social = true;
                  }
+
+
+                scope.fdatos.CodLocSoc=result.data.CodLocSoc;
+                scope.fdatos.CodLocFis=result.data.CodLocFis;
                  if (result.data.RazSocCli == result.data.NomComCli) {
                      scope.fdatos.misma_razon = false;
                  } else {
@@ -641,7 +722,7 @@
      }
      if (scope.nID != undefined) {
          scope.buscarXID();
-         var promise = $interval(function() {
+         /*var promise = $interval(function() {
              scope.filtrarLocalidad();
              //scope.filtrar_zona_postal();
              //scope.filtrarLocalidadFisc();
@@ -649,7 +730,7 @@
          }, 10000);
          $scope.$on('$destroy', function() {
              $interval.cancel(promise);
-         });
+         });*/
      }
 
  }

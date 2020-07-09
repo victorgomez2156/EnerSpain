@@ -63,6 +63,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
             height:100%;
             opacity:0;
         }
+
+
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
     </style>
 <body>
  <div ng-controller="Controlador_Contactos as vm">
@@ -88,13 +113,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
            <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly />          
-      <div class="col-12 col-sm-12">
+      <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliCon" name="CodCli" ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined" ng-model="vm.tContacto_data_modal.CodCli" > 
+       
+
+       <input type="text" class="form-control" ng-model="vm.CodCliContacto" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined"/>
+          <ul id='searchResult'>
+            <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            </li>
+          </ul> 
+        <input type="hidden" name="CodCli" id="CodCli" ng-model="vm.tContacto_data_modal.CodCli" class="form-control">
+       <!--select class="form-control" id="CodCliCon" name="CodCli" ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined" ng-model="vm.tContacto_data_modal.CodCli" > 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+        </select-->  
        </div>
        </div>
        </div>

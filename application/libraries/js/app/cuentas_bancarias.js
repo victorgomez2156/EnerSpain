@@ -90,7 +90,8 @@
      scope.tListBanc = [];
      scope.CodEur = "ES";
      scope.numIBanValidado = false;
-     ServiceMaster.getAll().then(function(dato) {
+     
+     /*ServiceMaster.getAll().then(function(dato) {
          scope.tListBanc = dato.Bancos;
          scope.fecha_server = dato.Fecha_Server;
          scope.Tclientes = dato.Clientes;
@@ -117,7 +118,7 @@
              scope.tCuentaBan = [];
              scope.tCuentaBanBack = [];
          }
-     }).catch(function(err) { console.log(err); });
+     }).catch(function(err) { console.log(err); });*/
      ///////////////////////////// CUENTAS BANCARIAS CLIENTES END ///////////////////////////
      scope.cargar_cuentas_bancarias = function() {
          $("#cuentas_bancarias").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -239,6 +240,7 @@
          scope.tmodal_bancos = {};
          scope.ruta_reportes_pdf_Banco = 0;
          scope.ruta_reportes_excel_Banco = 0;
+         scope.NumCifCliSearch=undefined;
 
      }
      scope.validar_OpcBan = function(index, opcion, datos) {
@@ -508,6 +510,8 @@
                  scope.IBAN3 = result.data.IBAN3;
                  scope.IBAN4 = result.data.IBAN4;
                  scope.IBAN5 = result.data.IBAN5;
+                 scope.NumCifCliSearch=result.data.NumCifCli;
+                 scope.RealizarFiltro(1);
              } else {
                  Swal.fire({ title: "Error.", text: "No hay información de la Cuenta Bancaria", type: "error", confirmButtonColor: "#188ae2" });
                  scope.tContacto_data_modal = {};
@@ -599,8 +603,114 @@
              }
          }
      }
+     scope.RealizarFiltro=function(metodo)
+     {
+        if(metodo==1)
+        {
+            var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+10;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    scope.tListBanc=result.data;
+                }
+                else
+                {
+                   Swal.fire({ title: "Error", text: "No se encontraron entidades bancarias registradas.", type: "error", confirmButtonColor: "#188ae2" }); 
+                   scope.tListBanc=[];
+                   scope.tmodal_bancos.CodBan=undefined;
+                }
+
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found") {
+                    Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                }
+                if (error.status == 401 && error.statusText == "Unauthorized") {
+                    Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                }
+                if (error.status == 403 && error.statusText == "Forbidden") {
+                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                }
+                if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                }
+            });
+        }
+     }
+    scope.containerClicked = function() {
+        scope.searchResult = {};
+    }
+    scope.searchboxClicked = function($event) {
+        $event.stopPropagation();
+    }
+     scope.fetchClientes = function(metodo) {
+
+        if(metodo==1 || metodo==2)
+        {
+            var searchText_len = scope.NumCifCliSearch.trim().length;
+            scope.fdatos.filtrar_clientes = scope.NumCifCliSearch;
+        }
+            if (searchText_len > 0) {
+                var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                $http.post(url, scope.fdatos).then(function(result) {
+                //console.log(result);
+                if (result.data != false) {
+                    scope.searchResult = result.data;
+                } else {
+                Swal.fire({
+                            title: "Error",
+                            text: "No hay Clientes registrados",
+                            type:"error", confirmButtonColor: "#188ae2" });
+                         scope.searchResult = {};
+                                         }
+                                     },
+                                     function(error) {
+                                         if (error.status == 404 && error.statusText == "Not Found") {
+                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 401 && error.statusText == "Unauthorized") {
+                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 403 && error.statusText == "Forbidden") {
+                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                     });
+                         } else {
+                             scope.searchResult = {};
+                         }
+        
+            
+    }  
+    scope.setValue = function(index, $event, result,metodo) 
+    {
+        if(metodo==1)
+        {
+            scope.NumCifCliSearch = scope.searchResult[index].NumCifCli;
+            scope.tmodal_bancos.CodCli= scope.searchResult[index].CodCli;
+            scope.searchResult = {};
+            $event.stopPropagation();  
+        }
+        if(metodo==2)
+        {
+            scope.NumCifCliSearch = scope.searchResult[index].NumCifCli;
+            scope.tgribBancos.CodCli= scope.searchResult[index].CodCli;
+            scope.searchResult = {};
+            $event.stopPropagation();
+            scope.RealizarFiltro(1);
+        }
+                            
+    }
+
      if (scope.nID != undefined) {
          scope.BuscarXIDCCuentaBancaria();
+     }
+     else
+     {
+        scope.cargar_cuentas_bancarias();
      }
      ////////////////////////////////////////////////// PARA LAS CUENTAS BANCARIAS END ////////////////////////////////////////////////////////
  }

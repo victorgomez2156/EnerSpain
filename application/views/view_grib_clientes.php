@@ -231,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_data.tipo_filtro">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_data.tipo_filtro" ng-change="vm.RealizarConsulta(vm.tmodal_data.tipo_filtro)">
           <option ng-repeat="dato in vm.Filtro_Clientes" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
@@ -240,8 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_data.tipo_filtro==1">
      <div class="form">                          
-     <div class="form-group">
-     
+     <div class="form-group">     
       <select class="form-control" name="CodTipCli" ng-model="vm.tmodal_data.CodTipCliFil">
         <option ng-repeat="dato in vm.tTipoCliente" value="{{dato.DesTipCli}}">{{dato.DesTipCli}}</option>                        
       </select>   
@@ -264,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      
-      <select class="form-control" name="CodPro" ng-model="vm.tmodal_data.CodPro" ng-change="vm.filtrar_loca()">
+      <select class="form-control" name="CodPro" ng-model="vm.tmodal_data.CodPro" ng-change="vm.BuscarLocalidad(vm.tmodal_data.CodPro)">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.DesPro}}">{{dato.DesPro}}</option>                          
       </select>    
      </div>
@@ -309,8 +308,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">
      
       <select class="form-control" id="EstCliFil" name="EstCliFil" ng-model="vm.tmodal_data.EstCliFil">
-        <option value="3">ACTIVO</option> 
-        <option value="4">BLOQUEADO</option>                         
+        <option value="1">ACTIVO</option> 
+        <option value="2">BLOQUEADO</option>                         
       </select>     
      </div> 
      </div>

@@ -53,6 +53,139 @@ class Clientes extends REST_Controller
 		$this->response($data);		
     }
 ////////////////////////////////////////////////////////////// PARA CLIENTES START ////////////////////////////////////////////////
+public function get_service_clientes_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}  
+		$Clientes=$this->Clientes_model->get_list_clientes();
+        $Fecha=date('d/m/Y');
+        
+        $data= array('Fecha_Server'=>$Fecha,'Clientes'=>$Clientes);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Varias Consultas');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function get_service_AddClientes_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}
+	$Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
+	$Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();		
+    $Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+	$Provincias = $this->Clientes_model->get_list_providencias();
+	$Comerciales = $this->Clientes_model->get_list_comerciales();
+	$Colaborador = $this->Clientes_model->get_list_colaboradores();
+    $arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Cliente'=>$Tipo_Cliente,'Sector_Cliente'=>$Sector_Cliente,'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Comerciales'=>$Comerciales,'Colaborador'=>$Colaborador );
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'Generando ServiceAddClientes');
+	$this->response($arrayName);		
+}
+
+public function RealizarConsultaFiltros_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}  
+		$metodo=$this->get('metodo');        
+		if($metodo==1)
+		{
+			$Response = $this->Clientes_model->get_list_tipo_Cliente();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoCliente','GET',null,$this->input->ip_address(),'Cargando Tipo de Clientes');
+			//$Response->metodo=$metodo;
+		}
+		elseif ($metodo==2) {
+			$Response = $this->Clientes_model->get_list_sector_cliente();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Sector','GET',null,$this->input->ip_address(),'Cargando Tipo de Sector');
+		}
+		elseif ($metodo==3) {
+			$Response = $this->Clientes_model->get_list_providencias();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',null,$this->input->ip_address(),'Cargando Provincias');
+		}
+		elseif ($metodo==4) {
+			$Response = $this->Clientes_model->get_list_providencias();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',null,$this->input->ip_address(),'Cargando Provincias');
+		}
+		elseif ($metodo==5) {
+			$Response = $this->Clientes_model->get_list_comerciales();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','GET',null,$this->input->ip_address(),'Cargando Comerciales');
+		}
+		elseif ($metodo==6) {
+			$Response =$this->Clientes_model->get_list_colaboradores();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaboradores','GET',null,$this->input->ip_address(),'Cargando Colaboradores');
+		}
+		elseif ($metodo==7) {
+			$Response =false;
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'Estatus','GET',null,$this->input->ip_address(),'Estatus');
+		}
+		elseif ($metodo==8) {
+			$Response=$this->Clientes_model->get_list_tipo_inmuebles();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoInmueble','GET',null,$this->input->ip_address(),'Cargando Listado de Tipos de Inmuebles');
+		}
+		elseif ($metodo==9) {
+			$Response= $this->Clientes_model->get_list_tipo_contacto();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoInmueble','GET',null,$this->input->ip_address(),'Cargando Listado de Contactos');
+		}
+		elseif ($metodo==10) {
+			$Response= $this->Clientes_model->get_list_bancos();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Banco','GET',null,$this->input->ip_address(),'Cargando Listado de Bancos');
+		}
+		elseif ($metodo==11) {
+			$Response=$this->Clientes_model->get_list_tipos_documentos();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoDocumento','GET',null,$this->input->ip_address(),'Cargando Listado de Tipos de Documentos');
+			# code...
+		}
+		else
+		{
+			$Response =array('status' =>201 ,'statusText'=>'Error','menssage'=>'Estatus del Clientes');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'Estatus','GET',null,$this->input->ip_address(),'Estatus');
+		}		
+		$this->response($Response);		
+    }
+public function BuscarLocalidadesFil_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}		
+    $CodPro=$this->get('CodPro');
+    $data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+	if (empty($data))
+	{
+		$this->response(false);
+		return false;
+	}		
+	$this->response($data);		
+}
+public function BuscarLocalidadAddClientes_get()
+{
+	$datausuario=$this->session->all_userdata();	
+	if (!isset($datausuario['sesion_clientes']))
+	{
+		redirect(base_url(), 'location', 301);
+	}		
+    $CodPro=$this->get('CodPro');
+    //$Metodo=$this->get('Metodo');
+    $data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+	if (empty($data))
+	{
+		$this->response(false);
+		return false;
+	}		
+	$this->response($data);		
+}
 public function list_clientes_get()
 {
 	$datausuario=$this->session->all_userdata();	
@@ -209,7 +342,8 @@ protected function buscar_xID_get()
 		}
 		$CodActCNAE=$this->get('CodActCNAE');				
 		$this->db->trans_start();
-		$consulta=$this->Clientes_model->Buscar_CNAECod($CodActCNAE);							
+		$consulta=$this->Clientes_model->Buscar_CNAECod($CodActCNAE);
+		$consulta->FechaServer=date('d/m/Y');							
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CNAE','SEARCH',null,$this->input->ip_address(),'Buscando Código CNAE');
 		$this->db->trans_complete();
 		$this->response($consulta);
@@ -276,8 +410,9 @@ protected function buscar_xID_get()
 		if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);		
+		}
+		$arrayName = array('FechaServer' =>date('d/m/Y'), 'data'=>$data);		
+		$this->response($arrayName);		
     }
     public function getActividadesFilter_post()
 	{
@@ -296,7 +431,22 @@ protected function buscar_xID_get()
     //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES END ///////////////////////////////////////////////////////
    
 
-    ////////////////////////////////////// PARA LOS Direcciones de SuministroS START ////////////////////////////////////////////////
+    //////////////////////////// PARA LOS Direcciones de SuministroS START ////////////////////////////////////////////////
+	    public function get_service_PuntoSuministros_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		
+	    $Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$Provincias = $this->Clientes_model->get_list_providencias();
+		$Tipo_Inmuebles = $this->Clientes_model->get_list_tipo_inmuebles();
+	    $arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Tipo_Inmuebles'=>$Tipo_Inmuebles);
+	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'ServicePuntoSuministro');
+		$this->response($arrayName);		
+	}
     public function BuscarXIDPunSumData_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -306,6 +456,9 @@ protected function buscar_xID_get()
 		}
 		$CodPunSum=$this->get('CodPunSum');		
         $data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
+        $DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
+        $data->NumCifCli=$DatosCliente->NumCifCli;
+
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');
 		if (empty($data)){
 			$this->response(false);
@@ -398,11 +551,12 @@ protected function buscar_xID_get()
 		}		
         $data = $this->Clientes_model->get_list_motivos_bloqueos_PunSum();
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Direcciones de Suministros');
-		if (empty($data)){
+		/*if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);		
+		}*/
+		$arrayName = array('FechaServer' =>date('d/m/Y') ,'data'=> $data);		
+		$this->response($arrayName);		
     }
      public function bloquear_PunSum_post()
     {
@@ -472,6 +626,8 @@ protected function buscar_xID_get()
 		$CodConCli=$this->get('CodConCli');	
 		$select="a.*";	
         $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);
+        $DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
+        $data->NumCifCli=$DatosCliente->NumCifCli;
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
@@ -651,6 +807,8 @@ protected function buscar_xID_get()
 		}
 		$CodCueBan=$this->get('CodCueBan');		
         $data = $this->Clientes_model->get_xID_CuentaBancaria($CodCueBan);
+        //$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
+        //$data->NumCifCli=$DatosCliente->NumCifCli;        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria');
 		if (empty($data)){
 			$this->response(false);
@@ -770,6 +928,8 @@ protected function buscar_xID_get()
 		}
 		$CodTipDocAI=$this->get('CodTipDocAI');		
         $data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);
+        $DatosCliente = $this->Clientes_model->get_data_cliente($data->CodCli);
+        $data->NumCifCli=$DatosCliente->NumCifCli;
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Información del Documento');
 		if (empty($data)){
 			$this->response(false);

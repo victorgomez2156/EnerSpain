@@ -202,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodProSoc" ng-change="vm.filtrarLocalidad()" ng-disabled="vm.validate_info!=undefined">
+        <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.fdatos.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>
@@ -213,13 +213,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodLoc" name="CodLoc" ng-change="vm.filtrar_zona_postal()"  ng-model="vm.fdatos.CodLocSoc" ng-disabled="vm.validate_info!=undefined">
+       <select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.fdatos.CodLocSoc" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_LocalidadFis()">
         <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
         </select>
        </div>
        </div>
        </div>
-         <div class="col-12 col-sm-3">
+         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
@@ -302,7 +302,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.fdatos.CodProFis" ng-change="vm.filtrarLocalidadFisc()" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
+        <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.fdatos.CodProFis" ng-change="vm.BuscarLocalidad(2,vm.fdatos.CodProFis)"  ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>
@@ -313,13 +313,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodLocFis" name="CodLocFis" ng-change="vm.filtrar_zona_postalFis()"  ng-model="vm.fdatos.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
+       <select class="form-control" id="CodLocFis" name="CodLocFis" ng-model="vm.fdatos.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
         <option ng-repeat="dato in vm.TLocalidadesfiltradaFisc" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
         </select>
        </div>
        </div>
        </div>
-         <div class="col-12 col-sm-3">
+         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>

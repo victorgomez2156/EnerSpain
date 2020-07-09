@@ -125,6 +125,75 @@ function ServiceServiciosEspeciales ($http, $q, $cookies) {
     }
 };
 
+function ServiceClientes ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
+        var url = base_urlHome()+"api/Clientes/get_service_clientes";
+        $http.get(url)
+            .success(function(data) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                defered.resolve(data);
+            })
+            .error(function(err) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                 defered.reject(err)
+            });
+        return promise;
+    }
+};
+function ServiceAddClientes ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
+        var url = base_urlHome()+"api/Clientes/get_service_AddClientes";
+        $http.get(url)
+            .success(function(data) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                defered.resolve(data);
+            })
+            .error(function(err) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                 defered.reject(err)
+            });
+        return promise;
+    }
+};
+
+function ServicePuntoSuministro ($http, $q, $cookies) {  
+    return {
+        getAll: getAll
+    }  
+    function getAll () { 
+        var defered = $q.defer();
+        var promise = defered.promise;
+        $("#carganto_servicio").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active");
+        var url = base_urlHome()+"api/Clientes/get_service_PuntoSuministros";
+        $http.get(url)
+            .success(function(data) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                defered.resolve(data);
+            })
+            .error(function(err) {
+            $("#carganto_servicio").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default");
+                 defered.reject(err)
+            });
+        return promise;
+    }
+};
+
+
+
+
+
 
 
 
@@ -196,6 +265,9 @@ app.service('ServiceComercializadora',ServiceComercializadora);
 app.service('ServiceProductos',ServiceProductos);
 app.service('ServiceAnexos',ServiceAnexos);
 app.service('ServiceServiciosEspeciales',ServiceServiciosEspeciales);
+app.service('ServiceClientes',ServiceClientes);
+app.service('ServiceAddClientes',ServiceAddClientes);
+app.service('ServicePuntoSuministro',ServicePuntoSuministro);
 app.service('ServiceColaboradores',ServiceColaboradores);
 app.service('ServiceCups',ServiceCups);
 app.service('ServiceOnlyColaboradores',ServiceOnlyColaboradores);

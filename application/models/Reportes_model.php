@@ -45,15 +45,15 @@ class Reportes_model extends CI_Model
     {
         $this->db->select('a.RazSocCli,a.NumCifCli,a.NomComCli,d.DesTipVia,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,             c.DesPro,b.DesLoc,g.DesTipVia as DesTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,f.DesPro as DesProFis,e.DesLoc as DesLocFis,a.TelFijCli,a.EmaCli,h.DesTipCli,i.DesSecCli,j.NomCom,k.NomCol,date_format(a.FecIniCli, "%d-%m-%Y") as FecIniCli      ,case a.EstCli when 3 then "ACTIVO" WHEN 4 THEN "BLOQUEADO" end as EstCli',FALSE);
         $this->db->from('T_Cliente a');
-        $this->db->join('T_Localidad b','a.CodLocFis=b.CodLoc');
-        $this->db->join('T_Provincia c','b.CodPro=c.CodPro');
-        $this->db->join('T_TipoVia d','d.CodTipVia=a.CodTipViaSoc');
-        $this->db->join('T_Localidad e','a.CodLocFis=e.CodLoc');
-        $this->db->join('T_Provincia f','f.CodPro=e.CodPro');
-        $this->db->join('T_TipoVia g','g.CodTipVia=a.CodTipViaFis');
-        $this->db->join('T_TipoCliente h','a.CodTipCli=h.CodTipCli');
-        $this->db->join('T_SectorCliente i','a.CodSecCli=i.CodSecCli');
-        $this->db->join('T_Comercial j','j.CodCom=a.CodCom');
+        $this->db->join('T_Localidad b','a.CodLocFis=b.CodLoc','LEFT');
+        $this->db->join('T_Provincia c','b.CodPro=c.CodPro','LEFT');
+        $this->db->join('T_TipoVia d','d.CodTipVia=a.CodTipViaSoc','LEFT');
+        $this->db->join('T_Localidad e','a.CodLocFis=e.CodLoc','LEFT');
+        $this->db->join('T_Provincia f','f.CodPro=e.CodPro','LEFT');
+        $this->db->join('T_TipoVia g','g.CodTipVia=a.CodTipViaFis','LEFT');
+        $this->db->join('T_TipoCliente h','a.CodTipCli=h.CodTipCli','LEFT');
+        $this->db->join('T_SectorCliente i','a.CodSecCli=i.CodSecCli','LEFT');
+        $this->db->join('T_Comercial j','j.CodCom=a.CodCom','LEFT');
         $this->db->join('T_Colaborador k','k.CodCol=a.CodCol','LEFT');
         $this->db->where($where,$Variable);          
         $query = $this->db->get(); 

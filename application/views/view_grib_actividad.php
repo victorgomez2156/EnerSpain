@@ -64,6 +64,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
 .datepicker{z-index:1151 !important;}
 </style>
 <body>
@@ -227,13 +251,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div> 
 
-     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtroAct.tipo_filtro_actividad==3">
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtroAct.tipo_filtro_actividad==3" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliActFil" name="CodCliActFil" ng-model="vm.tmodal_filtroAct.CodCliActFil"> 
-          <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+       
+       <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul> 
+        <input type="hidden" name="CodCliActFil" class="form-control" id="CodCliActFil" ng-model="vm.tmodal_filtroAct.CodCliActFil">
        </div>
        </div>
        </div> 

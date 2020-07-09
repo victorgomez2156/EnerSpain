@@ -46,9 +46,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliCuen" name="CodCli" ng-disabled="vm.restringir_cliente_cuen==1||vm.no_editable_cuen==1" ng-model="vm.tgribBancos.CodCli"> 
+       
+
+       <input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cuen==1||vm.no_editable_cuen==1"/>
+          <ul id='searchResult'>
+            <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
+              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            </li>
+          </ul> 
+        <input type="hidden" name="CodCliCuen" id="CodCliCuen" ng-model="vm.tgribBancos.CodCli" class="form-control">
+
+       <!--select class="form-control" id="CodCliCuen" name="CodCli" ng-disabled="vm.restringir_cliente_cuen==1||vm.no_editable_cuen==1" ng-model="vm.tgribBancos.CodCli"> 
           <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+        </select--> 
+
+
+
        </div>
        </div>
        </div>

@@ -84,33 +84,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
     scope.tListDocumentos = [];
     scope.Tclientes = [];
-    ServiceMaster.getAll().then(function(dato) {
-        scope.fecha_server = dato.Fecha_Server;
-        scope.tListDocumentos = dato.Tipos_Documentos;
-        scope.Tclientes = dato.Clientes;
-        $scope.predicate7 = 'id';
-        $scope.reverse7 = true;
-        $scope.currentPage7 = 1;
-        $scope.order7 = function(predicate7) {
-            $scope.reverse7 = ($scope.predicate7 === predicate7) ? !$scope.reverse7 : false;
-            $scope.predicate7 = predicate7;
-        };
-        scope.T_Documentos = dato.Documentos;
-        scope.T_DocumentosBack = dato.Documentos;
-        $scope.totalItems7 = scope.T_Documentos.length;
-        $scope.numPerPage7 = 50;
-        $scope.paginate7 = function(value7) {
-            var begin7, end7, index7;
-            begin7 = ($scope.currentPage7 - 1) * $scope.numPerPage7;
-            end7 = begin7 + $scope.numPerPage7;
-            index7 = scope.T_Documentos.indexOf(value7);
-            return (begin7 <= index7 && index7 < end7);
-        }
-        if (scope.T_Documentos == false) {
-            scope.T_Documentos = [];
-            scope.T_DocumentosBack = [];
-        }
-    }).catch(function(err) { console.log(err); });
+    
     scope.cargar_documentos = function() {
         $("#cargar_documentos").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome() + "api/Clientes/get_all_documentos";
@@ -258,6 +232,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.ruta_reportes_pdf_Documentos = 0;
         scope.ruta_reportes_excel_Documentos = 0;
         scope.t_modal_documentos = {};
+        scope.NumCifCliSearch=undefined;
     }
     scope.validar_opc_documentos = function(index, opciones_documentos, dato) {
         console.log(index);
@@ -512,6 +487,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.FecVenDocAco = result.data.FecVenDoc;
                 $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenDocAco);
                 console.log(result.data);
+                scope.NumCifCliSearch=result.data.NumCifCli;
             } else {
                 Swal.fire({ title: "Error", text: "No hemos encontrado datos relacionados con este código", type: "error", confirmButtonColor: "#188ae2" });
             }
@@ -602,9 +578,108 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
     }
+     scope.fetchClientes = function(metodo) {
+
+        if(metodo==1 || metodo==2)
+        {
+            var searchText_len = scope.NumCifCliSearch.trim().length;
+            scope.fdatos.filtrar_clientes = scope.NumCifCliSearch;
+        } if (searchText_len > 0) {
+                var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                $http.post(url, scope.fdatos).then(function(result) {
+                //console.log(result);
+                if (result.data != false) {
+                    scope.searchResult = result.data;
+                } else {
+                Swal.fire({
+                            title: "Error",
+                            text: "No hay Clientes registrados",
+                            type:"error", confirmButtonColor: "#188ae2" });
+                         scope.searchResult = {};
+                                         }
+                                     },
+                                     function(error) {
+                                         if (error.status == 404 && error.statusText == "Not Found") {
+                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 401 && error.statusText == "Unauthorized") {
+                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 403 && error.statusText == "Forbidden") {
+                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                     });
+                         } else {
+                             scope.searchResult = {};
+                         }
+        
+            
+    }  
+     scope.containerClicked = function() {
+        scope.searchResult = {};
+    }
+    scope.searchboxClicked = function($event) {
+                     $event.stopPropagation();
+                 }
+    scope.setValue = function(index, $event, result,metodo) 
+    {
+        if(metodo==1)
+        {
+            scope.NumCifCliSearch = scope.searchResult[index].NumCifCli;
+            scope.t_modal_documentos.CodCli= scope.searchResult[index].CodCli;
+            scope.searchResult = {};
+            $event.stopPropagation(); 
+        }
+        if(metodo==2)
+        {
+            scope.NumCifCliSearch = scope.searchResult[index].NumCifCli;
+            scope.fagregar_documentos.CodCli= scope.searchResult[index].CodCli;
+            scope.searchResult = {};
+            $event.stopPropagation(); 
+        }
+       
+                            
+    }
+    scope.cargar_TipoDocumentos=function()
+         {
+           var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+11;
+           $http.get(url).then(function (result)
+           {
+            if(result.data)
+            {
+                scope.tListDocumentos=result.data;
+            }
+            else
+            {
+              Swal.fire({ title: "Error", text: "no se encontraron tipo de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });  
+              scope.tListaContactos=[];
+            }
+
+           },function(error)
+           {
+            if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+
+           });  
+         }
     if (scope.nID != undefined) {
         scope.BuscarXIDDocumentos();
     }
+
+    scope.cargar_TipoDocumentos();
     ////////////////////////////////////////////////////////////// MODULO DOCUMENTOS END ////////////////////////////////////////////////////////////////////
 
 }

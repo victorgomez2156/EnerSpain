@@ -1,4 +1,4 @@
- app.controller('Controlador_Actividades', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceMaster', 'upload', Controlador])
+ app.controller('Controlador_Actividades', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'upload', Controlador])
      .directive('uploaderModel', ["$parse", function($parse) {
          return {
              restrict: 'A',
@@ -42,7 +42,7 @@
          }
      }])
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceMaster, upload) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, upload) {
      var scope = this;
      scope.fdatos = {};
      scope.nID = $route.current.params.ID;
@@ -59,6 +59,7 @@
          mm = '0' + mm
      }
      var fecha = dd + '/' + mm + '/' + yyyy;
+
      ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB START /////////////////////////////////////////////////////////
 
      ///////////////////////////////////////////////////////// PARA LAS ACTIVIDADES START //////////////////////////////////////////////////////////
@@ -95,46 +96,8 @@
      scope.tListDocumentos = [];
      scope.Tclientes = [];
      ////////////////////////////// PARA LAS ACTIVIDADES END //////////////////////////	
-
-     ServiceMaster.getAll().then(function(dato) {
-         scope.tProvidencias = dato.Provincias;
-         scope.tLocalidades = dato.Localidades;
-         scope.tTipoCliente = dato.Tipo_Cliente;
-         scope.tComerciales = dato.Comerciales;
-         scope.tSectores = dato.Sector_Cliente;
-         scope.tColaboradores = dato.Colaborador;
-         scope.tTiposVias = dato.Tipo_Vias;
-         scope.TtiposInmuebles = dato.Tipo_Inmuebles;
-         scope.tListBanc = dato.Bancos;
-         scope.tListaContactos = dato.Tipo_Contacto;
-         scope.tListDocumentos = dato.Tipos_Documentos;
-         scope.fdatos.FecIniCli = dato.Fecha_Server;
-         scope.fecha_server = dato.Fecha_Server;
-         $scope.predicate1 = 'id';
-         $scope.reverse1 = true;
-         $scope.currentPage1 = 1;
-         $scope.order1 = function(predicate1) {
-             $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
-             $scope.predicate1 = predicate1;
-         };
-         scope.TActividades = dato.Actividades_Clientes;
-         scope.TActividadesBack = dato.Actividades_Clientes;
-         $scope.totalItems1 = scope.TActividades.length;
-         $scope.numPerPage1 = 50;
-         $scope.paginate1 = function(value1) {
-             var begin1, end1, index1;
-             begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
-             end1 = begin1 + $scope.numPerPage1;
-             index1 = scope.TActividades.indexOf(value1);
-             return (begin1 <= index1 && index1 < end1);
-         };
-         if (scope.TActividades == false) {
-             scope.TActividades = [];
-             scope.TActividadesBack = [];
-         }
-         scope.Tclientes = dato.Clientes;
-     }).catch(function(err) { console.log(err); });
-
+     console.log($route.current.$$route.originalPath);     
+     
      scope.mostrar_all_actividades = function() {
          $("#cargando_actividades").removeClass("loader loader-default").addClass("loader loader-default  is-active");
          var url = base_urlHome() + "api/Clientes/all_actividades/";
@@ -314,6 +277,7 @@
          scope.ruta_reportes_excel_actividad = 0;
          scope.filtro_fecha = undefined;
          scope.FecIniActFil = undefined;
+         scope.NumCifCliFil=undefined;
      }
      scope.validar_fecha_act = function(metodo, object) {
 
@@ -429,7 +393,10 @@
          var url = base_urlHome() + "api/Clientes/Motivos_Bloqueos_Actividades/";
          $http.get(url).then(function(result) {
              if (result.data != false) {
-                 scope.tMotivosBloqueosActividades = result.data;
+                 scope.tMotivosBloqueosActividades = result.data.data;
+                 scope.fecha_server=result.data.FechaServer;
+                 scope.FecBloAct=result.data.FechaServer;
+                 $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecBloAct);
              } else {
                  Swal.fire({ title: "Motivos Bloqueos", text: "No hay Motivos de Bloqueo registrados", type: "error", confirmButtonColor: "#188ae2" });
              }
@@ -549,10 +516,15 @@
                  if (result.data != false) {
                      scope.resultado_actividad = 1;
                      scope.fdatos_actividades = result.data;
+                     scope.fecha_server=result.data.FechaServer;
+                     scope.FecIniAct=result.data.FechaServer;
+                     $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
                  } else {
                      Swal.fire({ title: "Código CNAE", text: "El Código CNAE no existe", type: "info", confirmButtonColor: "#188ae2" });
                      scope.resultado_actividad = 0;
                      scope.fdatos_actividades = {};
+                     scope.fecha_server=undefined;
+                     scope.FecIniAct=undefined;
                  }
              }, function(error) {
                  $("#buscar_cnae").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -572,7 +544,7 @@
          }
      }
      $scope.submitFormActividades = function(event) {
-         scope.fdatos_actividades.CodCli = scope.CodCliAct;
+         scope.fdatos_actividades.CodCli = scope.tmodal_filtroAct.CodCliActFil;
          if (scope.nIDAct > 0 && scope.Nivel == 3) {
              Swal.fire({ title: "Usuario no Autorizado", text: "No tiene permisos para realizar esta operación", type: "error", confirmButtonColor: "#188ae2" });
              return false;
@@ -788,9 +760,66 @@
              }
          }
      }
+     scope.containerClicked = function() 
+     {
+        scope.searchResult = {};
+     }
+     scope.searchboxClicked = function($event) {
+                     $event.stopPropagation();
+                 }
+    scope.setValue = function(index, $event, result) {
+                    
+                         scope.NumCifCliFil = scope.searchResult[index].NumCifCli;
+                         scope.tmodal_filtroAct.CodCliActFil=scope.searchResult[index].CodCli;
+                         scope.searchResult = {};
+                         $event.stopPropagation();
+                    
+                    
 
+                 }            
 
+     scope.fetchClientes = function() {
+             
+                 var searchText_len = scope.NumCifCliFil.trim().length;
+                 scope.fdatos.filtrar_clientes = scope.NumCifCliFil;
+                 if (searchText_len > 0) {
+                     var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                     $http.post(url, scope.fdatos).then(function(result) {
+                             //console.log(result);
+                             if (result.data != false) {
+                                 scope.searchResult = result.data;
+                                 //console.log(scope.searchResult);
+                             } else {
+                                 Swal.fire({
+                                             title: "Error",
+                                             text: "No hay Clientes registrados",
+                                             type:"error", confirmButtonColor: "#188ae2" });
+                                            scope.searchResult = {};
+                                         }
+                                     },
+                                     function(error) {
+                                         if (error.status == 404 && error.statusText == "Not Found") {
+                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 401 && error.statusText == "Unauthorized") {
+                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 403 && error.statusText == "Forbidden") {
+                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                     });
+                         } else {
+                             scope.searchResult = {};
+                         }
+                     
+                 }             
 
-
+                 if($route.current.$$route.originalPath=="/Actividades/")
+                 {
+                    scope.mostrar_all_actividades();
+                 }
      ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB END //////////////////////////////////////////////////////////
  }

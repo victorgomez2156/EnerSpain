@@ -1,4 +1,4 @@
- app.controller('Controlador_Puntos_Suministros', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServiceMaster', 'upload', Controlador])
+ app.controller('Controlador_Puntos_Suministros', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', 'ServicePuntoSuministro', 'upload', Controlador])
      .directive('uploaderModel', ["$parse", function($parse) {
          return {
              restrict: 'A',
@@ -42,7 +42,7 @@
          }
      }])
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceMaster, upload) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServicePuntoSuministro, upload) {
      //declaramos una variable llamada scope donde tendremos a vm
      /*inyectamos un controlador para acceder a sus variables y metodos*/
      //$controller('Controlador_Clientes as vmAE',{$scope:$scope});
@@ -98,49 +98,75 @@
      scope.tListaContactos = [];
      scope.tListDocumentos = [];
      scope.Tclientes = [];
-     ///////////////////////////// Direcciones de SuministroS END ///////////////////////////	
-     ServiceMaster.getAll().then(function(dato) {
-         scope.tProvidencias = dato.Provincias;
-         scope.tLocalidades = dato.Localidades;
-         scope.tTipoCliente = dato.Tipo_Cliente;
-         scope.tComerciales = dato.Comerciales;
-         scope.tSectores = dato.Sector_Cliente;
-         scope.tColaboradores = dato.Colaborador;
-         scope.tTiposVias = dato.Tipo_Vias;
-         scope.TtiposInmuebles = dato.Tipo_Inmuebles;
-         scope.tListBanc = dato.Bancos;
-         scope.tListaContactos = dato.Tipo_Contacto;
-         scope.tListDocumentos = dato.Tipos_Documentos;
+     console.log($route.current.$$route.originalPath);
+     if($route.current.$$route.originalPath=="/Add_Puntos_Suministros/" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID/:INF" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID")
+     {
+        ServicePuntoSuministro.getAll().then(function(dato) {
+        scope.tTiposVias = dato.Tipo_Vias;
+        scope.tProvidencias = dato.Provincias;
+        scope.TtiposInmuebles=dato.Tipo_Inmuebles;
          scope.fdatos.FecIniCli = dato.Fecha_Server;
          scope.fecha_server = dato.Fecha_Server;
 
-         $scope.predicate2 = 'id';
-         $scope.reverse2 = true;
-         $scope.currentPage2 = 1;
-         $scope.order2 = function(predicate2) {
-             $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
-             $scope.predicate2 = predicate2;
-         };
-         scope.tPuntosSuminitros = dato.Puntos_Suministros_Clientes;
-         scope.tPuntosSuminitrosBack = dato.Puntos_Suministros_Clientes;
-         $scope.totalItems2 = scope.tPuntosSuminitros.length;
-         $scope.numPerPage2 = 50;
-         $scope.paginate2 = function(value2) {
-             var begin2, end2, index2;
-             begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
-             end2 = begin2 + $scope.numPerPage2;
-             index2 = scope.tPuntosSuminitros.indexOf(value2);
-             return (begin2 <= index2 && index2 < end2);
-         };
-         if (scope.tPuntosSuminitros == false) {
-             scope.tPuntosSuminitros = [];
-             scope.tPuntosSuminitrosBack = [];
-         }
-         scope.Tclientes = dato.Clientes;
+         
      }).catch(function(err) { console.log(err); });
+     }
+     ///////////////////////////// Direcciones de SuministroS END ///////////////////////////	
+     /**/
 
      scope.filtrar_locaPumSum = function() {
          scope.TLocalidadesfiltradaPumSum = $filter('filter')(scope.tLocalidades, { DesPro: scope.fpuntosuministro.CodPro }, true);
+     }
+     scope.BuscarLocalidadesPunSun=function(NomPro,metodo)
+     {
+        if(metodo==1)
+        {
+           for (var i = 0; i < scope.tProvidencias.length; i++)
+            {
+                if (scope.tProvidencias[i].DesPro == NomPro) {
+                     console.log(scope.tProvidencias[i]);
+                     scope.CodPro=scope.tProvidencias[i].CodPro;
+                     
+                }
+            } 
+        }
+        else
+        {
+            scope.CodPro=NomPro;
+        }
+        var url=base_urlHome()+"api/Clientes/BuscarLocalidadesFil/CodPro/"+scope.CodPro;
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                scope.TLocalidadesfiltradaPunSum=result.data;
+            }
+            else
+            {
+               Swal.fire({ title: "Error", text: "No se encontraron Localidades asignada a esta Provincia", type: "error", confirmButtonColor: "#188ae2" }); 
+               scope.TLocalidadesfiltradaPunSum=[];
+               scope.fpuntosuministro.CodLocPunSum=undefined;
+               scope.fpuntosuministro.CodLocFil=undefined;
+            }
+
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found") {
+                 Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+            }
+             if (error.status == 401 && error.statusText == "Unauthorized") {
+                 Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+             }
+             if (error.status == 403 && error.statusText == "Forbidden") {
+                 Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+             }
+             if (error.status == 500 && error.statusText == "Internal Server Error") {
+                 Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+             }
+
+        });
+        
+
      }
      $scope.SubmitFormFiltrosPumSum = function(event) {
 
@@ -427,13 +453,14 @@
      scope.cargar_lista_motivos_bloqueos_puntos_suministros = function() {
          var url = base_urlHome() + "api/Clientes/Motivos_Bloqueos_PunSum/";
          $http.get(url).then(function(result) {
-             if (result.data != false) {
-                 scope.tMotivosBloqueosPunSum = result.data;
-             } else {
-                 bootbox.alert({
-                     message: "No hemos encontrados Motivos de Bloqueos para el Dirección de Suministro.",
-                     size: 'middle'
-                 });
+                
+                scope.FecBloPun=result.data.FechaServer;
+                 $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecBloPun);
+                 scope.fecha_server=result.data.FechaServer;
+             if (result.data.data != false) {
+                 scope.tMotivosBloqueosPunSum = result.data.data;
+                           } else {                
+                 Swal.fire({ title: "Error", text: "No hemos encontrados Motivos de Bloqueos para el Dirección de Suministro.", type: "error", confirmButtonColor: "#188ae2" });
              }
 
          }, function(error) {
@@ -521,7 +548,7 @@
                      $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      scope.tPunSum = result.data;
                      if (result.data != false) {
-                         Swal.fire({ title: "Procesaro", text: "El Dirección de Suministro ha sido bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                         Swal.fire({ title: "Procesado", text: "El Dirección de Suministro ha sido bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
                          $("#modal_motivo_bloqueo_punto_suministro").modal('hide');
                          scope.mostrar_all_puntos();
                      } else {
@@ -572,30 +599,33 @@
              scope.fpuntosuministro.RefCasPunSum = undefined;
              scope.fpuntosuministro.DimPunSum = undefined;
              scope.fpuntosuministro.ObsPunSum = undefined;
+             scope.fpuntosuministro.CPLocSoc =undefined;
          }
-         if (scope.fpuntosuministro.TipRegDir == 1) {
+        
+        if (scope.fpuntosuministro.TipRegDir == 1) {
              scope.restringir_input = 1;
              $("#DirFisSoc").removeClass("loader loader-default").addClass("loader loader-default  is-active");
              var url = base_urlHome() + "api/Clientes/buscar_direccion_Soc_Fis/Cliente/" + scope.fpuntosuministro.CodCliPunSum + "/TipRegDir/" + scope.fpuntosuministro.TipRegDir;
              $http.get(url).then(function(result) {
                  $("#DirFisSoc").removeClass("loader loader-default is-active").addClass("loader loader-default");
                  if (result.data != false) {
-                     scope.fpuntosuministro.CodTipVia = result.data.CodTipViaSoc;
-                     scope.fpuntosuministro.NomViaPunSum = result.data.NomViaDomSoc;
-                     scope.fpuntosuministro.NumViaPunSum = result.data.NumViaDomSoc;
-                     scope.fpuntosuministro.BloPunSum = result.data.BloDomSoc;
-                     scope.fpuntosuministro.EscPunSum = result.data.EscDomSoc;
-                     scope.fpuntosuministro.PlaPunSum = result.data.PlaDomSoc;
-                     scope.fpuntosuministro.PuePunSum = result.data.PueDomSoc;
-                     scope.fpuntosuministro.CodProPunSum = result.data.CodProSoc;
-                     scope.fpuntosuministro.CodLocPunSum = result.data.CodLocSoc;
-                     scope.fpuntosuministro.CPLocSoc = result.data.CPLocSoc;
-                     scope.TLocalidadesfiltradaPunSum = [];
-                     setTimeout(function() {
-                         scope.filtrarLocalidadPunSum();
-                         scope.mostrar_all_puntos();
-                         console.log('Pasando por Timeout');
-                     }, 1000);
+                    scope.fpuntosuministro.CodTipVia = result.data.CodTipViaSoc;
+                    scope.fpuntosuministro.NomViaPunSum = result.data.NomViaDomSoc;
+                    scope.fpuntosuministro.NumViaPunSum = result.data.NumViaDomSoc;
+                    scope.fpuntosuministro.BloPunSum = result.data.BloDomSoc;
+                    scope.fpuntosuministro.EscPunSum = result.data.EscDomSoc;
+                    scope.fpuntosuministro.PlaPunSum = result.data.PlaDomSoc;
+                    scope.fpuntosuministro.PuePunSum = result.data.PueDomSoc;
+                    scope.fpuntosuministro.CodProPunSum = result.data.CodProSoc;
+                    scope.fpuntosuministro.CodLocPunSum = result.data.CodLocSoc;
+                    scope.fpuntosuministro.CPLocSoc = result.data.CPLocSoc;
+                    scope.TLocalidadesfiltradaPunSum = [];
+                    scope.BuscarLocalidadesPunSun(result.data.CodProSoc,2);
+                    /*setTimeout(function() {
+                        scope.filtrarLocalidadPunSum();
+                        scope.mostrar_all_puntos();
+                        console.log('Pasando por Timeout');
+                    }, 1000);*/
 
                  } else {
                      Swal.fire({ title: "Error", text: "No hemos encontrados dirección compatible con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -635,11 +665,7 @@
                      scope.fpuntosuministro.CodLocPunSum = result.data.CodLocFis;
                      scope.fpuntosuministro.CPLocSoc = result.data.CPLocFis;
                      scope.TLocalidadesfiltradaPunSum = [];
-                     setTimeout(function() {
-                         scope.filtrarLocalidadPunSum();
-                         scope.mostrar_all_puntos();
-                         console.log('Pasando por Timeout');
-                     }, 1000);
+                     scope.BuscarLocalidadesPunSun(result.data.CodProFis,2);
 
                  } else {
                      Swal.fire({ title: "Error", text: "No hemos encontrados dirección compatible con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
@@ -853,15 +879,18 @@
          $http.get(url).then(function(result) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
-                 scope.fpuntosuministro = result.data;
-                 scope.ZonPosPunSum = result.data.ZonPosPunSum;
-                 setTimeout(function() {
-                     scope.filtrarLocalidadPunSum();
-                     scope.mostrar_all_puntos();
-                     console.log('Pasando por Timeout');
-                 }, 1300);
+                scope.BuscarLocalidadesPunSun(result.data.CodProPunSum,2);
+                scope.fpuntosuministro = result.data;
+                scope.ZonPosPunSum = result.data.ZonPosPunSum;             
+                scope.CodCliPunSumFil=result.data.NumCifCli;
+
+                /*setTimeout(function() {
+                    scope.filtrarLocalidadPunSum();
+                    scope.mostrar_all_puntos();
+                    console.log('Pasando por Timeout');
+                }, 1300);*/
              } else {
-                 Swal.fire({ title: "Error", text: "Ha ocurrido un error, por favor intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                Swal.fire({ title: "Error", text: "Ha ocurrido un error, por favor intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -989,7 +1018,167 @@
              }
          }
      }
+    scope.containerClicked = function() {
+        scope.searchResult = {};
+    }
+    scope.searchboxClicked = function($event) {
+                     $event.stopPropagation();
+                 }
+    scope.setValue = function(index, $event, result, metodo) {
+                     if (metodo == 1) {
+                         scope.CodCliPunSumFil = scope.searchResult[index].NumCifCli;
+                         scope.fpuntosuministro.CodCliPunSumFil= scope.searchResult[index].CodCli;
+                         scope.searchResult = {};
+                         $event.stopPropagation();
+                     }
+                     if (metodo == 2) {
+                         scope.fpuntosuministro.CodCliPunSum = scope.searchResult[index].CodCli;
+                         scope.CodCliPunSumFil = scope.searchResult[index].NumCifCli;
+                         scope.searchResult = {};
+                         $event.stopPropagation();
+                     }
 
+                 }
+                 scope.fetchClientes = function(metodo) {
+             if (metodo == 1) {
+                 var searchText_len = scope.CodCliPunSumFil.trim().length;
+                 scope.fdatos.filtrar_clientes = scope.CodCliPunSumFil;
+                 if (searchText_len > 0) {
+                     var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                     $http.post(url, scope.fdatos).then(function(result) {
+                             //console.log(result);
+                             if (result.data != false) {
+                                 scope.searchResult = result.data;
+                                 //console.log(scope.searchResult);
+                             } else {
+                                 Swal.fire({
+                                             title: "Error",
+                                             text: "No hay Clientes registrados",
+                                             type:"error", confirmButtonColor: "#188ae2" });
+                         scope.searchResult = {};
+                                         }
+                                     },
+                                     function(error) {
+                                         if (error.status == 404 && error.statusText == "Not Found") {
+                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 401 && error.statusText == "Unauthorized") {
+                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 403 && error.statusText == "Forbidden") {
+                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                         }
+                                     });
+                         } else {
+                             scope.searchResult = {};
+                         }
+                     }
+                     if (metodo == 2) {
+                         var searchText_len = scope.CodCliPunSumFil.trim().length;
+                         scope.fdatos.filtrar_clientes = scope.CodCliPunSumFil;
+                         if (searchText_len > 0) {
+                             var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                             $http.post(url, scope.fdatos).then(function(result) {
+                                 console.log(result);
+                                 if (result.data != false) {
+                                     scope.searchResult = result.data;
+                                     console.log(scope.searchResult);
+                                 } else {
+                                     Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
+                                     scope.searchResult = {};
+                                 }
+                             }, function(error) {
+                                 if (error.status == 404 && error.statusText == "Not Found") {
+                                     Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                                 }
+                                 if (error.status == 401 && error.statusText == "Unauthorized") {
+                                     Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                                 }
+                                 if (error.status == 403 && error.statusText == "Forbidden") {
+                                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                                 }
+                                 if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                     Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                                 }
+                             });
+                         } else {
+                             scope.searchResult = {};
+                         }
+                     }
+
+
+                 }  
+                 scope.RealizarCambioFiltro=function(metodo)
+                 {
+                    console.log(metodo);
+                    if(metodo==2 || metodo==3)
+                    {
+                        scope.tProvidencias=[];
+                        scope.fpuntosuministro.CodPro=undefined;
+                        var url =base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+4;
+                        $http.get(url).then(function(result)
+                        {
+                            if(result.data!=false)
+                            {
+                                 scope.tProvidencias=result.data;
+                            }
+                            else
+                            {
+                                Swal.fire({ title: "Error", text: "No se encontraron Provincias registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                                scope.tProvidencias=[];
+                                scope.fpuntosuministro.CodPro=undefined;
+                            }
+                        },function(error)
+                        {
+                            if (error.status == 404 && error.statusText == "Not Found") {
+                                     Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 401 && error.statusText == "Unauthorized") {
+                                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 403 && error.statusText == "Forbidden") {
+                                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                                 if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                        });
+
+                    }
+                    if(metodo==4)
+                    {
+                        var url =base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+8;
+                        $http.get(url).then(function(result)
+                        {
+                            if(result.data!=false)
+                            {
+                                 scope.TtiposInmuebles=result.data;
+                            }
+                            else
+                            {
+                                Swal.fire({ title: "Error", text: "No se encontraron Provincias registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                                scope.TtiposInmuebles=[];
+                            }
+                        },function(error)
+                        {
+                            if (error.status == 404 && error.statusText == "Not Found") {
+                                     Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 401 && error.statusText == "Unauthorized") {
+                                Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                            if (error.status == 403 && error.statusText == "Forbidden") {
+                                     Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                                 if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                            }
+                        });
+                    }
+                 }           
      if (scope.nID != undefined) {
          scope.BuscarXIDPunSum();
      }

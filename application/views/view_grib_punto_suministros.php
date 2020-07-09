@@ -64,10 +64,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
+
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
 .datepicker{z-index:1151 !important;}
 </style>
 <body>
- <div ng-controller="Controlador_Puntos_Suministros as vm">
+ <div ng-controller="Controlador_Puntos_Suministros as vm" ng-init="vm.mostrar_all_puntos()">
  <!--main content start-->
     <section id="main-content">
       <!--wrapper start-->
@@ -202,20 +226,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12">
      <div class="form">                          
      <div class="form-group">
-       <select class="form-control" name="tipo_filtro" required ng-model="vm.fpuntosuministro.tipo_filtro">
+       <select class="form-control" name="tipo_filtro" required ng-model="vm.fpuntosuministro.tipo_filtro" ng-change="vm.RealizarCambioFiltro(vm.fpuntosuministro.tipo_filtro)">
           <option ng-repeat="dato in vm.ttipofiltrosPunSum" value="{{dato.id}}">{{dato.nombre}}</option>
         </select>     
      </div>
      </div>
      </div>
     
-     <div class="col-12 col-sm-12" ng-show="vm.fpuntosuministro.tipo_filtro==1">
+     <div class="col-12 col-sm-12" ng-show="vm.fpuntosuministro.tipo_filtro==1" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliPunSumFil" name="CodCliPunSumFil" ng-model="vm.fpuntosuministro.CodCliPunSumFil"> 
-          <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+        
+        <input type="text" class="form-control" ng-model="vm.CodCliPunSumFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul> 
+      <input type="hidden" name="CodCliPunSumFil" id="CodCliPunSumFil" ng-model="vm.fpuntosuministro.CodCliPunSumFil">
        </div>
        </div>
        </div>
@@ -224,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6" ng-show="vm.fpuntosuministro.tipo_filtro==2">
      <div class="form">                          
      <div class="form-group">     
-      <select class="form-control" name="CodPro" ng-model="vm.fpuntosuministro.CodPro" ng-change="vm.filtrar_locaPumSum()">
+      <select class="form-control" name="CodPro" ng-model="vm.fpuntosuministro.CodPro" ng-change="vm.BuscarLocalidadesPunSun(vm.fpuntosuministro.CodPro,1)">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.DesPro}}">{{dato.DesPro}}</option>                          
       </select>    
      </div>
@@ -235,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">     
       <select class="form-control" name="CodLocFil" ng-model="vm.fpuntosuministro.CodLocFil" ng-disabled="vm.fpuntosuministro.CodPro==undefined || vm.fpuntosuministro.CodPro==null">
-        <option ng-repeat="dato in vm.TLocalidadesfiltradaPumSum" value="{{dato.DesLoc}}">{{dato.DesLoc}}</option>                         
+        <option ng-repeat="dato in vm.TLocalidadesfiltradaPunSum" value="{{dato.DesLoc}}">{{dato.DesLoc}}</option>                         
       </select>     
      </div>
      </div>
@@ -244,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12" ng-show="vm.fpuntosuministro.tipo_filtro==3">
      <div class="form">                          
      <div class="form-group">     
-      <select class="form-control" name="CodPro" ng-model="vm.fpuntosuministro.CodPro" ng-change="vm.filtrar_locaPumSum()">
+      <select class="form-control" name="CodPro" ng-model="vm.fpuntosuministro.CodPro">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.DesPro}}">{{dato.DesPro}}</option>                          
       </select>    
      </div>

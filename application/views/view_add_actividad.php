@@ -19,6 +19,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	background: inherit;
 	background-color:transparent;
   }
+
+#searchResult{
+  list-style: none;
+  padding: 0px;
+  width: auto;
+  position: absolute;
+  margin: 0;
+  z-index:1151 !important;
+}
+
+#searchResult li{
+  background: lavender;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+
+#searchResult li:nth-child(even){
+  background: cadetblue;
+  color: white;
+}
+
+#searchResult li:hover{
+  cursor: pointer;
+}
 </style>
 <body>
  <div ng-controller="Controlador_Actividades as vm">
@@ -43,13 +67,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="panel-body">
 <form id="form_actividades" name="form_actividades" ng-submit="submitFormActividades($event)"> 
     <div class='row'>              
-       <div class="col-12 col-sm-12">
+       
+       <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodCliAct" name="CodCliAct" ng-model="vm.CodCliAct" required> 
-          <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select>       
+       <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul> 
+        <input type="hidden" name="CodCliActFil" class="form-control" id="CodCliActFil" ng-model="vm.tmodal_filtroAct.CodCliActFil">
        </div>
        </div>
        </div>
@@ -58,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código CNAE <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.CodCliAct==undefined" placeholder="* introduzca Código CNAE"/>       
+       <input type="text" class="form-control" ng-model="vm.CodActCNAE" maxlength="4" ng-blur="vm.buscar_CNAE()" ng-disabled="vm.tmodal_filtroAct.CodCliActFil==undefined" placeholder="* introduzca Código CNAE"/>       
        </div>
        </div>
        </div>

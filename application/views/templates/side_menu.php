@@ -149,7 +149,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">            	
-              <li><a href="#/Datos_Basicos_Comercializadora"> Datos Básicos</a></li>
+              <li><a href="#/Comercializadora"> Datos Básicos</a></li>
               <li><a href="#/Productos"> Productos</a></li>
               <li><a href="#/Anexos"> Anexos</a></li>
               <li><a href="#/Servicios_Adicionales"> Servicios Especiales</a></li>         
@@ -163,7 +163,7 @@
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a href="#/Datos_Basicos_Clientes"> Datos Básicos</a></li>
+              <li><a href="#/Clientes"> Datos Básicos</a></li>
               <li><a href="#/Actividades"> Actividad</a></li>
               <li><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
               <li><a href="#/Gestionar_Cups"> Gestionar Cups</a></li>  

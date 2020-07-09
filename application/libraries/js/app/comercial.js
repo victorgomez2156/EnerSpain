@@ -233,10 +233,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     $scope.Consultar_DNI_NIE = function(event) {
-        if (!scope.validarNIFDNI())
+        /*if (!scope.validarNIFDNI())
             {
                 return false;
-            }
+            }*/
         $("#comprobando_dni").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var url = base_urlHome() + "api/Comercial/comprobar_dni_nie/NIFComCon/" + scope.fdatos.NumDNI_NIECli;
         $http.get(url).then(function(result) {
@@ -844,6 +844,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     number = '2' + number
                     //final = first + number
                 }
+                
                 if (isNumeric(number)){
                     letter = calculateLetterForDni(number)
                 }
