@@ -76,7 +76,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.tLocalidades = [];
     scope.tOnlyColaboradores = [];
     scope.tClientes_x_Colaboradores = [];
-    ServiceColaboradores.getAll().then(function(dato) {
+    
+    /*ServiceColaboradores.getAll().then(function(dato) {
         scope.tProvidencias = dato.Provincias;
         scope.tTiposVias = dato.Tipo_Vias;
         scope.tLocalidades = dato.Localidades;
@@ -98,6 +99,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
         }
     });
+    
     ServiceOnlyColaboradores.getAll().then(function(dato) {
         scope.tOnlyColaboradores = dato;
 
@@ -118,7 +120,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (error.status == false && error.error == "Internal Server Error") {
             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
         }
-    });
+    });*/
 
     $scope.submitForm = function(event) {
         //console.log(scope.fdatos);
@@ -403,7 +405,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
             } else {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: "No hemos encontrado colaboradores registrados.", type: "info", confirmButtonColor: "#188ae2" });
                 scope.tColaboradores = [];
                 scope.tColaboradoresBack = [];
             }
@@ -890,26 +891,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.ruta_reportes_pdf_colaboradores = 3 + "/" + scope.filtrar_search;
                         scope.ruta_reportes_excel_colaboradores = 3 + "/" + scope.filtrar_search;
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay Colaboradores registrados", type: "error", confirmButtonColor: "#188ae2" });
-                        $scope.predicate = 'id';
-                        $scope.reverse = true;
-                        $scope.currentPage = 1;
-                        $scope.order = function(predicate) {
-                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                            $scope.predicate = predicate;
-                        };
-                        scope.tColaboradores = scope.tColaboradoresBack;
-                        $scope.totalItems = scope.tColaboradores.length;
-                        $scope.numPerPage = 50;
-                        $scope.paginate = function(value) {
-                            var begin, end, index;
-                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                            end = begin + $scope.numPerPage;
-                            index = scope.tColaboradores.indexOf(value);
-                            return (begin <= index && index < end);
-                        };
+                        scope.tColaboradores =[];
                         scope.ruta_reportes_pdf_colaboradores = 0;
                         scope.ruta_reportes_excel_colaboradores = 0;
+
                     }
                 }, function(error) {
                     if (error.status == 404 && error.statusText == "Not Found") {
@@ -925,6 +910,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                     }
                 });
+            }
+            else
+            {
+                    $scope.predicate = 'id';
+                    $scope.reverse = true;
+                    $scope.currentPage = 1;
+                    $scope.order = function(predicate) {
+                        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                        $scope.predicate = predicate;
+                    };
+                    scope.tColaboradores = scope.tColaboradoresBack;
+                    $scope.totalItems = scope.tColaboradores.length;
+                    $scope.numPerPage = 50;
+                    $scope.paginate = function(value) {
+                        var begin, end, index;
+                        begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                        end = begin + $scope.numPerPage;
+                        index = scope.tColaboradores.indexOf(value);
+                        return (begin <= index && index < end);
+                    };
+                        scope.ruta_reportes_pdf_colaboradores = 0;
+                        scope.ruta_reportes_excel_colaboradores = 0;
             }
         }
     }

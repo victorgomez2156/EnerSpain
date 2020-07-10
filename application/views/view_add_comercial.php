@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Cargo <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Cargo </label>
        <input class="form-control " id="CarCom" name="CarCom" type="text"  ng-model="vm.fdatos.CarCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>        
        </div>
        </div>
@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Inicio <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Inicio </label>
        <input class="form-control datepicker" id="FecIniCom" name="FecIniCom" type="text" ng-model="vm.fdatos.FecIniCom" ng-disabled="vm.validate_form==1" ng-change="vm.validar_inputs(1,vm.fdatos.FecIniCom)"/>        
        </div>
        </div>
@@ -82,7 +82,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">% Beneficio <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">% Beneficio </label>
        <input class="form-control " id="PorComCom" name="PorComCom" type="text"  ng-model="vm.fdatos.PorComCom" ng-disabled="vm.validate_form==1" ng-change="vm.validar_inputs(2,vm.fdatos.PorComCom)"/>        
        </div>
        </div>
@@ -91,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo </label>
        <input class=" form-control" id="TelFijCom" name="TelFijCom" type="text"  ng-model="vm.fdatos.TelFijCom" ng-disabled="vm.validate_form==1" ng-change="vm.validar_inputs(3,vm.fdatos.TelFijCom)" maxlength="9" /> 
        </div>
        </div>
@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Celular <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil <b style="color:red;">(*)</b></label>
        <input class="form-control " id="TelCelCom" name="TelCelCom" type="text"  ng-model="vm.fdatos.TelCelCom" ng-disabled="vm.validate_form==1" ng-change="vm.validar_inputs(4,vm.fdatos.TelCelCom)" maxlength="9"/>       
        </div>
        </div>

@@ -273,4 +273,10 @@ class Usuarios_model extends CI_Model
             return false;
         }       
     }
+    public function updatePassword($id,$newpassword)
+    {
+        
+        $this->db->where('id', $id);      
+        return $this->db->update('T_Usuarios_Session',array('contrasena'=>md5($newpassword),'contrasena_sin_cifrar'=>$newpassword));
+    }
 }

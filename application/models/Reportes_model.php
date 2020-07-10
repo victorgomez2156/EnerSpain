@@ -870,7 +870,7 @@ class Reportes_model extends CI_Model
     public function get_list_contratos_comerciales_filtro($where,$Variable)
     {
         $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
-            CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+            d.RazSocCom as CodCom,d.NumCifCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
@@ -1206,7 +1206,7 @@ class Reportes_model extends CI_Model
     public function getContratosFilter($SearchText)
     {
         $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
-            CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+            d.RazSocCom as CodCom,d.NumCifCom ,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
@@ -1426,7 +1426,7 @@ class Reportes_model extends CI_Model
     public function Contratos_Para_Rueda($Desde,$Hasta)
     {
         /*$this->db->select("",false);*/
-        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,c.RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli           ,a.EstBajCon,CONCAT(d.RazSocCom,' - ', d.NumCifCom) as CodCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
+        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,c.RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
             e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');

@@ -106,8 +106,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><input type="checkbox" ng-model="vm.FecCon"/> <b style="color:black;">Fecha</b></li>
+                  <li><input type="checkbox" ng-model="vm.NifCliente"/> <b style="color:black;">NIF</b></li>
                   <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">Cliente</b></li>
                   <li><input type="checkbox" ng-model="vm.CodCom"/> <b style="color:black;">Comercializadora</b></li>
+                  <li><input type="checkbox" ng-model="vm.CUPsEleCh"/> <b style="color:black;">CUPs Eléctrico</b></li>
+                  <li><input type="checkbox" ng-model="vm.CUPsGasCh"/> <b style="color:black;">CUPs Gas</b></li>
                   <li><input type="checkbox" ng-model="vm.CodAnePro"/>  <b style="color:black;">Anexo</b></li>
                   <li><input type="checkbox" ng-model="vm.DurCon"/> <b style="color:black;">Duración</b></li>
                   <li><input type="checkbox" ng-model="vm.FecVenCon"/> <b style="color:black;">Vencimiento</b></li>
@@ -145,8 +148,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                   <th ng-show="vm.FecCon==true">Fecha Inicio</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CodCom==true">Comercializadora</th>
+                  <th ng-show="vm.CUPsEleCh==true">CUPs Eléctrico</th>
+                  <th ng-show="vm.CUPsGasCh==true">CUPs Gas</th>
                   <th ng-show="vm.CodAnePro==true">Anexo</th> 
                   <th ng-show="vm.DurCon==true">Duración</th>  
                   <th ng-show="vm.FecVenCon==true">Vencimiento</th>
@@ -154,14 +160,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.ActCont==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.T_Contratos.length==0"> 
-                    <td colspan="8" align="center">
+                    <td colspan="11" align="center">
                       <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información.</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_Contratos | filter:paginate" ng-class-odd="odd">                    
                     <td ng-show="vm.FecCon==true">{{dato.FecIniCon}}</td>
-                    <td ng-show="vm.CodCli==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
+                    <td ng-show="vm.NifCliente==true">{{dato.NumCifCli}}</td>
+                    <td ng-show="vm.CodCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.CodCom==true">{{dato.CodCom}}</td>
+                    <td ng-show="vm.CUPsEleCh==true">{{dato.CUPsEle}}</td>
+                    <td ng-show="vm.CUPsGasCh==true">{{dato.CupsGas}}</td>
                     <td ng-show="vm.CodAnePro==true">{{dato.Anexo}}</td> 
                     <td ng-show="vm.DurCon==true">{{dato.DurCon}} Meses</td> 
                     <td ng-show="vm.FecVenCon==true">{{dato.FecVenCon}}</td>
@@ -185,8 +194,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>                 
                   <th ng-show="vm.FecCon==true">Fecha Inicio</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CodCom==true">Comercializadora</th>
+                  <th ng-show="vm.CUPsEleCh==true">CUPs Eléctrico</th>
+                  <th ng-show="vm.CUPsGasCh==true">CUPs Gas</th>
                   <th ng-show="vm.CodAnePro==true">Anexo</th> 
                   <th ng-show="vm.DurCon==true">Duración</th>  
                   <th ng-show="vm.FecVenCon==true">Vencimiento</th>

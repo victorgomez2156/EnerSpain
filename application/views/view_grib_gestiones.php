@@ -114,8 +114,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><input type="checkbox" ng-model="vm.FecGesGen"/> <b style="color:black;">Fecha</b></li>
-                  <li><input type="checkbox" ng-model="vm.TipGesGen"/> <b style="color:black;">Tipo Gestión</b></li>
+                  <li><input type="checkbox" ng-model="vm.TipGesGen"/>  <b style="color:black;">Tipo Gestión</b></li>
+                  <li><input type="checkbox" ng-model="vm.NifCliente"/> <b style="color:black;">NIF</b></li>
                   <li><input type="checkbox" ng-model="vm.CodCli"/>    <b style="color:black;">Cliente</b></li>
+                  <li><input type="checkbox" ng-model="vm.CUPsElec"/>    <b style="color:black;">CUPs Eléctrico</b></li>
+                  <li><input type="checkbox" ng-model="vm.CUPsGas"/>    <b style="color:black;">CUPs Gas</b></li>
                   <li><input type="checkbox" ng-model="vm.PreGesGen"/> <b style="color:black;">Importe</b></li>
                   <li><input type="checkbox" ng-model="vm.RefGesGen"/> <b style="color:black;">Referencia</b></li>
                   <li><input type="checkbox" ng-model="vm.EstGesGen"/> <b style="color:black;">Estatus</b></li>
@@ -153,7 +156,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                   <th ng-show="vm.FecGesGen==true">Fecha</th>
                   <th ng-show="vm.TipGesGen==true">Tipo Gestion</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
+                  <th ng-show="vm.CUPsElec==true">CUPs Eléctrico</th>
+                  <th ng-show="vm.CUPsGas==true">CUPs Gas</th>
                   <th ng-show="vm.PreGesGen==true">Importe</th> 
                   <th ng-show="vm.RefGesGen==true">Referencia</th>
                   <th ng-show="vm.EstGesGen==true">Estatus</th>                 
@@ -170,8 +176,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.FecGesGen==true">{{dato.FecGesGen}}</td>
                     
                     <td ng-show="vm.TipGesGen==true">{{dato.DesTipGes}}</td>
-                    
-                    <td ng-show="vm.CodCli==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
+
+                    <td ng-show="vm.NifCliente==true">{{dato.NumCifCli}}</td>
+
+                    <td ng-show="vm.CodCli==true">{{dato.RazSocCli}}</td>
+
+                    <td ng-show="vm.CUPsElec==true">{{dato.CUPsEle}}</td>
+
+                    <td ng-show="vm.CUPsGas==true">{{dato.CupsGas}}</td>
                     
                     <td ng-show="vm.PreGesGen==true">{{dato.PreGesGen}}</td>
                     
@@ -196,7 +208,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>                 
                   <th ng-show="vm.FecGesGen==true">Fecha</th>
                   <th ng-show="vm.TipGesGen==true">Tipo Gestion</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
+                  <th ng-show="vm.CUPsElec==true">CUPs Eléctrico</th>
+                  <th ng-show="vm.CUPsGas==true">CUPs Gas</th>
                   <th ng-show="vm.PreGesGen==true">Importe</th> 
                   <th ng-show="vm.RefGesGen==true">Referencia</th>
                   <th ng-show="vm.EstGesGen==true">Estatus</th>                 

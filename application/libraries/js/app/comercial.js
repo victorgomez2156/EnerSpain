@@ -43,6 +43,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             location.href = "#/Comercial";
         } else {
             scope.fdatos.NIFCom = scope.CIF_COMERCIAL;
+            scope.fdatos.FecIniCom=fecha;
+            $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.fdatos.FecIniCom);
+
         }
     }
 
@@ -114,14 +117,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         if (scope.fdatos.CarCom == null || scope.fdatos.CarCom == undefined || scope.fdatos.CarCom == '') {
-            Swal.fire({ title: "El Cargo es requerido", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            //Swal.fire({ title: "El Cargo es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            //return false;
+            scope.fdatos.CarCom = null;
+        }
+        else
+        {
+            scope.fdatos.CarCom = scope.fdatos.CarCom;
         }
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.fdatos.FecIniCom = FecIniCom;
         if (scope.fdatos.FecIniCom == null || scope.fdatos.FecIniCom == undefined || scope.fdatos.FecIniCom == '') {
-            Swal.fire({ title: "La Fecha de Inicio es requerida", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            scope.fdatos.FecIniCom = null;
+            //Swal.fire({ title: "La Fecha de Inicio es requerida", type: "error", confirmButtonColor: "#188ae2" });
+            //return false;
         } else {
             var FecIniCom = (scope.fdatos.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
@@ -157,12 +166,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (scope.fdatos.PorComCom == null || scope.fdatos.PorComCom == undefined || scope.fdatos.PorComCom == '') {
-            Swal.fire({ title: "El Porcentaje del Beneficio es requerido", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            //Swal.fire({ title: "El Porcentaje del Beneficio es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            //return false;
+            scope.fdatos.PorComCom = null;
+        }
+        else
+        {
+            scope.fdatos.PorComCom =scope.fdatos.PorComCom;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: "El Teléfono Fijo es requerido", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            //Swal.fire({ title: "El Teléfono Fijo es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            //return false;
+            scope.fdatos.TelFijCom = null;
+        }
+        else
+        {
+            scope.fdatos.TelFijCom = scope.fdatos.TelFijCom;
         }
         if (scope.fdatos.TelCelCom == null || scope.fdatos.TelCelCom == undefined || scope.fdatos.TelCelCom == '') {
             Swal.fire({ title: "El Teléfono Celular es requerido", type: "error", confirmButtonColor: "#188ae2" });

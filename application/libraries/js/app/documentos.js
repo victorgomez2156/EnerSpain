@@ -110,7 +110,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin7 <= index7 && index7 < end7);
                 }
             } else {
-                Swal.fire({ title: "No existen Documentos Registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                
                 scope.T_Documentos = [];
                 scope.T_DocumentosBack = [];
             }
@@ -556,7 +556,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.ruta_reportes_pdf_Documentos = 4 + "/" + scope.filtrar_search;
                         scope.ruta_reportes_excel_Documentos = 4 + "/" + scope.filtrar_search;
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay Documentos registradas", type: "error", confirmButtonColor: "#188ae2" });
+                        
                         scope.T_Documentos = [];
                         scope.ruta_reportes_pdf_Documentos = 0;
                         scope.ruta_reportes_excel_Documentos = 0;
@@ -576,6 +576,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                 });
             }
+            else
+            {
+                
+                $scope.predicate7 = 'id';
+                        $scope.reverse7 = true;
+                        $scope.currentPage7 = 1;
+                        $scope.order7 = function(predicate7) {
+                            $scope.reverse7 = ($scope.predicate7 === predicate7) ? !$scope.reverse7 : false;
+                            $scope.predicate7 = predicate7;
+                        };
+                        scope.T_Documentos = scope.T_DocumentosBack;
+                        $scope.totalItems7 = scope.T_Documentos.length;
+                        $scope.numPerPage7 = 50;
+                        $scope.paginate7 = function(value7) {
+                            var begin7, end7, index7;
+                            begin7 = ($scope.currentPage7 - 1) * $scope.numPerPage7;
+                            end7 = begin7 + $scope.numPerPage7;
+                            index7 = scope.T_Documentos.indexOf(value7);
+                            return (begin7 <= index7 && index7 < end7);
+                        }
+                         scope.ruta_reportes_pdf_Documentos = 0;
+                        scope.ruta_reportes_excel_Documentos = 0;
+            }
         }
     }
      scope.fetchClientes = function(metodo) {
@@ -591,10 +614,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 if (result.data != false) {
                     scope.searchResult = result.data;
                 } else {
-                Swal.fire({
-                            title: "Error",
-                            text: "No hay Clientes registrados",
-                            type:"error", confirmButtonColor: "#188ae2" });
+               
                          scope.searchResult = {};
                                          }
                                      },
@@ -654,8 +674,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             else
             {
-              Swal.fire({ title: "Error", text: "no se encontraron tipo de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });  
-              scope.tListaContactos=[];
+                scope.tListaContactos=[];
             }
 
            },function(error)

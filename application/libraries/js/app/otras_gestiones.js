@@ -35,7 +35,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.searchResult = result.data;
                         //console.log(scope.searchResult);
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                         scope.searchResult = {};
                     }
                 }, function(error) {
@@ -67,8 +66,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.searchResult = result.data;
                         //console.log(scope.searchResult);
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
-                        scope.searchResult = {};
+                       scope.searchResult = {};
                     }
                 }, function(error) {
                     if (error.status == 404 && error.statusText == "Not Found") {
@@ -505,7 +503,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 scope.buscartiposgestiones();
             } else {
-                Swal.fire({ title: "Erro", text: "No hay gestiones comerciales registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                
                 scope.TListGestiones = [];
                 scope.TListGestionesBack = [];
             }
@@ -554,10 +552,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     if ($route.current.$$route.originalPath == "/Otras_Gestiones/") {
         scope.FecGesGen = true;
         scope.TipGesGen = true;
+        scope.NifCliente = true;
         scope.CodCli = true;
         scope.PreGesGen = true;
         scope.RefGesGen = true;
         scope.EstGesGen = true;
+        scope.CUPsElec=true;
+        scope.CUPsGas=true;
         scope.ActGesGen = true;
         scope.ruta_reportes_pdf_gestiones = 0;
         scope.ruta_reportes_excel_gestiones = 0;
@@ -731,6 +732,82 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
 
+    scope.FetchOtrasGestionesFilter=function()
+    {
+
+        var searchText_len = scope.filtrar_search.trim().length;
+        scope.fdatos.filtrar_search = scope.filtrar_search;
+        if (searchText_len > 0) {
+            var url = base_urlHome() + "api/OtrasGestiones/FetchOtrasGestionesFilter";
+            $http.post(url, scope.fdatos).then(function(result) {
+                // console.log(result);
+                if (result.data != false) {
+                    $scope.predicate = 'id';
+                    $scope.reverse = true;
+                    $scope.currentPage = 1;
+                    $scope.order = function(predicate) {
+                        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                        $scope.predicate = predicate;
+                    };
+                    scope.TListGestiones = result.data;
+                    $scope.totalItems = scope.TListGestiones.length;
+                    $scope.numPerPage = 50;
+                    $scope.paginate = function(value) {
+                        var begin, end, index;
+                        begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                        end = begin + $scope.numPerPage;
+                        index = scope.TListGestiones.indexOf(value);
+                        return (begin <= index && index < end);
+                    }
+                    scope.ruta_reportes_pdf_gestiones = 5  + "/"+scope.filtrar_search;
+                    scope.ruta_reportes_excel_gestiones = 5 + "/"+scope.filtrar_search; 
+                }
+                else 
+                {
+                        scope.TListGestiones =[];
+                        scope.ruta_reportes_pdf_gestiones =0;
+                        scope.ruta_reportes_excel_gestiones =0;
+                }
+            }, function(error) 
+            {
+                    if (error.status == 404 && error.statusText == "Not Found") {
+                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden") {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+            });
+        }
+        else
+        {
+                    $scope.predicate = 'id';
+                    $scope.reverse = true;
+                    $scope.currentPage = 1;
+                    $scope.order = function(predicate) {
+                        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                        $scope.predicate = predicate;
+                    };
+                    scope.TListGestiones = scope.TListGestionesBack;
+                    $scope.totalItems = scope.TListGestiones.length;
+                    $scope.numPerPage = 50;
+                    $scope.paginate = function(value) {
+                        var begin, end, index;
+                        begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                        end = begin + $scope.numPerPage;
+                        index = scope.TListGestiones.indexOf(value);
+                        return (begin <= index && index < end);
+                    }
+                    scope.ruta_reportes_pdf_gestiones = 0;
+                    scope.ruta_reportes_excel_gestiones = 0; 
+
+        }
+    }
 
 
 

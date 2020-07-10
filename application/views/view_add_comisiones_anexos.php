@@ -179,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo Mínimo Anual</th>
                     <th>Consumo Máximo Anual</th>
                     <th>Comisión Servicios</th>
-                    <th>Comisión Certificado Verde</th>
+                    <th>Comisión por GO</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesRangoGrib.length==0"> 
                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
@@ -201,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo Mínimo Anual</th>
                     <th>Consumo Máximo Anual</th>
                     <th>Comisión Suministros</th>
-                    <th>Comisión Certificado Verde</th>
+                    <th>Comisión por GO</th>
                 </tfoot>
               </table></div>
 

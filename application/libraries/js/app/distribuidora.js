@@ -81,8 +81,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 };
                 console.log(scope.TDistribuidora);
             } else {
-                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No hay información registrada', type: "info", confirmButtonColor: "#188ae2" });
+                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");               
                 scope.TDistribuidora = [];
                 scope.TDistribuidoraBack = [];
             }
@@ -773,8 +772,28 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                         scope.ruta_reportes_pdf_distribuidora = 3 + "/" + scope.filter_search;
                         scope.ruta_reportes_excel_distribuidora = 3 + "/" + scope.filter_search;
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay Distribuidoras registradas", type: "error", confirmButtonColor: "#188ae2" });
-                        $scope.predicate = 'id';
+                        scope.TDistribuidora =[];
+                        scope.ruta_reportes_pdf_distribuidora = 0;
+                        scope.ruta_reportes_excel_distribuidora = 0;
+                    }
+                }, function(error) {
+                    if (error.status == 404 && error.statusText == "Not Found") {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden") {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+            else
+            {
+                 $scope.predicate = 'id';
                         $scope.reverse = true;
                         $scope.currentPage = 1;
                         $scope.order = function(predicate) {
@@ -793,21 +812,6 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                         };
                         scope.ruta_reportes_pdf_distribuidora = 0;
                         scope.ruta_reportes_excel_distribuidora = 0;
-                    }
-                }, function(error) {
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
             }
         }
     }

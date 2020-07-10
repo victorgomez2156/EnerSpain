@@ -260,7 +260,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
       <div class="form">                          
         <div class="form-group"><br>
-           <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
+           <label class="font-weight-bold nexa-dark" style="color:black;">PDF del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         
           
           <!--input type="file" id="file_anexo"  accept="*/*" class="form-control btn-info"  uploadanexo-model="file_anexo" ng-disabled="vm.validate_info==1||vm.validate_info_anexos!=undefined"-->
         

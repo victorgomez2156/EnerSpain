@@ -59,10 +59,34 @@ class Otrasgestiones_model extends CI_Model
     }
     public function get_list_gestiones()
     {
-        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen',false);
+        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen,d.CUPsEle,e.CupsGas',false);
         $this->db->from('T_OtrasGestiones a');
         $this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->join('T_CUPsElectrico d','d.CodCupsEle=a.CodCupsEle','LEFT');
+        $this->db->join('T_CUPsGas e','e.CodCupGas=a.CodCupsGas','LEFT'); 
+        $this->db->order_by('a.FecGesGen DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function get_FilterGestiones($SearchText)
+    {
+        $this->db->select('a.CodGesGen,a.CodCli,c.RazSocCli,c.NumCifCli,DATE_FORMAT(a.FecGesGen,"%d/%m/%Y") as FecGesGen,a.TipGesGen,b.DesTipGes,a.PreGesGen,a.RefGesGen,a.EstGesGen,d.CUPsEle,e.CupsGas',false);
+        $this->db->from('T_OtrasGestiones a');
+        $this->db->join('T_TipoGestion b','a.TipGesGen=b.CodTipGes');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->join('T_CUPsElectrico d','d.CodCupsEle=a.CodCupsEle','LEFT');
+        $this->db->join('T_CUPsGas e','e.CodCupGas=a.CodCupsGas','LEFT'); 
+        $this->db->like('c.NumCifCli',$SearchText);
+        $this->db->or_like('b.DesTipGes',$SearchText);
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->or_like('a.PreGesGen',$SearchText);
+        $this->db->or_like('a.RefGesGen',$SearchText);
+        $this->db->or_like('d.CUPsEle',$SearchText);
+        $this->db->or_like('e.CupsGas',$SearchText);
         $this->db->order_by('a.FecGesGen DESC'); 
         $query = $this->db->get(); 
         if($query->num_rows()>0)

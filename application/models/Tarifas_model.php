@@ -54,6 +54,7 @@ class Tarifas_model extends CI_Model
         $this->db->or_like('CanPerTar',$SearchText);
         $this->db->or_like('MinPotCon',$SearchText);
         $this->db->or_like('MaxPotCon',$SearchText);
+        //$this->db->or_like('case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END',$SearchText);
         $this->db->order_by('NomTarEle ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
 /*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class OtrasGestiones extends REST_Controller
@@ -32,6 +32,26 @@ class OtrasGestiones extends REST_Controller
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
 		$this->response($consulta);
+	}
+	 public function FetchOtrasGestionesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+
+		$Gestiones = $this->Otrasgestiones_model->get_FilterGestiones($objSalida->filtrar_search);        
+		if (empty($Gestiones))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No existen gestiones registradas.');
+			$this->response(false);
+			return false;
+		}
+		$this->db->trans_complete();
+		$this->response($Gestiones);
 	}
 	public function get_valida_datos_clientes_get()
     {

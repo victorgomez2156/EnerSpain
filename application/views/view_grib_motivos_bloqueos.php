@@ -280,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsMotBloAct==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloAct==true">Acción</th>
                   </tr>
-                  <tr ng-show="vm.TMotivo_BloActividad==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloActividad.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloActividad | filter:paginate2 | filter:vm.filtrar_actividad" ng-class-odd="odd">
@@ -517,7 +517,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsMotBloCon==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCon==true">Acción</th>
                   </tr>
-                  <tr ng-show="vm.TMotivo_BloContacto==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloContacto.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloContacto | filter:paginate4 | filter:vm.filtrar_Contacto" ng-class-odd="odd">
@@ -639,7 +639,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.ObsMotBloCom==true">Observación</th>   
                     <th ng-show="vm.AcctMotBloCom==true">Acción</th>
                   </tr>
-                  <tr ng-show="vm.TMotivo_BloComercializadora==undefined"> 
+                  <tr ng-show="vm.TMotivo_BloComercializadora.length==0"> 
                      <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                     </tr>
                   <tr ng-repeat="dato in vm.TMotivo_BloComercializadora | filter:paginate5 | filter:vm.filtrar_comercializadora" ng-class-odd="odd">

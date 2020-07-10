@@ -124,25 +124,6 @@
             };
         }
         scope.fecha_server = dato.Fecha_Server;
-
-        /*scope.tProvidencias = dato.Provincias;
-        scope.tLocalidades = dato.Localidades;
-        scope.tTipoCliente = dato.Tipo_Cliente;
-        scope.tComerciales = dato.Comerciales;
-        scope.tSectores = dato.Sector_Cliente;
-        scope.tColaboradores = dato.Colaborador;
-        scope.tTiposVias = dato.Tipo_Vias;
-        scope.TtiposInmuebles = dato.Tipo_Inmuebles;
-        scope.tListBanc = dato.Bancos;
-         scope.tListaContactos = dato.Tipo_Contacto;
-         scope.tListDocumentos = dato.Tipos_Documentos;
-         scope.fdatos.FecIniCli = dato.Fecha_Server;
-        
-
-         
-         if (scope.Tclientes == false) {
-             
-         }*/
      }).catch(function(err) { console.log(err); });
 
      ////////////////////////////////////////////////////////////// MODULO CLIENTES DATOS BASICOS START ////////////////////////////////////////////////////////////////////
@@ -172,7 +153,7 @@
                      return (begin <= index && index < end);
                  };
              } else {
-                 Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
+                 
                  scope.Tclientes = [];
                  scope.TclientesBack = [];
              }
@@ -693,8 +674,29 @@
                          scope.ruta_reportes_pdf = 8 + "/" + scope.filtrar_clientes;
                          scope.ruta_reportes_excel = 8 + "/" + scope.filtrar_clientes;
                      } else {
-                         Swal.fire({ title: "Error", text: "No hay clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
-                         $scope.predicate = 'id';
+                         //Swal.fire({ title: "Error", text: "No hay clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
+                         scope.Tclientes =[];
+                    scope.ruta_reportes_pdf = 0;
+                    scope.ruta_reportes_excel = 0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+             else
+             {
+                $scope.predicate = 'id';
                          $scope.reverse = true;
                          $scope.currentPage = 1;
                          $scope.order = function(predicate) {
@@ -713,21 +715,6 @@
                          };
                          scope.ruta_reportes_pdf = 0;
                          scope.ruta_reportes_excel = 0;
-                     }
-                 }, function(error) {
-                     if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 401 && error.statusText == "Unauthorized") {
-                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                 });
              }
          }
      }

@@ -197,8 +197,6 @@
                      return (begin3 <= index3 && index3 < end3);
                  };
              } else {
-                 console.log('No hemos encontrado servicios especiales registrados.');
-                 Swal.fire({ title: "Error", text: 'No hemos encontrado servicios especiales registrados.', type: "error", confirmButtonColor: "#188ae2" });
                  scope.TServicioEspeciales = [];
                  scope.TServicioEspecialesBack = [];
              }
@@ -1193,7 +1191,28 @@
                          scope.reporte_pdf_servicio_especiales = 7 + "/" + scope.filtrar_search;
                          scope.reporte_excel_servicio_especiales = 7 + "/" + scope.filtrar_search;
                      } else {
-                         $scope.predicate3 = 'id';
+                         scope.TServicioEspeciales=[];
+                            scope.reporte_pdf_servicio_especiales = 0;
+                         scope.reporte_excel_servicio_especiales = 0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+             else
+             {
+                $scope.predicate3 = 'id';
                          $scope.reverse3 = true;
                          $scope.currentPage3 = 1;
                          $scope.order3 = function(predicate3) {
@@ -1212,21 +1231,6 @@
                          };
                          scope.reporte_pdf_servicio_especiales = 0;
                          scope.reporte_excel_servicio_especiales = 0;
-                     }
-                 }, function(error) {
-                     if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 401 && error.statusText == "Unauthorized") {
-                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                 });
              }
          }
      }

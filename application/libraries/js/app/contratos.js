@@ -123,7 +123,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.searchResult = result.data;
                         console.log(scope.searchResult);
                     } else {
-                        Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                         scope.searchResult = {};
                     }
                 }, function(error) {
@@ -1630,7 +1629,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.ruta_reportes_excel_Contratos = 0;
         scope.FecCon = true;
         scope.CodCli = true;
+        scope.NifCliente = true;
         scope.CodCom = true;
+        scope.CUPsEleCh=true;
+        scope.CUPsGasCh=true;
         scope.CodAnePro = true;
         scope.DurCon = true;
         scope.FecVenCon = true;
@@ -1900,7 +1902,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                     else
                     {
-                        Swal.fire({ title: "Error", text: "No existen Contratos Comerciales registrados", type: "error", confirmButtonColor: "#188ae2" });                    
                         scope.T_Contratos=[];
                         scope.ruta_reportes_pdf_Contratos = 0;
                         scope.ruta_reportes_excel_Contratos =0;

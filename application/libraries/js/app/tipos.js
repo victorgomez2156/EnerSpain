@@ -87,7 +87,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Cliente);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado tipos de cliente registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Cliente = [];
             }
         }, function(error) {
@@ -314,7 +313,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Sector);
             } else {
-                Swal.fire({ title: "Error", text: "No existen Sectores registrados", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Sector = [];
             }
         }, function(error) {
@@ -340,8 +338,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.regresar_sector = function() {
         if (scope.validate_sector == undefined) {
-            Swal.fire({
-
+            Swal.fire({                
                 text: "¿Seguro que desea cerrar sin actualizar la información del Sector?",
                 type: "question",
                 showCancelButton: !0,
@@ -549,7 +546,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Contacto);
             } else {
-                Swal.fire({ title: "Error", text: "No existen Tipos de Contacto registrados", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Contacto = [];
             }
         }, function(error) {
@@ -783,7 +779,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Documento);
             } else {
-                Swal.fire({ title: "Error", text: "No existen Documentos registrados", type: "info", confirmButtonColor: "#188ae2" });
+                
                 scope.Tipo_Documento = [];
             }
         }, function(error) {
@@ -942,7 +938,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             return false;
         }
         Swal.fire({
-
             text: "¿Seguro que desea eliminar el Tipo de Documento?",
             type: "question",
             showCancelButton: !0,
@@ -1036,7 +1031,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Tipo_Gestiones);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado tipos de gestiones registradas.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.Tipo_Gestiones = [];
             }
         }, function(error) {

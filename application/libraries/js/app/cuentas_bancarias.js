@@ -145,7 +145,9 @@
                      return (begin3 <= index3 && index3 < end3);
                  };
              } else {
-                 Swal.fire({ title: 'Cuentas Bancarias', text: "No existen Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                 //Swal.fire({ title: 'Cuentas Bancarias', text: "No existen Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.tCuentaBan = [];
+                 scope.tCuentaBanBack = [];
              }
          }, function(error) {
              $("#cuentas_bancarias").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -581,8 +583,8 @@
                          scope.ruta_reportes_pdf_Banco = 3 + "/" + scope.filtrar_search;
                          scope.ruta_reportes_excel_Banco = 3 + "/" + scope.filtrar_search;
                      } else {
-                         Swal.fire({ title: "Error", text: "No hay Cuentas Bancarias registradas", type: "error", confirmButtonColor: "#188ae2" });
-                         scope.tCuentaBan = [];
+                        
+                            scope.tCuentaBan = [];
                          scope.ruta_reportes_pdf_Banco = 0;
                          scope.ruta_reportes_excel_Banco = 0;
                      }
@@ -601,6 +603,27 @@
                      }
                  });
              }
+             else
+             {      $scope.predicate4 = 'id';
+                         $scope.reverse4 = true;
+                         $scope.currentPage4 = 1;
+                         $scope.order4 = function(predicate4) {
+                             $scope.reverse4 = ($scope.predicate4 === predicate4) ? !$scope.reverse4 : false;
+                             $scope.predicate4 = predicate4;
+                         };
+                         scope.tCuentaBan = scope.tCuentaBanBack;
+                         $scope.totalItems4 = scope.tCuentaBan.length;
+                         $scope.numPerPage4 = 50;
+                         $scope.paginate4 = function(value4) {
+                             var begin4, end4, index4;
+                             begin4 = ($scope.currentPage4 - 1) * $scope.numPerPage4;
+                             end4 = begin4 + $scope.numPerPage4;
+                             index4 = scope.tCuentaBan.indexOf(value4);
+                             return (begin4 <= index4 && index4 < end4);
+                         };
+                         scope.ruta_reportes_pdf_Banco = 0;
+                         scope.ruta_reportes_excel_Banco = 0;}
+                        
          }
      }
      scope.RealizarFiltro=function(metodo)
@@ -616,8 +639,7 @@
                 }
                 else
                 {
-                   Swal.fire({ title: "Error", text: "No se encontraron entidades bancarias registradas.", type: "error", confirmButtonColor: "#188ae2" }); 
-                   scope.tListBanc=[];
+                    scope.tListBanc=[];
                    scope.tmodal_bancos.CodBan=undefined;
                 }
 
@@ -658,10 +680,7 @@
                 if (result.data != false) {
                     scope.searchResult = result.data;
                 } else {
-                Swal.fire({
-                            title: "Error",
-                            text: "No hay Clientes registrados",
-                            type:"error", confirmButtonColor: "#188ae2" });
+                
                          scope.searchResult = {};
                                          }
                                      },

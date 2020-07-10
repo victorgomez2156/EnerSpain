@@ -132,7 +132,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             } else {
                 $("#"+scope.title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                 Swal.fire({ title: 'Ha ocurrido un error intentando grabar el Usuario, por favor intente nuevamente', type: "success", confirmButtonColor: "#188ae2" });
-               
             }
         }, function(error) {
              $("#"+scope.title).removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -176,8 +175,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.Templeados);
             } else {
-                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 Swal.fire({text: "No existen Empleados registrados", type: "info", confirmButtonColor: "#188ae2" });               
+                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");                                
                 scope.Templeados = [];
             }
         }, function(error) {
@@ -408,7 +406,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                     else
                     {
-                        Swal.fire({ title: "Error", text: "No existen Usuarios registrados", type: "error", confirmButtonColor: "#188ae2" });                    
                         scope.Templeados=[];
                         scope.ruta_reportes_pdf_Usuarios = 0;
                         scope.ruta_reportes_excel_Usuarios =0;
@@ -426,9 +423,248 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                 });
             }
+            else
+            {
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };            
+                        scope.Templeados = scope.TempleadosBack;
+                        $scope.totalItems = scope.Templeados.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.Templeados.indexOf(value);
+                            return (begin <= index && index < end);
+                        }
+                        scope.ruta_reportes_pdf_Usuarios = 0;
+                        scope.ruta_reportes_excel_Usuarios =0;
+            }
         }     
      }
+    scope.CambiarContrasena=function()
+    {
+        $('#modal_contrasena').modal('show');
+        scope.fcontrasena={};
+        scope.fcontrasena.id=scope.fdatos.id;
+    }
+    $scope.SubmitFormChangePassword = function(event)
+    {
+        console.log(scope.fcontrasena);
+        
+        if (!scope.validar_campos_ConfirmarContrasena()) {
+            return false;
+        }
+        Swal.fire({
+            title:'Cambio de Contraseña',
+            text:'¿Estás seguro de cambiar la contraseña del usuario?',
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Confirmar"
+        }).then(function(t){
+        if (t.value == true)
+        { 
+           $("#Actualizando").removeClass("loader loader-default").addClass("loader loader-default is-active");
+           var url=base_urlHome()+"api/Usuarios/ChangePassword/";
+           $http.post(url,scope.fcontrasena).then(function(result)
+           {
+                $("#Actualizando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                if(result.data!=false)
+                {
+                    scope.toast('success','Contraseña actualizada correctamente','Contraseña');
+                    $('#modal_contrasena').modal('hide');
+                    scope.fcontrasena={};
+                }
+                else
+                {
+                    scope.toast('error','Ha ocurrido un error durante el cambio de la contraseña por favor intente nuevamente.','Error');
+                }
 
+           },function(error)
+           {
+                $("#Actualizando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+
+           });
+
+
+           //scope.toast('success','si','Prueba');
+        }else 
+        {
+            console.log('Cancelando ando...');
+        }}); 
+    };
+    scope.validar_campos_ConfirmarContrasena = function() {
+        resultado = true;       
+        
+        
+        if (scope.fcontrasena.newpassword == null || scope.fcontrasena.newpassword == undefined || scope.fcontrasena.newpassword == '') {
+            scope.toast('error','EL campo nueva contraseña es requerido.','Nueva Contraseña');
+            return false;
+        }
+        if (scope.fcontrasena.repassword == null || scope.fcontrasena.repassword == undefined || scope.fcontrasena.repassword == '') {
+            scope.toast('error','EL campo confirmar contraseña es requerido.','Confirmar Contraseña');
+            return false;
+        }
+        if (resultado == false) {
+            //quiere decir que al menos un renglon no paso la validacion
+            return false;
+        }
+        if(scope.fcontrasena.newpassword!=scope.fcontrasena.repassword)
+        {
+            scope.toast('error','Las contraseña no coinciden..','Contraseña Incorrecta');
+            return false; 
+        }
+        return true;
+    }
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 300;
+            var $hideDuration = 1000;
+            var $timeOut = 5000;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-full-width",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
 
     if (scope.nID != undefined) {
         scope.buscarXID();

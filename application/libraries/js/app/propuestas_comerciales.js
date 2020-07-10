@@ -30,6 +30,7 @@
      scope.ruta_reportes_pdf_Propuestas = 0;
      scope.ruta_reportes_excel_Propuestas = 0;
      scope.FecProCom = true;
+     scope.NifCliente = true;
      scope.CodCli = true;
      scope.CUPsEle = true;
      scope.CUPsGas = true;
@@ -247,8 +248,8 @@
                      return (begin <= index && index < end);
                  }
              } else {
-                 Swal.fire({ title: "Error", text: "No hay Propuestas Comerciales registradas", type: "error", confirmButtonColor: "#188ae2" });
-                 scope.TPropuesta_Comerciales = [];
+                
+                scope.TPropuesta_Comerciales = [];
                  scope.TPropuesta_ComercialesBack = [];
              }
          }, function(error) {
@@ -280,11 +281,8 @@
                                  scope.searchResult = result.data;
                                  //console.log(scope.searchResult);
                              } else {
-                                 Swal.fire({
-                                             title: "Error",
-                                             text: "No hay Clientes registrados",
-                                             type:"error", confirmButtonColor: "#188ae2" });
-                         scope.searchResult = {};
+                                
+                                    scope.searchResult = {};
                                          }
                                      },
                                      function(error) {
@@ -316,7 +314,6 @@
                                      scope.searchResult = result.data;
                                      console.log(scope.searchResult);
                                  } else {
-                                     Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                                      scope.searchResult = {};
                                  }
                              }, function(error) {
@@ -477,7 +474,9 @@
                                          scope.ruta_reportes_pdf_Propuestas = 0;
                                          scope.ruta_reportes_excel_Propuestas = 0;
                                      } else {
-                                         if (scope.filtrar_search.length >= 2) {
+                                         
+                                        if (scope.filtrar_search.length >= 2) 
+                                        {
                                              scope.fdatos.filtrar_search = scope.filtrar_search;
                                              var url = base_urlHome() + "api/PropuestaComercial/getPropuestasFilter";
                                              $http.post(url, scope.fdatos).then(function(result) {
@@ -504,7 +503,6 @@
                                                      scope.ruta_reportes_pdf_Propuestas = 4 + "/" + scope.filtrar_search;
                                                      scope.ruta_reportes_excel_Propuestas = 4 + "/" + scope.filtrar_search;
                                                  } else {
-                                                     Swal.fire({ title: "Error", text: "No hay Propuestas Comerciales registradas", type: "error", confirmButtonColor: "#188ae2" });
                                                      scope.TPropuesta_Comerciales = [];
                                                      scope.ruta_reportes_pdf_Propuestas = 0;
                                                      scope.ruta_reportes_excel_Propuestas = 0;
@@ -523,7 +521,30 @@
                                                      Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                                                  }
                                              });
-                                         }
+                                        }
+                                        else
+                                        {
+                                            $scope.predicate = 'id';
+                                                     $scope.reverse = true;
+                                                     $scope.currentPage = 1;
+                                                     $scope.order = function(predicate) {
+                                                         $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                                         $scope.predicate = predicate;
+                                                     };
+                                                     //scope.Tabla_Contacto=result.data;
+                                                     scope.TPropuesta_Comerciales = scope.TPropuesta_ComercialesBack;
+                                                     $scope.totalItems = scope.TPropuesta_Comerciales.length;
+                                                     $scope.numPerPage = 50;
+                                                     $scope.paginate = function(value) {
+                                                         var begin, end, index;
+                                                         begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                                         end = begin + $scope.numPerPage;
+                                                         index = scope.TPropuesta_Comerciales.indexOf(value);
+                                                         return (begin <= index && index < end);
+                                                     }
+                                                     scope.ruta_reportes_pdf_Propuestas = 0;
+                                                     scope.ruta_reportes_excel_Propuestas = 0;
+                                        }
                                      }
 
 

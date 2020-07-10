@@ -85,8 +85,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 scope.fecha_server = result.data.Fecha;
             } else {
-                Swal.fire({ title: "Cups", text: "No hay CUPs registrados", type: "error", confirmButtonColor: "#188ae2" });
-                //scope.disabled_button_add_punt=false;
+                
                 scope.TCups = [];
                 scope.TCupsBack = [];
             }
@@ -527,11 +526,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
                 if (result.data != false) {
                     scope.fdatos_cups = result.data;
+                    scope.Cups_Cif = result.data.NumCifCli + " - " + result.data.RazSocCli;
                     $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
                     $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecUltLec);
                     //scope.TVistaCups=false;
                     scope.por_servicios(2);
                     console.log(result.data);
+                    scope.search_PunSum();
                 } else {
                     Swal.fire({ title: "Error", text: "No existen datos intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                     scope.fdatos_cups = {};
@@ -579,10 +580,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             });
         }
-        /*if ($route.current.$$route.originalPath == "/Add_Cups/")
+        if ($route.current.$$route.originalPath == "/Add_Cups/")
         {
-            scope.search_PunSum();
-        }*/
+            scope.fdatos_cups.cups='ES';
+
+            //scope.search_PunSum();
+        }
     $scope.submitFormCups = function(event) {
         //scope.fdatos_cups.CodPunSum=scope.CodPunSum;
         console.log(scope.fdatos_cups);
@@ -672,16 +675,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 Swal.fire({ title: "El Campo CUPs Debe Contener 16 Letras o Números.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
-        }
-        if (scope.fdatos_cups.cups2 == null || scope.fdatos_cups.cups2 == undefined || scope.fdatos_cups.cups2 == '') {
-            Swal.fire({ title: "El Campo CUPs 2 es requerido", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
-        } else {
-            if (scope.fdatos_cups.cups2.length < 2) {
-                Swal.fire({ title: "El Campo CUPs Debe Contener 2 Letras o Números.", type: "error", confirmButtonColor: "#188ae2" });
-                return false;
-            }
-        }
+        }        
         if (scope.fdatos_cups.TipServ == 0) {
             Swal.fire({ title: "Debe Seleccionar un Tipo de Suministro", type: "error", confirmButtonColor: "#188ae2" });
             return false;
@@ -701,10 +695,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
                 scope.fdatos_cups.PotConP2 = null;
                 scope.fdatos_cups.PotConP3 = null;
                 scope.fdatos_cups.PotConP4 = null;
@@ -721,10 +715,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El Campo P2 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
                 scope.fdatos_cups.PotConP3 = null;
                 scope.fdatos_cups.PotConP4 = null;
                 scope.fdatos_cups.PotConP5 = null;
@@ -743,10 +737,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El Campo P3 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
                 scope.fdatos_cups.PotConP4 = null;
                 scope.fdatos_cups.PotConP5 = null;
                 scope.fdatos_cups.PotConP6 = null;
@@ -768,10 +762,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El Campo P4 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
                 scope.fdatos_cups.PotConP5 = null;
                 scope.fdatos_cups.PotConP6 = null;
             }
@@ -796,10 +790,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El CampoP5 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
                 scope.fdatos_cups.PotConP6 = null;
             }
             if (scope.totalPot == 6) {
@@ -827,14 +821,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     Swal.fire({ title: "El Campo P6 Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
-                if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
                     Swal.fire({ title: "El Campo Potencia Máxima Es requerido", type: "error", confirmButtonColor: "#188ae2" });
                     return false;
-                }
+                }*/
             }
             if (scope.fdatos_cups.ConAnuCup == null || scope.fdatos_cups.ConAnuCup == undefined || scope.fdatos_cups.ConAnuCup == '') {
                 Swal.fire({ title: "El Campo Consumo es requerido", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
+            }
+            if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                   
+                   scope.fdatos_cups.PotMaxBie = null;
             }
         }
         if (scope.fdatos_cups.TipServ == 2) {
@@ -897,8 +895,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecUltLec = document.getElementById("FecUltLec").value;
         scope.fdatos_cups.FecUltLec = FecUltLec;
         if (scope.fdatos_cups.FecUltLec == null || scope.fdatos_cups.FecUltLec == undefined || scope.fdatos_cups.FecUltLec == '') {
-            Swal.fire({ title: "El Campo Fecha de Última Lectura es requerido", type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            scope.fdatos_cups.FecUltLec = null;
+            //Swal.fire({ title: "El Campo Fecha de Última Lectura es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            //return false;
         } else {
             var FecUltLec = (scope.fdatos_cups.FecUltLec).split("/");
             if (FecUltLec.length < 3) {
@@ -927,7 +926,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos_cups.FecUltLec = final_UltFec;
             }
         }
-        var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1+""+scope.fdatos_cups.cups2;
+        var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1;
         if (!scope.valida_cups(CUPS)) {
             return false;
         }
@@ -965,7 +964,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if(!status){
            //alert("ERROR: Código CUPS incorrecto");
             Swal.fire({title:"Error CUPS", text: "Este CUPS es incorrecto por favor intente con otro", type: "error", confirmButtonColor: "#188ae2" });
-            $('#CUPSES').val("");
+            
             $('#CUPSNUM').val("");
             $('#CUPSNUM2').val("");
             $('#CUPSES').focus();
@@ -1373,8 +1372,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.ruta_reportes_pdf_cups = 4 + "/" + scope.filtrar_cups;
                         scope.ruta_reportes_excel_cups = 4 + "/" + scope.filtrar_cups;
                     } else {
-                        Swal.fire({ title: "Error", text: "No hay CUPs registrados", type: "error", confirmButtonColor: "#188ae2" });
-                        $scope.predicate = 'id';
+                        //Swal.fire({ title: "Error", text: "No hay CUPs registrados", type: "error", confirmButtonColor: "#188ae2" });
+                       scope.TCups =[];
+                        scope.ruta_reportes_pdf_cups =0;
+                        scope.ruta_reportes_excel_cups = 0;
+                    }
+                }, function(error) {
+                    if (error.status == 404 && error.statusText == "Not Found") {
+                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 401 && error.statusText == "Unauthorized") {
+                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 403 && error.statusText == "Forbidden") {
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                    if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    }
+                });
+            }
+            else
+            {
+                 $scope.predicate = 'id';
                         $scope.reverse = true;
                         $scope.currentPage = 1;
                         $scope.order = function(predicate) {
@@ -1393,21 +1413,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         };
                         scope.ruta_reportes_pdf_cups = 0;
                         scope.ruta_reportes_excel_cups = 0;
-                    }
-                }, function(error) {
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                });
             }
         }
     }

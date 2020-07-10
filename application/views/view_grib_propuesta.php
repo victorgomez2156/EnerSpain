@@ -114,6 +114,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><input type="checkbox" ng-model="vm.FecProCom"/> <b style="color:black;">Fecha</b></li>
+                  <li><input type="checkbox" ng-model="vm.NifCliente"/> <b style="color:black;">NIF</b></li>
                   <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">Cliente</b></li>
                   <li><input type="checkbox" ng-model="vm.CUPsEle"/> <b style="color:black;">CUPs Eléctrico</b></li>
                   <li><input type="checkbox" ng-model="vm.CUPsGas"/>  <b style="color:black;">CUPs Gas</b></li>
@@ -151,6 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                   <th ng-show="vm.FecProCom==true">Fecha</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CUPsEle==true">CUPs Eléctrico</th>
                   <th ng-show="vm.CUPsGas==true">CUPs Gas</th> 
@@ -165,7 +167,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-repeat="dato in vm.TPropuesta_Comerciales | filter:paginate" ng-class-odd="odd">
                     
                     <td ng-show="vm.FecProCom==true">{{dato.FecProCom}}</td>
-                    <td ng-show="vm.CodCli==true">{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
+                    <td ng-show="vm.NifCliente==true">{{dato.NumCifCli}}</td>
+                    <td ng-show="vm.CodCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.CUPsEle==true">{{dato.CUPsEle}}</td>
                     <td ng-show="vm.CUPsGas==true">{{dato.CupsGas}}</td> 
                     <td ng-show="vm.EstPro==true">
@@ -185,7 +188,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th ng-show="vm.FecProCom==true">Fecha Inicio</th>
+                  <th ng-show="vm.FecProCom==true">Fecha</th>
+                  <th ng-show="vm.NifCliente==true">NIF</th>
                   <th ng-show="vm.CodCli==true">Cliente</th>
                   <th ng-show="vm.CUPsEle==true">CUPs Eléctrico</th>
                   <th ng-show="vm.CUPsGas==true">CUPs Gas</th> 

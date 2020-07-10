@@ -151,27 +151,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">CUPs <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" name="CUPSES" id="CUPSES" ng-model="vm.fdatos_cups.cups" onkeyup="this.value=this.value.toUpperCase();" placeholder="* ES" maxlength="2" ng-disabled=" vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSES" id="CUPSES" ng-model="vm.fdatos_cups.cups" onkeyup="this.value=this.value.toUpperCase();" placeholder="* ES" readonly="readonly" maxlength="2" ng-disabled=" vm.validate_info==undefined || vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>    
 
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-10">
        <div class="form">                          
        <div class="form-group">  
        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>     
-       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1" onkeyup="this.value=this.value.toUpperCase();" maxlength="16" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1" onkeyup="this.value=this.value.toUpperCase();" maxlength="18" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>  
-        <div class="col-12 col-sm-4">
+        
+        <!--div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
        <input type="text" class="form-control" name="CUPSNUM2" id="CUPSNUM2" ng-model="vm.fdatos_cups.cups2" onkeyup="this.value=this.value.toUpperCase();" maxlength="2" ng-disabled=" vm.validate_info!=undefined"/>
        </div>
        </div>
-       </div>      
+       </div-->      
       <div style="margin-top: 8px;">
        <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"><b>  TIPO SUMINISTRO</b></label></div></div>
       
@@ -213,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div ng-show="vm.fdatos_cups.TipServ==1">
 
  <div style="margin-top: 8px; margin-left: 15px; margin-bottom: -20px;" ng-show="vm.totalPot>0">
-       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"> Potencia Contratada (Kw)</label></div></div>
+       <div align="left"><label class="font-weight-bold nexa-dark" style="color:black;"> Potencia Contratada (Kw) <b style="color:red;">(*)</b></label></div></div>
  
 
 
@@ -231,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
@@ -262,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
@@ -303,7 +304,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-3" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
@@ -352,7 +353,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-4" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
@@ -412,7 +413,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-2" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
@@ -481,21 +482,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-6" id="PotMaxBie">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE <b style="color:red;">(*)</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
         <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
        
     </div>
-
-
-
-
-
-
-
-     
+    
 
        
   </div> 
@@ -511,7 +505,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura <b style="color:red;">DD/MM/YYYY</b></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura </label>
         <input type="text" class="form-control datepicker2" ng-model="vm.fdatos_cups.FecUltLec"  name="FecUltLec" id="FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
        </div>
        </div>

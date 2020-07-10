@@ -349,8 +349,7 @@
                  };
              } else {
                  if ($route.current.$$route.originalPath != "/Add_Puntos_Suministros/") {
-                     Swal.fire({ title: "Error", text: "No hemos encontrados Direcciones de Suministros registrados.", type: "error", confirmButtonColor: "#188ae2" });
-                     scope.tPuntosSuminitros = [];
+                    scope.tPuntosSuminitros = [];
                  }
              }
 
@@ -621,14 +620,8 @@
                     scope.fpuntosuministro.CPLocSoc = result.data.CPLocSoc;
                     scope.TLocalidadesfiltradaPunSum = [];
                     scope.BuscarLocalidadesPunSun(result.data.CodProSoc,2);
-                    /*setTimeout(function() {
-                        scope.filtrarLocalidadPunSum();
-                        scope.mostrar_all_puntos();
-                        console.log('Pasando por Timeout');
-                    }, 1000);*/
-
                  } else {
-                     Swal.fire({ title: "Error", text: "No hemos encontrados dirección compatible con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
+                    Swal.fire({ title: "Error", text: "No hemos encontrados dirección compatible con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
                  }
 
              }, function(error) {
@@ -868,9 +861,6 @@
                  event.preventDefault();
              }
          });
-         /*scope.agregar_puntos_suministros=true;
-         scope.fpuntosuministro={};
-         scope.mostrar_all_puntos();*/
      }
      scope.BuscarXIDPunSum = function() {
          //cargando_I
@@ -883,12 +873,6 @@
                 scope.fpuntosuministro = result.data;
                 scope.ZonPosPunSum = result.data.ZonPosPunSum;             
                 scope.CodCliPunSumFil=result.data.NumCifCli;
-
-                /*setTimeout(function() {
-                    scope.filtrarLocalidadPunSum();
-                    scope.mostrar_all_puntos();
-                    console.log('Pasando por Timeout');
-                }, 1300);*/
              } else {
                 Swal.fire({ title: "Error", text: "Ha ocurrido un error, por favor intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
              }
@@ -979,9 +963,29 @@
                          scope.ruta_reportes_pdf_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
                          scope.ruta_reportes_excel_puntos_suministros = 6 + "/" + scope.filtrar_PumSum;
                      } else {
-                         Swal.fire({ title: "Error", text: "No hay Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });
-
-                         $scope.predicate2 = 'id';
+                         
+                            scope.tPuntosSuminitros =[];
+                            scope.ruta_reportes_pdf_puntos_suministros = 0;
+                            scope.ruta_reportes_excel_puntos_suministros =0;
+                     }
+                 }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found") {
+                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 401 && error.statusText == "Unauthorized") {
+                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 403 && error.statusText == "Forbidden") {
+                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                     if (error.status == 500 && error.statusText == "Internal Server Error") {
+                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                     }
+                 });
+             }
+             else
+             {
+                $scope.predicate2 = 'id';
                          $scope.reverse2 = true;
                          $scope.currentPage2 = 1;
                          $scope.order2 = function(predicate2) {
@@ -1000,21 +1004,6 @@
                          };
                          scope.ruta_reportes_pdf_puntos_suministros = 0;
                          scope.ruta_reportes_excel_puntos_suministros = 0;
-                     }
-                 }, function(error) {
-                     if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 401 && error.statusText == "Unauthorized") {
-                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                 });
              }
          }
      }
@@ -1051,11 +1040,8 @@
                                  scope.searchResult = result.data;
                                  //console.log(scope.searchResult);
                              } else {
-                                 Swal.fire({
-                                             title: "Error",
-                                             text: "No hay Clientes registrados",
-                                             type:"error", confirmButtonColor: "#188ae2" });
-                         scope.searchResult = {};
+                                 
+                                            scope.searchResult = {};
                                          }
                                      },
                                      function(error) {
@@ -1087,8 +1073,7 @@
                                      scope.searchResult = result.data;
                                      console.log(scope.searchResult);
                                  } else {
-                                     Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
-                                     scope.searchResult = {};
+                                    scope.searchResult = {};
                                  }
                              }, function(error) {
                                  if (error.status == 404 && error.statusText == "Not Found") {
@@ -1127,7 +1112,6 @@
                             }
                             else
                             {
-                                Swal.fire({ title: "Error", text: "No se encontraron Provincias registradas.", type: "error", confirmButtonColor: "#188ae2" });
                                 scope.tProvidencias=[];
                                 scope.fpuntosuministro.CodPro=undefined;
                             }
@@ -1159,7 +1143,6 @@
                             }
                             else
                             {
-                                Swal.fire({ title: "Error", text: "No se encontraron Provincias registradas.", type: "error", confirmButtonColor: "#188ae2" });
                                 scope.TtiposInmuebles=[];
                             }
                         },function(error)

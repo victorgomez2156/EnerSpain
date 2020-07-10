@@ -145,10 +145,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
             <div class="form-group">
                       <div class="col-lg-offset-2 col-lg-10">
+                        
                         <button class="btn btn-info" type="submit" ng-show="vm.fdatos.id==undefined||vm.fdatos.id==null||vm.fdatos.id==''" ng-disabled="register_form.$invalid || vm.disponibilidad_username==true || vm.disponibilidad_email==true">Crear Usuario</button>
                         
                         <button class="btn btn-info" type="submit" ng-show="vm.fdatos.id>0" ng-disabled="register_form.$invalid || vm.disponibilidad_username==true || vm.disponibilidad_email==true">Actualizar Usuario</button>
-                         <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.id>0" ng-disabled="vm.Nivel==3">Borrar Registro</button-->
+                        
+                        <button class="btn btn-primary" style="margin-top: 9px;" type="button" ng-show="vm.fdatos.id>0" ng-disabled="vm.disponibilidad_username==true || vm.disponibilidad_email==true" ng-click="vm.CambiarContrasena()">Cambiar Contraseña</button>
+                        
                         <button class="btn btn-warning" type="button" ng-click="vm.limpiar()">Limpiar</button>
                         <a class="btn btn-danger" ng-click="vm.regresar()">Volver</a>
                       </div>
@@ -163,6 +166,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- page end-->
       </section>
     </section>
+
+
+    <!-- modal container section end -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_contrasena" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Cambiar Contraseña</h4>
+          </div>
+          <div class="modal-body">
+     <div class="panel">                  
+      <form class="form-validate" id="frmcontrasena" name="frmcontrasena" ng-submit="SubmitFormChangePassword($event)">                 
+     <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">        
+        <input type="text" class="form-control" name="NewPassword" id="NewPassword" ng-model="vm.fcontrasena.newpassword">     
+     </div>
+     </div>
+     </div>
+
+       <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">        
+        <input type="text" class="form-control" name="RePassword" id="RePassword" ng-model="vm.fcontrasena.repassword">     
+     </div>
+     </div>
+     </div>
+
+     <input type="hidden" class="form-control" name="id" id="id" ng-model="vm.fcontrasena.id">
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmcontrasena.$invalid">Cambiar Contraseña</button>
+      </div>
+</form>
+   </div>
+    </div>
+</div>
+</div>
+</div>
+<!--modal container section end -->
+
+
+
+
+
+
     <!--main content end-->
     <div class="text-right">
       <div class="credits">

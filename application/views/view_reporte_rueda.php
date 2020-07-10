@@ -148,14 +148,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th >Fecha Inicio</th>
-                  <th >Cliente</th>
-                  <th >Comercializadora</th>
-                  <th >Anexo</th> 
-                  <th >Duración</th>  
-                  <th >Vencimiento</th>
-                  <th >Estatus</th>              
-                  <th >Acción</th>
+                  <th>Fecha Inicio</th>
+                  <th>NIF</th>
+                  <th>Cliente</th>
+                  <th>NIF</th>
+                  <th>Comercializadora</th>
+                  <th>Anexo</th> 
+                  <th>Duración</th>  
+                  <th>Vencimiento</th>
+                  <th>Estatus</th>              
+                  <th>Acción</th>
                   </tr>
                   <tr ng-show="vm.Table_Contratos.length==0"> 
                     <td colspan="8" align="center">
@@ -163,9 +165,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Table_Contratos | filter:paginate" ng-class-odd="odd">                    
-                    <td >{{dato.CodConCom}} {{dato.FecIniCon}}</td>
-                    <td >{{dato.NumCifCli}} - {{dato.RazSocCli}}</td>
-                    <td >{{dato.CodCom}}</td>
+                    <td >{{dato.FecIniCon}}</td>
+                    <td >{{dato.NumCifCli}}</td>
+                    <td >{{dato.RazSocCli}}</td>
+                    <td >{{dato.NumCifCom}}</td>
+                    <td >{{dato.RazSocCom}}</td>
                     <td >{{dato.Anexo}}</td> 
                     <td >{{dato.DurCon}} Meses</td> 
                     <td >{{dato.FecVenCon}}</td>
@@ -189,14 +193,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th >Fecha Inicio</th>
-                  <th >Cliente</th>
-                  <th >Comercializadora</th>
-                  <th >Anexo</th> 
-                  <th >Duración</th>  
-                  <th >Vencimiento</th>
-                  <th >Estatus</th>              
-                  <th >Acción</th>
+                  <th>Fecha Inicio</th>
+                  <th>NIF</th>
+                  <th>Cliente</th>
+                  <th>NIF</th>
+                  <th>Comercializadora</th>
+                  <th>Anexo</th> 
+                  <th>Duración</th>  
+                  <th>Vencimiento</th>
+                  <th>Estatus</th>              
+                  <th>Acción</th>
                 </tfoot>
               </table>
         </div>

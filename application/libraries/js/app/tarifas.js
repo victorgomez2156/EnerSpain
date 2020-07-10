@@ -77,8 +77,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin <= index && index < end);
                 };
             } else {
-                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: 'Tarifa Eléctrica', text: 'No se encontraron datos.', type: "info", confirmButtonColor: "#188ae2" });
+                $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");               
                 scope.T_TarifasEle = [];
                 scope.T_TarifasEleBack = [];
             }
@@ -516,7 +515,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                     else
                     {
-                        Swal.fire({ title: "Error", text: "No existen Tarifas Eléctricas registradas", type: "error", confirmButtonColor: "#188ae2" });                    
                         scope.T_TarifasEle=[];
                         scope.ruta_reportes_pdf_tarifas_electrica = 0;
                         scope.ruta_reportes_excel_tarifas_electrica =0;
@@ -534,6 +532,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                 });
             }
+            else
+                {
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };
+                        scope.T_TarifasEle = scope.T_TarifasEleBack;
+                        $scope.totalItems = scope.T_TarifasEle.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.T_TarifasEle.indexOf(value);
+                            return (begin <= index && index < end);
+                        };
+                        scope.ruta_reportes_pdf_tarifas_electrica = 0;
+                        scope.ruta_reportes_excel_tarifas_electrica =0;
+                }
         }              
     }
  /////////////////////////////////////////////////////////////////////////////////TARIFAS ELECTRIAS END///////////////////////////////////////////////////////////
@@ -566,7 +586,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
             } else {
                 $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ text: 'No hay información', type: "info", confirmButtonColor: "#188ae2" });
                 scope.T_TarifasGas = [];
                 scope.T_TarifasGasBack = [];
             }
@@ -844,28 +863,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     if (result.data != false)
                     {                        
                         $scope.predicate1 = 'id';
-                $scope.reverse1 = true;
-                $scope.currentPage1 = 1;
-                $scope.order1 = function(predicate1) {
-                    $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
-                    $scope.predicate1 = predicate1;
-                };
-                scope.T_TarifasGas = result.data;
-                $scope.totalItems1 = scope.T_TarifasGas.length;
-                $scope.numPerPage1 = 50;
-                $scope.paginate1 = function(value1) {
-                    var begin1, end1, index1;
-                    begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
-                    end1 = begin1 + $scope.numPerPage1;
-                    index1 = scope.T_TarifasGas.indexOf(value1);
-                    return (begin1 <= index1 && index1 < end1);
-                };
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                        };
+                        scope.T_TarifasGas = result.data;
+                        $scope.totalItems1 = scope.T_TarifasGas.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.T_TarifasGas.indexOf(value1);
+                            return (begin1 <= index1 && index1 < end1);
+                        };
                         scope.ruta_reportes_pdf_tarifas_gas = 1 + "/" + scope.filtrar_gas;
                         scope.ruta_reportes_excel_tarifas_gas = 1 + "/" + scope.filtrar_gas;
                     }
                     else
                     {
-                        Swal.fire({ title: "Error", text: "No existen Tarifas Gas registradas", type: "error", confirmButtonColor: "#188ae2" });                    
                         scope.T_TarifasGas=[];
                         scope.ruta_reportes_pdf_tarifas_gas = 0;
                         scope.ruta_reportes_excel_tarifas_gas =0;
@@ -883,6 +901,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                 });
             }
+            else
+                {
+                    $scope.predicate1 = 'id';
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                        };
+                        scope.T_TarifasGas = scope.T_TarifasGasBack;
+                        $scope.totalItems1 = scope.T_TarifasGas.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1 = ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.T_TarifasGas.indexOf(value1);
+                            return (begin1 <= index1 && index1 < end1);
+                        };
+                        scope.ruta_reportes_pdf_tarifas_gas = 0 ;
+                        scope.ruta_reportes_excel_tarifas_gas = 0;
+                }
         }              
     }
 

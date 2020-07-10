@@ -169,8 +169,10 @@
                  scope.ruta_reportes_pdf_Contactos = 0;
                  scope.ruta_reportes_excel_Contactos = 0;
              } else {
-                 Swal.fire({ title: "Error.", text: "No hemos encontrados Contactos Registrados.", type: "info", confirmButtonColor: "#188ae2" });
-             }
+                 scope.ruta_reportes_pdf_Contactos = 0;
+                 scope.ruta_reportes_excel_Contactos = 0;
+                 scope.Tabla_Contacto =[];
+                }
          }, function(error) {
              $("#cargando_contactos").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (error.status == 404 && error.statusText == "Not Found") {
@@ -379,7 +381,7 @@
                  scope.tMotivosBloqueoContacto = result.data;
                  $("#modal_motivo_bloqueo_contacto").modal('show');
              } else {
-                 Swal.fire({ title: "Error", text: "No hemos encontrado motivos de bloqueo de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.tMotivosBloqueoContacto =[];
              }
          }, function(error) {
              if (error.status == 404 && error.statusText == "Not Found") {
@@ -971,8 +973,7 @@
             }
             else
             {
-              Swal.fire({ title: "Error", text: "no se encontraron tipo de contactos registrados.", type: "error", confirmButtonColor: "#188ae2" });  
-              scope.tListaContactos=[];
+                scope.tListaContactos=[];
             }
 
            },function(error)
@@ -1019,10 +1020,7 @@
                                  scope.searchResult = result.data;
                                  //console.log(scope.searchResult);
                              } else {
-                                 Swal.fire({
-                                             title: "Error",
-                                             text: "No hay Clientes registrados",
-                                             type:"error", confirmButtonColor: "#188ae2" });
+                                 
                          scope.searchResult = {};
                                          }
                                      },
@@ -1056,22 +1054,30 @@
                      $http.post(url, scope.fdatos).then(function(result) {
                              //console.log(result);
                              if (result.data != false) {
-                                 
-
-
-                                 scope.Tabla_Contacto = result.data;
+                                 $scope.predicate4 = 'id';
+                                     $scope.reverse4 = true;
+                                     $scope.currentPage4 = 1;
+                                     $scope.order4 = function(predicate4) {
+                                         $scope.reverse4 = ($scope.predicate4 === predicate4) ? !$scope.reverse4 : false;
+                                         $scope.predicate4 = predicate4;
+                                     };
+                                     scope.Tabla_Contacto = result.data;
+                                     $scope.totalItems4 = scope.Tabla_Contacto.length;
+                                     $scope.numPerPage4 = 50;
+                                     $scope.paginate4 = function(value4) {
+                                         var begin4, end4, index4;
+                                         begin4 = ($scope.currentPage4 - 1) * $scope.numPerPage4;
+                                         end4 = begin4 + $scope.numPerPage4;
+                                         index4 = scope.Tabla_Contacto.indexOf(value4);
+                                         return (begin4 <= index4 && index4 < end4);
+                                     };
                                  //console.log(scope.searchResult);
                              
 
 
-
-
                              } else {
-                                        Swal.fire({
-                                        title: "Error",
-                                        text: "No hay Contactos Registrados",
-                                        type:"error", confirmButtonColor: "#188ae2" });
-                                        scope.searchResult = {};
+                                        
+                                        //scope.searchResult = {};
                                         scope.Tabla_Contacto=[];
                                     }
                                      },

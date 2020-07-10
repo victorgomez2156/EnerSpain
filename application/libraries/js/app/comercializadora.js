@@ -157,7 +157,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin <= index && index < end);
                 };
             } else {
-                Swal.fire({ text: 'No hay Comercializadoras registradas', type: "info", confirmButtonColor: "#188ae2" });
                 scope.Tcomercializadoras = [];
                 scope.TcomercializadorasBack = [];
             }
@@ -254,12 +253,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.FilterPro = scope.TProvincias[i].DesPro;
                     console.log(scope.FilterPro);
                 }
-            }/*if (scope.TProvincias.CodPro == scope.tmodal_data.CodPro) 
-                {
-                    scope.FilterPro = scope.TcomercializadorasBack.CanPerTar;
-                    //console.log(scope.CanPerEle);
-                }*/
-
+            }
             console.log(scope.tmodal_comercializadora);
             $scope.predicate = 'id';
             $scope.reverse = true;
@@ -627,24 +621,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             scope.reporte_pdf_comercializadora = 5 + "/" + scope.filtrar_search;
                             scope.reporte_excel_comercializadora = 5 + "/" + scope.filtrar_search;
                         } else {
-                            Swal.fire({ title: "Error", text: "No hay Comercializadoras registrados", type: "error", confirmButtonColor: "#188ae2" });
-                            $scope.predicate = 'id';
-                            $scope.reverse = true;
-                            $scope.currentPage = 1;
-                            $scope.order = function(predicate) {
-                                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-                                $scope.predicate = predicate;
-                            };
-                            scope.Tcomercializadoras = scope.TcomercializadorasBack;
-                            $scope.totalItems = scope.Tcomercializadoras.length;
-                            $scope.numPerPage = 50;
-                            $scope.paginate = function(value) {
-                                var begin, end, index;
-                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
-                                end = begin + $scope.numPerPage;
-                                index = scope.Tcomercializadoras.indexOf(value);
-                                return (begin <= index && index < end);
-                            };
+                            
+                            scope.Tcomercializadoras =[];                                                    
                             scope.reporte_pdf_comercializadora = 0;
                             scope.reporte_excel_comercializadora = 0;
                         }
@@ -662,6 +640,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                         }
                     });
+                }
+                else
+                {
+                    $scope.predicate = 'id';
+                    $scope.reverse = true;
+                    $scope.currentPage = 1;
+                    $scope.order = function(predicate) {
+                    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                                $scope.predicate = predicate;
+                   };
+                    scope.Tcomercializadoras = scope.TcomercializadorasBack;
+                            $scope.totalItems = scope.Tcomercializadoras.length;
+                            $scope.numPerPage = 50;
+                            $scope.paginate = function(value) {
+                                var begin, end, index;
+                                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                                end = begin + $scope.numPerPage;
+                                index = scope.Tcomercializadoras.indexOf(value);
+                                return (begin <= index && index < end);
+                            };
+                    scope.reporte_pdf_comercializadora = 0;
+                    scope.reporte_excel_comercializadora = 0;
                 }
             }
         }

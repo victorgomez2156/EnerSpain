@@ -70,7 +70,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.ruta_reportes_excel_MotBloCUPs = 0;
     scope.fdatos_mot_cups = {};
 
-
     //////////////////////////////////////////////////////////////////MOTIVOS BLOQUEOS CLIENTES START//////////////////////////////////////////////////////////////////////////////
     scope.cargar_lista_motivos_clientes = function() {
         $("#cargando_lista").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -97,7 +96,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloCliente);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de clientes registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TMotivo_BloCliente = [];
             }
         }, function(error) {
@@ -334,8 +332,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloActividad);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de clientes registrados.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TMotivo_BloActividad = undefined;
+                scope.TMotivo_BloActividad = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -567,7 +564,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloPunSum);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de clientes registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TMotivo_BloPunSum = [];
             }
         }, function(error) {
@@ -803,8 +799,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloContacto);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos bloqueo contacto registrados.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TMotivo_BloContacto = undefined;
+                scope.TMotivo_BloContacto = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -1040,8 +1035,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloComercializadora);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos bloqueo comercializadoras registradas.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TMotivo_BloComercializadora = undefined;
+                scope.TMotivo_BloComercializadora = [];
             }
         }, function(error) {
             $("#cargando_lista").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -1277,7 +1271,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
                 console.log(scope.TMotivo_BloCUPs);
             } else {
-                Swal.fire({ title: "Error.", text: "No hemos encontrado motivos de CUPs registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TMotivo_BloCUPs = [];
             }
         }, function(error) {
