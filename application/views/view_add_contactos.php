@@ -116,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.tContacto_data_modal.CodCli}} <b style="color:red;">(*)</b></label>
        
 
        <input type="text" class="form-control" ng-model="vm.CodCliContacto" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined"/>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Nombre <b style="color:red;">(*)</b></label>
@@ -159,7 +159,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-          <div class="col-12 col-sm-6">
+         
+          <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Número de Documento <b style="color:red;">(*)</b></label>
@@ -167,6 +168,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
+
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark" style="color:black;">Número de Colegiado </label>
+             <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumColeCon" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
+             </div>
+             </div>
+          </div>
+         
           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">   
@@ -192,6 +203,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
            
+           
+
            <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">
@@ -230,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div class="col-12 col-sm-3">
             <div class="form">                          
              <div class="form-group">  
-              <label class="font-weight-bold nexa-dark" style="color:black;">Facultad de Escrituras <b style="color:red;">(*)</b></label>           
+              <label class="font-weight-bold nexa-dark" style="color:black;">Facultad de Escrituras </label>           
              <br>
              <input type="radio" name="TieFacEsc" value="1" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined" ng-click="vm.verificar_facultad_escrituras()">
             <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>

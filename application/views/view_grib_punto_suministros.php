@@ -118,8 +118,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                  
-                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">CodCli</b></li>
+                  <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
                   <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
                   <li><input type="checkbox" ng-model="vm.DirPunSum"/> <b style="color:black;">Dirección</b></li>                  
                   <li><input type="checkbox" ng-model="vm.CodProPunSum"/> <b style="color:black;">Provincia</b></li></li>
@@ -159,8 +159,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
             <tbody>
                   <tr>
-                   <th ng-show="vm.NumCifCli==true"> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"> Razón Social</th>
+                  <th ng-show="vm.CodCli==true"> CodCli</th>
+                  <th ng-show="vm.NumCifCli==true"> CIF</th>
+                  <th ng-show="vm.RazSocCli==true"> Razón Social</th>
                   <th ng-show="vm.DirPunSum==true">Dirección</th>
                   <th ng-show="vm.CodProPunSum==true">Provincia</th>
                   <th ng-show="vm.CodLocPunSum==true">Localidad</th>
@@ -171,6 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td colspan="7" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No hay Direcciones de Sumninistro registradas</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tPuntosSuminitros | filter:paginate2" ng-class-odd="odd">
+                    <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                      <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.DirPunSum==true">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</td>
@@ -190,8 +192,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
+                  <th ng-show="vm.CodCli==true"> CodCli</th>
                   <th ng-show="vm.NumCifCli==true"> CIF</th>
-                    <th ng-show="vm.RazSocCli==true"> Razón Social</th>
+                  <th ng-show="vm.RazSocCli==true"> Razón Social</th>
                   <th ng-show="vm.DirPunSum==true">Dirección</th>
                   <th ng-show="vm.CodProPunSum==true">Provincia</th>
                   <th ng-show="vm.CodLocPunSum==true">Localidad</th>

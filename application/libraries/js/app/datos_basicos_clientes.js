@@ -464,10 +464,15 @@
              Swal.fire({ title: "Seleccione un Tipo de Cliente", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
-         if (!scope.fdatos.CodSecCli > 0) {
-             Swal.fire({ title: "Seleccione un Sector", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
+         if (!scope.fdatos.CodSecCli > 0) 
+         {
+            scope.fdatos.CodSecCli=null;             
          }
+         else
+         {
+            scope.fdatos.CodSecCli=scope.fdatos.CodSecCli;
+         }
+
          if (!scope.fdatos.CodTipViaSoc > 0) {
              Swal.fire({ title: "Seleccione un Tipo de Vía para el Domicilio Social", type: "error", confirmButtonColor: "#188ae2" });
              return false;

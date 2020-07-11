@@ -127,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  
                  <ul id='searchResult'>
                   <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
-                   <div ng-show="result.NumCifCli!=''">{{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
+                   <div ng-show="result.NumCifCli!=''">NumCli: {{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
                   </li>
                 </ul>
 
@@ -152,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(1)">
     <h4 class="breadcrumb">     
-      <span class="foreign-supplier-text" style="color:black;"> Datos Generales</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showDatosGenerales?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
+      <span class="foreign-supplier-text" style="color:black;"> Datos Generales {{vm.fdatos.CodCli}}</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showDatosGenerales?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
     </h4>
 </div>
 <div ng-if="vm.showDatosGenerales">   

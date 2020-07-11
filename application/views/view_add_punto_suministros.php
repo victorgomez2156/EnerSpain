@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-        <div class="col-12 col-sm-2">
+        <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-        <div class="col-12 col-sm-2">
+        <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
@@ -169,7 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-        <div class="col-12 col-sm-2">
+        <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
@@ -186,15 +186,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-        <div class="col-12 col-sm-3">
+        <!--div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Aclarador</label>
        <input type="text" class="form-control" ng-model="vm.fpuntosuministro.Aclarador" onkeyup="this.value=this.value.toUpperCase();" placeholder="Aclarador" maxlength="50" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
-       </div>
-
+       </div-->
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">

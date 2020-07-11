@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading" style="color:black;">
-                <b>Datos Básicos del Cliente:</b>
+                <b>Datos Básicos del Cliente: {{vm.fdatos.CodCli}}</b>
               </header>
               <div class="panel-body">
 
@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Sector <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Sector </label>
        <select class="form-control" id="CodSecCli" name="CodSecCli" ng-model="vm.fdatos.CodSecCli" placeholder="* Sector" ng-disabled="vm.validate_info!=undefined">
          <option ng-repeat="dato in vm.tSectores" value="{{dato.CodSecCli}}">{{dato.DesSecCli}}</option>                        
         </select>

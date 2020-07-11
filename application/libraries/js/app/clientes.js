@@ -79,7 +79,7 @@
 
      scope.Tclientes = [];
      scope.TclientesBack = [];
-
+    scope.CodCli = true;
      scope.RazSoc = true;
      scope.NumCif = true;
      scope.Tel = true;

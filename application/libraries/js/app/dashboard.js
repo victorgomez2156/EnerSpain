@@ -120,6 +120,7 @@
          scope.response_customer.CUPs_Gas = [];
          console.log(scope.searchResult[index].CodCli);
          scope.fdatos.CodCli = scope.searchResult[index].CodCli;
+         scope.searchText=scope.searchResult[index].CodCli+" - "+scope.searchResult[index].NumCifCli;
          scope.searchResult = {};
          $event.stopPropagation();
          scope.view_information();
@@ -890,6 +891,19 @@
         scope.NomTarModal=dato.NomTar;
         scope.RazSocDisModal=dato.RazSocDis;
         scope.ModalTipServ=dato.TipServ;
+
+        var mystring = "1,23,45,448.00";
+
+mystring = mystring.replace(/[,.]/g, function (m) {
+       // m is the match found in the string
+       // If `,` is matched return `.`, if `.` matched return `,`
+       return m === ',' ? '.' : ',';
+});
+
+console.log(mystring);
+//document.write(mystring);
+        
+
         if(TipServ=='Eléctrico')
         {
             scope.PotConP1Modal=dato.PotConP1;
@@ -900,6 +914,7 @@
             scope.PotConP6Modal=dato.PotConP6;
             scope.CanPerTar=dato.CanPerTar;
 
+            
 
         }
 

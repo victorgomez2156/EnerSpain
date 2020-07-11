@@ -802,17 +802,32 @@
              Swal.fire({ title: "Indique si el Firmante es o no Representante Legal", type: "error", confirmButtonColor: "#188ae2" });
              return false;
          }
-         if (scope.tContacto_data_modal.TieFacEsc == undefined) {
-             Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
-             return false;
+         
+         if (scope.tContacto_data_modal.TieFacEsc == undefined||scope.tContacto_data_modal.TieFacEsc == null) {
+             scope.tContacto_data_modal.TieFacEsc =null;
+             //Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
+             //return false;
          }
+         else
+         {
+            scope.tContacto_data_modal.TieFacEsc=scope.tContacto_data_modal.TieFacEsc;
+         } 
+         if (scope.tContacto_data_modal.NumColeCon == undefined||scope.tContacto_data_modal.NumColeCon == null||scope.tContacto_data_modal.NumColeCon == '') {
+             scope.tContacto_data_modal.NumColeCon =null;
+             //Swal.fire({ title: "Indique si el Firmante tiene o no falcutad en Escrituras", type: "error", confirmButtonColor: "#188ae2" });
+             //return false;
+         }
+         else
+         {
+            scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
+         }         
          if (scope.tContacto_data_modal.TieFacEsc == 0) {
+             
              if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
                  Swal.fire({ title: "Adjunte el documento Poder del Representante Legal ", type: "error", confirmButtonColor: "#188ae2" });
                  return false;
              }
          }
-
          if (scope.tContacto_data_modal.DocPod == null || scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == '') {
              scope.tContacto_data_modal.DocPod = null;
          } else {

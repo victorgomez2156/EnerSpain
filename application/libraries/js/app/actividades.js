@@ -63,7 +63,7 @@
      ////////////////////////////////////////////////// PARA LAS ACTIVIDADES GRIB START /////////////////////////////////////////////////////////
 
      ///////////////////////////////////////////////////////// PARA LAS ACTIVIDADES START //////////////////////////////////////////////////////////
-
+     scope.CodCli = true;
      scope.NumCifCli = true;
      scope.RazSocCli = true;
      scope.DesSec = true;
@@ -795,10 +795,7 @@
                                  scope.searchResult = result.data;
                                  //console.log(scope.searchResult);
                              } else {
-                                 Swal.fire({
-                                             title: "Error",
-                                             text: "No hay Clientes registrados",
-                                             type:"error", confirmButtonColor: "#188ae2" });
+                                 
                                             scope.searchResult = {};
                                          }
                                      },

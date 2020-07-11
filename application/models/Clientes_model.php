@@ -192,6 +192,7 @@ public function getClientessearchFilter($filtrar_clientes)
         $this->db->join('T_Localidad j','a.CodLocFis=j.CodLoc','LEFT'); 
         $this->db->join('T_Provincia k','j.CodPro=k.CodPro','LEFT');       
         $this->db->like('a.NumCifCli',$filtrar_clientes);
+        $this->db->or_like('a.CodCli',$filtrar_clientes); 
         $this->db->or_like('a.RazSocCli',$filtrar_clientes);        
         $this->db->or_like('a.TelFijCli',$filtrar_clientes);
         $this->db->or_like('g.DesSecCli',$filtrar_clientes);
@@ -330,6 +331,7 @@ public function getClientessearchFilter($filtrar_clientes)
         $this->db->or_like('c.RazSocCli',$filtrar_search);        
         $this->db->or_like('b.CodActCNAE',$filtrar_search);
         $this->db->or_like('b.DesActCNAE',$filtrar_search);
+        $this->db->or_like('c.CodCli',$filtrar_search);
         $this->db->or_like("DATE_FORMAT(a.FecIniAct, '%d/%m/%Y')",$filtrar_search);
         $this->db->order_by('b.DesActCNAE ASC');              
         $query = $this->db->get(); 
@@ -454,7 +456,7 @@ public function getClientessearchFilter($filtrar_clientes)
     }
     public function getPunSumFilter($filtrar_search)
     {
-       $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum',FALSE);
+       $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,b.CodCli',FALSE);
         $this->db->from('T_PuntoSuministro a');   
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
         $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
@@ -462,6 +464,7 @@ public function getClientessearchFilter($filtrar_clientes)
         $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
         $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm'); 
         $this->db->like('b.NumCifCli',$filtrar_search); 
+        $this->db->or_like('b.CodCli',$filtrar_search);
         $this->db->or_like('b.RazSocCli',$filtrar_search);
         $this->db->or_like('d.DesPro',$filtrar_search);   
         $this->db->or_like('c.DesLoc',$filtrar_search);
@@ -576,15 +579,15 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
             return false;
         }      
     }
-     public function agregar_contacto($NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod)
+     public function agregar_contacto($NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon)
     {
-        $this->db->insert('T_ContactoCliente',array('CodCli'=>$CodCli,'CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC));
+        $this->db->insert('T_ContactoCliente',array('CodCli'=>$CodCli,'CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'NumColeCon'=>$NumColeCon));
         return $this->db->insert_id();
     }
-    public function actualizar_contacto($CodConCli,$NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod)
+    public function actualizar_contacto($CodConCli,$NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon)
     {   
         $this->db->where('CodConCli', $CodConCli);        
-        return $this->db->update('T_ContactoCliente',array('CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'CodCli'=>$CodCli));
+        return $this->db->update('T_ContactoCliente',array('CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'CodCli'=>$CodCli,'NumColeCon'=>$NumColeCon));
     }   
     public function update_status_Contacto($EstCom,$CodConCli)
     {   
@@ -1032,7 +1035,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }   
     public function getclientessearch($SearchText)
     {
-       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%' or EmaCli like '%$SearchText%'");
+       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%' or EmaCli like '%$SearchText%'  or CodCli like '%$SearchText%'");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
