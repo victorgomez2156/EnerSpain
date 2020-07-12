@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.fpuntosuministro.CodCliPunSum}}<b style="color:red;">(*)</b></label>
           <input type="text" class="form-control" ng-model="vm.CodCliPunSumFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
           <ul id='searchResult'>
             <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
-              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
             </li>
           </ul> 
         <input type="hidden" name="CodCliPunSum" id="CodCliPunSum" ng-model="vm.fpuntosuministro.CodCliPunSum">

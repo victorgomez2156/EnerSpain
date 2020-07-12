@@ -122,11 +122,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Cliente <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Cliente {{vm.fdatos_cups.CodCli}}<b style="color:red;">(*)</b></label>
         <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" placeholder="* Razón Social / Número CIF / Email / Teléfono" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
          <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
-           <div ng-show="result.NumCifCli!=''">{{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
+           <div ng-show="result.NumCifCli!=''">{{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
           </li>
         </ul>
         <input type="hidden" ng-model="vm.fdatos_cups.CodCli" placeholder="CodCli" readonly />

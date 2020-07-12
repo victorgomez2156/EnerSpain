@@ -84,6 +84,7 @@ class Otrasgestiones_model extends CI_Model
         $this->db->or_like('b.DesTipGes',$SearchText);
         $this->db->or_like('c.RazSocCli',$SearchText);
         $this->db->or_like('a.PreGesGen',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('a.RefGesGen',$SearchText);
         $this->db->or_like('d.CUPsEle',$SearchText);
         $this->db->or_like('e.CupsGas',$SearchText);
@@ -119,6 +120,20 @@ class Otrasgestiones_model extends CI_Model
         $this->db->or_like('a.PreGesGen',$SearchText);
         $this->db->or_like('a.RefGesGen',$SearchText);
         $this->db->order_by('a.FecGesGen DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function get_FilterClientes2($SearchText)
+    {
+        $this->db->select('CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli');
+        $this->db->from('T_Cliente');        
+        $this->db->like('RazSocCli',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
+        $this->db->or_like('NumCifCli',$SearchText); 
+        $this->db->order_by('RazSocCli DESC'); 
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();

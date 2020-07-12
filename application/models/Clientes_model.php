@@ -621,6 +621,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
         $this->db->like('c.NumCifCli',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('a.NomConCli',$SearchText);
         $this->db->or_like('a.NIFConCli',$SearchText);
         $this->db->or_like('a.EmaConCli',$SearchText);
@@ -691,7 +692,8 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
         $this->db->like('c.NumCifCli',$SearchText);
         $this->db->or_like('c.RazSocCli',$SearchText);
-        $this->db->or_like('b.DesBan',$SearchText);        
+        $this->db->or_like('b.DesBan',$SearchText); 
+        $this->db->or_like('a.CodCli',$SearchText);        
         $this->db->or_like('a.NumIBan',$SearchText);
         $this->db->order_by('a.NumIBan ASC');
         $query = $this->db->get(); 
@@ -728,7 +730,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }
     public function getDocumentosFilter($SearchText)
     {
-        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
+        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
        $this->db->from('T_Documentos a');
        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
        $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc');
@@ -736,6 +738,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
        $this->db->or_like('b.RazSocCli',$SearchText);
        $this->db->or_like('c.DesTipDoc',$SearchText);
        $this->db->or_like('a.DesDoc',$SearchText);
+       $this->db->or_like('a.CodCli',$SearchText);
        $this->db->or_like('DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y")',$SearchText);
        $this->db->order_by('a.DesDoc ASC');
         $query = $this->db->get(); 
@@ -1035,11 +1038,28 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }   
     public function getclientessearch($SearchText)
     {
-       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%' or EmaCli like '%$SearchText%'  or CodCli like '%$SearchText%'");
+       
+       $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' or NomComCli like '%$SearchText%' or NumCifCli like '%$SearchText%' or EmaCli like '%$SearchText%' or CodCli like '%$SearchText%' ORDER BY RazSocCli ASC");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
-        return false;        
+        return false;
+        /*$this->db->select("CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli",false);
+        $this->db->from('T_Cliente');
+        $this->db->like('RazSocCli',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
+        $this->db->or_like('NomComCli',$SearchText);
+        $this->db->or_like('NumCifCli',$SearchText);
+        $this->db->or_like('TelFijCli',$SearchText);
+        $this->db->or_like('EmaCli',$SearchText);
+        $this->db->order_by('RazSocCli DESC');                  
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false; */               
+    
+
     }
     public function get_all_contactos($CodCli)
     {

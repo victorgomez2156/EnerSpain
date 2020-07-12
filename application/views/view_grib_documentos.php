@@ -92,6 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
+                  <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">CodCli</b></li>
                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
                   <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
                   <li><input type="checkbox" ng-model="vm.CodTipDoc"/> <b style="color:black;">Tipo Documento</b></li></li>
@@ -132,6 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <table class="table table-striped table-advance table-hover table-responsive">
           <tbody>
             <tr>
+              <th ng-show="vm.CodCli==true">CodCli</th>
               <th ng-show="vm.NumCifCli==true">CIF</th>
               <th ng-show="vm.RazSocCli==true">Razón Social</th>
               <th ng-show="vm.CodTipDoc==true">Tipo de Documento</th>
@@ -141,13 +143,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <th ng-show="vm.AccDoc==true">Acción</th>
             </tr>
             <tr ng-show="vm.T_Documentos.length==0"> 
-              <td colspan="7" align="center">
+              <td colspan="8" align="center">
                 <div class="td-usuario-table"><i class="fa fa-close"></i> No hay Documentos registrados</div>
               </td>           
             </tr>
                 <tr ng-repeat="dato in vm.T_Documentos | filter:paginate7" ng-class-odd="odd">
-                   <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
-                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
+                  <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
+                  <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
+                  <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                   <td ng-show="vm.CodTipDoc==true">{{dato.DesTipDoc}}</td>
                   <td ng-show="vm.DesDoc==true">{{dato.DesDoc}}</td>                    
                   <td ng-show="vm.TieVen==true">{{dato.TieVenDes}}</td> 
@@ -162,7 +165,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                 <th ng-show="vm.NumCifCli==true">CIF</th>
+                <th ng-show="vm.CodCli==true">CodCli</th>
+              <th ng-show="vm.NumCifCli==true">CIF</th>
               <th ng-show="vm.RazSocCli==true">Razón Social</th>
               <th ng-show="vm.CodTipDoc==true">Tipo de Documento</th>
               <th ng-show="vm.DesDoc==true">Fichero</th>
@@ -211,16 +215,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_doc==1||vm.no_editable_doc==1"/>
           <ul id='searchResult'>
             <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            {{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
             </li>
           </ul> 
         <input type="hidden" name="CodCli" id="CodCli" ng-model="vm.t_modal_documentos.CodCli" class="form-control">
-       <!--select class="form-control" name="CodCli" ng-model="vm.t_modal_documentos.CodCli" > 
-          <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select--> 
-
-
-
+      
      </div>
      </div>
     </div>

@@ -87,6 +87,7 @@
      ///////////////////////////// CONTACTOS CLIENTES START ///////////////////////////	
      scope.ruta_reportes_pdf_Contactos = 0;
      scope.ruta_reportes_excel_Contactos = 0;
+     scope.CodCli = true;
      scope.NumCifCli = true;
      scope.RazSocCli = true;
      scope.NomConCli = true;
@@ -1086,6 +1087,8 @@
                                          index4 = scope.Tabla_Contacto.indexOf(value4);
                                          return (begin4 <= index4 && index4 < end4);
                                      };
+                                    scope.ruta_reportes_pdf_Contactos = 5 + "/" + scope.fdatos.filtrar_search;
+                                    scope.ruta_reportes_excel_Contactos = 5 + "/" + scope.fdatos.filtrar_search;
                                  //console.log(scope.searchResult);
                              
 
@@ -1094,6 +1097,8 @@
                                         
                                         //scope.searchResult = {};
                                         scope.Tabla_Contacto=[];
+                                        scope.ruta_reportes_pdf_Contactos = 0;
+                                        scope.ruta_reportes_excel_Contactos = 0;
                                     }
                                      },
                                      function(error) {
@@ -1111,7 +1116,27 @@
                                          }
                                      });
                          } else {
-                             scope.Tabla_Contacto=scope.Tabla_ContactoBack;
+                            
+                            $scope.predicate4 = 'id';
+                                     $scope.reverse4 = true;
+                                     $scope.currentPage4 = 1;
+                                     $scope.order4 = function(predicate4) {
+                                         $scope.reverse4 = ($scope.predicate4 === predicate4) ? !$scope.reverse4 : false;
+                                         $scope.predicate4 = predicate4;
+                                     };
+                                     scope.Tabla_Contacto=scope.Tabla_ContactoBack;
+                                     $scope.totalItems4 = scope.Tabla_Contacto.length;
+                                     $scope.numPerPage4 = 50;
+                                     $scope.paginate4 = function(value4) {
+                                         var begin4, end4, index4;
+                                         begin4 = ($scope.currentPage4 - 1) * $scope.numPerPage4;
+                                         end4 = begin4 + $scope.numPerPage4;
+                                         index4 = scope.Tabla_Contacto.indexOf(value4);
+                                         return (begin4 <= index4 && index4 < end4);
+                                     };
+                            
+                            scope.ruta_reportes_pdf_Contactos = 0;
+                            scope.ruta_reportes_excel_Contactos = 0;
                          }
                     
 

@@ -149,6 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                   <th>Fecha Inicio</th>
+                  <th>CODCLI</th>
                   <th>NIF</th>
                   <th>Cliente</th>
                   <th>NIF</th>
@@ -166,6 +167,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </tr>
                   <tr ng-repeat="dato in vm.Table_Contratos | filter:paginate" ng-class-odd="odd">                    
                     <td >{{dato.FecIniCon}}</td>
+                    <td >{{dato.CodCli}}</td>
                     <td >{{dato.NumCifCli}}</td>
                     <td >{{dato.RazSocCli}}</td>
                     <td >{{dato.NumCifCom}}</td>
@@ -194,6 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>                 
                   <th>Fecha Inicio</th>
+                  <th>CODCLI</th>
                   <th>NIF</th>
                   <th>Cliente</th>
                   <th>NIF</th>

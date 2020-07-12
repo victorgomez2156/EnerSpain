@@ -47,6 +47,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     ////console.log(fecha);
     //// console.log(scope.CodCup);
     scope.Cif = true;
+    scope.CodCli = true;
     scope.RazSoc = true;
     scope.Cups = true;
     scope.Cups_Ser = true;

@@ -1,6 +1,5 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-/*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class OtrasGestiones extends REST_Controller
 {
 	function __construct()
@@ -9,9 +8,10 @@ class OtrasGestiones extends REST_Controller
 		$this->load->database('default');
         $this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
+		$this->load->model('Contratos_model');
 		$this->load->model('Otrasgestiones_model');
 		$this->load->model('Clientes_model');
-		$this->load->model('Propuesta_model');
+		$this->load->model('Propuesta_model');		
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -29,31 +29,45 @@ class OtrasGestiones extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
-	 public function FetchOtrasGestionesFilter_post()
-	{
+	public function get_list_gestiones_comerciales_get()
+    {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
-		}
-		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();		
-
-		$Gestiones = $this->Otrasgestiones_model->get_FilterGestiones($objSalida->filtrar_search);        
+		}		
+		$Gestiones = $this->Otrasgestiones_model->get_list_gestiones();        
 		if (empty($Gestiones))
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No existen gestiones registradas.');
 			$this->response(false);
 			return false;
 		}
-		$this->db->trans_complete();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'Obteniendo Lista de Gestiones Comerciales');	
 		$this->response($Gestiones);
-	}
-	public function get_valida_datos_clientes_get()
+    }
+    public function get_tipo_gestiones_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
+		if (empty($List_Gestiones))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'No existen tipo de Gestiones Comerciales registradas.');
+			$this->response(false);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'Cargando Lista de Tipo de Gestiones Comerciales');		
+		$this->response($List_Gestiones);
+    }
+    public function get_valida_datos_clientes_get()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -72,7 +86,7 @@ class OtrasGestiones extends REST_Controller
 			return false;
 		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');		
-		$response = array('status' =>200 ,'menssage' =>'Datos Encontrados','statusText'=>'OK','Cliente'=>$Cliente);		
+		$response = array('status' =>200 ,'menssage' =>'Datos Encontrados','statusText'=>'OK','Cliente'=>$Cliente);	
 		$this->response($response);
     }
     public function generarnuevagestion_get()
@@ -155,7 +169,46 @@ class OtrasGestiones extends REST_Controller
 		$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_cups,'GET',null,$this->input->ip_address(),'Buscando CUPs de Cliente');		
 		$this->response($response);
     }
-    public function generargestioncomercial_post()
+    public function buscarXIDGesGenData_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$CodGesGen=$this->get('CodGesGen');
+		$GestionComercial= $this->Otrasgestiones_model->get_gestionComercial($CodGesGen);
+		if (empty($GestionComercial))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'No se encontro registro relacinado con este código de gestión.');
+			$this->response(false);
+			return false;
+		}
+		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
+		$response = array('status' =>200 ,'menssage' =>'Mostrando datos.','statusText'=>'OK','GestionComercial'=>$GestionComercial,'List_Gestiones'=>$List_Gestiones,'FechaServer'=>date('d/m/Y'));
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'Buscando Gestión Comercial');		
+		$this->response($response);
+    }
+    public function FetchOtrasGestionesFilter_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();	
+		$Gestiones = $this->Otrasgestiones_model->get_FilterGestiones($objSalida->filtrar_search);        
+		if (empty($Gestiones))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No existen gestiones registradas.');
+			$this->response(false);
+			return false;
+		}
+		$this->db->trans_complete();
+		$this->response($Gestiones);
+	}
+	public function generargestioncomercial_post()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -191,75 +244,12 @@ class OtrasGestiones extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($response);
 	}
-	public function get_list_gestiones_comerciales_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}		
-		$Gestiones = $this->Otrasgestiones_model->get_list_gestiones();        
-		if (empty($Gestiones))
-		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'No existen gestiones registradas.');
-			$this->response(false);
-			return false;
-		}
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',null,$this->input->ip_address(),'Obteniendo Lista de Gestiones Comerciales');	
-		$this->response($Gestiones);
-    }
-    public function buscarXIDGesGenData_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}		
-		$CodGesGen=$this->get('CodGesGen');
-		$GestionComercial= $this->Otrasgestiones_model->get_gestionComercial($CodGesGen);
-		if (empty($GestionComercial))
-		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'No se encontro registro relacinado con este código de gestión.');
-			$this->response(false);
-			return false;
-		}
-		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
-		$response = array('status' =>200 ,'menssage' =>'Mostrando datos.','statusText'=>'OK','GestionComercial'=>$GestionComercial,'List_Gestiones'=>$List_Gestiones,'FechaServer'=>date('d/m/Y'));
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','GET',$CodGesGen,$this->input->ip_address(),'Buscando Gestión Comercial');		
-		$this->response($response);
-    }
-      public function get_tipo_gestiones_get()
-    {
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$List_Gestiones = $this->Otrasgestiones_model->get_tipos_gestiones();
-		if (empty($List_Gestiones))
-		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'No existen tipo de Gestiones Comerciales registradas.');
-			$this->response(false);
-			return false;
-		}
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoGestion','GET',null,$this->input->ip_address(),'Cargando Lista de Tipo de Gestiones Comerciales');		
-		$this->response($List_Gestiones);
-    }
-    public function getOtrasGestionesFilter_post()
-	{
-		$datausuario=$this->session->all_userdata();	
-		if (!isset($datausuario['sesion_clientes']))
-		{
-			redirect(base_url(), 'location', 301);
-		}
-		$objSalida = json_decode(file_get_contents("php://input"));				
-		$this->db->trans_start();
-		$consulta=$this->Otrasgestiones_model->getOtrasGestionesFilter($objSalida->filtrar_search);						
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_OtrasGestiones','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Otras Gestiones Comerciales Filtrados');
-		$this->db->trans_complete();
-		$this->response($consulta);
-	}
-      
+
+
+
+
+
+
 
 }
 ?>

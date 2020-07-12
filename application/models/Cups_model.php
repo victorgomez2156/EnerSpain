@@ -252,6 +252,8 @@ class Cups_model extends CI_Model
         $this->db->or_like('DesLoc',$SearchText);
         $this->db->or_like('TipServ',$SearchText); 
         $this->db->or_like('NomTarGas',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
+
         $this->db->or_like('EstCUPs',$SearchText);
        // $this->db->order_by('CupsGas ASC');              
         $query = $this->db->get(); 

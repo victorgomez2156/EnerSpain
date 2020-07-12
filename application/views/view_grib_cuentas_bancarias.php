@@ -92,6 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="btn-group">
                   <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                 <ul class="dropdown-menu">
+                  <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">CodCli</b></li>
                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
                   <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
                   <li><input type="checkbox" ng-model="vm.CodBan1"/> <b style="color:black;">Banco</b></li>
@@ -131,6 +132,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
+                  <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NumCifCli==true">CIF</th>
                   <th ng-show="vm.RazSocCli==true">Razón Social</th>
                   <th ng-show="vm.CodBan1==true">Banco</th>
@@ -139,13 +141,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.ActBan1==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.tCuentaBan.length==0"> 
-                    <td colspan="6" align="center">
+                    <td colspan="7" align="center">
                       <div class="td-usuario-table"><i class="fa fa-close"></i> No hay Cuentas Bancarias registradas</div>
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.tCuentaBan | filter:paginate3" ng-class-odd="odd">
+                    <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
-                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
+                    <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.CodBan1==true">{{dato.DesBan}}</td>
                     <td ng-show="vm.NumIBan1==true">{{dato.CodEur}} {{dato.IBAN1}} {{dato.IBAN2}} {{dato.IBAN3}} {{dato.IBAN4}} {{dato.IBAN5}}</td>
                     <td ng-show="vm.EstCue==true">
@@ -163,6 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
+                  <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NumCifCli==true">CIF</th>
                   <th ng-show="vm.RazSocCli==true">Razón Social</th>
                   <th ng-show="vm.CodBan1==true">Banco</th>
@@ -222,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>
           <ul id='searchResult'>
             <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            {{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
             </li>
           </ul> 
         <input type="hidden" name="CodCliBan" id="CodCliBan" ng-model="vm.tmodal_bancos.CodCli" class="form-control">

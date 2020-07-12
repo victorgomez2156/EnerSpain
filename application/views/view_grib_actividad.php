@@ -263,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
-            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>
         </ul> 
         <input type="hidden" name="CodCliActFil" class="form-control" id="CodCliActFil" ng-model="vm.tmodal_filtroAct.CodCliActFil">

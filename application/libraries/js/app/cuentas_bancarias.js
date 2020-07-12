@@ -75,6 +75,7 @@
      console.log($route.current.$$route.originalPath);
      ///////////////////////////// CUENTAS BANCARIAS CLIENTES START ///////////////////////////	
      scope.agregar_cuentas = true;
+     scope.CodCli = true;
      scope.NumCifCli = true;
      scope.RazSocCli = true;
      scope.CodBan1 = true;

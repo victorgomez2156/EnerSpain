@@ -183,6 +183,7 @@
             <ul class="sub">
               <li><a href="#/Propuesta_Comercial"> Propuesta Comercial</a></li>
               <li><a href="#/Contratos"> Contratos</a></li>
+              <li><a href="#/Renovacion_Masiva"> Renovación Masiva</a></li>
               <li><a href="#/Otras_Gestiones"> Otras Gestiones</a></li>
               <li><a href="#/Seguimientos"> Seguimientos</a></li>
                 

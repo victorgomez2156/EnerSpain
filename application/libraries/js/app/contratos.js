@@ -154,7 +154,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.searchResult = result.data;
                         console.log(scope.searchResult);
                     } else {
-                        Swal.fire({ title: "Error", text: "No existen Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                         scope.searchResult = {};
                     }
                 }, function(error) {

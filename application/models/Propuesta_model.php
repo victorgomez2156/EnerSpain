@@ -243,6 +243,7 @@ class Propuesta_model extends CI_Model
         $this->db->or_like('b.NumCifCli',$SearchText);
         $this->db->or_like('b.RazSocCli',$SearchText);
         $this->db->or_like('c.CUPsEle',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('d.CupsGas',$SearchText);
         $this->db->or_like('a.RefProCom',$SearchText);
         $this->db->order_by('a.FecProCom DESC');              

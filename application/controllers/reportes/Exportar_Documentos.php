@@ -2032,7 +2032,7 @@ class Exportar_Documentos extends CI_Controller
            echo 'El Tipo de Filtro es incorrecto';
             return false; 
         }        
-        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf = new TCPDF ('L','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Lista de Contactos PDF '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
@@ -2071,6 +2071,8 @@ class Exportar_Documentos extends CI_Controller
                 ';          
         $html.='
         <tr bgcolor="#636161">
+            <td style="color:white;">CodCli</td>
+            <td style="color:white;">NIF</td>
             <td style="color:white;">CLIENTES</td>
             <td style="color:white;">NOMBRE</td> 
             <td style="color:white;">NIF</td>
@@ -2088,7 +2090,9 @@ class Exportar_Documentos extends CI_Controller
             foreach ($Resultado_Filtro_Contactos as $record): 
             {
                 $html.='<tr>
-                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.' </td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.' </td>
                         <td>'.$record->NomConCli.'</td>
                         <td>'.$record->NIFConCli.'</td>
                         <td>'.$record->TelFijConCli.'</td>
@@ -2107,7 +2111,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="11"><b>Actualmente no hemos encontrados Contactos Registrados.</b></td>              
+                <td align="center" colspan="13"><b>Actualmente no hemos encontrados Contactos Registrados.</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -2407,46 +2411,51 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTACTOS");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");
-        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CLIENTES");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CodCli");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NOMBRE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NIF");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Razón Social");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TELÉFONO FIJO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "NOMBRE");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "TELÉFONO CELULAR");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "EMAIL");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "TELÉFONO FIJO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "TIPO CONTACTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "TELÉFONO CELULAR");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "CARGO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "EMAIL");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "REPRESENTANTE LEGAL");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "TIPO CONTACTO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "TIPO REPRESENTACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "CARGO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "REPRESENTANTE LEGAL");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
-        //$objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "A9:G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "TIPO REPRESENTACIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("M9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:M9");
         $fila=9;
         for($i=0; $i<count($Resultado_Filtro_Contactos); $i++) 
         {
             $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Contactos[$i]->NumCifCli.' - '.$Resultado_Filtro_Contactos[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Contactos[$i]->NomConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contactos[$i]->NIFConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contactos[$i]->TelFijConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contactos[$i]->TelCelConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contactos[$i]->EmaConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contactos[$i]->DesTipCon);
-            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtro_Contactos[$i]->CarConCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Filtro_Contactos[$i]->EsRepLeg);
-            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Filtro_Contactos[$i]->TipRepr);
-            $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Filtro_Contactos[$i]->EstConCli);
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:K$fila");           
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Contactos[$i]->CodCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Contactos[$i]->NumCifCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contactos[$i]->RazSocCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contactos[$i]->NomConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contactos[$i]->NIFConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contactos[$i]->TelFijConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contactos[$i]->TelCelConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtro_Contactos[$i]->EmaConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Filtro_Contactos[$i]->DesTipCon);
+            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Filtro_Contactos[$i]->CarConCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Filtro_Contactos[$i]->EsRepLeg);
+            $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Filtro_Contactos[$i]->TipRepr);
+            $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Filtro_Contactos[$i]->EstConCli);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:M$fila");           
             //$objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila"); //unir celdas
         }        
         //insertar formula
@@ -2467,9 +2476,9 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("G3", date('G:i:s'));
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "G3"); 
               
-        foreach (range('A', 'K') as $columnID) 
+        foreach (range('A', 'M') as $columnID) 
         {
-          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(35);
         }
         $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
@@ -2600,6 +2609,8 @@ class Exportar_Documentos extends CI_Controller
                 ';          
         $html.='
         <tr bgcolor="#636161">
+            <td style="color:white;">CODCLI</td>
+            <td style="color:white;">NIF</td>
             <td style="color:white;">CLIENTES</td>
             <td style="color:white;">BANCO</td> 
             <td style="color:white;">IBAN</td>
@@ -2610,7 +2621,9 @@ class Exportar_Documentos extends CI_Controller
             foreach ($Resultado_Filtro_Bancos as $record): 
             {
                 $html.='<tr>
-                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->DesBan.'</td>
                         <td>'.$record->NumIBan.'</td>
                         <td>'.$record->EstCue.'</td>
@@ -2841,25 +2854,25 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE BANCOS");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");
-        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CLIENTE");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "BANCO");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "IBAN");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "ESTATUS");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        //$objPHPExcel->getActiveSheet()->setSharedStyle($bordes, "A9:G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CODCLI");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "BANCO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "IBAN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9:F9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:F9");
         $fila=9;
         for($i=0; $i<count($Resultado_Filtro_Bancos); $i++) 
         {
             $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Bancos[$i]->NumCifCli.' - '.$Resultado_Filtro_Bancos[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Bancos[$i]->DesBan);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Bancos[$i]->NumIBan);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Bancos[$i]->EstCue);
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:D$fila");           
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Bancos[$i]->CodCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Bancos[$i]->NumCifCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Bancos[$i]->RazSocCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Bancos[$i]->DesBan);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Bancos[$i]->NumIBan);
+            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Bancos[$i]->EstCue);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");           
             //$objPHPExcel->getActiveSheet()->mergeCells("D$fila:E$fila"); //unir celdas
         }        
         //insertar formula
@@ -2880,7 +2893,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("G3", date('G:i:s'));
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "G3"); 
               
-        foreach (range('A', 'J') as $columnID) 
+        foreach (range('A', 'F') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }
@@ -6310,7 +6323,7 @@ class Exportar_Documentos extends CI_Controller
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF Tárifa GAS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF Tárifa GAS FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Doc_PDF_Tárifa_Gas'.'.pdf', 'I');
@@ -6505,7 +6518,7 @@ class Exportar_Documentos extends CI_Controller
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL Tárifa GAS FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL Tárifa GAS FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }
@@ -6645,7 +6658,7 @@ class Exportar_Documentos extends CI_Controller
                 </tr>'; 
             }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Doc_PDF_Colaboradores'.'.pdf', 'I');
@@ -10087,6 +10100,8 @@ class Exportar_Documentos extends CI_Controller
         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">';
         $html.='
         <tr bgcolor="#636161">
+            <td style="color:white;">CODCLI</td>
+            <td style="color:white;">NIF</td>
             <td style="color:white;">CLIENTES</td>
             <td style="color:white;">TIPO DOCUMENTO</td>
             <td style="color:white;">NOMBRE DEL FICHERO</td>
@@ -10098,7 +10113,9 @@ class Exportar_Documentos extends CI_Controller
             foreach ($Resultado as $record): 
             {
                 $html.='<tr>
-                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->DesTipDoc.'</td>
                         <td>'.$record->DesDoc.'</td>
                         <td>'.$record->TieVenDes.'</td>
@@ -10111,7 +10128,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="5"><b>No existen datos registrados</b></td>              
+                <td align="center" colspan="7"><b>No existen datos registrados</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ;
@@ -10357,26 +10374,33 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTA DE DOCUMENTOS");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CLIENTES");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CODCLI");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO DOCUMENTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NOMBRE DEL FICHERO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTES");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TIENE VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TIPO DOCUMENTO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "FECHA VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "NOMBRE DEL FICHERO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "TIENE VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "FECHA VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:G9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
         {
             $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->NumCifCli.' '.$Resultado[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->DesTipDoc);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->DesDoc);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->TieVenDes);
-            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->FecVenDoc);
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:E$fila");  
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->CodCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->NumCifCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->RazSocCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->DesTipDoc);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->DesDoc);
+            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado[$i]->TieVenDes);
+            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado[$i]->FecVenDoc);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:G$fila");  
         } 
         $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Filtro Aplicado:");
         $objPHPExcel->getActiveSheet()->SetCellValue("B7", $nombre_filtro);
@@ -10391,7 +10415,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("E3", date('G:i:s'));
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "E3"); 
               
-        foreach (range('A', 'E') as $columnID) 
+        foreach (range('A', 'G') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(30);
         }
@@ -10454,19 +10478,19 @@ class Exportar_Documentos extends CI_Controller
              if($TipServ=="Gas")
             {
                 $nombre_filtro="Tárifa GAS: ";                
-                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaGas','NomTarGas',$NomTar);
-                if($Tárifa)
+                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaGas','NomTarGas',$NomTar);
+                if($Tarifa)
                 {
                     //,b.NomTarGas,case a.EstCUPs when 1 'ACTIVO' WHEN 2 THEN 'DADO DE BAJA' end as EstCUPs
                     $Select="a.CupsGas,case a.TipServ when 2 then 'Gas' end as TipServ, b.NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsGas a';                    
-                    $Join="T_TárifaGas b";
+                    $Join="T_TarifaGas b";
                     $ON="a.CodTarGas=b.CodTarGas";
                     $Order_BY="a.CupsGas ASC";
                     $Where='a.CodTarGas';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tárifa->NomTarGas;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tárifa->CodTarGas,$Order_BY);
+                    $Tipo_Cliente=$Tarifa->NomTarGas;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarGas,$Order_BY);
                 }
                 else
                 {
@@ -10477,8 +10501,8 @@ class Exportar_Documentos extends CI_Controller
             elseif($TipServ=="Electrico")
             {
                 $nombre_filtro="Tárifa ELÉCTRICA: ";                
-                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
-                if($Tárifa!=false)
+                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
+                if($Tarifa!=false)
                 {
                     $Select="a.CUPsEle as CupsGas,case a.TipServ when 1 then 'Eléctrico' end as TipServ, b.NomTarEle as NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsElectrico a';                    
@@ -10487,8 +10511,8 @@ class Exportar_Documentos extends CI_Controller
                     $Order_BY="a.CUPsEle ASC";
                     $Where='a.CodTarElec';
                     $AND="a.CodPunSum";
-                    $Tipo_Cliente=$Tárifa->NomTarEle;
-                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tárifa->CodTarEle,$Order_BY);
+                    $Tipo_Cliente=$Tarifa->NomTarEle;
+                    $Resultado=$this->Reportes_model->get_all_cups_filtro_busqueda_Tar($Select,$Tabla,$Join,$ON,$Where,$Tarifa->CodTarEle,$Order_BY);
                 }
                 else
                 {
@@ -10558,9 +10582,13 @@ class Exportar_Documentos extends CI_Controller
         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">';
         $html.='
         <tr bgcolor="#636161">
+            <td style="color:white;">CodCli</td>
+            <td style="color:white;">NIF</td>
+            <td style="color:white;">Razón Social</td>
             <td style="color:white;">CUPS</td>
             <td style="color:white;">TIPO SUMINISTRO</td>
             <td style="color:white;">Tárifa</td>
+            <td style="color:white;">Dirección</td>
             <td style="color:white;">ESTATUS</td>
         </tr>';
         if($Resultado!=false)
@@ -10568,9 +10596,13 @@ class Exportar_Documentos extends CI_Controller
             foreach ($Resultado as $record): 
             {
                 $html.='<tr>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->Cups_Cif.'</td>
+                        <td>'.$record->Cups_RazSocCli.'</td>                        
                         <td>'.$record->CupsGas.'</td>
                         <td>'.$record->TipServ.'</td>
                         <td>'.$record->NomTarGas.'</td>
+                        <td>'.$record->TipVia.' '.$record->NomViaPunSum.' '.$record->NumViaPunSum.' '.$record->BloPunSum.' '.$record->EscPunSum.' '.$record->PlaPunSum.' '.$record->PuePunSum.' '.$record->DesPro.' '.$record->DesLoc.' '.$record->CPLocSoc.'</td>
                         <td>'.$record->EstCUPs.'</td>
                     </tr>';     
                 }
@@ -10640,13 +10672,13 @@ class Exportar_Documentos extends CI_Controller
              if($TipServ=="Gas")
             {
                 $nombre_filtro="Tárifa GAS: ";                
-                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaGas','NomTarGas',$NomTar);
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaGas','NomTarGas',$NomTar);
                 if($Tárifa)
                 {
                     //,b.NomTarGas,case a.EstCUPs when 1 'ACTIVO' WHEN 2 THEN 'DADO DE BAJA' end as EstCUPs
                     $Select="a.CupsGas,case a.TipServ when 2 then 'Gas' end as TipServ, b.NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsGas a';                    
-                    $Join="T_TárifaGas b";
+                    $Join="T_TarifaGas b";
                     $ON="a.CodTarGas=b.CodTarGas";
                     $Order_BY="a.CupsGas ASC";
                     $Where='a.CodTarGas';
@@ -10837,24 +10869,39 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CUPs");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CUPS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CodCli");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO SUMINISTRO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Tárifa");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Razón Social");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CUPS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "TIPO SUMINISTRO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "Tárifa");        
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Dirección");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:H9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
         {
             $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->CupsGas);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->TipServ);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->NomTarGas);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->EstCUPs);
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:D$fila");  
+            
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->CodCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->Cups_Cif);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->Cups_RazSocCli);
+
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->CupsGas);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->TipServ);
+            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado[$i]->NomTarGas);
+            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado[$i]->TipVia.' '.$Resultado[$i]->NomViaPunSum.' '.$Resultado[$i]->NumViaPunSum.' '.$Resultado[$i]->BloPunSum.' '.$Resultado[$i]->EscPunSum.' '.$Resultado[$i]->PlaPunSum.' '.$Resultado[$i]->PuePunSum.' '.$Resultado[$i]->DesPro.' '.$Resultado[$i]->DesLoc.' '.$Resultado[$i]->CPLocSoc);
+            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado[$i]->EstCUPs);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:H$fila");  
         } 
         $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Filtro Aplicado:");
         $objPHPExcel->getActiveSheet()->SetCellValue("B7", $nombre_filtro);
@@ -10869,7 +10916,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("E3", date('G:i:s'));
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "E3"); 
               
-        foreach (range('A', 'E') as $columnID) 
+        foreach (range('A', 'H') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(30);
         }
@@ -11262,7 +11309,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CupsGas as CUPs,b.NomTarGas as NomTar,b.CodTarGas as CodTar";
             $Tabla2="T_CUPsGas a";
-            $Join3="T_TárifaGas b";
+            $Join3="T_TarifaGas b";
             $JoinWhere="a.CodTarGas=b.CodTarGas";
             $Where="a.CodCupGas";              
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11434,7 +11481,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CupsGas as CUPs,b.NomTarGas as NomTar,b.CodTarGas as CodTar";
             $Tabla2="T_CUPsGas a";
-            $Join3="T_TárifaGas b";
+            $Join3="T_TarifaGas b";
             $JoinWhere="a.CodTarGas=b.CodTarGas";
             $Where="a.CodCupGas";              
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11785,7 +11832,7 @@ class Exportar_Documentos extends CI_Controller
             </tr>'; 
         }   
         $html .= '</table>' ;
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',0,$this->input->ip_address(),'GENERANDO REPORTE PDF COLABORADORES FILTRADOS');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
         $pdf->Output('Doc_PDF_Clientes_x_Colaboradores'.'.pdf', 'I');
@@ -12327,6 +12374,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">FECHA</td>
+            <td style="color:white;">CodCli</td> 
             <td style="color:white;">NIF</td> 
             <td style="color:white;">CLIENTE</td>
             <td style="color:white;">CUPS ELÉCTRICO</td>
@@ -12341,6 +12389,7 @@ class Exportar_Documentos extends CI_Controller
                 {$EstProCom='Pendiente';}elseif ($record->EstProCom=="A"){$EstProCom="Aprobada";}elseif ($record->EstProCom=="R"){$EstProCom="Rechazada";}elseif ($record->EstProCom=="C"){$EstProCom="Completada";}else{$EstProCom="N/A";}
                 $html.='<tr>
                         <td>'.$record->FecProCom.'</td>
+                        <td>'.$record->CodCli.'</td>
                         <td>'.$record->NumCifCli.'</td>
                         <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->CUPsEle.'</td>
@@ -12354,7 +12403,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="5"><b>Actualmente no hemos encontrado propuestas comerciales registradas.</b></td>              
+                <td align="center" colspan="7"><b>Actualmente no hemos encontrado propuestas comerciales registradas.</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ; 
@@ -12582,17 +12631,19 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CODCLI");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CUPS ELÉCTRICO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CLIENTE");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CUPS GAS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CUPS ELÉCTRICO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CUPS GAS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:G9");
         $fila=9;
         if($Resultado_Filtro_Propuestas!=false)
         {
@@ -12602,16 +12653,17 @@ class Exportar_Documentos extends CI_Controller
                 {$EstProComNom='Pendiente';}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
                 $fila+=1;
                 $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Propuestas[$i]->FecProCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->RazSocCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->CUPsEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Propuestas[$i]->CupsGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $EstProComNom);
-                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");  
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Propuestas[$i]->CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Propuestas[$i]->CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $EstProComNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:G$fila");  
             }   
         }
         
-        foreach (range('A', 'F') as $columnID) 
+        foreach (range('A', 'G') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }
@@ -12711,7 +12763,7 @@ class Exportar_Documentos extends CI_Controller
             echo 'Error en filtro.';
             return false; 
         }
-        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf = new TCPDF ('L','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Contratos Comerciales '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
@@ -12751,10 +12803,13 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">FECHA</td>
+            <td style="color:white;">CodCli</td>
             <td style="color:white;">NIF</td> 
             <td style="color:white;">CLIENTE</td>
             <td style="color:white;">COMERCIALIZADORA</td>
             <td style="color:white;">ANEXO</td>
+            <td style="color:white;">CUPs Eléctrico</td>
+            <td style="color:white;">CUPs Gas</td>
             <td style="color:white;">DURACIÓN</td>
             <td style="color:white;">VENCIMIENTO</td>
             <td style="color:white;">ESTATUS</td>
@@ -12767,10 +12822,13 @@ class Exportar_Documentos extends CI_Controller
                 {$EstBajCon='Activo';}elseif ($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
                 $html.='<tr>
                         <td>'.$record->FecConCom.'</td>
+                        <td>'.$record->CodCli.'</td>
                         <td>'.$record->NumCifCli.'</td>
                         <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->CodCom.'</td>
                         <td>'.$record->Anexo.'</td>
+                        <td>'.$record->CUPsEle.'</td>
+                        <td>'.$record->CupsGas.'</td>
                         <td>'.$record->DurCon.' Meses</td>
                         <td>'.$record->FecVenCon.'</td>
                         <td>'.$EstBajCon.'</td>                       
@@ -13010,21 +13068,27 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "NIF");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CodCli");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTE");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");        
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "COMERCIALIZADORA");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "ANEXO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NIF");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "COMERCIALIZADORA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "DURACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CUPs Eléctrico");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "CUPs Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "ANEXO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:H9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "DURACIÓN");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "VENCIMIENTO");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:K9");
         $fila=9;
         if($Resultado_Filtro_Contratos!=false)
         {
@@ -13034,19 +13098,25 @@ class Exportar_Documentos extends CI_Controller
                 {$EstBajConNom='Activo';}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==1){$EstBajConNom="Dado de Baja";}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==2){$EstBajConNom="Vencido";}elseif ($Resultado_Filtro_Contratos[$i]->EstBajCon==3){$EstBajConNom="Renovado";}else{$EstBajConNom="N/A";}
                 $fila+=1;
                 $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Contratos[$i]->FecConCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Contratos[$i]->NumCifCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contratos[$i]->RazSocCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contratos[$i]->CodCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contratos[$i]->Anexo);
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contratos[$i]->DurCon.' Meses');
-                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contratos[$i]->FecVenCon);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $EstBajConNom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Contratos[$i]->CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contratos[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contratos[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contratos[$i]->CodCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contratos[$i]->Anexo);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contratos[$i]->CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtro_Contratos[$i]->CupsGas);
+                
+                
 
-                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:H$fila");  
+                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Filtro_Contratos[$i]->DurCon.' Meses');
+                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Filtro_Contratos[$i]->FecVenCon);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $EstBajConNom);
+
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:K$fila");  
             }   
         }
         
-        foreach (range('A', 'E') as $columnID) 
+        foreach (range('A', 'K') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }
@@ -13324,6 +13394,8 @@ class Exportar_Documentos extends CI_Controller
         <tr bgcolor="#636161">
             <td style="color:white;">FECHA</td> 
             <td style="color:white;">TIPO GESTIÓN</td>
+            <td style="color:white;">CODCLI</td>
+            <td style="color:white;">NIF</td>
             <td style="color:white;">CLIENTE</td>
             <td style="color:white;">IMPORTE</td>
             <td style="color:white;">REFERENCIA</td>
@@ -13338,7 +13410,9 @@ class Exportar_Documentos extends CI_Controller
                 $html.='<tr>
                         <td>'.$record->FecGesGen.'</td>
                         <td>'.$record->DesTipGes.'</td>
-                        <td>'.$record->NumCifCli.' - '.$record->RazSocCli.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.'</td>
                         <td>'.$record->PreGesGen.'</td>
                         <td>'.$record->RefGesGen.'</td>
                         <td>'.$EstGesGen.'</td>                    
@@ -13350,7 +13424,7 @@ class Exportar_Documentos extends CI_Controller
             {
                 $html.='
                 <tr>
-                <td align="center" colspan="6"><b>Actualmente no hemos encontrado Otras Gestiones registradas.</b></td>              
+                <td align="center" colspan="8"><b>Actualmente no hemos encontrado Otras Gestiones registradas.</b></td>              
                 </tr>'; 
             }   
         $html .= '</table>' ; 
@@ -13600,14 +13674,19 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "TIPO GESTIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CODCLI");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "IMPORTE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "REFERENCIA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CLIENTE");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "IMPORTE");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "REFERENCIA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:H9");
         $fila=9;
         if($Resultado_Filtro_Otras_Gestiones!=false)
         {
@@ -13618,17 +13697,19 @@ class Exportar_Documentos extends CI_Controller
                 $fila+=1;
                 $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Otras_Gestiones[$i]->FecGesGen);
                 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Otras_Gestiones[$i]->DesTipGes);
-                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Otras_Gestiones[$i]->NumCifCli.' - '.$Resultado_Filtro_Otras_Gestiones[$i]->RazSocCli);
-                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Otras_Gestiones[$i]->PreGesGen);
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Otras_Gestiones[$i]->RefGesGen);
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $EstGesGenNom);
-                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");  
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Otras_Gestiones[$i]->CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Otras_Gestiones[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Otras_Gestiones[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Otras_Gestiones[$i]->PreGesGen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Otras_Gestiones[$i]->RefGesGen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $EstGesGenNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:H$fila");  
             }   
         }
         
-        foreach (range('A', 'F') as $columnID) 
+        foreach (range('A', 'H') as $columnID) 
         {
-          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(30);
         }
         $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 

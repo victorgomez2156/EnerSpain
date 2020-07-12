@@ -29,8 +29,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-lg-12">
             <h3 class="page-header" ng-show="vm.fdatos.tipo=='nueva'">Registro de Propuesta Comercial</h3>
-            <h3 class="page-header" ng-show="vm.fdatos.tipo=='ver'">Consultando Propuesta Comercial</h3>
-            <h3 class="page-header" ng-show="vm.fdatos.tipo=='renovar'">Renovación de Propuesta Comercial</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.tipo=='ver'">Consultando Propuesta Comercial </h3>
+            <h3 class="page-header" ng-show="vm.fdatos.tipo=='renovar'">Renovación de Propuesta Comercial </h3>
             <h3 class="page-header" ng-show="vm.fdatos.tipo=='editar'">Modificando Propuesta Comercial</h3>
           </div>
         </div>
@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre</label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre {{vm.fdatos.CodCli}}</label>
         
         <input type="text" class="form-control" ng-model="vm.RazSocCli" placeholder="* Razón Social / Apellidos, Nombre" maxlength="50" readonly="readonly"/>
        

@@ -37,14 +37,30 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.EmailCol = true;
     scope.TelCol = true;
     console.log($route.current.$$route.originalPath);
-    /*if($route.current.$$route.originalPath=="/Editar_Colaborador/:ID/:INF")
-    {
-    	scope.validate_info = $route.current.params.INF;
-    	if(scope.validate_info!=1)
-    	{
-    		location.href="#/Colaboradores/";
-    	}
-    }*/
+   
+ if ($route.current.$$route.originalPath == "/Reporte_Cups_Colaboradores") {
+ServiceOnlyColaboradores.getAll().then(function(dato) {
+        scope.tOnlyColaboradores = dato;
+
+    }).catch(function(error) {
+        console.log(error); //Tratar el error
+        if (error.status == false && error.error == "This API key does not have access to the requested controller.") {
+            Swal.fire({ title: "Error 401", text: "Usted No Tiene Acceso al Controlador de Configuraciones Generales.", type: "error", confirmButtonColor: "#188ae2" });
+        }
+        if (error.status == false && error.error == "Unknown method.") {
+            Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
+        }
+        if (error.status == false && error.error == "Unauthorized") {
+            Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
+        }
+        if (error.status == false && error.error == "Invalid API Key.") {
+            Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+        }
+        if (error.status == false && error.error == "Internal Server Error") {
+            Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+        }
+    });
+ }
     if ($route.current.$$route.originalPath == "/Colaboradores/") {
         scope.NomCol = true;
         scope.NumIdeFis = true;
@@ -100,27 +116,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
     });
     
-    ServiceOnlyColaboradores.getAll().then(function(dato) {
-        scope.tOnlyColaboradores = dato;
-
-    }).catch(function(error) {
-        console.log(error); //Tratar el error
-        if (error.status == false && error.error == "This API key does not have access to the requested controller.") {
-            Swal.fire({ title: "Error 401", text: "Usted No Tiene Acceso al Controlador de Configuraciones Generales.", type: "error", confirmButtonColor: "#188ae2" });
-        }
-        if (error.status == false && error.error == "Unknown method.") {
-            Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-        }
-        if (error.status == false && error.error == "Unauthorized") {
-            Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-        }
-        if (error.status == false && error.error == "Invalid API Key.") {
-            Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-        }
-        if (error.status == false && error.error == "Internal Server Error") {
-            Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-        }
-    });*/
+    */
 
     $scope.submitForm = function(event) {
         //console.log(scope.fdatos);

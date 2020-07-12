@@ -118,6 +118,7 @@ class Contratos_model extends CI_Model
         $this->db->or_like('DATE_FORMAT(a.FecVenCon,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('a.RefCon',$SearchText);
         $this->db->or_like('f.CUPsEle',$SearchText);
+        $this->db->or_like('b.CodCli',$SearchText);
         $this->db->or_like('g.CupsGas',$SearchText);
         $this->db->order_by('a.FecIniCon DESC');              
         $query = $this->db->get(); 

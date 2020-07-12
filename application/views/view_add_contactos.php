@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.CodCliContacto" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined"/>
           <ul id='searchResult'>
             <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
-              {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+            {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
             </li>
           </ul> 
         <input type="hidden" name="CodCli" id="CodCli" ng-model="vm.tContacto_data_modal.CodCli" class="form-control">

@@ -115,8 +115,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="dropdown-menu">
                   <li><input type="checkbox" ng-model="vm.FecGesGen"/> <b style="color:black;">Fecha</b></li>
                   <li><input type="checkbox" ng-model="vm.TipGesGen"/>  <b style="color:black;">Tipo Gestión</b></li>
+                  <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">CodCli</b></li>
                   <li><input type="checkbox" ng-model="vm.NifCliente"/> <b style="color:black;">NIF</b></li>
-                  <li><input type="checkbox" ng-model="vm.CodCli"/>    <b style="color:black;">Cliente</b></li>
+                  <li><input type="checkbox" ng-model="vm.RazSocCli"/>    <b style="color:black;">Cliente</b></li>
                   <li><input type="checkbox" ng-model="vm.CUPsElec"/>    <b style="color:black;">CUPs Eléctrico</b></li>
                   <li><input type="checkbox" ng-model="vm.CUPsGas"/>    <b style="color:black;">CUPs Gas</b></li>
                   <li><input type="checkbox" ng-model="vm.PreGesGen"/> <b style="color:black;">Importe</b></li>
@@ -156,8 +157,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                   <th ng-show="vm.FecGesGen==true">Fecha</th>
                   <th ng-show="vm.TipGesGen==true">Tipo Gestion</th>
+                  <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NifCliente==true">NIF</th>
-                  <th ng-show="vm.CodCli==true">Cliente</th>
+                  <th ng-show="vm.RazSocCli==true">Cliente</th>
                   <th ng-show="vm.CUPsElec==true">CUPs Eléctrico</th>
                   <th ng-show="vm.CUPsGas==true">CUPs Gas</th>
                   <th ng-show="vm.PreGesGen==true">Importe</th> 
@@ -167,7 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
 
                   <tr ng-show="vm.TListGestiones.length==0"> 
-                    <td colspan="7" align="center">
+                    <td colspan="11" align="center">
                       <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información</div>
                     </td>           
                   </tr>
@@ -177,9 +179,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     
                     <td ng-show="vm.TipGesGen==true">{{dato.DesTipGes}}</td>
 
+                    <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
+
                     <td ng-show="vm.NifCliente==true">{{dato.NumCifCli}}</td>
 
-                    <td ng-show="vm.CodCli==true">{{dato.RazSocCli}}</td>
+                    <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
 
                     <td ng-show="vm.CUPsElec==true">{{dato.CUPsEle}}</td>
 
@@ -208,8 +212,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>                 
                   <th ng-show="vm.FecGesGen==true">Fecha</th>
                   <th ng-show="vm.TipGesGen==true">Tipo Gestion</th>
+                  <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NifCliente==true">NIF</th>
-                  <th ng-show="vm.CodCli==true">Cliente</th>
+                  <th ng-show="vm.RazSocCli==true">Cliente</th>
                   <th ng-show="vm.CUPsElec==true">CUPs Eléctrico</th>
                   <th ng-show="vm.CUPsGas==true">CUPs Gas</th>
                   <th ng-show="vm.PreGesGen==true">Importe</th> 
@@ -267,7 +272,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
-            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          {{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>
         </ul> 
 
@@ -329,7 +334,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-                               {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+                              {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
                             </ul> 
 

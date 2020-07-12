@@ -140,7 +140,7 @@ class Reportes_model extends CI_Model
     } 
      public function get_data_contactos_all()
     {       
-        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" WHEN 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" WHEN 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -156,7 +156,7 @@ class Reportes_model extends CI_Model
     }
     public function get_data_contacto_all_filtro($where,$Variable1)
     {       
-        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" when 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" when 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
          $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -173,7 +173,7 @@ class Reportes_model extends CI_Model
     }
     public function get_data_bank_all()
     {       
-        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_CuentaBancaria a');
         $this->db->join('T_Banco b','a.CodBan=b.CodBan');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -190,7 +190,7 @@ class Reportes_model extends CI_Model
     }
     public function get_data_banco_all_filtro($where1,$Variable1)
     {       
-        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_CuentaBancaria a');
         $this->db->join('T_Banco b','a.CodBan=b.CodBan');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -640,7 +640,6 @@ class Reportes_model extends CI_Model
        $this->db->from('T_Documentos a');
        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
        $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc');
-
         $this->db->order_by('a.DesDoc ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -1138,6 +1137,7 @@ class Reportes_model extends CI_Model
         $this->db->or_like('DesLoc',$SearchText);
         $this->db->or_like('TipServ',$SearchText); 
         $this->db->or_like('NomTarGas',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
         $this->db->or_like('EstCUPs',$SearchText);
         //$this->db->order_by('CupsGas ASC');
         $query = $this->db->get(); 
@@ -1152,12 +1152,13 @@ class Reportes_model extends CI_Model
     } 
     public function GetFetchContactosFilter($SearchText)
     {       
-        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" when 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" when 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstConCli,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
         $this->db->like('a.NomConCli',$SearchText);
         $this->db->or_like('a.NIFConCli',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('a.TelFijConCli',$SearchText); 
         $this->db->or_like('a.TelCelConCli',$SearchText); 
         $this->db->or_like('a.EmaConCli',$SearchText); 
@@ -1175,7 +1176,7 @@ class Reportes_model extends CI_Model
     }
     public function getFetchCuentasBancarias($SearchText)
     {       
-        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli',FALSE);
+        $this->db->select('b.DesBan,a.NumIBan,case a.EstCue when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCue,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
         $this->db->from('T_CuentaBancaria a');
         $this->db->join('T_Banco b','a.CodBan=b.CodBan');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -1183,6 +1184,7 @@ class Reportes_model extends CI_Model
         $this->db->or_like('c.RazSocCli',$SearchText);
         $this->db->or_like('b.DesBan',$SearchText);
         $this->db->or_like('a.NumIBan',$SearchText);
+        $this->db->or_like('c.CodCli',$SearchText);
         $this->db->order_by('a.NumIBan asc');           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -1203,6 +1205,7 @@ class Reportes_model extends CI_Model
        $this->db->like('b.NumCifCli',$SearchText);
        $this->db->or_like('b.RazSocCli',$SearchText);
        $this->db->or_like('c.DesTipDoc',$SearchText);
+       $this->db->or_like('a.CodCli',$SearchText);
        $this->db->or_like('DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y")',$SearchText);
        $this->db->order_by('a.DesDoc ASC');
         $query = $this->db->get(); 
@@ -1227,6 +1230,7 @@ class Reportes_model extends CI_Model
         $this->db->or_like('b.RazSocCli',$SearchText);
         $this->db->or_like('c.CUPsEle',$SearchText);
         $this->db->or_like('d.CupsGas',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('a.RefProCom',$SearchText);
         $this->db->order_by('a.FecProCom DESC');              
         $query = $this->db->get(); 
@@ -1238,12 +1242,14 @@ class Reportes_model extends CI_Model
     public function getContratosFilter($SearchText)
     {
         $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
-            d.RazSocCom as CodCom,d.NumCifCom ,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon",false);
+            CONCAT(d.RazSocCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,f.CUPsEle,g.CupsGas",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
         $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
         $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
+        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','LEFT');
+        $this->db->join('T_CUPsGas g','g.CodCupGas=c.CodCupsGas','LEFT');
         $this->db->like('DATE_FORMAT(a.FecConCom,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('b.NumCifCli',$SearchText);
         $this->db->or_like('b.RazSocCli',$SearchText);
@@ -1253,8 +1259,10 @@ class Reportes_model extends CI_Model
         $this->db->or_like('a.DurCon',$SearchText);
         $this->db->or_like('DATE_FORMAT(a.FecVenCon,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('a.RefCon',$SearchText);
-
-        $this->db->order_by('a.FecConCom DESC');              
+        $this->db->or_like('f.CUPsEle',$SearchText);
+        $this->db->or_like('b.CodCli',$SearchText);
+        $this->db->or_like('g.CupsGas',$SearchText);
+        $this->db->order_by('a.FecIniCon DESC');                  
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
@@ -1272,6 +1280,7 @@ class Reportes_model extends CI_Model
         $this->db->or_like('c.NumCifCli',$SearchText);
         $this->db->or_like('c.RazSocCli',$SearchText);
         $this->db->or_like('a.PreGesGen',$SearchText);
+        $this->db->or_like('a.CodCli',$SearchText);
         $this->db->or_like('a.RefGesGen',$SearchText);
         $this->db->order_by('a.FecGesGen DESC'); 
         $query = $this->db->get(); 
@@ -1458,7 +1467,7 @@ class Reportes_model extends CI_Model
     public function Contratos_Para_Rueda($Desde,$Hasta)
     {
         /*$this->db->select("",false);*/
-        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,c.RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
+        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
             e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');

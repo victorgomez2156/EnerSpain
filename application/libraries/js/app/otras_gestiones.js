@@ -23,17 +23,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     var fecha = dd + '-' + mm + '-' + yyyy;
     console.log($route.current.$$route.originalPath);
 
-    scope.fetchClientes = function(metodo) {
+   scope.fetchClientes = function(metodo) {
         if (metodo == 1) {
             var searchText_len = scope.NumCifCli.trim().length;
             scope.fdatos.NumCifCli = scope.NumCifCli;
             if (searchText_len > 0) {
-                var url = base_urlHome() + "api/OtrasGestiones/getclientes";
+                var url = base_urlHome() + "api/Contratos/getclientes";
                 $http.post(url, scope.fdatos).then(function(result) {
-                    // console.log(result);
+                    console.log(result);
                     if (result.data != false) {
                         scope.searchResult = result.data;
-                        //console.log(scope.searchResult);
+                        console.log(scope.searchResult);
                     } else {
                         scope.searchResult = {};
                     }
@@ -45,7 +45,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -56,17 +56,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (metodo == 2) {
-            var searchText_len = scope.NumCifCliFil.trim().length;
+           var searchText_len = scope.NumCifCliFil.trim().length;
             scope.fdatos.NumCifCli = scope.NumCifCliFil;
             if (searchText_len > 0) {
                 var url = base_urlHome() + "api/OtrasGestiones/getclientes";
                 $http.post(url, scope.fdatos).then(function(result) {
-                    //console.log(result);
+                    console.log(result);
                     if (result.data != false) {
                         scope.searchResult = result.data;
-                        //console.log(scope.searchResult);
+                        console.log(scope.searchResult);
                     } else {
-                       scope.searchResult = {};
+                        scope.searchResult = {};
                     }
                 }, function(error) {
                     if (error.status == 404 && error.statusText == "Not Found") {
@@ -76,7 +76,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
+                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY inválido", type: "error", confirmButtonColor: "#188ae2" });
                     }
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
@@ -87,11 +87,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
 
-
     }
     scope.setValue = function(index, $event, result, metodo) {
         if (metodo == 1) {
-            scope.NumCifCli = scope.searchResult[index].NumCifCli;
+            
+            if (scope.searchResult[index].NumCifCli == null || scope.searchResult[index].NumCifCli == undefined || scope.searchResult[index].NumCifCli == '') {
+                scope.Cif = 'S/I';
+            } else {
+                scope.Cif = scope.searchResult[index].NumCifCli;
+            }
+            scope.NumCifCli = scope.Cif;
             scope.searchResult = {};
             $event.stopPropagation();
         }
@@ -554,6 +559,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.TipGesGen = true;
         scope.NifCliente = true;
         scope.CodCli = true;
+        scope.RazSocCli=true;
         scope.PreGesGen = true;
         scope.RefGesGen = true;
         scope.EstGesGen = true;

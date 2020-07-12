@@ -244,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <input type="text" class="form-control" ng-model="vm.CodCliPunSumFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-            {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          {{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>
         </ul> 
       <input type="hidden" name="CodCliPunSumFil" id="CodCliPunSumFil" ng-model="vm.fpuntosuministro.CodCliPunSumFil">
