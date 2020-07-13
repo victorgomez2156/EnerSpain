@@ -75,6 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
+          
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">

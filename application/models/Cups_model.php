@@ -91,31 +91,31 @@ class Cups_model extends CI_Model
             return false;
         }       
     }
-    public function agregar_CUPs($Tabla,$TipServ,$cups,$CodDis,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$PotMaxBie,$FecAltCup,$FecUltLec,$ConAnuCup,$CodPunSum)
+    public function agregar_CUPs($Tabla,$TipServ,$cups,$CodDis,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$PotMaxBie,$FecAltCup,$FecUltLec,$ConAnuCup,$CodPunSum,$DerAccKW)
     {
         if($TipServ==1)
         {
-        	$this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup));
+        	$this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
         	return $this->db->insert_id();
         }
         if($TipServ==2)
         {
-        	$this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CupsGas'=>$cups,'CodTarGas'=>$CodTar,'CodDis'=>$CodDis,'FecAltCup'=>$FecAltCup,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup));
+        	$this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CupsGas'=>$cups,'CodTarGas'=>$CodTar,'CodDis'=>$CodDis,'FecAltCup'=>$FecAltCup,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
         	return $this->db->insert_id();
         }
         
     }
-    public function actualizar_CUPs($Tabla,$CodCup,$TipServ,$cups,$CodDis,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$PotMaxBie,$FecAltCup,$FecUltLec,$ConAnuCup,$CodPunSum,$Where)
+    public function actualizar_CUPs($Tabla,$CodCup,$TipServ,$cups,$CodDis,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$PotMaxBie,$FecAltCup,$FecUltLec,$ConAnuCup,$CodPunSum,$Where,$DerAccKW)
     {   
         if($TipServ==1)
         {
         	$this->db->where($Where, $CodCup);      
-        	return $this->db->update($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup));
+        	return $this->db->update($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
         }
          if($TipServ==2)
         {
         	$this->db->where($Where, $CodCup);      
-        	return $this->db->update($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CupsGas'=>$cups,'CodTarGas'=>$CodTar,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup));
+        	return $this->db->update($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CupsGas'=>$cups,'CodTarGas'=>$CodTar,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
         }
         
     }

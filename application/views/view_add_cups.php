@@ -211,6 +211,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
 
 
+
+
 <div ng-show="vm.fdatos_cups.TipServ==1">
 
  <div style="margin-top: 8px; margin-left: 15px; margin-bottom: -20px;" ng-show="vm.totalPot>0">
@@ -493,16 +495,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
        
   </div> 
-<div class="col-12 col-sm-4">
+<div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">         
-        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta <b style="color:red;">(*)</b></label>
+        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup" onkeyup="this.value=this.value.toUpperCase();" placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
        </div>
        </div>
        </div>
 
-       <div class="col-12 col-sm-4">
+       <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura </label>
@@ -511,7 +513,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-       <div class="col-12 col-sm-4">
+       <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Consumo (Kw) <b style="color:red;">(*)</b></label>
@@ -519,6 +521,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
+
+       <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">         
+        <label class="font-weight-bold nexa-dark" style="color:black;">Derechos de Acceso (Kw) </label>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.DerAccKW" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(23,vm.fdatos_cups.DerAccKW)"/>
+       </div>
+       </div>
+       </div>
+
+
+
   <input type="hidden" class="form-control" ng-model="vm.fdatos_cups.CodCup" readonly />      
          <div class="form-group" >
           <div class="col-12 col-sm-6">
