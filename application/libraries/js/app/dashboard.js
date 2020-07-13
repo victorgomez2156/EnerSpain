@@ -89,7 +89,6 @@
                          scope.searchResult = result.data;
                          console.log(scope.searchResult);
                      } else {
-                         Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
                          scope.searchResult = {};
                      }
                  }, function(error) {
@@ -139,8 +138,7 @@
              if (result.data != false) {
                  scope.list_customers = result.data;
              } else {
-                 Swal.fire({ title: "Error", text: "No hay Clientes registrados", type: "error", confirmButtonColor: "#188ae2" });
-                 scope.searchResult = {};
+                scope.searchResult = {};
              }
          }, function(error) {
              $("#List_Cli").removeClass("loader loader-default is-active").addClass("loader loader-default");

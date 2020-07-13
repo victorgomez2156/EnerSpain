@@ -13102,9 +13102,9 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Contratos[$i]->NumCifCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Contratos[$i]->RazSocCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Contratos[$i]->CodCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contratos[$i]->Anexo);
-                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contratos[$i]->CUPsEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtro_Contratos[$i]->CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Filtro_Contratos[$i]->CUPsEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Filtro_Contratos[$i]->CupsGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Filtro_Contratos[$i]->Anexo);
                 
                 
 

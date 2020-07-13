@@ -78,12 +78,12 @@ class Comercial extends REST_Controller
 		$new_fec_ini=$convertir_fec_ini[2]."-".$convertir_fec_ini[1]."-".$convertir_fec_ini[0];		
 		if (isset($objSalida->CodCom))
 		{		
-			$this->Comercial_model->actualizar_comercial($objSalida->CodCom,$objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini);
+			$this->Comercial_model->actualizar_comercial($objSalida->CodCom,$objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini,$objSalida->NumIBAN);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','UPDATE',$objSalida->CodCom,$this->input->ip_address(),'Actualizando La Comercial');
 		}
 		else
 		{
-			$id = $this->Comercial_model->agregar_comercial($objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini);		
+			$id = $this->Comercial_model->agregar_comercial($objSalida->NomCom,$objSalida->NIFCom,$objSalida->TelCelCom,$objSalida->TelFijCom,$objSalida->EmaCom,$objSalida->CarCom,$objSalida->PorComCom,$objSalida->ObsCom,$new_fec_ini,$objSalida->NumIBAN);		
 			$objSalida->CodCom=$id;			
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercial','INSERT',$objSalida->CodCom,$this->input->ip_address(),'Creando Comercial');			
 		}		

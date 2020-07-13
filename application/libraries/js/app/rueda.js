@@ -239,7 +239,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             else
             {
                 scope.Table_Contratos=[];
-                Swal.fire({ title: "Error", text: "No se encontraron contratos en este rango de fecha.", type: "error", confirmButtonColor: "#188ae2" });
                 return false;
             }
 
@@ -1076,7 +1075,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                  }
              } else {
                  if (metodo == 1) {
-                     Swal.fire({ title: "Error", text: "No existen productos asignado a esta Comercializadora.", type: "error", confirmButtonColor: "#188ae2" });
                      scope.List_Productos = [];
                      scope.List_Anexos = [];
                      scope.fdatos.CodPro = undefined;
@@ -1084,7 +1082,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                      scope.fdatos.TipPre = undefined;
                  }
                  if (metodo == 2) {
-                     Swal.fire({ title: "Error", text: "No existen anexos asignados a este producto.", type: "error", confirmButtonColor: "#188ae2" });
                      scope.List_Anexos = [];
                      scope.fdatos.CodAnePro = undefined;
                      scope.fdatos.TipPre = undefined;

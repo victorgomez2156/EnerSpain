@@ -306,6 +306,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.tmodal_data.FecBaj = numero.substring(0, numero.length - 1);
             }
         }
+         if (metodo == 23) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([,0-9])*$/.test(numero))
+                    scope.fdatos_cups.DerAccKW = numero.substring(0, numero.length - 1);
+            }
+        }
     }
     $scope.submitFormlockCUPs = function(event) {
         console.log(scope.tmodal_data);
@@ -641,7 +648,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     if (error.status == 500 && error.statusText == "Internal Server Error") {
                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
                     }
-
                 });
             } else {
                 event.preventDefault();
@@ -931,6 +937,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (!scope.valida_cups(CUPS)) {
             return false;
         }
+        if (scope.fdatos_cups.DerAccKW == null || scope.fdatos_cups.DerAccKW == undefined || scope.fdatos_cups.DerAccKW == '') {
+            scope.fdatos_cups.DerAccKW = null;
+        }
+        else
+        {   
+            scope.fdatos_cups.DerAccKW = scope.fdatos_cups.DerAccKW;
+        }
+
+
 
         if (resultado == false) {
             return false;

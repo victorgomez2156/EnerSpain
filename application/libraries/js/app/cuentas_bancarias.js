@@ -304,10 +304,11 @@
          });
      }
      scope.validarsinuermoIBAN = function(IBAN, object) {
+         
          if (object != undefined && IBAN == 1) {
              numero = object;
              if (!/^([0-9])*$/.test(numero))
-                 scope.IBAN1 = numero.substring(0, numero.length - 1);
+                scope.IBAN1 = numero.substring(0, numero.length - 1);
          }
          if (object != undefined && IBAN == 2) {
              numero = object;
@@ -329,32 +330,35 @@
              if (!/^([0-9])*$/.test(numero))
                  scope.IBAN5 = numero.substring(0, numero.length - 1);
          }
-         if (scope.IBAN1.length == 4 && scope.IBAN2.length == 4 && scope.IBAN3.length == 4 && scope.IBAN4.length == 4 && scope.IBAN5.length == 4) {
-             scope.dig_control = scope.CodEur.substr(2, 4);
-             scope.cod_pais = "1428";
-             scope.tira_cuenta = scope.IBAN1 + scope.IBAN2 + scope.IBAN3 + scope.IBAN4 + scope.IBAN5;
-             scope.tira_completa = scope.tira_cuenta + scope.cod_pais + scope.dig_control;
-             scope.TIR_RES1 = scope.tira_completa.substr(0, 8);
-             scope.VAL_TIR_RES1 = parseInt(scope.TIR_RES1);
-             scope.VAL_RES_TIR_RES1 = scope.VAL_TIR_RES1 - (97 * parseInt(scope.VAL_TIR_RES1 / 97));
-             var x = scope.VAL_RES_TIR_RES1,
-                 toString = x.toString(),
-                 toConcat = x + "";
-             scope.CAR_RES_TIR_RES1 = toConcat;
-             scope.TIR_RES2 = scope.CAR_RES_TIR_RES1 + scope.tira_completa.substr(8, 8);
-             scope.VAL_TIR_RES2 = parseInt(scope.TIR_RES2);
-             scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES2 - (97 * parseInt(scope.VAL_TIR_RES2 / 97));
-             scope.CAR_RES_TIR_RES2 = "0" + scope.VAL_RES_TIR_RES2;
-             scope.TIR_RES3 = scope.CAR_RES_TIR_RES2 + scope.tira_completa.substr(16, 6);
-             scope.VAL_TIR_RES3 = parseInt(scope.TIR_RES3);
-             scope.VAL_RES_TIR_RES3 = scope.VAL_TIR_RES3 - (97 * parseInt(scope.VAL_TIR_RES3 / 97));
-             var x1 = scope.VAL_RES_TIR_RES3,
-                 toString1 = x1.toString(),
-                 toConcat1 = x1 + "";
-             scope.CAR_RES_TIR_RES3 = toConcat1;
-             scope.TIR_RES4 = scope.CAR_RES_TIR_RES3 + scope.tira_completa.substr(22, 4);
-             scope.VAL_TIR_RES4 = parseInt(scope.TIR_RES4);
-             scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES4 - (97 * parseInt(scope.VAL_TIR_RES4 / 97));
+         
+         if (scope.IBAN1.length == 4 && scope.IBAN2.length == 4 && scope.IBAN3.length == 4 && scope.IBAN4.length == 4 && scope.IBAN5.length == 4) 
+         {             
+            scope.dig_control = scope.CodEur.substr(2, 4);
+            scope.cod_pais = "1428";
+            scope.tira_cuenta = scope.IBAN1 + scope.IBAN2 + scope.IBAN3 + scope.IBAN4 + scope.IBAN5;
+            scope.tira_completa = scope.tira_cuenta + scope.cod_pais + scope.dig_control;
+            scope.TIR_RES1 = scope.tira_completa.substr(0, 8);
+            scope.VAL_TIR_RES1 = parseInt(scope.TIR_RES1);
+            scope.VAL_RES_TIR_RES1 = scope.VAL_TIR_RES1 - (97 * parseInt(scope.VAL_TIR_RES1 / 97));
+            var x = scope.VAL_RES_TIR_RES1,
+                toString = x.toString(),
+                toConcat = x + "";
+            scope.CAR_RES_TIR_RES1 = toConcat;
+            scope.TIR_RES2 = scope.CAR_RES_TIR_RES1 + scope.tira_completa.substr(8, 8);
+            scope.VAL_TIR_RES2 = parseInt(scope.TIR_RES2);
+            scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES2 - (97 * parseInt(scope.VAL_TIR_RES2 / 97));
+            scope.CAR_RES_TIR_RES2 = "0" + scope.VAL_RES_TIR_RES2;
+            scope.TIR_RES3 = scope.CAR_RES_TIR_RES2 + scope.tira_completa.substr(16, 6);
+            scope.VAL_TIR_RES3 = parseInt(scope.TIR_RES3);
+            scope.VAL_RES_TIR_RES3 = scope.VAL_TIR_RES3 - (97 * parseInt(scope.VAL_TIR_RES3 / 97));
+            var x1 = scope.VAL_RES_TIR_RES3,
+                toString1 = x1.toString(),
+                toConcat1 = x1 + "";
+            scope.CAR_RES_TIR_RES3 = toConcat1;
+            scope.TIR_RES4 = scope.CAR_RES_TIR_RES3 + scope.tira_completa.substr(22, 4);
+            scope.VAL_TIR_RES4 = parseInt(scope.TIR_RES4);
+            scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES4 - (97 * parseInt(scope.VAL_TIR_RES4 / 97));
+             
              console.log(scope.tira_cuenta);
              console.log(scope.dig_control);
              console.log(scope.cod_pais);

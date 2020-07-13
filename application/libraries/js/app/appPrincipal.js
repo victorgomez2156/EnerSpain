@@ -84,6 +84,8 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Edit_Gestion_Comercial/:CodGesGen/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })
             
             .when('/Seguimientos', { templateUrl: 'application/views/view_grib_seguimientos.php' })
+
+            .when('/Renovacion_Masiva', { templateUrl: 'application/views/view_grib_renovaciones_masivas.php' })
             // .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
 
 

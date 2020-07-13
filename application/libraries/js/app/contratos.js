@@ -90,7 +90,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return (begin <= index && index < end);
                 }
             } else {
-                Swal.fire({ title: "Error", text: "no se encontraron contratos registrados.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.T_Contratos = [];
                 scope.T_ContratosBack = [];
             }
@@ -2101,9 +2100,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         	var shortCutFunction = 'error';
             var msg = 'Debe permitir el uso de ventanas emergentes para poder ver el contrato audax.';
             var title = 'Ventana Emergente';
-            var $showDuration = 300;
+            var $showDuration = 100;
             var $hideDuration = 1000;
-            var $timeOut = 5000;
+            var $timeOut = 1000;
             var $extendedTimeOut = 1000;
             var $showEasing = 'swing';
             var $hideEasing = 'linear';
@@ -2185,7 +2184,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 });
             }
         }
-
  		function getLastToast()
         {
             return $toastlast;

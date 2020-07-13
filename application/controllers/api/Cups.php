@@ -139,21 +139,21 @@ class Cups extends REST_Controller
 				$Tabla_Delete="T_CUPsGas";
 				$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupGas',$objSalida->CodCup);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups');			
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum);
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;	
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
 			}
 			else
 			{
-				$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupsEle');	
+				$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del Clientes');
 			}
 		}
 		else
 		{
 			$Tabla="T_CUPsElectrico";
-			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum);
+			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
 			$objSalida->TipServAnt=$objSalida->TipServ;	
 			$objSalida->CodCup=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');		
@@ -169,21 +169,21 @@ class Cups extends REST_Controller
 				$Tabla_Delete="T_CUPsElectrico";
 				$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupsEle',$objSalida->CodCup);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups');
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum);
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;	
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
 			}
 			else
 			{
-				$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupGas');		
+				$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del Clientes');
 			}
 		}
 		else
 		{
 			$Tabla="T_CUPsGas";
-			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum);
+			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$FecAltCupVoltiada2,$FecUltLecVoltiada2,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
 			$objSalida->TipServAnt=$objSalida->TipServ;
 			$objSalida->CodCup=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');			
