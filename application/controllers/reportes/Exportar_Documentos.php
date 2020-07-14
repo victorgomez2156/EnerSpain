@@ -6235,7 +6235,7 @@ class Exportar_Documentos extends CI_Controller
         $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TárifaElectrica','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TIPO DE TENSIÓN FILTRADOS');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',0,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TIPO DE TENSIÓN FILTRADOS');
         $objWriter->save('php://output');
         exit;   
     }
@@ -10501,12 +10501,12 @@ class Exportar_Documentos extends CI_Controller
             elseif($TipServ=="Electrico")
             {
                 $nombre_filtro="Tárifa ELÉCTRICA: ";                
-                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
+                $Tarifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaElectrica','NomTarEle',$NomTar);
                 if($Tarifa!=false)
                 {
                     $Select="a.CUPsEle as CupsGas,case a.TipServ when 1 then 'Eléctrico' end as TipServ, b.NomTarEle as NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsElectrico a';                    
-                    $Join="T_TárifaElectrica b";
+                    $Join="T_TarifaElectrica b";
                     $ON="a.CodTarElec=b.CodTarEle";
                     $Order_BY="a.CUPsEle ASC";
                     $Where='a.CodTarElec';
@@ -10695,12 +10695,12 @@ class Exportar_Documentos extends CI_Controller
             elseif($TipServ=="Electrico")
             {
                 $nombre_filtro="Tárifa ELÉCTRICA: ";                
-                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TárifaElectrica','NomTarEle',$NomTar);
+                $Tárifa=$this->Reportes_model->get_tipo_filtro_busqueda('T_TarifaElectrica','NomTarEle',$NomTar);
                 if($Tárifa!=false)
                 {
                     $Select="a.CUPsEle as CupsGas,case a.TipServ when 1 then 'Eléctrico' end as TipServ, b.NomTarEle as NomTarGas,case a.EstCUPs when 1 then 'ACTIVO' when 2 then 'DADO DE BAJO' end as EstCUPs";
                     $Tabla='T_CUPsElectrico a';                    
-                    $Join="T_TárifaElectrica b";
+                    $Join="T_TarifaElectrica b";
                     $ON="a.CodTarElec=b.CodTarEle";
                     $Order_BY="a.CUPsEle ASC";
                     $Where='a.CodTarElec';
@@ -11328,7 +11328,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar";
             $Tabla2="T_CUPsElectrico a";
-            $Join3="T_TárifaElectrica b";
+            $Join3="T_TarifaElectrica b";
             $JoinWhere="a.CodTarElec=b.CodTarEle";
             $Where="a.CodCupsEle";            
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);
@@ -11500,7 +11500,7 @@ class Exportar_Documentos extends CI_Controller
         {
             $Select2="a.CUPsEle as CUPs,b.NomTarEle as NomTar,b.CodTarEle as CodTar";
             $Tabla2="T_CUPsElectrico a";
-            $Join3="T_TárifaElectrica b";
+            $Join3="T_TarifaElectrica b";
             $JoinWhere="a.CodTarElec=b.CodTarEle";
             $Where="a.CodCupsEle";            
             $Name_CUPs = $this->Reportes_model->get_data_CUPs_name($Select2,$Tabla2,$Join3,$JoinWhere,$Where,$CodCup);

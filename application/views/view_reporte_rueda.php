@@ -151,8 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th>Fecha Inicio</th>
                   <th>CODCLI</th>
                   <th>NIF</th>
-                  <th>Cliente</th>
-                  <th>NIF</th>
+                  <th>Cliente</th>                  
                   <th>Comercializadora</th>
                   <th>Anexo</th> 
                   <th>Duración</th>  
@@ -169,8 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td >{{dato.FecIniCon}}</td>
                     <td >{{dato.CodCli}}</td>
                     <td >{{dato.NumCifCli}}</td>
-                    <td >{{dato.RazSocCli}}</td>
-                    <td >{{dato.NumCifCom}}</td>
+                    <td >{{dato.RazSocCli}}</td>                    
                     <td >{{dato.RazSocCom}}</td>
                     <td >{{dato.Anexo}}</td> 
                     <td >{{dato.DurCon}} Meses</td> 
@@ -199,7 +197,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th>CODCLI</th>
                   <th>NIF</th>
                   <th>Cliente</th>
-                  <th>NIF</th>
                   <th>Comercializadora</th>
                   <th>Anexo</th> 
                   <th>Duración</th>  

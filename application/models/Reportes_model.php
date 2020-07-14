@@ -768,8 +768,8 @@ class Reportes_model extends CI_Model
     {
         $this->db->select($Select,FALSE);
         $this->db->from($Tabla);
-        $this->db->join($Join,$Joinb);
-        $this->db->join($Join2,$Joinc);
+        $this->db->join($Join,$Joinb,'LEFT');
+        $this->db->join($Join2,$Joinc,'LEFT');
         $this->db->where($Where,$CodCup);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -785,7 +785,7 @@ class Reportes_model extends CI_Model
     {
        $this->db->select($Select2,FALSE);
         $this->db->from($Tabla2);
-        $this->db->join($Join3,$JoinWhere);
+        $this->db->join($Join3,$JoinWhere,'LEFT');
         $this->db->where($Where,$CodCup);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

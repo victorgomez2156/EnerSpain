@@ -44,14 +44,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.Cups_Dir = result.data.Datos_Puntos.DesTipVia + " " + result.data.Datos_Puntos.NomViaPunSum + " " + result.data.Datos_Puntos.NumViaPunSum + " " + result.data.Datos_Puntos.BloPunSum + " " + result.data.Datos_Puntos.EscPunSum + " " + result.data.Datos_Puntos.PlaPunSum + " " + result.data.Datos_Puntos.PuePunSum + " " + result.data.Datos_Puntos.DesPro + " " + result.data.Datos_Puntos.DesLoc + " " + result.data.Datos_Puntos.CPLoc;
             scope.fdatos_cups.CodTar = result.data.Name_CUPs.CodTar;
             scope.totalPot = result.data.Name_CUPs.CanPerTar;
+            console.log(scope.totalPot);
 
             if (result.data.Consumo_CUPs == false) {
-                Swal.fire({ title: "Error", text: "No se encontrados consumos regitrados actualmente.", type: "error", confirmButtonColor: "#188ae2" });
+                //Swal.fire({ title: "Error", text: "No se encontrados consumos regitrados actualmente.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TCups_Consumo = [];
                 scope.TCups_ConsumoBack = [];
             }
             if (result.data.Datos_Puntos == false) {
-                Swal.fire({ title: "Error", text: "No se encontrados datos relacionados con el Dirección de Suministro intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                //Swal.fire({ title: "Error", text: "No se encontrados datos relacionados con el Dirección de Suministro intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.TCups_Consumo = [];
                 scope.disabled_button_add = false;
                 scope.TCups_ConsumoBack = [];
@@ -77,7 +78,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 };
             }
             if (result.data.Consumo_CUPs == false && result.data.Name_CUPs == false) {
-                Swal.fire({ title: "Error", text: "No hemos encontrados ningun dato relacionado con la busqueda que esta intentando realizar por favor verique los datos e intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                ///Swal.fire({ title: "Error", text: "No hemos encontrados ningun dato relacionado con la busqueda que esta intentando realizar por favor verique los datos e intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
                 scope.disabled_button_add = false;
                 scope.TCups_Consumo = [];
                 scope.TCups_ConsumoBack = [];
@@ -400,6 +401,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_cups = function() {
         resultado = true;
         if (scope.fdatos_cups.TipServ == 1) {
+            
+            
+            if(scope.totalPot==null){
+                Swal.fire({ title: "Este CUPs no tiene ninguna Tárifa asigna valla a gestionar cups y asigne la tárifa para poder continuar con este proceso.", type: "error", confirmButtonColor: "#188ae2" });
+                    return false;
+            }
+
             if (scope.totalPot == 1) {
                 if (scope.fdatos_cups.PotCon1 == null || scope.fdatos_cups.PotCon1 == undefined || scope.fdatos_cups.PotCon1 == '') {
                     Swal.fire({ title: "El Campo P1 Es requerido", type: "error", confirmButtonColor: "#188ae2" });

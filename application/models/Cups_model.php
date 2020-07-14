@@ -24,9 +24,9 @@ class Cups_model extends CI_Model
         $this->db->select('b.NumCifCli,b.RazSocCli,e.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,c.DesLoc,d.DesPro,c.CPLoc',FALSE);
         $this->db->from('T_PuntoSuministro a'); 
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
-        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
+        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc','LEFT');
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro','LEFT');
+        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia','LEFT');
         $this->db->where('a.CodPunSum',$CodPunSum); 
        // $this->db->order_by('CupsGas ASC');              
         $query = $this->db->get(); 
@@ -279,8 +279,8 @@ public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc
     {
         $this->db->select($Select,FALSE);
         $this->db->from($Tabla);
-        $this->db->join($Join,$Joinb);
-        $this->db->join($Join2,$Joinc);
+        $this->db->join($Join,$Joinb,'LEFT');
+        $this->db->join($Join2,$Joinc,'LEFT');
         $this->db->where($Where,$CodCup);
         $this->db->order_by('a.FecIniCon DESC');              
         $query = $this->db->get(); 
@@ -297,7 +297,7 @@ public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc
     {
         $this->db->select($Select2,FALSE);
         $this->db->from($Tabla2);
-        $this->db->join($Join3,$JoinWhere);
+        $this->db->join($Join3,$JoinWhere,'LEFT');
         $this->db->where($Where,$CodCup);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
