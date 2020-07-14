@@ -510,7 +510,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodTarGas = scope.List_Propuestas_Comerciales[i].NomTarGas;
                 scope.Consumo = scope.List_Propuestas_Comerciales[i].Consumo;
                 scope.CauDia = scope.List_Propuestas_Comerciales[i].CauDia;
-                scope.CodCom = scope.List_Propuestas_Comerciales[i].NomCom;
+                if(scope.List_Propuestas_Comerciales[i].NumCifCom==null||scope.List_Propuestas_Comerciales[i].NumCifCom==undefined||scope.List_Propuestas_Comerciales[i].NumCifCom=='')
+                {
+                    scope.List_Propuestas_Comerciales[i].NumCifCom='S/I';
+                }
+                else
+                {
+                    scope.List_Propuestas_Comerciales[i].NumCifCom=scope.List_Propuestas_Comerciales[i].NumCifCom;
+                }
+                scope.CodCom = scope.List_Propuestas_Comerciales[i].RazSocCom+" - "+scope.List_Propuestas_Comerciales[i].NumCifCom;
                 scope.CodPro = scope.List_Propuestas_Comerciales[i].DesProducto;
                 scope.CodAnePro = scope.List_Propuestas_Comerciales[i].DesAnePro;
                 scope.TipPre = scope.List_Propuestas_Comerciales[i].TipPre;

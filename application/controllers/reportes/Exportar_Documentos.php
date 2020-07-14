@@ -14535,7 +14535,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:N$fila");                
             }   
         }        
-        foreach (range('A', 'N') as $columnID) 
+        foreach (range('A', 'P') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }

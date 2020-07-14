@@ -51,6 +51,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         scope.disabled_form = $route.current.params.FORM;
         if (scope.disabled_form != 1) {
             location.href = "#/Distribuidora/";
+            scope.SerEle = false;
+            scope.SerGas = false;
         }
     }
     console.log($route.current.$$route.originalPath);
@@ -225,6 +227,10 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
     scope.validar_campos_null = function() {
         resultado = true;
 
+        if (scope.fdatos.NumCifDis == null || scope.fdatos.NumCifDis == undefined || scope.fdatos.NumCifDis == '') {
+            Swal.fire({ title: "El Campo CIF es requerido", type: "error", confirmButtonColor: "#188ae2" });
+            return false;
+        }
         if (scope.fdatos.RazSocDis == null || scope.fdatos.RazSocDis == undefined || scope.fdatos.RazSocDis == '') {
             Swal.fire({ title: "El Campo Razón Social es requerido", type: "error", confirmButtonColor: "#188ae2" });
             return false;
@@ -355,6 +361,10 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             if (result.data != false) {
                 $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 scope.fdatos = result.data;
+                if (result.data.TipSerDis == null){
+                    scope.SerGas = false;
+                    scope.SerEle = false;
+                }
                 if (result.data.TipSerDis == 0) {
                     scope.SerGas = false;
                     scope.SerEle = true;

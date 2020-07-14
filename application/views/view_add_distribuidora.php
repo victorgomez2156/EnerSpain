@@ -42,12 +42,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="panel-body">
                 <div class="form">
                   <form id="register_form" name="register_form" ng-submit="submitForm($event)">
-                      <div class="row">
+                      
+                      
                       <div class="col-12 col-sm-6">
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">CIF <b style="color:red;">(*)</b></label>
-                        <input type="text" class="form-control" ng-model="vm.fdatos.NumCifDis" maxlength="25" onkeyup="this.value=this.value.toUpperCase();" placeholder="* B12345678" ng-disabled="vm.disabled_cif==1" readonly/>
+                        <input type="text" class="form-control" ng-model="vm.fdatos.NumCifDis" maxlength="25" onkeyup="this.value=this.value.toUpperCase();" placeholder="* B12345678"/>
                         </div>
                         </div>
                       </div>       
@@ -144,8 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          </div>
                        </div>
 
-                    </div><!--final row-->
-                    <div class="form-group">
+                                      <div class="form-group">
                       <div class="col-12 col-sm-12">                        
                         <button class="btn btn-primary" type="submit" ng-show="vm.fdatos.CodDist==undefined||vm.fdatos.CodDist==null||vm.fdatos.CodDist==''" ng-disabled="register_form.$invalid" style="margin-top: 8px;"> Guardar</button>                        
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodDist>0 && vm.disabled_form==undefined" ng-disabled="register_form.$invalid"> Actualizar</button>

@@ -38,9 +38,8 @@ class Distribuidoras_model extends CI_Model
     }
     public function actualizar($CodDist,$EmaDis,$NomComDis,$NumCifDis,$ObsDis,$PagWebDis,$PerConDis,$RazSocDis,$TelFijDis,$TipSerDis)
     {   
-        $this->db->where('CodDist', $CodDist);        
-        $this->db->where('NumCifDis', $NumCifDis); 
-        return $this->db->update('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis));
+        $this->db->where('CodDist', $CodDist);  
+        return $this->db->update('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis,'NumCifDis'=> $NumCifDis));
     }
     public function get_distribuidora_data($CodDist)
     {
