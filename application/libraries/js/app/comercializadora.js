@@ -162,23 +162,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }, function(error) {
             $("#List_Comer").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     $scope.Consultar_CIF = function(event) {
         if (scope.fdatos.NumCifCom == undefined || scope.fdatos.NumCifCom == null || scope.fdatos.NumCifCom == '') {
-            Swal.fire({ text: 'El CIF es requerido', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El CIF es requerido.",'');
             return false;
         } else {
             $("#NumCifCom").removeClass("loader loader-default").addClass("loader loader-default  is-active");
@@ -186,7 +183,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             $http.post(url, scope.fdatos).then(function(result) {
                 $("#NumCifCom").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 if (result.data != false) {
-                    Swal.fire({ text: 'Ya existe una Comercializadora con el CIF introducido', type: "success", confirmButtonColor: "#188ae2" });
+                   scope.toast('error','Ya existe una Comercializadora con el CIF introducido.','');
                 } else {
                     $("#modal_cif_comercializadora").modal('hide');
                     $cookies.put('CIF_COM', scope.fdatos.NumCifCom);
@@ -194,18 +191,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             }, function(error) {
                 $("#NumCifCom").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                if (error.status == 404 && error.statusText == "Not Found") {
-                    Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 401 && error.statusText == "Unauthorized") {
-                    Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 500 && error.statusText == "Internal Server Error") {
-                    Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                }
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
             });
         }
     };
@@ -346,12 +340,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.validar_opcion = function(index, opciones_comercializadoras, dato) {
         //console.log(index);
-        console.log(opciones_comercializadoras);
-        console.log(dato);
+        //console.log(opciones_comercializadoras);
+        //console.log(dato);
         if (opciones_comercializadoras == 1) {
             scope.opciones_comercializadoras[index] = undefined;
             if (dato.EstCom == 'ACTIVA') {
-                Swal.fire({ text: 'La Comercializadora ya se encuentra activa', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','La Comercializadora ya se encuentra activa.','');
                 return false;
             }
             Swal.fire({
@@ -373,7 +367,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.opciones_comercializadoras[index] = undefined;
             scope.t_modal_data = {};
             if (dato.EstCom == 'BLOQUEADA') {
-                Swal.fire({ text: 'La Comercializadora ya se encuentra bloqqueada', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','La Comercializadora ya se encuentra bloqqueada.','');
                 return false;
             }
             scope.t_modal_data.CodCom = dato.CodCom;
@@ -400,24 +394,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.opciones_comercializadoras[index] = undefined;
                 $("#modal_motivo_bloqueo_comercializadora").modal('show');
             } else {
-                Swal.fire({ text: 'No hay Motivos de Bloqueo', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','No hay Motivos de Bloqueo.','');
                 scope.opciones_comercializadoras[index] = undefined;
             }
 
         }, function(error) {
             scope.opciones_comercializadoras[index] = undefined;
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     $scope.submitFormlockCom = function(event) {
@@ -429,27 +420,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','La Fecha de Bloqueo es requerida.','');
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
             if (FecBlo.length < 3) {
-                Swal.fire({ text: 'Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY.','');
                 event.preventDefault();
                 return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Día, debe introducir dos números.','');
+                   event.preventDefault();
                     return false;
                 }
                 if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Mes, debe introducir dos números.','');
+                   event.preventDefault();
                     return false;
                 }
                 if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','LError en Año, debe introducir cuatro números.','');
                     event.preventDefault();
                     return false;
                 }
@@ -459,7 +450,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: 'La Fecha de Bloqueo no debe ser mayor a ' + scope.fecha_server, type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','La Fecha de Bloqueo no debe ser mayor a ' + scope.fecha_server,'');
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -509,29 +500,26 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
 
                 $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: title, text: text, type: "success", confirmButtonColor: "#188ae2" });
+                scope.toast('success',text,title);                
                 scope.opciones_comercializadoras[index] = undefined;
                 scope.cargar_lista_comercializadoras();
             } else {
                 $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ text: 'Ha ocurrido un error, intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('success',"Ha ocurrido un error, intente nuevamente",'');
                 scope.cargar_lista_comercializadoras();
             }
 
         }, function(error) {
             $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     scope.filtrarLocalidad = function() {
@@ -549,23 +537,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             else
             {
-                Swal.fire({ title: "Error", text: "Esta Provincia no tiene localidades asignadas.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"Esta Provincia no tiene localidades asignadas.",'');
                 scope.TLocalidadesfiltrada=[];
             }
         },function(error)
         {   
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
 
         });
 
@@ -627,18 +612,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             scope.reporte_excel_comercializadora = 0;
                         }
                     }, function(error) {
-                        if (error.status == 404 && error.statusText == "Not Found") {
-                            Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                        }
-                        if (error.status == 401 && error.statusText == "Unauthorized") {
-                            Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                        }
-                        if (error.status == 403 && error.statusText == "Forbidden") {
-                            Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                        }
-                        if (error.status == 500 && error.statusText == "Internal Server Error") {
-                            Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                        }
+                        if (error.status == 404 && error.statusText == "Not Found"){
+	                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+	                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+	                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+	                    }if (error.status == 403 && error.statusText == "Forbidden"){
+	                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+	                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+	                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+	                    }
                     });
                 }
                 else
@@ -665,6 +647,138 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             }
         }
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 800;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
         /*scope.filtrar = function(expresion)
         {
            console.log(expresion);

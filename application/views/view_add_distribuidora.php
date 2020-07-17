@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
 
-                      <div class="col-12 col-sm-4">
+                      <div class="col-12 col-sm-6">
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>
@@ -89,7 +89,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                       </div>       
                        
-                       <div class="col-12 col-sm-4">
+                       <div class="col-12 col-sm-6">
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Correo Eléctronico</label>
@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          </div>
                        </div> 
 
-                        <div class="col-12 col-sm-4">
+                        <div class="col-12 col-sm-6">
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Página Web</label>
@@ -107,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          </div>
                        </div>
 
-                       <div class="col-12 col-md-11">
+                       <div class="col-12 col-md-6">
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Persona Contacto</label>
@@ -136,16 +136,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          </div>
                          </div>
 
-                         <div class="col-12 col-sm-11">
+                         
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
                          <textarea class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Observación" ng-disabled="vm.disabled_form==1"/></textarea>                  
                          </div>
                          </div>
-                       </div>
 
-                                      <div class="form-group">
+                      <div class="form-group">
                       <div class="col-12 col-sm-12">                        
                         <button class="btn btn-primary" type="submit" ng-show="vm.fdatos.CodDist==undefined||vm.fdatos.CodDist==null||vm.fdatos.CodDist==''" ng-disabled="register_form.$invalid" style="margin-top: 8px;"> Guardar</button>                        
                         <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodDist>0 && vm.disabled_form==undefined" ng-disabled="register_form.$invalid"> Actualizar</button>

@@ -148,7 +148,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     var ObjTarifaElecBaj = new Object();
                     if (scope.Tarifa_Elec_Baja == undefined || scope.Tarifa_Elec_Baja == false) {
                         scope.Tarifa_Elec_Baja = [];
-                    }
+                    } 
                     scope.Tarifa_Elec_Baja.push({ TipTen: Tarifa_Electrica.TipTen, NomTarEle: Tarifa_Electrica.NomTarEle, MinPotCon: Tarifa_Electrica.MinPotCon, MaxPotCon: Tarifa_Electrica.MaxPotCon, CodTarEle: Tarifa_Electrica.CodTarEle, CanPerTar: Tarifa_Electrica.CanPerTar });
                     console.log(scope.Tarifa_Elec_Baja);
                 } else {
@@ -160,18 +160,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     console.log(scope.Tarifa_Elec_Alt);
                 }
             });
-        }        
-
-
-
-        /*scope.TProComercializadoras = dato.Comercializadora;
-        scope.TProductosActivos = dato.Productos;
-        scope.Tipos_Comision = dato.Tipos_Comision;
-        scope.Tcomercializadoras = dato.Comercializadora;
-        scope.TProductos = dato.Productos;               
-        
-        
-       */
+        } 
     }).catch(function(error) {
         console.log(error); //Tratar el error
         /*if(error.status==false && error.error=="This API key does not have access to the requested controller.")
@@ -210,7 +199,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     $scope.SubmitFormFiltrosAnexos = function(event) {
         if (scope.tmodal_anexos.ttipofiltrosAnexos == 1) {
             if (!scope.tmodal_anexos.CodCom > 0) {
-                Swal.fire({ title: 'Comercializadora', text: 'Seleccione una Comercializadora del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione una Comercializadora del listado.','Comercializadora');
                 return false;
             }
             $scope.predicate2 = 'id';
@@ -236,7 +225,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.tmodal_anexos.ttipofiltrosAnexos == 2) {
             if (!scope.tmodal_anexos.DesPro > 0) {
-                Swal.fire({ title: "Productos", text: 'Seleccione un Producto del listado', type: "error", confirmButtonColor: "#188ae2" });
+                //Swal.fire({ title: "Productos", text: 'Seleccione un Producto del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione un Producto del listado.','Productos');
                 return false;
             }
             $scope.predicate2 = 'id';
@@ -262,11 +252,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.tmodal_anexos.ttipofiltrosAnexos == 3) {
             if (!scope.tmodal_anexos.TipServ > 0) {
-                Swal.fire({ title: "Tipos de Suministro", text: 'Seleccione un Tipo de Suministro del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione un Tipo de Suministro del listado.','Tipos de Suministro');
                 return false;
             }
             if (!scope.tmodal_anexos.Select > 0) {
-                Swal.fire({ title: "Error", text: 'Seleccione un Anexo del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione un Anexo del listado.','');
                 return false;
             }
             $scope.predicate2 = 'id';
@@ -299,7 +289,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.tmodal_anexos.ttipofiltrosAnexos == 4) {
             if (!scope.tmodal_anexos.DesTipCom > 0) {
-                Swal.fire({ title: "Tipo de Comisión", text: 'Seleccione una Comisión del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione una Comisión del listado.','Tipo de Comisión');
                 return false;
             }
             $scope.predicate2 = 'id';
@@ -327,29 +317,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var FecIniAne1 = document.getElementById("FecIniAne").value;
             scope.tmodal_anexos.FecIniAne = FecIniAne1;
             if (scope.tmodal_anexos.FecIniAne == undefined || scope.tmodal_anexos.FecIniAne == null || scope.tmodal_anexos.FecIniAne == "") {
-                Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','La Fecha de Inicio es requerida.','Fecha de Inicio');
                 return false;
             } else {
 
                 var FecIniAne = (scope.tmodal_anexos.FecIniAne).split("/");
                 if (FecIniAne.length < 3) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Fecha de Inicio, el formato debe ser DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Fecha de Inicio, el formato debe ser DD/MM/YYYY','Fecha de Inicio');
                     event.preventDefault();
                     return false;
                 } else {
                     if (FecIniAne[0].length > 2 || FecIniAne[0].length < 2) {
-                        Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Día, debe introducir dos números.','Fecha de Inicio');
                         event.preventDefault();
                         return false;
 
                     }
                     if (FecIniAne[1].length > 2 || FecIniAne[1].length < 2) {
-                        Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Mes, debe introducir dos números.','Fecha de Inicio');
                         event.preventDefault();
                         return false;
                     }
                     if (FecIniAne[2].length < 4 || FecIniAne[2].length > 4) {
-                        Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Año, debe introducir cuatro números.','Fecha de Inicio');
                         event.preventDefault();
                         return false;
                     }
@@ -378,7 +368,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.tmodal_anexos.ttipofiltrosAnexos == 6) {
             if (!scope.tmodal_anexos.EstAne > 0) {
-                Swal.fire({ title: "Estatus", text: 'Seleccione Estatus del listado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Seleccione Estatus del listado.','Estatus');
                 return false;
             }
             $scope.predicate2 = 'id';
@@ -457,18 +447,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }, function(error) {
             $("#List_Anex").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
 
@@ -479,7 +466,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.opciones_anexos[index] = undefined;
         if (opciones_anexos == 1) {
             if (dato.EstAne == 'ACTIVO') {
-                Swal.fire({ title: 'Activando', text: 'El Anexo ya se encuentra Activo', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El Anexo ya se encuentra Activo.','Activando');
                 return false;
             }
             Swal.fire({
@@ -501,7 +488,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (opciones_anexos == 2) {
             scope.t_modal_data = {};
             if (dato.EstAne == 'BLOQUEADO') {
-                Swal.fire({ title: "Bloqueado", text: 'El Anexo ya se encuentra Bloqueado', type: "error", confirmButtonColor: "#188ae2" });
+                //Swal.fire({ title: "Bloqueado", text: 'El Anexo ya se encuentra Bloqueado', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El Anexo ya se encuentra Bloqueado.','Bloqueado');
                 return false;
             }
             scope.anexos_motivo_bloqueos = {};
@@ -533,27 +521,26 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecBloAne = document.getElementById("FecBloAne").value;
         scope.FecBloAne = FecBloAne;
         if (scope.FecBloAne == undefined || scope.FecBloAne == null || scope.FecBloAne == '') {
-            Swal.fire({ title: "Fecha de Bloqueo", text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','La Fecha de Bloqueo es requerida.','Fecha de Bloqueo');
             return false;
         } else {
             var FecBlo = (scope.FecBloAne).split("/");
             if (FecBlo.length < 3) {
-                Swal.fire({ title: "Fecha de Bloqueo", text: "Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY" + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
+                scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY.','Fecha de Bloqueo');
                 return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                    Swal.fire({ title: "Fecha de Bloqueo", text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Día, debe introducir dos números.','Fecha de Bloqueo');
                     return false;
                 }
                 if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                    Swal.fire({ title: "Fecha de Bloqueo", text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Mes, debe introducir dos números.','Fecha de Bloqueo');
                     event.preventDefault();
                     return false;
                 }
                 if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                    Swal.fire({ title: "Fecha de Bloqueo", text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Año, debe introducir cuatro números.','Fecha de Bloqueo');
+                    //Swal.fire({ title: "Fecha de Bloqueo", text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -563,7 +550,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: "Fecha de Bloqueo", text: "La Fecha de Bloqueo no debe ser mayor a" + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error',"La Fecha de Bloqueo no debe ser mayor a: " + scope.Fecha_Server,'Fecha de Bloqueo');
+                    //Swal.fire({ title: "Fecha de Bloqueo", text: "La Fecha de Bloqueo no debe ser mayor a" + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -615,29 +603,26 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
 
                 $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: title, text: text, type: "success", confirmButtonColor: "#188ae2" });
+                scope.toast('success',text,title);
                 scope.opciones_anexos[index] = undefined;
                 scope.cargar_lista_anexos();
             } else {
                 $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'Error actualizando estatus del Anexo', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"Error actualizando estatus del Anexo",title);
                 scope.cargar_lista_anexos();
             }
 
         }, function(error) {
             $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     scope.filtrar_productos_com = function() {
@@ -712,8 +697,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $scope.uploadFileAnexo();
                 scope.anexos.DocAnePro = 'documentos/' + $archivosanexos.files[0].name;
             } else {
-                //console.log('Fichero no Permitido');
-                Swal.fire({ title: 'Error', text: 'Error en fichero, el formato debe ser PDF', type: "error", confirmButtonColor: "#188ae2" });
+               scope.toast('error','Error en fichero, el formato debe ser PDF','Error de Archivo');
                 scope.anexos.DocAnePro = null;
                 document.getElementById('file_anexo').value = '';
                 return false;
@@ -771,26 +755,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     $("#" + titulo2).removeClass("loader loader-default is-active").addClass("loader loader-default");
                     scope.nIDAnexos = result.data.CodAnePro;
                     if (result.data != false) {
-                        Swal.fire({ title: titulo2, text: response, type: "success", confirmButtonColor: "#188ae2" });
+                        scope.toast('success',response,titulo2);
                         document.getElementById('file_anexo').value = '';
                         $('#filenameDocAnexo').html('');
                         location.href = "#/Edit_Anexos/" + scope.nIDAnexos;
                     } else {
-                        Swal.fire({ title: "Error", text: "No se ha completado la operación, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error',"No se ha completado la operación, intente nuevamente",'');                        
                     }
                 }, function(error) {
                     $("#" + titulo2).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }
                 });
             } else {
@@ -802,43 +783,40 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_anexos = function() {
         resultado = true;
         if (!scope.anexos.CodTProCom > 0) {
-            Swal.fire({ title: 'Comercializadora', text: 'Seleccione una Comercializadora del listado', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Seleccione una Comercializadora del listado",'Comercializadora');
             return false;
         }
         if (!scope.anexos.CodPro > 0) {
-            Swal.fire({ title: 'Productos', text: 'Seleccione un Producto del listado', type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            scope.toast('error',"Seleccione un Producto del listado",'Productos');
+           return false;
         }
         if (scope.anexos.DesAnePro == null || scope.anexos.DesAnePro == undefined || scope.anexos.DesAnePro == '') {
-            Swal.fire({ title: 'Anexos', text: 'El Nombre del Anexo es requerido', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El Nombre del Anexo es requerido",'Anexos');
             return false;
         }
         var FecIniAneA1 = document.getElementById("FecIniAneA").value;
         scope.FecIniAneA = FecIniAneA1;
         if (scope.FecIniAneA == null || scope.FecIniAneA == undefined || scope.FecIniAneA == '') {
-            Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"La Fecha de Inicio es requerida",'Fecha de Inicio');
             return false;
         } else {
             var FecIniAneA = (scope.FecIniAneA).split("/");
             if (FecIniAneA.length < 3) {
-                Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY",'Fecha de Inicio');
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniAneA[0].length > 2 || FecIniAneA[0].length < 2) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"Error en Día, debe introducir dos números",'Fecha de Inicio');
                     return false;
 
                 }
                 if (FecIniAneA[1].length > 2 || FecIniAneA[1].length < 2) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"Error en Mes, debe introducir dos números.",'Fecha de Inicio');
                     return false;
                 }
                 if (FecIniAneA[2].length < 4 || FecIniAneA[2].length > 4) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'Error en Día, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"Error en Año, debe introducir cuatro números",'Fecha de Inicio');
                     return false;
                 }
                 valuesStart = scope.FecIniAneA.split("/");
@@ -847,37 +825,36 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio no puede ser mayor a ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
-                    return false;
+                    scope.toast('error','La Fecha de Inicio no puede ser mayor a ' + scope.Fecha_Server,'Fecha de Inicio');
+                   return false;
                 }
                 scope.anexos.FecIniAneA = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
             }
 
         }
-
         if (scope.anexos.SerEle == false && scope.anexos.SerGas == false) {
-            Swal.fire({ title: 'Tipos de Suministro', text: 'Seleccione un Tipo de Suministro', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Seleccione un Tipo de Suministro",'Tipos de Suministro');
             return false;
         }
         if (scope.anexos.SerEle == true) {
             if (scope.anexos.T_DetalleAnexoTarifaElecBaj.length == 0 && scope.anexos.T_DetalleAnexoTarifaElecAlt.length == 0 || scope.anexos.T_DetalleAnexoTarifaElecBaj == false && scope.anexos.T_DetalleAnexoTarifaElecAlt == false) {
-                Swal.fire({ title: 'Suministro Eléctrico', text: 'Seleccione Tarifa Eléctrica', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"Seleccione Tarifa Eléctrica",'Suministro Eléctrico');
                 return false;
             }
         }
         if (scope.anexos.SerGas == true) {
             console.log(scope.anexos.T_DetalleAnexoTarifaGas);
             if (scope.anexos.T_DetalleAnexoTarifaGas.length == 0) {
-                Swal.fire({ title: 'Suministro Gas', text: 'Seleccione Tarifa de Gas', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"Seleccione Tarifa de Gas",'Suministro Gas');
                 return false;
             }
         }
         if (scope.anexos.Fijo == false && scope.anexos.Indexado == false) {
-            Swal.fire({ title: 'Tipo de Precio', text: 'Seleccione Tipo de Precio', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Seleccione Tipo de Precio",'Tipo de Precio');
             return false;
         }
         if (!scope.anexos.CodTipCom > 0) {
-            Swal.fire({ title: 'Comisión', text: 'Seleccione Comisión del listado', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Seleccione Comisión del listado.",'Comisión');
             return false;
         }
         if (scope.anexos.ObsAnePro == undefined || scope.anexos.ObsAnePro == null || scope.anexos.ObsAnePro == '') {
@@ -1063,18 +1040,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         upload.uploadFile(file, name).then(function(res) {
             console.log(res);
         }, function(error) {
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
 
@@ -1166,23 +1140,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.anexos);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No hay Anexos registrados', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"No hay Anexos registrados.",'Error');
             }
 
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     scope.regresar_anexos = function() {
@@ -1282,17 +1253,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
                     }
                 }, function(error) {
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }
                 });
             }
@@ -1322,7 +1290,138 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
 
 
+    var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
 
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 800;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
 
 
     if (scope.nIDAnexos != undefined) {

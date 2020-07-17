@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-     <input type="text" class="form-control" ng-model="vm.tmodal_data.NumCifDis" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.NumCifDis" readonly/>     
      </div>
      </div>
      </div>
@@ -229,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
-     <input type="text" class="form-control" ng-model="vm.tmodal_data.RazSocDis" required readonly />     
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.RazSocDis" readonly />     
      </div>
      </div>
      </div>

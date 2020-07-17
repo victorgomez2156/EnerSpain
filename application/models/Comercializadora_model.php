@@ -7,9 +7,9 @@ class Comercializadora_model extends CI_Model
     {
         $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,d.DesTipVia,d.IniTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.DesLoc as CodLoc,b.CPLoc,c.DesPro as ProDirCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,case a.RenAutConCom when 0 then "NO" WHEN 1 THEN "SI" end as RenAutConCom,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.ObsCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',false);
         $this->db->from('T_Comercializadora a');
-        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
-        $this->db->join('T_Provincia c','c.CodPro=b.CodPro');
-         $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia');
+        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc'/*,'LEFT'*/);
+        $this->db->join('T_Provincia c','c.CodPro=b.CodPro'/*,'LEFT'*/);
+         $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia'/*,'LEFT'*/);
         $this->db->order_by('a.NomComCom DESC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)

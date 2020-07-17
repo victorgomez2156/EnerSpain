@@ -174,7 +174,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         if (scope.FecConCom != undefined && scope.FecVenConCom != undefined) {
             if (new Date(scope.FecVenConCom) < new Date(scope.FecConCom)) {
-                Swal.fire({ title: "Fecha de Contrato", text: '', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Error en fechas','Fecha de Contrato');
+
                 scope.fdatos.DurConCom = undefined;
                 scope.FecVenConCom = undefined;
                 return false;
@@ -189,7 +190,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos.DurConCom = (t3.getHours());
             //console.log(scope.fdatos.DurConCom);
             if (scope.fdatos.DurConCom == 0) {
-                Swal.fire({ title: "Error", text: 'El tiempo mínimo del contrato debe ser de 1 año en adelante.', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El tiempo mínimo del contrato debe ser de 1 año en adelante.','');
                 scope.FecVenConCom = undefined;
                 scope.fdatos.DurConCom = undefined;
                 scope.disabled_button = 1;
@@ -216,23 +217,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             else
             {
-                Swal.fire({ title: "Error", text: "Esta Provincia no tiene localidades asignadas.", type: "error", confirmButtonColor: "#188ae2" });
-                scope.TLocalidadesfiltrada=[];
+                scope.toast('error','Esta Provincia no tiene localidades asignadas.','');
+               scope.TLocalidadesfiltrada=[];
             }
         },function(error)
         {   
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
 
         });
 
@@ -286,7 +284,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos.DocConCom = 'documentos/' + $archivos.files[0].name;
             } else {
                 console.log('Fichero No Permitido');
-                Swal.fire({ title: 'Error', text: 'Formato de fichero incorrecto, debe ser PDF', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Formato de fichero incorrecto, debe ser PDF.','');
                 document.getElementById('file').value = '';
                 return false;
             }
@@ -309,7 +307,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.nID = result.data.CodCom;
                     if (result.data != false) {
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
+                        scope.toast('success',response,titulo);
                         document.getElementById('file').value = '';
                         $('#filenameDocCont').html('');
                         $cookies.remove('CIF_COM');
@@ -317,23 +315,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         //scope.fdatos=result.data;"/Datos_Basicos_Comercializadora
                     } else {
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: "Error", text: 'Error durante el proceso, Por Favor Intente nuevamente.', type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error',"Error durante el proceso, Por Favor Intente nuevamente.",titulo);
                     }
 
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
                 });
             } else {
                 event.preventDefault();
@@ -345,28 +340,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecIniCom = document.getElementById("FecIniCom").value;
         scope.FecIniCom = FecIniCom;
         if (scope.FecIniCom == null || scope.FecIniCom == undefined || scope.FecIniCom == '') {
-            Swal.fire({ title: 'La fecha de inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"La fecha de inicio es requerida.",'');
             return false;
         } else {
             var FecIniCom = (scope.FecIniCom).split("/");
             if (FecIniCom.length < 3) {
-                Swal.fire({ text: 'El formato Fecha de Inicio correcto es DD/MM/YYYY.', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"El formato Fecha de Inicio correcto es DD/MM/YYYY.",'');
                 event.preventDefault();
                 return false;
             } else {
                 if (FecIniCom[0].length > 2 || FecIniCom[0].length < 2) {
-                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error',"Error en Día, debe introducir dos números.",'');
                     event.preventDefault();
                     return false;
 
                 }
                 if (FecIniCom[1].length > 2 || FecIniCom[1].length < 2) {
-                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error',"Error en Mes, debe introducir dos números.",'');
                     event.preventDefault();
                     return false;
                 }
                 if (FecIniCom[2].length < 4 || FecIniCom[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error',"Error en Año, debe introducir cuatro números.",'');
                     event.preventDefault();
                     return false;
                 }
@@ -376,55 +371,55 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ title: 'Fecha de Inicio', text: 'La Fecha de Inicio no puede ser mayor al ' + scope.fecha_server + 'Verifique e intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','La Fecha de Inicio no puede ser mayor al ' + scope.fecha_server + 'Verifique e intente nuevamente','');
                     return false;
                 }
                 scope.fdatos.FecIniCom = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
             }
         }
         if (scope.fdatos.RazSocCom == null || scope.fdatos.RazSocCom == undefined || scope.fdatos.RazSocCom == '') {
-            Swal.fire({ title: 'La Razón social es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Debe indicar la Razón Social.",'');
             return false;
         }
         if (scope.fdatos.NomComCom == null || scope.fdatos.NomComCom == undefined || scope.fdatos.NomComCom == '') {
-            Swal.fire({ title: 'El nombre comercial es requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El nombre de la comercializadora es requerido.",'');
             return false;
         }
         if (!scope.fdatos.CodTipVia > 0) {
-            Swal.fire({ title: 'Debe seleccionar un tipo de vía.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Debe seleccionar un tipo de vía.",'');
             return false;
         }
         if (scope.fdatos.NomViaDirCom == null || scope.fdatos.NomViaDirCom == undefined || scope.fdatos.NomViaDirCom == '') {
-            Swal.fire({ title: 'El nombre de la vía es requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El nombre de la vía es requerido.",'');
             return false;
         }
         if (scope.fdatos.NumViaDirCom == null || scope.fdatos.NumViaDirCom == undefined || scope.fdatos.NumViaDirCom == '') {
-            Swal.fire({ title: 'El numero de vía es requerido', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El numero de vía es requerido.",'');
             return false;
         }
         if (!scope.fdatos.CodPro > 0) {
-            Swal.fire({ title: 'Debe seleccionar un Provincia', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Debe seleccionar un Provincia.",'');
             return false;
         }
         if (!scope.fdatos.CodLoc > 0) {
-            Swal.fire({ title: 'Debe seleccionar una localidad', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Debe seleccionar una localidad.",'');
             return false;
         }
         if (scope.fdatos.TelFijCom == null || scope.fdatos.TelFijCom == undefined || scope.fdatos.TelFijCom == '') {
-            Swal.fire({ title: 'Debe indicar un número de teléfono fijo.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"Debe indicar un número de teléfono fijo.",'');
             return false;
         }
         if (scope.fdatos.EmaCom == null || scope.fdatos.EmaCom == undefined || scope.fdatos.EmaCom == '') {
-            Swal.fire({ title: 'El email es requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"El email es requerido.",'');
             return false;
         }
         if (scope.fdatos.NomConCom == null || scope.fdatos.NomConCom == undefined || scope.fdatos.NomConCom == '') {
-            Swal.fire({ title: 'el campo persona de contacto es requerido.', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error',"el campo persona de contacto es requerido.",'');
             return false;
         }
         if (scope.fdatos.CarConCom == null || scope.fdatos.CarConCom == undefined || scope.fdatos.CarConCom == '') {
-            Swal.fire({ title: 'Debe indicar el cargo de la persona de contacto', type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            scope.toast('error',"Debe indicar el cargo de la persona de contacto.",'');
+           return false;
         }
         var FecConCom1 = document.getElementById("FecConCom").value;
         scope.FecConCom = FecConCom1;
@@ -434,24 +429,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var FecConCom = (scope.FecConCom).split("/");
             console.log(FecConCom);
             if (FecConCom.length < 3) {
-                Swal.fire({ text: 'Error en formato de la fecha de contrato.', type: "error", confirmButtonColor: "#188ae2" });
-                //event.preventDefault();	
+                scope.toast('error',"Error en formato de la fecha de contrato.",'');
                 return false;
             } else {
                 if (FecConCom[0].length > 2 || FecConCom[0].length < 2) {
-                    Swal.fire({ text: 'El formato del dia es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    //event.preventDefault();	
+                    scope.toast('error',"El formato del dia es incorrecto.",'');
                     return false;
 
                 }
                 if (FecConCom[1].length > 2 || FecConCom[1].length < 2) {
-                    Swal.fire({ text: 'El formato del mes es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    //event.preventDefault();	
+                    scope.toast('error',"El formato del mes es incorrecto.",'');
                     return false;
                 }
                 if (FecConCom[2].length < 4 || FecConCom[2].length > 4) {
-                    Swal.fire({ text: 'EL formato del año es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    //event.preventDefault();	
+                    scope.toast('error',"EL formato del año es incorrecto.",'');
                     return false;
                 }
                 var h1 = new Date();
@@ -466,24 +457,20 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             var FecVenConCom = (scope.FecVenConCom).split("/");
             if (FecVenConCom.length < 3) {
-                Swal.fire({ text: 'Error en la fecha de vencimiento..', type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
+                scope.toast('error',"Error en la fecha de vencimiento.",'');
                 return false;
             } else {
                 if (FecVenConCom[0].length > 2 || FecVenConCom[0].length < 2) {
-                    Swal.fire({ text: 'el formato del dia es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"el formato del dia es incorrecto.",'');
                     return false;
 
                 }
                 if (FecVenConCom[1].length > 2 || FecVenConCom[1].length < 2) {
-                    Swal.fire({ text: 'el formato del mes es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"el formato del mes es incorrecto.",'');
                     return false;
                 }
                 if (FecVenConCom[2].length < 4 || FecVenConCom[2].length > 4) {
-                    Swal.fire({ text: 'el formato del año es incorrecto', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error',"el formato del año es incorrecto.",'');
                     return false;
                 }
                 var h1 = new Date();
@@ -544,25 +531,25 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             scope.fdatos.ZonPos = scope.fdatos.ZonPos;
         }
-
+        if(scope.fdatos.FecConCom==null && scope.fdatos.FecVenConCom==null)
+        {
+            scope.fdatos.DurConCom=null;
+        }
     }
     $scope.uploadFile = function() {
         var file = $scope.file;
         upload.uploadFile(file, name).then(function(res) {
             console.log(res);
         }, function(error) {
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
         });
     }
     scope.regresar = function() {
@@ -640,24 +627,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(scope.fdatos);
             } else {
                 $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: 'No existen datos con el código que esta intentando buscar.', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error',"No existen datos con el código que esta intentando buscar.",'');
                 location.href = "#/Comercializadora";
             }
 
         }, function(error) {
             $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error 401", text: "Usuario no autorizado para acceder a este Módulo", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+            if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
         });
 
     }
@@ -669,6 +653,138 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
 
     }
+    var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 800;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
     if (scope.nID != undefined) {
         scope.buscarXID();
         /*var promise = $interval(function() {

@@ -89,19 +89,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }).catch(function(error) {
         console.log(error); //Tratar el error
         if (error.status == false && error.error == "This API key does not have access to the requested controller.") {
-            Swal.fire({ title: "Error 401", text: 'Este API KEY no tiene acceso a este controlador', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Este API KEY no tiene acceso a este controlador','Error de Privilegios');
         }
         if (error.status == false && error.error == "Unknown method.") {
-            Swal.fire({ title: "Error 404", text: 'El método no puede ser localizado, intente más tarde', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','El método no puede ser localizado','Error General');
         }
         if (error.status == false && error.error == "Unauthorized") {
-            Swal.fire({ title: "Error 401", text: 'Usuario no autorizado', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Usuario no autorizado','Error de Seguridad');
         }
         if (error.status == false && error.error == "Invalid API Key.") {
-            Swal.fire({ title: "Error 403", text: 'El API KEY que está intentando utilizar no es correcto', type: "error", confirmButtonColor: "#188ae2" });
-        }
+            scope.toast('error','El API KEY que está intentando utilizar no es correcto.','Error 403');
+            }
         if (error.status == false && error.error == "Internal Server Error") {
-            Swal.fire({ title: "Error 500", text: 'Ha ocurrido un error en el Servidor, intente más tarde', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Ha ocurrido un error en el Servidor.','Error 500');
         }
     });
 
@@ -134,24 +134,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.TProductosBack = [];
             }
         }, function(error) {
-            $("#List_Produc").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+                        $("#List_Produc").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error General');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error de Privilegios');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error de Seguridad');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error de Servidor');
+                        }            
         });
     }
-
-
-    $scope.SubmitFormFiltrosProductos = function(event) {
+    $scope.SubmitFormFiltrosProductos = function(event){
         console.log(event);
         console.log(scope.tmodal_productos.ttipofiltrosProductos);
         if (scope.tmodal_productos.ttipofiltrosProductos == 1) {
@@ -208,23 +203,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.tmodal_productos.FecIniPro = FecIniPro1;
             var FecIniPro = (scope.tmodal_productos.FecIniPro).split("/");
             if (FecIniPro.length < 3) {
-                Swal.fire({ text: 'Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
+                scope.toast('error','Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY.','');
                 return false;
             } else {
                 if (FecIniPro[0].length > 2 || FecIniPro[0].length < 2) {
-                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Día, debe introducir dos números.','');
                     return false;
                 }
                 if (FecIniPro[1].length > 2 || FecIniPro[1].length < 2) {
-                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Mes, debe introducir dos números.','');
                     return false;
                 }
                 if (FecIniPro[2].length < 4 || FecIniPro[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Año, debe introducir cuatro números.','');
                     return false;
                 }
             }
@@ -302,28 +293,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            Swal.fire({ text: 'La Fecha de Bloqueo es requerida', type: "error", confirmButtonColor: "#188ae2" });
-            return false;
+            scope.toast('error','La Fecha de Bloqueo es requerida.','');
+           return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
             if (FecBlo.length < 3) {
-                Swal.fire({ text: 'Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
-                return false;
+               scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY','');
+               return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Día, debe introducir dos números','');
                     return false;
                 }
                 if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Mes, debe introducir dos números','');
                     return false;
                 }
                 if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Año, debe introducir cuatro números','');
                     return false;
                 }
                 valuesStart = scope.fecha_bloqueo.split("/");
@@ -332,7 +319,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: 'La Fecha de Bloqueo no puede ser mayor a ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','La Fecha de Bloqueo no puede ser mayor a ' + scope.Fecha_Server,'');
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -381,28 +368,25 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     var text = 'El Producto ha sido bloqueado de forma correcta';
                     $("#modal_motivo_bloqueo_productos").modal('hide');
                 }
-                Swal.fire({ title: title, text: text, type: "success", confirmButtonColor: "#188ae2" });
+                scope.toast('success',text,title);
                 scope.opciones_productos[index] = undefined;
                 scope.cargar_lista_productos();
             } else {
-                Swal.fire({ title: "Error", text: "Ha ocurrido un error actualizando el Producto", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Ha ocurrido un error actualizando el Producto','');
                 scope.cargar_lista_productos();
             }
 
         }, function(error) {
-            $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+                        $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error General');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error de Privilegios');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error de Seguridad');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error de Servidor');
+                        }     
         });
     }
     scope.validar_opcion_productos = function(index, opciones_productos, dato) {
@@ -412,7 +396,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (opciones_productos == 1) {
             scope.opciones_productos[index] = undefined;
             if (dato.EstPro == 'ACTIVO') {
-                Swal.fire({ text: 'El Producto ya se encuentra activo', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El Producto ya se encuentra activo','');
                 return false;
             }
             Swal.fire({
@@ -435,8 +419,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.t_modal_data = {};
             scope.opciones_productos[index] = undefined;
             if (dato.EstPro == 'BLOQUEADO') {
-                Swal.fire({ text: 'El Producto ya se encuentra bloqueado', type: "error", confirmButtonColor: "#188ae2" });
-                return false;
+               scope.toast('error','El Producto ya se encuentra bloqueado.','');
+               return false;
             }
             scope.t_modal_data.CodPro = dato.CodPro;
             scope.Comercializadora = dato.NumCifCom + " - " + dato.RazSocCom;
@@ -526,7 +510,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.productos.SerEle = true;
                 }
             } else {
-                Swal.fire({ title: "Error", text: 'No hay información registrada', type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','No hay información registrada.','');
                 scope.validate_info_productos = 1;
                 scope.productos = {};
                 scope.productos.CodTPro = scope.nID;
@@ -537,18 +521,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.validate_info_productos = 1;
             scope.productos = {};
             scope.productos.CodTPro = scope.nID;
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+             if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error General');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error de Privilegios');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error de Seguridad');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error de Servidor');
+                        }     
         });
     }
 
@@ -587,26 +568,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.nIDPro = result.data.CodTPro;
                     if (result.data != false) {
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: titulo, text: response, type: "success", confirmButtonColor: "#188ae2" });
-                        scope.productos = result.data;
+                         //
+                          scope.toast('success',response,titulo);
+                          scope.productos = result.data;
                     } else {
                         $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        Swal.fire({ title: "Error", text: 'Ha ocurrido un error, intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Ha ocurrido un error, intente nuevamente.','');
                     }
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error General');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error de Privilegios');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error de Seguridad');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error de Servidor');
+                        }     
                 });
             } else {
                 event.preventDefault();
@@ -617,39 +596,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_productos = function() {
         resultado = true;
         if (!scope.productos.CodTProCom > 0) {
-            Swal.fire({ text: 'Seleccione una Comercializadora del listado', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Seleccione una Comercializadora del listado.','');
             return false;
         }
         if (scope.productos.DesPro == null || scope.productos.DesPro == undefined || scope.productos.DesPro == '') {
-            Swal.fire({ text: 'El Nombre del Producto es requerido', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','El Nombre del Producto es requerido.','');
             return false;
         }
         var FecIniPro1 = document.getElementById("FecIniPro").value;
         scope.FecIniPro = FecIniPro1;
         if (scope.FecIniPro == null || scope.FecIniPro == undefined || scope.FecIniPro == '') {
-            Swal.fire({ text: 'La Fecha de Inicio es requerida', type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','La Fecha de Inicio es requerida.','');
             return false;
         } else {
             var FecIniPro = (scope.FecIniPro).split("/");
             if (FecIniPro.length < 3) {
-                Swal.fire({ text: 'Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY', type: "error", confirmButtonColor: "#188ae2" });
-                event.preventDefault();
+                scope.toast('error','Error en Fecha de Inicio, el formato correcto es DD/MM/YYYY.','');
                 return false;
             } else {
                 if (FecIniPro[0].length > 2 || FecIniPro[0].length < 2) {
-                    Swal.fire({ text: 'Error en Día, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Día, debe introducir dos números.','');
                     return false;
 
                 }
                 if (FecIniPro[1].length > 2 || FecIniPro[1].length < 2) {
-                    Swal.fire({ text: 'Error en Mes, debe introducir dos números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Mes, debe introducir dos números.','');
                     return false;
                 }
                 if (FecIniPro[2].length < 4 || FecIniPro[2].length > 4) {
-                    Swal.fire({ text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
-                    event.preventDefault();
+                    scope.toast('error','Error en Año, debe introducir cuatro números.','');
                     return false;
                 }
                 valuesStart = scope.FecIniPro.split("/");
@@ -658,7 +633,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    Swal.fire({ text: 'La Fecha de Inicio no puede ser mayor a ' + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','La Fecha de Inicio no puede ser mayor a ' + scope.Fecha_Server,'');
                     return false;
                 }
                 scope.productos.FecIniPro = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
@@ -734,18 +709,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.reporte_excel_productos = 0;
                     }
                 }, function(error) {
-                    if (error.status == 404 && error.statusText == "Not Found") {
-                        Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 401 && error.statusText == "Unauthorized") {
-                        Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 403 && error.statusText == "Forbidden") {
-                        Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                    }
-                    if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                    }
+                     if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error General');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error de Privilegios');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error de Seguridad');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error de Servidor');
+                        }     
                 });
             }
             else
@@ -772,6 +744,138 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
     }
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 800;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
     if (scope.nID != undefined) {
         scope.BuscarxID();
     }

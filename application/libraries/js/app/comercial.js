@@ -395,7 +395,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#modal_dni_comprobar").modal('hide');
                 $cookies.put('CIF_COMERCIAL', scope.fdatos.NumDNI_NIECli);
                 location.href = "#/Agregar_Comercial/";
-                //Swal.fire({ title: "Disponible", text: "El Número de DNI/NIE se encuentra disponible", type: "success", confirmButtonColor: "#188ae2" });
             }
         }, function(error) {
             $("#comprobando_dni").removeClass("loader loader-default is-active").addClass("loader loader-default");
