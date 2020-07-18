@@ -146,31 +146,28 @@
                      return (begin3 <= index3 && index3 < end3);
                  };
              } else {
-                 //Swal.fire({ title: 'Cuentas Bancarias', text: "No existen Cuentas Bancarias Registradas.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','No existen Cuentas Bancarias Registradas.','Cuentas Bancarias');
                  scope.tCuentaBan = [];
                  scope.tCuentaBanBack = [];
              }
          }, function(error) {
              $("#cuentas_bancarias").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 401 && error.statusText == "Unauthorized") {
-                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-             }
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
          });
      }
      $scope.SubmitFormFiltrosBancos = function(event) {
          console.log(scope.tmodal_bancos);
          if (scope.tmodal_bancos.tipo_filtro == 1) {
              if (!scope.tmodal_bancos.CodBan > 0) {
-                 Swal.fire({ title: "Banco", text: "Debe Seleccionar Un Banco de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe Seleccionar Un Banco de la Lista.','Banco');
                  return false;
              }
              $scope.predicate3 = 'id';
@@ -196,7 +193,7 @@
          }
          if (scope.tmodal_bancos.tipo_filtro == 2) {
              if (!scope.tmodal_bancos.CodCli > 0) {
-                 Swal.fire({ title: "Clientes", text: "Debe Seleccionar Un Cliente de la Lista.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe Seleccionar Un Cliente de la Lista.','Clientes');
                  return false;
              }
              $scope.predicate3 = 'id';
@@ -254,14 +251,14 @@
          scope.opciones_Ban[index] = undefined;
          if (opcion == 1) {
              if (datos.EstCue == 1) {
-                 Swal.fire({ title: 'Cuentas Bancarias', text: "Esta Cuenta Bancaria Ya Se Encuentra Activa.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Esta Cuenta Bancaria Ya Se Encuentra Activa.','Cuentas Bancarias');
                  return false;
              }
              scope.update_status_CueBan(scope.bloquear_cueban);
          }
          if (opcion == 2) {
              if (datos.EstCue == 2) {
-                 Swal.fire({ title: 'Cuentas Bancarias', text: "Esta Cuenta Bancaria Ya Se Encuentra Bloqueada.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Esta Cuenta Bancaria Ya Se Encuentra Bloqueada.','Cuentas Bancarias');
                  return false;
              }
              scope.update_status_CueBan(scope.bloquear_cueban);
@@ -277,30 +274,27 @@
          $http.post(url, total_datos).then(function(result) {
              if (result.data != false) {
                  if (total_datos.EstCue == 1) {
-                     Swal.fire({ title: 'Activando', text: "Cuenta Bancaria Activada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                     scope.toast('success','Cuenta Bancaria Activada de forma correcta','Activando');
                  }
                  if (total_datos.EstCue == 2) {
-                     Swal.fire({ title: 'Bloqueando', text: "Cuenta Bancaria Bloqueada de forma correcta", type: "success", confirmButtonColor: "#188ae2" });
+                     scope.toast('success','Cuenta Bancaria Bloqueada de forma correcta','Bloqueando');
                  }
                  scope.cargar_cuentas_bancarias();
              } else {
-                 Swal.fire({ title: "Error.", text: "Error al intentar actualizar estatus de cuenta.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Error al intentar actualizar estatus de cuenta.','Error');
                  scope.cargar_cuentas_bancarias();
              }
 
          }, function(error) {
-             if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 401 && error.statusText == "Unauthorized") {
-                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-             }
+             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
          });
      }
      scope.validarsinuermoIBAN = function(IBAN, object) {
@@ -379,10 +373,10 @@
              console.log(scope.VAL_TIR_RES4);
              console.log(scope.VAL_RES_TIR_RES2);
              if (scope.VAL_RES_TIR_RES2 == 1) {
-                 Swal.fire({ title: "IBAN.", text: "El IBAN que introdujo es correcto", type: "success", confirmButtonColor: "#188ae2" });
+                 scope.toast('success','El IBAN que introdujo es correcto','IBAN');
                  scope.numIBanValidado = true;
              } else {
-                 Swal.fire({ title: "Error.", text: "El IBAN que introdujo es incorrecto, verifique e intente de nuevo", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','El IBAN que introdujo es incorrecto, verifique e intente de nuevo','Error');
                  scope.numIBanValidado = false;
              }
          } else {
@@ -394,7 +388,7 @@
          var url = base_urlHome() + "api/Clientes/Comprobar_Cuenta_Bancaria/";
          $http.post(url, scope.tgribBancos).then(function(result) {
              if (result.data == true) {
-                 Swal.fire({ title: "Error.", text: "La Cuenta Bancaria ya se encuentra registrada", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','La Cuenta Bancaria ya se encuentra registrada','Error');
                  scope.numIBanValidado = false;
                  return false;
              } else {
@@ -424,12 +418,12 @@
                              scope.tgribBancos = result.data;
                              if (result.data != false) {
                                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                                 Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
+                                 scope.toast('success',response,title);
                                  scope.numIBanValidado = false;
                                  scope.cargar_cuentas_bancarias();
                              } else {
                                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                                 Swal.fire({ title: "Error.", text: "Hubo un error al ejecutar esta acción por favor intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                                 scope.toast('error','Hubo un error al ejecutar esta acción por favor intente nuevamente.','Error');
                                  scope.numIBanValidado = false;
                                  scope.cargar_cuentas_bancarias();
                              }
@@ -437,18 +431,15 @@
                              $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                              scope.numIBanValidado = false;
 
-                             if (error.status == 404 && error.statusText == "Not Found") {
-                                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                             }
-                             if (error.status == 401 && error.statusText == "Unauthorized") {
-                                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-                             }
-                             if (error.status == 403 && error.statusText == "Forbidden") {
-                                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-                             }
-                             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                             }
+                             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
                          });
 
                      } else {
@@ -460,18 +451,15 @@
                  });
              } //end else////
          }, function(error) {
-             if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 401 && error.statusText == "Unauthorized") {
-                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-             }
+             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
          });
      };
      scope.regresar_cuenta_bancaria = function() {
@@ -520,23 +508,20 @@
                  scope.NumCifCliSearch=result.data.NumCifCli;
                  scope.RealizarFiltro(1);
              } else {
-                 Swal.fire({ title: "Error.", text: "No hay información de la Cuenta Bancaria", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','No hay información de la Cuenta Bancaria','Error');
                  scope.tContacto_data_modal = {};
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             if (error.status == 404 && error.statusText == "Not Found") {
-                 Swal.fire({ title: "Error General", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 401 && error.statusText == "Unauthorized") {
-                 Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 403 && error.statusText == "Forbidden") {
-                 Swal.fire({ title: "Error de Seguridad", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-             }
-             if (error.status == 500 && error.statusText == "Internal Server Error") {
-                 Swal.fire({ title: "Error de Servidor", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-             }
+             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
          });
 
      }
@@ -594,18 +579,15 @@
                          scope.ruta_reportes_excel_Banco = 0;
                      }
                  }, function(error) {
-                     if (error.status == 404 && error.statusText == "Not Found") {
-                         Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 401 && error.statusText == "Unauthorized") {
-                         Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 403 && error.statusText == "Forbidden") {
-                         Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                     }
-                     if (error.status == 500 && error.statusText == "Internal Server Error") {
-                         Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                     }
+                     if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
                  });
              }
              else
@@ -650,18 +632,15 @@
 
             },function(error)
             {
-                if (error.status == 404 && error.statusText == "Not Found") {
-                    Swal.fire({ title: "Error 404", text: "El método que esté intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 401 && error.statusText == "Unauthorized") {
-                    Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 403 && error.statusText == "Forbidden") {
-                    Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                }
-                if (error.status == 500 && error.statusText == "Internal Server Error") {
-                    Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                }
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
             });
         }
      }
@@ -690,18 +669,15 @@
                                          }
                                      },
                                      function(error) {
-                                         if (error.status == 404 && error.statusText == "Not Found") {
-                                             Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-                                         }
-                                         if (error.status == 401 && error.statusText == "Unauthorized") {
-                                             Swal.fire({ title: "Error 401", text: "Disculpe, Usuario no autorizado para acceder a ester módulo", type: "error", confirmButtonColor: "#188ae2" });
-                                         }
-                                         if (error.status == 403 && error.statusText == "Forbidden") {
-                                             Swal.fire({ title: "Error 403", text: "Está intentando utilizar un APIKEY incorrecto", type: "error", confirmButtonColor: "#188ae2" });
-                                         }
-                                         if (error.status == 500 && error.statusText == "Internal Server Error") {
-                                             Swal.fire({ title: "Error 500", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-                                         }
+                                        if (error.status == 404 && error.statusText == "Not Found"){
+                                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                                        }
                                      });
                          } else {
                              scope.searchResult = {};
@@ -728,7 +704,138 @@
         }
                             
     }
+        var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
 
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(status,msg,title)
+        {
+            var shortCutFunction = status;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 800;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
      if (scope.nID != undefined) {
          scope.BuscarXIDCCuentaBancaria();
      }

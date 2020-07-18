@@ -340,7 +340,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo <b style="color:red;">DD/MM/YYYY</b></label>
-     <input type="text" class="form-control datepicker" ng-model="vm.FechBlo" name="FechBlo" id="FechBlo" required ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
+     <input type="text" class="form-control datepicker" ng-model="vm.FechBlo" name="FechBlo" id="FechBlo" ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
      </div>
      </div>
      </div>

@@ -761,8 +761,10 @@ protected function buscar_xID_get()
 	{
 		$this->response(false);
 		return false;
-	}		
-	$this->response($data);		
+	}
+	$fecha=date('d/m/Y');
+	$arrayName = array('FechaServer' =>$fecha ,'MotivosContactos' =>$data );		
+	$this->response($arrayName);		
 }
 	public function getContactosFilter_post()
 	{

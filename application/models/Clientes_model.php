@@ -645,7 +645,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
 
     public function get_all_Cuentas_Bancarias_clientes()
     {
-       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a JOIN T_Banco b ON a.CodBan=b.CodBan JOIN T_Cliente c ON a.CodCli=c.CodCli");
+       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a JOIN T_Banco b ON a.CodBan=b.CodBan JOIN T_Cliente c ON a.CodCli=c.CodCli ORDER BY c.RazSocCli ASC");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
@@ -695,7 +695,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->or_like('b.DesBan',$SearchText); 
         $this->db->or_like('a.CodCli',$SearchText);        
         $this->db->or_like('a.NumIBan',$SearchText);
-        $this->db->order_by('a.NumIBan ASC');
+        $this->db->order_by('a.RazSocCli ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -706,10 +706,10 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
             return false;
         }    
     }
-////////////////////////////////////////////////////////// CUENTAS BANCARIAS END /////////////////////////////////////////////////////
+///////////////////////////////////////////////// CUENTAS BANCARIAS END ///////////////////////////////////////////
 
 
-/////////////////////////////////////////////////// DOCUMENTOS START //////////////////////////////////////////////////////////
+///////////////////////////////////// DOCUMENTOS START ///////////////////////////////////////////////////
  public function get_all_documentos()
     {
        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);

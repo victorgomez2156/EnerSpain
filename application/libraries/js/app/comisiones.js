@@ -79,8 +79,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         //console.log(CodDetAneTarEle);
         console.log(dato);
         if (scope.Block_Deta == 1) {            
-            scope.toast('error','','');
-            scope.toast('error','Actualmente hay un proceso de comisiones activo, terminelo he intente nuevamente.','Error');
+            scope.toast('info','Actualmente hay un proceso de comisiones activo, terminelo he intente nuevamente.','Comisión Activa');
             return false;
         } else {
             $("#Car_Det").removeClass("loader loader-default").addClass("loader loader-default is-active");

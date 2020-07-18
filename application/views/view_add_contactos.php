@@ -189,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">    
-              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Celular <b style="color:red;">(*)</b></label>         
+              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil <b style="color:red;">(*)</b></label>         
              <input type="text"  class="form-control" ng-model="vm.tContacto_data_modal.TelCelConCli"  ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.TelCelConCli,2)" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
              </div>
              </div>
