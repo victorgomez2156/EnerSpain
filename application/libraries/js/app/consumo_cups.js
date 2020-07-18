@@ -401,11 +401,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_cups = function() {
         resultado = true;
         if (scope.fdatos_cups.TipServ == 1) {
-            
-            
-            if(scope.totalPot==null){
-                Swal.fire({ title: "Este CUPs no tiene ninguna Tárifa asigna valla a gestionar cups y asigne la tárifa para poder continuar con este proceso.", type: "error", confirmButtonColor: "#188ae2" });
-                    return false;
+
+
+            if (scope.totalPot == null) {
+                Swal.fire({ title: "Este CUPs no tiene ninguna Tárifa asignada, asigne la tárifa en la opción Gestionar CUPs", type: "error", confirmButtonColor: "#188ae2" });
+                return false;
             }
 
             if (scope.totalPot == 1) {
