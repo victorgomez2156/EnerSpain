@@ -98,7 +98,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.disabled_button = true;
             } else {
                 $("#generar_key").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: "Error", text: "Ha ocurrido un error intentando generar el key, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Ha ocurrido un error intentando generar el key, intente nuevamente','Error');
                 scope.disabled_button = false;
             }
 
@@ -123,12 +123,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (scope.nID > 0) {
                 console.log(result.data);
                 $("#"+scope.title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-               Swal.fire({ title: scope.response, type: "success", confirmButtonColor: "#188ae2" });                
+                scope.toast('success',scope.response,'');                
                 location.href="#/Editar_Usuarios/"+scope.nID;
                 //scope.buscarXID();
             } else {
                 $("#"+scope.title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                Swal.fire({ title: 'Ha ocurrido un error intentando grabar el Usuario, por favor intente nuevamente', type: "success", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Ha ocurrido un error intentando grabar el Usuario, por favor intente nuevamente','');
+               
             }
         }, function(error) {
              $("#"+scope.title).removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -199,7 +200,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.select_controller[controllers.id] = controllers;
                 });
             } else {               
-                Swal.fire({ title: "Error General", text: "Hubo un error al intentar cargar los datos.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Hubo un error al intentar cargar los datos.','Error General');
             }
         }, function(error) {
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -302,7 +303,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.agregar_controlador = function(index, id, datos) {
         if (scope.Nivel == 3) {
-            Swal.fire({ title: "Usuario no Autorizado", text: "No tiene permisos para realizar esta operación", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
             return false;
         }
         var ObjControladores = new Object();
@@ -315,7 +316,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.quitar_controlador = function(index, id, datos) {
         if (scope.Nivel == 3) {
-            Swal.fire({ title: "Usuario no Autorizado", text: "No tiene permisos para realizar esta operación", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
             return false;
         }
         scope.select_controller[id] = false;

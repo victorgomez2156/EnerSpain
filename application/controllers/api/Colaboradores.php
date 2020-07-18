@@ -20,7 +20,7 @@ class Colaboradores extends REST_Controller
 	////PARA LAS COLABORADORES START///////
 	public function get_only_colaboradores_get(){
 		$data = $this->Colaboradores_model->get_list_colaboradores();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -36,9 +36,9 @@ class Colaboradores extends REST_Controller
 		}		
 		$Provincias = $this->Colaboradores_model->get_list_provincias();
         $Tipo_Vias = $this->Colaboradores_model->get_list_tipos_vias();
-        $Localidades = $this->Colaboradores_model->get_list_localidad();        
+        $Localidades = false;//$this->Colaboradores_model->get_list_localidad();        
         $data=array('Provincias' =>$Provincias ,'Tipo_Vias' =>$Tipo_Vias ,'Localidades' =>$Localidades  );
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Cargando Lista Peticiones');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Cargando Lista Peticiones');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -53,7 +53,7 @@ class Colaboradores extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
         $data = $this->Colaboradores_model->get_list_colaboradores();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Cargando Lista de Colaboradores');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Cargando Lista de Colaboradores');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -83,7 +83,7 @@ class Colaboradores extends REST_Controller
 		}
 		$NumIdeFis=$this->get('NumIdeFis');		
         $data = $this->Colaboradores_model->comprobar_dni_nie($NumIdeFis);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',0,$this->input->ip_address(),'Comprobando DNI/NIE.');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Comprobando DNI/NIE.');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -189,6 +189,16 @@ class Colaboradores extends REST_Controller
 		}				
 		$this->response($data);		
     }
+    public function SearchLocalidades_get(){
+		$CodPro=$this->get('CodPro');
+		$data = $this->Colaboradores_model->FilterLocalidades($CodPro);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidades','GET',null,$this->input->ip_address(),'Obteniendo Lista de Localidades');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
      ////PARA LAS COLABORADORES END///////
    
 	

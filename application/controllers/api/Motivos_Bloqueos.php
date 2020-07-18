@@ -361,7 +361,7 @@ public function crear_motivo_bloqueo_Comercializadora_post()
 	if (isset($objSalida->CodMotBloCom))
 	{		
 		$this->Motivos_bloqueos_model->actualizar_motivo_bloqueo_Comercializadora($objSalida->CodMotBloCom,$objSalida->DesMotBloCom,$objSalida->ObsMotBloCom);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','UPDATE',$objSalida->CodMotBloCon,$this->input->ip_address(),'Actualizando Motivo Bloqueo Comercializadoras.');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCom','UPDATE',$objSalida->CodMotBloCom,$this->input->ip_address(),'Actualizando Motivo Bloqueo Comercializadoras.');
 	}
 	else
 	{
@@ -438,7 +438,7 @@ public function crear_motivo_bloqueo_CUPs_post()
 	if (isset($objSalida->CodMotBloCUPs))
 	{		
 		$this->Motivos_bloqueos_model->actualizar_motivo_bloqueo_CUPs($objSalida->CodMotBloCUPs,$objSalida->DesMotBloCUPs,$objSalida->ObsMotBloCUPs);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','UPDATE',$objSalida->CodMotBloCon,$this->input->ip_address(),'Actualizando Motivo Bloqueo CUPs.');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCUPs','UPDATE',$objSalida->CodMotBloCUPs,$this->input->ip_address(),'Actualizando Motivo Bloqueo CUPs.');
 	}
 	else
 	{

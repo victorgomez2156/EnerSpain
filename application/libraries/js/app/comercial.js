@@ -888,7 +888,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
                 }, function(error)
                 {
-                     if (error.status == 404 && error.statusText == "Not Found"){
+                    if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
                         scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');

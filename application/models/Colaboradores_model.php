@@ -17,7 +17,7 @@ class Colaboradores_model extends CI_Model
             return false;
         }       
     }
-     public function comprobar_dni_nie($NumIdeFis)
+    public function comprobar_dni_nie($NumIdeFis)
     {
         $this->db->select('NumIdeFis');
         $this->db->from('T_Colaborador');
@@ -146,6 +146,21 @@ class Colaboradores_model extends CI_Model
         $this->db->or_like('TelCelCol',$SearchText);
         $this->db->or_like('EmaCol',$SearchText);
         $this->db->order_by('NomCol ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function FilterLocalidades($CodPro)
+    {
+        $this->db->select('*');
+        $this->db->from('T_Localidad');
+        $this->db->where('CodPro',$CodPro);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

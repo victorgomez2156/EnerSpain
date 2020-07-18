@@ -35,7 +35,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Colaborador</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCol==undefined">Registro de Colaborador</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.CodCol>0">Actualización de Colaborador</h3>
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li>Registro de Colaboradores</li>
@@ -163,7 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodPro" ng-change="vm.filtrarLocalidad()" ng-disabled="vm.validate_info!=undefined">
+        <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodPro" ng-change="vm.filtrarLocalidad(vm.fdatos.CodPro)" ng-disabled="vm.validate_info!=undefined">
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>
@@ -202,8 +203,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Celular <b style="color:red;" >(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.TelCelCol" ng-change="vm.validarsinuermotelefonocel(vm.fdatos.TelCelCol)"  placeholder="* Teléfono Celular" maxlength="9" ng-disabled="vm.validate_info!=undefined"/>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil <b style="color:red;" >(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.TelCelCol" ng-change="vm.validarsinuermotelefonocel(vm.fdatos.TelCelCol)"  placeholder="* Teléfono Móvil" maxlength="9" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
