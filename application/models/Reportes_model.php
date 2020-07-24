@@ -813,21 +813,18 @@ class Reportes_model extends CI_Model
         }       
     }
     public function get_clientes_x_colaborador($CodCol){
-
-        $this->db->select(  "c.CodCol,c.NomCol,c.NumIdeFis,(CASE WHEN c.TipCol =1 THEN 'Persona Física' WHEN c.TipCol = 2 THEN 'Empresa' ELSE 'Inválido' END) AS Tipo_Colaborador,
-                            a.RazSocCli,a.NomComCli,a.NumCifCli,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,
-                            a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,f.CodPro as CodProFis,a.CodLocFis,f.DesLoc as DesLocFis,a.TelFijCli,a.EmaCli,a.FecIniCli,
-                            a.ObsCli,d.CUPsEle,d.CodTarElec,d.PotConP1,d.PotConP2,d.PotConP3,d.PotConP4,d.PotConP5,d.PotConP6,
-                            d.PotMaxBie,e.CupsGas,e.CodTarGas,e.TipServ,
-                            (CASE WHEN e.TipServ =2 THEN CONCAT('Gas: ',e.CupsGas) 
-                            ELSE CONCAT('Eléctrico: ',d.CUPsEle) END) AS Cups,a.DireccionBBDD");
-		$this->db->from('T_Cliente a');
-        $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol');
-        $this->db->join('T_Localidad f', 'a.CodLocFis = f.CodLoc');
+        
+        $this->db->select("c.CodCol,c.NomCol,a.NumCifCli,a.RazSocCli,d.CUPsEle,e.NomTarEle,(SELECT SUM(ConCup) FROM T_HistorialCUPsElectrico WHERE CodCupEle=d.CodCupsEle) AS ConCupEle,NULL AS CodProEle,f.CupsGas,g.NomTarGas,(SELECT SUM(ConCup) FROM T_HistorialCUPsGas WHERE CodCupGas=f.CodCupGas) AS ConCupGas,NULL AS CodProGas,NULL AS CodCom,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,
+                            a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.DireccionBBDD,(CASE WHEN c.TipCol =1 THEN 'Persona Física' WHEN c.TipCol = 2 THEN 'Empresa' ELSE 'incorrecto' END) AS Tipo_Colaborador,h.DesLoc as DesLocFis,c.EmaCol",false);
+        $this->db->from('T_Cliente a');
+        $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol','left');
         $this->db->join('T_PuntoSuministro b', 'a.CodCli = b.CodCli','left');
-		$this->db->join('T_CUPsElectrico d', 'b.CodPunSum = d.CodPunSum','left');
-		$this->db->join('T_CUPsGas e', 'b.CodPunSum = e.CodPunSum','left');	
-		$this->db->where('c.CodCol',$CodCol);
+        $this->db->join('T_CUPsElectrico d', 'b.CodPunSum = d.CodPunSum','left');
+        $this->db->join('T_TarifaElectrica e', 'e.CodTarEle=d.CodTarElec','left');
+        $this->db->join('T_CUPsGas f', 'f.CodPunSum=b.CodPunSum','left');
+        $this->db->join('T_TarifaGas g', 'g.CodTarGas=f.CodTarGas','left');
+        $this->db->join('T_Localidad h', 'a.CodLocFis = h.CodLoc','left');
+        $this->db->where('c.CodCol',$CodCol);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         { 
@@ -836,7 +833,7 @@ class Reportes_model extends CI_Model
         else
         {
             return false;
-        }  
+        } 
     }
     public function PropuestaComercial($CodProCom)
     {

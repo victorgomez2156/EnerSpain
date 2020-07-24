@@ -19,7 +19,9 @@ class Colaboradores extends REST_Controller
     }
 	////PARA LAS COLABORADORES START///////
 	public function get_only_colaboradores_get(){
-		$data = $this->Colaboradores_model->get_list_colaboradores();
+		
+		$SearchText=$this->get('SearchText');
+		$data = $this->Colaboradores_model->get_list_colaboradores($SearchText);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
 		if (empty($data)){
 			$this->response(false);

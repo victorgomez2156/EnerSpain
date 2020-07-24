@@ -74,6 +74,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.CodAneTPro = true;
     scope.DesAnePro = true;
     scope.SerGasAne = true;
+    scope.TipPreFijAne=true;
+    scope.TipPreIndeAne=true;
     scope.SerTEleAne = true;
     scope.TipPreAne = true;
     scope.CodTipComAne = true;

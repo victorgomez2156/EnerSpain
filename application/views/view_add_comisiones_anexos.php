@@ -133,28 +133,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                     <th><i class="fa fa-arrow-down"></i></th>
                     <th><i class="fa fa-arrow-down"></i> Tipos de Servicio</th>
-                    <th><i class="fa fa-arrow-down"></i> Tipos de Precio</th>
+                    <th><i class="fa fa-arrow-down"></i> Tipo Precio</th>
                     <th><i class="fa fa-arrow-down"></i> Tarifas</th>
+                    <th><i class="fa fa-arrow-down"></i> Comisión definida</th>
                   </tr> 
                   <tr ng-show="vm.TComisionesDet.length==0"> 
                     <td colspan="4" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TComisionesDet | filter:paginate3" ng-class-odd="odd">                    
+                    
                     <td>
-                      <button type="button"  ng-click="vm.agregar_detalle_comision($index,dato.CodDetAneTarEle,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodDetAneTarEle]"><i class="fa fa fa-square-o" style="color:black;"></i></button>                        
+                      <button type="button" ng-click="vm.agregar_detalle_comision($index,dato.CodAutInc,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodAutInc]"><i class="fa fa fa-square-o" style="color:black;"></i></button>
+                      
+                      <button type="button" ng-show="vm.select_det_com[dato.CodAutInc]" ng-click="vm.quitar_detalle_comision($index,dato.CodAutInc,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>                      
+                    </td>                   
 
-                      <button type="button" ng-show="vm.select_det_com[dato.CodDetAneTarEle]" ng-click="vm.quitar_detalle_comision($index,dato.CodDetAneTarEle,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
-                      </td>
-                    <td>{{dato.TipServ}}</td>
-                    <td>{{dato.TipPre}}</td>                  
+                    <td>{{dato.TipServ}}</td> 
+                    <td>{{dato.TipPre}}</td> 
                     <td>{{dato.NomTarEle}}</td>
+                    <td>
+                    	<span class="label label-primary" ng-show="dato.EstComAsi==0"><i class="fa fa-ban"></i> NO</span>
+                        <span class="label label-success" ng-show="dato.EstComAsi>0"><i class="fa fa-check-circle"></i> SI</span>
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
-                    <th><i class="fa fa-arrow-up"></i></th>
-                    <th><i class="fa fa-arrow-up"></i> Tipos de Servicio</th>
-                    <th><i class="fa fa-arrow-up"></i> Tipos de Precio</th>
-                    <th><i class="fa fa-arrow-up"></i> Tarifas</th>
+                    <th><i class="fa fa-arrow-down"></i></th>
+                    <th><i class="fa fa-arrow-down"></i> Tipos de Servicio</th>
+                    <th><i class="fa fa-arrow-down"></i> Tipo Precio</th>
+                    <th><i class="fa fa-arrow-down"></i> Tarifas</th>
+                    <th><i class="fa fa-arrow-down"></i> Comisión definida</th>
                 </tfoot>
               </table><!--/div-->
         <div align="center">

@@ -604,8 +604,7 @@
              console.log(result);
              $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
              if (result.data.status == false && result.data.response == false) {
-                 scope.toast('error','','');
-                 //Swal.fire({ title: result.data.message, type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error',result.data.message,'');
                  $cookies.remove('CIF');
                  scope.validate_cif = true;
                  document.getElementById("NumCifCliRe").removeAttribute("readonly");
@@ -618,14 +617,12 @@
                      document.getElementById("NumCifCliRe").setAttribute("readonly", "readonly");
                  }
                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 scope.toast('error','','');
-                 //Swal.fire({ title: title, text: response, type: "success", confirmButtonColor: "#188ae2" });
+                 scope.toast('success',response,title);
                  location.href = "#/Edit_Datos_Basicos_Clientes/" + scope.nID;
                  //scope.buscarXID();				
              } else {
                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 scope.toast('error','','');
-                 //Swal.fire({ title: 'Error', text: 'Ha ocurrido un error, por favor intente nuevamente', type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');
 
              }
          }, function(error) {
@@ -685,8 +682,7 @@
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
 
              } else {
-                 scope.toast('error','','');
-                 //Swal.fire({ title: "Error", text: "No hay información", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','No hay información.','Error');
                  $interval.cancel(promise);
                  /*scope.fdatos={};
                  scope.FecIniCli=fecha;
@@ -699,7 +695,7 @@
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             if (error.status == 404 && error.statusText == "Not Found"){
+                    if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
                         scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');

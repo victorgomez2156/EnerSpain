@@ -524,14 +524,15 @@ public function Buscar_xID_Anexos_get()
 		}		
         $CodAnePro=$this->get('CodAnePro');
         $data = $this->Comercializadora_model->get_detalle_anexo($CodAnePro);
+        $data1 = $this->Comercializadora_model->get_detalle_anexo($CodAnePro);
         //$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'V_DetAneTar','GET',$CodAnePro,$this->input->ip_address(),'Consultando Detalles de Tarifas del Anexo');
-		if (empty($data)){
+		if (empty($data1)){
 			$this->response(false);
 			return false;
 		}
 		//$data_comisiones = array('data' =>$data , 'detalle_comisiones' =>$detalle_comisiones);		
-		$this->response($data);		
+		$this->response($data1);		
     }   
     public function buscar_comisiones_detalles_get()
     {
@@ -546,7 +547,9 @@ public function Buscar_xID_Anexos_get()
 		$CodAnePro=$this->get('CodAnePro');
 		$CodDetAneTarEle=$this->get('CodDetAneTarEle');
 		$CodTar=$this->get('CodTar');
-		$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar);
+		$TipPre=$this->get('TipPre');
+		$TipServ=$this->get('TipServ');
+		$detalle_comisiones = $this->Comercializadora_model->get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar,$TipPre,$TipServ);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','GET',$CodAnePro,$this->input->ip_address(),'Registrando Comisiones.');	
 		$this->db->trans_complete();
 		$this->response($detalle_comisiones);
@@ -561,14 +564,14 @@ public function Buscar_xID_Anexos_get()
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();		
 		$detalle=$objSalida->Detalles;		
-		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodAnePro,$objSalida->CodTarEle,$objSalida->CodDetAne);
+		$this->Comercializadora_model->eliminar_detalles_comisiones_anexos($objSalida->CodAnePro,$objSalida->CodTarEle,$objSalida->CodDetAne,$objSalida->TipServ,$objSalida->TipPre);
 		foreach ($detalle as $record):
 		{
 			if (empty($record->RanCon))
 			{
 				$record->RanCon=null;
 			}
-			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ);
+			$this->Comercializadora_model->agregar_comisiones_anexos($record->CodDetAne,$record->CodAnePro,$record->RanCon,$record->ConMinAnu,$record->ConMaxAnu,$record->ConSer,$record->ConCerVer,$record->CodTarEle,$record->TipServ,$record->TipPre);
 		}	
 		endforeach;	
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleComisionesAnexos','INSERT',$objSalida->CodDetAne,$this->input->ip_address(),'Registrando Comisiones.');	

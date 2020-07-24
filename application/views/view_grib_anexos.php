@@ -148,7 +148,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.DesAnePro==true"> Descripción Anexo</th>
                     <th ng-show="vm.SerGasAne==true"> Suministro Gas</th>
                     <th ng-show="vm.SerTEleAne==true"> Suministro Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"> Tipo Precio</th>
+                    <th ng-show="vm.TipPreFijAne==true"> Precio Fijo</th>
+                    <th ng-show="vm.TipPreIndeAne==true"> Precio Indexando</th>
                     <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
                     <th ng-show="vm.ObsAnePro==true"> Observación</th>
                     <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>
@@ -156,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.AccTAne==true"> Acción</th>
                   </tr> 
                   <tr ng-show="vm.TAnexos.length==0"> 
-                    <td colspan="12" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                    <td colspan="14" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.TAnexos | filter:paginate2" ng-class-odd="odd">                    
                     <td ng-show="vm.NumCifCom==true">{{dato.NumCifCom}}</td>
@@ -165,7 +166,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.DesAnePro==true">{{dato.DesAnePro}}</td>
                     <td ng-show="vm.SerGasAne==true">{{dato.SerGas}}</td>
                     <td ng-show="vm.SerTEleAne==true">{{dato.SerEle}}</td>
-                    <td ng-show="vm.TipPreAne==true">{{dato.TipPre}}</td>
+                    
+                    <td ng-show="vm.TipPreFijAne==true">
+                      <label ng-show="dato.TipPre==0 || dato.TipPre==2">SI</label>
+                      <label ng-show="dato.TipPre==1">NO</label>
+                    </td>                    
+                    <td ng-show="vm.TipPreIndeAne==true">
+                      <label ng-show="dato.TipPre==1 || dato.TipPre==2">SI</label>
+                      <label ng-show="dato.TipPre==0">NO</label>
+                    </td>
                     <td ng-show="vm.CodTipComAne==true">{{dato.DesTipCom}}</td>
                     <td ng-show="vm.ObsAnePro==true">{{dato.ObsAnePro}}</td>
                     <td ng-show="vm.FecIniAne==true">{{dato.FecIniAne}}</td>
@@ -184,13 +193,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>
-                     <th ng-show="vm.NumCifCom==true"> CIF</th>
+                    <th ng-show="vm.NumCifCom==true"> CIF</th>
                     <th ng-show="vm.RazSocCom==true"> Razón Social</th>
                     <th ng-show="vm.CodAneTPro==true"> Productos</th>
                     <th ng-show="vm.DesAnePro==true"> Descripción Anexo</th>
                     <th ng-show="vm.SerGasAne==true"> Suministro Gas</th>
                     <th ng-show="vm.SerTEleAne==true"> Suministro Eléctrico</th>
-                    <th ng-show="vm.TipPreAne==true"> Tipo Precio</th>
+                   <th ng-show="vm.TipPreFijAne==true"> Precio Fijo</th>
+                    <th ng-show="vm.TipPreIndeAne==true"> Precio Indexando</th>
                     <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
                     <th ng-show="vm.ObsAnePro==true"> Observación</th>
                     <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>

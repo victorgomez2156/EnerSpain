@@ -76,18 +76,46 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.agregar_detalle_comision = function(index, CodDetAneTarEle, dato) {
         //console.log(index);
-        //console.log(CodDetAneTarEle);
+        console.log(CodDetAneTarEle);
+        
+
         console.log(dato);
         if (scope.Block_Deta == 1) {            
             scope.toast('info','Actualmente hay un proceso de comisiones activo, terminelo he intente nuevamente.','Comisión Activa');
             return false;
         } else {
+            if(dato.TipPre=='Fijo')
+            {
+                var TipPre=0;
+            }
+            else if(dato.TipPre=='Indexado')
+            {
+                var TipPre=1;
+            }
+            else
+            {
+               var TipPre=null; 
+            }
+            if(dato.TipServ=="Eléctrico")
+            {
+                var TipServ=1;
+            }
+            else if(dato.TipServ=='Gas')
+            {
+                var TipServ=2;
+            }
+            else
+            {
+               var TipServ=null; 
+            }
+
             $("#Car_Det").removeClass("loader loader-default").addClass("loader loader-default is-active");
-            var url = base_urlHome() + "api/Comercializadora/buscar_comisiones_detalles/CodAnePro/" + dato.CodAnePro + "/CodDetAneTarEle/" + dato.CodDetAneTarEle + "/CodTar/" + dato.CodTarEle;
+            var url = base_urlHome() + "api/Comercializadora/buscar_comisiones_detalles/CodAnePro/" + dato.CodAnePro + "/CodDetAneTarEle/" + dato.CodDetAneTarEle + "/CodTar/" + dato.CodTarEle+ "/TipPre/" + TipPre+ "/TipServ/" + TipServ;
             $http.get(url).then(function(result) {
                 $("#Car_Det").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 if (result.data != false) {
                     scope.select_det_com[CodDetAneTarEle] = dato;
+                    console.log(scope.select_det_com);
                     scope.CodTarEle = dato.CodTarEle;
                     scope.CodDetAne = dato.CodDetAneTarEle;
                     scope.CodAnePro = dato.CodAnePro;
@@ -103,7 +131,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         if (Comisiones.TipServ == "Gas") {
                             scope.TipServ = 2;
                         }
-                        scope.TComisionesRangoGrib.push({ CodDetCom: Comisiones.CodDetCom, CodDetAne: Comisiones.CodDetAne, CodAnePro: Comisiones.CodAnePro, CodTarEle: Comisiones.CodTarEle, TipServ: scope.TipServ, RanCon: Comisiones.RanCon, ConMinAnu: Comisiones.ConMinAnu, ConMaxAnu: Comisiones.ConMaxAnu, ConSer: Comisiones.ConSer, ConCerVer: Comisiones.ConCerVer });
+                        if (dato.TipPre == "Fijo") {
+                        var TipPre = 0;
+                        scope.TipPre = 0;
+                        }
+                        if (dato.TipPre == "Indexado") {
+                            var TipPre = 1;
+                            scope.TipPre = 1;
+                        }
+                        scope.TComisionesRangoGrib.push({ CodDetCom: Comisiones.CodDetCom, CodDetAne: Comisiones.CodDetAne, CodAnePro: Comisiones.CodAnePro, CodTarEle: Comisiones.CodTarEle, TipServ: scope.TipServ,TipPre: scope.TipPre, RanCon: Comisiones.RanCon, ConMinAnu: Comisiones.ConMinAnu, ConMaxAnu: Comisiones.ConMaxAnu, ConSer: Comisiones.ConSer, ConCerVer: Comisiones.ConCerVer });
                         console.log(scope.TComisionesRangoGrib);
                     });
                 } else {
@@ -124,7 +160,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         var TipServ = 2;
                         scope.TipServ = 2;
                     }
-                    scope.TComisionesRangoGrib.push({ CodDetAne: dato.CodDetAneTarEle, CodAnePro: dato.CodAnePro, CodTarEle: dato.CodTarEle, TipServ: TipServ, ConSer: "0.00", ConCerVer: "0.00" });
+                    if (dato.TipPre == "Fijo") {
+                        var TipPre = 0;
+                        scope.TipPre = 0;
+                    }
+                    if (dato.TipPre == "Indexado") {
+                        var TipPre = 1;
+                        scope.TipPre = 1;
+                    }
+                    scope.TComisionesRangoGrib.push({ CodDetAne: dato.CodDetAneTarEle, CodAnePro: dato.CodAnePro, CodTarEle: dato.CodTarEle, TipServ: TipServ, ConSer: "0.00", ConCerVer: "0.00",TipPre: TipPre});
                     console.log(scope.TComisionesRangoGrib);
                 }
             }, function(error) {
@@ -166,13 +210,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 console.log(a[i]);
             }
             console.log(b);
-            scope.TComisionesRangoGrib.push({ CodDetAne: b.CodDetAne, CodAnePro: b.CodAnePro, CodTarEle: b.CodTarEle, TipServ: b.TipServ, RanCon: null, ConMinAnu: b.ConMinAnu, ConMaxAnu: b.ConMaxAnu, ConSer: b.ConSer, ConCerVer: b.ConCerVer });
+            scope.TComisionesRangoGrib.push({ CodDetAne: b.CodDetAne, CodAnePro: b.CodAnePro, CodTarEle: b.CodTarEle, TipServ: b.TipServ,TipPre: b.TipPre, RanCon: null, ConMinAnu: b.ConMinAnu, ConMaxAnu: b.ConMaxAnu, ConSer: b.ConSer, ConCerVer: b.ConCerVer });
             scope.ConMinAnuCoo = Math.max(parseFloat(b.ConMaxAnu), 0) + 1;
         }
         if (scope.TComisionesRangoGrib == undefined || scope.TComisionesRangoGrib == false) {
             scope.TComisionesRangoGrib = [];
         }
-        scope.TComisionesRangoGrib.push({ CodDetAne: scope.CodDetAne, CodAnePro: scope.CodAnePro, CodTarEle: scope.CodTarEle, TipServ: scope.TipServ, ConMinAnu: scope.ConMinAnuCoo, ConSer: "0.00", ConCerVer: "0.00" });
+        scope.TComisionesRangoGrib.push({ CodDetAne: scope.CodDetAne, CodAnePro: scope.CodAnePro, CodTarEle: scope.CodTarEle, TipServ: scope.TipServ,TipPre: scope.TipPre, ConMinAnu: scope.ConMinAnuCoo, ConSer: "0.00", ConCerVer: "0.00" });
         console.log(scope.TComisionesRangoGrib);
     }
     scope.quitar_detalle_comision_length = function() {
@@ -200,6 +244,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.datos_enviar.CodAnePro = scope.CodAnePro;
         scope.datos_enviar.CodTarEle = scope.CodTarEle;
         scope.datos_enviar.CodDetAne = scope.CodDetAne;
+        scope.datos_enviar.TipServ = scope.TipServ;
+        scope.datos_enviar.TipPre = scope.TipPre;
         scope.datos_enviar.Detalles = scope.TComisionesRangoGrib;
         console.log(scope.datos_enviar);
 
@@ -218,7 +264,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.post(url, scope.datos_enviar).then(function(result) {
                     $("#Guar_Deta").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
+                        
                         scope.toast('success','Proceso de comisiones realizado de forma correcta.','Comisiones');
+                        scope.Buscar_Tarifas_Anexos();
                     } else {
                         scope.toast('error','ha ocurrido un error en el proceso, Por Favor intente Nuevamente.','Error');
                     }

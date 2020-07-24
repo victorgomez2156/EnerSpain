@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section class="wrapper">
     <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Reporte de CUPs por Colaborador {{vm.tClientes_x_Colaboradores.length}}</h3>
+            <h3 class="page-header">Reporte de CUPs por Colaborador. Total Registros: {{vm.tClientes_x_Colaboradores.length}}</h3>
             <!--<ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>              
               <li><i class="fa fa-cube"></i>Reporte Cups por Colaboradores</li>
@@ -122,11 +122,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                  <select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" 
+                  
+                  <!--select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" 
                       ng-model="vm.vColaboradorSeleccionado"
                       ng-change="vm.Clientes_x_Colaboradores(vm.vColaboradorSeleccionado)">
                       <option ng-repeat="opcion in vm.tOnlyColaboradores" value="{{opcion.CodCol}}">{{opcion.NomCol}}</option>                          
-                  </select>  
+                  </select-->
+                <input type="text" class="form-control" ng-model="vm.ColSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchColaboradoresCUPs()' ng-click='vm.searchboxClicked($event)'>
+                <ul id='searchResult'>
+                  <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+                  {{ result.CodCol }},  {{ result.NumIdeFis }} - {{ result.NomCol }} 
+                  </li>
+                </ul> 
+                <input type="hidden" name="opciones_colaboradores" id="opciones_colaboradores" ng-model="vm.vColaboradorSeleccionado" class="form-control">
+
+
+
                   </div>  
                 </form>                    
             </div>
@@ -150,45 +161,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>                                       
-                    <th ng-show="vm.NomComCli==true">NOMBRE</th>
+                    <th ng-show="vm.NomComCli==true">Nombre</th>
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
-                    <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true">CUPS</th>
-                    <th ng-show="vm.NomVia==true"> DIRECCIÓN SOCIAL</th>
-                    <th ng-show="vm.NomViaFis==true"> DIRECCIÓN FISCAL</th>
-                    <th ng-show="vm.DireccionCol==true"> DIRECCIÓN BBDD</th>
-                    <th ng-show="vm.EmailCol==true"> EMAIL</th>
-                    <th ng-show="vm.TelCol==true"> TELÉFONO</th>
+                    <th ng-show="vm.RazSocCli==true">Razón Social</th>
+                    <th ng-show="vm.CodCupEle==true">CUPS Eléctrico</th>
+                    <th ng-show="vm.TarEle==true">Tárifa</th> 
+                    <th ng-show="vm.ConCupEle==true">Consumó</th>
+                    <th ng-show="vm.CodProEle==true">Producto</th>
+                    <th ng-show="vm.CupsColGas==true">CUPS Gas</th>
+                    <th ng-show="vm.TarGas==true">Tárifa</th>                        
+                    <th ng-show="vm.ConCupGas==true">Consumó</th>
+                    <th ng-show="vm.CodProGas==true">Producto</th>
+                    <th ng-show="vm.CodCom==true">Comercializadora</th>
+                    <th ng-show="vm.NomVia==true"> Dirección Social</th>
+                    <th ng-show="vm.NomViaFis==true"> Dirección Fiscal</th>
+                    <th ng-show="vm.DireccionCol==true"> Dirección BBDD</th>
+                    <th ng-show="vm.EmailCol==true"> Email</th>
                   </tr>
                   <tr ng-show="vm.tClientes_x_Colaboradores.length==0"> 
-                     <td colspan="9" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                     <td colspan="16" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tClientes_x_Colaboradores | filter:paginate" ng-class-odd="odd">                    
-                    <td ng-show="vm.NomComCli==true">{{dato.NomComCli}}</td>
+                    <td ng-show="vm.NomComCli==true">{{dato.NomCol}}</td>
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
-                    <td ng-show="vm.CupsCol==true">{{dato.Cups}}</td>
-                    <td ng-show="vm.NomVia==true">{{dato.NomViaDomSoc}} {{dato.NumViaDomSoc}} {{dato.BloDomSoc}} {{dato.EscDomSoc}} {{dato.PlaDomSoc}} {{dato.PueDomSoc}} {{dato.CodPro}} {{dato.CodLoc}}</td>                   
+                    <td ng-show="vm.CodCupEle==true">{{dato.CUPsEle}}</td>
+                    <td ng-show="vm.TarEle==true">{{dato.NomTarEle}}</td>
+                    <td ng-show="vm.ConCupEle==true">{{dato.ConCupEle}}</td>
+                    <td ng-show="vm.CodProEle==true">{{dato.CodProEle}}</td>
+                    <td ng-show="vm.CupsColGas==true">{{dato.CupsGas}}</td>
+                    <td ng-show="vm.TarGas==true">{{dato.NomTarGas}}</td>
+                    <td ng-show="vm.ConCupGas==true">{{dato.ConCupGas}}</td>
+                    <td ng-show="vm.CodProGas==true">{{dato.CodProGas}}</td>
+                    <td ng-show="vm.CodCom==true">{{dato.CodCom}}</td> 
+                    <td ng-show="vm.NomVia==true">{{dato.NomViaDomSoc}} {{dato.NumViaDomSoc}} {{dato.BloDomSoc}} {{dato.EscDomSoc}} {{dato.PlaDomSoc}} {{dato.PueDomSoc}} {{dato.CodPro}} {{dato.CodLoc}}</td>                
                     <td ng-show="vm.NomViaFis==true">{{dato.NomViaDomFis}} {{dato.NumViaDomFis}} {{dato.BloDomFis}} {{dato.EscDomFis}} {{dato.PlaDomFis}} {{dato.PueDomFis}} {{dato.CodProFis}} {{dato.CodLocFis}}</td>
                     <td ng-show="vm.DireccionCol==true">{{dato.DireccionBBDD}}</td>
                     <td ng-show="vm.EmailCol==true">{{dato.EmaCli}}</td>
-                    <td ng-show="vm.TelCol==true">{{dato.TelFijCli}}</td>
                   </tr>
                 </tbody>
                 <tfoot>                 
-                   <th ng-show="vm.NomComCli==true"> NOMBRE</th>
+                   <th ng-show="vm.NomComCli==true">Nombre</th>
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
-                    <th ng-show="vm.RazSocCli==true">RAZÓN SOCIAL</th>
-                    <th ng-show="vm.CupsCol==true"> CUPS</th>
-                    <th ng-show="vm.NomVia==true"> DIRECCIÓN SOCIAL</th>
-                    <th ng-show="vm.NomViaFis==true"> DIRECCIÓN FISCAL</th>
-                    <th ng-show="vm.DireccionCol==true"> DIRECCIÓN BBDD</th>
-                    <th ng-show="vm.EmailCol==true"> EMAIL</th>
-                    <th ng-show="vm.TelCol==true"> TELÉFONO</th>
+                    <th ng-show="vm.RazSocCli==true">Razón Social</th>
+                    <th ng-show="vm.CodCupEle==true">CUPS Eléctrico</th>
+                    <th ng-show="vm.TarEle==true">Tárifa</th> 
+                    <th ng-show="vm.ConCupEle==true">Consumó</th>
+                    <th ng-show="vm.CodProEle==true">Producto</th>
+                    <th ng-show="vm.CupsColGas==true">CUPS Gas</th>
+                    <th ng-show="vm.TarGas==true">Tárifa</th>                        
+                    <th ng-show="vm.ConCupGas==true">Consumó</th>
+                    <th ng-show="vm.CodProGas==true">Producto</th>
+                    <th ng-show="vm.CodCom==true">Comercializadora</th>
+                    <th ng-show="vm.NomVia==true"> Dirección Social</th>
+                    <th ng-show="vm.NomViaFis==true"> Dirección Fiscal</th>
+                    <th ng-show="vm.DireccionCol==true"> Dirección BBDD</th>
+                    <th ng-show="vm.EmailCol==true"> Email</th>
                 </tfoot>
               </table>
         </div>       
         <!--FIN DE TABLA-->
+        <div align="center">               
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
      </div>
 
     <!-- page end-->

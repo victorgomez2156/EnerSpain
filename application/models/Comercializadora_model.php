@@ -336,10 +336,10 @@ public function get_list_productos()
 ///////////////////////////////////////////PARA LOS PRODUCTOS END /////////////////////////////////////////////////////
 
 ///////////////////////////////////////////PARA LOS ANEXOS START///////////////////////////////////////////////////////
-
+//case a.TipPre when 0 then "Fijo" when 1 then "Indenxando" WHEN 2 THEN "Fijo" end TipPre
     public function get_list_anexos()
     {
-        $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,case a.TipPre when 0 then "FIJO" when 1 then "INDEXANDO" WHEN 2 THEN "AMBOS" end TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
+        $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom,a.TipPre',FALSE);
         $this->db->from('T_AnexoProducto a');
         $this->db->join('T_Producto b','a.CodPro=b.CodPro');
         $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');
@@ -477,31 +477,48 @@ public function get_list_productos()
     
     public function get_detalle_anexo($CodAnePro)
     {
-        $this->db->select('*');
-        $this->db->from('V_DetAneTar');
-        $this->db->where('CodAnePro',$CodAnePro);          
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        {
-            return $query->result();
-        }
-        else
-        {
-            return false;
-        }      
+        
+
+        $sql = $this->db->query("SELECT a.CodDetAneTarEle,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarEle,(CASE WHEN a.TipServ =1 THEN 'Eléctrico' ELSE 'N/A' END) AS TipServ,d.NomTarEle,c.descripcion AS TipPre,c.id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos g,TipoPrecio h WHERE g.CodAnePro = b.CodAnePro AND g.CodDetAne = a.CodDetAneTarEle AND g.TipPre = h.id AND g.CodTar = a.CodTarEle AND c.id=h.id) AS EstComAsi FROM T_DetalleAnexoTarifaElectrica a,T_AnexoProducto b,TipoPrecio c,T_TarifaElectrica d WHERE a.CodAnePro = b.CodAnePro AND b.TipPre=2 AND a.CodTarEle=d.CodTarEle AND a.CodAnePro='$CodAnePro' 
+UNION ALL 
+
+SELECT a.CodDetAneTarEle,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarEle,(CASE WHEN a.TipServ =1 THEN 'Eléctrico' ELSE 'N/A' END) AS TipServ,c.NomTarEle,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id
+,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarEle) AS EstComAsi
+ FROM T_DetalleAnexoTarifaElectrica a 
+JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro 
+JOIN T_TarifaElectrica c ON c.CodTarEle=a.CodTarEle 
+JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 
+UNION ALL 
+
+SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,d.NomTarGas,c.descripcion,c.id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos g,TipoPrecio h WHERE g.CodAnePro = b.CodAnePro AND g.CodDetAne = a.CodDetAneTarGas AND g.TipPre = h.id AND g.CodTar = a.CodTarGas AND c.id=h.id) AS EstComAsi FROM T_DetalleAnexoTarifaGas a, T_AnexoProducto b,TipoPrecio c,T_TarifaGas d WHERE a.CodAnePro = b.CodAnePro  AND b.TipPre=2 AND a.CodTarGas=d.CodTarGas AND a.CodAnePro='$CodAnePro'
+UNION ALL
+
+SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,c.NomTarGas,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id,
+(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarGas ) AS EstComAsi
+ FROM T_DetalleAnexoTarifaGas a 
+JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro 
+JOIN T_TarifaGas c ON c.CodTarGas=a.CodTarGas 
+JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 ORDER BY 1,7");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else  
+        return false;
+
     }
-    public function agregar_comisiones_anexos($CodDetAne,$CodAnePro,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer,$CodTarEle,$TipServ)
+    public function agregar_comisiones_anexos($CodDetAne,$CodAnePro,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer,$CodTarEle,$TipServ,$TipPre)
     {
-       $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAne,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer,'CodTar'=>$CodTarEle,'TipServ'=>$TipServ));
+       $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAne,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer,'CodTar'=>$CodTarEle,'TipServ'=>$TipServ,'TipPre'=>$TipPre));
         return $this->db->insert_id();   
     }
-    public function get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar)
+    public function get_detalle_comisiones_anexos($CodAnePro,$CodDetAneTarEle,$CodTar,$TipPre,$TipServ)
     {
-        $this->db->select('CodDetCom,CodAnePro,CodDetAne,CodTar as CodTarEle,RanCon,ConMinAnu,ConMaxAnu,ConSer,ConCerVer,case TipServ when 1 then "Eléctrico" when 2 then "Gas" end TipServ,Factor,Formula',FALSE);
+        $this->db->select('CodDetCom,CodAnePro,CodDetAne,CodTar as CodTarEle,RanCon,ConMinAnu,ConMaxAnu,ConSer,ConCerVer,case TipServ when 1 then "Eléctrico" when 2 then "Gas" end TipServ,case TipPre when 0 then "Fijo" when 1 then "Indexado" end TipPre,Factor,Formula',FALSE);
         $this->db->from('T_DetalleComisionesAnexos');
         $this->db->where('CodAnePro',$CodAnePro);
         $this->db->where('CodDetAne',$CodDetAneTarEle); 
-        $this->db->where('CodTar',$CodTar);           
+        $this->db->where('CodTar',$CodTar);
+        $this->db->where('TipPre',$TipPre);
+        $this->db->where('TipServ',$TipServ);           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -512,13 +529,13 @@ public function get_list_productos()
             return false;
         }      
     }
-    public function eliminar_detalles_comisiones_anexos($CodAnePro,$CodTarEle,$CodDetAne)
+    public function eliminar_detalles_comisiones_anexos($CodAnePro,$CodTarEle,$CodDetAne,$TipServ,$TipPre)
     {
-        return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro,'CodTar' => $CodTarEle,'CodDetAne' => $CodDetAne));
+        return $this->db->delete('T_DetalleComisionesAnexos', array('CodAnePro' => $CodAnePro,'CodTar' => $CodTarEle,'CodDetAne' => $CodDetAne,'TipServ' => $TipServ,'TipPre' => $TipPre));
     }
     public function getAnexossearch($SearchText)
     {
-       $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,case a.TipPre when 0 then "FIJO" when 1 then "INDEXANDO" WHEN 2 THEN "AMBOS" end TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
+       $this->db->select('a.CodAnePro,c.RazSocCom,c.NumCifCom,b.DesPro,a.DesAnePro,case a.SerGas when 0 then "NO" when 1 then "SI" end SerGas,case a.SerEle when 0 then "NO" when 1 then "SI" end SerEle,case a.EstAne when 1 then "ACTIVO" when 2 then "BLOQUEADO" end EstAne,a.ObsAnePro,date_format(a.FecIniAne,"%d/%m/%Y") as FecIniAne,a.TipPre,a.DocAnePro,a.EstCom,a.CodTipCom,d.DesTipCom',FALSE);
         $this->db->from('T_AnexoProducto a');
         $this->db->join('T_Producto b','a.CodPro=b.CodPro');
         $this->db->join('T_Comercializadora c','b.CodCom=c.CodCom');

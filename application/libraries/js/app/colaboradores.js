@@ -28,19 +28,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.vColaboradorSeleccionado = null;
     scope.habilitar_button = 0;
     resultado = false;
-
-    scope.NomComCli = true;
-    scope.NumCifCli = true;
-    scope.RazSocCli = true;
-    scope.CupsCol = true;
-    scope.DireccionCol = true;
-    scope.EmailCol = true;
-    scope.TelCol = true;
+   
     console.log($route.current.$$route.originalPath);
    
- if ($route.current.$$route.originalPath == "/Reporte_Cups_Colaboradores") {
-ServiceOnlyColaboradores.getAll().then(function(dato) {
+    if ($route.current.$$route.originalPath == "/Reporte_Cups_Colaboradores") {
+    scope.NomComCli=true;
+    scope.NumCifCli=true;
+    scope.RazSocCli=true;
+    scope.CodCupEle=true;
+    scope.TarEle=true;
+    scope.CodProEle=true;
+    scope.ConCupEle=true;
+    scope.CupsColGas=true;
+    scope.TarGas=true;
+    scope.CodProGas=true;
+    scope.CodCom=true;
+    scope.ConCupGas=true;
+    scope.DireccionCol=true;
+    scope.EmailCol=true;
+
+    /*ServiceOnlyColaboradores.getAll().then(function(dato) {
         scope.tOnlyColaboradores = dato;
+
+        console.log(scope.tOnlyColaboradores);
 
     }).catch(function(error) {
         console.log(error); //Tratar el error
@@ -59,7 +69,7 @@ ServiceOnlyColaboradores.getAll().then(function(dato) {
         if (error.status == false && error.error == "Internal Server Error") {
             scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
         }
-    });
+    });*/
  }
     if ($route.current.$$route.originalPath == "/Colaboradores/") {
         scope.NomCol = true;
@@ -120,10 +130,6 @@ ServiceOnlyColaboradores.getAll().then(function(dato) {
 
 
     }
-    
-    /*
-    
-    */
 
     $scope.submitForm = function(event) {
         //console.log(scope.fdatos);
@@ -825,7 +831,26 @@ ServiceOnlyColaboradores.getAll().then(function(dato) {
             scope.spinner_loader = 0;
             if (result.data != false) {
                 scope.data_result = 1;
+                
+
+
+                $scope.predicate = 'id';
+                $scope.reverse = true;
+                $scope.currentPage = 1;
+                $scope.order = function(predicate) {
+                    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                    $scope.predicate = predicate;
+                };
                 scope.tClientes_x_Colaboradores = result.data;
+                $scope.totalItems = scope.tClientes_x_Colaboradores.length;
+                $scope.numPerPage = 25;
+                $scope.paginate = function(value) {
+                    var begin, end, index;
+                    begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                    end = begin + $scope.numPerPage;
+                    index = scope.tClientes_x_Colaboradores.indexOf(value);
+                    return (begin <= index && index < end);
+                } 
             } else {
                 scope.data_result = 2;
                 scope.tClientes_x_Colaboradores = [];
@@ -935,6 +960,51 @@ ServiceOnlyColaboradores.getAll().then(function(dato) {
                         scope.ruta_reportes_excel_colaboradores = 0;
             }
         }
+    }
+    scope.fetchColaboradoresCUPs = function() {
+       
+            var searchText_len = scope.ColSearch.trim().length;           
+            if (searchText_len > 0) {
+                var url = base_urlHome() + "api/Colaboradores/get_only_colaboradores/SearchText/"+scope.ColSearch;
+                $http.get(url).then(function(result) {
+                    console.log(result);
+                    if (result.data != false) {
+                        scope.searchResult = result.data;
+                        console.log(scope.searchResult);
+                    } else {
+                        scope.searchResult = {};
+                    }
+                }, function(error) {
+                     if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                });
+            } else {
+                scope.searchResult = {};
+            }               
+
+    }
+
+    scope.setValue = function(index, $event, result, metodo)
+    {
+        scope.ColSearch = scope.searchResult[index].CodCol+" - "+scope.searchResult[index].NumIdeFis+" - "+scope.searchResult[index].NomCol;
+        scope.vColaboradorSeleccionado=scope.searchResult[index].CodCol;
+        scope.searchResult = {};
+        $event.stopPropagation();
+        scope.Clientes_x_Colaboradores(scope.vColaboradorSeleccionado);      
+      
+    }
+    scope.searchboxClicked = function($event) {
+        $event.stopPropagation();
+    }
+    scope.containerClicked = function() {
+        scope.searchResult = {};
     }
     	var i = -1;
         var toastCount = 0;
