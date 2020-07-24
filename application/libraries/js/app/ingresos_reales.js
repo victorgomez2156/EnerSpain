@@ -56,25 +56,22 @@
         },function(error)
         {
             $("#Ingresos_Reales").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (error.status == 404 && error.statusText == "Not Found") {
-                Swal.fire({ title: "Error.", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 401 && error.statusText == "Unauthorized") {
-                Swal.fire({ title: "Error de Privilegios", text: "Usuario no autorizado para acceder a este Módulo", type: "info", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 403 && error.statusText == "Forbidden") {
-                Swal.fire({ title: "Seguridad.", text: "Está intentando utilizar un APIKEY incorrecto", type: "question", confirmButtonColor: "#188ae2" });
-            }
-            if (error.status == 500 && error.statusText == "Internal Server Error") {
-                Swal.fire({ title: "Error.", text: "Ha ocurrido una falla en el Servidor, intente más tarde", type: "error", confirmButtonColor: "#188ae2" });
-            }
+           if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
         });
     }
     scope.validar_campos_reportes=function()
     {
         resultado = true;
         if (!scope.fdatos.ano > 0) {
-            Swal.fire({ title: "Debe seleccionar un año.", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Debe seleccionar un año.','');
             return false;
         }        
         if (resultado == false)
