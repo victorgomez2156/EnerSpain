@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <option ng-repeat="opcion in vm.tOnlyColaboradores" value="{{opcion.CodCol}}">{{opcion.NomCol}}</option>                          
                   </select-->
                 <input type="text" class="form-control" ng-model="vm.ColSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchColaboradoresCUPs()' ng-click='vm.searchboxClicked($event)'>
-                <ul id='searchResult'>
+                <ul id='searchResult' style="height: 250px; overflow-y: auto;">
                   <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
                   {{ result.CodCol }},  {{ result.NumIdeFis }} - {{ result.NomCol }} 
                   </li>

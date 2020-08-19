@@ -21,13 +21,21 @@ class Colaboradores extends REST_Controller
 	public function get_only_colaboradores_get(){
 		
 		$SearchText=$this->get('SearchText');
-		$data = $this->Colaboradores_model->get_list_colaboradores($SearchText);
+		$data = $this->Colaboradores_model->get_clientes_x_colaborador_Filter($SearchText); 
+
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
 		if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);		
+		}
+		$detalleFinal = Array();
+		foreach ($data as $key => $value):
+		{
+			$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
+			array_push($detalleFinal, $detalleG);
+		}
+		endforeach;
+		$this->response($detalleFinal);				
 	}
     public function get_all_functions_colaboradores_get()
     {

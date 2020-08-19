@@ -101,6 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Form validations -->
         <div class="row">
           <div class="col-lg-12">
+            
             <section class="panel">
              
               <div class="panel-body">
@@ -272,8 +273,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-
+</div>
             </section>
+
+
+            
           </div>
         </div>
         <!-- page end-->

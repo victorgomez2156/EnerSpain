@@ -102,11 +102,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
         <!-- page start-->
+       
+
+
+
+
+
         <div class="row">
             <div class="col-lg-12">
               <!--panel start-->
               <section class="panel">
-                <div id="t-0002"><!--t-0002 start-->   
+        
+          <div class="col-12 col-sm-10">
+           <div class="form">                          
+           <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Propuestas</label>          
+          <select class="form-control" id="tipo_propuesta" name="tipo_propuesta" ng-model="vm.tipo_propuesta">
+           <option value="1">Sencilla</option>
+           <option value="2">UniCliente – Multipunto</option> 
+           <option value="3">MultiCliente – Multipunto</option>        
+          </select>         
+         </div>
+         </div>
+      </div>
+       <div class="col-12 col-sm-2">
+         <div class="form">                          
+         <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:black;">Ver Listado</label><br>
+          <button class="btn btn-info" type="button" ng-click="vm.FiltrarPropuestasComerciales()"><i class="fa fa-eye"></i> </button>         
+         </div>
+         </div>
+      </div>
+      <div ng-show="vm.tipo_propuesta==undefined"> <br><br></div>
+           <!--div class="btn-group">
+                   <select class="form-control" style="width: auto;" id="tipo_propuesta" name="tipo_propuesta" ng-model="vm.tipo_propuesta" ng-change="vm.validar_tipo_propuestas(vm.tipo_propuesta)">
+                          <option value="0" selected="selected">Tipos de Propuestas</option>
+                          <option value="1">Sencilla</option>
+                          <option value="2">UniCliente – Multipunto</option>
+                          <option value="3">MultiCliente – Multipunto</option>
+                    </select> 
+
+              </div>
+              <button class="btn btn-info" type="button"><i class="fa fa-eye"></i> Ver Listado</button-->
+<br><br>
+  
+  <div ng-show="vm.tipo_propuesta==1">
+  <h3 class="page-header">Listado de Propuestas Sencillas</h3>
+          <div id="t-0002"><!--t-0002 start-->   
           <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
             <div class="t-0029"><!--t-0029 start--> 
               <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
@@ -162,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.ActPro==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TPropuesta_Comerciales.length==0"> 
-                    <td colspan="6" align="center">
+                    <td colspan="8" align="center">
                       <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información</div>
                     </td>           
                     </tr>
@@ -209,6 +251,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </pagination>
           </div>
         </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 <!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_propuestas" class="modal fade">
@@ -317,15 +370,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <!--input type="checkbox" name="select_contra_{{$index}}" id="select_contra_{{$index}}" ng-model="vm.select_ContrProRenPen[$index]" ng-click="vm.SelectContrato($index,dato,vm.select_ContrProRenPen[$index])"-->
                       <button type="button"  ng-click="vm.agregar_ContratoProRenPen($index,dato.CodConCom,dato)" title="Seleccionar" ng-show="!vm.select_DetProPenRen[dato.CodConCom]"><i class="fa fa fa-square-o" style="color:black;"></i></button>
                                             
-                      <button type="button" ng-show="vm.select_DetProPenRen[dato.CodConCom]" ng-click="vm.quitar_ContratoProRenPen($index,dato.CodConCom,dato)"><i class="fa fa fa-check-circle" title="Quitar" style="color:green;"></i></button>  
-
-
-
+                      <button type="button" ng-show="vm.select_DetProPenRen[dato.CodConCom]" ng-click="vm.quitar_ContratoProRenPen($index,dato.CodConCom,dato)"><i class="fa fa fa-check-circle" title="Quitar" style="color:green;"></i></button> 
                     </td>
-                    
-
-
-
                     <td>{{dato.FecIniCon}}</td>
                     <td>{{dato.DurCon}} Meses</td> 
                     <td>{{dato.FecVenCon}}</td>
@@ -348,10 +394,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tfoot>
               </table>
         </div>
-     
-
-   
-
       <div style="margin-left:15px; ">
         <button class="btn btn-info" type="submit" ng-disabled="frmProRenPen.$invalid">Renovar</button>
       </div>
@@ -394,9 +436,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                 </div>
 <!--modal modal_cif_comercializadora section END -->
+             
+
+
+
+
               </section>
             </div>
         </div>
+
+
       </section>
     </section>
 

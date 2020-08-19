@@ -31,15 +31,15 @@ class Distribuidoras_model extends CI_Model
             return false;
         }       
     }
-     public function agregar($EmaDis,$NomComDis,$NumCifDis,$ObsDis,$PagWebDis,$PerConDis,$RazSocDis,$TelFijDis,$TipSerDis)
+     public function agregar($EmaDis,$NomComDis,$NumCifDis,$ObsDis,$PagWebDis,$PerConDis,$RazSocDis,$TelFijDis,$TipSerDis,$PreCups)
     {
-        $this->db->insert('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'NumCifDis'=>$NumCifDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis));
+        $this->db->insert('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'NumCifDis'=>$NumCifDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis,'PreCups'=>$PreCups));
         return $this->db->insert_id();
     }
-    public function actualizar($CodDist,$EmaDis,$NomComDis,$NumCifDis,$ObsDis,$PagWebDis,$PerConDis,$RazSocDis,$TelFijDis,$TipSerDis)
+    public function actualizar($CodDist,$EmaDis,$NomComDis,$NumCifDis,$ObsDis,$PagWebDis,$PerConDis,$RazSocDis,$TelFijDis,$TipSerDis,$PreCups)
     {   
         $this->db->where('CodDist', $CodDist);  
-        return $this->db->update('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis,'NumCifDis'=> $NumCifDis));
+        return $this->db->update('T_Distribuidora',array('EmaDis'=>$EmaDis,'NomComDis'=>$NomComDis,'ObsDis'=>$ObsDis,'PagWebDis'=>$PagWebDis,'PerConDis'=>$PerConDis,'RazSocDis'=>$RazSocDis,'TelFijDis'=>$TelFijDis,'TipSerDis'=>$TipSerDis,'NumCifDis'=> $NumCifDis,'PreCups'=>$PreCups));
     }
     public function get_distribuidora_data($CodDist)
     {

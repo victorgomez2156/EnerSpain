@@ -143,9 +143,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-repeat="dato in vm.TComisionesDet | filter:paginate3" ng-class-odd="odd">                    
                     
                     <td>
+                      
                       <button type="button" ng-click="vm.agregar_detalle_comision($index,dato.CodAutInc,dato)" title="Agregar {{dato.NomTarEle}}" ng-show="!vm.select_det_com[dato.CodAutInc]"><i class="fa fa fa-square-o" style="color:black;"></i></button>
                       
-                      <button type="button" ng-show="vm.select_det_com[dato.CodAutInc]" ng-click="vm.quitar_detalle_comision($index,dato.CodAutInc,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>                      
+                      <button type="button" ng-show="vm.select_det_com[dato.CodAutInc]" ng-click="vm.quitar_detalle_comision($index,dato.CodAutInc,dato)"><i class="fa fa fa-check-circle" title="Quitar {{dato.NomTarEle}}" style="color:green;"></i></button>
+                                            
                     </td>                   
 
                     <td>{{dato.TipServ}}</td> 

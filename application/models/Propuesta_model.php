@@ -27,12 +27,9 @@ class Propuesta_model extends CI_Model
     }
     public function get_list_propuesta_clientes_all()
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
-        $this->db->from('T_PropuestaComercial a');
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle',"left");
-        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas',"left");
-        $this->db->order_by('a.FecProCom DESC');              
+        $this->db->select('*',false);
+        $this->db->from('VPropuestaSencillas');
+        $this->db->order_by('FecProCom DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -41,13 +38,10 @@ class Propuesta_model extends CI_Model
     }
     public function get_list_propuesta_comerciales_filtro($where,$Variable)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
-        $this->db->from('T_PropuestaComercial a');
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle','left');
-        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas','left');
+        $this->db->select('*',false);
+        $this->db->from('VPropuestaSencillas');
         $this->db->where($where,$Variable);
-        $this->db->order_by('a.FecProCom DESC');              
+        $this->db->order_by('FecProCom DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
@@ -57,7 +51,8 @@ class Propuesta_model extends CI_Model
     public function Buscar_Propuesta($Variable,$tabla,$where)
     {
         $this->db->select('*',false);
-        $this->db->from($tabla);       
+        $this->db->from($tabla);
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');   
         $this->db->where($where,$Variable);
         $this->db->where('EstProCom','P');              
         $query = $this->db->get(); 
@@ -143,11 +138,30 @@ class Propuesta_model extends CI_Model
         else
         return false;              
     }
-    public function agregar_propuesta($CodCli,$FecProCom,$CodPunSum,$CodCupSEle,$CodTarEle,$ImpAhoEle,$PorAhoEle,$RenConEle,$ObsAhoEle,$CodCupGas,$CodTarGas,$ImpAhoGas,$PorAhoGas,$RenConGas,$ObsAhoGas,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ObsProCom,$RefProCom,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$CauDia,$Consumo)
+    public function agregar_propuesta($FecProCom,$TipProCom,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ObsProCom,$RefProCom)
     {
-        $this->db->insert('T_PropuestaComercial',array('CodCli'=>$CodCli,'FecProCom'=>$FecProCom,'CodPunSum'=>$CodPunSum,'CodCupsEle'=>$CodCupSEle,'CodTarEle'=>$CodTarEle,'ImpAhoEle'=>$ImpAhoEle,'PorAhoEle'=>$PorAhoEle,'RenConEle'=>$RenConEle,'ObsAhoEle'=>$ObsAhoEle,'CodCupsGas'=>$CodCupGas,'CodTarGas'=>$CodTarGas,'ImpAhoGas'=>$ImpAhoGas,'PorAhoGas'=>$PorAhoGas,'RenConGas'=>$RenConGas,'ObsAhoGas'=>$ObsAhoGas,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'CauDia'=>$CauDia,'Consumo'=>$Consumo));
+        $this->db->insert('T_PropuestaComercial',array('FecProCom'=>$FecProCom,'TipProCom'=>$TipProCom,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
         return $this->db->insert_id();
     }
+    public function agregar_propuesta_comercial_clientes($CodProCom,$CodCli)
+    {
+        $this->db->insert('T_Propuesta_Comercial_Clientes',array('CodProCom'=>$CodProCom,'CodCli'=>$CodCli));
+        return $this->db->insert_id();
+    }
+    public function agregar_detallesCUPs($CodProComCli,$CodPunSum,$CodCups,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$RenCon,$ImpAho,$PorAho,$ObsCup,$ConCUPs,$CauDia,$TipServ)
+    {
+        $this->db->insert('T_Propuesta_Comercial_CUPs',array('CodProComCli'=>$CodProComCli,'CodPunSum'=>$CodPunSum,'CodCup'=>$CodCups,'CodTar'=>$CodTar,'PotEleConP1'=>$PotConP1,'PotEleConP2'=>$PotConP2,'PotEleConP3'=>$PotConP3,'PotEleConP4'=>$PotConP4,'PotEleConP5'=>$PotConP5,'PotEleConP6'=>$PotConP6,'RenCup'=>$RenCon,'ImpAho'=>$ImpAho,'PorAho'=>$PorAho,'ObsCup'=>$ObsCup,'ConCup'=>$ConCUPs,'CauDiaGas'=>$CauDia,'TipCups'=>$TipServ));
+        return $this->db->insert_id();
+    }
+    public function agregar_detallesHistorialCUPs($CodProComCli,$CodPunSum,$CodCups,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$RenCon,$ImpAho,$PorAho,$ObsCup,$ConCUPs,$CauDia,$TipServ)
+    {
+        $this->db->insert('T_Propuesta_Comercial_Historial_CUPs',array('CodProComCli'=>$CodProComCli,'CodPunSum'=>$CodPunSum,'CodCup'=>$CodCups,'CodTar'=>$CodTar,'PotEleConP1'=>$PotConP1,'PotEleConP2'=>$PotConP2,'PotEleConP3'=>$PotConP3,'PotEleConP4'=>$PotConP4,'PotEleConP5'=>$PotConP5,'PotEleConP6'=>$PotConP6,'RenCup'=>$RenCon,'ImpAho'=>$ImpAho,'PorAho'=>$PorAho,'ObsCup'=>$ObsCup,'ConCup'=>$ConCUPs,'CauDiaGas'=>$CauDia,'TipCups'=>$TipServ));
+        return $this->db->insert_id();
+    }
+
+
+
+
     public function update_contrato_cliente($CodCli,$CodConCom,$EstRen,$RenMod,$ProRenPen)
     {   
         $this->db->where('CodConCom', $CodConCom); 
@@ -164,17 +178,15 @@ class Propuesta_model extends CI_Model
         $this->db->where('CodCupGas', $CodCupGas);  
         return $this->db->update('T_CUPsGas',array('CodTarGas'=>$CodTarGas,'ConAnuCup'=>$Consumo));
     }
-    public function update_view_propuesta($CodProCom,$JusRecProCom,$CodCli,$EstProCom)
+    public function update_view_propuesta($CodProCom,$JusRecProCom,$EstProCom)
     {   
-        $this->db->where('CodProCom', $CodProCom); 
-        $this->db->where('CodCli', $CodCli);       
+        $this->db->where('CodProCom', $CodProCom);   
         return $this->db->update('T_PropuestaComercial',array('EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom));
     }
-    public function update_edit_propuesta($CauDia,$CodAnePro,$CodCli,$CodCom,$CodCupGas,$CodCupSEle,$CodPro,$CodProCom,$CodPunSum,$CodTarEle,$CodTarGas,$Consumo,$EstProCom,$FecProCom,$ImpAhoEle,$ImpAhoGas,$ImpAhoTot,$JusRecProCom,$ObsAhoEle,$ObsAhoGas,$ObsProCom,$PorAhoEle,$PorAhoGas,$PorAhoTot,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$RefProCom,$RenConEle,$RenConGas,$TipPre)
+    public function update_edit_propuesta($CodProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ImpAhoTot,$PorAhoTot,$EstProCom,$RefProCom,$JusRecProCom)
     {   
         $this->db->where('CodProCom', $CodProCom); 
-        $this->db->where('CodCli', $CodCli);       
-        return $this->db->update('T_PropuestaComercial',array('CodPunSum'=>$CodPunSum,'CodCupsEle'=>$CodCupSEle,'CodTarEle'=>$CodTarEle,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'ImpAhoEle'=>$ImpAhoEle,'PorAhoEle'=>$PorAhoEle,'RenConEle'=>$RenConEle,'ObsAhoEle'=>$ObsAhoEle,'CodCupsGas'=>$CodCupGas,'CodTarGas'=>$CodTarGas,'Consumo'=>$Consumo,'CauDia'=>$CauDia,'ImpAhoGas'=>$ImpAhoGas,'PorAhoGas'=>$PorAhoGas,'RenConGas'=>$RenConGas,'ObsAhoGas'=>$ObsAhoGas,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
+        return $this->db->update('T_PropuestaComercial',array('CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ImpAhoTot'=>$ImpAhoTot,'PorAhoTot'=>$PorAhoTot,'EstProCom'=>$EstProCom,'RefProCom'=>$RefProCom,'JusRecProCom'=>$JusRecProCom));
     }
     
     public function BuscandoGestiones($Tabla,$order_by,$select,$where,$CodCli)
@@ -234,26 +246,70 @@ class Propuesta_model extends CI_Model
     }
     public function getPropuestaComercialesFilter($SearchText)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
+        $this->db->select('*',false);
+        $this->db->from('VPropuestaSencillas');
+        $this->db->like('DATE_FORMAT(FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('NumCifCli',$SearchText);
+        $this->db->or_like('RazSocCli',$SearchText);
+        $this->db->or_like('CUPsEle',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
+        $this->db->or_like('CupsGas',$SearchText);
+        $this->db->or_like('RefProCom',$SearchText);           
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;
+    }
+    public function PropuestasSencillas()
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,
+(SELECT e.CUPsEle 
+FROM T_Propuesta_Comercial_CUPs d 
+left JOIN T_CUPsElectrico e ON e.CodCupsEle=d.CodCup 
+left JOIN T_PuntoSuministro f ON f.CodPunSum=e.CodPunSum 
+WHERE f.CodCli=c.CodCli and b.CodProComCli=d.CodProComCli and d.TipCups=1) AS CUPsEle
+,(SELECT g.CupsGas 
+FROM T_Propuesta_Comercial_CUPs i 
+left JOIN T_CUPsGas g ON i.CodCup =g.CodCupGas 
+left JOIN T_PuntoSuministro h ON h.CodPunSum=g.CodPunSum
+WHERE h.CodCli=c.CodCli AND b.CodProComCli=i.CodProComCli and i.TipCups=2) AS CupsGas,a.EstProCom,a.RefProCom',false);
         $this->db->from('T_PropuestaComercial a');
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle',"left");
-        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas',"left");
-        $this->db->like('DATE_FORMAT(a.FecProCom,"%d/%m/%Y")',$SearchText);
-        $this->db->or_like('b.NumCifCli',$SearchText);
-        $this->db->or_like('b.RazSocCli',$SearchText);
-        $this->db->or_like('c.CUPsEle',$SearchText);
-        $this->db->or_like('a.CodCli',$SearchText);
-        $this->db->or_like('d.CupsGas',$SearchText);
-        $this->db->or_like('a.RefProCom',$SearchText);
-        $this->db->order_by('a.FecProCom DESC');              
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");        
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
         else
         return false;              
     }
-
+     public function BuscarDetallesCUPsSencilla($CodProComCli)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_Propuesta_Comercial_CUPs');
+        $this->db->where('CodProComCli',$CodProComCli);      
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function SelectHistorialCUPs($CodProComCli)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_Propuesta_Comercial_CUPs');
+        $this->db->where('CodProComCli',$CodProComCli);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function EliminarCUPs($CodProComCli)
+    { 
+        return $this->db->delete('T_Propuesta_Comercial_CUPs', array('CodProComCli' => $CodProComCli));
+    }
 
 
 

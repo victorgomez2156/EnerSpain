@@ -173,7 +173,6 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             var dd = fecha.getDate();
             var mm = fecha.getMonth() + 1;
             var yyyy = fecha.getFullYear();
-
             if (dd < 10) {
                 dd = '0' + dd
             }
@@ -189,13 +188,13 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             $http.defaults.headers.common["x-api-key"] = ApiKey;
             muestra_preguntas = $cookies.get('id');
             /*if(muestra_preguntas==1)
-	 	{
-			$("#modal-success").modal("hide");
-		}
-		else
-		{
-			$("#modal-success").modal("show");
-		}*/
+    	 	{
+    			$("#modal-success").modal("hide");
+    		}
+    		else
+    		{
+    			$("#modal-success").modal("show");
+    		}*/
         }
 
     });

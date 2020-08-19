@@ -170,10 +170,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                    <th ng-show="vm.NomCol==true"><i class="fa fa-user-circle"></i> Nombre</th>
+                    <th ng-show="vm.NomCol==true">Nombre</th>
                     <th ng-show="vm.NumIdeFis==true">CIF/NIF</th>
                     <th ng-show="vm.TipCol==true">Tipo</th>
-                    <th ng-show="vm.PorCol==true"><% Comisión</th>
+                    <th ng-show="vm.PorCol==true">% Comisión</th>
                     <th ng-show="vm.TelCelCol==true">Tel. Móvil</th>
                     <th ng-show="vm.TelFijCol==true">Tel. Fijo</th>
                     <th ng-show="vm.EmaCol==true">Email</th>

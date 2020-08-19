@@ -81,12 +81,12 @@ public function get_CUPs_Electricos_Dashboard($CodCli)
 {
     $sql = $this->db->query("SELECT b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ
         FROM T_CUPsElectrico a 
-        JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
-        JOIN T_Localidad c on c.CodLoc=b.CodLoc
-        JOIN T_Provincia d on d.CodPro=c.CodPro
-        JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
-        JOIN T_TarifaElectrica f ON a.CodTarElec=f.CodTarEle
-        JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaElectrica f ON a.CodTarElec=f.CodTarEle
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
     if ($sql->num_rows() > 0)
         return $sql->result();
     else
@@ -96,12 +96,12 @@ public function get_CUPs_Gas_Dashboard($CodCli)
 {
     $sql = $this->db->query("SELECT b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ
         FROM T_CUPsGas a 
-        JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
-        JOIN T_Localidad c on c.CodLoc=b.CodLoc
-        JOIN T_Provincia d on d.CodPro=c.CodPro
-        JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
-        JOIN T_TarifaGas f ON a.CodTarGas=f.CodTarGas
-        JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaGas f ON a.CodTarGas=f.CodTarGas
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
     if ($sql->num_rows() > 0)
         return $sql->result();
     else
@@ -158,8 +158,8 @@ public function get_data_cliente_documentos($CodCli)
 public function get_CUPs_Gas($CodPunSum)
 {
     $sql = $this->db->query("SELECT a.CodCupGas,a.CupsGas,c.RazSocDis,b.NomTarGas,a.CodTarGas,a.ConAnuCup from T_CUPsGas a
-    JOIN T_TarifaGas b on a.CodTarGas=b.CodTarGas
-    JOIN T_Distribuidora c on a.CodDis=c.CodDist
+    left JOIN T_TarifaGas b on a.CodTarGas=b.CodTarGas
+    left JOIN T_Distribuidora c on a.CodDis=c.CodDist
     where a.CodPunSum='$CodPunSum'");
     if ($sql->num_rows() > 0)
         return $sql->result();
@@ -169,8 +169,8 @@ public function get_CUPs_Gas($CodPunSum)
 public function get_CUPs_Electricos($CodPunSum)
 {
    $sql = $this->db->query("SELECT a.CodCupsEle,a.CUPsEle,c.RazSocDis,b.NomTarEle,a.CodTarElec,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,b.CanPerTar from T_CUPsElectrico a
-    JOIN T_TarifaElectrica b on a.CodTarElec=b.CodTarEle
-    JOIN T_Distribuidora c on a.CodDis=c.CodDist
+    left JOIN T_TarifaElectrica b on a.CodTarElec=b.CodTarEle
+    left JOIN T_Distribuidora c on a.CodDis=c.CodDist
     where a.CodPunSum='$CodPunSum'");
     if ($sql->num_rows() > 0)
         return $sql->result();
@@ -579,15 +579,15 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
             return false;
         }      
     }
-     public function agregar_contacto($NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon)
+     public function agregar_contacto($NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon,$ConPrin)
     {
-        $this->db->insert('T_ContactoCliente',array('CodCli'=>$CodCli,'CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'NumColeCon'=>$NumColeCon));
+        $this->db->insert('T_ContactoCliente',array('CodCli'=>$CodCli,'CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'NumColeCon'=>$NumColeCon,'ConPrin'=>$ConPrin));
         return $this->db->insert_id();
     }
-    public function actualizar_contacto($CodConCli,$NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon)
+    public function actualizar_contacto($CodConCli,$NIFConCli,$EsRepLeg,$TieFacEsc,$CanMinRep,$CodCli,$CodTipCon,$CarConCli,$NomConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$TipRepr,$DocNIF,$ObsConC,$DocPod,$NumColeCon,$ConPrin)
     {   
         $this->db->where('CodConCli', $CodConCli);        
-        return $this->db->update('T_ContactoCliente',array('CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'CodCli'=>$CodCli,'NumColeCon'=>$NumColeCon));
+        return $this->db->update('T_ContactoCliente',array('CodTipCon'=>$CodTipCon,'EsRepLeg'=>$EsRepLeg,'CanMinRep'=>$CanMinRep,'NomConCli'=>$NomConCli,'DocNIF'=>$DocNIF,'TieFacEsc'=>$TieFacEsc,'DocPod'=>$DocPod,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'TipRepr'=>$TipRepr,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'CodCli'=>$CodCli,'NumColeCon'=>$NumColeCon,'ConPrin'=>$ConPrin));
     }   
     public function update_status_Contacto($EstCom,$CodConCli)
     {   
@@ -599,7 +599,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->insert('T_BloqueoContacto',array('CodConCli'=>$CodConCli,'FecBloCon'=>$FecBloCon,'CodMotBloCon'=>$MotBloqcontacto,'ObsBloCon'=>$ObsBloContacto));
         return $this->db->insert_id();
     }
-     public function get_all_list_contactos()
+    public function get_all_list_contactos()
     {
         $this->db->select('*');
         $this->db->from('T_MotivoBloCon');
@@ -636,6 +636,22 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         {
             return false;
         }       
+    }
+    public function Get_valida_contacto_principal($CodCli,$ConPri)
+    {
+        $this->db->select('CodConCli,ConPrin');
+        $this->db->from('T_ContactoCliente');
+        $this->db->where('CodCli',$CodCli);
+        $this->db->where('ConPrin',$ConPri);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {return $query->row();}
+        else{return false;}       
+    }
+    public function UpdateOldContacto($CodConCli)
+    {   
+        $this->db->where('CodConCli', $CodConCli);              
+        return $this->db->update('T_ContactoCliente',array('ConPrin'=>0));
     }
 ///////////////////////////////////////////////////////////////////// CONTACTOS END ////////////////////////////////////////
 

@@ -70,11 +70,12 @@
              scope.toast('error','El Número de CIF del Contacto No Puede Estar Vacio.','Error');
              location.href = "#/Contactos";
          } else {
-             scope.tContacto_data_modal.NIFConCli = scope.CIF_Contacto;
-             scope.tContacto_data_modal.EsRepLeg = undefined;
-             scope.tContacto_data_modal.TieFacEsc = undefined;
-             scope.tContacto_data_modal.CanMinRep = 1;
-             scope.tContacto_data_modal.TipRepr = "1";
+            scope.tContacto_data_modal.NIFConCli = scope.CIF_Contacto;
+            scope.tContacto_data_modal.EsRepLeg = undefined;
+            scope.tContacto_data_modal.TieFacEsc = undefined;
+            scope.tContacto_data_modal.CanMinRep = 1;
+            scope.tContacto_data_modal.TipRepr = "1";
+            scope.tContacto_data_modal.ConPrin=false;
          }
      }
      /*if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
@@ -138,8 +139,6 @@
              scope.Tabla_ContactoBack = [];
          }
      }).catch(function(err) { console.log(err); });*/
-
-
 
      scope.cargar_lista_contactos = function() {
          $("#cargando_contactos").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -601,6 +600,14 @@
              if (result.data != false) {
                  scope.tContacto_data_modal = result.data;
                  scope.CodCliContacto=result.data.NumCifCli;
+                 if(result.data.ConPrin==null ||result.data.ConPrin==0)
+                 {
+                    scope.tContacto_data_modal.ConPrin=false;
+                 }
+                 else
+                 {
+                    scope.tContacto_data_modal.ConPrin=true;
+                 }
              } else {
                  scope.toast('error','No existe información del Contacto seleccionado','Error');
                  scope.tContacto_data_modal = {};
@@ -1081,7 +1088,7 @@
                                     }
                                      },
                                      function(error) {
-                                         if (error.status == 404 && error.statusText == "Not Found"){
+                                        if (error.status == 404 && error.statusText == "Not Found"){
                                         scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                                         }if (error.status == 401 && error.statusText == "Unauthorized"){
                                             scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
@@ -1118,6 +1125,85 @@
 
 
                  } 
+    scope.ComprobarContactoPrincipal=function(ConPri)
+    {
+        if(ConPri==true && scope.tContacto_data_modal.CodCli!=undefined)
+        {
+            scope.tContacto_data_modal.ConPrin=false;
+            $("#Principal").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            var url = base_urlHome()+"api/Clientes/ValidarContactoPrincipal/CodCli/"+scope.tContacto_data_modal.CodCli+"/ConPri/"+1;
+            $http.get(url).then(function(result)
+            {
+                $("#Principal").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                if(result.data!=false)
+                {
+                    Swal.fire({ title: 'Contacto Principal',text: '¿Este Cliente ya tiene un contacto asignado como principal quiere establecer este como principal?',
+                     type: "question",
+                     showCancelButton: !0,
+                     confirmButtonColor: "#31ce77",
+                     cancelButtonColor: "#f34943",
+                     confirmButtonText: "Confirmar"
+                    }).then(function(t) {
+                    if (t.value == true)
+                    {
+                        scope.tContacto_data_modal.ConPrin=true;                        
+                        var url=base_urlHome()+"api/Clientes/UpdateOldContacto/CodConCli/"+result.data.CodConCli;
+                        $http.get(url).then(function(result)
+                        {
+                            if(result.data!=false)
+                            {
+                                scope.toast('info','El Contacto anterior ya no es principal guarde los datos para establecer este como principal.','');
+                            }
+                            else
+                            {
+                                scope.toast('error','Ha ocurrido un error al intenta actualizar el contacto.','');
+                            }
+                        },function(error)
+                        {
+                            if (error.status == 404 && error.statusText == "Not Found"){
+                              scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+
+                        });
+                    } 
+                    else 
+                    {
+                        scope.tContacto_data_modal.ConPrin=false;
+                        scope.toast('error','Contacto no establecido como principal','Contacto No Principal');
+                        console.log('cancelando ando...');
+                    }
+                 });
+
+
+                    //scope.toast('error','Este Cliente ya tiene un contacto como principal','Error 404');
+                }
+                else
+                {
+                    scope.tContacto_data_modal.ConPrin=true;
+                    scope.toast('success','Contacto Seleccionado como Principal.','Contacto Principal');
+                }
+
+            },function(error)
+            {
+                $("#Principal").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+        }        
+    }
                  var i = -1;
         var toastCount = 0;
         var $toastlast;

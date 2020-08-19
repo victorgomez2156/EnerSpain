@@ -12318,8 +12318,8 @@ class Exportar_Documentos extends CI_Controller
             
             //var_dump($Ano.'-'.$Mes.'-'.$Dia);
             $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
-            $where='a.FecProCom';
-            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $where='FecProCom';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
         }
@@ -12338,7 +12338,7 @@ class Exportar_Documentos extends CI_Controller
             $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
             //var_dump($Ano.'-'.$Mes.'-'.$Dia);
             $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
-            $where='a.CodCli';
+            $where='CodCli';
             $Variable=$CodCli;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
@@ -12354,7 +12354,7 @@ class Exportar_Documentos extends CI_Controller
             if($EstProCom=="P")
             {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
             $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
-            $where='a.EstProCom';
+            $where='EstProCom';
             $Variable=$EstProCom;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
@@ -12483,8 +12483,8 @@ class Exportar_Documentos extends CI_Controller
             
             //var_dump($Ano.'-'.$Mes.'-'.$Dia);
             $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
-            $where='a.FecProCom';
-            $Variable=$Ano.'-'.$Mes.'-'.$Dia;
+            $where='FecProCom';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
         }
@@ -12503,7 +12503,7 @@ class Exportar_Documentos extends CI_Controller
             $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
             //var_dump($Ano.'-'.$Mes.'-'.$Dia);
             $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
-            $where='a.CodCli';
+            $where='CodCli';
             $Variable=$CodCli;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
@@ -12519,7 +12519,7 @@ class Exportar_Documentos extends CI_Controller
             if($EstProCom=="P")
             {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
             $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
-            $where='a.EstProCom';
+            $where='EstProCom';
             $Variable=$EstProCom;
             $Resultado_Filtro_Propuestas=$this->Propuesta_model->get_list_propuesta_comerciales_filtro($where,$Variable);
 
@@ -12668,7 +12668,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -13105,7 +13105,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -13709,7 +13709,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -14163,7 +14163,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -14325,7 +14325,7 @@ class Exportar_Documentos extends CI_Controller
             foreach ($Resultado_Renovacion_Contratos as $record): 
             {
                 if($record->EstBajCon==0)
-                {$EstBajCon='Activo';}elseif ($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
+                {$EstBajCon='Activo';}elseif($record->EstBajCon==1){$EstBajCon="Dado de Baja";}elseif ($record->EstBajCon==2){$EstBajCon="Vencido";}elseif ($record->EstBajCon==3){$EstBajCon="Renovado";}else{$EstBajCon="N/A";}
                if($record->RefProCom==null)
                {
                     $RefProCom=$record->CodProCom;
@@ -14343,10 +14343,10 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->RazSocCli.'</td>                        
                         <td>'.$record->CUPsEle.'</td>
                         <td>'.$record->NomTarEle.'</td>
-                        <td>0.00</td>
+                        <td>'.number_format($record->ConCupEle, 2, ',', '.').'</td>
                         <td>'.$record->CupsGas.'</td>
                         <td>'.$record->NomTarGas.'</td> 
-                        <td>'.$record->Consumo.'</td>
+                        <td>'.number_format($record->Consumo, 2, ',', '.').'</td>
                         <td>N/A</td>
                         <td>'.$record->EmaCli.'</td> 
                         <td>'.$record->NumCifCom.'</td>
@@ -14498,7 +14498,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -14568,20 +14568,15 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli);                              
                 $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsEle);
                 $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", '0.00');
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", number_format($Resultado_Renovacion_Contratos[$i]-> ConCupEle, 2, ',', '.'));
                 $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> CupsGas);
                 $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]-> Consumo);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", number_format($Resultado_Renovacion_Contratos[$i]-> Consumo, 2, ',', '.'));
                 $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", 'N/A');
                 $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCom);    
                 $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCom);
-
                 $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", $EstBajConNom);
-                
-
-
-
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:N$fila");                
             }   
         }        
@@ -14594,6 +14589,522 @@ class Exportar_Documentos extends CI_Controller
         header("Content-Type: application/vnd.ms-excel");
         header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL CONTRATOS RUEDA');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_PDF_Tarifa_Electrica()
+    {   
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        $NombreFiltro="Tárifa Eléctrica: ".$TipoFiltro;
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('PDF Tárifas Eléctricas');
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('PDF Tárifas Eléctricas');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE TÁRIFAS ELÉCTRICAS</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left" colspan="3">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">Tipo Tensión</td> 
+            <td style="color:white;">Tárifa</td>
+            <td style="color:white;">Períodos</td>
+            <td style="color:white;">Mínimo Potencia</td>
+            <td style="color:white;">Máximo Potencia</td> 
+        </tr>';
+        if($TipoFiltro=="BAJA")
+        {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(0);
+        }
+        elseif ($TipoFiltro=="ALTA") {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(1);
+        }
+        elseif ($TipoFiltro=="AMBAS") {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(2);
+        }
+        else
+        {
+            echo 'error en filtro intente nuevamente';
+            return false;
+        }
+                
+        if($ResultadoTarifasElectricas!=false)
+        {
+            foreach ($ResultadoTarifasElectricas as $record): 
+            {
+                $html.='<tr>
+                        <td>'.$record->TipTen.'</td>
+                        <td>'.$record->NomTarEle.'</td>
+                        <td>'.$record->CanPerTar.'</td>
+                        <td>'.number_format($record->MinPotCon, 2, ',', '.').'</td>
+                        <td>'.number_format($record->MaxPotCon, 2, ',', '.').'</td>            
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="5"><b>Actualmente no hemos encontrado Tárifas.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',null,$this->input->ip_address(),'Generando Reporte PDF Tárifas Eléctricas');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Reporte Tárifas Eléctricas'.'.pdf', 'I');
+    }
+    public function Doc_Excel_Tarifa_Electrica()
+    { 
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        $NombreFiltro="Tárifas Eléctrica: ".$TipoFiltro;
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc Excel Tárifas Eléctricas'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Tárifas Eléctricas"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Tárifas Eléctricas"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE TÁRIFAS ELÉCTRICAS");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Tipo Tensión");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Tárifas");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Períodos");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Mínimo Potencia");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Máximo Potencia");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:E9");  
+        $fila=9;       
+        if($TipoFiltro=="BAJA")
+        {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(0);
+        }
+        elseif ($TipoFiltro=="ALTA") {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(1);
+        }
+        elseif ($TipoFiltro=="AMBAS") {
+            $ResultadoTarifasElectricas=$this->Reportes_model->ListTarEle(2);
+        }
+        else
+        {
+            echo 'error en filtro intente nuevamente';
+            return false;
+        }
+        if($ResultadoTarifasElectricas!=false)
+        {
+            for($i=0; $i<count($ResultadoTarifasElectricas); $i++) 
+            {                
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $ResultadoTarifasElectricas[$i]-> TipTen);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila",  $ResultadoTarifasElectricas[$i]-> NomTarEle);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $ResultadoTarifasElectricas[$i]-> CanPerTar);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", number_format($ResultadoTarifasElectricas[$i]-> MinPotCon, 2, ',', '.') ); 
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", number_format($ResultadoTarifasElectricas[$i]-> MaxPotCon, 2, ',', '.'));
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:E$fila");                
+            }   
+        }        
+        foreach (range('A', 'E') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TÁRIFAS ELÉCTRICAS');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_PDF_Tarifa_Gas()
+    {   
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        $NombreFiltro="Tárifa Gas";
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('PDF Tárifas Gas');
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('PDF Tárifas Gas');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE TÁRIFAS GAS</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left" colspan="3">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">Nomenclatura</td> 
+            <td style="color:white;">Mínimo Consumo Anual</td>
+            <td style="color:white;">Máximo Consumo Anual</td>
+        </tr>';
+
+        $ResultadoTarifaGas=$this->Reportes_model->ListTarGas();
+                
+        if($ResultadoTarifaGas!=false)
+        {
+            foreach ($ResultadoTarifaGas as $record): 
+            {
+                $html.='<tr>
+                        <td>'.$record->NomTarGas.'</td>
+                        <td>'.number_format($record->MinConAnu, 2, ',', '.').'</td>
+                        <td>'.number_format($record->MaxConAnu, 2, ',', '.').'</td>          
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="3"><b>Actualmente no hemos encontrado Tárifas.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',null,$this->input->ip_address(),'Generando Reporte PDF Tárifas Gas');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Reporte Tárifas Gas'.'.pdf', 'I');
+    }
+    public function Doc_Excel_Tarifa_Gas()
+    { 
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        $NombreFiltro="Tárifas Gas";
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc Excel Tárifas Gas'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Tárifas Gas"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Tárifas Gas"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE TÁRIFAS GAS");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Nomenclatura");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Mínimo Consumo Anual");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Máximo Consumo Anual");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:C9");  
+        $fila=9;       
+        $ResultadoTarifaGas=$this->Reportes_model->ListTarGas();
+
+        if($ResultadoTarifaGas!=false)
+        {
+            for($i=0; $i<count($ResultadoTarifaGas); $i++) 
+            {                
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $ResultadoTarifaGas[$i]-> NomTarGas);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila",  number_format($ResultadoTarifaGas[$i]-> MinConAnu, 2, ',', '.') );
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", number_format($ResultadoTarifaGas[$i]-> MaxConAnu, 2, ',', '.') );
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:C$fila");                
+            }   
+        }        
+        foreach (range('A', 'C') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TÁRIFAS GAS');
         $objWriter->save('php://output');
         exit;   
     }

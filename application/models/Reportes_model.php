@@ -1217,24 +1217,20 @@ class Reportes_model extends CI_Model
     }
     public function getFetchPropuestasComerciales($SearchText)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,b.RazSocCli,b.NumCifCli,c.CUPsEle,d.CupsGas,a.CodCli,a.EstProCom',false);
-        $this->db->from('T_PropuestaComercial a');
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_CUPsElectrico c','a.CodCupsEle=c.CodCupsEle','left');
-        $this->db->join('T_CUPsGas d','a.CodCupsGas=d.CodCupGas','left');
-        $this->db->like('DATE_FORMAT(a.FecProCom,"%d/%m/%Y")',$SearchText);
-        $this->db->or_like('b.NumCifCli',$SearchText);
-        $this->db->or_like('b.RazSocCli',$SearchText);
-        $this->db->or_like('c.CUPsEle',$SearchText);
-        $this->db->or_like('d.CupsGas',$SearchText);
-        $this->db->or_like('a.CodCli',$SearchText);
-        $this->db->or_like('a.RefProCom',$SearchText);
-        $this->db->order_by('a.FecProCom DESC');              
+        $this->db->select('*',false);
+        $this->db->from('VPropuestaSencillas');
+        $this->db->like('DATE_FORMAT(FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->or_like('NumCifCli',$SearchText);
+        $this->db->or_like('RazSocCli',$SearchText);
+        $this->db->or_like('CUPsEle',$SearchText);
+        $this->db->or_like('CodCli',$SearchText);
+        $this->db->or_like('CupsGas',$SearchText);
+        $this->db->or_like('RefProCom',$SearchText);           
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
         else
-        return false;              
+        return false;  
     }
     public function getContratosFilter($SearchText)
     {
@@ -1464,8 +1460,10 @@ class Reportes_model extends CI_Model
     public function Contratos_Para_Rueda($Desde,$Hasta)
     {
         /*$this->db->select("",false);*/
-        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,
-            e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
+        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,(SELECT SUM(ConCup) FROM T_HistorialCUPsElectrico WHERE CodCupEle=f.CodCupsEle AND a.FecVenCon BETWEEN '$Desde' AND '$Hasta') AS ConCupEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
+        
+
+
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom','left');
@@ -1499,6 +1497,46 @@ class Reportes_model extends CI_Model
         return $query->row();
         else
         return false;              
+    }
+    public function ListTarEle($TipFiltro)
+    {
+        $this->db->select('CodTarEle,case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon ',FALSE);
+        $this->db->from('T_TarifaElectrica');
+        if($TipFiltro==0)
+        {
+            $this->db->where('TipTen',$TipFiltro);
+        }
+        elseif ($TipFiltro==1) {
+           $this->db->where('TipTen',$TipFiltro);
+        }
+        else {
+           $this->db->where('TipTen>=0');
+        }
+        $this->db->order_by('NomTarEle ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
+    public function ListTarGas()
+    {
+        $this->db->select('*');
+        $this->db->from('T_TarifaGas');
+        $this->db->order_by('NomTarGas ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
     }
 
 

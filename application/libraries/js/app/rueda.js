@@ -37,7 +37,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.FecDesde=result.data.FecDesde;
                 scope.FecHasta=result.data.FecHasta;
             } else {
-                Swal.fire({ title: "Error General", text: "Error General intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Error General intente nuevamente.','Error General');
             }
 
         }, function(error) 
@@ -200,15 +200,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                  scope.fdatos.PorAhoTot = scope.fdatos.PorAhoGas;
              }
          }
-
-
-
-
-
-
-
-
-
     }
     $scope.submitFormRueda = function(event){
         console.log(scope.fdatos);
@@ -265,27 +256,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecDesde1 = document.getElementById("FecDesde").value;
         scope.FecDesde = FecDesde1;
         if (scope.FecDesde == null || scope.FecDesde == undefined || scope.FecDesde == '') {
-            Swal.fire({ title: "La Fecha Desde es requerida", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','La Fecha Desde es requerida','');
             return false;
         } else {
             var FecDesde = (scope.FecDesde).split("/");
             if (FecDesde.length < 3) {
-                Swal.fire({ title: "El formato Fecha Desde correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El formato Fecha Desde correcto es DD/MM/YYYY','');
                 event.preventDefault();
                 return false;
             } else {
                 if (FecDesde[0].length > 2 || FecDesde[0].length < 2) {
-                    Swal.fire({ title: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Día, debe introducir dos números','');
                     event.preventDefault();
                     return false;
                 }
                 if (FecDesde[1].length > 2 || FecDesde[1].length < 2) {
-                    Swal.fire({ title: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Mes, debe introducir dos números','');
                     event.preventDefault();
                     return false;
                 }
                 if (FecDesde[2].length < 4 || FecDesde[2].length > 4) {
-                    Swal.fire({ title: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Año, debe introducir cuatro números','');
                     event.preventDefault();
                     return false;
                 }
@@ -297,27 +288,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecHasta1 = document.getElementById("FecHasta").value;
         scope.FecHasta = FecHasta1;
         if (scope.FecHasta == null || scope.FecHasta == undefined || scope.FecHasta == '') {
-            Swal.fire({ title: "La Fecha Hasta es requerida", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','La Fecha Hasta es requerida','');
             return false;
         } else {
             var FecHasta = (scope.FecHasta).split("/");
             if (FecHasta.length < 3) {
-                Swal.fire({ title: "El formato Fecha de Vencimiento correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El formato Fecha de Vencimiento correcto es DD/MM/YYYY','');
                 event.preventDefault();
                 return false;
             } else {
                 if (FecHasta[0].length > 2 || FecHasta[0].length < 2) {
-                    Swal.fire({ title: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Día, debe introducir dos números','');
                     event.preventDefault();
                     return false;
                 }
                 if (FecHasta[1].length > 2 || FecHasta[1].length < 2) {
-                    Swal.fire({ title: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Mes, debe introducir dos números','');
                     event.preventDefault();
                     return false;
                 }
                 if (FecHasta[2].length < 4 || FecHasta[2].length > 4) {
-                    Swal.fire({ title: "Error en Año, debe introducir cuatro números", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Año, debe introducir cuatro números','');
                     event.preventDefault();
                     return false;
                 }
@@ -340,17 +331,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             
             if (dato.EstBajCon == 3)
             {
-                Swal.fire({ title: "Error", text: "El Contrato ya fue renovado.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','El Contrato ya fue renovado.','Error');
                 return false;
             }
             if (dato.EstBajCon == 4)
             {
-                Swal.fire({ title: "Error", text: "Este contrato se encuentra en proceso de renovación.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Este contrato se encuentra en proceso de renovación.','Error');
                 return false;
             }
             if(dato.CodProCom==null || dato.CodProCom==0)
             {
-                Swal.fire({ title: "Error", text: "Este contrato no posee una propuesta comercial cargue la información de la propuesta comercial para continuar con la renovación del contrato.", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','Este contrato no posee una propuesta comercial cargue la información de la propuesta comercial para continuar con la renovación del contrato.','Error');
                 scope.fdatos={};
                 scope.DirPumSum=undefined;
                 scope.EscPlaPuerPumSum=undefined;
@@ -458,13 +449,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                                     console.log('Cancelando ando...');
                                 }
                             });
-                            //Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "info", confirmButtonColor: "#188ae2" });
+                            //scope.toast('info',result.data.menssage,result.data.statusText);
                             //scope.tmodal_data = {};
                             //$("#Tipo_Renovacion").modal('hide');
                             return false;
                         }
                         if (result.data.status == 200 && result.data.statusText == "OK") {
-                            Swal.fire({ title: result.data.message, type: "success", confirmButtonColor: "#188ae2" });
+                            scope.toast('success',result.data.message,'');
                             var FecIniCon = (dato.FecVenCon).split("/");
                             var new_fecha= FecIniCon[1]+"/"+FecIniCon[0]+"/"+FecIniCon[2];
                             var TuFecha = new Date(new_fecha);
@@ -487,11 +478,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             return false;
                         }
                     } else {
-                        Swal.fire({ title: "Error General", text: "Error en el proceso intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en el proceso intente nuevamente','Error General');
                     }
 
                 }, function(error) {
-                     if (error.status == 404 && error.statusText == "Not Found"){
+                    if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
                         scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
@@ -505,8 +496,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             } 
             else if (dato.EstBajCon == 1)
             {
-                Swal.fire({ title: 'Este Contrato fue dado de baja. elabore una nueva propuesta comercial para crear un nuevo contrato.', type: "error", confirmButtonColor: "#188ae2" });
-                return false;
+                scope.toast('error','Este Contrato fue dado de baja. elabore una nueva propuesta comercial para crear un nuevo contrato.','');
+               return false;
             }
             else if (dato.EstBajCon == 2)
             {
@@ -553,22 +544,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $http.post(url, scope.tmodal_data).then(function(result) {
                     $("#Renovando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data.status == 203 && result.data.statusText == 'Error') {
-                        Swal.fire({ title: result.data.statusText, text: result.data.menssage, type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error',result.data.menssage,result.data.statusText);
                         return false;
                     }
                     if (result.data.status == 200 && result.data.statusText == 'OK') {
-                        Swal.fire({ title: 'Renovación', text: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
+                        scope.toast('success','result.data.menssage','Renovación');
                         scope.tmodal_data = {};
                         $("#Tipo_Renovacion").modal('hide');
                         $scope.submitFormRueda();
                         return false;
                     }
                     if (result.data != false) {
-                        //Swal.fire({ title: "Contrato", text: "Contrato dado de baja sastifactoriamente.", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Contrato dado de baja sastifactoriamente.','Contrato');
                         //$("#modal_baja_contrato").modal('hide');
                         $scope.submitFormRueda();
                     } else {
-                        Swal.fire({ title: "Error General", text: "Error durante el proceso, intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error durante el proceso, intente nuevamente.','Error General');
+                       
                     }
 
                 }, function(error) {
@@ -594,7 +586,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.validar_campos_renovacion = function() {
         resultado = true;
         if (scope.tmodal_data.SinMod == false && scope.tmodal_data.ConMod == false) {
-            Swal.fire({ title: "Error", text: "Debe indicar que tipo de renovación es el contrato.", type: "error", confirmButtonColor: "#188ae2" });
+            scope.toast('error','Debe indicar que tipo de renovación es el contrato.','Error');
             return false;
         }
 
@@ -602,27 +594,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var FecIniCon1 = document.getElementById("FecIniCon").value;
             scope.FecIniCon = FecIniCon1;
             if (scope.FecIniCon == null || scope.FecIniCon == undefined || scope.FecIniCon == '') {
-                Swal.fire({ title: "La Fecha de Inicio es requerida", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','La Fecha de Inicio es requerida.','');
                 return false;
             } else {
                 var FecIniCon = (scope.FecIniCon).split("/");
                 if (FecIniCon.length < 3) {
-                    Swal.fire({ title: "El formato Fecha de Inicio correcto es DD/MM/YYYY", type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','El formato Fecha de Inicio correcto es DD/MM/YYYY','');
                     event.preventDefault();
                     return false;
                 } else {
                     if (FecIniCon[0].length > 2 || FecIniCon[0].length < 2) {
-                        Swal.fire({ title: "Error en Día, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Día, debe introducir dos números','');
                         event.preventDefault();
                         return false;
                     }
                     if (FecIniCon[1].length > 2 || FecIniCon[1].length < 2) {
-                        Swal.fire({ title: "Error en Mes, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Mes, debe introducir dos números','');
                         event.preventDefault();
                         return false;
                     }
                     if (FecIniCon[2].length < 4 || FecIniCon[2].length > 4) {
-                        Swal.fire({ title: "Error en Año, debe introducir dos números", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','Error en Año, debe introducir dos números','');
                         event.preventDefault();
                         return false;
                     }
@@ -631,7 +623,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             }
             if (!scope.tmodal_data.DurCon > 0) {
-                Swal.fire({ title: "La Duración del Contrato es requerida", type: "error", confirmButtonColor: "#188ae2" });
+                scope.toast('error','La Duración del Contrato es requerida','');
                 return false;
             }
         }
@@ -649,28 +641,28 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
          var FecProCom1 = document.getElementById("FecProCom").value;
          scope.FecProCom = FecProCom1;
          if (scope.FecProCom == null || scope.FecProCom == undefined || scope.FecProCom == '') {
-             Swal.fire({ title: "La Fecha de la Propuesta es requerida", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','La Fecha de la Propuesta es requerida.','');
              return false;
          } else {
              var FecProCom = (scope.FecProCom).split("/");
              if (FecProCom.length < 3) {
-                 Swal.fire({ title: "El Formato de Fecha de la Propuesta debe Ser EJ: DD/MM/YYYY.", type: "error", confirmButtonColor: "#188ae2" });
-                 event.preventDefault();
+                 scope.toast('error','El Formato de Fecha de la Propuesta debe Ser EJ: DD/MM/YYYY.','');
+                 //event.preventDefault();
                  return false;
              } else {
                  if (FecProCom[0].length > 2 || FecProCom[0].length < 2) {
-                     Swal.fire({ title: "Por Favor Corrija el Formato del dia en la Fecha de la Propuesta deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha de la Propuesta deben ser 2 números solamente. EJ: 01','');
                      event.preventDefault();
                      return false;
                  }
                  if (FecProCom[1].length > 2 || FecProCom[1].length < 2) {
-                     Swal.fire({ title: "Por Favor Corrija el Formato del mes de la Fecha de la Propuesta deben ser 2 números solamente. EJ: 01", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha de la Propuesta deben ser 2 números solamente. EJ: 01','');
                      event.preventDefault();
                      return false;
                  }
                  if (FecProCom[2].length < 4 || FecProCom[2].length > 4) {
-                     Swal.fire({ title: "Por Favor Corrija el Formato del ano en la Fecha de la Propuesta Ya que deben ser 4 números solamente. EJ: 1999", type: "error", confirmButtonColor: "#188ae2" });
-                     event.preventDefault();
+                     scope.toast('error','Por Favor Corrija el Formato del ano en la Fecha de la Propuesta Ya que deben ser 4 números solamente. EJ: 1999','');
+                    event.preventDefault();
                      return false;
                  }
                  valuesStart = scope.FecProCom.split("/");
@@ -679,138 +671,138 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     Swal.fire({ title: "La Fecha de la Propuesta no puede ser mayor al " + scope.Fecha_Propuesta + " Por Favor Verifique he intente nuevamente.", type: "error", confirmButtonColor: "#188ae2" });
-                     return false;
+                     scope.toast('error',"La Fecha de la Propuesta no puede ser mayor al " + scope.Fecha_Propuesta + " Por Favor Verifique he intente nuevamente.",'');
+                    return false;
                  }
                  scope.fdatos.FecProCom = FecProCom[2] + "-" + FecProCom[1] + "-" + FecProCom[0];
              }
          }
          if (scope.fdatos.RefProCom == null || scope.fdatos.RefProCom == undefined || scope.fdatos.RefProCom == '') {
-             Swal.fire({ title: "El número de la propuesta es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','El número de la propuesta es requerido.','');
              return false;
          }
 
          if (!scope.fdatos.EstProCom > 0) {
-             Swal.fire({ title: "El Estatus de la propuesta es requerido.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','El Estatus de la propuesta es requerido.','');
              return false;
          }
 
          if (!scope.fdatos.CodPunSum > 0) {
-             Swal.fire({ title: "Debe seleccionar un punto de suministro.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar un punto de suministro.','');
              return false;
          }
          if (!scope.fdatos.CodCupSEle > 0 && !scope.fdatos.CodCupGas > 0) {
-             Swal.fire({ title: "Debe seleccionar un Tipo de CUPs Para generer una propuesta comercial", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar un Tipo de CUPs Para generer una propuesta comercial','');
              return false;
          }
          if (scope.fdatos.CodCupSEle > 0) {
              if (!scope.fdatos.CodTarEle > 0) {
-                 Swal.fire({ title: "Debe seleccionar una Tarifa Eléctrica.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe seleccionar una Tarifa Eléctrica.','');
                  return false;
              }
 
              if (scope.CanPerEle == 1) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
              }
              if (scope.CanPerEle == 2) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
                  if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 2','');
                      return false;
                  }
              }
              if (scope.CanPerEle == 3) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
                  if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
-                     return false;
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                    return false;
                  }
                  if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
-                     return false;
+                     scope.toast('error','Debe indicar la Potencia 3','');
+                    return false;
                  }
              }
              if (scope.CanPerEle == 4) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
                  if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 2','');
                      return false;
                  }
                  if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 3','');
                      return false;
                  }
                  if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 4','');
                      return false;
                  }
              }
              if (scope.CanPerEle == 5) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
                  if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 2','');
                      return false;
                  }
                  if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
-                     return false;
+                    scope.toast('error','Debe indicar la Potencia 3','');
+                    return false;
                  }
                  if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 4','');
                      return false;
                  }
                  if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 5", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 5','');
                      return false;
                  }
              }
              if (scope.CanPerEle == 6) {
                  if (scope.fdatos.PotConP1 == null || scope.fdatos.PotConP1 == undefined || scope.fdatos.PotConP1 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 1", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 1','');
                      return false;
                  }
                  if (scope.fdatos.PotConP2 == null || scope.fdatos.PotConP2 == undefined || scope.fdatos.PotConP2 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 2", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 2','');
                      return false;
                  }
                  if (scope.fdatos.PotConP3 == null || scope.fdatos.PotConP3 == undefined || scope.fdatos.PotConP3 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 3", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 3','');
                      return false;
                  }
                  if (scope.fdatos.PotConP4 == null || scope.fdatos.PotConP4 == undefined || scope.fdatos.PotConP4 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 4", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 4','');
                      return false;
                  }
                  if (scope.fdatos.PotConP5 == null || scope.fdatos.PotConP5 == undefined || scope.fdatos.PotConP5 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 5", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 5','');
                      return false;
                  }
                  if (scope.fdatos.PotConP6 == null || scope.fdatos.PotConP6 == undefined || scope.fdatos.PotConP6 == '') {
-                     Swal.fire({ title: "Debe indicar la Potencia 6", type: "error", confirmButtonColor: "#188ae2" });
+                     scope.toast('error','Debe indicar la Potencia 6','');
                      return false;
                  }
              }
              if (scope.fdatos.ImpAhoEle == null || scope.fdatos.ImpAhoEle == undefined || scope.fdatos.ImpAhoEle == '') {
-                 Swal.fire({ title: "Debe indicar un importe de ahorro eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un importe de ahorro eléctrico.','');
                  return false;
              }
              if (scope.fdatos.PorAhoEle == null || scope.fdatos.PorAhoEle == undefined || scope.fdatos.PorAhoEle == '') {
-                 Swal.fire({ title: "Debe indicar un porcentaje eléctrico.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un porcentaje eléctrico.','');
                  return false;
              }
              if (scope.fdatos.ObsAhoEle == null || scope.fdatos.ObsAhoEle == undefined || scope.fdatos.ObsAhoEle == '') {
@@ -833,23 +825,23 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
          }
          if (scope.fdatos.CodCupGas > 0) {
              if (!scope.fdatos.CodTarGas > 0) {
-                 Swal.fire({ title: "Debe seleccionar una Tarifa de Gas.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe seleccionar una Tarifa de Gas.','');
                  return false;
              }
              if (scope.fdatos.Consumo == null || scope.fdatos.Consumo == undefined || scope.fdatos.Consumo == '') {
-                 Swal.fire({ title: "Debe indicar un consumo.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un consumo.','');
                  return false;
              }
              if (scope.fdatos.CauDia == null || scope.fdatos.CauDia == undefined || scope.fdatos.CauDia == '') {
-                 Swal.fire({ title: "Debe indicar un Caudal Diario.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un Caudal Diario.','');
                  return false;
              }
              if (scope.fdatos.ImpAhoGas == null || scope.fdatos.ImpAhoGas == undefined || scope.fdatos.ImpAhoGas == '') {
-                 Swal.fire({ title: "Debe indicar un importe de ahorro de gas..", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un importe de ahorro de gas.','');
                  return false;
              }
              if (scope.fdatos.PorAhoGas == null || scope.fdatos.PorAhoGas == undefined || scope.fdatos.PorAhoGas == '') {
-                 Swal.fire({ title: "Debe indicar un porcentaje de gas..", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar un porcentaje de gas.','');
                  return false;
              }
              if (scope.fdatos.ObsAhoGas == null || scope.fdatos.ObsAhoGas == undefined || scope.fdatos.ObsAhoGas == '') {
@@ -867,19 +859,19 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
              scope.fdatos.ObsAhoGas = null;
          }
          if (!scope.fdatos.CodCom > 0) {
-             Swal.fire({ title: "Debe seleccionar una Comercializadora.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar una Comercializadora.','');
              return false;
          }
          if (!scope.fdatos.CodPro > 0) {
-             Swal.fire({ title: "Debe seleccionar un producto.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar un producto.','');
              return false;
          }
          if (!scope.fdatos.CodAnePro > 0) {
-             Swal.fire({ title: "Debe seleccionar un Anexo.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar un Anexo.','');
              return false;
          }
          if (!scope.fdatos.TipPre > 0) {
-             Swal.fire({ title: "Debe seleccionar un Tipo de Precio.", type: "error", confirmButtonColor: "#188ae2" });
+             scope.toast('error','Debe seleccionar un Tipo de Precio.','');
              return false;
          }
          if (scope.fdatos.ObsProCom == null || scope.fdatos.ObsProCom == undefined || scope.fdatos.ObsProCom == '') {
@@ -889,20 +881,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
          }
          if (scope.fdatos.tipo == 'editar' || scope.fdatos.tipo == 'ver') {
              if (scope.fdatos.Apro == false && scope.fdatos.Rech == false) {
-                 Swal.fire({ title: "Debe indicar si es aprobada o rechazada.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar si es aprobada o rechazada.','');
                  return false;
              }
          }
          if (scope.fdatos.Rech == true) {
              if (scope.fdatos.JusRecProCom == null || scope.fdatos.JusRecProCom == undefined || scope.fdatos.JusRecProCom == '') {
-                 Swal.fire({ title: "Debe indicar una justificación del rechazo.", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','Debe indicar una justificación del rechazo.','');
                  return false;
              }
          } else {
              scope.fdatos.JusRecProCom = null;
          }
-
-
          if (resultado == false) {
              //quiere decir que al menos un renglon no paso la validacion
              return false;
@@ -934,15 +924,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         if (result.data.status == 200 && result.data.statusText == 'OK')
                         {
                             $("#Form_PropuestaComercial").modal('hide');
-                            scope.fdatos={};
-                            //scope.get_list_contratos();                          
+                            scope.fdatos={};                          
                             $scope.submitFormRueda();
-                            Swal.fire({ title:result.data.statusText, text: result.data.menssage, type: "success", confirmButtonColor: "#188ae2" });
+                            scope.toast('success',result.data.menssage,result.data.statusText,);
                         }                        
                     }
                     else 
                     {
-                        Swal.fire({ title: "Error", text: "No se ha completado la operación, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                        scope.toast('error','No se ha completado la operación, intente nuevamente','Error');
                     }
                 }, function(error) {
                     $("#Propuesta").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -999,7 +988,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                  scope.List_CUPs_Gas = result.data.CUPs_Gas;
              }
              if (result.data.CUPs_Electricos == false && result.data.CUPs_Gas == false) {
-                 Swal.fire({ title: "CUPs", text: "El Cliente debe tener al menos un tipo de CUPs registrado para poder generar una Propuesta Comercial", type: "error", confirmButtonColor: "#188ae2" });
+                 scope.toast('error','El Cliente debe tener al menos un tipo de CUPs registrado para poder generar una Propuesta Comercial','CUPs');
+                 
              }
         }, function(error)
         {

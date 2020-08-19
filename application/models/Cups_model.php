@@ -149,10 +149,10 @@ class Cups_model extends CI_Model
         $this->db->select($Select,FALSE);
         $this->db->from($Tabla);
         $this->db->join("T_PuntoSuministro b",'a.CodPunSum=b.CodPunSum','LEFT');
-        $this->db->join("T_Cliente c",'c.CodCli=b.CodCli');    
+        $this->db->join("T_Cliente c",'c.CodCli=b.CodCli','LEFT');    
         if($TipServ==1)
         {
-            $this->db->join("T_TarifaElectrica d",'d.CodTarEle=a.CodTarElec');
+            $this->db->join("T_TarifaElectrica d",'d.CodTarEle=a.CodTarElec','LEFT');
         }
         
         $this->db->where($Where,$CodCup);              

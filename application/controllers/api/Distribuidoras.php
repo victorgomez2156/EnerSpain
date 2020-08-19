@@ -56,12 +56,12 @@ class Distribuidoras extends REST_Controller
 		$this->db->trans_start();		
 		if (isset($objSalida->CodDist))
 		{		
-			$this->Distribuidoras_model->actualizar($objSalida->CodDist,$objSalida->EmaDis,$objSalida->NomComDis,$objSalida->NumCifDis,$objSalida->ObsDis,$objSalida->PagWebDis,$objSalida->PerConDis,$objSalida->RazSocDis,$objSalida->TelFijDis,$objSalida->TipSerDis);		
+			$this->Distribuidoras_model->actualizar($objSalida->CodDist,$objSalida->EmaDis,$objSalida->NomComDis,$objSalida->NumCifDis,$objSalida->ObsDis,$objSalida->PagWebDis,$objSalida->PerConDis,$objSalida->RazSocDis,$objSalida->TelFijDis,$objSalida->TipSerDis,$objSalida->PreCups);		
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidoras','UPDATE',$objSalida->CodDist,$this->input->ip_address(),'Actualizando Datos De la Distribuidoras');
 		}
 		else
 		{
-			$id = $this->Distribuidoras_model->agregar($objSalida->EmaDis,$objSalida->NomComDis,$objSalida->NumCifDis,$objSalida->ObsDis,$objSalida->PagWebDis,$objSalida->PerConDis,$objSalida->RazSocDis,$objSalida->TelFijDis,$objSalida->TipSerDis);
+			$id = $this->Distribuidoras_model->agregar($objSalida->EmaDis,$objSalida->NomComDis,$objSalida->NumCifDis,$objSalida->ObsDis,$objSalida->PagWebDis,$objSalida->PerConDis,$objSalida->RazSocDis,$objSalida->TelFijDis,$objSalida->TipSerDis,$objSalida->PreCups);
 			$objSalida->CodDist=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidoras','INSERT',$objSalida->CodDist,$this->input->ip_address(),'Creando Registro De la Distribuidoras');			
 		}		

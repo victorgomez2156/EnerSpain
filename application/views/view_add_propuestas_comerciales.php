@@ -166,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Eléctrico</label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Eléctrico <i class="fa fa-close" title="Limpiar CUPs Eléctrico" ng-click="vm.LimpiarCUPs(1,vm.fdatos.CodCupSEle)" ng-show="vm.fdatos.CodCupSEle>0"></i></label>
              <select class="form-control" id="CodCupSEle" name="CodCupSEle" required ng-model="vm.fdatos.CodCupSEle" ng-change="vm.CUPsFilter(1,vm.fdatos.CodCupSEle)" ng-disabled="vm.fdatos.CodPunSum==undefined|| vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
                 <option ng-repeat="dato_act in vm.List_CUPsEle" value="{{dato_act.CodCupsEle}}">{{dato_act.CUPsEle}}</option>
         </select>     
@@ -448,12 +448,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
-              <label class="font-weight-bold nexa-dark" style="color:black;">Renovación </label>         
+              <label class="font-weight-bold nexa-dark" style="color:black;">Ren </label>         
              <input type="checkbox"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.RenConEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'|| vm.fdatos.tipo=='renovar'|| vm.fdatos.tipo=='nueva' || vm.ProRenPen==1|| vm.fdatos.tipo=='editar'"/>     
              </div>
              </div>
           </div>
-          <div class="col-12 col-sm-8">
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Consumo</label>         
+             <input type="text"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.ConCupsEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'|| vm.fdatos.tipo=='renovar'|| vm.ProRenPen==1"/>     
+             </div>
+             </div>
+          </div>
+      <div class="col-12 col-sm-4">
       <div class="form" >                          
        <div class="form-group">
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAhoEle" name="ObsAhoEle" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"></textarea>        
@@ -468,7 +476,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Gas </label>
+             <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Gas <i class="fa fa-close" title="Limpiar CUPs Eléctrico" ng-click="vm.LimpiarCUPs(2,vm.fdatos.CodCupGas)" ng-show="vm.fdatos.CodCupGas>0"></i></label>
              <select class="form-control" id="CodCupGas" name="CodCupGas" required ng-model="vm.fdatos.CodCupGas" ng-change="vm.CUPsFilter(2,vm.fdatos.CodCupGas)" ng-disabled="vm.fdatos.CodPunSum==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
                 <option ng-repeat="dato_act in vm.List_CUPs_Gas" value="{{dato_act.CodCupGas}}">{{dato_act.CupsGas}}</option>
               </select>     

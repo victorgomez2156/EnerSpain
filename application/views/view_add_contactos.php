@@ -96,7 +96,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Contacto del Cliente</h3>
+            <h3 class="page-header" ng-show="vm.tContacto_data_modal.CodConCli==undefined">Registro de Contacto del Cliente</h3>
+            <h3 class="page-header" ng-show="vm.tContacto_data_modal.CodConCli>0">Actualización de Contacto del Cliente</h3>
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li><i class="fa fa-child"></i>Registro de Contacto</li>
@@ -113,7 +114,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
            <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly />          
-      <div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
+      
+
+      <div class="col-12 col-sm-10" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.tContacto_data_modal.CodCli}} <b style="color:red;">(*)</b></label>
@@ -126,12 +129,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
           </ul> 
         <input type="hidden" name="CodCli" id="CodCli" ng-model="vm.tContacto_data_modal.CodCli" class="form-control">
-       <!--select class="form-control" id="CodCliCon" name="CodCli" ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined" ng-model="vm.tContacto_data_modal.CodCli" > 
-          <option ng-repeat="dato_act in vm.Tclientes" value="{{dato_act.CodCli}}">{{dato_act.NumCifCli}} - {{dato_act.RazSocCli}}</option>                          
-        </select-->  
+      
        </div>
        </div>
        </div>
+
+       <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark" style="color:black;">Es Principal </label>             
+             <input type="checkbox" class="form-control" ng-model="vm.tContacto_data_modal.ConPrin" ng-click="vm.ComprobarContactoPrincipal(vm.tContacto_data_modal.ConPrin)" ng-disabled="vm.no_editable!=undefined || vm.tContacto_data_modal.CodCli==undefined"/> 
+
+             </div>
+             </div>
+          </div>
 
            <div class="col-12 col-sm-6">
             <div class="form">                          
@@ -313,16 +324,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <a class="btn btn-danger" ng-click="vm.regresar_contacto()">Volver</a>
         </form>
 
-
-
-
-
-
-
-
-
-
-
               </div>
             </section>
           </div>
@@ -356,5 +357,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="cargando_I" class="loader loader-default"  data-text="Cargando Información del Contacto"></div>
 
 <div id="crear_clientes" class="loader loader-default"  data-text="Creando o Actualizando Comercial"></div>
+<div id="Principal" class="loader loader-default"  data-text="Verificando Contacto Principal"></div>
 
 </html>

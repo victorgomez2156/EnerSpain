@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
 
-                      <div class="col-12 col-sm-6">
+                      <div class="col-12 col-sm-4">
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>
@@ -89,11 +89,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div>
                       </div>       
                        
-                       <div class="col-12 col-sm-6">
+                       <div class="col-12 col-sm-4">
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Correo Eléctronico</label>
                          <input type="email" class="form-control" ng-model="vm.fdatos.EmaDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Correo Eléctronico" ng-disabled="vm.disabled_form==1"/>                       
+                         </div>
+                         </div>
+                       </div> 
+
+                        <div class="col-12 col-sm-4">
+                         <div class="form">                          
+                         <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;"> Prefijo CUPs</label>
+                         <input type="text" class="form-control" ng-model="vm.fdatos.PreCups" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Prefijo CUPs" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div> 

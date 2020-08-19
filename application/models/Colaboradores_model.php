@@ -2,15 +2,15 @@
 class Colaboradores_model extends CI_Model 
 {
    /////PARA LAS COLABORADORES START////   
-    public function get_list_colaboradores($SearchText)
+    public function get_list_colaboradores()
     {
         $this->db->select('*');
         $this->db->from('T_Colaborador');
-        $this->db->like('NumIdeFis',$SearchText);
+        /*$this->db->like('NumIdeFis',$SearchText);
         $this->db->or_like('NomCol',$SearchText);
         $this->db->or_like('TelCelCol',$SearchText);
         $this->db->or_like('CodCol',$SearchText);
-        $this->db->or_like('EmaCol',$SearchText);
+        $this->db->or_like('EmaCol',$SearchText);*/
         $this->db->order_by('NomCol ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -156,7 +156,23 @@ class Colaboradores_model extends CI_Model
         else
         {
             return false;
-        }       
+        }       //5.000.000,00
+        		//	
+    }
+    public function get_clientes_x_colaborador_Filter($SearchText){
+
+        $this->db->distinct();
+        $this->db->select("CodCol",false);
+		$this->db->from('V_ReportCups');
+        $this->db->like('RazSocCli',$SearchText);
+        $this->db->or_like('NumCifCli',$SearchText);
+        $this->db->or_like('NumIdeFis',$SearchText);
+        $this->db->or_like('NomCol',$SearchText);
+        $this->db->or_like('CUPsEle',$SearchText);
+        $this->db->or_like('CupsGas',$SearchText);
+        $this->db->order_by('RazSocCli ASC');
+        $query = $this->db->get();        
+		return $query->result();
     }
     public function FilterLocalidades($CodPro)
     {
@@ -167,6 +183,21 @@ class Colaboradores_model extends CI_Model
         if($query->num_rows()>0)
         {
             return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function getDataColaboradores($CodCol)
+    {
+        $this->db->select('*');
+        $this->db->from('T_Colaborador');
+        $this->db->where('CodCol',$CodCol);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->row();
         }
         else
         {

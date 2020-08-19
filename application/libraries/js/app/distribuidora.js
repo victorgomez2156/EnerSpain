@@ -271,6 +271,11 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         } else {
             scope.fdatos.PerConDis = scope.fdatos.PerConDis;
         }
+        if (scope.fdatos.PreCups == null || scope.fdatos.PreCups == undefined || scope.fdatos.PreCups == '') {
+            scope.fdatos.PreCups = null;
+        } else {
+            scope.fdatos.PreCups = scope.fdatos.PreCups;
+        }
 
         if (resultado == false) {
             return false;

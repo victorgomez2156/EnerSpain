@@ -7,10 +7,10 @@ class Comercializadora_model extends CI_Model
     {
         $this->db->select('a.CodCom,a.RazSocCom,a.NomComCom,a.NumCifCom,d.DesTipVia,d.IniTipVia,a.NomViaDirCom,a.NumViaDirCom,a.BloDirCom,a.EscDirCom,a.PlaDirCom,a.PueDirCom,b.DesLoc as CodLoc,b.CPLoc,c.DesPro as ProDirCom,a.TelFijCom,a.EmaCom,a.PagWebCom,a.NomConCom,a.CarConCom,case a.SerGas when 0 then "NO" WHEN 1 THEN "SI" end as SerGas,case a.SerEle when 0 then "NO" WHEN 1 THEN "SI" end as SerEle,case a.SerEsp when 0 then "NO" WHEN 1 THEN "SI" end as SerEsp,a.DocConCom,DATE_FORMAT(a.FecConCom,"%d/%m/%Y") as FecConCom,a.DurConCom,case a.RenAutConCom when 0 then "NO" WHEN 1 THEN "SI" end as RenAutConCom,DATE_FORMAT(a.FecVenConCom,"%d/%m/%Y") as FecVenConCom,DATE_FORMAT(a.FecIniCom,"%d/%m/%Y") as FecIniCom,a.ObsCom,case a.EstCom when 1 then "ACTIVA" WHEN 2 THEN "BLOQUEADA" end as EstCom',false);
         $this->db->from('T_Comercializadora a');
-        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc'/*,'LEFT'*/);
-        $this->db->join('T_Provincia c','c.CodPro=b.CodPro'/*,'LEFT'*/);
-         $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia'/*,'LEFT'*/);
-        $this->db->order_by('a.NomComCom DESC');
+        $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc','LEFT');
+        $this->db->join('T_Provincia c','c.CodPro=b.CodPro','LEFT');
+         $this->db->join('T_TipoVia d','a.CodTipVia=d.CodTipVia','LEFT');
+        $this->db->order_by('a.NomComCom ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
@@ -477,34 +477,19 @@ public function get_list_productos()
     
     public function get_detalle_anexo($CodAnePro)
     {
-        
-
         $sql = $this->db->query("SELECT a.CodDetAneTarEle,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarEle,(CASE WHEN a.TipServ =1 THEN 'Eléctrico' ELSE 'N/A' END) AS TipServ,d.NomTarEle,c.descripcion AS TipPre,c.id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos g,TipoPrecio h WHERE g.CodAnePro = b.CodAnePro AND g.CodDetAne = a.CodDetAneTarEle AND g.TipPre = h.id AND g.CodTar = a.CodTarEle AND c.id=h.id) AS EstComAsi FROM T_DetalleAnexoTarifaElectrica a,T_AnexoProducto b,TipoPrecio c,T_TarifaElectrica d WHERE a.CodAnePro = b.CodAnePro AND b.TipPre=2 AND a.CodTarEle=d.CodTarEle AND a.CodAnePro='$CodAnePro' 
-UNION ALL 
-
-SELECT a.CodDetAneTarEle,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarEle,(CASE WHEN a.TipServ =1 THEN 'Eléctrico' ELSE 'N/A' END) AS TipServ,c.NomTarEle,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id
-,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarEle) AS EstComAsi
- FROM T_DetalleAnexoTarifaElectrica a 
-JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro 
-JOIN T_TarifaElectrica c ON c.CodTarEle=a.CodTarEle 
-JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 
-UNION ALL 
-
-SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,d.NomTarGas,c.descripcion,c.id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos g,TipoPrecio h WHERE g.CodAnePro = b.CodAnePro AND g.CodDetAne = a.CodDetAneTarGas AND g.TipPre = h.id AND g.CodTar = a.CodTarGas AND c.id=h.id) AS EstComAsi FROM T_DetalleAnexoTarifaGas a, T_AnexoProducto b,TipoPrecio c,T_TarifaGas d WHERE a.CodAnePro = b.CodAnePro  AND b.TipPre=2 AND a.CodTarGas=d.CodTarGas AND a.CodAnePro='$CodAnePro'
-UNION ALL
-
-SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,c.NomTarGas,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id,
-(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarGas ) AS EstComAsi
- FROM T_DetalleAnexoTarifaGas a 
-JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro 
-JOIN T_TarifaGas c ON c.CodTarGas=a.CodTarGas 
-JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 ORDER BY 1,7");
+        UNION ALL 
+        SELECT a.CodDetAneTarEle,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarEle,(CASE WHEN a.TipServ =1 THEN 'Eléctrico' ELSE 'N/A' END) AS TipServ,c.NomTarEle,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarEle) AS EstComAsi FROM T_DetalleAnexoTarifaElectrica a JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro JOIN T_TarifaElectrica c ON c.CodTarEle=a.CodTarEle JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 
+        UNION ALL 
+        SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,d.NomTarGas,c.descripcion,c.id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos g,TipoPrecio h WHERE g.CodAnePro = b.CodAnePro AND g.CodDetAne = a.CodDetAneTarGas AND g.TipPre = h.id AND g.CodTar = a.CodTarGas AND c.id=h.id) AS EstComAsi FROM T_DetalleAnexoTarifaGas a, T_AnexoProducto b,TipoPrecio c,T_TarifaGas d WHERE a.CodAnePro = b.CodAnePro  AND b.TipPre=2 AND a.CodTarGas=d.CodTarGas AND a.CodAnePro='$CodAnePro'
+        UNION ALL
+        SELECT a.CodDetAneTarGas,(CASE WHEN @row IS NULL THEN @row:=1 ELSE @row:=@row+1 END) AS CodAutInc,b.CodAnePro,a.CodTarGas,(CASE WHEN a.TipServ =2 THEN 'Gas' ELSE 'N/A' END) AS TipServ,c.NomTarGas,case when b.TipPre =1 then 'Indexado' ELSE 'Fijo' END AS TipPre,NULL AS id,(SELECT COUNT(*) AS TieneComision FROM T_DetalleComisionesAnexos WHERE CodDetAne=a.CodDetAneTarGas ) AS EstComAsi  FROM T_DetalleAnexoTarifaGas a JOIN T_AnexoProducto b ON a.CodAnePro=b.CodAnePro 
+        JOIN T_TarifaGas c ON c.CodTarGas=a.CodTarGas JOIN TipoPrecio d ON d.id=b.TipPre WHERE a.CodAnePro='$CodAnePro' and b.TipPre!=2 ORDER BY 1,7");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else  
         return false;
-
-    }
+}
     public function agregar_comisiones_anexos($CodDetAne,$CodAnePro,$RanCon,$ConMinAnu,$ConMaxAnu,$ConSer,$ConCerVer,$CodTarEle,$TipServ,$TipPre)
     {
        $this->db->insert('T_DetalleComisionesAnexos',array('CodAnePro'=>$CodAnePro,'CodDetAne'=>$CodDetAne,'RanCon'=>$RanCon,'ConMinAnu'=>$ConMinAnu,'ConMaxAnu'=>$ConMaxAnu,'ConSer'=>$ConSer,'ConCerVer'=>$ConCerVer,'CodTar'=>$CodTarEle,'TipServ'=>$TipServ,'TipPre'=>$TipPre));

@@ -37,7 +37,7 @@
      scope.EstPro = true;
      scope.ActPro = true;
      scope.opciones_propuestas = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }];
-
+     //scope.tipo_propuesta='0';
      scope.regresar_filtro = function() {
          $scope.predicate = 'id';
          $scope.reverse = true;
@@ -503,7 +503,7 @@
                                         }
                                         else
                                         {
-                                            $scope.predicate = 'id';
+                                                     $scope.predicate = 'id';
                                                      $scope.reverse = true;
                                                      $scope.currentPage = 1;
                                                      $scope.order = function(predicate) {
@@ -524,11 +524,57 @@
                                                      scope.ruta_reportes_pdf_Propuestas = 0;
                                                      scope.ruta_reportes_excel_Propuestas = 0;
                                         }
-                                     }
-
-
-
+                                    }
                                  }
+
+        scope.FiltrarPropuestasComerciales=function()
+        {
+            if(!scope.tipo_propuesta>0)
+            {
+                scope.toast('error','Debe Seleccionar un Tipo de Propuesta Comercial','Error');
+                return false;
+            }
+            var url= base_urlHome()+"api/PropuestaComercial/FiltrarPropuestaComercial/TipFilProCom/"+scope.tipo_propuesta;
+            $http.get(url).then(function(result)
+            {
+                if(scope.tipo_propuesta==1)
+                {
+                    $scope.predicate = 'id';
+                    $scope.reverse = true;
+                    $scope.currentPage = 1;
+                    $scope.order = function(predicate) {
+                        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                        $scope.predicate = predicate;
+                    };
+                                                     //scope.Tabla_Contacto=result.data;
+                    scope.TPropuesta_Comerciales = result.data;
+                    scope.TPropuesta_ComercialesBack = result.data;
+                    $scope.totalItems = scope.TPropuesta_Comerciales.length;
+                    $scope.numPerPage = 50;
+                    $scope.paginate = function(value) {
+                    var begin, end, index;
+                    begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                    end = begin + $scope.numPerPage;
+                    index = scope.TPropuesta_Comerciales.indexOf(value);
+                    return (begin <= index && index < end);
+                    }
+                    scope.ruta_reportes_pdf_Propuestas = 0;
+                    scope.ruta_reportes_excel_Propuestas = 0;
+                }
+
+            },function(error)
+            {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+            });
+        }
 		var i = -1;
         var toastCount = 0;
         var $toastlast;
@@ -665,7 +711,7 @@
                                  if (scope.CodConCom != undefined) {
 
                                  } else {
-                                     scope.PropuestasClientesAll();
+                                     //scope.PropuestasClientesAll();
                                  }
                                  ////////////////////////////////////////////////// PARA LOS CONTACTOS END ////////////////////////////////////////////////////////    
                              }
