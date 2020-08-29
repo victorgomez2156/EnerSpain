@@ -98,26 +98,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Listado de Propuestas Comerciales</h3>
+          	<h3 class="page-header" ng-show="vm.tipo_propuesta==undefined">Listado de Propuestas Comerciales</h3>
+            <h3 class="page-header" ng-show="vm.tipo_propuesta==1">Listado de Propuestas Sencillas</h3>
+			<h3 class="page-header" ng-show="vm.tipo_propuesta==2">Listado de Propuestas UniCliente - MultiPunto</h3>
+			<h3 class="page-header" ng-show="vm.tipo_propuesta==3">Listado de Propuestas MultiCliente  – Multipunto</h3>
           </div>
         </div>
         <!-- page start-->
        
-
-
-
-
-
         <div class="row">
             <div class="col-lg-12">
               <!--panel start-->
               <section class="panel">
         
-          <div class="col-12 col-sm-10">
+          <div class="col-12 col-sm-12">
            <div class="form">                          
            <div class="form-group">
            <label class="font-weight-bold nexa-dark" style="color:black;">Tipos de Propuestas</label>          
-          <select class="form-control" id="tipo_propuesta" name="tipo_propuesta" ng-model="vm.tipo_propuesta">
+          <select class="form-control" id="tipo_propuesta" name="tipo_propuesta" ng-model="vm.tipo_propuesta" ng-change="vm.FiltrarPropuestasComerciales()">
            <option value="1">Sencilla</option>
            <option value="2">UniCliente – Multipunto</option> 
            <option value="3">MultiCliente – Multipunto</option>        
@@ -125,29 +123,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
          </div>
       </div>
-       <div class="col-12 col-sm-2">
-         <div class="form">                          
-         <div class="form-group">
-          <label class="font-weight-bold nexa-dark" style="color:black;">Ver Listado</label><br>
-          <button class="btn btn-info" type="button" ng-click="vm.FiltrarPropuestasComerciales()"><i class="fa fa-eye"></i> </button>         
-         </div>
-         </div>
-      </div>
-      <div ng-show="vm.tipo_propuesta==undefined"> <br><br></div>
-           <!--div class="btn-group">
-                   <select class="form-control" style="width: auto;" id="tipo_propuesta" name="tipo_propuesta" ng-model="vm.tipo_propuesta" ng-change="vm.validar_tipo_propuestas(vm.tipo_propuesta)">
-                          <option value="0" selected="selected">Tipos de Propuestas</option>
-                          <option value="1">Sencilla</option>
-                          <option value="2">UniCliente – Multipunto</option>
-                          <option value="3">MultiCliente – Multipunto</option>
-                    </select> 
-
-              </div>
-              <button class="btn btn-info" type="button"><i class="fa fa-eye"></i> Ver Listado</button-->
-<br><br>
-  
+       
+<br><br>  
   <div ng-show="vm.tipo_propuesta==1">
-  <h3 class="page-header">Listado de Propuestas Sencillas</h3>
           <div id="t-0002"><!--t-0002 start-->   
           <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
             <div class="t-0029"><!--t-0029 start--> 
@@ -182,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="t-0029">
                 <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPropuestaComerciales()">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPropuestaComerciales(1)">
                   </div>  
                    <a data-toggle="modal" title="Agregar Propuesta Comercial" style="margin-right: 5px;" data-target="#modal_add_propuesta" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>                  
                 </form>                    
@@ -224,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    </td>
                     <td ng-show="vm.ActPro==true">
                       <div class="btn-group">
-                        <select class="form-control" style="width: auto;" id="opcion_select" name="opcion_select" ng-model="vm.opcion_select[$index]" ng-change="vm.validar_opcion_propuestas($index,vm.opcion_select[$index],dato)">
+                        <select class="form-control" style="width: auto;" id="opcion_select" name="opcion_select" ng-model="vm.opcion_select[$index]" ng-change="vm.validar_opcion_propuestas($index,vm.opcion_select[$index],dato,1)">
                           <option ng-repeat="opcion in vm.opciones_propuestas" value="{{opcion.id}}">{{opcion.nombre}}</option>
                         </select>
                       </div>
@@ -245,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </table>
         </div> 
         <div align="center">
-          <span class="store-qty"> <a ng-click="vm.PropuestasClientesAll()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <span class="store-qty"> <a ng-click="vm.FiltrarPropuestasComerciales()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>
@@ -253,18 +231,212 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 </div>
 
+<div ng-show="vm.tipo_propuesta==2">
+          <div id="t-0002"><!--t-0002 start-->   
+          <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
+            <div class="t-0029"><!--t-0029 start--> 
+              <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
+                <div class="btn-group">
+                  <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><input type="checkbox" ng-model="vm.FecProComUniCli"/> <b style="color:black;">Fecha</b></li>
+                  <li><input type="checkbox" ng-model="vm.CodCliUniCli"/> <b style="color:black;">CodCli</b></li>
+                  <li><input type="checkbox" ng-model="vm.NifClienteUniCli"/> <b style="color:black;">NIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.NomCliUniCli"/> <b style="color:black;">Cliente</b></li>
+                  <li><input type="checkbox" ng-model="vm.CUPsEleUniCli"/> <b style="color:black;">Cantidad CUPs</b></li>
+                  <li><input type="checkbox" ng-model="vm.EstProUniCli"/> <b style="color:black;">Estatus</b></li>
+                  <li><input type="checkbox" ng-model="vm.ActProUniCli"/> <b style="color:black;">Acción</b></li>
+                </ul> 
+              </div>
+              <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                 <ul class="dropdown-menu">
+                  <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_Propuestas_PDF_UniCliente/{{vm.ruta_reportes_pdf_PropuestasUniCli}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                  <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Propuestas_Excel_UniCliente/{{vm.ruta_reportes_excel_PropuestasUniCli}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_propuestasUniCliente" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
+              </div>
+            </div><!--t-0031 end--> 
+          </div><!--t-0029 end--> 
+        </div><!--DIV removeformobile end-->
+          <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+              <div class="t-0029">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_searchUniCliente" minlength="1" id="exampleInputEmail3" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPropuestaComerciales(2)">
+                  </div>  
+                   <a data-toggle="modal" title="Agregar Propuesta Comercial UniCliente - MultiPunto" style="margin-right: 5px;" data-target="#modal_add_propuestaUniCliente" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>                  
+                </form>                    
+            </div>
+          </div>
+        </div>  <!--t-0002 end-->
+      <br><br><br><br>
+       <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                  <th ng-show="vm.FecProComUniCli==true">Fecha</th>
+                  <th ng-show="vm.CodCliUniCli==true">CodCli</th>
+                  <th ng-show="vm.NifClienteUniCli==true">NIF</th>
+                  <th ng-show="vm.NomCliUniCli==true">Cliente</th>
+                  <th ng-show="vm.CUPsEleUniCli==true">Cantidad CUPs</th>
+                  <th ng-show="vm.EstProUniCli==true">Estatus</th>                
+                  <th ng-show="vm.ActProUniCli==true">Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TPropuesta_ComercialesUniCliente.length==0"> 
+                    <td colspan="7" align="center">
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información</div>
+                    </td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TPropuesta_ComercialesUniCliente | filter:paginate1" ng-class-odd="odd">
+                    
+                    <td ng-show="vm.FecProComUniCli==true">{{dato.FecProCom}}</td>
+                    <td ng-show="vm.CodCliUniCli==true">{{dato.CodCli}}</td>
+                    <td ng-show="vm.NifClienteUniCli==true">{{dato.NumCifCli}}</td>
+                    <td ng-show="vm.NomCliUniCli==true">{{dato.RazSocCli}}</td>
+                    <td ng-show="vm.CUPsEleUniCli==true">{{dato.TotalCUPs}}</td>                    
+                    <td ng-show="vm.EstProUniCli==true">
+                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                      <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
+                      <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
+                      <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
+                   </td>
+                    <td ng-show="vm.ActProUniCli==true">
+                      <div class="btn-group">
+                        <select class="form-control" style="width: auto;" id="opcion_selectUniCli" name="opcion_selectUniCli" ng-model="vm.opcion_selectUniCli[$index]" ng-change="vm.validar_opcion_propuestas($index,vm.opcion_selectUniCli[$index],dato,2)">
+                          <option ng-repeat="opcion in vm.opciones_propuestas" value="{{opcion.id}}">{{opcion.nombre}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>                 
+                  <th ng-show="vm.FecProComUniCli==true">Fecha</th>
+                  <th ng-show="vm.CodCliUniCli==true">CodCli</th>
+                  <th ng-show="vm.NifClienteUniCli==true">NIF</th>
+                  <th ng-show="vm.NomCliUniCli==true">Cliente</th>
+                  <th ng-show="vm.CUPsEleUniCli==true">Cantidad CUPs</th>
+                  <th ng-show="vm.EstProUniCli==true">Estatus</th>                
+                  <th ng-show="vm.ActProUniCli==true">Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.FiltrarPropuestasComerciales()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems1" ng-model="currentPage1" max-size="5" boundary-links="true" items-per-page="numPerPage1" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+</div>
 
 
-
-
-
-
-
+<div ng-show="vm.tipo_propuesta==3">
+          <div id="t-0002"><!--t-0002 start-->   
+          <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
+            <div class="t-0029"><!--t-0029 start--> 
+              <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
+                <div class="btn-group">
+                  <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><input type="checkbox" ng-model="vm.FecProComMulCli"/> <b style="color:black;">Fecha</b></li>
+                  <li><input type="checkbox" ng-model="vm.NifDni"/> <b style="color:black;">NIF</b></li>
+                  <li><input type="checkbox" ng-model="vm.RepLeg"/> <b style="color:black;">Representante Legal</b></li><li><input type="checkbox" ng-model="vm.CanCliMulCli"/> <b style="color:black;">Cantidad Clientes</b></li>
+                  <li><input type="checkbox" ng-model="vm.CanCups"/> <b style="color:black;">Cantidad CUPs</b></li>
+                  <li><input type="checkbox" ng-model="vm.EstProMulCli"/> <b style="color:black;">Estatus</b></li>
+                  <li><input type="checkbox" ng-model="vm.ActProMulCli"/> <b style="color:black;">Acción</b></li>
+                </ul> 
+              </div>
+              <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+                 <ul class="dropdown-menu">
+                  <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_Propuestas_PDF_MultiCliente/{{vm.ruta_reportes_pdf_PropuestasMulCli}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                  <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Propuestas_Excel_MultiCliente/{{vm.ruta_reportes_excel_PropuestasMulCli}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <a data-toggle="modal" title='Filtros' data-target="#modal_filtros_propuestasMulCliente" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>                     
+              </div>
+            </div><!--t-0031 end--> 
+          </div><!--t-0029 end--> 
+        </div><!--DIV removeformobile end-->
+          <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
+              <div class="t-0029">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_searchMulCliente" minlength="1" id="exampleInputEmail4" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchPropuestaComerciales(3)">
+                  </div>  
+                   <a data-toggle="modal" title="Agregar Propuesta Comercial MultiCliente - MultiPunto" style="margin-right: 5px;" data-target="#modal_add_propuestaMulCliente" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>                  
+                </form>                    
+            </div>
+          </div>
+        </div>  <!--t-0002 end-->
+      <br><br><br><br>
+       <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                  <th ng-show="vm.FecProComMulCli==true">Fecha</th>
+                  <th ng-show="vm.NifDni==true">NIF</th>
+                  <th ng-show="vm.RepLeg==true">Representante Legal</th>
+                  <th ng-show="vm.CanCliMulCli==true">Cantidad Clientes</th>                  
+                  <th ng-show="vm.CanCups==true">Cantidad CUPs</th>
+                  <th ng-show="vm.EstProMulCli==true">Estatus</th>                
+                  <th ng-show="vm.ActProMulCli==true">Acción</th>
+                  </tr>
+                  <tr ng-show="vm.TPropuesta_ComercialesMulCliente.length==0"> 
+                    <td colspan="8" align="center">
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No hay información</div>
+                    </td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TPropuesta_ComercialesMulCliente | filter:paginate2" ng-class-odd="odd">
+                    
+                    <td ng-show="vm.FecProComMulCli==true">{{dato.FecProCom}}</td>
+                    <td ng-show="vm.NifDni==true">{{dato.NumCifCli}}</td>
+                    <td ng-show="vm.RepLeg==true">{{dato.RazSocCli}}</td>
+                    <td ng-show="vm.CanCliMulCli==true">{{dato.CantCli}}</td>
+                    <td ng-show="vm.CanCups==true">{{dato.CantCups}}</td>                    
+                    <td ng-show="vm.EstProMulCli==true">
+                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                      <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
+                      <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
+                      <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
+                   </td>
+                    <td ng-show="vm.ActProMulCli==true">
+                      <div class="btn-group">
+                        <select class="form-control" style="width: auto;" id="opcion_selectMulCli" name="opcion_selectMulCli" ng-model="vm.opcion_selectMulCli[$index]" ng-change="vm.validar_opcion_propuestas($index,vm.opcion_selectMulCli[$index],dato,3)">
+                          <option ng-repeat="opcion in vm.opciones_propuestas" value="{{opcion.id}}">{{opcion.nombre}}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>                 
+                  <th ng-show="vm.FecProComMulCli==true">Fecha</th>
+                  <th ng-show="vm.NifDni==true">NIF</th>
+                  <th ng-show="vm.RepLeg==true">Representante Legal</th>
+                  <th ng-show="vm.CanCliMulCli==true">Cantidad Clientes</th>                  
+                  <th ng-show="vm.CanCups==true">Cantidad CUPs</th>
+                  <th ng-show="vm.EstProMulCli==true">Estatus</th>                
+                  <th ng-show="vm.ActProMulCli==true">Acción</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.FiltrarPropuestasComerciales()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems2" ng-model="currentPage2" max-size="5" boundary-links="true" items-per-page="numPerPage2" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+</div>
 
 
 
 <!-- modal container section end -->
-   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_propuestas" class="modal fade">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_propuestas" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -273,7 +445,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
     <div class="panel">                 
-      <form class="form-validate" id="frmfiltroPropuestas" name="frmfiltroPropuestas" ng-submit="SubmitFormFiltrosPropuestas($event)">
+      <form class="form-validate" id="frmfiltroPropuestas" name="frmfiltroPropuestas" ng-submit="SubmitFormFiltrosPropuestas($event,1)">
 
     <div class="col-12 col-sm-12">
      <div class="form">                          
@@ -322,23 +494,162 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
          </div>
       </div>
-
-
     <div style="margin-left:15px; ">
      <button class="btn btn-info" type="submit" ng-disabled="frmfiltroPropuestas.$invalid">Aplicar</button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro(1)">Borrar Filtro</a>
       </div>
-</form>
-   </div>
-    </div>
-</div>
-</div>
+  </form>
+     </div>
+      </div>
+  </div>
+  </div>
 </div>
 <!--modal container section end -->
 
+<!-- modal modal_filtros_propuestasUniCliente start -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_propuestasUniCliente" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Seleccione Filtro</h4>
+          </div>
+          <div class="modal-body">
+    <div class="panel">                 
+      <form class="form-validate" id="frmfiltroPropuestasUniCliente" name="frmfiltroPropuestasUniCliente" ng-submit="SubmitFormFiltrosPropuestas($event,2)">
 
-<!-- modal container section end -->
-   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_contratosProRenPen" class="modal fade">
+    <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_filtros.tipo_filtro">
+          <option value="1">Rango de Fechas</option>
+          <option value="2">Clientes</option>
+          <option value="3">Estatus</option>
+        </select>     
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" name="RangFec1" id="RangFec1" class="form-control RangFec" ng-model="vm.RangFec" placeholder="DD/MM/YYYY">   
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
+          {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul>   
+     </div>
+     </div>
+     <input type="hidden" name="CodCliFil1" id="CodCliFil1" ng-model="vm.CodCliFil">
+     </div>
+
+      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3" ng-click="vm.containerClicked()">
+         <div class="form">                          
+         <div class="form-group">
+          <select class="form-control" id="EstProCom1" name="EstProCom1" ng-model="vm.EstProComFil">
+         <option value="P">Pendiente</option>
+         <option value="A">Aprobada</option> 
+         <option value="C">Completada</option> 
+         <option value="R">Rechazada</option>                         
+        </select>
+         
+         </div>
+         </div>
+      </div>
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroPropuestasUniCliente.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro(2)">Borrar Filtro</a>
+      </div>
+  </form>
+     </div>
+      </div>
+  </div>
+  </div>
+</div>
+<!--modal modal_filtros_propuestasUniCliente end -->
+
+<!-- modal modal_filtros_propuestasMulCliente start -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_filtros_propuestasMulCliente" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Seleccione Filtro</h4>
+          </div>
+          <div class="modal-body">
+    <div class="panel">                 
+      <form class="form-validate" id="frmfiltroMultiClienteMultiPunto" name="frmfiltroMultiClienteMultiPunto" ng-submit="SubmitFormFiltrosPropuestas($event,3)">
+
+    <div class="col-12 col-sm-12">
+     <div class="form">                          
+     <div class="form-group">
+        <select class="form-control" name="tipo_filtro" required ng-model="vm.tmodal_filtros.tipo_filtro">
+          <option value="1">Rango de Fechas</option>
+          <option value="2">Clientes</option>
+          <option value="3">Estatus</option>
+        </select>     
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==1">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" name="RangFec2" id="RangFec2" class="form-control RangFec" ng-model="vm.RangFec" placeholder="DD/MM/YYYY">   
+     </div>
+     </div>
+     </div>
+
+     <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
+     <div class="form">                          
+     <div class="form-group">
+        <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>
+        <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
+          {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+          </li>
+        </ul>   
+     </div>
+     </div>
+     <input type="hidden" name="CodCliFil2" id="CodCliFil2" ng-model="vm.CodCliFil">
+     </div>
+
+      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==3" ng-click="vm.containerClicked()">
+         <div class="form">                          
+         <div class="form-group">
+          <select class="form-control" id="EstProCom2" name="EstProCom2" ng-model="vm.EstProComFil">
+         <option value="P">Pendiente</option>
+         <option value="A">Aprobada</option> 
+         <option value="C">Completada</option> 
+         <option value="R">Rechazada</option>                         
+        </select>
+         
+         </div>
+         </div>
+      </div>
+    <div style="margin-left:15px; ">
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltroMultiClienteMultiPunto.$invalid">Aplicar</button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro(3)">Borrar Filtro</a>
+      </div>
+  </form>
+     </div>
+      </div>
+  </div>
+  </div>
+</div>
+<!--modal modal_filtros_propuestasMulCliente end -->
+
+<!-- modal modal_contratosProRenPen start -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_contratosProRenPen" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -347,8 +658,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="modal-body">
                         <div class="panel">                  
-    <form class="form-validate" id="frmProRenPen" name="frmProRenPen" ng-submit="SubmitFormContratosProRenPen($event)">                  
-     <div class="table-responsive">
+        <form class="form-validate" id="frmProRenPen" name="frmProRenPen" ng-submit="SubmitFormContratosProRenPen($event)">                  
+        <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
@@ -400,12 +711,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </form>
    </div>
     </div>
-</div>
-</div>
-</div>
-<!--modal container section end -->
+    </div>
+    </div>
+  </div>
+<!--modal modal_contratosProRenPen end -->
 
-<!--modal modal_cif_comercializadora section START -->
+<!--modal modal_add_propuesta section START -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_add_propuesta" class="modal fade">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -434,10 +745,66 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                   </div>
-                </div>
-<!--modal modal_cif_comercializadora section END -->
-             
+  </div>
+<!--modal modal_add_propuesta section END -->
 
+<!--modal modal_add_propuestaUniCliente section START -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_add_propuestaUniCliente" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Introduzca CIF</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="cif_consulta_form_UniCli" name="cif_consulta_form_UniCli" ng-submit="Consultar_CIFUniMulCli($event,2)" ng-click="vm.containerClicked()"> 
+                          <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
+                            <div class="col-lg-10">
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
+                             <ul id='searchResult'>
+                              <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
+                               {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+                              </li>
+                            </ul> 
+                            </div>
+                          </div>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form_UniCli.$invalid"> Consultar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+  </div>
+<!--modal modal_add_propuestaUniCliente section END -->
+
+<!--modal modal_add_propuestaMulCliente section START -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_add_propuestaMulCliente" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Introduzca CIF</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="cif_consulta_form_MulCli" name="cif_consulta_form_MulCli" ng-submit="Consultar_CIFUniMulCli($event,3)" ng-click="vm.containerClicked()"> 
+                          <div class="form-group">
+                            <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
+                            <div class="col-lg-10">
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
+                             <ul id='searchResult'>
+                              <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
+                               {{ result.NumCifCli }} - {{ result.RazSocCli }} 
+                              </li>
+                            </ul> 
+                            </div>
+                          </div>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form_MulCli.$invalid"> Consultar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+  </div>
+<!--modal modal_add_propuestaMulCliente section END -->
 
 
 
@@ -464,5 +831,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="carganto_servicio" class="loader loader-default"  data-text="Cargando Información"></div>
 <div id="PropuestasComerciales" class="loader loader-default"  data-text="Cargando listado de Propuestas Comerciales"></div>
 <div id="NumCifCli" class="loader loader-default"  data-text="Comprobando si el Cliente posee una Propuesta Comercial"></div>
-
 </html>

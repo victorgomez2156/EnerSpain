@@ -297,7 +297,11 @@
             }
                if(scope.fdatos.RenConEle==false)
                {
-               		scope.fdatos.RenConEle=null;
+               		scope.fdatos.RenConEle=0;
+               }
+               else
+               {
+                    scope.fdatos.RenConEle=1;
                }
                 scope.fdatos.detalleCUPs.push({CodCups:scope.fdatos.CodCupSEle,CodTar:scope.fdatos.CodTarEle,
                 PotConP1:scope.fdatos.PotConP1,PotConP2:scope.fdatos.PotConP2,PotConP3:scope.fdatos.PotConP3,
@@ -308,8 +312,12 @@
         else if (scope.fdatos.CodCupSEle==null && scope.fdatos.CodCupGas>0) 
         {
             if(scope.fdatos.RenConGas==false)
+            {
+               		scope.fdatos.RenConGas=0;
+            }
+            else
                {
-               		scope.fdatos.RenConGas=null;
+                    scope.fdatos.RenConGas=1;
                }
             scope.fdatos.detalleCUPs.push({CodCups:scope.fdatos.CodCupGas,CodTar:scope.fdatos.CodTarGas,
                 PotConP1:null,PotConP2:null,PotConP3:null,
@@ -357,7 +365,7 @@
         }
         console.log(scope.fdatos.detalleCUPs);
      }
-     scope.validar_campos_propuestas = function() {
+    scope.validar_campos_propuestas = function() {
          resultado = true;
          var FecProCom1 = document.getElementById("FecProCom").value;
          scope.FecProCom = FecProCom1;

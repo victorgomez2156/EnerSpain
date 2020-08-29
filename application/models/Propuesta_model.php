@@ -261,22 +261,64 @@ class Propuesta_model extends CI_Model
         else
         return false;
     }
-    public function PropuestasSencillas()
+    public function PropuestasUniCliente()
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,
-(SELECT e.CUPsEle 
-FROM T_Propuesta_Comercial_CUPs d 
-left JOIN T_CUPsElectrico e ON e.CodCupsEle=d.CodCup 
-left JOIN T_PuntoSuministro f ON f.CodPunSum=e.CodPunSum 
-WHERE f.CodCli=c.CodCli and b.CodProComCli=d.CodProComCli and d.TipCups=1) AS CUPsEle
-,(SELECT g.CupsGas 
-FROM T_Propuesta_Comercial_CUPs i 
-left JOIN T_CUPsGas g ON i.CodCup =g.CodCupGas 
-left JOIN T_PuntoSuministro h ON h.CodPunSum=g.CodPunSum
-WHERE h.CodCli=c.CodCli AND b.CodProComCli=i.CodProComCli and i.TipCups=2) AS CupsGas,a.EstProCom,a.RefProCom',false);
+        $this->db->select(' a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS TotalCUPs',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
-        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");        
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->where('a.TipProCom=2');        
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    } 
+    public function PropuestasMulCliente()
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->where('a.TipProCom=3');        
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    } 
+    public function PropuestasUniClienteFilter($SearchText)
+    {
+        $this->db->select(' a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS TotalCUPs',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->where('a.TipProCom=2');
+        $this->db->like('DATE_FORMAT(FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->where('a.TipProCom=2');
+        $this->db->or_like('b.CodCli',$SearchText);
+        $this->db->where('a.TipProCom=2');
+        $this->db->or_like('c.NumCifCli',$SearchText);
+        $this->db->where('a.TipProCom=2');
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->where('a.TipProCom=2');
+        $this->db->or_like('a.RefProCom',$SearchText);                
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }    
+    public function PropuestasSencillas()
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,(SELECT e.CUPsEle FROM T_Propuesta_Comercial_CUPs d left JOIN T_CUPsElectrico e ON e.CodCupsEle=d.CodCup left JOIN T_PuntoSuministro f ON f.CodPunSum=e.CodPunSum WHERE f.CodCli=c.CodCli and b.CodProComCli=d.CodProComCli and d.TipCups=1) AS CUPsEle,(SELECT g.CupsGas FROM T_Propuesta_Comercial_CUPs i left JOIN T_CUPsGas g ON i.CodCup =g.CodCupGas left JOIN T_PuntoSuministro h ON h.CodPunSum=g.CodPunSum WHERE h.CodCli=c.CodCli AND b.CodProComCli=i.CodProComCli and i.TipCups=2) AS CupsGas,a.EstProCom,a.RefProCom',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left"); 
+        $this->db->where('a.TipProCom=1');        
         $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -284,7 +326,53 @@ WHERE h.CodCli=c.CodCli AND b.CodProComCli=i.CodProComCli and i.TipCups=2) AS Cu
         else
         return false;              
     }
-     public function BuscarDetallesCUPsSencilla($CodProComCli)
+    
+    public function BuscarProComUniCliente($CodProCom)
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.TipProCom,a.CodCon,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,a.TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,b.CodCli,b.CodProComCli',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
+        $this->db->where('a.CodProCom',$CodProCom);              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+    public function GetDetallesCUPs($CodProComCli)
+{
+    $sql = $this->db->query("SELECT a.CodProComCup,a.CodProComCli,b.CUPsEle AS CUPsName,a.CauDiaGas AS CauDia,a.CodCup AS CodCups,a.CodPunSum,a.CodTar,a.ConCup AS ConCUPs
+,CONCAT(e.IniTipVia,' - ',e.DesTipVia) AS DirPunSum,a.ImpAho,
+c.NomTarEle AS NomTar,a.ObsCup,a.PorAho,a.PotEleConP1 AS PotConP1,a.PotEleConP2 AS PotConP2,a.PotEleConP3 AS PotConP3,a.PotEleConP4 AS
+PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli
+FROM T_Propuesta_Comercial_CUPs a 
+JOIN T_CUPsElectrico b ON a.CodCup=b.CodCupsEle AND a.TipCups=1 
+left JOIN T_TarifaElectrica c ON a.CodTar=c.CodTarEle
+left JOIN T_PuntoSuministro d ON a.CodPunSum=d.CodPunSum
+left JOIN T_TipoVia e ON d.CodTipVia=e.CodTipVia
+left JOIN T_Localidad f ON f.CodLoc=d.CodLoc
+left JOIN T_Provincia g ON g.CodPro=f.CodPro 
+left JOIN T_Cliente h ON h.CodCli=d.CodCli
+WHERE a.CodProComCli='$CodProComCli'
+UNION ALL
+SELECT h.CodProComCup,h.CodProComCli,i.CupsGas AS CUPsName,h.CauDiaGas AS CauDia,h.CodCup AS CodCups,h.CodPunSum,h.CodTar,h.ConCup AS ConCUPs
+,CONCAT(l.IniTipVia,' - ',l.DesTipVia) AS DirPunSum,h.ImpAho,
+j.NomTarGas AS NomTar,h.ObsCup,h.PorAho,h.PotEleConP1 AS PotConP1,h.PotEleConP2 AS PotConP2,h.PotEleConP3 AS PotConP3,h.PotEleConP4 AS
+PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli
+FROM T_Propuesta_Comercial_CUPs h 
+JOIN T_CUPsGas i ON h.CodCup=i.CodCupGas AND h.TipCups=2 
+left JOIN T_TarifaGas j ON h.CodTar=j.CodTarGas
+left JOIN T_PuntoSuministro k ON h.CodPunSum=k.CodPunSum
+left JOIN T_TipoVia l ON k.CodTipVia=l.CodTipVia
+left JOIN T_Localidad m ON m.CodLoc=k.CodLoc
+left JOIN T_Provincia n ON n.CodPro=m.CodPro
+left JOIN T_Cliente o ON o.CodCli=k.CodCli WHERE h.CodProComCli='$CodProComCli'");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else
+        return false;     
+}
+    public function BuscarDetallesCUPsSencilla($CodProComCli)
     {
         $this->db->select('*',false);
         $this->db->from('T_Propuesta_Comercial_CUPs');
@@ -310,6 +398,61 @@ WHERE h.CodCli=c.CodCli AND b.CodProComCli=i.CodProComCli and i.TipCups=2) AS Cu
     { 
         return $this->db->delete('T_Propuesta_Comercial_CUPs', array('CodProComCli' => $CodProComCli));
     }
+    public function get_CUPs_Electricos($CodCli)
+{
+    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ,a.CodTarElec,a.CodPunSum,h.RazSocCli,h.NumCifCli
+        FROM T_CUPsElectrico a 
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaElectrica f ON a.CodTarElec=f.CodTarEle
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist 
+        LEFT JOIN T_Cliente h ON h.CodCli=b.CodCli where b.CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
+public function get_CUPs_Gas($CodCli)
+{
+    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ,a.CodPunSum,a.CodTarGas,h.RazSocCli,h.NumCifCli
+        FROM T_CUPsGas a 
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaGas f ON a.CodTarGas=f.CodTarGas
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist 
+        LEFT JOIN T_Cliente h ON h.CodCli=b.CodCli where b.CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
+public function PropuestasMulClienteFilter($SearchText)
+    {
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->where('a.TipProCom=3');
+        $this->db->like('DATE_FORMAT(FecProCom,"%d/%m/%Y")',$SearchText);
+        $this->db->where('a.TipProCom=3');
+        $this->db->or_like('b.CodCli',$SearchText);
+        $this->db->where('a.TipProCom=3');
+        $this->db->or_like('c.NumCifCli',$SearchText);
+        $this->db->where('a.TipProCom=3');
+        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->where('a.TipProCom=3');
+        $this->db->or_like('a.RefProCom',$SearchText);                
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }    
 
 
 

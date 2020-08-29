@@ -88,6 +88,9 @@
 
   <script src="<?php echo PATH_ESTILOS_JS_APP.'propuestas_comerciales.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuestas_comerciales.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuesta_comercial_UniCliente.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuesta_comerciales_MulCliente.js'?>"></script>
+  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'renovacion_masiva.js'?>"></script>   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'otras_gestiones.js'?>"></script>

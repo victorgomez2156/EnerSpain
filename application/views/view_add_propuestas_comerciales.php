@@ -44,6 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <form id="register_formAnex" name="register_formAnex" ng-submit="submitFormPropuesta($event)"> 
      <div class='row'>              
+       
        <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
@@ -60,7 +61,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Nº Documento Fiscal</label>
         <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="Nº Documento Fiscal" maxlength="50" readonly="readonly" />
-         
          </div>
          </div>
       </div>

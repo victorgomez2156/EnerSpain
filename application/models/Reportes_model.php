@@ -836,8 +836,22 @@ class Reportes_model extends CI_Model
         } 
     }
     public function PropuestaComercial($CodProCom)
-    {
-        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,b.RazSocCli,b.NumCifCli,CONCAT(c.IniTipVia,'-',c.DesTipVia) as TipVia,b.NomViaDomSoc,b.NumViaDomSoc,b.BloDomSoc,b.EscDomSoc,b.PlaDomSoc,b.PueDomSoc,d.DesLoc,e.DesPro,b.CPLocSoc,f.CUPsEle,,CONCAT(h.IniTipVia,'-',h.DesTipVia) as TipViaPunSumEle,g.NomViaPunSum as NomViaPunSumEle,g.NumViaPunSum as NumViaPunSumEle,g.BloPunSum as BloPunSumEle,g.EscPunSum as EscPunSumEle,g.PlaPunSum as PlaPunSumEle,g.PuePunSum as PuePunSumEle,i.DesLoc as DesLocPunSumEle,j.DesPro as DesProPunSumEle,g.CPLocSoc as CPLocPunSumEle,k.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,(CASE WHEN a.RenConEle = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConEle,a.ObsAhoEle,l.CupsGas,CONCAT(n.IniTipVia,'-',n.DesTipVia) as TipViaPunSumGas,m.NomViaPunSum as NomViaPunSumGas,m.NumViaPunSum as NumViaPunSumGas,m.BloPunSum as BloPunSumGas,m.EscPunSum as EscPunSumGas,m.PlaPunSum as PlaPunSumGas,m.PuePunSum as PuePunSumGas,o.DesLoc as DesLocPunSumGas,p.DesPro as DesProPunSumGas,m.CPLocSoc as CPLocPunSumGas,q.NomTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,(CASE WHEN a.RenConGas = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConGas,a.ObsAhoGas,a.ImpAhoTot,a.ObsProCom,CONCAT(r.RazSocCom,' - ',r.NumCifCom) as CodCom,t.DesAnePro,s.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre",false);
+    {   
+        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,
+
+            a.ImpAhoTot,a.ObsProCom,CONCAT(g.NomComCom,' - ',g.NumCifCom) as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
+            ",false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
+        $this->db->join('T_Cliente c', 'b.CodCli = c.CodCli');
+        $this->db->join('T_TipoVia d', 'c.CodTipViaSoc=d.CodTipVia');
+        $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLocSoc');
+        $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro');
+        $this->db->join('T_Comercializadora g', 'g.CodCom = a.CodCom');
+        $this->db->join('T_Producto h', 'h.CodPro = a.CodPro');
+        $this->db->join('T_AnexoProducto i', 'i.CodAnePro = a.CodAnePro');
+        $this->db->where('a.CodProCom',$CodProCom);
+        /*$this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,b.RazSocCli,b.NumCifCli,CONCAT(c.IniTipVia,'-',c.DesTipVia) as TipVia,b.NomViaDomSoc,b.NumViaDomSoc,b.BloDomSoc,b.EscDomSoc,b.PlaDomSoc,b.PueDomSoc,d.DesLoc,e.DesPro,b.CPLocSoc,f.CUPsEle,CONCAT(h.IniTipVia,'-',h.DesTipVia) as TipViaPunSumEle,g.NomViaPunSum as NomViaPunSumEle,g.NumViaPunSum as NumViaPunSumEle,g.BloPunSum as BloPunSumEle,g.EscPunSum as EscPunSumEle,g.PlaPunSum as PlaPunSumEle,g.PuePunSum as PuePunSumEle,i.DesLoc as DesLocPunSumEle,j.DesPro as DesProPunSumEle,g.CPLocSoc as CPLocPunSumEle,k.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,(CASE WHEN a.RenConEle = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConEle,a.ObsAhoEle,l.CupsGas,CONCAT(n.IniTipVia,'-',n.DesTipVia) as TipViaPunSumGas,m.NomViaPunSum as NomViaPunSumGas,m.NumViaPunSum as NumViaPunSumGas,m.BloPunSum as BloPunSumGas,m.EscPunSum as EscPunSumGas,m.PlaPunSum as PlaPunSumGas,m.PuePunSum as PuePunSumGas,o.DesLoc as DesLocPunSumGas,p.DesPro as DesProPunSumGas,m.CPLocSoc as CPLocPunSumGas,q.NomTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,(CASE WHEN a.RenConGas = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConGas,a.ObsAhoGas,a.ImpAhoTot,a.ObsProCom,CONCAT(r.RazSocCom,' - ',r.NumCifCom) as CodCom,t.DesAnePro,s.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre",false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Cliente b', 'a.CodCli = b.CodCli');
         $this->db->join('T_TipoVia c', 'b.CodTipViaSoc=c.CodTipVia');
@@ -858,11 +872,34 @@ class Reportes_model extends CI_Model
         $this->db->join('T_Comercializadora r', 'r.CodCom = a.CodCom');
         $this->db->join('T_Producto s', 's.CodPro = a.CodPro');
         $this->db->join('T_AnexoProducto t', 't.CodAnePro = a.CodAnePro'); 
-        $this->db->where('a.CodProCom',$CodProCom);
+        $this->db->where('a.CodProCom',$CodProCom);*/
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {return $query->row();}else{return false;}  
     }
+    public function PropuestaComercialCUPs($CodProComCli)
+    {
+        $this->db->select("a.*,b.CUPsEle,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipViaPunSumEle,
+
+
+            c.NomViaPunSum as NomViaPunSumEle,c.NumViaPunSum as NumViaPunSumEle,c.BloPunSum as BloPunSumEle,c.EscPunSum as EscPunSumEle,c.PlaPunSum as PlaPunSumEle,c.PuePunSum as PuePunSumEle,e.DesLoc as DesLocPunSumEle,f.DesPro as DesProPunSumEle,c.CPLocSoc as CPLocPunSumEle,g.NomTarEle",false);
+        $this->db->from('T_Propuesta_Comercial_CUPs a');
+        $this->db->join('T_CUPsElectrico b','a.CodCup=b.CodCupsEle','left');
+        $this->db->join('T_PuntoSuministro c','b.CodPunSum=c.CodPunSum','left');
+        $this->db->join('T_TipoVia d', 'd.CodTipVia=c.CodTipVia',"left"); 
+        $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc',"left");
+        $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro',"left");
+        $this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTar','left');
+        $this->db->where('a.CodProComCli',$CodProComCli);     
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;            
+    }
+
+
+
     public function get_list_contratos_comerciales_filtro($where,$Variable)
     {
         $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
@@ -1538,6 +1575,36 @@ class Reportes_model extends CI_Model
             return false;
         }       
     }
+    public function get_list_uniclienteBeta($where,$Variable)
+    {
+        $this->db->select(' a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS TotalCUPs',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->where($where,$Variable);
+        $this->db->where('a.TipProCom=2');        
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function get_list_MultiClienteBeta($where,$Variable)
+    {
+         $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");        
+        $this->db->where('a.TipProCom=3');  
+        $this->db->where($where,$Variable);      
+        $this->db->order_by('DATE_FORMAT(a.FecProCom,"%d/%m/%Y") DESC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    } 
 
 
  

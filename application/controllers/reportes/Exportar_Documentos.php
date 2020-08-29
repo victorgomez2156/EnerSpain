@@ -2906,7 +2906,7 @@ class Exportar_Documentos extends CI_Controller
         exit;   
     }
 
-     public function Doc_PDF_Comercializadora()
+    public function Doc_PDF_Comercializadora()
     {
         $tipo_filtro = $this->uri->segment(4);        
         if($tipo_filtro==0)
@@ -12079,6 +12079,8 @@ class Exportar_Documentos extends CI_Controller
             return false;
         }
         $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
+        $PropuestaComercialCUPs=$this->Reportes_model->PropuestaComercialCUPs($PropuestaComercial-> CodProComCli);
+        //var_dump($PropuestaComercialCUPs);
         if($PropuestaComercial==false)
         {
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
@@ -12088,9 +12090,9 @@ class Exportar_Documentos extends CI_Controller
 
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetTitle('Propuesta Comercial '.date('d/m/Y'));
+        $pdf->SetTitle('Propuesta Comercial Sencilla '.date('d/m/Y'));
         $pdf->SetAuthor(TITULO);        
-        $pdf->SetSubject('Propuesta Comercial');
+        $pdf->SetSubject('Propuesta Comercial Sencilla');
         $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -12103,7 +12105,7 @@ class Exportar_Documentos extends CI_Controller
         $pdf->SetFont('times', ' ', 10, ' ', true);
         $pdf->AddPage();        
         $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
-        $html .= '<h1 align="center">Propuesta Comercial</h1>';
+        $html .= '<h1 align="center">Propuesta Comercial Sencilla</h1>';
         
         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
@@ -12138,26 +12140,34 @@ class Exportar_Documentos extends CI_Controller
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
         </tr>
-        </table>'; 
-
-         $html .= '<br><br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+        </table>';
+        if($PropuestaComercialCUPs!=false)
+        {
+            foreach ($PropuestaComercialCUPs as $key => $value):
+            {
+                if($value->TipCups==1)
+                {
+                    
+                    if($value-> RenCup==0)
+                    {$RenCup="No";}
+                    else{$RenCup="Si";}    
+                    $html .= '<br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">CUPs Eléctrico</td>
+                    <td border="1">Dirección</td>
+                    <td border="1">Localidad</td>
+                    <td border="1">Provincia</td>
+                    <td border="1">Código Postal</td>
+                    </tr>
+                        <tr>
+                            <td border="1">'.$value-> CUPsEle.'</td>
+                            <td border="1">'.$value-> TipViaPunSumEle.' '.$value-> NomViaPunSumEle.' '.$value-> NumViaPunSumEle.' '.$value-> BloPunSumEle.' '.$value-> EscPunSumEle.' '.$value-> PlaPunSumEle.' '.$value-> PuePunSumEle.'</td>
+                            <td border="1">'.$value->DesLocPunSumEle.'</td>
+                            <td border="1">'.$value->DesProPunSumEle.'</td>
+                            <td border="1">'.$value->CPLocPunSumEle.'</td>
+                        </tr>
                             <tr>
-                            <td border="1">CUP Eléctrico</td>
-                            <td border="1">Dirección</td>
-                            <td border="1">Localidad</td>
-                            <td border="1">Provincia</td>
-                            <td border="1">Código Postal</td>
-                            </tr>
-                            <tr>
-                            <td border="1">'.$PropuestaComercial->CUPsEle.'</td>
-                            <td border="1">'.$PropuestaComercial->TipViaPunSumEle.' '.$PropuestaComercial->NomViaPunSumEle.' '.$PropuestaComercial->NumViaPunSumEle.' '.$PropuestaComercial->BloPunSumEle.' '.$PropuestaComercial->EscPunSumEle.' '.$PropuestaComercial->PlaPunSumEle.' '.$PropuestaComercial->PuePunSumEle.' </td>
-                            <td border="1">'.$PropuestaComercial->DesLocPunSumEle.'</td>
-                            <td border="1">'.$PropuestaComercial->DesProPunSumEle.'</td>
-                            <td border="1">'.$PropuestaComercial->CPLocPunSumEle.'</td>
-                            </tr>
-
-                            <tr>
-                            <td class="borde"><h3>Tárifa</h3> '.$PropuestaComercial->NomTarEle.'</td>                            
+                            <td class="borde"><h3>Tárifa</h3> '.$value->NomTarEle.'</td>                            
                             
                             <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
                                 <table class="borde">
@@ -12170,12 +12180,12 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">P6</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.$PropuestaComercial->PotConP1.'</td>
-                                    <td border="1">'.$PropuestaComercial->PotConP2.'</td>
-                                    <td border="1">'.$PropuestaComercial->PotConP3.'</td>
-                                    <td border="1">'.$PropuestaComercial->PotConP4.'</td>
-                                    <td border="1">'.$PropuestaComercial->PotConP5.'</td>
-                                    <td border="1">'.$PropuestaComercial->PotConP6.'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP1, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP2, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP3, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP4, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP5, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotEleConP6, 2, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12186,8 +12196,8 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">%</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.$PropuestaComercial->ImpAhoEle.'</td>
-                                    <td border="1">'.$PropuestaComercial->PorAhoEle.'</td>
+                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12195,18 +12205,198 @@ class Exportar_Documentos extends CI_Controller
                         <tr>
                         <td>Renovación:                                                    
                         </td>
-                        <td>'.$PropuestaComercial->RenConEle.'                                                   
+                        <td>'.$RenCup.'                                                   
+                        </td>
+                        <td>Consumo:                                                    
+                        </td >
+                        <td colspan="2">'.number_format($value-> ConCup, 2, ',', '.').'                                                    
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>Observación:                                                    
+                        </td>
+                        <td colspan="4" align="left">'.$value-> ObsCup.'                                                   
+                        </td>                        
+                        </tr>
+                    </table>';                   
+                }
+                if($value->TipCups==2)
+                {
+                    
+                    if($value-> RenCup==0)
+                    {$RenCupGas="No";}
+                    else{$RenCupGas="Si";}
+                    $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1">CUPs Gas</td>
+                            <td border="1">Dirección</td>
+                            <td border="1">Localidad</td>
+                            <td border="1">Provincia</td>
+                            <td border="1">Código Postal</td>
+                            </tr>
+                            <tr>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            </tr>
+                            
+                            <tr>
+                            <td class="borde"><h3>Tárifa</h3> </td> 
+
+                            <td class="borde"><h3>Consumo</h3> </td>
+
+                            <td class="borde"><h3>Caudal Diario</h3> </td>
+
+                            <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>                                                   
                         </td>
                         <td>Observación:                                                    
                         </td >
-                        <td colspan="2">'.$PropuestaComercial->ObsAhoEle.'                                                    
+                        <td colspan="2">                                                   
                         </td>
                         </tr>
+                    </table><br><br>';    
+                       
+                }
+            }
+            endforeach;
+        }
+        else
+        {
+            $html .= '<br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">CUPs Eléctrico</td>
+                    <td border="1">Dirección</td>
+                    <td border="1">Localidad</td>
+                    <td border="1">Provincia</td>
+                    <td border="1">Código Postal</td>
+                    </tr>
+                        <tr>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                        </tr>
 
-                          
-                            </table>'; 
+                            <tr>
+                            <td class="borde"><h3>Tárifa</h3> </td>                            
+                            
+                            <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">P1</td>
+                                    <td border="1">P2</td>
+                                    <td border="1">P3</td>
+                                    <td border="1">P4</td>
+                                    <td border="1">P5</td>
+                                    <td border="1">P6</td>
+                                </tr>
+                                <tr>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                </tr>
+                                </table>
+                            </td>
+                              <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>                                                   
+                        </td>
+                        <td>Observación:                                                    
+                        </td >
+                        <td colspan="2">                                                    
+                        </td>
+                        </tr>
+                    </table>';
 
-                        $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1">CUPs Gas</td>
+                            <td border="1">Dirección</td>
+                            <td border="1">Localidad</td>
+                            <td border="1">Provincia</td>
+                            <td border="1">Código Postal</td>
+                            </tr>
+                            <tr>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            <td border="1"></td>
+                            </tr>
+                            
+                            <tr>
+                            <td class="borde"><h3>Tárifa</h3> </td> 
+
+                            <td class="borde"><h3>Consumo</h3> </td>
+
+                            <td class="borde"><h3>Caudal Diario</h3> </td>
+
+                            <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1"></td>
+                                    <td border="1"></td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>                                                   
+                        </td>
+                        <td>Observación:                                                    
+                        </td >
+                        <td colspan="2">                                                   
+                        </td>
+                        </tr>
+                    </table>';
+        }
+
+
+        /*
+
+                $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
                             <td border="1">CUP Gas</td>
                             <td border="1">Dirección</td>
@@ -12252,17 +12442,17 @@ class Exportar_Documentos extends CI_Controller
                         <td colspan="2">'.$PropuestaComercial->ObsAhoGas.'                                                    
                         </td>
                         </tr>
-                    </table>'; 
+                    </table>'; */
 
                     $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
-                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b> '.$PropuestaComercial->ImpAhoTot.'</td>
+                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
                             <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
                             
                             </tr>                           
                         
                     </table><br><br>'; 
- $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
         </tr>
@@ -12725,6 +12915,1165 @@ class Exportar_Documentos extends CI_Controller
         $objWriter->save('php://output');
         exit;   
     }
+    public function Doc_Propuestas_PDF_UniCliente()
+    {
+        
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todas Las Propuestas Comerciales UniCliente - MultiPunto";
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasUniCliente();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='DATE_FORMAT(a.FecProCom,"%d/%m/%Y")';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='b.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstProCom = urldecode($this->uri->segment(5));
+            if($EstProCom==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstProCom=="P")
+            {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
+            $where='a.EstProCom';
+            $Variable=$EstProCom;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipoCliente = urldecode($this->uri->segment(5));
+            $TipoCliente1 = urldecode($this->uri->segment(6));
+            $TipoCliente2 = urldecode($this->uri->segment(7));
+            if($TipoCliente==null)
+            {
+                echo 'Error debe colocar una palabra para poder aplicar el filtro.';
+                return false;
+            }
+            if($TipoCliente1!=null&&$TipoCliente2==null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1;
+            }
+            if($TipoCliente2!=null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1.'/'.$TipoCliente2;
+            }
+            $NombreFiltro="Busqueda Por: ".$TipoCliente;
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasUniClienteFilter($TipoCliente);
+        }
+        else
+        {
+           echo 'Error en filtro intente nuevamente.';
+            return false; 
+        }
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Propuesta Comercial UniCliente - MultiPunto'.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Propuesta Comercial UniCliente - MultiPunto');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE PROPUESTAS COMERCIALES UniCliente - MultiPunto</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left">Filtro Aplicado</td>
+                <td border="0" colspan="2">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">FECHA</td>
+            <td style="color:white;">CodCli</td> 
+            <td style="color:white;">NIF</td> 
+            <td style="color:white;">CLIENTE</td>
+            <td style="color:white;">CANTIDAD CUPS</td>
+            <td style="color:white;">ESTATUS</td>
+        </tr>';
+        if($Resultado_Filtro_Propuestas!=false)
+        {
+            foreach ($Resultado_Filtro_Propuestas as $record): 
+            {
+                if($record->EstProCom=="P")
+                {$EstProCom='Pendiente';}elseif ($record->EstProCom=="A"){$EstProCom="Aprobada";}elseif ($record->EstProCom=="R"){$EstProCom="Rechazada";}elseif ($record->EstProCom=="C"){$EstProCom="Completada";}else{$EstProCom="N/A";}
+                $html.='<tr>
+                        <td>'.$record->FecProCom.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.'</td>
+                        <td>'.$record->TotalCUPs.'</td>
+                        <td>'.$EstProCom.'</td>                       
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="6"><b>Actualmente no hemos encontrado propuestas comerciales UniCliente - MultiPunto registradas.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',null,$this->input->ip_address(),'Filtro Propuesta Comercial');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
+    }    
+    public function Doc_Propuestas_Excel_UniCliente()
+    {       
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todas Las Propuestas Comerciales UniCliente - MultiPunto";
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasUniCliente();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='DATE_FORMAT(a.FecProCom,"%d/%m/%Y")';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='b.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstProCom = urldecode($this->uri->segment(5));
+            if($EstProCom==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstProCom=="P")
+            {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
+            $where='a.EstProCom';
+            $Variable=$EstProCom;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_uniclienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipoCliente = urldecode($this->uri->segment(5));
+            $TipoCliente1 = urldecode($this->uri->segment(6));
+            $TipoCliente2 = urldecode($this->uri->segment(7));
+            if($TipoCliente==null)
+            {
+                echo 'Error debe colocar una palabra para poder aplicar el filtro.';
+                return false;
+            }
+            if($TipoCliente1!=null&&$TipoCliente2==null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1;
+            }
+            if($TipoCliente2!=null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1.'/'.$TipoCliente2;
+            }
+            $NombreFiltro="Busqueda Por: ".$TipoCliente;
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasUniClienteFilter($TipoCliente);
+        }
+        else
+        {
+           echo 'Error en filtro intente nuevamente.';
+            return false; 
+        }       
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Propuestas_Comerciales_UniCliente-MultiPunto'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Propuestas Comerciales UniCliente - MultiPunto"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Propuestas Comerciales UniCliente-MultiPunto"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE PROPUESTAS COMERCIALES UniCliente-MultiPunto");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CODCLI");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NIF");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CLIENTE");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CANTIDAD CUPS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "ESTATUS");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:F9");
+        $fila=9;
+        if($Resultado_Filtro_Propuestas!=false)
+        {
+            for($i=0; $i<count($Resultado_Filtro_Propuestas); $i++) 
+            {
+                if($Resultado_Filtro_Propuestas[$i]->EstProCom=="P")
+                {$EstProComNom='Pendiente';}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Propuestas[$i]->FecProCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Propuestas[$i]->TotalCUPs);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $EstProComNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");  
+            }   
+        }
+        
+        foreach (range('A', 'F') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL PROPUESTAS COMERCIALES FILTRADAS UniCliente-MultiPunto');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_Propuestas_PDF_MultiCliente()
+    {
+        
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todas Las Propuestas Comerciales MultiCliente - MultiPunto";
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasMulCliente();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='DATE_FORMAT(a.FecProCom,"%d/%m/%Y")';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='b.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstProCom = urldecode($this->uri->segment(5));
+            if($EstProCom==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstProCom=="P")
+            {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
+            $where='a.EstProCom';
+            $Variable=$EstProCom;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipoCliente = urldecode($this->uri->segment(5));
+            $TipoCliente1 = urldecode($this->uri->segment(6));
+            $TipoCliente2 = urldecode($this->uri->segment(7));
+            if($TipoCliente==null)
+            {
+                echo 'Error debe colocar una palabra para poder aplicar el filtro.';
+                return false;
+            }
+            if($TipoCliente1!=null&&$TipoCliente2==null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1;
+            }
+            if($TipoCliente2!=null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1.'/'.$TipoCliente2;
+            }
+            $NombreFiltro="Busqueda Por: ".$TipoCliente;
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasMulClienteFilter($TipoCliente);
+        }
+        else
+        {
+           echo 'Error en filtro intente nuevamente.';
+            return false; 
+        }
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Propuesta Comercial MultiCliente - MultiPunto'.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Propuesta Comercial MultiCliente - MultiPunto');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE PROPUESTAS COMERCIALES MultiCliente - MultiPunto</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left">Filtro Aplicado</td>
+                <td border="0" colspan="2">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">FECHA</td> 
+            <td style="color:white;">NIF</td> 
+            <td style="color:white;">REPRESENTANTE LEGAL</td>
+            <td style="color:white;">CANTIDAD CLIENTES</td>
+            <td style="color:white;">CANTIDAD CUPS</td>
+            <td style="color:white;">ESTATUS</td>
+        </tr>';
+        if($Resultado_Filtro_Propuestas!=false)
+        {
+            foreach ($Resultado_Filtro_Propuestas as $record): 
+            {
+                if($record->EstProCom=="P")
+                {$EstProCom='Pendiente';}elseif ($record->EstProCom=="A"){$EstProCom="Aprobada";}elseif ($record->EstProCom=="R"){$EstProCom="Rechazada";}elseif ($record->EstProCom=="C"){$EstProCom="Completada";}else{$EstProCom="N/A";}
+                $html.='<tr>
+                        <td>'.$record-> FecProCom.'</td>
+                        <td>'.$record-> NumCifCli.'</td>
+                        <td>'.$record-> RazSocCli.'</td>
+                        <td>'.$record-> CantCli.'</td>
+                        <td>'.$record-> CantCups.'</td>
+                        <td>'.$EstProCom.'</td>                       
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="6"><b>Actualmente no hemos encontrado propuestas comerciales Multi Cliente - MultiPunto registradas.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',null,$this->input->ip_address(),'Filtro Propuesta Comercial Multi');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial MultiCliente - MultiPunto'.'.pdf', 'I');
+    }
+    public function Doc_Propuestas_Excel_MultiCliente()
+    {       
+        $TipoFiltro = urldecode($this->uri->segment(4));
+        if($TipoFiltro==null)
+        {
+            echo 'Error el tipo de filtro es requerido.';
+            return false;
+        }
+        if($TipoFiltro==0)
+        {
+            $NombreFiltro="Todas Las Propuestas Comerciales MultiCliente - MultiPunto";
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasMulCliente();
+        }
+        elseif($TipoFiltro==1)
+        {
+            $Dia = urldecode($this->uri->segment(5));
+            $Mes = urldecode($this->uri->segment(6));
+            $Ano = urldecode($this->uri->segment(7));
+            
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Rango de Fecha ".$Dia.'/'.$Mes.'/'.$Ano;
+            $where='DATE_FORMAT(a.FecProCom,"%d/%m/%Y")';
+            $Variable=$Dia.'/'.$Mes.'/'.$Ano;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==2)
+        {
+            $CodCli = urldecode($this->uri->segment(5));
+            if($CodCli==null)
+            {
+                echo 'Error debe elegir un cliente para poder aplicar el filtro.';
+                return false;
+            }
+            $Variable=$CodCli;
+            $tabla="T_Cliente";
+            $where="CodCli";
+            $select="RazSocCli,NumCifCli";
+            $Cliente=$this->Propuesta_model->Funcion_Verificadora($Variable,$tabla,$where,$select);
+            //var_dump($Ano.'-'.$Mes.'-'.$Dia);
+            $NombreFiltro="Cliente: ".$Cliente->NumCifCli.' - '.$Cliente->RazSocCli;
+            $where='b.CodCli';
+            $Variable=$CodCli;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==3)
+        {
+            $EstProCom = urldecode($this->uri->segment(5));
+            if($EstProCom==null)
+            {
+                echo 'Error debe elegir un estatus para poder aplicar el filtro.';
+                return false;
+            }
+            if($EstProCom=="P")
+            {$EstProComNom='Pendiente';}elseif ($EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+            $NombreFiltro="Estatus Propuesta: ".$EstProComNom;
+            $where='a.EstProCom';
+            $Variable=$EstProCom;
+            $Resultado_Filtro_Propuestas=$this->Reportes_model->get_list_MultiClienteBeta($where,$Variable);
+
+        }
+        elseif($TipoFiltro==4)
+        {
+            $TipoCliente = urldecode($this->uri->segment(5));
+            $TipoCliente1 = urldecode($this->uri->segment(6));
+            $TipoCliente2 = urldecode($this->uri->segment(7));
+            if($TipoCliente==null)
+            {
+                echo 'Error debe colocar una palabra para poder aplicar el filtro.';
+                return false;
+            }
+            if($TipoCliente1!=null&&$TipoCliente2==null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1;
+            }
+            if($TipoCliente2!=null)
+            {
+               $TipoCliente =$TipoCliente.'/'.$TipoCliente1.'/'.$TipoCliente2;
+            }
+            $NombreFiltro="Busqueda Por: ".$TipoCliente;
+            $Resultado_Filtro_Propuestas=$this->Propuesta_model->PropuestasMulClienteFilter($TipoCliente);
+        }
+        else
+        {
+           echo 'Error en filtro intente nuevamente.';
+            return false; 
+        }      
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Propuestas_Comerciales_MulCliente-MultiPunto'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Propuestas Comerciales MulCliente - MultiPunto"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Propuestas Comerciales MulCliente-MultiPunto"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE PROPUESTAS COMERCIALES MultiCliente-MultiPunto");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:D6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "FECHA");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CIF/NIF");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Representante Legal");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Cantidad Clientes");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Cantidad CUPs");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "Estatus");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:F9");
+        $fila=9;
+        if($Resultado_Filtro_Propuestas!=false)
+        {
+            for($i=0; $i<count($Resultado_Filtro_Propuestas); $i++) 
+            {
+                if($Resultado_Filtro_Propuestas[$i]->EstProCom=="P")
+                {$EstProComNom='Pendiente';}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="A"){$EstProComNom="Aprobada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="R"){$EstProComNom="Rechazada";}elseif ($Resultado_Filtro_Propuestas[$i]->EstProCom=="C"){$EstProComNom="Completada";}else{$EstProComNom="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Filtro_Propuestas[$i]->FecProCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Filtro_Propuestas[$i]->NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Filtro_Propuestas[$i]->RazSocCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Filtro_Propuestas[$i]->CantCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Filtro_Propuestas[$i]->CantCups);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $EstProComNom);
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:F$fila");  
+            }   
+        }
+        
+        foreach (range('A', 'F') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL PROPUESTAS COMERCIALES FILTRADAS UniCliente-MultiPunto');
+        $objWriter->save('php://output');
+        exit;   
+    }
+    public function Doc_Propuesta_Comercial_UniCliente()
+    {
+        
+        $CodProCom = urldecode($this->uri->segment(4));
+        if($CodProCom==null)
+        {
+            echo 'Error debe seleccionar una propuesta comercial.';
+            return false;
+        }
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
+        //var_dump($PropuestaComercialCUPs);
+        if($PropuestaComercial==false)
+        {
+           echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
+           return false; 
+        }
+        //var_dump($PropuestaComercial);
+
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Propuesta Comercial UniCliente-MultiPunto '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Propuesta Comercial UniCliente-MultiPunto');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h1 align="center">Propuesta Comercial UniCliente-MultiPunto</h1>';
+        
+        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="0" align="left" colspan="4">Propuesta Nº: '.$PropuestaComercial->RefProCom.'</td>
+            <td border="0" colspan="1">Fecha: '.$PropuestaComercial->FecProCom.'</td>
+        </tr>
+        </table>'; 
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CLIENTE</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$PropuestaComercial->RazSocCli.'</td>
+            <td border="0" colspan="1">CIF: '.$PropuestaComercial->NumCifCli.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->TipVia.' '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$PropuestaComercial->DesPro.'</td>
+            <td border="0" colspan="1">Código Postal: '.$PropuestaComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
+        </tr>
+        </table>';
+        
+        $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">Dirección de Suministro</td>
+                    <td border="1">Tipo de CUPs</td>
+                    <td border="1">CUPs</td>
+                    <td border="1">Tárifa</td>
+                    <td border="1">Consumo</td>
+                    <td border="1">Ren</td>
+                    <td border="1">Ahorro</td>
+                    </tr>';
+        if($PropuestaComercialCUPs!=false)
+        {
+            foreach ($PropuestaComercialCUPs as $key => $value):
+            {
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> DirPunSum.'</td>
+                        <td border="1">'.$value-> TipServ.'</td>
+                        <td border="1">'.$value-> CUPsName.'</td>
+                        <td border="1">'.$value-> NomTar.'</td>
+                        <td border="1">'.$value-> ConCUPs.'</td>
+                        <td border="1">'.$value-> RenCon.'</td>
+                        <td border="1">'.$value-> ImpAho.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+
+        /*$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
+                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
+                            
+                            </tr>                           
+                        
+        </table><br><br>';*/ 
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1">Comercializadora:</td>
+            <td colspan="1">'.$PropuestaComercial->CodCom.'</td>
+            <td colspan="1">Anexo:</td>
+            <td colspan="1">'.$PropuestaComercial->DesAnePro.' </td>
+        </tr>
+        <tr>
+            <td colspan="1">Producto:</td>
+            <td colspan="1">'.$PropuestaComercial->DesProNom.'</td>
+            <td colspan="1">Tipo Precio:</td>
+            <td colspan="1">'.$PropuestaComercial->TipPre.'</td>
+        </tr>      
+        </table>';
+
+
+         $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
+        </tr>
+            
+        </table>';
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',$CodProCom,$this->input->ip_address(),'GENERANDO REPORTE PDF PROPUESTA COMERCIAL');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
+    }
+    public function Doc_Propuesta_Comercial_MulCliente()
+    {
+        
+        $CodProCom = urldecode($this->uri->segment(4));
+        if($CodProCom==null)
+        {
+            echo 'Error debe seleccionar una propuesta comercial.';
+            return false;
+        }
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
+        //var_dump($PropuestaComercialCUPs);
+        if($PropuestaComercial==false)
+        {
+           echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
+           return false; 
+        }
+        //var_dump($PropuestaComercial);
+
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Propuesta Comercial MulCliente-MultiPunto '.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Propuesta Comercial MulCliente-MultiPunto');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h1 align="center">Propuesta Comercial MultiCliente-MultiPunto</h1>';
+        
+        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="0" align="left" colspan="4">Propuesta Nº: '.$PropuestaComercial->RefProCom.'</td>
+            <td border="0" colspan="1">Fecha: '.$PropuestaComercial->FecProCom.'</td>
+        </tr>
+        </table>'; 
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CLIENTE</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$PropuestaComercial->RazSocCli.'</td>
+            <td border="0" colspan="1">CIF: '.$PropuestaComercial->NumCifCli.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->TipVia.' '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$PropuestaComercial->DesPro.'</td>
+            <td border="0" colspan="1">Código Postal: '.$PropuestaComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
+        </tr>
+        </table>';
+        
+        $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">Cliente</td>
+                    <td border="1">Razón Social</td>
+                    <td border="1">Dirección de Suministro</td>
+                    <td border="1">Tipo de CUPs</td>
+                    <td border="1">CUPs</td>
+                    <td border="1">Tárifa</td>
+                    <td border="1">Consumo</td>
+                    <td border="1">Ren</td>
+                    <td border="1">Ahorro</td>
+                    </tr>';
+        if($PropuestaComercialCUPs!=false)
+        {
+            foreach ($PropuestaComercialCUPs as $key => $value):
+            {
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> NumCifCli.'</td>
+                        <td border="1">'.$value-> RazSocCli.'</td>
+                        <td border="1">'.$value-> DirPunSum.'</td>
+                        <td border="1">'.$value-> TipServ.'</td>
+                        <td border="1">'.$value-> CUPsName.'</td>
+                        <td border="1">'.$value-> NomTar.'</td>
+                        <td border="1">'.$value-> ConCUPs.'</td>
+                        <td border="1">'.$value-> RenCon.'</td>
+                        <td border="1">'.$value-> ImpAho.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+
+        /*$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
+                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
+                            
+                            </tr>                           
+                        
+        </table><br><br>';*/ 
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1">Comercializadora:</td>
+            <td colspan="1">'.$PropuestaComercial->CodCom.'</td>
+            <td colspan="1">Anexo:</td>
+            <td colspan="1">'.$PropuestaComercial->DesAnePro.' </td>
+        </tr>
+        <tr>
+            <td colspan="1">Producto:</td>
+            <td colspan="1">'.$PropuestaComercial->DesProNom.'</td>
+            <td colspan="1">Tipo Precio:</td>
+            <td colspan="1">'.$PropuestaComercial->TipPre.'</td>
+        </tr>      
+        </table>';
+
+
+         $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
+        </tr>
+            
+        </table>';
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',$CodProCom,$this->input->ip_address(),'GENERANDO REPORTE PDF PROPUESTA COMERCIAL');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
+    }
+
     public function Doc_Contratos_PDF()
     {        
         $TipoFiltro = urldecode($this->uri->segment(4));

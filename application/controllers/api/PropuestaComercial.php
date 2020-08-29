@@ -152,6 +152,78 @@ class PropuestaComercial extends REST_Controller
 		$arrayName = array('Cliente' =>$Cliente,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' => $TarEle,'TarGas'=>$TarGas,'Comercializadoras'=>$Comercializadoras);
 		$this->response($arrayName);
 	}
+	public function getDataServer_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodCli=$this->get('CodCli');
+		$tabla="T_Cliente";
+		$where="CodCli";	
+		$select='CodCli,NumCifCli,RazSocCli';	
+        $Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select);        
+		if (empty($Cliente))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
+			$this->response(false);
+		}
+		$Tabla='T_Comercializadora';
+		$order_by="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$Referencia=$this->generar_RefProCom();			
+		$arrayName = array('CodCli'=>$Cliente-> CodCli,'NumCifCli'=>$Cliente-> NumCifCli,'RazSocCli'=>$Cliente-> RazSocCli,'Referencia'=>$Referencia,'Fecha_Propuesta'=>date('d/m/Y'),'Comercializadoras'=>$Comercializadoras);
+		$this->response($arrayName);
+	}
+	public function GetCUPsTar_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$MetodoCUPs=$this->get('MetodoCUPs');
+		$CodCli=$this->get('CodCli');
+			
+		if($MetodoCUPs==1)
+		{
+			$CUPs=$this->Propuesta_model->get_CUPs_Electricos($CodCli);
+			if(empty($CUPs))
+			{
+				$arrayName = array('status'=>404,'menssage'=>'No se encontraron CUPs Eléctricos asignados a este cliente' ,'statusText'=>false);
+				$this->response($arrayName);
+				return false;
+			}
+			$tabla_Ele="T_TarifaElectrica";
+			$orderby="NomTarEle ASC";
+			$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+			$arrayName = array('status'=>200,'menssage'=>'CUPs Encontrados' ,'statusText'=>'OK','CUPs'=>$CUPs,'TarEle'=>$TarEle);
+			$this->response($arrayName);
+		}
+		elseif ($MetodoCUPs==2) 
+		{
+			$CUPs=$this->Propuesta_model->get_CUPs_Gas($CodCli);
+			if(empty($CUPs))
+			{
+				$arrayName = array('status'=>404,'menssage'=>'No se encontraron CUPs Gas asignados a este cliente' ,'statusText'=>false);
+				$this->response($arrayName);
+				return false;
+			}
+			$tabla_Ele="T_TarifaGas";
+			$orderby="NomTarGas ASC";
+			$TarGas=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+			$arrayName = array('status'=>200,'menssage'=>'CUPs Encontrados' ,'statusText'=>'OK','CUPs'=>$CUPs,'TarGas'=>$TarGas);
+			$this->response($arrayName);
+		
+		}	
+		else
+		{
+
+		}
+		//$arrayName = array('CodCli'=>$Cliente-> CodCli,'NumCifCli'=>$Cliente-> NumCifCli,'RazSocCli'=>$Cliente-> RazSocCli,'Referencia'=>$Referencia,'Fecha_Propuesta'=>date('d/m/Y'),'Comercializadoras'=>$Comercializadoras);
+		//$this->response($arrayName);
+	}
 	public function generar_RefProCom()
     {
     	$nCaracteresFaltantes = 0;
@@ -195,11 +267,19 @@ class PropuestaComercial extends REST_Controller
 			//$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($objSalida->CodCli);
 			//if($BuscarContrato==false)
 			//{
-				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,$objSalida->JusRecProCom,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
+				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
 				$CodProComCli=$this->Propuesta_model->agregar_propuesta_comercial_clientes($CodProCom,$objSalida->CodCli);
 				foreach ($objSalida->detalleCUPs as $key => $value):
 				{					
-					$this->Propuesta_model->agregar_detallesCUPs($CodProComCli,$objSalida->CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
+					if($objSalida->TipProCom==1)
+					{
+						$CodPunSum=$objSalida-> CodPunSum;
+					}
+					else
+					{
+						$CodPunSum=$value-> CodPunSum;
+					}
+					$this->Propuesta_model->agregar_detallesCUPs($CodProComCli,$CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
 				}
 				endforeach;					
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$CodProCom,$this->input->ip_address(),'Generando Propuesta Comercial Para Contrato.');
@@ -247,16 +327,26 @@ class PropuestaComercial extends REST_Controller
 				//$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida->CauDia,$objSalida->CodAnePro,$objSalida->CodCli,$objSalida->CodCom,$objSalida->CodCupGas,$objSalida->CodCupSEle,$objSalida->CodPro,$objSalida->CodProCom,$objSalida->CodPunSum,$objSalida->CodTarEle,$objSalida->CodTarGas,$objSalida->Consumo,'A',$objSalida->FecProCom,$objSalida->ImpAhoEle,$objSalida->ImpAhoGas,$objSalida->ImpAhoTot,$objSalida->JusRecProCom,$objSalida->ObsAhoEle,$objSalida->ObsAhoGas,$objSalida->ObsProCom,$objSalida->PorAhoEle,$objSalida->PorAhoGas,$objSalida->PorAhoTot,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->RefProCom,$objSalida->RenConEle,$objSalida->RenConGas,$objSalida->TipPre,$objSalida->ConCupsEle);				
 				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida-> CodProCom,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ImpAhoTot,$objSalida-> PorAhoTot,'A',$objSalida-> RefProCom,null);
 				$SelectCUPsForHistorial=$this->Propuesta_model->SelectHistorialCUPs($objSalida-> CodProComCli);
-				
-				foreach ($SelectCUPsForHistorial as $key => $value): {
+				if($SelectCUPsForHistorial!=false)
+				{
+					foreach ($SelectCUPsForHistorial as $key => $value): {
 					
 					$this->Propuesta_model->agregar_detallesHistorialCUPs($value-> CodProComCli,$value->CodPunSum,$value->CodCup,$value->CodTar,$value->PotEleConP1,$value->PotEleConP2,$value->PotEleConP3,$value->PotEleConP4,$value->PotEleConP5,$value->PotEleConP6,$value->RenCup,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCup,$value->CauDiaGas,$value->TipCups);
+					}
+					endforeach;
 				}
-				endforeach;
 				$this->Propuesta_model->EliminarCUPs($objSalida-> CodProComCli);
 				foreach ($objSalida->detalleCUPs as $key => $value):
 				{					
-					$this->Propuesta_model->agregar_detallesCUPs($objSalida-> CodProComCli,$objSalida->CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
+					if($objSalida->TipProCom==1)
+					{
+						$CodPunSum=$objSalida-> CodPunSum;
+					}
+					else
+					{
+						$CodPunSum=$value-> CodPunSum;
+					}
+					$this->Propuesta_model->agregar_detallesCUPs($objSalida-> CodProComCli,$CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
 				}
 				endforeach;
 				if($updatePropuesta==true)
@@ -438,6 +528,16 @@ class PropuestaComercial extends REST_Controller
 			$response=$this->Propuesta_model->PropuestasSencillas();
 			$this->response($response);
 		}
+		elseif($TipFilProCom==2)
+		{
+			$response=$this->Propuesta_model->PropuestasUniCliente();
+			$this->response($response);
+		}
+		elseif($TipFilProCom==3)
+		{
+			$response=$this->Propuesta_model->PropuestasMulCliente();
+			$this->response($response);
+		}
 	}
 	public function BuscarDetallesCUPsSencilla_get()
     {
@@ -454,6 +554,74 @@ class PropuestaComercial extends REST_Controller
 			return false;
 		}
 		$this->response($response);
+	}
+	public function GetProComUniCli_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodProCom=$this->get('CodProCom');
+		$response=$this->Propuesta_model->BuscarProComUniCliente($CodProCom);
+		if($response==false)
+		{
+			$this->response(false);
+			return false;
+		}
+		$Tabla='T_Comercializadora';
+		$order_by="RazSocCom";
+		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$tabla="T_Cliente";
+		$where="CodCli";
+		$select="CodCli,RazSocCli,NumCifCli";
+		$Cliente=$this->Propuesta_model->Funcion_Verificadora($response-> CodCli,$tabla,$where,$select);
+		$CUPs=$this->Propuesta_model->GetDetallesCUPs($response-> CodProComCli);
+		/*$detalleFinal = Array();
+		foreach ($data as $key => $value):
+		{
+			$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
+			
+			array_push($detalleFinal, $detalleG);
+		}
+		endforeach;*/
+
+
+		$arrayName = array('status'=>200,'statusText'=>'OK','menssage'=>'Propuesta Comerical UniCliente - MultiPunto','Propuesta' =>$response,'FechaServer'=>date('d/m/Y'),'Comercializadora'=>$Comercializadoras,'Cliente'=>$Cliente,'detalleCUPs'=>$CUPs);
+		$this->response($arrayName);
+	}
+	public function GetProComMulCli_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodProCom=$this->get('CodProCom');
+		$response=$this->Propuesta_model->BuscarProComUniCliente($CodProCom);
+		if($response==false)
+		{
+			$this->response(false);
+			return false;
+		}
+		$Tabla='T_Comercializadora';
+		$order_by="RazSocCom";
+		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$tabla="T_Cliente";
+		$where="CodCli";
+		$select="CodCli,RazSocCli,NumCifCli";
+		$Cliente=$this->Propuesta_model->Funcion_Verificadora($response-> CodCli,$tabla,$where,$select);
+		$CUPs=$this->Propuesta_model->GetDetallesCUPs($response-> CodProComCli);
+		/*$detalleFinal = Array();
+		foreach ($data as $key => $value):
+		{
+			$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
+			
+			array_push($detalleFinal, $detalleG);
+		}
+		endforeach;*/
+		$arrayName = array('status'=>200,'statusText'=>'OK','menssage'=>'Propuesta Comerical MultiCliente - MultiPunto','Propuesta' =>$response,'FechaServer'=>date('d/m/Y'),'Comercializadora'=>$Comercializadoras,'Cliente'=>$Cliente,'detalleCUPs'=>$CUPs);
+		$this->response($arrayName);
 	}
 
 
@@ -599,10 +767,28 @@ class PropuestaComercial extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-		$consulta=$this->Propuesta_model->getPropuestaComercialesFilter($objSalida->filtrar_search);						
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Propuesta Comerciales Filtrados');
-		$this->db->trans_complete();
-		$this->response($consulta);
+		if($objSalida->metodo==1)
+		{
+			$consulta=$this->Propuesta_model->getPropuestaComercialesFilter($objSalida->filtrar_search);						
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Propuesta Comerciales Filtrados Sencillas');
+			$this->db->trans_complete();
+			$this->response($consulta);
+		}
+		elseif ($objSalida->metodo==2) 
+		{
+			$consulta=$this->Propuesta_model->PropuestasUniClienteFilter($objSalida->filtrar_searchUniCliente);						
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Propuesta Comerciales Filtrados UniCliente - MultiPunto');
+			$this->db->trans_complete();
+			$this->response($consulta);
+		}
+		elseif ($objSalida->metodo==3) 
+		{
+			$consulta=$this->Propuesta_model->PropuestasMulClienteFilter($objSalida->filtrar_searchUniCliente);						
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Propuesta Comerciales Filtrados UniCliente - MultiPunto');
+			$this->db->trans_complete();
+			$this->response($consulta);
+		}
+		
 	}  
     
 
