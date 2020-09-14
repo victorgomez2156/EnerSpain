@@ -144,6 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
       </div>
   
+  <div ng-show="vm.fdatos.TipProCom=='1'">  
       <div class="col-12 col-sm-7">
             <div class="form">                          
              <div class="form-group">
@@ -151,45 +152,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <input type="text" class="form-control" placeholder="Dirección" ng-model="vm.DirPunSum" readonly="readonly"/>     
              </div>
              </div>
-          </div>
+      </div>
 
-        <div class="col-12 col-sm-5">
+      <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Escalera / Planta / Puerta </label>
              <input type="text" class="form-control" ng-model="vm.EscPlaPuerPunSum" placeholder="Escalera / Planta / Puerta" readonly="readonly"/>  
              </div>
              </div>
-          </div>
-          <div class="col-12 col-sm-5">
+      </div>
+      <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Localidad </label>
              <input type="text" class="form-control" ng-model="vm.DesLocPunSum" placeholder="Localidad" readonly="readonly"/>     
              </div>
              </div>
-          </div>
-          <div class="col-12 col-sm-5">
+      </div>
+      
+      <div class="col-12 col-sm-5">
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;">Provincia </label>          
              <input type="text" class="form-control" ng-model="vm.DesProPunSum" placeholder="Provincia" readonly="readonly"/>     
              </div>
              </div>
-          </div>
+      </div>
 
-           <div class="col-12 col-sm-2">
+      <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>         
              <input type="text"  class="form-control" ng-model="vm.CPLocPunSum" placeholder="Código Postal" readonly="readonly"/>     
              </div>
              </div>
-          </div>  
+      </div>  
 
 <!--- PARA LOS CUPS ELECTRICOS START-->
        
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Eléctrico</label>
@@ -198,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
           
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;"> Tarifa</label>    
@@ -207,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>        
 
-           <div ng-show="vm.CanPerEle==6">
+        <div ng-show="vm.CanPerEle==6">
           
           <div class="col-12 col-sm-1">
             <div class="form">                          
@@ -262,8 +264,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-
-         
         </div>
 
         <div ng-show="vm.CanPerEle==1">
@@ -414,12 +414,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
            
         </div>
+         <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark">Consumo</label>
+             <input type="text"  class="form-control" ng-model="vm.ConCups" placeholder="Consumo CUPs" readonly="readonly"/>
+             </div>
+             </div>
+          </div>
+        <!--- PARA LOS CUPS ELECTRICOS END -->
 
-          <!--- PARA LOS CUPS ELECTRICOS END -->
 
 
-
-<!--- PARA LOS CUPS GAS START-->
+      <!--- PARA LOS CUPS GAS START-->
       
           <div class="col-12 col-sm-3">
             <div class="form">                          
@@ -460,6 +467,114 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
   
   <!--- PARA LOS CUPS GAS END -->
+</div> 
+<!--- FINAL DIV PARA VISTAS NG -->
+
+
+<!-- INICIO TABLA PARA TIPPROCOM 2 STARTT ///// -->
+<div class="table-responsive" ng-show="vm.fdatos.TipProCom==2">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr> 
+                    <th></th>
+                    <th>Dirección de Suministro</th>
+                    <th>Tipo de CUPs</th>
+                    <th>CUPs</th>
+                    <th>Tárifa</th>
+                    <th>Consumo</th>
+                    <th>Ren</th>
+                    <th>Ahorro €</th>                   
+                  </tr>
+                  <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
+                     <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                  </tr>
+                  <tr ng-repeat="dato in vm.fdatos.detalleCUPs | filter:paginate" ng-class-odd="odd">                    
+                    <td>{{$index+1}}</td>
+                    <td>{{dato.DirPunSum}}</td>
+                    <td>
+                      <span ng-show="dato.TipServ==1">Eléctrico</span>
+                      <span ng-show="dato.TipServ==2">Gas</span>
+                    </td>
+                    <td>{{dato.CUPsName}}</td>
+                    <td>{{dato.NomTar}}</td>
+                    <td>{{dato.ConCUPs}}</td>
+                    <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
+                      <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
+                    <td>{{dato.ImpAho}}</td>                    
+                  </tr>
+                </tbody>
+                <tfoot> 
+                    <th></th>                
+                    <th>Dirección de Suministro</th>
+                    <th>Tipo de CUPs</th>
+                    <th>CUPs</th>
+                    <th>Tárifa</th>
+                    <th>Consumo</th>
+                    <th>Ren</th>
+                    <th>Ahorro €</th>    
+                </tfoot>
+              </table>
+        </div>
+<!-- INICIO TABLA PARA TIPPROCOM 2 END ///// -->
+
+
+
+<!-- INICIO TABLA PARA TIPPROCOM 3 STARTT ///// -->
+<div class="table-responsive" ng-show="vm.fdatos.TipProCom==3">
+          <table class="table table-striped table-advance table-hover table-responsive" >
+                <tbody>
+                  <tr> 
+                    <th></th>
+                    <th>Cliente</th>
+                    <th>CIF/NIF</th>
+                    <th>Dirección de Suministro</th>
+                    <th>Tipo de CUPs</th>
+                    <th>CUPs</th>
+                    <th>Tárifa</th>
+                    <th>Consumo</th>
+                    <th>Ren</th>
+                    <th>Ahorro €</th>                   
+                  </tr>
+                  <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
+                     <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                  </tr>
+                  <tr ng-repeat="dato in vm.fdatos.detalleCUPs | filter:paginate" ng-class-odd="odd">                    
+                    <td>{{$index+1}}</td>
+                    <td>{{dato.RazSocCli}}</td>                                        
+                    <td>{{dato.NumCifCli}}</td>
+                    <td>{{dato.DirPunSum}}</td>
+                    <td>
+                      <span ng-show="dato.TipServ==1">Eléctrico</span>
+                      <span ng-show="dato.TipServ==2">Gas</span>
+                    </td>
+                    <td>{{dato.CUPsName}}</td>
+                    <td>{{dato.NomTar}}</td>
+                    <td>{{dato.ConCUPs}}</td>
+                    <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
+                      <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
+                    <td>{{dato.ImpAho}}</td>                    
+                  </tr>
+                </tbody>
+                <tfoot> 
+                    <th></th>
+                    <th>Cliente</th>
+                    <th>CIF/NIF</th>
+                    <th>Dirección de Suministro</th>
+                    <th>Tipo de CUPs</th>
+                    <th>CUPs</th>
+                    <th>Tárifa</th>
+                    <th>Consumo</th>
+                    <th>Ren</th>
+                    <th>Ahorro €</th>    
+                </tfoot>
+              </table>
+        </div>
+
+<!-- INICIO TABLA PARA TIPPROCOM 3 STARTT ///// -->
+
+
+
+
 
    <div class="col-12 col-sm-4">
             <div class="form">                          
@@ -593,7 +708,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
-            <button class="btn btn-info" id="showtoast" type="button" ng-click="vm.generar_audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
+            
+            <button class="btn btn-info" id="showtoast" ng-show="vm.fdatos.TipProCom==1 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==1 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
+            
+
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
@@ -683,4 +801,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="Guardando" class="loader loader-default"  data-text="Grabando Contrato"></div>
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando Contrato"></div>
 <div id="cargando" class="loader loader-default"  data-text="Cargando datos del Contrato"></div>
+<div id="DetallesCUPs" class="loader loader-default"  data-text="Cargando Detalles del Contrato"></div>
 </html>

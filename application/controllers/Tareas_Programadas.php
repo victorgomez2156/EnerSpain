@@ -52,31 +52,7 @@ class Tareas_Programadas extends CI_Controller
 		$ano_final= " ".$ano;
 		$todo_unido=$pais.$total.$numero_final.$mes_final.$ano_final.' '.$hora_nueva;		
 		echo $todo_unido;
-	}
-	public function Crear_RefProCom()
-	{
-		$Data_Propuestas=$this->Tareas_programadas_model->all_propuestas();
-		if(empty($Data_Propuestas))
-		{
-			echo 'no ahi data';
-			return false;
-		}
-		foreach ($Data_Propuestas as $key => $myPropuestas): 
-		{
-			if($myPropuestas-> RefProCom==null)
-			{
-				$RefProCom=$this->generar_RefProPropuesta();				
-				$update_RefProCom=$this->Tareas_programadas_model->update_RefProCom($myPropuestas->CodProCom,$RefProCom);
-				echo  'Se Actualizaron Las Siguientes Referencia: '.$myPropuestas-> CodProCom; echo'<br>';
-			}
-			else
-			{
-				$var='Estas Propuestas Comerciales ya poseen Número de Referencia. <br>';
-				echo $var;
-			}
-		}
-		endforeach;		
-	}
+	}	
 	public function Contratos_Vencidos()
 	{
 		$Fecha=date('Y-m-d');
@@ -141,6 +117,30 @@ class Tareas_Programadas extends CI_Controller
 				echo '<p align="center">Hemos Enviado un Correo Electrónico a: <b>'.$get_configuraciones->correo_principal.'</b> Con el Listado de los contratos vencidos.</p>'; 
 			}
 	}
+	public function Crear_RefProCom()
+	{
+		$Data_Propuestas=$this->Tareas_programadas_model->all_propuestas();
+		if(empty($Data_Propuestas))
+		{
+			echo 'no ahi data';
+			return false;
+		}
+		foreach ($Data_Propuestas as $key => $myPropuestas): 
+		{
+			if($myPropuestas-> RefProCom==null || $myPropuestas-> RefProCom=='')
+			{
+				$RefProCom=$this->generar_RefProPropuesta();				
+				$update_RefProCom=$this->Tareas_programadas_model->update_RefProCom($myPropuestas->CodProCom,$RefProCom);
+				echo  'Se Actualizaron Las Siguientes Referencia: '.$myPropuestas-> CodProCom; echo'<br>';
+			}
+			else
+			{
+				$var='Estas Propuestas Comerciales ya poseen Número de Referencia. <br>';
+				echo $var;
+			}
+		}
+		endforeach;		
+	}
 	public function generar_RefProPropuesta()
     {
         $nCaracteresFaltantes = 0;
@@ -157,6 +157,48 @@ class Tareas_Programadas extends CI_Controller
         $numeroproximoC = $rowIdentificador->NrMov + 1;
         $numeroC = $numero_aC . (string)$rowIdentificador->NrMov;
         $this->db->query("UPDATE T_Movimientos SET NrMov=".$numeroproximo." WHERE CodMov=1");
+        return $numeroC;        
+    }
+    public function Crear_RefProcontratos()
+	{
+		$DataCoontratos=$this->Tareas_programadas_model->all_contratos();
+		if(empty($DataCoontratos))
+		{
+			echo 'no ahi data';
+			return false;
+		}
+		foreach ($DataCoontratos as $key => $myContratos): 
+		{
+			if($myContratos-> RefCon==null || $myContratos-> RefCon=='')
+			{
+				$RefProCom=$this->generar_RefProcontratos();				
+				$update_RefProCom=$this->Tareas_programadas_model->update_RefProcontratos($myContratos->CodConCom.' ',$RefProCom);
+				echo  'Se Actualizaron Las Siguientes Referencia del CodConCom: '.$myContratos-> CodConCom.' a Referencia: '.$RefProCom; echo'<br>';
+			}
+			else
+			{
+				$var='Estas Propuestas Comerciales ya poseen Número de Referencia. <br>';
+				echo $var;
+			}
+		}
+		endforeach;		
+	}
+    public function generar_RefProcontratos()
+    {
+        $nCaracteresFaltantes = 0;
+        $numero_a = " ";
+        /*Ahora necesitamos el numero de la Referencia de la Propuesta*/
+        $queryIdentificador = $this->db->query("SELECT CodMov,DesMov,NrMov FROM T_Movimientos WHERE CodMov=2");
+        $rowIdentificador = $queryIdentificador->row();
+        //buscamos que longitud tiene el numero generado por la base de datos y completamos con ceros a la izquierda
+        $nCaracteresFaltantes = 12 - strlen($rowIdentificador->NrMov) ;
+        $numero_a = str_repeat('0',$nCaracteresFaltantes);
+        $numeroproximo = $rowIdentificador->NrMov + 1;
+        $nCaracteresFaltantesC = 12 - strlen($rowIdentificador->NrMov); //VERIFICAR CUANDO PASE DE 100
+        $numero_aC = str_repeat('0',$nCaracteresFaltantesC);
+        $numeroproximoC = $rowIdentificador->NrMov + 1;
+        $numeroC = $numero_aC . (string)$rowIdentificador->NrMov;
+        $this->db->query("UPDATE T_Movimientos SET NrMov=".$numeroproximo." WHERE CodMov=2");
         return $numeroC;        
     }
 }?>

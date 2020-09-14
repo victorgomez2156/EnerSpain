@@ -190,7 +190,7 @@ class Seguimientos extends REST_Controller
 		    'Errors-To'=>$get_configuraciones->correo_cc
 		    ); 
 		    //Creating the Mime message 
-		    $mime = new Mail_mime($crlf); 
+		    /*$mime = new Mail_mime($crlf); 
 		    //$mime->setTXTBody($text); 
 		    $mime->setHTMLBody($html); 
 		    $mimeparams=array();
@@ -205,7 +205,7 @@ class Seguimientos extends REST_Controller
 			$params["username"] = $get_configuraciones->smtp_user;
 			$params["password"] = $get_configuraciones->smtp_pass;
 		    $mail = Mail::factory($get_configuraciones->protocol, $params); 
-		    $mail->send($recipient, $headers, $body);
+		    $mail->send($recipient, $headers, $body);*/
 		//return $get_configuraciones;
 
 	}

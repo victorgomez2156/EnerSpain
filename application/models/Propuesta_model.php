@@ -344,7 +344,7 @@ class Propuesta_model extends CI_Model
     $sql = $this->db->query("SELECT a.CodProComCup,a.CodProComCli,b.CUPsEle AS CUPsName,a.CauDiaGas AS CauDia,a.CodCup AS CodCups,a.CodPunSum,a.CodTar,a.ConCup AS ConCUPs
 ,CONCAT(e.IniTipVia,' - ',e.DesTipVia) AS DirPunSum,a.ImpAho,
 c.NomTarEle AS NomTar,a.ObsCup,a.PorAho,a.PotEleConP1 AS PotConP1,a.PotEleConP2 AS PotConP2,a.PotEleConP3 AS PotConP3,a.PotEleConP4 AS
-PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli
+PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli,c.CanPerTar,f.DesLoc,g.DesPro,d.CPLocSoc,d.NomViaPunSum,d.NumViaPunSum,d.BloPunSum,d.EscPunSum,d.PlaPunSum,d.PuePunSum
 FROM T_Propuesta_Comercial_CUPs a 
 JOIN T_CUPsElectrico b ON a.CodCup=b.CodCupsEle AND a.TipCups=1 
 left JOIN T_TarifaElectrica c ON a.CodTar=c.CodTarEle
@@ -358,7 +358,7 @@ UNION ALL
 SELECT h.CodProComCup,h.CodProComCli,i.CupsGas AS CUPsName,h.CauDiaGas AS CauDia,h.CodCup AS CodCups,h.CodPunSum,h.CodTar,h.ConCup AS ConCUPs
 ,CONCAT(l.IniTipVia,' - ',l.DesTipVia) AS DirPunSum,h.ImpAho,
 j.NomTarGas AS NomTar,h.ObsCup,h.PorAho,h.PotEleConP1 AS PotConP1,h.PotEleConP2 AS PotConP2,h.PotEleConP3 AS PotConP3,h.PotEleConP4 AS
-PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli
+PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli,NULL as CanPerTar,m.DesLoc,n.DesPro,k.CPLocSoc,k.NomViaPunSum,k.NumViaPunSum,k.BloPunSum,k.EscPunSum,k.PlaPunSum,k.PuePunSum
 FROM T_Propuesta_Comercial_CUPs h 
 JOIN T_CUPsGas i ON h.CodCup=i.CodCupGas AND h.TipCups=2 
 left JOIN T_TarifaGas j ON h.CodTar=j.CodTarGas

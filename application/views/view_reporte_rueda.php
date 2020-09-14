@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                   <th>Fecha Inicio</th>
-                  <th>CODCLI</th>
+                  <th>CodCli</th>
                   <th>NIF</th>
                   <th>Cliente</th>                  
                   <th>Comercializadora</th>
@@ -194,9 +194,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>                 
                   <th>Fecha Inicio</th>
-                  <th>CODCLI</th>
+                  <th>CodCli</th>
                   <th>NIF</th>
-                  <th>Cliente</th>
+                  <th>Cliente</th>                  
                   <th>Comercializadora</th>
                   <th>Anexo</th> 
                   <th>Duración</th>  

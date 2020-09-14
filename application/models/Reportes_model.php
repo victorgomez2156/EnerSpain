@@ -1455,18 +1455,18 @@ class Reportes_model extends CI_Model
 
     public function Proyeccion_Ingresos($ano)
     {
-       $sql = $this->db->query("SELECT DATE_FORMAT(Proyeccion.FecVenCon,'%d/%m/%Y') AS FecVenCon,Proyeccion.NomComCom,Proyeccion.DesPro,Proyeccion.DurCon,Proyeccion.NomTarEle,Proyeccion.NomTarGas,Proyeccion.SerGas,Proyeccion.SerEle/*,nomina.dia_1*/
+       $sql = $this->db->query("SELECT DATE_FORMAT(Proyeccion.FecVenCon,'%d/%m/%Y') AS FecVenCon,Proyeccion.NomComCom,Proyeccion.DesPro,Proyeccion.DurCon,/*Proyeccion.NomTarEle,Proyeccion.NomTarGas,*/Proyeccion.SerGas,Proyeccion.SerEle/*,nomina.dia_1*/
 			FROM (
-			SELECT a.FecVenCon,c.NomComCom,d.DesPro,a.DurCon,f.NomTarEle,g.NomTarGas,
+			SELECT a.FecVenCon,c.NomComCom,d.DesPro,a.DurCon,/*f.NomTarEle,g.NomTarGas,*/
 			(CASE WHEN e.SerGas =0 THEN 'NO' WHEN e.SerGas = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerGas, 
 			(CASE WHEN e.SerEle =0 THEN 'NO' WHEN e.SerEle = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerEle
 			FROM T_Contrato a 
 			LEFT JOIN T_PropuestaComercial b ON a.CodProCom=b.CodProCom 
 			LEFT JOIN T_Comercializadora c ON b.CodCom=c.CodCom
-			LEFT JOIN T_Producto d ON b.CodPro=d.CodPro
+			LEFT JOIN T_Producto d ON b.CodPro=d.CodPro 
 			LEFT JOIN T_AnexoProducto e ON b.CodAnePro=e.CodAnePro
-			LEFT JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
-			LEFT JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas) Proyeccion 
+			/*LEFT JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
+			LEFT JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas*/) Proyeccion 
 			WHERE DATE_FORMAT(Proyeccion.FecVenCon,'%Y')=$ano");
 	        if ($sql->num_rows() > 0)
 	          return $sql->result();
@@ -1476,9 +1476,9 @@ class Reportes_model extends CI_Model
 
      public function Otras_Gestiones($ano)
     {
-       $sql = $this->db->query("SELECT DATE_FORMAT(Proyeccion.FecVenCon,'%d/%m/%Y') AS FecVenCon,Proyeccion.NomComCom,Proyeccion.DesPro,Proyeccion.DurCon,Proyeccion.NomTarEle,Proyeccion.NomTarGas,Proyeccion.SerGas,Proyeccion.SerEle/*,nomina.dia_1*/
+       $sql = $this->db->query("SELECT DATE_FORMAT(Proyeccion.FecVenCon,'%d/%m/%Y') AS FecVenCon,Proyeccion.NomComCom,Proyeccion.DesPro,Proyeccion.DurCon/*,Proyeccion.NomTarEle,Proyeccion.NomTarGas*/,Proyeccion.SerGas,Proyeccion.SerEle/*,nomina.dia_1*/
 			FROM (
-			SELECT a.FecVenCon,c.NomComCom,d.DesPro,a.DurCon,f.NomTarEle,g.NomTarGas,
+			SELECT a.FecVenCon,c.NomComCom,d.DesPro,a.DurCon/*,f.NomTarEle,g.NomTarGas*/,
 			(CASE WHEN e.SerGas =0 THEN 'NO' WHEN e.SerGas = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerGas, 
 			(CASE WHEN e.SerEle =0 THEN 'NO' WHEN e.SerEle = 1 THEN 'SI' ELSE 'AMBOS' END) AS SerEle
 			FROM T_Contrato a 
@@ -1486,8 +1486,8 @@ class Reportes_model extends CI_Model
 			JOIN T_Comercializadora c ON b.CodCom=c.CodCom
 			JOIN T_Producto d ON b.CodPro=d.CodPro
 			JOIN T_AnexoProducto e ON b.CodAnePro=e.CodAnePro
-			left JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
-			left JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas) Proyeccion 
+			/*left JOIN T_TarifaElectrica f ON b.CodTarEle=f.CodTarEle
+			left JOIN T_TarifaGas g ON b.CodTarGas=g.CodTarGas*/) Proyeccion 
 			WHERE DATE_FORMAT(Proyeccion.FecVenCon,'%Y')=$ano");
 	        if ($sql->num_rows() > 0)
 	          return $sql->result();
@@ -1496,22 +1496,15 @@ class Reportes_model extends CI_Model
     }
     public function Contratos_Para_Rueda($Desde,$Hasta)
     {
-        /*$this->db->select("",false);*/
-        $this->db->select("DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,b.RazSocCli,b.NumCifCli,a.EstBajCon,d.RazSocCom,d.NumCifCom,f.CUPsEle,(SELECT SUM(ConCup) FROM T_HistorialCUPsElectrico WHERE CodCupEle=f.CodCupsEle AND a.FecVenCon BETWEEN '$Desde' AND '$Hasta') AS ConCupEle,g.NomTarEle,h.CupsGas,i.NomTarGas,c.Consumo,j.DesPro,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.EmaCli",false);
-        
-
-
+        $this->db->select("d.CodProComCli,(SELECT CodCup FROM T_Propuesta_Comercial_CUPs h WHERE h.CodProComCli=d.CodProComCli AND h.TipCups=1) AS CodCupEle,(SELECT CodTar FROM T_Propuesta_Comercial_CUPs k WHERE k.CodProComCli=d.CodProComCli AND k.TipCups=1 AND CodCupEle=CodCup) AS CodTar,(SELECT CUPsEle FROM T_CUPsElectrico WHERE CodCupsEle=CodCupEle) AS CUPsEle,(SELECT NomTarEle FROM T_TarifaElectrica WHERE CodTarEle=CodTar) AS NomTarEle,(SELECT ConCup FROM T_Propuesta_Comercial_CUPs j WHERE j.CodProComCli=d.CodProComCli AND j.TipCups=1 AND j.CodCup=CodCupEle) AS ConCupEle,(SELECT CodCup FROM T_Propuesta_Comercial_CUPs i WHERE i.CodProComCli=d.CodProComCli AND i.TipCups=2 ) AS CodCupsGas,(SELECT CodTar FROM T_Propuesta_Comercial_CUPs l WHERE l.CodProComCli=d.CodProComCli AND l.TipCups=2 AND CodCupsGas=CodCup) AS CodTarGasID,(SELECT CupsGas FROM T_CUPsGas WHERE CodCupGas=CodCupsGas) AS CupsGas,(SELECT NomTarGas FROM T_TarifaGas WHERE CodTarGas=CodTarGasID) AS NomTarGas,(SELECT ConCup FROM T_Propuesta_Comercial_CUPs m WHERE m.CodProComCli=d.CodProComCli AND m.TipCups=2 AND m.CodCup=CodCupsGas) AS ConCupGas,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,a.EstBajCon,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.RazSocCli,b.NumCifCli,e.RazSocCom,e.NumCifCom,f.DesAnePro as Anexo,g.DesPro,b.EmaCli",false);  
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom','left');
-        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom','left');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro','left'); 
-        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','left');
-        $this->db->join('T_TarifaElectrica g','g.CodTarEle=c.CodTarEle','left');
-        $this->db->join('T_CUPsGas h','h.CodCupGas=c.CodCupsGas','left');
-        $this->db->join('T_TarifaGas i','i.CodTarGas=c.CodTarGas','left');
-        $this->db->join('T_Producto j','j.CodPro=c.CodPro','left');
-
+        $this->db->join('T_Propuesta_Comercial_Clientes d','d.CodProCom=c.CodProCom','left');
+        $this->db->join('T_Comercializadora e','e.CodCom=c.CodCom','left');
+        $this->db->join('T_AnexoProducto f','f.CodAnePro=c.CodAnePro','left'); 
+        $this->db->join('T_Producto g','g.CodPro=c.CodPro','left');
+        $this->db->where('c.TipProCom=1');
         $this->db->where('a.FecVenCon BETWEEN "'. $Desde. '" AND "'.$Hasta.'"');
         $this->db->order_by('DATE_FORMAT(a.FecVenCon,"%Y/%m/%d") ASC'); 
         $query = $this->db->get(); 

@@ -918,10 +918,6 @@ console.log(mystring);
 
         $('#modal_detalles_CUPs').modal('show');
      }
-
-
      //scope.load_customers();
      ///////////////////////////////////////////////// PARA EL DASHBOARD END ////////////////////////////////////////////////////////
-
-
  }

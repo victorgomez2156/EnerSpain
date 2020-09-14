@@ -131,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <div class="table-responsive">
-          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_colaboradores()">
+          <table class="table table-striped table-advance table-hover table-responsive" >
                 <tbody>
                   <tr> 
                     <th></th>

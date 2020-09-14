@@ -15695,7 +15695,7 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.number_format($record->ConCupEle, 2, ',', '.').'</td>
                         <td>'.$record->CupsGas.'</td>
                         <td>'.$record->NomTarGas.'</td> 
-                        <td>'.number_format($record->Consumo, 2, ',', '.').'</td>
+                        <td>'.number_format($record->ConCupGas, 2, ',', '.').'</td>
                         <td>N/A</td>
                         <td>'.$record->EmaCli.'</td> 
                         <td>'.$record->NumCifCom.'</td>
@@ -15914,13 +15914,13 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila",  $RefProCom);
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]-> CodCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCli); 
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli);                              
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsEle);
                 $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarEle);
                 $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", number_format($Resultado_Renovacion_Contratos[$i]-> ConCupEle, 2, ',', '.'));
                 $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> CupsGas);
                 $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", number_format($Resultado_Renovacion_Contratos[$i]-> Consumo, 2, ',', '.'));
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", number_format($Resultado_Renovacion_Contratos[$i]-> ConCupGas, 2, ',', '.'));
                 $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", 'N/A');
                 $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCom);    

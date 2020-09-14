@@ -153,7 +153,7 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()->mergeCells("A1:D4"));
@@ -312,7 +312,7 @@ class Reportes extends REST_Controller
 				else{$TipoSuministro='N/A';}
 				$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Contratos[$i]->NomComCom);
 				$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Contratos[$i]->DesPro);
-				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas);
+				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '/*.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas*/);
 				$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $TipoSuministro);
 			}
 		}
@@ -546,7 +546,7 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()->mergeCells("A1:D4"));
@@ -705,7 +705,7 @@ class Reportes extends REST_Controller
 				else{$TipoSuministro='N/A';}
 				$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Contratos[$i]->NomComCom);
 				$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Contratos[$i]->DesPro);
-				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas);
+				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '/*.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas*/);
 				$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $TipoSuministro);
 			}
 		}
@@ -1218,7 +1218,7 @@ class Reportes extends REST_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo-enerspain.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet()->mergeCells("A1:D4"));
@@ -1389,7 +1389,7 @@ class Reportes extends REST_Controller
 				else{$TipoSuministro='N/A';}
 				$objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Contratos[$i]->NomComCom);
 				$objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Contratos[$i]->DesPro);
-				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas);
+				$objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Contratos[$i]->DurCon.' Meses '/*.$Contratos[$i]->NomTarEle.' '.$Contratos[$i]->NomTarGas*/);
 				$objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $TipoSuministro);
 			}
 		}

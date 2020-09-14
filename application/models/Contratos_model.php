@@ -5,16 +5,15 @@ class Contratos_model extends CI_Model
 
  	public function get_list_contratos()
     {
-        $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
-        	d.RazSocCom as CodCom,d.NumCifCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,f.CUPsEle,g.CupsGas"/*'a.CodProCom,,b.RazSocCli,b.NumCifCli,case a.EstProCom when "P" then "Pendiente" when "A" then "Aprobada" when "C" then "Completada" when "R" then "Rechazada" end as EstProCom,c.CUPsEle,d.CupsGas'*/,false);
-        $this->db->from('T_Contrato a');
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-        $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom','left');
-        $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom','left');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro','left');
-        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','LEFT');
-        $this->db->join('T_CUPsGas g','g.CodCupGas=c.CodCupsGas','LEFT');
-        $this->db->order_by('a.FecIniCon desc');              
+        $this->db->select("*",false);
+        $this->db->from('View_Contratos');
+        ///$this->db->join('T_PropuestaComercial b','b.CodProCom=a.CodProCom','left');
+        //$this->db->join('T_Propuesta_Comercial_Clientes c','c.CodProCom=b.CodProCom','left');
+        //$this->db->join('T_Cliente d','d.CodCli=c.CodCli');
+        //$this->db->join('T_Comercializadora e','e.CodCom=b.CodCom','left');
+        //$this->db->join('T_AnexoProducto f','f.CodAnePro=b.CodAnePro','left');
+        //$this->db->order_by('a.FecIniCon desc');  
+        $this->db->limit(100);            
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -23,20 +22,27 @@ class Contratos_model extends CI_Model
     }
     public function BuscarPropuestaAprobada($CodCli,$metodo)
     {
-        $this->db->select('a.CodProCom,a.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.CodPunSum,a.CodCupsEle,a.CodTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,a.RenConEle,a.ObsAhoEle,a.CodCupsGas,a.CodTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,a.RenConGas,a.ObsAhoGas,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,CONCAT(c.IniTipVia," - ", c.DesTipVia," ",b.NomViaPunSum," ",b.NumViaPunSum) as DirPunSum,b.BloPunSum,b.EscPunSum ,b.PlaPunSum,b.PuePunSum,b.CPLocSoc,d.DesLoc,e.DesPro,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,j.NumCifCom, j.RazSocCom,k.DesPro as DesProducto,l.DesAnePro,g.CanPerTar',false);
+        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.RefProCom,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,j.NumCifCom,j.RazSocCom,k.DesPro as DesProducto,l.DesAnePro,a.TipProCom,b.CodProComCli'
+
+
+
+
+
+            /*'CONCAT(c.IniTipVia," - ", c.DesTipVia," ",b.NomViaPunSum," ",b.NumViaPunSum) as DirPunSum,b.BloPunSum,b.EscPunSum ,b.PlaPunSum,b.PuePunSum,b.CPLocSoc,d.DesLoc,e.DesPro,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,g.CanPerTar'*/,false);
         $this->db->from('T_PropuestaComercial a'); 
-        $this->db->join('T_PuntoSuministro b','a.CodPunSum=b.CodPunSum');
-        $this->db->join('T_TipoVia c','b.CodTipVia=c.CodTipVia'); 
-        $this->db->join('T_Localidad d','b.CodLoc=d.CodLoc');
-        $this->db->join('T_Provincia e','e.CodPro=d.CodPro');     
-        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCupsEle',"left");
-        $this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTarEle',"left");
-        $this->db->join('T_CUPsGas h','h.CodCupGas=a.CodCupsGas',"left");
-        $this->db->join('T_TarifaGas i','i.CodTarGas=a.CodTarGas',"left");
-        $this->db->join('T_Comercializadora j','j.CodCom=a.CodCom');
-        $this->db->join('T_Producto k','k.CodPro=a.CodPro');
-        $this->db->join('T_AnexoProducto l','l.CodAnePro=a.CodAnePro');
-        $this->db->where('a.CodCli',$CodCli);
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','LEFT');
+        //$this->db->join('T_PuntoSuministro b','a.CodPunSum=b.CodPunSum');
+        ///$this->db->join('T_TipoVia c','b.CodTipVia=c.CodTipVia'); 
+        //$this->db->join('T_Localidad d','b.CodLoc=d.CodLoc');
+        //$this->db->join('T_Provincia e','e.CodPro=d.CodPro');     
+        //$this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCupsEle',"left");
+        //$this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTarEle',"left");
+        //$this->db->join('T_CUPsGas h','h.CodCupGas=a.CodCupsGas',"left");
+        //$this->db->join('T_TarifaGas i','i.CodTarGas=a.CodTarGas',"left");
+        $this->db->join('T_Comercializadora j','j.CodCom=a.CodCom','LEFT');
+        $this->db->join('T_Producto k','k.CodPro=a.CodPro','LEFT');
+        $this->db->join('T_AnexoProducto l','l.CodAnePro=a.CodAnePro','LEFT');
+        $this->db->where('b.CodCli',$CodCli);
         if($metodo==1)
         {
             $this->db->where('a.EstProCom','A');  
@@ -49,15 +55,37 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
+    public function BuscarPropuestaAprobadaNewVer($CodCli,$metodo)
+    {
+        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,a.TipProCom,c.NumCifCom, c.RazSocCom,d.DesPro as DesProducto,e.DesAnePro,b.CodProComCli',false);
+        $this->db->from('T_PropuestaComercial a'); 
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','LEFT');
+        $this->db->join('T_Comercializadora c','c.CodCom=a.CodCom');
+        $this->db->join('T_Producto d','d.CodPro=a.CodPro');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=a.CodAnePro');
+
+
+        $this->db->where('b.CodCli',$CodCli);
+        if($metodo==1)
+        {
+            $this->db->where('a.EstProCom','A');  
+        }        
+        $this->db->order_by('a.FecProCom DESC');
+        //$this->db->limit(1);              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
     public function agregar_contrato($CodCli,$CodProCom,$FecConCom,$EstRen,$RenMod,$ProRenPen,$FecIniCon,$DurCon,$FecVenCon,$RefCon,$ObsCon,$DocConRut)
     {
         $this->db->insert('T_Contrato',array('CodProCom'=>$CodProCom,'CodCli'=>$CodCli,'FecConCom'=>$FecConCom,'EstRen'=>$EstRen,'RenMod'=>$RenMod,'ProRenPen'=>$ProRenPen,'FecIniCon'=>$FecIniCon,'RefCon'=>$RefCon,'ObsCon'=>$ObsCon,'DocConRut'=>$DocConRut,'FecVenCon'=>$FecVenCon,'DurCon'=>$DurCon));
         return $this->db->insert_id();
     }
-    public function update_propuesta($CodProCom,$EstProCom,$CodCli)
+    public function update_propuesta($CodProCom,$EstProCom)
     {   
-        $this->db->where('CodProCom', $CodProCom); 
-        $this->db->where('CodCli', $CodCli);       
+        $this->db->where('CodProCom', $CodProCom);   
         return $this->db->update('T_PropuestaComercial',array('EstProCom'=>$EstProCom));
     }
     public function update_CUPsEleDB($CodCupsEle,$CodTarEle,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6)

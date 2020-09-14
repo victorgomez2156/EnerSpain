@@ -29,6 +29,25 @@ class Tareas_programadas_model extends CI_Model
             return false;
         }       
     }
+    public function all_contratos()
+    {
+        $this->db->select('*');
+        $this->db->from('T_Contrato');               
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        { 
+            return false;
+        }       
+    }
+     public function update_RefProcontratos($CodConCom,$RefCon)
+    {   
+        $this->db->where('CodConCom', $CodConCom);        
+        return $this->db->update('T_Contrato',array('RefCon'=>$RefCon));
+    }
     public function update_RefProCom($CodProCom,$RefProCom)
     {   
         $this->db->where('CodProCom', $CodProCom);        

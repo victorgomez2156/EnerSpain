@@ -38,6 +38,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.T_Contratos = [];
     scope.T_ContratosBack = [];
     scope.tmodal_filtros = {};
+    scope.fdatos.detalleCUPs=[];
     scope.CodConCom = $route.current.params.CodConCom;
     scope.CodCli = $route.current.params.CodCli;
     scope.CodProCom = $route.current.params.CodProCom;
@@ -468,29 +469,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
 
     }
-    scope.filtrar_propuesta_contratos = function() {
+    scope.filtrar_propuesta_contratos = function() 
+    {
+        
         for (var i = 0; i < scope.List_Propuestas_Comerciales.length; i++) {
-            if (scope.List_Propuestas_Comerciales[i].CodProCom == scope.fdatos.CodProCom) {
-                console.log(scope.List_Propuestas_Comerciales[i]);
+            if (scope.List_Propuestas_Comerciales[i].CodProCom == scope.fdatos.CodProCom) 
+            {
+                //console.log(scope.List_Propuestas_Comerciales[i]);
+                scope.fdatos.TipProCom=scope.List_Propuestas_Comerciales[i].TipProCom;
                 scope.FecProCom = scope.List_Propuestas_Comerciales[i].FecProCom;
                 scope.RefProCom = scope.List_Propuestas_Comerciales[i].RefProCom;
-                scope.DirPunSum = scope.List_Propuestas_Comerciales[i].DirPunSum + " " + scope.List_Propuestas_Comerciales[i].BloPunSum;
-                scope.EscPlaPuerPunSum = scope.List_Propuestas_Comerciales[i].EscPunSum + " " + scope.List_Propuestas_Comerciales[i].PlaPunSum + " " + scope.List_Propuestas_Comerciales[i].PuePunSum;
-                scope.DesLocPunSum = scope.List_Propuestas_Comerciales[i].DesLoc;
-                scope.DesLocPunSum = scope.List_Propuestas_Comerciales[i].DesLoc;
-                scope.DesProPunSum = scope.List_Propuestas_Comerciales[i].DesPro;
-                scope.CodCupSEle = scope.List_Propuestas_Comerciales[i].CUPsEle;
-                scope.CodTarEle = scope.List_Propuestas_Comerciales[i].NomTarEle;
-                scope.PotConP1 = scope.List_Propuestas_Comerciales[i].PotConP1;
-                scope.PotConP2 = scope.List_Propuestas_Comerciales[i].PotConP2;
-                scope.PotConP3 = scope.List_Propuestas_Comerciales[i].PotConP3;
-                scope.PotConP4 = scope.List_Propuestas_Comerciales[i].PotConP4;
-                scope.PotConP5 = scope.List_Propuestas_Comerciales[i].PotConP5;
-                scope.PotConP6 = scope.List_Propuestas_Comerciales[i].PotConP6;
-                scope.CodCupGas = scope.List_Propuestas_Comerciales[i].CupsGas;
-                scope.CodTarGas = scope.List_Propuestas_Comerciales[i].NomTarGas;
-                scope.Consumo = scope.List_Propuestas_Comerciales[i].Consumo;
-                scope.CauDia = scope.List_Propuestas_Comerciales[i].CauDia;
                 if(scope.List_Propuestas_Comerciales[i].NumCifCom==null||scope.List_Propuestas_Comerciales[i].NumCifCom==undefined||scope.List_Propuestas_Comerciales[i].NumCifCom=='')
                 {
                     scope.List_Propuestas_Comerciales[i].NumCifCom='S/I';
@@ -503,14 +491,125 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodPro = scope.List_Propuestas_Comerciales[i].DesProducto;
                 scope.CodAnePro = scope.List_Propuestas_Comerciales[i].DesAnePro;
                 scope.TipPre = scope.List_Propuestas_Comerciales[i].TipPre;
+                if(scope.List_Propuestas_Comerciales[i].TipProCom==1)
+                {
+                    scope.GetdetallePropuestaContratos(scope.List_Propuestas_Comerciales[i].TipProCom,scope.List_Propuestas_Comerciales[i].CodProComCli);
+                }
+                else if(scope.List_Propuestas_Comerciales[i].TipProCom==2)
+                {
+                    scope.GetdetallePropuestaContratos(scope.List_Propuestas_Comerciales[i].TipProCom,scope.List_Propuestas_Comerciales[i].CodProComCli);
+                }
+                else if(scope.List_Propuestas_Comerciales[i].TipProCom==3)
+                {
+                    scope.GetdetallePropuestaContratos(scope.List_Propuestas_Comerciales[i].TipProCom,scope.List_Propuestas_Comerciales[i].CodProComCli);
+                }
+
+                /*
+                scope.DirPunSum = scope.List_Propuestas_Comerciales[i].DirPunSum + " " + scope.List_Propuestas_Comerciales[i].BloPunSum;
+                scope.EscPlaPuerPunSum = scope.List_Propuestas_Comerciales[i].EscPunSum + " " + scope.List_Propuestas_Comerciales[i].PlaPunSum + " " + scope.List_Propuestas_Comerciales[i].PuePunSum;
+                scope.DesLocPunSum = scope.List_Propuestas_Comerciales[i].DesLoc;
+                scope.DesLocPunSum = scope.List_Propuestas_Comerciales[i].DesLoc;
+                scope.DesProPunSum = scope.List_Propuestas_Comerciales[i].DesPro;
+                
+                scope.CodCupGas = scope.List_Propuestas_Comerciales[i].CupsGas;
+                scope.CodTarGas = scope.List_Propuestas_Comerciales[i].NomTarGas;
+                scope.Consumo = scope.List_Propuestas_Comerciales[i].Consumo;
+                scope.CauDia = scope.List_Propuestas_Comerciales[i].CauDia;
+                
                 if (scope.List_Propuestas_Comerciales[i].CanPerTar == null) {
                     scope.CanPerEle = 6;
                 } else {
                     scope.CanPerEle = scope.List_Propuestas_Comerciales[i].CanPerTar;
-                }
+                }*/
+
+
 
             }
         }
+    }
+    scope.GetdetallePropuestaContratos=function(TipProCom,CodProComCli)
+    {
+        console.log('Tipo Propuesta: '+TipProCom);
+        console.log('Código del Detalle CUPs: '+CodProComCli);
+        $("#DetallesCUPs").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url=base_urlHome()+"api/Contratos/GetDetallesCUPsTipProCom/TipProCom/"+TipProCom+"/CodProComCli/"+CodProComCli;
+        $http.get(url).then(function(result)
+        {
+            $("#DetallesCUPs").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data!=false)
+            {
+                if(TipProCom==1)
+                {
+                    angular.forEach(result.data,function(CUPs)
+                    {
+                        if(CUPs.CanPerTar==null || CUPs.CanPerTar==0)
+                        {
+                            scope.CanPerEle=6;
+                        }
+                        else
+                        {
+                            scope.CanPerEle=CUPs.CanPerTar;
+                        }
+                        if(CUPs.TipServ==1)
+                        {                            
+                            scope.CodCupSEle=CUPs.CUPsName;
+                            scope.CodTarEle=CUPs.NomTar;
+                            scope.PotConP1 = CUPs.PotConP1;
+                            scope.PotConP2 = CUPs.PotConP2;
+                            scope.PotConP3 = CUPs.PotConP3;
+                            scope.PotConP4 = CUPs.PotConP4;
+                            scope.PotConP5 = CUPs.PotConP5;
+                            scope.PotConP6 = CUPs.PotConP6;
+                            scope.ConCups=CUPs.ConCUPs;
+                        }
+                        if(CUPs.TipServ==2)
+                        {
+                            scope.CodCupGas = CUPs.CUPsName;
+                            scope.CodTarGas = CUPs.NomTar;
+                            scope.Consumo = CUPs.ConCUPs;
+                            scope.CauDia = CUPs.CauDia;
+                        }
+                        scope.DirPunSum = CUPs.DirPunSum+" "+CUPs.NomViaPunSum+" "+CUPs.NumViaPunSum+" "+CUPs.BloPunSum;
+                        scope.DesLocPunSum=CUPs.DesLoc;
+                        scope.DesProPunSum=CUPs.DesPro;
+                        scope.CPLocPunSum=CUPs.CPLocSoc;
+                        scope.EscPlaPuerPunSum=CUPs.EscPunSum+" "+CUPs.PlaPunSum+" "+CUPs.PuePunSum;
+                       
+                    }); 
+
+                }
+                else if(TipProCom==2)
+                {
+                    scope.fdatos.detalleCUPs=result.data;
+                }
+                else if(TipProCom==3)
+                {
+                    scope.fdatos.detalleCUPs=result.data;
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
+
+        },function(error)
+        {
+            $("#DetallesCUPs").removeClass("loader loader-default is-active").addClass("loader loader-default"); 
+            if (error.status == 404 && error.statusText == "Not Found"){
+                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+            }if (error.status == 403 && error.statusText == "Forbidden"){
+                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+            }
+        });
+
     }
     scope.regresar = function() {
         Swal.fire({
@@ -533,7 +632,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         upload.uploadFile(file, name).then(function(res) {
             //console.log(res);
         }, function(error) {
-            if (error.status == 404 && error.statusText == "Not Found"){
+                    if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
                         scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
@@ -1544,12 +1643,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var url = base_urlHome() + "api/Contratos/BuscarXIDContrato/CodCli/" + scope.CodCli + "/CodConCom/" + scope.CodConCom + "/CodProCom/" + scope.CodProCom;
         $http.get(url).then(function(result) {
             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if (result.data != false) {
+            if (result.data != false) 
+            {
                 scope.RazSocCli = result.data.Cliente.RazSocCli;
                 scope.NumCifCli = result.data.Cliente.NumCifCli;
                 scope.fdatos.CodCli = result.data.Cliente.CodCli;
-                scope.fdatos.CodConCom = scope.CodConCom;
                 scope.List_Propuestas_Comerciales = result.data.List_Pro;
+                scope.fdatos.CodConCom = scope.CodConCom;               
                 scope.fdatos.CodProCom = scope.CodProCom;
                 scope.filtrar_propuesta_contratos();
                 scope.FecIniCon = result.data.Contrato.FecIniCon;
@@ -1560,13 +1660,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos.ObsCon = result.data.Contrato.ObsCon;
                 scope.FecFirmCon = result.data.Contrato.FecFirmCon;
                 $("#RefConClass").removeClass("col-sm-4").addClass("col-sm-2");
-                //$("#cargando").removeClass("col-sm-4").addClass("col-sm-2");
-
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecIniCon);
                 $('.datepicker_Vencimiento').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecVenCon);
                 $('.FecFirmCon').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecFirmCon);
-                console.log(result.data.List_Pro);
-                console.log(scope.fdatos);
+                //console.log(result.data.List_Pro);
+                //console.log(scope.fdatos);
             } 
             else {
               scope.toast('error','','');
@@ -1886,7 +1984,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
      scope.generar_audax=function()
      {
      	scope.toast('info','Debe permitir el uso de ventanas emergentes para poder ver el contrato audax.','Ventana Emergente');
-     	scope.CodContCli=0;
+     	if(scope.fdatos.CodConCom==undefined||scope.fdatos.CodConCom==null||scope.fdatos.CodConCom=='')
+        {
+            scope.toast('error','Código Contrato Comercial es Requerido.','');
+            return false;
+        }
+        scope.CodContCli=0;
         scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
      	var url=base_urlHome()+"api/Contratos/generar_audax/";
