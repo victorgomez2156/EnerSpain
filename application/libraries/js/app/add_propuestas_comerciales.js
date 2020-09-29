@@ -138,43 +138,101 @@
          });
      }
      scope.CUPsFilter = function(metodo, CodCUPs) {
-         if (metodo == 1) {
-             console.log(CodCUPs);
-             for (var i = 0; i < scope.List_CUPsEle.length; i++) {
-                 if (scope.List_CUPsEle[i].CodCupsEle == CodCUPs) {
-                     console.log(scope.List_CUPsEle[i]);
-                     scope.fdatos.CodTarEle = scope.List_CUPsEle[i].CodTarElec;
-                     scope.fdatos.PotConP1 = scope.List_CUPsEle[i].PotConP1;
-                     scope.fdatos.PotConP2 = scope.List_CUPsEle[i].PotConP2;
-                     scope.fdatos.PotConP3 = scope.List_CUPsEle[i].PotConP3;
-                     scope.fdatos.PotConP4 = scope.List_CUPsEle[i].PotConP4;
-                     scope.fdatos.PotConP5 = scope.List_CUPsEle[i].PotConP5;
-                     scope.fdatos.PotConP6 = scope.List_CUPsEle[i].PotConP6;
-                     if(scope.List_CUPsEle[i].CanPerTar==null||scope.List_CUPsEle[i].CanPerTar==0)
-                     {
-                        scope.CanPerEle =6;
-                     }
-                     else
-                     {
-                        scope.CanPerEle = scope.List_CUPsEle[i].CanPerTar;
-                     }
-                     if(scope.fdatos.CodTarEle==0||scope.fdatos.CodTarEle==null)
-                     {
-                         scope.toast('error','Debe Seleccionar una Tárifa para el CUPs Eléctrico','CUPs Sin Tárifa');
-                     }
-                     
-                 }
-             }
-         }
-         if (metodo == 2) {
+        if (metodo == 1) 
+        {
+            console.log(CodCUPs);
+            for (var i = 0; i < scope.List_CUPsEle.length; i++) 
+            {
+                if (scope.List_CUPsEle[i].CodCupsEle == CodCUPs) 
+                {
+                    console.log(scope.List_CUPsEle[i]);
+                    scope.fdatos.CodTarEle = scope.List_CUPsEle[i].CodTarElec;
+                    if(scope.List_CUPsEle[i].PotConP1==null)
+                    {
+                    	scope.fdatos.PotConP1 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP1 = scope.List_CUPsEle[i].PotConP1;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP2==null)
+                    {
+                    	scope.fdatos.PotConP2 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP2 = scope.List_CUPsEle[i].PotConP2;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP3==null)
+                    {
+                    	scope.fdatos.PotConP3 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP3 = scope.List_CUPsEle[i].PotConP3;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP4==null)
+                    {
+                    	scope.fdatos.PotConP4 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP4 = scope.List_CUPsEle[i].PotConP4;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP5==null)
+                    {
+                    	scope.fdatos.PotConP5 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP5 = scope.List_CUPsEle[i].PotConP5;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP6==null)
+                    {
+                    	scope.fdatos.PotConP6 ='0.00';
+                    }
+                    else
+                    {
+                    	scope.fdatos.PotConP6 = scope.List_CUPsEle[i].PotConP6;
+                    }                 
+                   
+                    if(scope.List_CUPsEle[i].CanPerTar==null||scope.List_CUPsEle[i].CanPerTar==0)
+                    {
+                       scope.CanPerEle =6;
+                    }
+                    else
+                    {
+                       scope.CanPerEle = scope.List_CUPsEle[i].CanPerTar;
+                    }
+                    if(scope.fdatos.CodTarEle==0||scope.fdatos.CodTarEle==null)
+                    {
+                        scope.toast('error','Debe Seleccionar una Tárifa para el CUPs Eléctrico','CUPs Sin Tárifa');
+                    }                     
+                }
+                scope.fdatos.ImpAhoEle='0.00';
+				scope.fdatos.PorAhoEle='0.00';
+				scope.fdatos.ConCupsEle='0.00';
+            }
+        }
+        if (metodo == 2) 
+        {
              for (var i = 0; i < scope.List_CUPs_Gas.length; i++) {
-                 if (scope.List_CUPs_Gas[i].CodCupGas == CodCUPs) {
-                     console.log(scope.List_CUPs_Gas[i]);
-                     scope.fdatos.CodTarGas = scope.List_CUPs_Gas[i].CodTarGas;
-                     scope.fdatos.Consumo = scope.List_CUPs_Gas[i].ConAnuCup;
-                 }
+                if (scope.List_CUPs_Gas[i].CodCupGas == CodCUPs) 
+                {
+                    console.log(scope.List_CUPs_Gas[i]);
+
+                    scope.fdatos.Consumo='0.00';
+					scope.fdatos.CauDia='0.00';
+					scope.fdatos.ImpAhoGas='0.00';
+					scope.fdatos.PorAhoGas='0.00';
+                    scope.fdatos.CodTarGas = scope.List_CUPs_Gas[i].CodTarGas;
+                    scope.fdatos.Consumo = scope.List_CUPs_Gas[i].ConAnuCup;
+                }
              }
-         }
+
+        }
+        scope.fdatos.ImpAhoTot='0.00';
+		scope.fdatos.PorAhoTot='0.00';
      }
      scope.realizar_filtro = function(metodo, PrimaryKey) {
          var url = base_urlHome() + "api/PropuestaComercial/realizar_filtro/metodo/" + metodo + "/PrimaryKey/" + PrimaryKey;
@@ -559,33 +617,33 @@
              scope.fdatos.PorAhoEle = null;
              scope.fdatos.ObsAhoEle = null;
          }
-         if (scope.fdatos.CodCupGas > 0) {
+        if (scope.fdatos.CodCupGas > 0) {
              if (!scope.fdatos.CodTarGas > 0 || scope.fdatos.CodTarGas==0) {
                  scope.toast('error','Debe seleccionar una Tarifa de Gas.','');
                  return false;
-             }
-             if (scope.fdatos.Consumo == null || scope.fdatos.Consumo == undefined || scope.fdatos.Consumo == '') {
+            }
+            if (scope.fdatos.Consumo == null || scope.fdatos.Consumo == undefined || scope.fdatos.Consumo == '') {
                  scope.toast('error','Debe indicar un consumo Gas.','');
                  return false;
-             }
-             if (scope.fdatos.CauDia == null || scope.fdatos.CauDia == undefined || scope.fdatos.CauDia == '') {
+            }
+            if (scope.fdatos.CauDia == null || scope.fdatos.CauDia == undefined || scope.fdatos.CauDia == '') {
                  scope.toast('error','Debe indicar un Caudal Diario.','');
                  return false;
-             }
-             if (scope.fdatos.ImpAhoGas == null || scope.fdatos.ImpAhoGas == undefined || scope.fdatos.ImpAhoGas == '') {
+            }
+            if (scope.fdatos.ImpAhoGas == null || scope.fdatos.ImpAhoGas == undefined || scope.fdatos.ImpAhoGas == '') {
                  scope.toast('error','Debe indicar un importe de ahorro de gas.','');
                  return false;
-             }
-             if (scope.fdatos.PorAhoGas == null || scope.fdatos.PorAhoGas == undefined || scope.fdatos.PorAhoGas == '') {
+            }
+            if (scope.fdatos.PorAhoGas == null || scope.fdatos.PorAhoGas == undefined || scope.fdatos.PorAhoGas == '') {
                  scope.toast('error','Debe indicar un porcentaje de gas.','');
                  return false;
-             }
-             if (scope.fdatos.ObsAhoGas == null || scope.fdatos.ObsAhoGas == undefined || scope.fdatos.ObsAhoGas == '') {
+            }
+            if (scope.fdatos.ObsAhoGas == null || scope.fdatos.ObsAhoGas == undefined || scope.fdatos.ObsAhoGas == '') {
                  scope.fdatos.ObsAhoGas = null;
-             } else {
+            } else {
                  scope.fdatos.ObsAhoGas = scope.fdatos.ObsAhoGas;
-             }
-         } else {
+            }
+        } else {
              scope.fdatos.CodCupGas = null;
              scope.fdatos.CodTarGas = null;
              scope.fdatos.Consumo = null;

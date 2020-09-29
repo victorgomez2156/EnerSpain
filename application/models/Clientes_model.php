@@ -112,7 +112,7 @@ public function get_data_cliente_contactos($CodCli)
     $this->db->select('NomConCli,NIFConCli,CarConCli,case TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,EsRepLeg,DocNIF,DocPod',false);
     $this->db->from('T_ContactoCliente');
     $this->db->where('CodCli',$CodCli);
-    $this->db->where('EsRepLeg=1');         
+    //$this->db->where('EsRepLeg=1');         
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {
@@ -711,7 +711,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         $this->db->or_like('b.DesBan',$SearchText); 
         $this->db->or_like('a.CodCli',$SearchText);        
         $this->db->or_like('a.NumIBan',$SearchText);
-        $this->db->order_by('a.RazSocCli ASC');
+        $this->db->order_by('c.RazSocCli ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

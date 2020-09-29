@@ -190,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora </label>
              <select class="form-control" id="CodCom" name="CodCom" required ng-model="vm.fdatos.CodCom" ng-change="vm.realizar_filtro(1,vm.fdatos.CodCom)" ng-disabled="vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
-                <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NumCifCom}} - {{dato_act.NomComCom}}</option>
+                <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NomComCom}}</option>
         </select>     
              </div>
              </div>

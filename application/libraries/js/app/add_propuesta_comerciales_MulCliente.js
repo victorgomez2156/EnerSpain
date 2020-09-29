@@ -486,15 +486,15 @@
             scope.fdatos.CodCupSEle=undefined;
             scope.DirPunSumCUPsEle=undefined;
             scope.fdatos.CodTar=undefined;
-            scope.fdatos.PotEleConP1=undefined;
-            scope.fdatos.PotEleConP2=undefined;
-            scope.fdatos.PotEleConP3=undefined;
-            scope.fdatos.PotEleConP4=undefined;
-            scope.fdatos.PotEleConP5=undefined;
-            scope.fdatos.PotEleConP6=undefined;
-            scope.fdatos.ConCup=undefined;
-            scope.fdatos.ImpAho=undefined;
-            scope.fdatos.PorAho=undefined;
+            scope.fdatos.PotEleConP1='0.00';
+            scope.fdatos.PotEleConP2='0.00';
+            scope.fdatos.PotEleConP3='0.00';
+            scope.fdatos.PotEleConP4='0.00';
+            scope.fdatos.PotEleConP5='0.00';
+            scope.fdatos.PotEleConP6='0.00';
+            scope.fdatos.ConCup='0.00';
+            scope.fdatos.ImpAho='0.00';
+            scope.fdatos.PorAho='0.00';
             scope.fdatos.RenCup=false;
             scope.fdatos.ObsCup=undefined;
             $("#modal_CUPsElectrico").modal('show'); 
@@ -514,12 +514,12 @@
             scope.fdatos.PotEleConP4=null;
             scope.fdatos.PotEleConP5=null;
             scope.fdatos.PotEleConP6=null;
-            scope.fdatos.ConCup=undefined;
-            scope.fdatos.ImpAho=undefined;
-            scope.fdatos.PorAho=undefined;
+            scope.fdatos.ConCup='0.00';
+            scope.fdatos.ImpAho='0.00';
+            scope.fdatos.PorAho='0.00';
             scope.fdatos.RenCup=false;
             scope.fdatos.ObsCup=undefined;
-            scope.fdatos.CauDiaGas=undefined;
+            scope.fdatos.CauDiaGas='0.00';
             $("#modal_CUPsGas").modal('show'); 
         }
         else
@@ -536,12 +536,56 @@
                      console.log(scope.List_CUPsEle[i]);
                      scope.DirPunSumCUPsEle=scope.List_CUPsEle[i].DirPumSum;
                      scope.fdatos.CodTar = scope.List_CUPsEle[i].CodTarElec;
-                     scope.fdatos.PotEleConP1= scope.List_CUPsEle[i].PotConP1;
-                     scope.fdatos.PotEleConP2 = scope.List_CUPsEle[i].PotConP2;
-                     scope.fdatos.PotEleConP3 = scope.List_CUPsEle[i].PotConP3;
-                     scope.fdatos.PotEleConP4 = scope.List_CUPsEle[i].PotConP4;
-                     scope.fdatos.PotEleConP5 = scope.List_CUPsEle[i].PotConP5;
-                     scope.fdatos.PotEleConP6 = scope.List_CUPsEle[i].PotConP6;
+                    
+                     if(scope.List_CUPsEle[i].PotConP1==null)
+                    {
+                        scope.fdatos.PotEleConP1 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP1 = scope.List_CUPsEle[i].PotConP1;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP2==null)
+                    {
+                        scope.fdatos.PotEleConP2 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP2 = scope.List_CUPsEle[i].PotConP2;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP3==null)
+                    {
+                        scope.fdatos.PotEleConP3 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP3 = scope.List_CUPsEle[i].PotConP3;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP4==null)
+                    {
+                        scope.fdatos.PotEleConP4 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP4 = scope.List_CUPsEle[i].PotConP4;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP5==null)
+                    {
+                        scope.fdatos.PotEleConP5 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP5 = scope.List_CUPsEle[i].PotConP5;
+                    }
+                    if(scope.List_CUPsEle[i].PotConP6==null)
+                    {
+                        scope.fdatos.PotEleConP6 ='0.00';
+                    }
+                    else
+                    {
+                        scope.fdatos.PotEleConP6 = scope.List_CUPsEle[i].PotConP6;
+                    }                   
+
                      scope.fdatos.CodPunSum= scope.List_CUPsEle[i].CodPunSum;
                      scope.RazSocCliCups=scope.List_CUPsEle[i].RazSocCli;
                      scope.NumCifCliCups=scope.List_CUPsEle[i].NumCifCli;

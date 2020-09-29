@@ -839,7 +839,7 @@ class Reportes_model extends CI_Model
     {   
         $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,
 
-            a.ImpAhoTot,a.ObsProCom,CONCAT(g.NomComCom,' - ',g.NumCifCom) as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
+            a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
             ",false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
@@ -879,10 +879,7 @@ class Reportes_model extends CI_Model
     }
     public function PropuestaComercialCUPs($CodProComCli)
     {
-        $this->db->select("a.*,b.CUPsEle,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipViaPunSumEle,
-
-
-            c.NomViaPunSum as NomViaPunSumEle,c.NumViaPunSum as NumViaPunSumEle,c.BloPunSum as BloPunSumEle,c.EscPunSum as EscPunSumEle,c.PlaPunSum as PlaPunSumEle,c.PuePunSum as PuePunSumEle,e.DesLoc as DesLocPunSumEle,f.DesPro as DesProPunSumEle,c.CPLocSoc as CPLocPunSumEle,g.NomTarEle",false);
+        $this->db->select("a.*,b.CUPsEle,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipViaPunSumEle,c.NomViaPunSum as NomViaPunSumEle,c.NumViaPunSum as NumViaPunSumEle,c.BloPunSum as BloPunSumEle,c.EscPunSum as EscPunSumEle,c.PlaPunSum as PlaPunSumEle,c.PuePunSum as PuePunSumEle,e.DesLoc as DesLocPunSumEle,f.DesPro as DesProPunSumEle,c.CPLocSoc as CPLocPunSumEle,g.NomTarEle",false);
         $this->db->from('T_Propuesta_Comercial_CUPs a');
         $this->db->join('T_CUPsElectrico b','a.CodCup=b.CodCupsEle','left');
         $this->db->join('T_PuntoSuministro c','b.CodPunSum=c.CodPunSum','left');
@@ -1598,6 +1595,26 @@ class Reportes_model extends CI_Model
         else
         return false;              
     } 
+    public function ContratoComercial($CodConCom)
+    {
+        $this->db->select("a.CodConCom,a.CodProCom,a.RefCon,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,c.RazSocCli,c.NumCifCli,d.IniTipVia,d.DesTipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,c.CPLocSoc,f.DesPro,g.RazSocCom,h.DesAnePro,i.DesPro,(CASE WHEN b.TipPre =0 THEN 'Fijo' WHEN b.TipPre = 1 THEN 'Indexado' WHEN b.TipPre = 2 THEN 'Ambos' ELSE 'S/D' END) AS TipPre,b.TipProCom,j.CodProComCli,DATE_FORMAT(a.FecFirmCon,'%d/%m/%Y') as FecFirmCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.DurCon",false);  
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_PropuestaComercial b','b.CodProCom=a.CodProCom','left');
+        $this->db->join('T_Cliente c','c.CodCli=a.CodCli');
+        $this->db->join('T_TipoVia d','d.CodTipVia=c.CodTipViaSoc');
+        $this->db->join('T_Localidad e','e.CodLoc=c.CodLocSoc');
+        $this->db->join('T_Provincia f','f.CodPro=e.CodPro');        
+        $this->db->join('T_Comercializadora g','g.CodCom=b.CodCom','left');
+        $this->db->join('T_AnexoProducto h','h.CodAnePro=b.CodAnePro','left'); 
+        $this->db->join('T_Producto i','i.CodPro=b.CodPro','left');
+        $this->db->join('T_Propuesta_Comercial_Clientes j','j.CodProCom=b.CodProCom','left');
+        $this->db->where('a.CodConCom',$CodConCom);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
 
 
  

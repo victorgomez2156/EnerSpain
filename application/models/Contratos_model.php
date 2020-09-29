@@ -128,14 +128,15 @@ class Contratos_model extends CI_Model
     public function getContratosFilter($SearchText)
     {
         $this->db->select("a.CodConCom,a.CodProCom,b.RazSocCli,b.NumCifCli,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.EstBajCon,
-            CONCAT(d.RazSocCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,f.CUPsEle,g.CupsGas",false);
+            CONCAT(d.RazSocCom) as CodCom,e.DesAnePro as Anexo,b.CodCli,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,
+            (select count(*) from T_Propuesta_Comercial_CUPs g where ((g.CodProComCli = f.CodProComCli) and (g.TipCups = 1))) AS CUPsEle,(select count(*) from T_Propuesta_Comercial_CUPs h where ((h.CodProComCli = f.CodProComCli) and (h.TipCups = 2))) AS CupsGas 
+                    ",false);
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
         $this->db->join('T_PropuestaComercial c','c.CodProCom=a.CodProCom');
         $this->db->join('T_Comercializadora d','d.CodCom=c.CodCom');
         $this->db->join('T_AnexoProducto e','e.CodAnePro=c.CodAnePro');
-        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=c.CodCupsEle','LEFT');
-        $this->db->join('T_CUPsGas g','g.CodCupGas=c.CodCupsGas','LEFT');
+        $this->db->join('T_Propuesta_Comercial_Clientes f','f.CodProCom=c.CodProCom');
         $this->db->like('DATE_FORMAT(a.FecConCom,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('b.NumCifCli',$SearchText);
         $this->db->or_like('b.RazSocCli',$SearchText);
@@ -145,9 +146,7 @@ class Contratos_model extends CI_Model
         $this->db->or_like('a.DurCon',$SearchText);
         $this->db->or_like('DATE_FORMAT(a.FecVenCon,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('a.RefCon',$SearchText);
-        $this->db->or_like('f.CUPsEle',$SearchText);
         $this->db->or_like('b.CodCli',$SearchText);
-        $this->db->or_like('g.CupsGas',$SearchText);
         $this->db->order_by('a.FecIniCon DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)

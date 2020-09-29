@@ -621,6 +621,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'" ng-blur="vm.blurfechachange()"/>         
          </div>
         </div>
+      </div>     
+
+      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
+        <input type="text" class="form-control FecFirmCon" name="FecFirmCon" id="FecFirmCon" ng-model="vm.FecFirmCon" placeholder="Fecha de Firma de Contrato" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(17,vm.FecFirmCon)"/>
+         
+         </div>
+         </div>
+      </div> 
+
+      <div class="col-12 col-sm-2">
+        <div class="form">                          
+          <div class="form-group">
+          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
+          <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(18,vm.FecVenCon)"/>
+         
+         </div>
+        </div>
       </div>
 
       <div class="col-12 col-sm-2">
@@ -634,26 +654,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <option value="36">36 Meses</option>
             </select> 
           </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
-         <div class="form">                          
-         <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Firma</label>
-        <input type="text" class="form-control FecFirmCon" name="FecFirmCon" id="FecFirmCon" ng-model="vm.FecFirmCon" placeholder="Fecha de Firma de Contrato" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(17,vm.FecFirmCon)"/>
-         
-         </div>
-         </div>
-      </div> 
-
-      <div class="col-12 col-sm-2">
-        <div class="form">                          
-          <div class="form-group">
-          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
-          <input type="text" class="form-control datepicker_Vencimiento" name="FecVenCon" id="FecVenCon" ng-model="vm.FecVenCon" placeholder="DD/MM/YYYY" maxlength="10" ng-disabled="vm.fdatos.tipo=='nuevo'||vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(18,vm.FecVenCon)"/>
-         
-         </div>
         </div>
       </div>
 
@@ -710,6 +710,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
             
             <button class="btn btn-info" id="showtoast" ng-show="vm.fdatos.TipProCom==1 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==1 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
+
+            <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 14px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             
 
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>

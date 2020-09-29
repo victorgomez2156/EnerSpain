@@ -275,12 +275,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         $http.post(url, scope.parafechas).then(function(result) {
 
             if (result.data.status == false && result.data.statusText == "Fecha") {
-              scope.toast('error',result.data.menssage,result.data.statusText);              
+                scope.toast('error',result.data.menssage,result.data.statusText);              
                 scope.FecVenCon = undefined;
                 $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
                 scope.calcular_vencimiento();
                 return false;
             }
+            $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true })
+            .datepicker("setDate", result.data.FecVenc);/*
+            .datepicker("setEndDate", result.data.FecVenc)*/
+                
             scope.FecVenCon = result.data.FecVenc;
         }, function(error) {
              if (error.status == 404 && error.statusText == "Not Found"){
@@ -487,7 +491,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 {
                     scope.List_Propuestas_Comerciales[i].NumCifCom=scope.List_Propuestas_Comerciales[i].NumCifCom;
                 }
-                scope.CodCom = scope.List_Propuestas_Comerciales[i].RazSocCom+" - "+scope.List_Propuestas_Comerciales[i].NumCifCom;
+                scope.CodCom = scope.List_Propuestas_Comerciales[i].RazSocCom;
                 scope.CodPro = scope.List_Propuestas_Comerciales[i].DesProducto;
                 scope.CodAnePro = scope.List_Propuestas_Comerciales[i].DesAnePro;
                 scope.TipPre = scope.List_Propuestas_Comerciales[i].TipPre;

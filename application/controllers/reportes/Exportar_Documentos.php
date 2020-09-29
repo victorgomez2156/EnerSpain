@@ -12079,15 +12079,12 @@ class Exportar_Documentos extends CI_Controller
             return false;
         }
         $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
-        $PropuestaComercialCUPs=$this->Reportes_model->PropuestaComercialCUPs($PropuestaComercial-> CodProComCli);
-        //var_dump($PropuestaComercialCUPs);
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
         if($PropuestaComercial==false)
         {
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
-        //var_dump($PropuestaComercial);
-
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial Sencilla '.date('d/m/Y'));
@@ -12145,12 +12142,11 @@ class Exportar_Documentos extends CI_Controller
         {
             foreach ($PropuestaComercialCUPs as $key => $value):
             {
-                if($value->TipCups==1)
-                {
-                    
-                    if($value-> RenCup==0)
-                    {$RenCup="No";}
-                    else{$RenCup="Si";}    
+                if($value-> TipServ==1)
+                {                    
+                    if($value-> RenCon==0)
+                    {$RenCon="No";}
+                    else{$RenCon="Si";}    
                     $html .= '<br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                     <tr>
                     <td border="1">CUPs Eléctrico</td>
@@ -12160,14 +12156,14 @@ class Exportar_Documentos extends CI_Controller
                     <td border="1">Código Postal</td>
                     </tr>
                         <tr>
-                            <td border="1">'.$value-> CUPsEle.'</td>
-                            <td border="1">'.$value-> TipViaPunSumEle.' '.$value-> NomViaPunSumEle.' '.$value-> NumViaPunSumEle.' '.$value-> BloPunSumEle.' '.$value-> EscPunSumEle.' '.$value-> PlaPunSumEle.' '.$value-> PuePunSumEle.'</td>
-                            <td border="1">'.$value->DesLocPunSumEle.'</td>
-                            <td border="1">'.$value->DesProPunSumEle.'</td>
-                            <td border="1">'.$value->CPLocPunSumEle.'</td>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value->DesLoc.'</td>
+                            <td border="1">'.$value->DesPro.'</td>
+                            <td border="1">'.$value->CPLocSoc.'</td>
                         </tr>
                             <tr>
-                            <td class="borde"><h3>Tárifa</h3> '.$value->NomTarEle.'</td>                            
+                            <td class="borde"><h3>Tárifa</h3> '.$value->NomTar.'</td>                           
                             
                             <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
                                 <table class="borde">
@@ -12180,12 +12176,12 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">P6</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.number_format($value-> PotEleConP1, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotEleConP2, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotEleConP3, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotEleConP4, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotEleConP5, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotEleConP6, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP1, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP2, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP3, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP4, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP5, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP6, 2, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12205,11 +12201,11 @@ class Exportar_Documentos extends CI_Controller
                         <tr>
                         <td>Renovación:                                                    
                         </td>
-                        <td>'.$RenCup.'                                                   
+                        <td>'.$RenCon.'                                                   
                         </td>
                         <td>Consumo:                                                    
                         </td >
-                        <td colspan="2">'.number_format($value-> ConCup, 2, ',', '.').'                                                    
+                        <td colspan="2">'.number_format($value-> ConCUPs, 2, ',', '.').'                                                    
                         </td>
                         </tr>
                         <tr>
@@ -12220,10 +12216,10 @@ class Exportar_Documentos extends CI_Controller
                         </tr>
                     </table>';                   
                 }
-                if($value->TipCups==2)
+                if($value->TipServ==2)
                 {
                     
-                    if($value-> RenCup==0)
+                    if($value-> RenCon==0)
                     {$RenCupGas="No";}
                     else{$RenCupGas="Si";}
                     $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
@@ -12235,19 +12231,19 @@ class Exportar_Documentos extends CI_Controller
                             <td border="1">Código Postal</td>
                             </tr>
                             <tr>
-                            <td border="1"></td>
-                            <td border="1"></td>
-                            <td border="1"></td>
-                            <td border="1"></td>
-                            <td border="1"></td>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value->DesLoc.'</td>
+                            <td border="1">'.$value->DesPro.'</td>
+                            <td border="1">'.$value->CPLocSoc.'</td>
                             </tr>
                             
                             <tr>
-                            <td class="borde"><h3>Tárifa</h3> </td> 
+                            <td class="borde"><h3>Tárifa</h3> '.$value-> NomTar.'</td> 
 
-                            <td class="borde"><h3>Consumo</h3> </td>
+                            <td class="borde"><h3>Consumo</h3> '.$value-> ConCUPs.'</td>
 
-                            <td class="borde"><h3>Caudal Diario</h3> </td>
+                            <td class="borde"><h3>Caudal Diario</h3> '.$value-> CauDia.'</td>
 
                             <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
                                 <table class="borde">
@@ -12256,8 +12252,8 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">%</td>
                                 </tr>
                                 <tr>
-                                    <td border="1"></td>
-                                    <td border="1"></td>
+                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12265,11 +12261,11 @@ class Exportar_Documentos extends CI_Controller
                         <tr>
                         <td>Renovación:                                                    
                         </td>
-                        <td>                                                   
+                        <td>'.$RenCupGas.'                                                   
                         </td>
                         <td>Observación:                                                    
-                        </td >
-                        <td colspan="2">                                                   
+                        </td>
+                        <td colspan="2">'.$value-> ObsCup.'                                                   
                         </td>
                         </tr>
                     </table><br><br>';    
@@ -12393,58 +12389,7 @@ class Exportar_Documentos extends CI_Controller
                     </table>';
         }
 
-
-        /*
-
-                $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
-                            <tr>
-                            <td border="1">CUP Gas</td>
-                            <td border="1">Dirección</td>
-                            <td border="1">Localidad</td>
-                            <td border="1">Provincia</td>
-                            <td border="1">Código Postal</td>
-                            </tr>
-                            <tr>
-                            <td border="1">'.$PropuestaComercial->CupsGas.'</td>
-                            <td border="1">'.$PropuestaComercial->TipViaPunSumGas.' '.$PropuestaComercial->NomViaPunSumGas.' '.$PropuestaComercial->NumViaPunSumGas.' '.$PropuestaComercial->BloPunSumGas.' '.$PropuestaComercial->EscPunSumGas.' '.$PropuestaComercial->PlaPunSumGas.' '.$PropuestaComercial->PuePunSumGas.'</td>
-                            <td border="1">'.$PropuestaComercial->DesLocPunSumGas.'</td>
-                            <td border="1">'.$PropuestaComercial->DesProPunSumGas.'</td>
-                            <td border="1">'.$PropuestaComercial->CPLocPunSumGas.'</td>
-                            </tr>
-                            
-                            <tr>
-                            <td class="borde"><h3>Tárifa</h3> '.$PropuestaComercial->NomTarGas.'</td> 
-
-                            <td class="borde"><h3>Consumo</h3> '.$PropuestaComercial->Consumo.'</td>
-
-                            <td class="borde"><h3>Caudal Diario</h3> '.$PropuestaComercial->CauDia.'</td>
-
-                            <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
-                                <table class="borde">
-                                <tr>
-                                    <td border="1">$</td>
-                                    <td border="1">%</td>
-                                </tr>
-                                <tr>
-                                    <td border="1">'.$PropuestaComercial->ImpAhoGas.'</td>
-                                    <td border="1">'.$PropuestaComercial->PorAhoGas.'</td>
-                                </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                        <td>Renovación:                                                    
-                        </td>
-                        <td>'.$PropuestaComercial->RenConGas.'                                                    
-                        </td>
-                        <td>Observación:                                                    
-                        </td >
-                        <td colspan="2">'.$PropuestaComercial->ObsAhoGas.'                                                    
-                        </td>
-                        </tr>
-                    </table>'; */
-
-                    $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
                             <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
                             <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
@@ -13850,14 +13795,31 @@ class Exportar_Documentos extends CI_Controller
         {
             foreach ($PropuestaComercialCUPs as $key => $value):
             {
+                if($value-> TipServ==1)
+                {
+                    $TipServ="Eléctrico";
+                }
+                else
+                {
+                    $TipServ="Gas";
+                }
+                if($value-> RenCon==1)
+                {
+                    $RenCon="Si";
+                }
+                else
+                {
+                    $RenCon="No";
+                }
+
                 $html .= '
                     <tr>
                         <td border="1">'.$value-> DirPunSum.'</td>
-                        <td border="1">'.$value-> TipServ.'</td>
+                        <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
                         <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$value-> RenCon.'</td>
+                        <td border="1">'.$RenCon.'</td>
                         <td border="1">'.$value-> ImpAho.'</td>
                      </tr>';  
             }
@@ -13872,16 +13834,6 @@ class Exportar_Documentos extends CI_Controller
                      </tr>';  
             $html .= '</table>'; 
         }
-
-        /*$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
-                            <tr>
-                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
-                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
-                            
-                            </tr>                           
-                        
-        </table><br><br>';*/ 
-
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
@@ -14005,16 +13957,32 @@ class Exportar_Documentos extends CI_Controller
         {
             foreach ($PropuestaComercialCUPs as $key => $value):
             {
+                if($value-> TipServ==1)
+                {
+                    $TipServ="Eléctrico";
+                }
+                else
+                {
+                    $TipServ="Gas";
+                }
+                if($value-> RenCon==1)
+                {
+                    $RenCon="Si";
+                }
+                else
+                {
+                    $RenCon="No";
+                }
                 $html .= '
                     <tr>
                         <td border="1">'.$value-> NumCifCli.'</td>
                         <td border="1">'.$value-> RazSocCli.'</td>
                         <td border="1">'.$value-> DirPunSum.'</td>
-                        <td border="1">'.$value-> TipServ.'</td>
+                        <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
                         <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$value-> RenCon.'</td>
+                        <td border="1">'.$RenCon.'</td>
                         <td border="1">'.$value-> ImpAho.'</td>
                      </tr>';  
             }
@@ -14029,15 +13997,6 @@ class Exportar_Documentos extends CI_Controller
                      </tr>';  
             $html .= '</table>'; 
         }
-
-        /*$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
-                            <tr>
-                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
-                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
-                            
-                            </tr>                           
-                        
-        </table><br><br>';*/ 
 
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
@@ -14073,7 +14032,406 @@ class Exportar_Documentos extends CI_Controller
         $pdf->lastPage();
         $pdf->Output('Propuesta Comercial'.'.pdf', 'I');
     }
+    public function Doc_Contrato_Comercial_Cliente_PDF()
+    {
+        
+        $CodConCom = urldecode($this->uri->segment(4));
+        if($CodConCom==null)
+        {
+            echo 'Error debe seleccionar un contrato comercial.';
+            return false;
+        }
+        $ContratoComercial=$this->Reportes_model->ContratoComercial($CodConCom);
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($ContratoComercial-> CodProComCli);
+        //var_dump($PropuestaComercialCUPs);
+        if($ContratoComercial==false)
+        {
+           echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
+           return false; 
+        }
+        if($ContratoComercial-> TipProCom==1)
+        {
+            $TipoContrato="Contrato Comercial Sencillo ";
+        }
+        elseif ($ContratoComercial-> TipProCom==2) {
+            $TipoContrato="Contrato Comercial UniCliente - MultiPunto ";
+        }
+        elseif ($ContratoComercial-> TipProCom==3) {
+            $TipoContrato="Contrato Comercial MultiCliente - MultiPunto ";
+        }
+        else
+        {
+            $TipoContrato="Tipo de Contrato no Definido.";
+        }
+        //var_dump($PropuestaComercial);
 
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle($TipoContrato.date('d/m/Y'));
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject($TipoContrato);
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h1 align="center">'.$TipoContrato.'</h1>';
+        
+        $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="0" align="left" colspan="4">Contrato Nº: '.$ContratoComercial->RefCon.' </td>
+            <td border="0" colspan="1">Fecha: '.$ContratoComercial->FecConCom.'</td>
+        </tr>
+        </table>';
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CLIENTE</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$ContratoComercial->RazSocCli.'</td>
+             <td border="0" colspan="1">CIF: '.$ContratoComercial->NumCifCli.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="10">Dirección: '.$ContratoComercial->IniTipVia.'-'.$ContratoComercial->DesTipVia.' '.$ContratoComercial->NomViaDomSoc.' '.$ContratoComercial->NumViaDomSoc.' '.$ContratoComercial->BloDomSoc.' '.$ContratoComercial->EscDomSoc.' '.$ContratoComercial->PlaDomSoc.' '.$ContratoComercial->PueDomSoc.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="2">Localidad: '.$ContratoComercial->DesLoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$ContratoComercial->DesPro.'</td>
+            <td border="0" colspan="1">Código Postal: '.$ContratoComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+        $html .='<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
+        </tr>
+        </table>';
+        
+        if($ContratoComercial->TipProCom==1)
+        {
+            if($PropuestaComercialCUPs!=false)
+            {
+
+                foreach ($PropuestaComercialCUPs as $key => $value):
+                {
+                    if($value-> TipServ==1)
+                {                    
+                    if($value-> RenCon==0)
+                    {$RenCon="No";}
+                    else{$RenCon="Si";}    
+                    $html .= '<br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">CUPs Eléctrico</td>
+                    <td border="1">Dirección</td>
+                    <td border="1">Localidad</td>
+                    <td border="1">Provincia</td>
+                    <td border="1">Código Postal</td>
+                    </tr>
+                        <tr>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value->DesLoc.'</td>
+                            <td border="1">'.$value->DesPro.'</td>
+                            <td border="1">'.$value->CPLocSoc.'</td>
+                        </tr>
+                            <tr>
+                            <td class="borde"><h3>Tárifa</h3> '.$value->NomTar.'</td>                           
+                            
+                            <td class="borde" rowspan="1" colspan="3" border="1"><h3>Potencia</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">P1</td>
+                                    <td border="1">P2</td>
+                                    <td border="1">P3</td>
+                                    <td border="1">P4</td>
+                                    <td border="1">P5</td>
+                                    <td border="1">P6</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.number_format($value-> PotConP1, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP2, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP3, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP4, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP5, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP6, 2, ',', '.').'</td>
+                                </tr>
+                                </table>
+                            </td>
+                              <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>'.$RenCon.'                                                   
+                        </td>
+                        <td>Consumo:                                                    
+                        </td >
+                        <td colspan="2">'.number_format($value-> ConCUPs, 2, ',', '.').'                                                    
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>Observación:                                                    
+                        </td>
+                        <td colspan="4" align="left">'.$value-> ObsCup.'                                                   
+                        </td>                        
+                        </tr>
+                    </table>';                   
+                }
+                if($value->TipServ==2)
+                {
+                    
+                    if($value-> RenCon==0)
+                    {$RenCupGas="No";}
+                    else{$RenCupGas="Si";}
+                    $html .= '<br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1">CUPs Gas</td>
+                            <td border="1">Dirección</td>
+                            <td border="1">Localidad</td>
+                            <td border="1">Provincia</td>
+                            <td border="1">Código Postal</td>
+                            </tr>
+                            <tr>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value->DesLoc.'</td>
+                            <td border="1">'.$value->DesPro.'</td>
+                            <td border="1">'.$value->CPLocSoc.'</td>
+                            </tr>
+                            
+                            <tr>
+                            <td class="borde"><h3>Tárifa</h3> '.$value-> NomTar.'</td> 
+
+                            <td class="borde"><h3>Consumo</h3> '.$value-> ConCUPs.'</td>
+
+                            <td class="borde"><h3>Caudal Diario</h3> '.$value-> CauDia.'</td>
+
+                            <td class="borde" rowspan="1" colspan="3"><h3>Ahorro</h3>
+                                <table class="borde">
+                                <tr>
+                                    <td border="1">$</td>
+                                    <td border="1">%</td>
+                                </tr>
+                                <tr>
+                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td>Renovación:                                                    
+                        </td>
+                        <td>'.$RenCupGas.'                                                   
+                        </td>
+                        <td>Observación:                                                    
+                        </td>
+                        <td colspan="2">'.$value-> ObsCup.'                                                   
+                        </td>
+                        </tr>
+                    </table><br><br>';    
+                       
+                }         
+                }
+                endforeach;
+            }
+            else
+            {
+                 $html .= '
+                        <tr>
+                            <td border="1" colspan="5">No ahí datos disponibles.</td>
+                         </tr>';  
+                $html .= '</table>';
+            }
+        }
+        elseif ($ContratoComercial->TipProCom==2) 
+        {
+            $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+            <tr>
+                <td border="1">Dirección de Suministro</td>
+                <td border="1">Tipo de CUPs</td>
+                <td border="1">CUPs</td>
+                <td border="1">Tárifa</td>
+                <td border="1">Consumo</td>
+                <td border="1">Ren</td>
+                <td border="1">Ahorro</td>
+            </tr>';
+            if($PropuestaComercialCUPs!=false)
+            {
+                foreach ($PropuestaComercialCUPs as $key => $value):
+                {
+                    if($value-> TipServ==1)
+                    {
+                        $TipServ="Eléctrico";
+                    }
+                    else
+                    {
+                        $TipServ="Gas";
+                    }
+                    if($value-> RenCon==1)
+                    {
+                        $RenCon="Si";
+                    }
+                    else
+                    {
+                        $RenCon="No";
+                    }
+                    $html .='
+                        <tr>
+                            <td border="1">'.$value-> DirPunSum.'</td>
+                            <td border="1">'.$TipServ.'</td>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> NomTar.'</td>
+                            <td border="1">'.$value-> ConCUPs.'</td>
+                            <td border="1">'.$RenCon.'</td>
+                            <td border="1">'.$value-> ImpAho.'</td>
+                         </tr>';  
+                }
+                endforeach;
+                $html .= '</table>';  
+            }
+            else
+            {
+                $html .= '
+                        <tr>
+                            <td border="1" colspan="7">No ahí datos disponibles.</td>
+                         </tr>';  
+                $html .= '</table>'; 
+            }
+        }   
+        elseif($ContratoComercial->TipProCom==3)
+        {
+            $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">Cliente</td>
+                    <td border="1">Razón Social</td>
+                    <td border="1">Dirección de Suministro</td>
+                    <td border="1">Tipo de CUPs</td>
+                    <td border="1">CUPs</td>
+                    <td border="1">Tárifa</td>
+                    <td border="1">Consumo</td>
+                    <td border="1">Ren</td>
+                    <td border="1">Ahorro</td>
+                    </tr>';
+        if($PropuestaComercialCUPs!=false)
+        {
+            foreach ($PropuestaComercialCUPs as $key => $value):
+            {
+                if($value-> TipServ==1)
+                {
+                    $TipServ="Eléctrico";
+                }
+                else
+                {
+                    $TipServ="Gas";
+                }
+                if($value-> RenCon==1)
+                {
+                    $RenCon="Si";
+                }
+                else
+                {
+                    $RenCon="No";
+                }
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> NumCifCli.'</td>
+                        <td border="1">'.$value-> RazSocCli.'</td>
+                        <td border="1">'.$value-> DirPunSum.'</td>
+                        <td border="1">'.$TipServ.'</td>
+                        <td border="1">'.$value-> CUPsName.'</td>
+                        <td border="1">'.$value-> NomTar.'</td>
+                        <td border="1">'.$value-> ConCUPs.'</td>
+                        <td border="1">'.$RenCon.'</td>
+                        <td border="1">'.$value-> ImpAho.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+
+
+
+
+
+
+        }        
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
+        </tr>
+        </table>'; 
+        
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1">Comercializadora:</td>
+            <td colspan="1">'.$ContratoComercial->RazSocCom.'</td>
+            <td colspan="1">Anexo:</td>
+            <td colspan="1">'.$ContratoComercial-> DesAnePro.'</td>
+        </tr>
+        <tr>
+            <td colspan="1">Producto:</td>
+            <td colspan="1">'.$ContratoComercial-> DesPro.'</td>
+            <td colspan="1">Tipo Precio:</td>
+            <td colspan="1">'.$ContratoComercial-> TipPre.'</td>
+        </tr>
+        <tr>
+            <td colspan="1">Fecha Inicio:</td>
+            <td colspan="1">'.$ContratoComercial-> FecConCom.'</td>
+            <td colspan="1">Fecha Activación:</td>
+            <td colspan="1">'.$ContratoComercial-> FecFirmCon.'</td>
+        </tr>
+        <tr>
+            <td colspan="1">Fecha Vencimiento:</td>
+            <td colspan="1">'.$ContratoComercial-> FecVenCon.'</td>
+            <td colspan="1">Duración:</td>
+            <td colspan="1">'.$ContratoComercial-> DurCon.' Meses</td>
+        </tr>      
+        </table>';
+
+
+         $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
+        </tr>
+            
+        </table>';
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$CodConCom,$this->input->ip_address(),'GENERANDO REPORTE PDF CONTRATO COMERCIAL');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Contrato Comercial'.'.pdf', 'I');
+    }
     public function Doc_Contratos_PDF()
     {        
         $TipoFiltro = urldecode($this->uri->segment(4));

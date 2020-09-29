@@ -126,14 +126,14 @@ class Colaboradores_model extends CI_Model
     public function get_clientes_x_colaborador($CodCol){
 
         $this->db->select("c.CodCol,c.NomCol,a.NumCifCli,a.RazSocCli,d.CUPsEle,e.NomTarEle,(SELECT SUM(ConCup) FROM T_HistorialCUPsElectrico WHERE CodCupEle=d.CodCupsEle) AS ConCupEle,NULL AS CodProEle,f.CupsGas,g.NomTarGas,(SELECT SUM(ConCup) FROM T_HistorialCUPsGas WHERE CodCupGas=f.CodCupGas) AS ConCupGas,NULL AS CodProGas,NULL AS CodCom,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.DireccionBBDD,(CASE WHEN c.TipCol =1 THEN 'Persona Física' WHEN c.TipCol = 2 THEN 'Empresa' ELSE 'incorrecto' END) AS Tipo_Colaborador,a.EmaCli",false);
-		$this->db->from('T_Cliente a');
-        $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol');
+		$this->db->from('T_Cliente a','left');
+        $this->db->join('T_Colaborador c', 'a.CodCol = c.CodCol','left');
         $this->db->join('T_PuntoSuministro b', 'a.CodCli = b.CodCli','left');
 		$this->db->join('T_CUPsElectrico d', 'b.CodPunSum = d.CodPunSum','left');
 		$this->db->join('T_TarifaElectrica e', 'e.CodTarEle=d.CodTarElec','left');
         $this->db->join('T_CUPsGas f', 'f.CodPunSum=b.CodPunSum','left');
         $this->db->join('T_TarifaGas g', 'g.CodTarGas=f.CodTarGas','left');
-        $this->db->where('c.CodCol',$CodCol);
+        $this->db->where('a.CodCol',$CodCol);
         $this->db->order_by('a.RazSocCli ASC');
         $query = $this->db->get();        
 		return $query->result();
