@@ -45,9 +45,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.fdatos.tipo = $route.current.params.Tipo;
     scope.Nivel = $cookies.get('nivel');
     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }, { TipPre: 2, nombre: 'Ambos' }];
-    scope.url_pdf_audax="http://pdfaudax.local/AudaxPDF/";
-    //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDF/";
-    //scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDF/";
+    //
+    //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDFSencillo/";
+    //scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -1985,7 +1985,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }     
      }          
-     scope.generar_audax=function()
+     scope.generar_audax=function(metodo)
      {
      	scope.toast('info','Debe permitir el uso de ventanas emergentes para poder ver el contrato audax.','Ventana Emergente');
      	if(scope.fdatos.CodConCom==undefined||scope.fdatos.CodConCom==null||scope.fdatos.CodConCom=='')
@@ -1993,6 +1993,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.toast('error','Código Contrato Comercial es Requerido.','');
             return false;
         }
+
         scope.CodContCli=0;
         scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
@@ -2071,17 +2072,50 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.titulo_modal='Quien Firma / Cuentas Bancarias';
                     return false;
                 }*/
-     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
+                if(metodo==1)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                }
+                else if(metodo==2)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
+                    var win2 = window.open(url2, '_blank');
+
+                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
+                    var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
+                    var win3 = window.open(url3, '_blank');
+                }
      			console.log(url);
                 var win = window.open(url, '_blank');
 		        win.focus();
+
+                
 		    }
      		else
      		{
      			scope.CodContCli=0;
                 scope.CodCuenBan=0;
-     			var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
-     			var win = window.open(url, '_blank');
+                if(metodo==1)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                }
+                else if(metodo==2)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
+                    var win = window.open(url2, '_blank');
+                    win.focus();
+                            
+                }
+                var win = window.open(url, '_blank');
 		        win.focus();
      		}
      	},function(error)

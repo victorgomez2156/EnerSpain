@@ -845,15 +845,17 @@
          //cargando_I
          $("#cargando_I").removeClass("loader loader-default").addClass("loader loader-default  is-active");
          var url = base_urlHome() + "api/Clientes/BuscarXIDPunSumData/CodPunSum/" + scope.nID;
-         $http.get(url).then(function(result) {
+         $http.get(url).then(function(result) 
+         {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             if (result.data != false) {
-                scope.BuscarLocalidadesPunSun(result.data.CodProPunSum,2);
-                scope.fpuntosuministro = result.data;
+             if (result.data != false){
+
+                scope.BuscarLocalidadesPunSun(result.data.data.CodProPunSum,2);
+                scope.fpuntosuministro = result.data.data;
                 scope.ZonPosPunSum = result.data.ZonPosPunSum;             
                 scope.CodCliPunSumFil=result.data.NumCifCli;
              } else {
-                scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');
+                scope.toast('error','Ha ocurrido un error, o el punto de suministro no existe en nuestros registros.','Información');
              }
          }, function(error) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");

@@ -709,7 +709,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
             
-            <button class="btn btn-info" id="showtoast" ng-show="vm.fdatos.TipProCom==1 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==1 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
+            <button class="btn btn-info" id="showtoast" ng-show="vm.fdatos.TipProCom==1 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==1 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(1)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato Audax</button>
+
+            <button class="btn btn-info" id="showtoast" ng-show="vm.fdatos.TipProCom==2 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==2 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(2)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiPunto</button>
 
             <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 14px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             

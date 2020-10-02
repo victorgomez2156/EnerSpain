@@ -14430,7 +14430,7 @@ class Exportar_Documentos extends CI_Controller
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$CodConCom,$this->input->ip_address(),'GENERANDO REPORTE PDF CONTRATO COMERCIAL');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
-        $pdf->Output('Contrato Comercial'.'.pdf', 'I');
+        $pdf->Output('Contrato Comercial '.$TipoContrato.$ContratoComercial->RazSocCli.' - '.$ContratoComercial->NumCifCli.'.pdf', 'I');
     }
     public function Doc_Contratos_PDF()
     {        

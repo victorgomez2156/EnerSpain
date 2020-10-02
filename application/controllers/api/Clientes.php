@@ -456,15 +456,16 @@ protected function buscar_xID_get()
 		}
 		$CodPunSum=$this->get('CodPunSum');		
         $data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
-        $DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
-        $data->NumCifCli=$DatosCliente->NumCifCli;
-
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');
-		if (empty($data)){
+        if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
-		$this->response($data);		
+		}
+		$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
+        //$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
+        //$data->NumCifCli=$DatosCliente->NumCifCli;
+		$arrayName = array('data' =>$data , 'NumCifCli' =>$DatosCliente->NumCifCli);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');				
+		$this->response($arrayName);		
     }
     public function get_all_puntos_sum_get()
     {
