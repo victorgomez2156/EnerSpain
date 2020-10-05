@@ -245,6 +245,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.NumCifCli = result.data.Cliente.NumCifCli;
                 scope.List_Propuestas_Comerciales = result.data.List_Propuesta;
                 scope.fdatos.RefCon = result.data.RefCon;
+                $("#FecVenConClass").removeClass("col-sm-4").addClass("col-sm-2");
+                $("#DurConClass").removeClass("col-sm-6").addClass("col-sm-2");
+                $("#RefConClass").removeClass("col-sm-6").addClass("col-sm-4");
+
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
             } else {
               scope.toast('error','Este Número de CIF no se encuentra registrado.','Error');
@@ -459,6 +463,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 numero = object;
                 if (!/^([/0-9])*$/.test(numero))
                     scope.FecVenCon = numero.substring(0, numero.length - 1);
+            }           
+        }
+        if (metodo == 19) {
+            if (object != undefined){
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.FecAct = numero.substring(0, numero.length - 1);
             }           
         }
     }       
@@ -842,6 +853,36 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             }
         }
+        var FecAct1 = document.getElementById("FecAct").value;
+            scope.FecAct = FecAct1;
+            if (scope.FecAct == null || scope.FecAct == undefined || scope.FecAct == '') {
+              scope.fdatos.FecAct =null;
+            } else {
+                var FecAct = (scope.FecAct).split("/");
+                if (FecAct.length < 3) {
+                  scope.toast('error','El formato Fecha de Inicio correcto es DD/MM/YYYY','');
+                    event.preventDefault();
+                    return false;
+                } else {
+                    if (FecAct[0].length > 2 || FecAct[0].length < 2) {
+                      scope.toast('error','Error en Día, debe introducir dos números','');
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecAct[1].length > 2 || FecAct[1].length < 2) {
+                      scope.toast('error','Error en Mes, debe introducir dos números','');
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecAct[2].length < 4 || FecAct[2].length > 4) {
+                      scope.toast('error','Error en Año, debe introducir cuatro números','');
+                        event.preventDefault();
+                        return false;
+                    }
+                    valuesStart = scope.FecAct.split("/");
+                    scope.fdatos.FecAct = FecAct[2] + "-" + FecAct[1] + "-" + FecAct[0];
+                }
+            }
         
         if (scope.fdatos.ObsCon == null || scope.fdatos.ObsCon == undefined || scope.fdatos.ObsCon == '') {
             scope.fdatos.ObsCon = null;
@@ -1659,6 +1700,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.FecIniCon = result.data.Contrato.FecIniCon;
                 scope.fdatos.DurCon = result.data.Contrato.DurCon;
                 scope.FecVenCon = result.data.Contrato.FecVenCon;
+                scope.FecAct = result.data.Contrato.FecAct;
                 scope.fdatos.RefCon = result.data.Contrato.RefCon;
                 scope.fdatos.DocConRut = result.data.Contrato.DocConRut;
                 scope.fdatos.ObsCon = result.data.Contrato.ObsCon;
@@ -1667,6 +1709,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecIniCon);
                 $('.datepicker_Vencimiento').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecVenCon);
                 $('.FecFirmCon').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecFirmCon);
+                 $('.FecAct').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecAct);
+                
                 //console.log(result.data.List_Pro);
                 //console.log(scope.fdatos);
             } 

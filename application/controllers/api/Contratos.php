@@ -146,7 +146,7 @@ class Contratos extends REST_Controller
 		$BuscarPropuestaList=$this->Contratos_model->BuscarPropuestaAprobada($CodCli,2); 
 		$tabla="T_Contrato";
 		$where="CodConCom";	
-		$select='CodCli,CodConCom,CodProCom,DocConRut,DocGenCom,DurCon,EstBajCon,EstRen,DATE_FORMAT(FecBajCon,"%d/%m/%Y") as FecBajCon,DATE_FORMAT(FecConCom,"%d/%m/%Y") as FecConCom,DATE_FORMAT(FecFinCon,"%d/%m/%Y") as FecFinCon,DATE_FORMAT(FecIniCon,"%d/%m/%Y") as FecIniCon,DATE_FORMAT(FecVenCon,"%d/%m/%Y") as FecVenCon,JusBajCon,ObsCon,ProRenPen,RefCon,RenMod,UltTipSeg,DATE_FORMAT(FecFirmCon,"%d/%m/%Y") as FecFirmCon'; 
+		$select='CodCli,CodConCom,CodProCom,DocConRut,DocGenCom,DurCon,EstBajCon,EstRen,DATE_FORMAT(FecBajCon,"%d/%m/%Y") as FecBajCon,DATE_FORMAT(FecConCom,"%d/%m/%Y") as FecConCom,DATE_FORMAT(FecFinCon,"%d/%m/%Y") as FecFinCon,DATE_FORMAT(FecIniCon,"%d/%m/%Y") as FecIniCon,DATE_FORMAT(FecVenCon,"%d/%m/%Y") as FecVenCon,JusBajCon,ObsCon,ProRenPen,RefCon,RenMod,UltTipSeg,DATE_FORMAT(FecFirmCon,"%d/%m/%Y") as FecFirmCon,DATE_FORMAT(FecAct,"%d/%m/%Y") as FecAct'; 
 		$Contratos = $this->Propuesta_model->Funcion_Verificadora($CodConCom,$tabla,$where,$select);
 		
 		//// comentado antes start ///
@@ -243,9 +243,6 @@ class Contratos extends REST_Controller
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CUPsElectrico','UPDATE',$PropuestaComercial->CodCupsEle,$this->input->ip_address(),'Actualizando CUPs Eléctrico Generando Contrato Comercial.');
 			$update_CUPsGas=$this->Contratos_model->update_CUPsGasDB($PropuestaComercial->CodCupsGas,$PropuestaComercial->CodTarGas,$PropuestaComercial->Consumo);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CUPsGas','UPDATE',$PropuestaComercial->CodCupsGas,$this->input->ip_address(),'Actualizando CUPs Gas Generando Contrato Comercial.');*/
-
-
-
 			$update_propuesta=$this->Contratos_model->update_propuesta($objSalida->CodProCom,'C');
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Propuesta Comercial ha C Desde Contrato Comercial');
 			$arrayName = array('status'=>200 ,'menssage'=>'Contrato Comercial generado correctamente bajo el número de contrato: '.$objSalida->RefCon,'statusText'=>'OK','objSalida' =>$objSalida);			
@@ -272,7 +269,7 @@ class Contratos extends REST_Controller
 		    		$this->response($arrayName);
 		    	}
 			}*/
-			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon,$objSalida->FecFirmCon);
+			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon,$objSalida->FecFirmCon,$objSalida->FecAct);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial.');
 			$this->db->trans_complete();
 			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK" );

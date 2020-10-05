@@ -626,14 +626,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Firma</label>
         <input type="text" class="form-control FecFirmCon" name="FecFirmCon" id="FecFirmCon" ng-model="vm.FecFirmCon" placeholder="Fecha de Firma de Contrato" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(17,vm.FecFirmCon)"/>
          
          </div>
          </div>
       </div> 
 
-      <div class="col-12 col-sm-2">
+      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
+        <input type="text" class="form-control FecAct" name="FecAct" id="FecAct" ng-model="vm.FecAct" placeholder="Fecha de Activación" ng-disabled="vm.fdatos.tipo=='ver'" ng-change="vm.validar_formatos_input(19,vm.FecAct)"/>
+         
+         </div>
+         </div>
+      </div> 
+
+      <div class="col-12 col-sm-4" id="FecVenConClass">
         <div class="form">                          
           <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
@@ -643,7 +653,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-      <div class="col-12 col-sm-2">
+      <div class="col-12 col-sm-6" id="DurConClass">
         <div class="form">                          
           <div class="form-group">   
             <label class="font-weight-bold nexa-dark" style="color:black;">Duración </label>          
@@ -657,7 +667,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-     <div class="col-12 col-sm-4" id="RefConClass">
+     <div class="col-12 col-sm-6" id="RefConClass">
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Referencia</label>
@@ -666,8 +676,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
          </div>
       </div>
-
-
 
          <div class="form">                          
          <div class="form-group">
@@ -801,6 +809,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
   $('.FecFirmCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('.FecAct').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>
