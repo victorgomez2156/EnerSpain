@@ -167,6 +167,10 @@
                      $("#modal_add_propuesta").modal('hide');
                      location.href = "#/Add_Propuesta_Comercial/" + result.data.CodCli + "/nueva";
                  }
+                 if (result.data.status == false && result.data.statusText == 'Error') {
+                    scope.toast('error',result.data.menssage,'Propuesta Comercial');
+                    return false;
+                 }
                  if (result.data.status == 200 && result.data.statusText == 'OK') 
                  {
                     //alert('por aqui esta pasando');

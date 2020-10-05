@@ -30,12 +30,12 @@
      var fecha = dd + '/' + mm + '/' + yyyy;
      scope.CanPerEle = 6;
      ////////////////////////////////////////////////// PARA Las Propuestas START ////////////////////////////////////////////////////////
-     console.log('CodCli: '+ scope.fdatos.CodCli);
-     console.log('CodConCom: '+scope.CodConCom);
-     console.log('CodProCom: '+scope.CodProCom);
-     console.log('Tipo: '+scope.fdatos.tipo);
-     console.log($route.current.$$route.originalPath);
     
+    console.log('CodCli: '+ scope.fdatos.CodCli);
+    console.log('CodConCom: '+scope.CodConCom);
+    console.log('CodProCom: '+scope.CodProCom);
+    console.log('Tipo: '+scope.fdatos.tipo);
+    console.log($route.current.$$route.originalPath);
     
     scope.fdatos.EstProCom = 'P';
     scope.CanCups=scope.fdatos.detalleCUPs.length;
@@ -202,7 +202,7 @@
     }
      scope.AgregarCUPs=function(MetodoCUPs)
      {
-        console.log(MetodoCUPs);
+        //console.log(MetodoCUPs);
         if(MetodoCUPs==1)
         {  
             scope.CanPerTar=6;
@@ -228,7 +228,20 @@
             {
                 if(result.data.status==200 && result.data.statusText=="OK")
                 {   
-                    scope.List_CUPsEle=result.data.CUPs;
+                    scope.List_CUPsEle=result.data.CUPs;                    
+                    angular.forEach(scope.fdatos.detalleCUPs,function(detalleCUPs)
+                    {
+                        if(detalleCUPs.TipServ==1)
+                        {
+                            for (var i = 0; i < scope.List_CUPsEle.length; i++) 
+                            {
+                                if (scope.List_CUPsEle[i].CodCupsEle == detalleCUPs.CodCups)
+                                {
+                                    scope.List_CUPsEle.splice(i, 1);
+                                }
+                            }
+                        }                     
+                    });
                     scope.List_TarEle=result.data.TarEle;
                 }
                 else if(result.data.status==404 && result.data.statusText==false)
@@ -276,6 +289,19 @@
                 if(result.data.status==200 && result.data.statusText=="OK")
                 {   
                     scope.List_CUPsGas=result.data.CUPs;
+                    angular.forEach(scope.fdatos.detalleCUPs,function(detalleCUPs)
+                    {
+                        if(detalleCUPs.TipServ==2)
+                        {
+                            for (var i = 0; i < scope.List_CUPsGas.length; i++) 
+                            {
+                                if (scope.List_CUPsGas[i].CodCupGas == detalleCUPs.CodCups)
+                                {
+                                    scope.List_CUPsGas.splice(i, 1);
+                                }
+                            }
+                        }                     
+                    });
                     scope.List_TarGas=result.data.TarGas;
                 }
                 else if(result.data.status==404 && result.data.statusText==false)

@@ -410,6 +410,20 @@
                 if(result.data.status==200 && result.data.statusText=="OK")
                 {   
                     scope.List_CUPsEle=result.data.CUPs;
+                    angular.forEach(scope.fdatos.detalleCUPs,function(detalleCUPs)
+                    {
+                        if(detalleCUPs.TipServ==1)
+                        {
+                            for (var i = 0; i < scope.List_CUPsEle.length; i++) 
+                            {
+                                if (scope.List_CUPsEle[i].CodCupsEle == detalleCUPs.CodCups)
+                                {
+                                    scope.List_CUPsEle.splice(i, 1);
+                                }
+                            }
+                        }                     
+                    });
+
                     scope.List_TarEle=result.data.TarEle;
                 }
                 else if(result.data.status==404 && result.data.statusText==false)
@@ -443,6 +457,19 @@
                 if(result.data.status==200 && result.data.statusText=="OK")
                 {   
                     scope.List_CUPsGas=result.data.CUPs;
+                    angular.forEach(scope.fdatos.detalleCUPs,function(detalleCUPs)
+                    {
+                        if(detalleCUPs.TipServ==2)
+                        {
+                            for (var i = 0; i < scope.List_CUPsGas.length; i++) 
+                            {
+                                if (scope.List_CUPsGas[i].CodCupGas == detalleCUPs.CodCups)
+                                {
+                                    scope.List_CUPsGas.splice(i, 1);
+                                }
+                            }
+                        }                     
+                    });
                     scope.List_TarGas=result.data.TarGas;
                 }
                 else if(result.data.status==404 && result.data.statusText==false)

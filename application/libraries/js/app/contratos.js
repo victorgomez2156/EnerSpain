@@ -2074,27 +2074,34 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }*/
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
 
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win2 = window.open(url2, '_blank');
 
-                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
+                    scope.url_AnexoPunSumGas="https://audax.enerspain.es/Anexo_Puntos_SumGas/";
                     var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win3 = window.open(url3, '_blank');
                 }
+                else if(metodo==3)
+                {
+                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
+                   var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                  
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/SepaAudax/";
+                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan; 
+                    var win2 = window.open(url2, '_blank');
+                }
      			console.log(url);
                 var win = window.open(url, '_blank');
-		        win.focus();
-
-                
+		        win.focus();                
 		    }
      		else
      		{
@@ -2102,18 +2109,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodCuenBan=0;
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win = window.open(url2, '_blank');
                     win.focus();
                             
+                }
+                else if(metodo==3)
+                {
+                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
+                   var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                  
                 }
                 var win = window.open(url, '_blank');
 		        win.focus();
