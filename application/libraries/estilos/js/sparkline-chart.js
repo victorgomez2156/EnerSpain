@@ -55,14 +55,14 @@ var Script = function() {
         width: '100',
         height: '100',
         borderColor: '#00bf00',
-        sliceColors: ['#FFA800', '#6d6e71', '#FFA800', '#FFCC00', '#fc3e39']
+        sliceColors: ['#cce673', '#6d6e71', '#cce673', '#FFCC00', '#fc3e39']
     });
 
     $("#pie-chart-2").sparkline([4, 5, 3, 2, 1], {
         type: 'pie',
         width: '150',
         height: '150',
-        sliceColors: ['#FFA800', '#6d6e71', '#FFA800', '#FFCC00', '#fc3e39']
+        sliceColors: ['#cce673', '#6d6e71', '#cce673', '#FFCC00', '#fc3e39']
     });
 
     //work progress bar
@@ -95,7 +95,7 @@ var Script = function() {
         height: '22',
         barWidth: 5,
         barSpacing: 2,
-        barColor: '#FFA800'
+        barColor: '#cce673'
     });
 
     $("#work-progress5").sparkline([6, 8, 5, 7], {
@@ -103,7 +103,7 @@ var Script = function() {
         height: '22',
         barWidth: 5,
         barSpacing: 2,
-        barColor: '#FFA800'
+        barColor: '#cce673'
     });
 
 }();

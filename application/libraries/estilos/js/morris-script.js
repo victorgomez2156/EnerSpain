@@ -22,7 +22,7 @@ var Script = function() {
             xkey: 'period',
             ykeys: ['licensed', 'sorned'],
             labels: ['Licensed', 'Off the road'],
-            lineColors: ['#FFA800', '#FFA800']
+            lineColors: ['#cce673', '#cce673']
         });
 
         // Donut chart
@@ -35,7 +35,7 @@ var Script = function() {
                 { label: 'Safari', value: 3.9 },
                 { label: 'Opera', value: 1.7 }
             ],
-            colors: ['#FFCC00', '#6d6e71', '#FFA800', '#fc3e39', '#FFA800'],
+            colors: ['#FFCC00', '#6d6e71', '#cce673', '#fc3e39', '#cce673'],
             formatter: function(y) { return y + "%" }
         });
 
@@ -60,7 +60,7 @@ var Script = function() {
             hideHover: 'auto',
             lineWidth: 1,
             pointSize: 5,
-            lineColors: ['#6d6e71', '#FFA800', '#FFCC00'],
+            lineColors: ['#6d6e71', '#cce673', '#FFCC00'],
             fillOpacity: 0.5,
             smooth: true
         });
@@ -81,7 +81,7 @@ var Script = function() {
             barRatio: 0.4,
             xLabelAngle: 35,
             hideHover: 'auto',
-            barColors: ['#FFA800']
+            barColors: ['#cce673']
         });
 
         new Morris.Line({

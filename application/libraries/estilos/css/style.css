@@ -180,7 +180,7 @@ table tr th {
     margin: 0;
     padding: 20px 15px;
     text-align: center;
-    background: #FFA800;
+    background: #cce673;
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
     color: #fff;
@@ -266,7 +266,7 @@ table tr th {
 
 .login-img3-body .login-form p,
 .login-img2-body .login-form p {
-    color: #FFA800;
+    color: #cce673;
 }
 
 .login-form a {
@@ -274,7 +274,7 @@ table tr th {
 }
 
 .login-form a:hover {
-    color: #FFA800;
+    color: #cce673;
 }
 
 .form .required {
@@ -457,7 +457,7 @@ ul.sidebar-menu li a {
 ul.sidebar-menu li.active a,
 ul.sidebar-menu li a:hover,
 ul.sidebar-menu li a:focus {
-    background: #FFA800;
+    background: #cce673;
     color: #fff;
     display: block;
     /*border-radius: 4px;
@@ -2028,7 +2028,7 @@ div[data-role="editor-toolbar"] {
     padding-top: 21px;
 }
 .state-overview .terques {
-    background: #FFA800;
+    background: #cce673;
 }
 .state-overview .red {
     background: #00a0df;
@@ -2134,7 +2134,7 @@ div[data-role="editor-toolbar"] {
     font-size: 11px;
 }
 .badge.bg-info {
-    background: #FFA800;
+    background: #cce673;
 }
 .badge.bg-inverse {
     background: #797979;
@@ -2566,7 +2566,7 @@ ul.ft-link li a i {
     position: relative;
     left: -8px;
     background: #FFFFFF;
-    color: #FFA800;
+    color: #cce673;
 }
 .follow-task i {
     font-size: 20px;
@@ -2734,7 +2734,7 @@ ul.ft-link li a i {
 
 /*weather*/
 .weather-bg {
-    background: #FFA800;
+    background: #cce673;
     color: #fff;
     text-align: center;
     font-size: 16px;
@@ -2757,7 +2757,7 @@ ul.ft-link li a i {
     color: #ffffff;
 }
 .weather-info {
-    background: #FFA800;
+    background: #cce673;
 }
 .weather-category ul {
     padding: 0;
@@ -2794,7 +2794,7 @@ ul.ft-link li a i {
 }
 .weather-days {
     color: #ffffff;
-    background: #FFA800;
+    background: #cce673;
 }
 .weather-days ul {
     padding: 0;
@@ -3498,7 +3498,7 @@ ul.inbox-pagination li {
     font-weight: 400;
 }
 .bio-desk h4.terques {
-    color: #FFA800;
+    color: #cce673;
 }
 .bio-desk h4.red {
     color: #e26b7f;
@@ -4164,7 +4164,7 @@ table.sliders tr td {
     left: 0%;
 }
 .has-switch>div.switch-on label {
-    background-color: #FFA800;
+    background-color: #cce673;
 }
 .has-switch input[type=checkbox] {
     display: none;
@@ -4195,7 +4195,7 @@ table.sliders tr td {
 .has-switch span.switch-left {
     border-radius: 30px 0 0 30px;
     background-color: #2A3542;
-    color: #FFA800;
+    color: #cce673;
     border-left: 1px solid transparent;
 }
 .has-switch span.switch-right {
@@ -4249,7 +4249,7 @@ table.sliders tr td {
 }
 .switch-square label {
     border-radius: 0 6px 6px 0;
-    border-color: #FFA800;
+    border-color: #cce673;
 }
 
 /*tag input*/
@@ -4716,7 +4716,7 @@ table.sliders tr td {
     width: 0;
 }
 .profile-activity .act-out .arrow {
-    /*border-right: 8px solid #FFA800 !important;*/
+    /*border-right: 8px solid #cce673 !important;*/
 }
 .profile-activity .act-out .arrow {
     border-bottom: 8px solid transparent;
@@ -4742,7 +4742,7 @@ table.sliders tr td {
     width: 14px;
 }
 .act-time:hover:before {
-    background: #FFA800;
+    background: #cce673;
 }
 .act-time:first-child {
     padding-top: 0;

@@ -710,7 +710,7 @@ class Exportar_Documentos extends CI_Controller
 		$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
 		$objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
-		$objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+		$objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
 		$objDrawing->setHeight(75);
 		$objDrawing->setCoordinates('A1');
 		$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -1208,7 +1208,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -1800,7 +1800,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -2400,7 +2400,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -2843,7 +2843,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -3457,7 +3457,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -4059,7 +4059,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -4752,7 +4752,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -5395,7 +5395,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -5839,7 +5839,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -6174,7 +6174,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -6471,7 +6471,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -6852,7 +6852,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -7222,7 +7222,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -7500,7 +7500,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -7766,7 +7766,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -8032,7 +8032,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -8299,7 +8299,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -8570,7 +8570,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -8838,7 +8838,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -9106,7 +9106,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -9374,7 +9374,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -9642,7 +9642,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -9910,7 +9910,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -10363,7 +10363,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -10859,7 +10859,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -11192,7 +11192,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -11633,7 +11633,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -11978,7 +11978,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -12803,7 +12803,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -13230,7 +13230,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -13654,7 +13654,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -14812,7 +14812,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -15416,7 +15416,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -15870,7 +15870,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -16205,7 +16205,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -16512,7 +16512,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
@@ -16771,7 +16771,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
         $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
         $objDrawing = new PHPExcel_Worksheet_Drawing();
-        $objDrawing->setPath('application/libraries/estilos/img/logo_web_destock.png');
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
         $objDrawing->setHeight(75);
         $objDrawing->setCoordinates('A1');
         $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
