@@ -424,7 +424,7 @@ cite {
 }
 
 .text-warning {
-    color: #ffcc00;
+    color: #cce673;
 }
 
 .text-danger {
@@ -1851,11 +1851,11 @@ textarea.input-lg {
 
 .has-warning .help-block,
 .has-warning .control-label {
-    color: #ffcc00;
+    color: #cce673;
 }
 
 .has-warning .form-control {
-    border-color: #ffcc00;
+    border-color: #cce673;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
@@ -1867,8 +1867,8 @@ textarea.input-lg {
 }
 
 .has-warning .input-group-addon {
-    color: #ffcc00;
-    border-color: #ffcc00;
+    color: #cce673;
+    border-color: #cce673;
     background-color: #fff0b3;
 }
 
@@ -2133,8 +2133,8 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-warning {
     color: #ffffff;
-    background-color: #ffcc00;
-    border-color: #ffcc00;
+    background-color: #cce673;
+    border-color: #cce673;
 }
 
 .btn-warning:hover,
@@ -2142,9 +2142,9 @@ fieldset[disabled] .btn-primary.active {
 .btn-warning:active,
 .btn-warning.active,
 .open .dropdown-toggle.btn-warning {
-    color: #ffcc00;
+    color: #cce673;
     background: transparent;
-    border-color: #ffcc00;
+    border-color: #cce673;
 }
 
 .btn-warning:active,
@@ -2168,8 +2168,8 @@ fieldset[disabled] .btn-warning:active,
 .btn-warning.disabled.active,
 .btn-warning[disabled].active,
 fieldset[disabled] .btn-warning.active {
-    background-color: #ffcc00;
-    border-color: #ffcc00;
+    background-color: #cce673;
+    border-color: #cce673;
 }
 
 .btn-danger {
@@ -4906,7 +4906,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 }
 
 .label-warning {
-    background-color: #ffcc00;
+    background-color: #cce673;
 }
 
 .label-warning[href]:hover,
@@ -5102,7 +5102,7 @@ a.thumbnail:focus {
 .alert-warning {
     background-color: #fff0b3;
     border-color: #ffdda3;
-    color: #ffcc00;
+    color: #cce673;
 }
 
 .alert-warning hr {
@@ -5226,7 +5226,7 @@ a.thumbnail:focus {
 }
 
 .progress-bar-warning {
-    background-color: #ffcc00;
+    background-color: #cce673;
 }
 
 .progress-striped .progress-bar-warning {
@@ -5534,7 +5534,7 @@ a.list-group-item:focus {
 }
 
 .panel-warning>.panel-heading {
-    color: #ffcc00;
+    color: #cce673;
     background-color: #fff0b3;
     border-color: #ffdda3;
 }

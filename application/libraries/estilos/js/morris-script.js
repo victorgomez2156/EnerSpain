@@ -35,7 +35,7 @@ var Script = function() {
                 { label: 'Safari', value: 3.9 },
                 { label: 'Opera', value: 1.7 }
             ],
-            colors: ['#FFCC00', '#6d6e71', '#cce673', '#fc3e39', '#cce673'],
+            colors: ['#cce673', '#6d6e71', '#cce673', '#fc3e39', '#cce673'],
             formatter: function(y) { return y + "%" }
         });
 
@@ -60,7 +60,7 @@ var Script = function() {
             hideHover: 'auto',
             lineWidth: 1,
             pointSize: 5,
-            lineColors: ['#6d6e71', '#cce673', '#FFCC00'],
+            lineColors: ['#6d6e71', '#cce673', '#cce673'],
             fillOpacity: 0.5,
             smooth: true
         });
