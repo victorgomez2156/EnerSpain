@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     min-height: .01%;
     overflow-x: auto
 }
-
+  
 @media screen and (max-width:767px) {
     .table-responsive {
         width: 100%;
@@ -64,7 +64,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         border-bottom: 0
     }
 }
-
 #searchResult{
   list-style: none;
   padding: 0px;
@@ -960,7 +959,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
     </div>
-  
+    
+    
+    <div style="width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                    <th >Nº Cliente</th>
+                    <th >Vigente</th>
+                    <th >Fecha Firma</th>
+                    <th >Fecha Fin</th>
+                    <th >Nº Contrato</th>
+                    <th >Comercializadora</th> 
+                    <th >Tárifa</th> 
+                    <th >Tipo Contrato</th>      
+                    <th >Agente</th>
+                  </tr>
+                  <tr ng-show="vm.ContratosTCups.length==0"> 
+                     <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                  </tr>
+                  <tr ng-repeat="dato in vm.ContratosTCups | filter:paginate1" ng-class-odd="odd">
+                    <td >{{dato.CodCli}}</td>                    
+                    <td > <span class="label label-info" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> no se</span>
+                    <td >{{dato.FecFirmCon}}</td>
+                    <td >{{dato.FecFinCon}}</td>
+                    <td >{{dato.RefCon}}</td>
+                    <td >{{dato.RazSocCom}}</td>
+                    <td >{{dato.NomTar}}</td>  
+                    <td >{{dato.TipCon}}</td>                   
+                    <td >
+                     {{dato.Agente}}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <th >Nº Cliente</th>
+                    <th >Vigente</th>
+                    <th >Fecha Firma</th>
+                    <th >Fecha Fin</th>
+                    <th >Nº Contrato</th>
+                    <th >Comercializadora</th> 
+                    <th >Tárifa</th> 
+                    <th >Tipo Contrato</th>      
+                    <th >Agente</th>
+                </tfoot>
+              </table>
+        </div>
+        <div align="center">                
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems1" ng-model="currentPage1" max-size="5" boundary-links="true" items-per-page="numPerPage1" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
   
 
 </form>

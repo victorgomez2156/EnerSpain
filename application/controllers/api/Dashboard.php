@@ -72,6 +72,26 @@ class Dashboard extends REST_Controller
 
 		$this->response($response);		
 	}
+	public function GetContratosElectricosGas_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodCups=$this->get('CodCups');	
+		$CodCli=$this->get('CodCli');
+		$TipCups=$this->get('TipCups');	
+	   	$ResponseContratos = $this->Clientes_model->GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups);
+	   	if(empty($ResponseContratos))
+	   	{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$CodCups,$this->input->ip_address(),'Buscando Contratos Cups');
+	   		$this->response(false);
+			return false;
+	   	}
+	   	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$CodCups,$this->input->ip_address(),'Mostrando Contratos del CUPs');
+	   	$this->response($ResponseContratos);	  	
+	}
 	public function Search_CUPs_Customer_get()
 	{
 		$datausuario=$this->session->all_userdata();	

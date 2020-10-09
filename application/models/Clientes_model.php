@@ -79,7 +79,7 @@ public function get_data_puntos_suministros($CodCli)
 }
 public function get_CUPs_Electricos_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ
         FROM T_CUPsElectrico a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -94,7 +94,7 @@ public function get_CUPs_Electricos_Dashboard($CodCli)
 }
 public function get_CUPs_Gas_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ
         FROM T_CUPsGas a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -106,6 +106,45 @@ public function get_CUPs_Gas_Dashboard($CodCli)
         return $sql->result();
     else
     return false;     
+}
+public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
+{
+    if($TipCups==1)
+    {
+        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarEle AS NomTar,NULL AS Agente',false);
+    }
+    else
+    {
+        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarGas AS NomTar,NULL AS Agente',false);
+    }
+    $this->db->from('T_Propuesta_Comercial_CUPs a');
+    $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+    $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom');
+    $this->db->join('T_Contrato d','d.CodProCom=c.CodProCom');
+    $this->db->join('T_Comercializadora e','c.CodCom=e.CodCom');
+    
+    if($TipCups==1)
+    {
+        $this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCup');
+        $this->db->join('T_TarifaElectrica g','g.CodTarEle=f.CodTarElec');
+    }
+    else
+    {
+        $this->db->join('T_CUPsGas f','f.CodCupGas=a.CodCup');
+        $this->db->join('T_TarifaGas g','g.CodTarGas=f.CodTarGas');
+    }
+    $this->db->where('a.CodCup',$CodCups);
+    $this->db->where('b.CodCli',$CodCli);        
+    $this->db->where('a.TipCups',$TipCups);        
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
 }
 public function get_data_cliente_contactos($CodCli)
 {

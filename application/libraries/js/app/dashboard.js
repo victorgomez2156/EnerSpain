@@ -213,13 +213,10 @@
                             ,PotConP5:CUPs_Electricos.PotConP5,PotConP6:CUPs_Electricos.PotConP6,NomTar:CUPs_Electricos.NomTarEle,
                             RazSocDis:CUPs_Electricos.RazSocDis
 
-                        ,TipServ:CUPs_Electricos.TipServ
+                        ,TipServ:CUPs_Electricos.TipServ,CodCups:CUPs_Electricos.CodCupsEle
                         });
                      
                     });
-
-                    //scope.response_customer.All_CUPs.push({CUPsName:result.data.CUPs_Electricos.CUPsEle});
-                    //alert('tienes cups electricos');
                 }
                 if(result.data.CUPs_Gas.length>0)
                 {
@@ -227,37 +224,14 @@
                     {
                         scope.response_customer.All_CUPs.push({CUPsName:CUPs_Gas.CupsGas,DirPunSum:CUPs_Gas.DirPumSum+" "+CUPs_Gas.CPLocSoc+" "+CUPs_Gas.EscPlaPue
                         ,NomTar:CUPs_Gas.NomTarGas,RazSocDis:CUPs_Gas.RazSocDis
-                        ,TipServ:CUPs_Gas.TipServ
+                        ,TipServ:CUPs_Gas.TipServ,CodCups:CUPs_Gas.CodCupGas
                     });
                      
 
 
                     });
-                    //scope.response_customer.All_CUPs.push({CUPsName:result.data.CUPs_Gas.CupsGas});
-                    //alert('tienes cups electricos');
                 }
                 console.log(scope.response_customer.All_CUPs);
-                //if(result.data.)
-                
-
-                /*if (result.data.Puntos_Suministros != false) {
-                     scope.response_customer.Puntos_Suministros = result.data.Puntos_Suministros;
-                     if (result.data.Puntos_Suministros.length == 1) {
-                         console.log(result.data.Puntos_Suministros.length);
-                         console.log(result.data.Puntos_Suministros[0].CodPunSum);
-                         scope.fdatos.DirPumSum = result.data.Puntos_Suministros[0].CodPunSum;
-                         scope.filter_DirPumSum(scope.fdatos.DirPumSum);
-                     }
-
-
-
-                 } else {
-                     scope.response_customer.Puntos_Suministros = [];
-                 }*/
-
-                
-
-
 
                 if (result.data.Contactos != false) {
                      scope.response_customer.Contactos = result.data.Contactos;
@@ -884,6 +858,7 @@
         console.log(index);
         console.log(dato);
         console.log(TipServ);
+        scope.ContratosTCups=[];
         scope.CUpsNameModal=dato.CUPsName;
         scope.DirPunSumModal=dato.DirPunSum;
         scope.NomTarModal=dato.NomTar;
@@ -892,15 +867,14 @@
 
         var mystring = "1,23,45,448.00";
 
-mystring = mystring.replace(/[,.]/g, function (m) {
+            mystring = mystring.replace(/[,.]/g, function (m) {
        // m is the match found in the string
        // If `,` is matched return `.`, if `.` matched return `,`
-       return m === ',' ? '.' : ',';
-});
+        return m === ',' ? '.' : ',';
+        });
 
-console.log(mystring);
-//document.write(mystring);
-        
+        console.log(mystring);
+        //document.write(mystring);     
 
         if(TipServ=='Eléctrico')
         {
@@ -910,14 +884,197 @@ console.log(mystring);
             scope.PotConP4Modal=dato.PotConP4;
             scope.PotConP5Modal=dato.PotConP5;
             scope.PotConP6Modal=dato.PotConP6;
-            scope.CanPerTar=dato.CanPerTar;
-
-            
-
+            scope.CanPerTar=dato.CanPerTar;            
+            scope.TipServ=1;
         }
+        else
+        {
+            scope.PotConP1Modal=null;
+            scope.PotConP2Modal=null;
+            scope.PotConP3Modal=null;
+            scope.PotConP4Modal=null;
+            scope.PotConP5Modal=null;
+            scope.PotConP6Modal=null;
+            scope.CanPerTar=0;            
+            scope.TipServ=2;
+        }
+        var url = base_urlHome()+"api/Dashboard/GetContratosElectricosGas/CodCups/"+dato.CodCups+"/CodCli/"+scope.fdatos.CodCli+"/TipCups/"+scope.TipServ;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    
+                        $scope.predicate1 = 'id';
+                        $scope.reverse1 = true;
+                        $scope.currentPage1 = 1;
+                        $scope.order1 = function(predicate1) {
+                            $scope.reverse1 = ($scope.predicate1 === predicate1) ? !$scope.reverse1 : false;
+                            $scope.predicate1 = predicate1;
+                        };            
+                        scope.ContratosTCups=result.data;
+                        $scope.totalItems1 = scope.ContratosTCups.length;
+                        $scope.numPerPage1 = 50;
+                        $scope.paginate1 = function(value1) {
+                            var begin1, end1, index1;
+                            begin1= ($scope.currentPage1 - 1) * $scope.numPerPage1;
+                            end1 = begin1 + $scope.numPerPage1;
+                            index1 = scope.ContratosTCups.indexOf(value1);
+                            return (begin1 <= index1 && index1< end1);
+                        }
+                }
+                else
+                {
+                    scope.toast('info','No se encontraron contratos asignados a este CUPs','Contratos');
+                }
 
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            }); 
         $('#modal_detalles_CUPs').modal('show');
      }
      //scope.load_customers();
+
+     var i = -1;
+        var toastCount = 0;
+        var $toastlast;
+
+        var getMessage = function () {
+            var msgs = ['My name is Inigo Montoya. You killed my father. Prepare to die!',
+                '<div><input class="input-small" value="textbox"/>&nbsp;<a href="http://johnpapa.net" target="_blank">This is a hyperlink</a></div><div><button type="button" id="okBtn" class="btn btn-primary">Close me</button><button type="button" id="surpriseBtn" class="btn" style="margin: 0 8px 0 8px">Surprise me</button></div>',
+                'Are you the six fingered man?',
+                'Inconceivable!',
+                'I do not think that means what you think it means.',
+                'Have fun storming the castle!'
+            ];
+            i++;
+            if (i === msgs.length) {
+                i = 0;
+            }
+
+            return msgs[i];
+        };
+
+        var getMessageWithClearButton = function (msg){
+            msg = msg ? msg : 'Clear itself?';
+            msg += '<br /><br /><button type="button" class="btn clear">Yes</button>';
+            return msg;
+        };
+
+        $('#closeButton').click(function(){
+            if($(this).is(':checked')) {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', false);
+            } else {
+                $('#addBehaviorOnToastCloseClick').prop('disabled', true);
+                $('#addBehaviorOnToastCloseClick').prop('checked', false);
+            }
+        });
+        scope.toast=function(type,msg,title)
+        {
+            var shortCutFunction = type;
+            var msg = msg;
+            var title = title;
+            var $showDuration = 100;
+            var $hideDuration = 1000;
+            var $timeOut = 1000;
+            var $extendedTimeOut = 1000;
+            var $showEasing = 'swing';
+            var $hideEasing = 'linear';
+            var $showMethod = 'fadeIn';
+            var $hideMethod = "fadeOut";
+            var toastIndex = toastCount++;
+            var addClear = false;
+
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: true,
+                rtl: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: true,
+                onclick: null
+            };
+
+            if ($showDuration.length) {
+                toastr.options.showDuration = parseInt($showDuration);
+            }
+
+            if ($hideDuration.length) {
+                toastr.options.hideDuration = parseInt($hideDuration);
+            }
+
+            if ($timeOut.length) {
+                toastr.options.timeOut = addClear ? 0 : parseInt($timeOut);
+            }
+
+            if ($extendedTimeOut.length) {
+                toastr.options.extendedTimeOut = addClear ? 0 : parseInt($extendedTimeOut);
+            }
+
+            if ($showEasing.length) {
+                toastr.options.showEasing = $showEasing;
+            }
+
+            if ($hideEasing.length) {
+                toastr.options.hideEasing = $hideEasing;
+            }
+
+            if ($showMethod.length) {
+                toastr.options.showMethod = $showMethod;
+            }
+
+            if ($hideMethod.length) {
+                toastr.options.hideMethod = $hideMethod;
+            }
+
+            if (addClear) {
+                msg = getMessageWithClearButton(msg);
+                toastr.options.tapToDismiss = false;
+            }
+            if (!msg) {
+                msg = getMessage();
+            }
+            var $toast = toastr[shortCutFunction](msg, title); // Wire up an event handler to a button in the toast, if it exists
+            $toastlast = $toast;
+
+            if(typeof $toast === 'undefined'){
+                return;
+            }
+            if ($toast.find('#okBtn').length) {
+                $toast.delegate('#okBtn', 'click', function () {
+                    alert('you clicked me. i was toast #' + toastIndex + '. goodbye!');
+                    $toast.remove();
+                });
+            }
+            if ($toast.find('#surpriseBtn').length) {
+                $toast.delegate('#surpriseBtn', 'click', function () {
+                    alert('Surprise! you clicked me. i was toast #' + toastIndex + '. You could perform an action here.');
+                });
+            }
+            if ($toast.find('.clear').length) {
+                $toast.delegate('.clear', 'click', function () {
+                    toastr.clear($toast, { force: true });
+                });
+            }
+        }
+        function getLastToast()
+        {
+            return $toastlast;
+        }
+        $('#clearlasttoast').click(function (){
+            toastr.clear(getLastToast());
+        });
+        $('#cleartoasts').click(function () {
+            toastr.clear();
+        });
         ///////////////////////////////////////////////// PARA EL DASHBOARD END ////////////////////////////////////////////////////////
  }
