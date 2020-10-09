@@ -1060,22 +1060,15 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
           return $sql->result();
         else
         return false;
-        /*$this->db->select("CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli",false);
-        $this->db->from('T_Cliente');
-        $this->db->like('RazSocCli',$SearchText);
-        $this->db->or_like('CodCli',$SearchText);
-        $this->db->or_like('NomComCli',$SearchText);
-        $this->db->or_like('NumCifCli',$SearchText);
-        $this->db->or_like('TelFijCli',$SearchText);
-        $this->db->or_like('EmaCli',$SearchText);
-        $this->db->order_by('RazSocCli DESC');                  
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        return $query->result();
+    }
+    public function getColaboraresSearch($SearchText)
+    {
+       
+       $sql = $this->db->query("SELECT CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli,TelFijCol as TelFijCli,EmaCol as EmaCli FROM T_Colaborador where NomCol like '%$SearchText%' or NumIdeFis like '%$SearchText%' or EmaCol like '%$SearchText%' or CodCol like '%$SearchText%' ORDER BY RazSocCli ASC");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
         else
-        return false; */               
-    
-
+        return false;
     }
     public function get_all_contactos($CodCli)
     {

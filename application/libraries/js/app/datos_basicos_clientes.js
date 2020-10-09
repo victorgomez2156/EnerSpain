@@ -611,15 +611,20 @@
                  return false;
              }
              scope.nID = result.data.CodCli;
-             if (scope.nID > 0) {
-                 if (scope.CIF_NEW_CLIENTE != undefined) {
+             if (scope.nID > 0) 
+             {
+                if (scope.CIF_NEW_CLIENTE != undefined) {
                      $cookies.remove('CIF');
                      document.getElementById("NumCifCliRe").setAttribute("readonly", "readonly");
-                 }
-                 $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 scope.toast('success',response,title);
-                 location.href = "#/Edit_Datos_Basicos_Clientes/" + scope.nID;
-                 //scope.buscarXID();				
+                }
+                $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                scope.toast('success',response,title);
+                if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") 
+                {
+                   location.href = "#/Add_Puntos_Suministros/" + scope.nID;
+                   return false;
+                }
+                location.href = "#/Edit_Datos_Basicos_Clientes/" + scope.nID;
              } else {
                  $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                  scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');

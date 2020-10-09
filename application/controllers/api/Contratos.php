@@ -132,11 +132,30 @@ class Contratos extends REST_Controller
     	$CodCli=$this->get('CodCli');
     	$CodConCom=$this->get('CodConCom');
     	$CodProCom=$this->get('CodProCom');
-		$tabla="T_Cliente";
-		$where="CodCli";	
-		$select='CodCli,NumCifCli,RazSocCli'; 
+		$tabla="T_PropuestaComercial";
+		$where="CodProCom";	
+		$select='*';
+		$PropuestaValidarTipProCom = $this->Propuesta_model->Funcion_Verificadora($CodProCom,$tabla,$where,$select);
+		if(empty($PropuestaValidarTipProCom))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',$CodCli,$this->input->ip_address(),'Propuesta Comercial no Existe.');
+			$this->response(false);
+			return false;
+		}
+		if($PropuestaValidarTipProCom->TipProCom==1 || $PropuestaValidarTipProCom->TipProCom==2)
+		{
+			$tabla="T_Cliente";
+			$where="CodCli";	
+			$select='CodCli,NumCifCli,RazSocCli';
+		}
+		else
+		{
+			$tabla="T_Colaborador";
+			$where="CodCol";	
+			$select='CodCol as CodCli,NumIdeFis as NumCifCli,NomCol as RazSocCli';
+		}
 		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
-		if(empty($Cliente))
+		if(empty($Cliente)) 
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
 			$this->response(false);

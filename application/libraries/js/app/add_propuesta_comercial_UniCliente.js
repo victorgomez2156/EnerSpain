@@ -73,12 +73,11 @@
                  $http.post(url, scope.fdatos).then(function(result) {
                      if (result.data != false) {
                          $("#" + loader).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                         if (result.data.status == false && result.data.statusText == 'Error') {
+                        if (result.data.status == false && result.data.statusText == 'Error') {
                              scope.toast('error',result.data.menssage,loader);
                              location.href = "#/Propuesta_Comercial";
                              return false;
-
-                         }
+                        }
                          if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') {
                              scope.toast('success',result.data.menssage,loader);
                              location.reload();
@@ -449,8 +448,23 @@
         {
             scope.toast('error','Debe Seleccionar un CUPs Para Poder Eliminarlo.','');
             return false;
-        }       
-        for (var i = 0; i < scope.TDetallesCUPsEli.length; i++) 
+        }        
+        console.log(scope.TDetallesCUPsEli);
+        console.log(scope.fdatos.detalleCUPs);
+        angular.forEach(scope.TDetallesCUPsEli,function(detalleCUPs)
+        {
+            for (var i = 0; i < scope.fdatos.detalleCUPs.length; i++) 
+            {
+                if (scope.fdatos.detalleCUPs[i].CodCupsEle == detalleCUPs.CodCups)
+                {
+                    scope.fdatos.detalleCUPs.splice(i, 1);
+                }
+            }
+                                 
+        });       
+        
+
+        /*for (var i = 0; i < scope.TDetallesCUPsEli.length; i++) 
         {
            	for (var h= 0; h < scope.fdatos.detalleCUPs.length; h++) 
             {
@@ -461,7 +475,8 @@
             		scope.TDetallesCUPsEli.splice(i, 1);	
             	}
             }           	
-        }
+        }*/
+
         scope.fdatos.ImpAhoTot = 0;
         scope.fdatos.PorAhoTot = 0;
         console.log(scope.fdatos.detalleCUPs);  

@@ -837,15 +837,13 @@ class Reportes_model extends CI_Model
     }
     public function PropuestaComercial($CodProCom)
     {   
-        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,
-
-            a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
+        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
             ",false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
-        $this->db->join('T_Cliente c', 'b.CodCli = c.CodCli');
-        $this->db->join('T_TipoVia d', 'c.CodTipViaSoc=d.CodTipVia');
-        $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLocSoc');
+        $this->db->join('T_Colaborador c', 'b.CodCli = c.CodCol');
+        $this->db->join('T_TipoVia d', 'c.CodTipVia=d.CodTipVia');
+        $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc');
         $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro');
         $this->db->join('T_Comercializadora g', 'g.CodCom = a.CodCom');
         $this->db->join('T_Producto h', 'h.CodPro = a.CodPro');

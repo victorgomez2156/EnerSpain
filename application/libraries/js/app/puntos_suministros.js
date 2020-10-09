@@ -99,8 +99,9 @@
      scope.tListDocumentos = [];
      scope.Tclientes = [];
      console.log($route.current.$$route.originalPath);
-     if($route.current.$$route.originalPath=="/Add_Puntos_Suministros/" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID/:INF" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID")
+     if($route.current.$$route.originalPath=="/Add_Puntos_Suministros/"||$route.current.$$route.originalPath=="/Add_Puntos_Suministros/:CodCli" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID/:INF" || $route.current.$$route.originalPath=="/Edit_Punto_Suministros/:ID")
      {
+        //$route.current.params.ID;
         ServicePuntoSuministro.getAll().then(function(dato) {
         scope.tTiposVias = dato.Tipo_Vias;
         scope.tProvidencias = dato.Provincias;
@@ -749,7 +750,11 @@
                          scope.fpuntosuministro = result.data;
                          $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                          scope.toast('success',response,title);                         
-                         //scope.buscarXCodPunSum();							
+                         if($route.current.$$route.originalPath == "/Add_Puntos_Suministros/:CodCli")
+                         {
+                            location.href="#/Add_Cups/"+scope.fpuntosuministro.CodCliPunSum+"/"+result.data.CodPunSum;
+                            return false;
+                         }							
                      } else {
                          $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
                          scope.toast('error','Hubo un error al ejecutar esta acción por favor intente nuevamente.','Error');
@@ -1040,10 +1045,10 @@
                          if (searchText_len > 0) {
                              var url = base_urlHome() + "api/Clientes/getClientesFilter";
                              $http.post(url, scope.fdatos).then(function(result) {
-                                 console.log(result);
+                                 //console.log(result);
                                  if (result.data != false) {
                                      scope.searchResult = result.data;
-                                     console.log(scope.searchResult);
+                                     //console.log(scope.searchResult);
                                  } else {
                                     scope.searchResult = {};
                                  }
@@ -1064,7 +1069,48 @@
                      }
 
 
-                 }  
+                 }
+if($route.current.$$route.originalPath=="/Add_Puntos_Suministros/:CodCli")
+{
+       scope.Customers=[];
+       scope.CodCliPunSumFil=$route.current.params.CodCli;
+       scope.CodCliPunSum=$route.current.params.CodCli;
+       scope.fdatos.filtrar_clientes = scope.CodCliPunSumFil;
+       var url = base_urlHome() + "api/Clientes/getClientesFilter";
+                             $http.post(url, scope.fdatos).then(function(result) {
+                                 //console.log(result);
+                                 if (result.data != false) {
+                                    scope.Customers = result.data;
+                                   for (var i = 0; i < scope.Customers.length; i++) {
+                                        if (scope.Customers[i].CodCli == $route.current.params.CodCli) {                
+                                            console.log(scope.Customers[i]);
+                                            scope.CodCliPunSumFil=scope.Customers[i].NumCifCli;
+                                            scope.fpuntosuministro.CodCliPunSum=scope.Customers[i].CodCli;
+                                            scope.fpuntosuministro.TipRegDir=1;
+                                            scope.punto_suministro(2,scope.fpuntosuministro.TipRegDir)
+                                        }
+                                    }
+                                 } else {
+                                    scope.Customers = [];
+                                 }
+                             }, function(error) {
+                                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                             });
+       
+
+
+
+       // console.log($route.current.params.CodCli)//$route.current.params.ID;
+       
+    } 
                  scope.RealizarCambioFiltro=function(metodo)
                  {
                     console.log(metodo);

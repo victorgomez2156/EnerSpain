@@ -87,6 +87,71 @@ class PropuestaComercial extends REST_Controller
 
 		
     }
+    public function get_valida_datos_Colaborador_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$NumCifCli=$this->get('NumCifCli');
+		$tabla="T_Colaborador";
+		$where="NumIdeFis";	
+		$select='CodCol as CodCli,NumIdeFis as NumCifCli';	
+        $Colaborador = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);        
+		if (empty($Colaborador))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Número de CIF no Registrado.');
+			$this->response(false);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',$Colaborador->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');		
+		$tabla="T_PropuestaComercial a";
+		$where="b.CodCli";
+		$BuscarPropuesta=$this->Propuesta_model->Buscar_PropuestaCol($Colaborador->CodCli,$tabla,$where);
+		if($BuscarPropuesta!=false)
+		{
+			$response = array('status' =>false ,'menssage' =>'El Cliente tiene una Propuesta Comercial con estatus pendiente con número de referencia: '.$BuscarPropuesta->RefProCom,'statusText'=>'Error');
+			$this->response($response);	
+			return false;
+		}	
+		$BuscarContrato=$this->Propuesta_model->Buscar_ContratosCol($Colaborador->CodCli);
+		if($BuscarContrato==false)
+		{
+			$response = array('status' =>true ,'menssage' =>'Cliente sin ningun contrato puede generar una propuesta.','statusText'=>'Propuesta_Nueva','CodCli'=>$Colaborador->CodCli);
+			$this->response($response);
+			return false;
+		}
+		else
+		{
+			$response = array('status' =>200 ,'menssage' =>'Se encontraron contratos asignados al cliente','statusText'=>'OK','Contratos'=>$BuscarContrato);
+			$this->response($response);			
+		}		
+    }
+    public function getDataServerMultiClienteMultiPunto_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodCli=$this->get('CodCli');
+		$tabla="T_Colaborador";
+		$where="CodCol";	
+		$select='CodCol as CodCli,NumIdeFis as NumCifCli,NomCol as RazSocCli';	
+        $Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select);        
+		if (empty($Cliente))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
+			$this->response(false);
+		}
+		$Tabla='T_Comercializadora';
+		$order_by="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$Referencia=$this->generar_RefProCom();			
+		$arrayName = array('CodCli'=>$Cliente-> CodCli,'NumCifCli'=>$Cliente-> NumCifCli,'RazSocCli'=>$Cliente-> RazSocCli,'Referencia'=>$Referencia,'Fecha_Propuesta'=>date('d/m/Y'),'Comercializadoras'=>$Comercializadoras);
+		$this->response($arrayName);
+	}
     public function get_list_propuesta_clientes_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -113,6 +178,20 @@ class PropuestaComercial extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
+	public function getColaboradores_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getColaboraresSearch($objSalida->NumCifCli);						
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
 		$this->response($consulta);
@@ -607,9 +686,9 @@ class PropuestaComercial extends REST_Controller
 		$Tabla='T_Comercializadora';
 		$order_by="RazSocCom";
 		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
-		$tabla="T_Cliente";
-		$where="CodCli";
-		$select="CodCli,RazSocCli,NumCifCli";
+		$tabla="T_Colaborador";
+		$where="CodCol";
+		$select="CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli";
 		$Cliente=$this->Propuesta_model->Funcion_Verificadora($response-> CodCli,$tabla,$where,$select);
 		$CUPs=$this->Propuesta_model->GetDetallesCUPs($response-> CodProComCli);
 		/*$detalleFinal = Array();

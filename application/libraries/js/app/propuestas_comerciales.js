@@ -249,7 +249,7 @@
              return false;
         }
         $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
-        var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_clientes/NumCifCli/" + scope.NumCifCliUniMulCli;
+        var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_Colaborador/NumCifCli/" + scope.NumCifCliUniMulCli;
         $http.get(url).then(function(result) {
             $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) 
@@ -613,7 +613,7 @@
                 var searchText_len = scope.NumCifCliUniMulCli.trim().length;
                 scope.fdatos.NumCifCli = scope.NumCifCliUniMulCli;
                 if (searchText_len > 0) {
-                    var url = base_urlHome() + "api/PropuestaComercial/getclientes";
+                    var url = base_urlHome() + "api/PropuestaComercial/getColaboradores";
                     $http.post(url, scope.fdatos).then(function(result) {
                     console.log(result);
                     if (result.data != false) 

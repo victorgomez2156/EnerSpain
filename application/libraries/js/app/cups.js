@@ -1296,6 +1296,46 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.containerClicked = function() {
         scope.searchResult = {};
     }
+
+    if($route.current.$$route.originalPath == "/Add_Cups/:CodCli/:CodPunSum")
+    {
+        scope.Cups_Cif=$route.current.params.CodCli;
+        scope.CodPunSum=$route.current.params.CodPunSum;
+        scope.fdatos_cups.Cups_Cif = scope.Cups_Cif;
+        var url = base_urlHome() + "api/Cups/getclientes";
+                             $http.post(url, scope.fdatos_cups).then(function(result) {
+                                 //console.log(result);
+                                 if (result.data != false) {
+                                    scope.Customers = result.data;
+                                   for (var i = 0; i < scope.Customers.length; i++) {
+                                        if (scope.Customers[i].CodCli == $route.current.params.CodCli) {                
+                                            console.log(scope.Customers[i]);
+                                            scope.Cups_Cif=scope.Customers[i].NumCifCli+" - "+scope.Customers[i].RazSocCli;
+                                            scope.fdatos_cups.CodCli=scope.Customers[i].CodCli;
+                                            scope.search_PunSum();
+                                            scope.fdatos_cups.CodPunSum=$route.current.params.CodPunSum;
+                                            scope.fdatos_cups.cups="ES";
+                                            //scope.fdatos_cups.CodCli
+
+                                        }
+                                    }
+                                 } else {
+                                    scope.Customers = [];
+                                 }
+                             }, function(error) {
+                                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                             });
+
+    }
+
     scope.FetchCUPs = function() {
         if (scope.filtrar_cups == undefined || scope.filtrar_cups == null || scope.filtrar_cups == '') {
             $scope.predicate = 'id';

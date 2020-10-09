@@ -99,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="#tabs-1">CLIENTE</a>
       </li>       
       <li>
-        <a href="#tabs-2">SECTOR</a>
+        <a href="#tabs-2">DOCUMENTACIÓN APORTAR</a>
       </li>
       <li>
         <a href="#tabs-3">CONTACTO</a>

@@ -201,7 +201,7 @@
     }
      scope.getDatosServer=function()
      {
-        var url= base_urlHome()+"api/PropuestaComercial/getDataServer/CodCli/"+scope.fdatos.CodCli;
+        var url= base_urlHome()+"api/PropuestaComercial/getDataServerMultiClienteMultiPunto/CodCli/"+scope.fdatos.CodCli;
         $http.get(url).then(function(result)
         {
             if(result.data!=false)

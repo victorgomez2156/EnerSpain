@@ -791,7 +791,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
                             <div class="col-lg-10">
                               <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
-                             <ul id='searchResult'>
+                             <ul id='searchResult' style="height: 350px; overflow-y: auto;">
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>

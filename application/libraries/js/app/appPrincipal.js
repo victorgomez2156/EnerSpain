@@ -41,7 +41,11 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
         .when('/Actividades/', { templateUrl: 'application/views/view_grib_actividad.php' })
         .when('/Add_Actividades/', { templateUrl: 'application/views/view_add_actividad.php' })
         .when('/Puntos_Suministros/', { templateUrl: 'application/views/view_grib_punto_suministros.php' })
+
         .when('/Add_Puntos_Suministros/', { templateUrl: 'application/views/view_add_punto_suministros.php' })
+        .when('/Add_Puntos_Suministros/:CodCli', { templateUrl: 'application/views/view_add_punto_suministros.php' })
+
+
         .when('/Edit_Punto_Suministros/:ID', { templateUrl: 'application/views/view_add_punto_suministros.php' })
         .when('/Edit_Punto_Suministros/:ID/:INF', { templateUrl: 'application/views/view_add_punto_suministros.php' })
         .when('/Contactos/', { templateUrl: 'application/views/view_grib_contactos.php' })
@@ -57,6 +61,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
         .when('/Edit_Documentos/:ID', { templateUrl: 'application/views/view_add_documentos.php' })
         .when('/Gestionar_Cups/', { templateUrl: 'application/views/view_grib_cups.php' })
         .when('/Add_Cups/', { templateUrl: 'application/views/view_add_cups.php' })
+        .when('/Add_Cups/:CodCli/:CodPunSum', { templateUrl: 'application/views/view_add_cups.php' })
         .when('/Edit_Cups/:CodCups/:TipServ', { templateUrl: 'application/views/view_add_cups.php' })
         .when('/Edit_Cups/:CodCups/:TipServ/:INF', { templateUrl: 'application/views/view_add_cups.php' })
         .when('/Consumo_CUPs/:CodCup/:TipServ/:CodPunSum', { templateUrl: 'application/views/view_grib_consumo_cups.php' })

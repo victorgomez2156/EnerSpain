@@ -111,8 +111,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Sector </label>
-       <select class="form-control" id="CodSecCli" name="CodSecCli" ng-model="vm.fdatos.CodSecCli" placeholder="* Sector" ng-disabled="vm.validate_info!=undefined">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Documentación Aportar </label>
+       <select class="form-control" id="CodSecCli" name="CodSecCli" ng-model="vm.fdatos.CodSecCli" placeholder="* Documentación Aportar" ng-disabled="vm.validate_info!=undefined">
          <option ng-repeat="dato in vm.tSectores" value="{{dato.CodSecCli}}">{{dato.DesSecCli}}</option>                        
         </select>
        </div>
