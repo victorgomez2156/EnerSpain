@@ -320,9 +320,10 @@ class Contratos extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();				
-		$FechaServer=date('Y-m-d');	
+		$Explode=explode("/", $objSalida->FecVenCon);
+		$FechaServer=$Explode[2].'-'.$Explode[1].'-'.$Explode[0];	
 		$diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days")); 
-		$VerificarRenovacion=$this->Contratos_model	->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$diasAnticipacion);
+		$VerificarRenovacion=$this->Contratos_model	->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$FechaServer,$diasAnticipacion);
 		if(empty($VerificarRenovacion))
 		{
 			$arrayName = array('status' =>201 , 'message'=>'Esta intentando hacer una renovación anticipada y su contrato tiene una fecha de vencimiento para la fecha: '.$objSalida->FecVenCon.' lo que quiere decir que hara cambios en el documento si esta de acuerdo puede continuar.','statusText'=>'Renovación Anticipada' );

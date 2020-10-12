@@ -365,7 +365,8 @@
         scope.fdatos.NumCifCli = scope.NumCIFCliCUPs;
         if (searchText_len > 0) 
         {
-            var url = base_urlHome() + "api/PropuestaComercial/getclientes";
+            console.log(scope.fdatos);
+            var url = base_urlHome() + "api/PropuestaComercial/getclientesColaboradores";
             $http.post(url, scope.fdatos).then(function(result) 
             {
                 //console.log(result);

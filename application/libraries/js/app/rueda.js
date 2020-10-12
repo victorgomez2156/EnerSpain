@@ -32,7 +32,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var url = base_urlHome() + "api/Reportes/Fecha_Server/";
         $http.get(url).then(function(result) {
             if (result.data != false) {
-                $('.FecDesde').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecDesde);
+                $('.FecDesde').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecDesde).datepicker("setEndDate", result.data.FecHasta);
                 $('.FecHasta').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecHasta);
                 scope.FecDesde=result.data.FecDesde;
                 scope.FecHasta=result.data.FecHasta;
@@ -221,6 +221,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     $scope.predicate = predicate;
                 };
                 scope.Table_Contratos=result.data;
+                scope.Table_ContratosBack=result.data;
                 $scope.totalItems = scope.Table_Contratos.length;
                 $scope.numPerPage = 50;
                 $scope.paginate = function(value) {
@@ -402,6 +403,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.tmodal_data.FecConCom = dato.FecConCom;
             scope.tmodal_data.FecVenCon = dato.FecVenCon;
             scope.tmodal_data.FecIniCon = dato.FecIniCon;
+            scope.tmodal_data.TipProCom=dato.TipProCom;
+            scope.tmodal_data.FecDesde=scope.FecDesde;
             scope.tmodal_data.SinMod = false;
             scope.tmodal_data.ConMod = false;
             scope.RazSocCli = dato.RazSocCli;
@@ -547,8 +550,33 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.toast('error',result.data.menssage,result.data.statusText);
                         return false;
                     }
-                    if (result.data.status == 200 && result.data.statusText == 'OK') {
-                        scope.toast('success','result.data.menssage','Renovación');
+                    if (result.data.status == 200 && result.data.statusText == 'OK') 
+                    {
+                        scope.toast('success',result.data.menssage,'Renovación');
+                        if(scope.tmodal_data.TipProCom==1)
+                        {
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else if(scope.tmodal_data.TipProCom==2)
+                        {
+
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial_UniCliente_MultiPunto/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else if(scope.tmodal_data.TipProCom==3)
+                        {
+                            
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial_MulCliente_MultiPunto/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else
+                        {
+
+                        }                        
                         scope.tmodal_data = {};
                         $("#Tipo_Renovacion").modal('hide');
                         $scope.submitFormRueda();
@@ -562,7 +590,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.toast('error','Error durante el proceso, intente nuevamente.','Error General');
                        
                     }
-
                 }, function(error) {
                     $("#Renovando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      if (error.status == 404 && error.statusText == "Not Found"){
@@ -1083,6 +1110,77 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
          });
      }
+     scope.FetchContratosRuedaFilter=function()
+     {
+        if(scope.filtrar_search==undefined||scope.filtrar_search==null||scope.filtrar_search=='')
+        {
+            $scope.predicate = 'id';
+            $scope.reverse = true;
+            $scope.currentPage = 1;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };            
+            scope.Table_Contratos = scope.Table_ContratosBack;
+            $scope.totalItems = scope.Table_Contratos.length;
+            $scope.numPerPage = 50;
+            $scope.paginate = function(value) {
+                var begin, end, index;
+                begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = scope.Table_Contratos.indexOf(value);
+                return (begin <= index && index < end);
+            }
+        }
+        else
+        {
+            if(scope.filtrar_search.length>=2)
+            {
+                scope.fdatos.filtrar_search=scope.filtrar_search;   
+                var url = base_urlHome()+"api/Reportes/getContratosFilterRueda";
+                $http.post(url,scope.fdatos).then(function(result)
+                {
+                    console.log(result.data);
+                    if (result.data != false)
+                    {                        
+                        $scope.predicate = 'id';
+                        $scope.reverse = true;
+                        $scope.currentPage = 1;
+                        $scope.order = function(predicate) {
+                            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                            $scope.predicate = predicate;
+                        };            
+                        scope.Table_Contratos = result.data;
+                        $scope.totalItems = scope.Table_Contratos.length;
+                        $scope.numPerPage = 50;
+                        $scope.paginate = function(value) {
+                            var begin, end, index;
+                            begin= ($scope.currentPage - 1) * $scope.numPerPage;
+                            end = begin + $scope.numPerPage;
+                            index = scope.Table_Contratos.indexOf(value);
+                            return (begin <= index && index < end);
+                        }
+                    }
+                    else
+                    {
+                        scope.toast('info','No se encontraron registros','');
+                        scope.Table_Contratos=[];
+                    }
+                }, function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                });
+            }
+        }     
+     }   
 
      var i = -1;
         var toastCount = 0;

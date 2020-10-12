@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Hasta</label>
-       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) "/>
+       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) " readonly="readonly" ng-disabled="vm.FecHasta!=undefined" />
          
          </div>
          </div>
@@ -142,8 +142,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
 <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
 
+
 <label style="margin-top: 0px;">Total: {{vm.Table_Contratos.length}}</label>
 
+<div style="margin-left: 0px;padding: 0px;margin-top: -45px;margin-bottom: 2px;" align="right" class="removeForMobile">                   
+              <div class="t-0029">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <input type="text" class="form-control" ng-model="vm.filtrar_search" minlength="1" id="exampleInputEmail2" placeholder="Escribe para filtrar..." ng-keyup="vm.FetchContratosRuedaFilter()">
+                  </div>                               
+                </form>                    
+            </div>
+          </div>
 <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
@@ -249,6 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodCli" name="CodCliModalReno" id="CodCliModalReno" readonly="readonly" />
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodProCom" name="CodProComModalReno" id="CodProComModalReno" readonly="readonly" />
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodConCom" name="CodConComModalReno" id="CodConComModalReno" readonly="readonly" />
+     <input type="hidden" class="form-control" ng-model="vm.tmodal_data.TipProCom" name="TipProComModalReno" id="TipProComModalReno" readonly="readonly" />
 
     <div class="col-12 col-sm-12">
      <div class="form">                          

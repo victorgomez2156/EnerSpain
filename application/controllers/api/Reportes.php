@@ -1525,6 +1525,20 @@ class Reportes extends REST_Controller
         $this->db->trans_complete();
         $this->response($ContratoComercial);
     }
+    public function getContratosFilterRueda_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();
+        $consulta=$this->Reportes_model->Contratos_Para_Rueda_Filter($objSalida->FecDesde,$objSalida->FecHasta,$objSalida->filtrar_search);                       
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','SEARCH',null,$this->input->ip_address(),'Buscando Lista de Contratos Comerciales Filtrados');
+        $this->db->trans_complete();
+        $this->response($consulta);
+    }
     public function verificar_renovacion_post()
     {
         $datausuario=$this->session->all_userdata();    
@@ -1533,10 +1547,13 @@ class Reportes extends REST_Controller
             redirect(base_url(), 'location', 301);
         }
         $objSalida = json_decode(file_get_contents("php://input"));             
-        $this->db->trans_start();               
-        $FechaServer=date('Y-m-d'); 
-        $diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days")); 
-        $VerificarRenovacion=$this->Reportes_model ->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$diasAnticipacion);
+        $this->db->trans_start();  
+        $Explode=explode("/", $objSalida->FecDesde);
+        $FechaServer=$Explode[2]."-".$Explode[1]."-".$Explode[0]; 
+        //var_dump($FechaServer);
+        $diasAnticipacion=date("Y-m-d",strtotime($FechaServer."+ 60 days"));  
+        //var_dump($diasAnticipacion);       
+        $VerificarRenovacion=$this->Reportes_model ->validar_renovacion($objSalida->CodCli,$objSalida->CodConCom,$FechaServer,$diasAnticipacion);
         if(empty($VerificarRenovacion))
         {
             $arrayName = array('status' =>201 , 'message'=>'Esta intentando hacer una renovación anticipada y su contrato tiene una fecha de vencimiento para la fecha: '.$objSalida->FecVenCon.' lo que quiere decir que hara cambios en el documento si esta de acuerdo puede continuar.','statusText'=>'Renovación Anticipada' );
@@ -1594,7 +1611,7 @@ class Reportes extends REST_Controller
         {           
             $this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,0,1,1,4);
             $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Estatus Contrato Con modificaciones.');
-            $arrayName = array('status' =>200,'menssage'=>'Debe registrar una nueva Propuesta Comercial','statusText'=>'OK' );
+            $arrayName = array('status' =>200,'menssage'=>'Solicitud de Renovación de contrato con modificaciones solicitado. Sera Redireccionado Para Modificar la Propuesta Comercial.','statusText'=>'OK');
             $this->db->trans_complete();
             $this->response($arrayName);
         }

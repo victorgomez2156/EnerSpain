@@ -1435,6 +1435,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.tmodal_data.FecConCom = dato.FecConCom;
             scope.tmodal_data.FecVenCon = dato.FecVenCon;
             scope.tmodal_data.FecIniCon = dato.FecIniCon;
+            scope.tmodal_data.TipProCom=dato.TipProCom;
             scope.tmodal_data.SinMod = false;
             scope.tmodal_data.ConMod = false;
             scope.RazSocCli = dato.RazSocCli;
@@ -1579,6 +1580,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         console.log(scope.tmodal_data);
         Swal.fire({
+            title:'Renovación Contrato',
             text: '¿Seguro de Renovar el contrato?',
             type: "question",
             showCancelButton: !0,
@@ -1596,11 +1598,36 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                        scope.toast('error',result.data.menssage,result.data.statusText);
                        return false;
                     }
-                    if (result.data.status == 200 && result.data.statusText == 'OK') {
-                      scope.toast('success',result.data.menssage,'Renovación');
-                      scope.tmodal_data = {};
+                    if (result.data.status == 200 && result.data.statusText == 'OK') 
+                    {
+                        scope.toast('success',result.data.menssage,'Renovación');
+                        if(scope.tmodal_data.TipProCom==1)
+                        {
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else if(scope.tmodal_data.TipProCom==2)
+                        {
+
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial_UniCliente_MultiPunto/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else if(scope.tmodal_data.TipProCom==3)
+                        {
+                            
+                            $("#Tipo_Renovacion").modal('hide');
+                            location.href = "#/Renovar_Propuesta_Comercial_MulCliente_MultiPunto/" + scope.tmodal_data.CodCli + "/" + scope.tmodal_data.CodConCom + "/" + scope.tmodal_data.CodProCom + "/renovar";
+                            return false;
+                        }
+                        else
+                        {
+
+                        }
+                        scope.tmodal_data = {};
                         $("#Tipo_Renovacion").modal('hide');
-                        scope.get_list_contratos();
+                        //scope.get_list_contratos();
                         return false;
                     }
                     if (result.data != false) {

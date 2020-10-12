@@ -113,11 +113,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
 
-          <button type="button" title="Agregar CUPs Eléctrico" style="margin-right: 5px;" class="btn btn-info" ng-click="vm.AgregarCUPs(1)" ng-disabled="vm.fdatos.tipo=='ver'"><div><i class="fa fa-plus-square"> Agregar <br>CUPs <br>Eléctrico</i></div></button>
+          <button type="button" title="Agregar CUPs Eléctrico" style="margin-right: 5px;" class="btn btn-info" ng-click="vm.AgregarCUPs(1)" ng-disabled="vm.fdatos.tipo=='ver'"><div style="color:black;"><i class="fa fa-plus-square"> </i> Agregar <br>CUPs <br>Eléctrico</div></button>
 
-          <button type="button" title="Agregar CUPs Gas" style="margin-right: 5px;" class="btn btn-info" ng-click="vm.AgregarCUPs(2)" ng-disabled="vm.fdatos.tipo=='ver'"><div><i class="fa fa-plus-square"> Agregar <br>CUPs <br>Gas</i></div></button>
+          <button type="button" title="Agregar CUPs Gas" style="margin-right: 5px;" class="btn btn-info" ng-click="vm.AgregarCUPs(2)" ng-disabled="vm.fdatos.tipo=='ver'"><div style="color:black;"><i class="fa fa-plus-square"></i> Agregar <br>CUPs <br>Gas</div></button>
 
-          <button type="button" title="Quitar CUPs" style="margin-right: 5px;" class="btn btn-primary" ng-click="vm.QuitarCUPs()" ng-disabled="vm.fdatos.tipo=='ver'"><div><i class="fa fa-close"> Quitar <br>CUPs {{vm.TDetallesCUPsEli.length}}</i></div></button>
+          <button type="button" title="Quitar CUPs" style="margin-right: 5px;" class="btn btn-primary" ng-click="vm.QuitarCUPs()" ng-disabled="vm.fdatos.tipo=='ver'"><div style="color:black;"><i class="fa fa-close"></i> Quitar <br>CUPs {{vm.TDetallesCUPsEli.length}}</div></button>
           </div>
          </div>
       </div>
@@ -253,11 +253,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
       <div class="form-group" >
           <div class="col-12 col-sm-6">
-            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nueva' || vm.fdatos.tipo=='renovar'" ng-disabled="vm.disabled_button==true">Grabar</button>
-            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar' && vm.fdatos.EstProCom!='C' || vm.fdatos.tipo=='ver' && vm.fdatos.EstProCom!='C'">Actualizar</button>
+            <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nueva' || vm.fdatos.tipo=='renovar'" ng-disabled="vm.disabled_button==true" style="color:black;">Grabar</button>
+            <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar' && vm.fdatos.EstProCom!='C' || vm.fdatos.tipo=='ver' && vm.fdatos.EstProCom!='C'" style="color:black;">Actualizar</button>
 
-            <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_UniCliente/{{vm.fdatos.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
-            <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
+            <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_UniCliente/{{vm.fdatos.CodProCom}}" style="margin-top: 0px; color:black" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" >Generar PDF</a>
+            <button class="btn btn-primary" type="button" style="margin-top: 10px; color:black" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
 

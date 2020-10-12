@@ -176,6 +176,7 @@
                     //alert('por aqui esta pasando');
                     scope.fdatos.ContratosSinProPenRen = [];
                     scope.fdatos.ContratosProRenPen = []; 
+                    //console.log(result.data.Contratos);
                     angular.forEach(result.data.Contratos, function(Contratos)
                     {
                         if(Contratos.ProRenPen==1)
@@ -186,7 +187,7 @@
                             ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
                             ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
                             ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
-                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg});                         
+                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg,TipProCom:Contratos.TipProCom});                         
                         }
                         else
                         {
@@ -196,11 +197,11 @@
                             ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
                             ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
                             ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
-                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg}); 
+                            ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg,TipProCom:Contratos.TipProCom}); 
                         }
                     }); 
-                    console.log(scope.fdatos.ContratosProRenPen);
-                    console.log(scope.fdatos.ContratosSinProPenRen);
+                    //console.log(scope.fdatos.ContratosProRenPen);
+                    //console.log(scope.fdatos.ContratosSinProPenRen);
                     if(scope.fdatos.ContratosProRenPen.length>0)
                     {
                         if(scope.fdatos.ContratosProRenPen.length==1)
@@ -248,8 +249,17 @@
              scope.toast('error','El número de CIF del Cliente es requerido','Número de CIF');
              return false;
         }
-        $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
-        var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_Colaborador/NumCifCli/" + scope.NumCifCliUniMulCli;
+        if(metodo==2)
+        {
+            $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_clientes/NumCifCli/" + scope.NumCifCliUniMulCli;
+        }
+        
+        if(metodo==3)
+        {
+            $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_Colaborador/NumCifCli/" + scope.NumCifCliUniMulCli;
+        }
         $http.get(url).then(function(result) {
             $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) 
@@ -286,7 +296,7 @@
                                 ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
                                 ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
                                 ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
-                                ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg});                         
+                                ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg,TipProCom:Contratos.TipProCom});                         
                             }
                             else
                             {
@@ -296,7 +306,7 @@
                                 ,FecBajCon:Contratos.FecBajCon,FecConCom:Contratos.FecConCom,FecFinCon:Contratos.FecFinCon
                                 ,FecIniCon:Contratos.FecIniCon,FecVenCon:Contratos.FecVenCon,JusBajCon:Contratos.JusBajCon
                                 ,ObsCon:Contratos.ObsCon,ProRenPen:Contratos.ProRenPen,RefCon:Contratos.RefCon
-                                ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg}); 
+                                ,RenMod:Contratos.RenMod,UltTipSeg:Contratos.UltTipSeg,TipProCom:Contratos.TipProCom}); 
                             }
                         }); 
                         console.log(scope.fdatos.ContratosProRenPen);
@@ -305,9 +315,30 @@
                         {
                             if(scope.fdatos.ContratosProRenPen.length==1)
                             {
-                                $("#modal_add_propuestaUniCliente").modal('hide');
-                                location.href = "#/Renovar_Propuesta_Comercial_UniCliente_MultiPunto/" + scope.fdatos.ContratosProRenPen[0].CodCli + "/" + scope.fdatos.ContratosProRenPen[0].CodConCom + "/" + scope.fdatos.ContratosProRenPen[0].CodProCom + "/renovar";
-                                return false;
+                                if(scope.fdatos.ContratosProRenPen[0].TipProCom==1)
+                                {
+                                    $("#modal_add_propuestaUniCliente").modal('hide');
+                                    location.href = "#/Renovar_Propuesta_Comercial/" + scope.fdatos.ContratosProRenPen[0].CodCli + "/" + scope.fdatos.ContratosProRenPen[0].CodConCom + "/" + scope.fdatos.ContratosProRenPen[0].CodProCom + "/renovar";
+                                    return false; 
+                                }
+                                else if(scope.fdatos.ContratosProRenPen[0].TipProCom==2)
+                                {
+                                    $("#modal_add_propuestaUniCliente").modal('hide');
+                                    location.href = "#/Renovar_Propuesta_Comercial_UniCliente_MultiPunto/" + scope.fdatos.ContratosProRenPen[0].CodCli + "/" + scope.fdatos.ContratosProRenPen[0].CodConCom + "/" + scope.fdatos.ContratosProRenPen[0].CodProCom + "/renovar";
+                                    return false; 
+                                } 
+                                else if(scope.fdatos.ContratosProRenPen[0].TipProCom==3)
+                                {
+                                    $("#modal_add_propuestaUniCliente").modal('hide');
+                                    location.href = "#/Renovar_Propuesta_Comercial_MulCliente_MultiPunto/" + scope.fdatos.ContratosProRenPen[0].CodCli + "/" + scope.fdatos.ContratosProRenPen[0].CodConCom + "/" + scope.fdatos.ContratosProRenPen[0].CodProCom + "/renovar";
+                                    return false; 
+                                }
+                                else
+                                {   
+                                    scope.toast('info','Error en el Tipo de Propuesta Comercial','Renovación Pendiente');
+                                    return false;
+
+                                }                                
                             }
                             else
                             {
@@ -579,8 +610,8 @@
             }
             if (metodo == 2) 
             {
-                var searchText_len = scope.NumCifCli.trim().length;
-                scope.fdatos.NumCifCli = scope.NumCifCli;
+                var searchText_len = scope.NumCifCliUniMulCli.trim().length;
+                scope.fdatos.NumCifCli = scope.NumCifCliUniMulCli;
                 if (searchText_len > 0) {
                     var url = base_urlHome() + "api/PropuestaComercial/getclientes";
                     $http.post(url, scope.fdatos).then(function(result) {
@@ -1123,7 +1154,7 @@
                                     $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
                                     $scope.predicate2 = predicate2;
                                 };
-                                scope.TPropuesta_ComercialesUniCliente = result.data;                                  
+                                scope.TPropuesta_ComercialesMulCliente = result.data;                                  
                                 $scope.totalItems2 = scope.TPropuesta_ComercialesMulCliente.length;
                                 $scope.numPerPage2 = 50;
                                 $scope.paginate2 = function(value2) {

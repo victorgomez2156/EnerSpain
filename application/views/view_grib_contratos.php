@@ -372,6 +372,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodCli" name="CodCliModalReno" id="CodCliModalReno" readonly="readonly" />
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodProCom" name="CodProComModalReno" id="CodProComModalReno" readonly="readonly" />
      <input type="hidden" class="form-control" ng-model="vm.tmodal_data.CodConCom" name="CodConComModalReno" id="CodConComModalReno" readonly="readonly" />
+     <input type="text" class="form-control" ng-model="vm.tmodal_data.TipProCom" name="TipProComModalReno" id="TipProComModalReno" readonly="readonly" />
 
     <div class="col-12 col-sm-12">
      <div class="form">                          

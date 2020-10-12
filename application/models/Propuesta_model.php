@@ -77,8 +77,9 @@ class Propuesta_model extends CI_Model
     } 
     public function Buscar_Contratos($Variable)
     {
-        $this->db->select('*',false);
-        $this->db->from('T_Contrato');       
+        $this->db->select('a.*,b.TipProCom',false);
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_PropuestaComercial b','a.CodProCom=b.CodProCom','left');        
         $this->db->where('CodCli',$Variable);          
         $this->db->order_by('FecConCom DESC');   
         //$this->db->limit(1);           
@@ -291,6 +292,18 @@ class Propuesta_model extends CI_Model
         else
         return false;
     }
+    public function PropuestasSencilla()
+    {
+        $this->db->select(' a.*,b.CodCli,b.CodProComCli',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
+        $this->db->where('a.TipProCom=1');               
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
     public function PropuestasUniCliente()
     {
         $this->db->select(' a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS TotalCUPs',false);
@@ -462,18 +475,18 @@ public function get_CUPs_Gas($CodCli)
 }
 public function PropuestasMulClienteFilter($SearchText)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumCifCli,c.RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumIdeFis as NumCifCli,c.NomCol as RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
-        $this->db->join('T_Cliente c','b.CodCli=c.CodCli',"left");
+        $this->db->join('T_Colaborador c','b.CodCli=c.CodCol',"left");
         $this->db->where('a.TipProCom=3');
         $this->db->like('DATE_FORMAT(FecProCom,"%d/%m/%Y")',$SearchText);
         $this->db->where('a.TipProCom=3');
         $this->db->or_like('b.CodCli',$SearchText);
         $this->db->where('a.TipProCom=3');
-        $this->db->or_like('c.NumCifCli',$SearchText);
+        $this->db->or_like('c.NumIdeFis',$SearchText);
         $this->db->where('a.TipProCom=3');
-        $this->db->or_like('c.RazSocCli',$SearchText);
+        $this->db->or_like('c.NomCol',$SearchText);
         $this->db->where('a.TipProCom=3');
         $this->db->or_like('a.RefProCom',$SearchText);                
         $this->db->order_by('DATE_FORMAT(a.FecProCom,"%Y/%m/%d") DESC');              

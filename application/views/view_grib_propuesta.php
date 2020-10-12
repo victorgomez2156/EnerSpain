@@ -664,11 +664,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                   <th></th>
+                  <th>Tipo Propuesta</th>
                   <th>Fecha Inicio</th>
                   <th>Duración</th>  
                   <th>Vencimiento</th>
-                  <th>Estatus</th>              
-                  
+                  <th>Estatus</th>
                   </tr>
                   <tr ng-show="vm.T_ContratosProRenPen.length==0"> 
                     <td colspan="8" align="center">
@@ -683,6 +683,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             
                       <button type="button" ng-show="vm.select_DetProPenRen[dato.CodConCom]" ng-click="vm.quitar_ContratoProRenPen($index,dato.CodConCom,dato)"><i class="fa fa fa-check-circle" title="Quitar" style="color:green;"></i></button> 
                     </td>
+                    <td>
+                      <span class="label label-danger" ng-show="dato.TipProCom==1"><i class="fa fa-user"></i> Sencilla</span>
+                      <span class="label label-info" ng-show="dato.TipProCom==2"><i class="fa fa-user"></i> UniCliente - MultiPunto</span>
+                      <span class="label label-primary" ng-show="dato.TipProCom==3"><i class="fa fa-users"></i> MultiCliente - MultiPunto</span></td>
                     <td>{{dato.FecIniCon}}</td>
                     <td>{{dato.DurCon}} Meses</td> 
                     <td>{{dato.FecVenCon}}</td>
@@ -697,11 +701,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot> 
-                  <th></th>                
-                  <th>Fecha Inicio</th>                  
+                  <th></th>
+                  <th>Tipo Propuesta</th>
+                  <th>Fecha Inicio</th>
                   <th>Duración</th>  
                   <th>Vencimiento</th>
-                  <th>Estatus</th>  
+                  <th>Estatus</th>
                 </tfoot>
               </table>
         </div>
@@ -761,7 +766,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 

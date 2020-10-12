@@ -301,7 +301,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Cliente </label>
              <input type="text" class="form-control" placeholder="CIF/NIF Cliente" ng-model="vm.NumCIFCliCUPs" ng-keyup="vm.FetchClientes()"/> 
-             <ul id='searchResult'>
+             <ul id='searchResult' style="height: 300px; overflow-y: auto;">
           <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>
@@ -621,7 +621,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Cliente </label>
              <input type="text" class="form-control" placeholder="CIF/NIF Cliente" ng-model="vm.NumCIFCliCUPs" ng-keyup="vm.FetchClientes()"/> 
-             <ul id='searchResult' style="sc">
+             <ul id='searchResult' style="height: 300px; overflow-y: auto;">
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
           </li>

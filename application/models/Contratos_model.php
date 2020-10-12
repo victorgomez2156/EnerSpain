@@ -5,9 +5,9 @@ class Contratos_model extends CI_Model
 
  	public function get_list_contratos()
     {
-        $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas",false);
+        $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas,CodProComCli,TipProCom",false);
         $this->db->from('View_Contratos');
-        //$this->db->order_by('DATE_FORMAT(FecConCom,"%Y/%m/%d") ASC');
+        $this->db->order_by('DATE_FORMAT(FecVenCon,"%Y/%m/%d") DESC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -121,7 +121,7 @@ class Contratos_model extends CI_Model
     }
     public function getContratosFilter($SearchText)
     {
-        $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas",false);
+        $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas,TipProCom,CodProComCli",false);
         $this->db->from('View_Contratos');
         $this->db->like('DATE_FORMAT(FecConCom,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('NumCifCli',$SearchText);
@@ -133,7 +133,7 @@ class Contratos_model extends CI_Model
         $this->db->or_like('DATE_FORMAT(FecVenCon,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('RefCon',$SearchText);
         $this->db->or_like('CodCli',$SearchText);
-        //$this->db->order_by('FecIniCon DESC');              
+        $this->db->order_by('FecVenCon DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
@@ -163,15 +163,13 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
-    public function validar_renovacion($CodCli,$CodConCom,$diasAnticipacion)
+    public function validar_renovacion($CodCli,$CodConCom,$FechaServer,$diasAnticipacion)
     {
-        $FechaActual=date('Y-m-d');
-        $FecVenCon='FecVenCon';
         $this->db->select('*',false);
         $this->db->from('T_Contrato');       
         $this->db->where('CodCli',$CodCli);
         $this->db->where('CodConCom',$CodConCom);
-        $this->db->where('FecVenCon BETWEEN "'. $FechaActual. '" AND "'.$diasAnticipacion.'"');
+        $this->db->where('FecVenCon BETWEEN "'. $FechaServer. '" AND "'.$diasAnticipacion.'"');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->row();

@@ -960,7 +960,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     </div>
     
-    
+    <div class="foreign-supplier-title clearfix">
+    <h4 class="breadcrumb">     
+      <span class="foreign-supplier-text" style="color:black;"> Listado de Contratos Asignados</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"></span></div>
+    </h4>
+</div>
     <div style="width: 100%;
         margin-bottom: 15px;
         overflow-y: hidden;
@@ -984,8 +988,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-repeat="dato in vm.ContratosTCups | filter:paginate1" ng-class-odd="odd">
                     <td >{{dato.CodCli}}</td>                    
-                    <td > <span class="label label-info" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> no se</span>
+                    <td >
+                      <span class="label label-success" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
+                      <span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
+                      <span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
+                      <span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
+                    </td>/
                     <td >{{dato.FecFirmCon}}</td>
                     <td >{{dato.FecFinCon}}</td>
                     <td >{{dato.RefCon}}</td>

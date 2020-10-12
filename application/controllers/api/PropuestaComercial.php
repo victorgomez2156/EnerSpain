@@ -182,6 +182,20 @@ class PropuestaComercial extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
+	public function getclientesColaboradores_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->getclientesColaboradoressearch($objSalida->NumCifCli,$objSalida->CodCli);						
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->db->trans_complete();
+		$this->response($consulta);
+	}
 	public function getColaboradores_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -347,6 +361,7 @@ class PropuestaComercial extends REST_Controller
 			//if($BuscarContrato==false)
 			//{
 				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
+				$objSalida->CodProCom=$CodProCom;
 				$CodProComCli=$this->Propuesta_model->agregar_propuesta_comercial_clientes($CodProCom,$objSalida->CodCli);
 				foreach ($objSalida->detalleCUPs as $key => $value):
 				{					
@@ -379,7 +394,7 @@ class PropuestaComercial extends REST_Controller
 				$updatePropuesta=$this->Propuesta_model->update_view_propuesta($objSalida->CodProCom,null,'A');
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>200,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial", 'objSalida'=>$objSalida);
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Aprobada.');
 					$this->db->trans_complete();
@@ -430,7 +445,7 @@ class PropuestaComercial extends REST_Controller
 				endforeach;
 				if($updatePropuesta==true)
 				{
-					$arrayName = array('status' =>true,'menssage'=>'Propuesta Comercial actualizada de forma correcta','statusText'=>"Propuesta Comercial" );
+					$arrayName = array('status' =>200,'menssage'=>'Propuesta Comercial actualizada de forma correcta con el numero de Propuesta Nr: '.$objSalida-> RefProCom,'statusText'=>"Propuesta Comercial",'objSalida'=>$objSalida);
 					
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Estatus de Propuesta Comercial a Aprobada.');
 					$this->db->trans_complete();
@@ -454,12 +469,30 @@ class PropuestaComercial extends REST_Controller
 		}
 		elseif($objSalida->tipo=='renovar')
 		{
-			$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->CodCli,$objSalida->FecProCom,$objSalida->CodPunSum,$objSalida->CodCupSEle,$objSalida->CodTarEle,$objSalida->ImpAhoEle,$objSalida->PorAhoEle,$objSalida->RenConEle,$objSalida->ObsAhoEle,$objSalida->CodCupGas,$objSalida->CodTarGas,$objSalida->ImpAhoGas,$objSalida->PorAhoGas,$objSalida->RenConGas,$objSalida->ObsAhoGas,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,$objSalida->JusRecProCom,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->CauDia,$objSalida->Consumo,$objSalida->ConCupsEle);			
+			
+			$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
+			$CodProComCli=$this->Propuesta_model->agregar_propuesta_comercial_clientes($CodProCom,$objSalida->CodCli);
+			foreach ($objSalida->detalleCUPs as $key => $value):
+				{					
+					if($objSalida->TipProCom==1)
+					{
+						$CodPunSum=$objSalida-> CodPunSum;
+					}
+					else
+					{
+						$CodPunSum=$value-> CodPunSum;
+					}
+					$this->Propuesta_model->agregar_detallesCUPs($CodProComCli,$CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
+				}
+				endforeach;					
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$CodProCom,$this->input->ip_address(),'Generando Propuesta Comercial Para Contrato.');
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$CodProCom,$this->input->ip_address(),'Generando Propuesta Comercial Para Contrato Con Modificaciones.');
 			$this->Contratos_model->update_status_contrato_modificaciones($objSalida->CodCli,$objSalida->CodConCom,1,1,0,3);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial Con Nuevo Propuesta Generada Con Modificaciones.');
+			$objSalida->CodProCom=$CodProCom;
+			$arrayName = array('status' =>200,'menssage'=>'Propuesta Comercial renovada correctamente.','statusText'=>"Propuesta Comercial Renovación",'objSalida'=>$objSalida );
 			$this->db->trans_complete();
-				$this->response($objSalida);
+				$this->response($arrayName);
 		}
 
 
@@ -532,20 +565,16 @@ class PropuestaComercial extends REST_Controller
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodCli,$this->input->ip_address(),'Buscando Datos del Cliente.');
 			if (empty($Cliente))
 			{		
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Error en Obtener Número de Cliente o no Existe.');
 				$this->response(false);
 				return false;
 			}
 			$FechaServer=date('d/m/Y');
 			$RefProCom=$this->generar_RefProCom();
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Movimientos','GET',null,$this->input->ip_address(),'Generando Número de Referencia.');
-			
-			$select="CodProCom,CodCli,CodPunSum,CodCupsEle,CodTarEle,ImpAhoEle,PorAhoEle,RenConEle,ObsAhoEle,CodCupsGas,CodTarGas,ImpAhoGas,PorAhoGas,RenConGas,ObsAhoGas,PorAhoTot,ImpAhoTot,EstProCom,JusRecProCom,CodCom,CodPro,CodAnePro,TipPre,UltTipSeg,ObsProCom,PotConP1,PotConP2,PotConP3,PotConP4,PotConP5,PotConP6,PotConP1,Consumo,CauDia";
-	        $tabla="T_PropuestaComercial";
-			$where="CodProCom";
-			$BuscarPropuesta=$this->Propuesta_model->Funcion_Verificadora2($CodProCom,$tabla,$where,$select,'CodCli',$CodCli);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodProCom,$this->input->ip_address(),'Buscando Propuesta Comercial.');			
 			$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodProCom,$this->input->ip_address(),'Buscado Puntos de Suministros.');      
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodProCom,$this->input->ip_address(),'Buscado Puntos de Suministros.');
+
 			$tabla_Ele="T_TarifaElectrica";
 			$orderby="NomTarEle ASC";
 			$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
@@ -557,13 +586,15 @@ class PropuestaComercial extends REST_Controller
 			$tabla="T_Comercializadora";
 			$orderby="RazSocCom ASC";
 			$Comercializadora=$this->Propuesta_model->Tarifas($tabla,$orderby);
-			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',null,$this->input->ip_address(),'Buscando Lista de Comercializadoras.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');
+			
+			$BuscarPropuesta=$this->Propuesta_model->PropuestasSencilla($CodProCom);			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodProCom,$this->input->ip_address(),'Buscando Propuesta Comercial.');
 
 
 
 
-
-			$arrayName = array('Cliente' => $Cliente,'FechaServer'=>$FechaServer,'RefProCom'=>$RefProCom,'BuscarPropuesta' => $BuscarPropuesta,'Puntos_Suministros'=>$Puntos_Suministros,'TarEle'=>$TarEle,'TarGas'=>$TarGas,'Comercializadora'=>$Comercializadora);			
+			$arrayName = array('Cliente' => $Cliente,'FechaServer'=>$FechaServer,'RefProCom'=>$RefProCom,'TarEle'=>$TarEle,'TarGas'=>$TarGas,'Comercializadora'=>$Comercializadora,'Puntos_Suministros'=>$Puntos_Suministros,'BuscarPropuesta' => $BuscarPropuesta);			
 			$this->response($arrayName);
          /*$select="CodProCom,CodCli,DATE_FORMAT(FecProCom, '%d/%m/%Y') as FecProCom,CodPunSum,CodCupsEle,CodTarEle,ImpAhoEle,PorAhoEle,RenConEle,ObsAhoEle,CodCupsGas,CodTarGas,ImpAhoGas,PorAhoGas,RenConGas,ObsAhoGas,PorAhoTot,ImpAhoTot,EstProCom,JusRecProCom,CodCom,CodPro,CodAnePro,TipPre,UltTipSeg,ObsProCom,RefProCom,PotConP1,PotConP2,PotConP3,PotConP4,PotConP5,PotConP6,PotConP1,Consumo,CauDia";
         $tabla="T_PropuestaComercial";

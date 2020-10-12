@@ -139,7 +139,7 @@
         <ul class="sidebar-menu">
           <li class="active">
             </class="" href="#/Dashboard">
-                          <i class="icon_house_alt"></i>
+                          <i class="fa fa-home"></i>
                           <span>Dashboard</span>
             </a>
           </li>
@@ -166,8 +166,8 @@
           </li>
 
              <li class="sub-menu">
-            <a href="javascript:;" class="">
-              
+            <a href="javascript:;" class=""> 
+            <i class="fa fa-user"></i>             
               <span>Clientes</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>

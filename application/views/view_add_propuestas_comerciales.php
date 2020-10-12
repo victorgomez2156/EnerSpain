@@ -457,7 +457,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Consumo</label>         
-             <input type="text"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.ConCupsEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'|| vm.fdatos.tipo=='renovar'|| vm.ProRenPen==1"/>     
+             <input type="text"  class="form-control" style="margin-top: -1px;" ng-model="vm.fdatos.ConCupsEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"/>     
              </div>
              </div>
           </div>

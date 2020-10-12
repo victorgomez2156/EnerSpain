@@ -83,7 +83,8 @@
                     }
          });
      }
-     scope.filter_DirPumSum = function(CodPunSum) {
+     scope.filter_DirPumSum = function(CodPunSum) 
+     {
          console.log(CodPunSum);
          scope.fdatos.CodCupSEle = undefined;
          scope.fdatos.CodTarEle = undefined;
@@ -286,8 +287,10 @@
          if(scope.fdatos.tipo=="renovar")
          {
             scope.fdatos.CodProCom=scope.CodProCom;
+             var title = '¿Estás seguro de renovar la propuesta comercial?';
+             var loader = "Renovando";
          }
-         if (scope.fdatos.tipo == "nueva" || scope.fdatos.tipo == "renovar") {
+         if (scope.fdatos.tipo == "nueva") {
              var title = '¿Estás seguro de generar una nueva propuesta comercial?';
              var loader = "Guardando";
          }
@@ -310,20 +313,36 @@
                  $http.post(url, scope.fdatos).then(function(result) {
                      if (result.data != false) {
                          $("#" + loader).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                         if (result.data.status == false && result.data.statusText == 'Error') {
+                         if (result.data.status == false && result.data.statusText == 'Error') 
+                         {
                              scope.toast('error',result.data.menssage,loader);
                              location.href = "#/Propuesta_Comercial";
                              return false;
 
                          }
-                         if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') {
-                             scope.toast('success',result.data.menssage,loader);
-                             location.reload();
-                             return false;
-
+                         if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            location.href="#/Add_Contrato/"+result.data.objSalida.CodCli+"/nuevo";
+                            return false;
+                         }                         
+                         if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            return false;
                          }
+                         if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial Renovación') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            location.href="#/Edit_Propuesta_Comercial/"+result.data.objSalida.CodProCom+"/ver";
+                            //location.reload();
+                            return false;
+                         }
+
                          scope.toast('success',"Propuesta Comercial generada correctamente bajo el número de referencia: " + result.data.RefProCom,'Propuesta Comercial');
-                         location.href = "#/Propuesta_Comercial";
+                         location.href="#/Edit_Propuesta_Comercial/"+result.data.CodProCom+"/ver";
+                         //location.href="#/Add_Contrato/"+result.data.CodCli+"/nuevo";
+                         //location.href = "#/Propuesta_Comercial";
                      } else {
                          scope.toast('error','Ha ocurrido un error, intente nuevamente.','');
                      }
@@ -828,23 +847,18 @@
          $http.get(url).then(function(result) {
              $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
-                 
-                 scope.RazSocCli = result.data.Cliente.RazSocCli;
-                 scope.NumCifCli = result.data.Cliente.NumCifCli;
-                 scope.List_TarEle = result.data.TarEle;
+                
+                scope.fdatos = result.data.Propuesta;
+                scope.RazSocCli = result.data.Cliente.RazSocCli;
+                scope.NumCifCli = result.data.Cliente.NumCifCli;
+                scope.FecProCom = result.data.Propuesta.FecProCom;
+                scope.Fecha_Propuesta = scope.FecProCom;                
+                //scope.disabled_status = true;
+                scope.fdatos.tipo = $route.current.params.Tipo;
+                scope.List_Puntos_Suministros = result.data.Puntos_Suministros;
+                scope.List_Comercializadora = result.data.Comercializadoras;  
+                scope.List_TarEle = result.data.TarEle;
                  scope.List_TarGas = result.data.TarGas;
-                 scope.List_CUPsEle = result.data.CUPs_Electricos;
-                 scope.List_CUPs_Gas = result.data.CUPs_Gas;
-                 scope.List_Comercializadora = result.data.Comercializadoras;
-                 scope.FecProCom = result.data.Propuesta.FecProCom;
-                 scope.Fecha_Propuesta = scope.FecProCom;
-                 scope.fdatos = result.data.Propuesta;
-                 scope.fdatos.CodCli = result.data.CodCli;
-                 scope.fdatos.CodProComCli=result.data.CodProComCli;
-                 scope.disabled_status = true;
-                 scope.fdatos.tipo = $route.current.params.Tipo;
-                 scope.List_Puntos_Suministros = result.data.Puntos_Suministros;                 
-                 scope.BuscarDetallesCUPs(result.data.CodProComCli);                 
                 if( result.data.Propuesta.CodCom!=null)
                 {
                    scope.realizar_filtro(1, result.data.Propuesta.CodCom);
@@ -852,7 +866,9 @@
                 if( result.data.Propuesta.CodPro!=null)
                 {
                     scope.realizar_filtro(2, result.data.Propuesta.CodPro);
-                }
+                }   
+                scope.fdatos.CodCli = result.data.CodCli;
+                scope.fdatos.CodProComCli=result.data.CodProComCli;
                  if (scope.fdatos.EstProCom == "P") {
                      scope.fdatos.Apro = false;
                      scope.fdatos.Rech = false;
@@ -869,7 +885,8 @@
                      scope.fdatos.Apro = false;
                      scope.fdatos.Rech = true;
                      scope.fdatos.JusRecProCom = result.data.Propuesta.JusRecProCom;
-                 }
+                 } 
+                 scope.BuscarDetallesCUPs(result.data.CodProComCli); 
              } else {
                  scope.toast('error','Está propuesta no se encuentra registrada.','Error');
                  location.href = "#/Propuesta_Comercial";
@@ -888,8 +905,72 @@
                     }
 
          });
-         console.log(url);
+         //console.log(url);
 
+     }
+     scope.BuscarDetallesCUPs=function(CodProComCli)
+     {
+        var url = base_urlHome()+"api/PropuestaComercial/BuscarDetallesCUPsSencilla/CodProComCli/"+CodProComCli
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {                
+                if(result.data.length>0)
+                {
+                    scope.fdatos.CodPunSum=result.data[0].CodPunSum;
+                    scope.filter_DirPumSum(scope.fdatos.CodPunSum);
+                    angular.forEach(result.data, function(CUPs)
+                    {
+                        //scope.fdatos.CodPunSum=CUPs.CodPunSum;                        
+                        if(CUPs.TipCups==1)
+                        {
+                            scope.fdatos.CodCupSEle=CUPs.CodCup;
+                            scope.fdatos.CodTarEle=CUPs.CodTar;
+                            scope.filtrerCanPeriodos(scope.fdatos.CodTarEle)
+                            scope.fdatos.PotConP1=CUPs.PotEleConP1;
+                            scope.fdatos.PotConP2=CUPs.PotEleConP2;
+                            scope.fdatos.PotConP3=CUPs.PotEleConP3;
+                            scope.fdatos.PotConP4=CUPs.PotEleConP4;
+                            scope.fdatos.PotConP5=CUPs.PotEleConP5;
+                            scope.fdatos.PotConP6=CUPs.PotEleConP6;
+                            scope.fdatos.ImpAhoEle=CUPs.ImpAho;
+                            scope.fdatos.PorAhoEle=CUPs.PorAho;
+                            if(CUPs.RenCup==0){scope.fdatos.RenConEle=false;}
+                            else{scope.fdatos.RenConEle=true;}
+                            scope.fdatos.ConCupsEle=CUPs.ConCup;
+                            scope.fdatos.ObsAhoEle=CUPs.ObsAho;
+                        }
+                        if(CUPs.TipCups==2)
+                        {
+                            scope.fdatos.CodCupGas=CUPs.CodCup;
+                            scope.fdatos.CodTarGas=CUPs.CodTar;
+                            scope.fdatos.Consumo=CUPs.ConCup;
+                            scope.fdatos.CauDia=CUPs.CauDiaGas;
+                            scope.fdatos.ImpAhoGas=CUPs.ImpAho;
+                            scope.fdatos.PorAhoGas=CUPs.PorAho;
+                            if(CUPs.RenCup==0){scope.fdatos.RenConGas=false;}
+                            else{scope.fdatos.RenConGas=true;}                        
+                            scope.fdatos.ObsAhoGas=CUPs.ObsAho;
+                        }
+                    }); 
+                }            
+            }
+            else
+            {
+                scope.toast('error','No se encontraron CUPs Asignados a esta Propuesta Comercial','CUPs');
+            }
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+            }if (error.status == 403 && error.statusText == "Forbidden"){
+                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+            }
+        });
      }
     scope.LimpiarCUPs=function(metodo,CodCup)
     {
@@ -934,72 +1015,7 @@
      	
 
     }
-     scope.BuscarDetallesCUPs=function(CodProComCli)
-     {
-        var url = base_urlHome()+"api/PropuestaComercial/BuscarDetallesCUPsSencilla/CodProComCli/"+CodProComCli
-        $http.get(url).then(function(result)
-        {
-            if(result.data!=false)
-            {
-            	scope.fdatos.CodPunSum=result.data[0].CodPunSum;
-                scope.filter_DirPumSum(scope.fdatos.CodPunSum);
-
-
-                angular.forEach(result.data, function(CUPs)
-                {
-                    scope.fdatos.CodPunSum=CUPs.CodPunSum;
-                    
-                    if(CUPs.TipCups==1)
-                    {
-                        scope.fdatos.CodCupSEle=CUPs.CodCup;
-                        scope.fdatos.CodTarEle=CUPs.CodTar;
-                        scope.filtrerCanPeriodos(scope.fdatos.CodTarEle)
-                        scope.fdatos.PotConP1=CUPs.PotEleConP1;
-                        scope.fdatos.PotConP2=CUPs.PotEleConP2;
-                        scope.fdatos.PotConP3=CUPs.PotEleConP3;
-                        scope.fdatos.PotConP4=CUPs.PotEleConP4;
-                        scope.fdatos.PotConP5=CUPs.PotEleConP5;
-                        scope.fdatos.PotConP6=CUPs.PotEleConP6;
-                        scope.fdatos.ImpAhoEle=CUPs.ImpAho;
-                        scope.fdatos.PorAhoEle=CUPs.PorAho;
-                        if(CUPs.RenCup==0){scope.fdatos.RenConEle=false;}
-                        else{scope.fdatos.RenConEle=true;}
-                        scope.fdatos.ConCupsEle=CUPs.ConCup;
-                        scope.fdatos.ObsAhoEle=CUPs.ObsAho;
-                	}
-                	if(CUPs.TipCups==2)
-                    {
-                        scope.fdatos.CodCupGas=CUPs.CodCup;
-                        scope.fdatos.CodTarGas=CUPs.CodTar;
-                        scope.fdatos.Consumo=CUPs.ConCup;
-                        scope.fdatos.CauDia=CUPs.CauDiaGas;
-                        scope.fdatos.ImpAhoGas=CUPs.ImpAho;
-                        scope.fdatos.PorAhoGas=CUPs.PorAho;
-                        if(CUPs.RenCup==0){scope.fdatos.RenConGas=false;}
-                        else{scope.fdatos.RenConGas=true;}                        
-                        scope.fdatos.ObsAhoGas=CUPs.ObsAho;
-                	}
-                });
-
-                
-            }
-            else
-            {
-				scope.toast('error','No se encontraron CUPs Asignados a esta Propuesta Comercial','CUPs');
-            }
-        },function(error)
-        {
-            if (error.status == 404 && error.statusText == "Not Found"){
-                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
-            }if (error.status == 401 && error.statusText == "Unauthorized"){
-                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
-            }if (error.status == 403 && error.statusText == "Forbidden"){
-                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
-            }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
-            }
-        });
-     }
+     
      scope.BuscarXidCodProComReno = function() {
          $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
          var url = base_urlHome() + "api/PropuestaComercial/get_propuesta_renovacion_contrato/CodCli/" + scope.fdatos.CodCli + "/CodConCom/" + scope.CodConCom + "/CodProCom/" + scope.CodProCom;
@@ -1021,10 +1037,11 @@
                  scope.List_Puntos_Suministros = result.data.Puntos_Suministros;
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
                  scope.fdatos.CodPunSum = result.data.BuscarPropuesta.CodPunSum;
-                 scope.filter_DirPumSum(result.data.BuscarPropuesta.CodPunSum);
+                 //scope.filter_DirPumSum(result.data.BuscarPropuesta.CodPunSum);
                  scope.List_TarEle = result.data.TarEle;
                  scope.List_TarGas = result.data.TarGas;
-                 scope.fdatos.CodCupSEle = result.data.BuscarPropuesta.CodCupsEle;
+                 scope.BuscarDetallesCUPs(result.data.BuscarPropuesta.CodProComCli);
+                 /*scope.fdatos.CodCupSEle = result.data.BuscarPropuesta.CodCupsEle;
                  scope.fdatos.CodTarEle = result.data.BuscarPropuesta.CodTarEle;
                  scope.fdatos.PotConP1 = result.data.BuscarPropuesta.PotConP1;
                  scope.fdatos.PotConP2 = result.data.BuscarPropuesta.PotConP2;
@@ -1043,7 +1060,7 @@
                  scope.fdatos.ImpAhoGas = result.data.BuscarPropuesta.ImpAhoGas;
                  scope.fdatos.PorAhoGas = result.data.BuscarPropuesta.PorAhoGas;
                  scope.fdatos.RenConGas = true;
-                 scope.fdatos.ObsAhoGas = result.data.BuscarPropuesta.ObsAhoGas;
+                 scope.fdatos.ObsAhoGas = result.data.BuscarPropuesta.ObsAhoGas;*/
                  scope.List_Comercializadora = result.data.Comercializadora;
                  scope.fdatos.CodCom = result.data.BuscarPropuesta.CodCom;
                  if( result.data.BuscarPropuesta.CodCom!=null)
