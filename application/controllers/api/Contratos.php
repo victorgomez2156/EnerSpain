@@ -45,6 +45,10 @@ class Contratos extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
+		if($objSalida->metodo==1 && empty($consulta))
+		{
+			$consulta=$this->Clientes_model->getColaboradoressearch($objSalida->NumCifCli);
+		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
 		$this->response($consulta);
@@ -64,8 +68,16 @@ class Contratos extends REST_Controller
 		if (empty($Cliente))
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Número de CIF no Registrado.');
-			$this->response(false);
-			return false;
+			$tabla="T_Colaborador";
+			$where="NumIdeFis";	
+			$select='CodCol as CodCli,NumIdeFis as NumCifCli'; 
+			$Cliente = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);			
+			if(empty($Cliente))
+			{
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Número de CIF Colaborador no Registrado.');
+				$this->response(false);
+			    return false;
+			}
 		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');	
 		$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,1); 

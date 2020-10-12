@@ -109,9 +109,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     scope.fetchClientes = function(metodo) {
+        scope.fdatos.metodo=metodo;
         if (metodo == 1) {
             var searchText_len = scope.NumCifCli.trim().length;
             scope.fdatos.NumCifCli = scope.NumCifCli;
+
             if (searchText_len > 0) {
                 var url = base_urlHome() + "api/Contratos/getclientes";
                 $http.post(url, scope.fdatos).then(function(result) {

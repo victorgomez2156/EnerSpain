@@ -1100,6 +1100,15 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         else
         return false;
     }
+    public function getColaboradoressearch($SearchText)
+    {
+       
+       $sql = $this->db->query("SELECT CodCol as CodCli,NomCol as RazSocCli,NomCol as NomComCli,NumIdeFis as NumCifCli,TelFijCol as TelFijCli,EmaCol as EmaCli FROM T_Colaborador where NomCol like '%$SearchText%' or NomCol like '%$SearchText%' or NumIdeFis like '%$SearchText%' or EmaCol like '%$SearchText%' or CodCol like '%$SearchText%' ORDER BY NomCol ASC");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else
+        return false;
+    }
     public function getclientesColaboradoressearch($SearchText,$CodCli)
     {
        

@@ -50,8 +50,10 @@
          if(scope.fdatos.tipo=="renovar")
          {
             scope.fdatos.CodProCom=scope.CodProCom;
+             var title = '¿Estás seguro de renovar esta propuesta comercial?';
+             var loader = "Renovación";
          }
-         if (scope.fdatos.tipo == "nueva" || scope.fdatos.tipo == "renovar") {
+         if (scope.fdatos.tipo == "nueva") {
              var title = '¿Estás seguro de generar una nueva propuesta comercial?';
              var loader = "Guardando";
          }
@@ -73,19 +75,29 @@
                  $http.post(url, scope.fdatos).then(function(result) {
                      if (result.data != false) {
                          $("#" + loader).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        if (result.data.status == false && result.data.statusText == 'Error') {
-                             scope.toast('error',result.data.menssage,loader);
-                             location.href = "#/Propuesta_Comercial";
-                             return false;
-                        }
-                         if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') {
-                             scope.toast('success',result.data.menssage,loader);
-                             location.reload();
-                             return false;
-
+                        if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            location.href="#/Add_Contrato/"+result.data.objSalida.CodCli+"/nuevo";
+                            return false;
+                         }                         
+                         if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            return false;
                          }
+                         if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial Renovación') 
+                         {                            
+                            scope.toast('success',result.data.menssage,loader);
+                            location.href="#/Edit_Propuesta_Comercial_UniCliente/"+result.data.objSalida.CodProCom+"/editar";
+                            //location.reload();
+                            return false;
+                         }
+
                          scope.toast('success',"Propuesta Comercial generada correctamente bajo el número de referencia: " + result.data.RefProCom,'Propuesta Comercial');
-                         location.href = "#/Propuesta_Comercial";
+                         location.href="#/Edit_Propuesta_Comercial_UniCliente/"+result.data.CodProCom+"/editar";
+                         //location.href="#/Add_Contrato/"+result.data.CodCli+"/nuevo";
+                         //location.href = "#/Propuesta_Comercial";
                      } else {
                          scope.toast('error','Ha ocurrido un error, intente nuevamente.','');
                      }
