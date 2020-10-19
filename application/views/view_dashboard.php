@@ -272,16 +272,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div><!-- FINAL DIV SHOW DOM SOC DIST DOM FIS-->
           
 
-           <div class="col-12 col-sm-6">
+           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">  
-              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono </label>           
+              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>           
              <input type="email" class="form-control" id="TelFijCli" name="TelFijCli" ng-model="vm.response_customer.TelFijCli" readonly ng-click="vm.copyText(13)"/>     
              </div>
              </div>
           </div>
 
-           <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">  
+              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Movil</label>           
+             <input type="email" class="form-control" id="TelMovCli" name="TelMovCli" ng-model="vm.response_customer.TelMovCli" readonly ng-click="vm.copyText(13)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;"> Email</label>           

@@ -358,6 +358,13 @@
                      scope.FecIniCli = numero.substring(0, numero.length - 1);
              }
          }
+         if (metodo == 5) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([0-9])*$/.test(numero))
+                     scope.fdatos.TelMovCli = numero.substring(0, numero.length - 1);
+             }
+         }
 
 
      }
@@ -503,8 +510,15 @@
              }
          }
          if (scope.fdatos.TelFijCli == null || scope.fdatos.TelFijCli == undefined || scope.fdatos.TelFijCli == '') {
-             scope.toast('error','El Número de Teléfono es requerido','');
+             scope.toast('error','El Número de Teléfono Fijo es requerido','');
              return false;
+         }
+         if (scope.fdatos.TelMovCli == null || scope.fdatos.TelMovCli == undefined || scope.fdatos.TelMovCli == '') {
+             scope.fdatos.TelMovCli=null;
+         }
+         else
+         {
+            scope.fdatos.TelMovCli=scope.fdatos.TelMovCli;
          }
          if (scope.fdatos.EmaCli == null || scope.fdatos.EmaCli == undefined || scope.fdatos.EmaCli == '') {
              scope.toast('error','El Correo Electrónico es requerido','');

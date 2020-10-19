@@ -27,7 +27,7 @@ class Clientes_model extends CI_Model
             return false;
         }       
     }
-    public function agregar($BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$FecIniCli,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumCifCli,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$CPLocSoc,$CPLocFis)
+    public function agregar($BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$FecIniCli,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumCifCli,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$CPLocSoc,$CPLocFis,$TelMovCli)
     {
         $this->db->select('NumCifCli');
         $this->db->from('T_Cliente');
@@ -39,20 +39,20 @@ class Clientes_model extends CI_Model
         }
         else
         {
-            $this->db->insert('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'NumCifCli'=>$NumCifCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'FecIniCli'=>$FecIniCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis));
+            $this->db->insert('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'NumCifCli'=>$NumCifCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'FecIniCli'=>$FecIniCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis,'TelMovCli'=>$TelMovCli));
             return $this->db->insert_id();
         } 
     }
-    public function actualizar($CodCli,$BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$FecIniCli,$CPLocSoc,$CPLocFis)
+    public function actualizar($CodCli,$BloDomFis,$BloDomSoc,$CodCol,$CodCom,$CodLocFis,$CodLocSoc,$CodProFis,$CodProSoc,$CodSecCli,$CodTipCli,$CodTipViaFis,$CodTipViaSoc,$EmaCli,$EscDomFis,$EscDomSoc,$NomComCli,$NomViaDomFis,$NomViaDomSoc,$NumViaDomFis,$NumViaDomSoc,$ObsCli,$PlaDomFis,$PlaDomSoc,$PueDomFis,$PueDomSoc,$RazSocCli,$TelFijCli,$WebCli,$FecIniCli,$CPLocSoc,$CPLocFis,$TelMovCli)
     {   
         $this->db->where('CodCli', $CodCli);        
-        return $this->db->update('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'FecIniCli'=>$FecIniCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis));
+        return $this->db->update('T_Cliente',array('RazSocCli'=>$RazSocCli,'NomComCli'=>$NomComCli,'CodTipViaSoc'=>$CodTipViaSoc,'NomViaDomSoc'=>$NomViaDomSoc,'NumViaDomSoc'=>$NumViaDomSoc,'BloDomSoc'=>$BloDomSoc,'EscDomSoc'=>$EscDomSoc,'PlaDomSoc'=>$PlaDomSoc,'PueDomSoc'=>$PueDomSoc,'CodLocSoc'=>$CodLocSoc,'CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'BloDomFis'=>$BloDomFis,'EscDomFis'=>$EscDomFis,'PlaDomFis'=>$PlaDomFis,'PueDomFis'=>$PueDomFis,'CodLocFis'=>$CodLocFis,'TelFijCli'=>$TelFijCli,'EmaCli'=>$EmaCli,'WebCli'=>$WebCli,'CodTipCli'=>$CodTipCli,'CodSecCli'=>$CodSecCli,'CodCom'=>$CodCom,'CodCol'=>$CodCol,'ObsCli'=>$ObsCli,'FecIniCli'=>$FecIniCli,'CPLocSoc'=>$CPLocSoc,'CPLocFis'=>$CPLocFis,'TelMovCli'=>$TelMovCli));
     }
 public function get_data_cliente($CodCli)
 {
     $sql = $this->db->query("SELECT a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,CONCAT(d.IniTipVia,' - ',d.DesTipVia,' ',a.NomViaDomSoc,' ',a.NumViaDomSoc) AS DomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,b.DesLoc as DesLocSoc,c.DesPro as DesProSoc,a.CodLocSoc,b.CodPro,a.CPLocSoc as CPLocSoc,
         CONCAT(g.IniTipVia,' - ',g.DesTipVia,' ',a.NomViaDomFis,' ',a.NumViaDomFis) AS DomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,
-        e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli
+        e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli,a.TelMovCli
         FROM T_Cliente a 
         JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
         JOIN T_Provincia c on b.CodPro=c.CodPro

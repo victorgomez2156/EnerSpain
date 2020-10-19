@@ -16,7 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
   #sinbordeAJUST {
     border: 0;
-	background: inherit;
+	background: inherit ;
 	background-color:transparent;
   }
 </style>

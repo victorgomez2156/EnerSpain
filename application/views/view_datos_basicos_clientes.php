@@ -328,15 +328,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
-
-
-
+       <div class="col-12 col-sm-4">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo<b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCli" ng-change="vm.validar_fecha_blo(2,vm.fdatos.TelFijCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
+       </div>
+       </div>
+       </div>
 
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCli" ng-change="vm.validar_fecha_blo(2,vm.fdatos.TelFijCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil<b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.TelMovCli" ng-change="vm.validar_fecha_blo(5,vm.fdatos.TelMovCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>

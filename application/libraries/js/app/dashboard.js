@@ -201,6 +201,7 @@
                  scope.response_customer.CPLocFis = result.data.customer.CodLocFis;
 
                 scope.response_customer.TelFijCli = result.data.customer.TelFijCli;
+                scope.response_customer.TelMovCli = result.data.customer.TelMovCli;
                 scope.response_customer.EmaCli = result.data.customer.EmaCli;
 
                 if(result.data.CUPs_Electricos.length>0)
