@@ -3,7 +3,7 @@
         <div class="icon-reorder tooltips" data-original-title="Menu Principal" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
       <!--logo start-->
-      <a class="logo"><img src="<?php echo ESTILOS;?>img/logo_web_desktop.png" style="width: 220px; height:50px;"></a>
+      <a class="logo"><img src="<?php echo ESTILOS;?>img/logo_web_desktop.png" style="height:50px"></a>
       <!--logo end-->
        <!--  search form start -->
       <!--div class="nav search-row" id="top_menu">       
