@@ -696,18 +696,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- modal container section start -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_detalles_CUPs" class="modal fade">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             <h4 class="modal-title">Detalles de CUPs {{vm.ModalTipServ}}</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="background-color: white;">
                         <div class="panel">                  
     <form class="form-validate" id="frmFormDetalles" name="frmFormDetalles" ng-submit="SubmitFormDetalles($event)">                 
      
      <div class="row">
-     <div class="col-12 col-sm-6">
+     <div class="col-12" style="margin-left: 15px; margin-right: 15px;">
      <div class="form">                          
      <div class="form-group">
       <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
@@ -716,7 +716,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
 
-     <div class="col-12 col-sm-6">
+     <div class="col-12" style="margin-left: 15px; margin-right: 15px;">
      <div class="form">                          
      <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;">Dirección Suministro</label>
