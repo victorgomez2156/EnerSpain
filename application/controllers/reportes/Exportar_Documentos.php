@@ -12078,13 +12078,15 @@ class Exportar_Documentos extends CI_Controller
             echo 'Error debe seleccionar una propuesta comercial.';
             return false;
         }
-        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
-        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom,1);
         if($PropuestaComercial==false)
         {
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
+        //var_dump($PropuestaComercial);
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
+       
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial Sencilla '.date('d/m/Y'));
@@ -13717,16 +13719,13 @@ class Exportar_Documentos extends CI_Controller
             echo 'Error debe seleccionar una propuesta comercial.';
             return false;
         }
-        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
-        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
-        //var_dump($PropuestaComercialCUPs);
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom,2);
         if($PropuestaComercial==false)
         {
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
-        //var_dump($PropuestaComercial);
-
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial UniCliente-MultiPunto '.date('d/m/Y'));
@@ -13877,14 +13876,15 @@ class Exportar_Documentos extends CI_Controller
             echo 'Error debe seleccionar una propuesta comercial.';
             return false;
         }
-        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom);
-        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
-        //var_dump($PropuestaComercialCUPs);
+        $PropuestaComercial=$this->Reportes_model->PropuestaComercial($CodProCom,3);
         if($PropuestaComercial==false)
         {
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
+        //var_dump($PropuestaComercialCUPs);
+       
         //var_dump($PropuestaComercial);
 
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);

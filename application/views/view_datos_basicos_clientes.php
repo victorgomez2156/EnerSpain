@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio <b style="color:red;">DD/MM/YYYY</b></label>       
         <div class="input-append date" id="dpYears" data-date="18-06-2013" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-          <input class="form-control datepicker" size="16" type="text" placeholder="mm/dd/yyyy" name="FecIniCli" id="FecIniCli" ng-model="vm.FecIniCli" maxlength="10" ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_fecha_blo(4,vm.FecIniCli)">      
+          <input class="form-control datepicker" size="16" type="text" placeholder="mm/dd/yyyy" name="FecIniCli" id="FecIniCli" ng-model="vm.FecIniCli" maxlength="10" ng-disabled="vm.validate_info!=undefined || vm.fdatos.CodCli==undefined" ng-change="vm.validar_fecha_blo(4,vm.FecIniCli)">      
       </div>
       
        </div>
@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.RazSocCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Razón Social del Cliente" maxlength="50" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_a_nombre_comercial()"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.RazSocCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Razón Social del Cliente" maxlength="150" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_a_nombre_comercial()"/>       
        </div>
        </div>
        </div>
@@ -85,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Comercial <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.NomComCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Razón Social del Cliente" maxlength="50" ng-disabled="vm.fdatos.misma_razon==false || vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.NomComCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Razón Social del Cliente" maxlength="150" ng-disabled="vm.fdatos.misma_razon==false || vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomSoc" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30"  ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomSoc" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
@@ -331,7 +331,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo<b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo <b style="color:red;">(*)</b></label>
        <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCli" ng-change="vm.validar_fecha_blo(2,vm.fdatos.TelFijCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
@@ -340,7 +340,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil<b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil</label>
        <input type="text" class="form-control" ng-model="vm.fdatos.TelMovCli" ng-change="vm.validar_fecha_blo(5,vm.fdatos.TelMovCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
@@ -349,18 +349,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" id="EmaCli" ng-model="vm.fdatos.EmaCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Correo Electrónico del Cliente" maxlength="50"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email()"/>
-       <span id="emailOK"></span>       
+       <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b> <span id="emailOK" style="color:red;"></span></label>
+       <input type="text" class="form-control" id="EmaCli" ng-model="vm.fdatos.EmaCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(1)"/>
+              
        </div>
        </div>
        </div>
 
-       <div class="col-12 col-sm-4">
+       <div class="col-12 col-sm-6">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Email Opcional <span id="emailOKOpc" style="color:red;"></span></label>
+       <input type="text" class="form-control" id="EmaCliOpc" ng-model="vm.fdatos.EmaCliOpc" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(2)"/>
+              
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Página Web</label>
-       <input type="url" class="form-control" ng-model="vm.fdatos.WebCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Pagina Web del Cliente" maxlength="50"  ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="url" class="form-control" ng-model="vm.fdatos.WebCli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Pagina Web del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>

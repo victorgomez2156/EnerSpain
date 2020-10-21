@@ -44,7 +44,7 @@
 
  function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceMaster, upload) {
      var scope = this;
-     scope.fdatos = {};
+     scope.tContacto_data_modal = {};
      scope.tContacto_data_modal = {};
      scope.nID = $route.current.params.ID;
      scope.no_editable = $route.current.params.INF;
@@ -598,8 +598,10 @@
          $http.get(url).then(function(result) {
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
-                 scope.tContacto_data_modal = result.data;
-                 scope.CodCliContacto=result.data.NumCifCli;
+                scope.tContacto_data_modal = result.data;
+                scope.CodCliContacto=result.data.NumCifCli;               
+                scope.BuscarLocalidad(1,result.data.CodProSoc);          
+                 
                  if(result.data.ConPrin==null ||result.data.ConPrin==0)
                  {
                     scope.tContacto_data_modal.ConPrin=false;
@@ -694,6 +696,7 @@
              var title = 'Guardando';
              var text = '¿Seguro que desea registrar el Contacto??';
          }
+         console.log(scope.tContacto_data_modal);
          Swal.fire({
              title: text,
              type: "question",
@@ -750,6 +753,26 @@
              scope.toast('error','Seleccione un Cliente','');
              return false;
          }
+         if (!scope.tContacto_data_modal.CodTipViaSoc > 0) {
+             scope.toast('error','Seleccione un Tipo de Vía para el Domicilio Social','');
+             return false;
+         }
+         if (scope.tContacto_data_modal.NomViaDomSoc == null || scope.tContacto_data_modal.NomViaDomSoc == undefined || scope.tContacto_data_modal.NomViaDomSoc == '') {
+             scope.toast('error','El Nombre de la Vía es requerido','');
+             return false;
+         }
+         if (scope.tContacto_data_modal.NumViaDomSoc == null || scope.tContacto_data_modal.NumViaDomSoc == undefined || scope.tContacto_data_modal.NumViaDomSoc == '') {
+             scope.toast('error','El Número de la Vía es requerido','');
+             return false;
+         }
+         if (!scope.tContacto_data_modal.CodProSoc > 0) {
+             scope.toast('error','Seleccione una Provincia para el Domicilio Social','');
+             return false;
+         }
+         if (!scope.tContacto_data_modal.CodLocSoc > 0) {
+             scope.toast('error','Seleccione una Localidad para el Domicilio Social','');
+             return false;
+         }
          if (!scope.tContacto_data_modal.CodTipCon > 0) {
              scope.toast('error','Seleccione un Tipo de Contacto','');
              return false;
@@ -767,8 +790,11 @@
              return false;
          }
          if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
-             scope.toast('error','El Teléfono Móvil del Contacto es requerido','');
-             return false;
+             scope.tContacto_data_modal.TelCelConCli=null;             
+         }
+         else
+         {scope.tContacto_data_modal.TelCelConCli=scope.tContacto_data_modal.TelCelConCli;
+
          }
          if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
              scope.toast('error','El Email del Contacto es requerido','');
@@ -789,8 +815,11 @@
                  return false;
              }
              if (scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == null) {
-                scope.toast('error','Seleccione Documento de Identidad','');
-                 return false;
+                scope.tContacto_data_modal.DocNIF=null;
+             }
+             else
+             {
+                scope.tContacto_data_modal.DocNIF=scope.tContacto_data_modal.DocNIF;
              }
 
          }
@@ -833,6 +862,33 @@
              scope.tContacto_data_modal.DocNIF = null;
          } else {
              scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
+         }
+
+         if (scope.tContacto_data_modal.BloDomSoc == null || scope.tContacto_data_modal.BloDomSoc == undefined || scope.tContacto_data_modal.BloDomSoc == '') {
+             scope.tContacto_data_modal.BloDomSoc = null;
+         } else {
+             scope.tContacto_data_modal.BloDomSoc = scope.tContacto_data_modal.BloDomSoc;
+         }
+         if (scope.tContacto_data_modal.EscDomSoc == null || scope.tContacto_data_modal.EscDomSoc == undefined || scope.tContacto_data_modal.EscDomSoc == '') {
+             scope.tContacto_data_modal.EscDomSoc = null;
+         } else {
+             scope.tContacto_data_modal.EscDomSoc = scope.tContacto_data_modal.EscDomSoc;
+         }
+
+         if (scope.tContacto_data_modal.PlaDomSoc == null || scope.tContacto_data_modal.PlaDomSoc == undefined || scope.tContacto_data_modal.PlaDomSoc == '') {
+             scope.tContacto_data_modal.PlaDomSoc = null;
+         } else {
+             scope.tContacto_data_modal.PlaDomSoc = scope.tContacto_data_modal.PlaDomSoc;
+         }
+         if (scope.tContacto_data_modal.PueDomSoc == null || scope.tContacto_data_modal.PueDomSoc == undefined || scope.tContacto_data_modal.PueDomSoc == '') {
+             scope.tContacto_data_modal.PueDomSoc = null;
+         } else {
+             scope.tContacto_data_modal.PueDomSoc = scope.tContacto_data_modal.PueDomSoc;
+         }
+         if (scope.tContacto_data_modal.CPLocSoc == null || scope.tContacto_data_modal.CPLocSoc == undefined || scope.tContacto_data_modal.CPLocSoc == '') {
+             scope.tContacto_data_modal.CPLocSoc = null;
+         } else {
+             scope.tContacto_data_modal.CPLocSoc = scope.tContacto_data_modal.CPLocSoc;
          }
 
 
@@ -970,14 +1026,26 @@
              }
 
          }
-         scope.cargar_tiposContactos=function()
+         scope.cargar_tiposContactos=function(metodo)
          {
-           var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+9;
+           var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+metodo;
            $http.get(url).then(function (result)
            {
             if(result.data)
             {
-                scope.tListaContactos=result.data;
+                if(metodo==9)
+                {
+                    scope.tListaContactos=result.data;
+                }
+                else if(metodo==3)
+                {
+                    scope.tProvidencias=result.data;
+                }
+                else if(metodo==12)
+                {   
+                    scope.tTiposVias=result.data;
+                    
+                }                
             }
             else
             {
@@ -1007,8 +1075,20 @@
                  }
     scope.setValue = function(index, $event, result) 
     {
+        
         scope.CodCliContacto = scope.searchResult[index].NumCifCli;
         scope.tContacto_data_modal.CodCli= scope.searchResult[index].CodCli;
+        scope.tContacto_data_modal.CodTipViaSoc=scope.searchResult[index].CodTipViaSoc1;
+        scope.tContacto_data_modal.NomViaDomSoc=scope.searchResult[index].NomViaDomSoc;
+        scope.tContacto_data_modal.NumViaDomSoc=scope.searchResult[index].NumViaDomSoc;
+        scope.tContacto_data_modal.BloDomSoc=scope.searchResult[index].BloDomSoc;
+        scope.tContacto_data_modal.EscDomSoc=scope.searchResult[index].EscDomSoc;
+        scope.tContacto_data_modal.PlaDomSoc=scope.searchResult[index].PlaDomSoc;
+        scope.tContacto_data_modal.PueDomSoc=scope.searchResult[index].PueDomSoc;
+        scope.BuscarLocalidad(1,scope.searchResult[index].CodProSoc2);
+        scope.tContacto_data_modal.CodProSoc=scope.searchResult[index].CodProSoc2;
+        scope.tContacto_data_modal.CodLocSoc=scope.searchResult[index].CodLocSoc1;
+        scope.tContacto_data_modal.CPLocSoc=scope.searchResult[index].CPLocSoc;
         scope.searchResult = {};
         $event.stopPropagation(); 
 
@@ -1016,10 +1096,10 @@
            scope.fetchClientes = function() {
             
                  var searchText_len = scope.CodCliContacto.trim().length;
-                 scope.fdatos.filtrar_clientes = scope.CodCliContacto;
+                 scope.tContacto_data_modal.filtrar_clientes = scope.CodCliContacto;
                  if (searchText_len > 0) {
                      var url = base_urlHome() + "api/Clientes/getClientesFilter";
-                     $http.post(url, scope.fdatos).then(function(result) {
+                     $http.post(url, scope.tContacto_data_modal).then(function(result) {
                              //console.log(result);
                              if (result.data != false) {
                                  scope.searchResult = result.data;
@@ -1050,10 +1130,10 @@
                  scope.FetchContactos = function() {
             
                  var searchText_len = scope.filtrar_search.trim().length;
-                 scope.fdatos.filtrar_search = scope.filtrar_search;
+                 scope.tContacto_data_modal.filtrar_search = scope.filtrar_search;
                  if (searchText_len > 0) {
                      var url = base_urlHome() + "api/Clientes/getContactosFilter";
-                     $http.post(url, scope.fdatos).then(function(result) {
+                     $http.post(url, scope.tContacto_data_modal).then(function(result) {
                              //console.log(result);
                              if (result.data != false) {
                                  $scope.predicate4 = 'id';
@@ -1073,8 +1153,8 @@
                                          index4 = scope.Tabla_Contacto.indexOf(value4);
                                          return (begin4 <= index4 && index4 < end4);
                                      };
-                                    scope.ruta_reportes_pdf_Contactos = 5 + "/" + scope.fdatos.filtrar_search;
-                                    scope.ruta_reportes_excel_Contactos = 5 + "/" + scope.fdatos.filtrar_search;
+                                    scope.ruta_reportes_pdf_Contactos = 5 + "/" + scope.tContacto_data_modal.filtrar_search;
+                                    scope.ruta_reportes_excel_Contactos = 5 + "/" + scope.tContacto_data_modal.filtrar_search;
                                  //console.log(scope.searchResult);
                              
 
@@ -1203,6 +1283,33 @@
                 }
             });
         }        
+    }
+    scope.BuscarLocalidad=function(metodo,CodPro)
+    {   
+        var url = base_urlHome()+"api/Clientes/BuscarLocalidadesFil/CodPro/"+CodPro;
+        $http.get(url).then (function(result)
+        {
+                if(result.data!=false)
+                {
+                    scope.TLocalidadesfiltrada=result.data;
+                }
+                else
+                {
+                   scope.toast('error','No hemos encontrado Localidades asignada a esta Provincia','Error');
+                   scope.TLocalidadesfiltrada=[];
+                }
+            },function(error)
+            {
+                                        if (error.status == 404 && error.statusText == "Not Found"){
+                                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                                        }
+            });
     }
                  var i = -1;
         var toastCount = 0;
@@ -1336,13 +1443,19 @@
         $('#cleartoasts').click(function () {
             toastr.clear();
         });
+     
+
      if (scope.nID != undefined) {
          scope.BuscarXIDContactos();
-         scope.cargar_tiposContactos();
+         scope.cargar_tiposContactos(9);
+         scope.cargar_tiposContactos(3);
+         scope.cargar_tiposContactos(12);
      }
      else
      {
-         scope.cargar_tiposContactos();
+         scope.cargar_tiposContactos(9);
+         scope.cargar_tiposContactos(3);
+         scope.cargar_tiposContactos(12);
      }
      if($route.current.$$route.originalPath=="/Contactos/")
      {

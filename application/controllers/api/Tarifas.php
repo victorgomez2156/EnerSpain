@@ -103,13 +103,45 @@ class Tarifas extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
-    ////PARA LAS TARIFAS ELECTRICAS END///////
+    /////////////////////////////////////////////////////////PARA LAS TARIFAS ELECTRICAS END ////////////////////////////////////////
+
+	public function ActBloTar_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        
+        $CodTar=$this->get('CodTar');
+        $TipTar=$this->get('TipTar');
+        $EstTar=$this->get('EstTar');
+        if($TipTar==1)
+        {
+        	$Tabla="T_TarifaElectrica";
+        	$ColEstTar="EstTarEle";
+        	$where="CodTarEle";
+        	$response = $this->Tarifas_model->UpdateEstTar($CodTar,$Tabla,$ColEstTar,$where,$EstTar);
+        	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','UPDATE',$CodTar,$this->input->ip_address(),'Cambiando Estatus de Tárifa Eléctrica');
+
+        }
+        elseif ($TipTar==2) {
+        	$Tabla="T_TarifaGas";
+        	$ColEstTar="EstTarGas";
+        	$where="CodTarGas";
+        	$response = $this->Tarifas_model->UpdateEstTar($CodTar,$Tabla,$ColEstTar,$where,$EstTar);
+        	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','UPDATE',$CodTar,$this->input->ip_address(),'Cambiando Estatus de Tárifa Gas');
+        }
+        else{
+        	$response=false;
+        }
+		$this->response($response);
+
+	}
 
 
 
-
-
-    /////////////////////////////////////////PARA LAS TARIFAS GAS START////////////////////////////
+    				/////////////////////////////////////////PARA LAS TARIFAS GAS START////////////////////////////
     public function get_list_tarifa_Gas_get()
     {
 		$datausuario=$this->session->all_userdata();	

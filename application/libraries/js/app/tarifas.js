@@ -25,6 +25,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.CanPerTar = true;
     scope.MinPotCon = true;
     scope.MaxPotCom = true;
+    scope.EstTarEle = true;
     scope.AccTarElec = true;
 
     scope.TVistaTarGas = 1;
@@ -35,8 +36,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.NomTarGas = true;
     scope.MinConAnu = true;
     scope.MaxConAnu = true;
+    scope.EstTarGas = true;
     scope.AccTarGas = true;
-    scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }];
+    scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id:3, nombre: 'Activar' }, { id: 4, nombre: 'Bloquear' }];
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -194,9 +196,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(index);
         console.log(opciones_TarEle);
         console.log(dato);
-        if (opciones_TarEle == 1) {
-
-            scope.opciones_TarEle[index] = undefined;
+        scope.opciones_TarEle[index] = undefined;
+        if (opciones_TarEle == 1) {           
             scope.fdatos_tar_elec = dato;
             scope.TVistaTarEle = 2;
             scope.disabled_form_TarEle = 1;
@@ -207,7 +208,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         if (opciones_TarEle == 2) {
-            scope.opciones_TarEle[index] = undefined;
             scope.fdatos_tar_elec = dato;
             scope.TVistaTarEle = 2;
             scope.disabled_form_TarEle = undefined;
@@ -216,6 +216,78 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             } else {
                 scope.fdatos_tar_elec.TipTen = "1";
             }
+        }
+        if(opciones_TarEle==3)
+        {
+            if (dato.EstTarEle == 1){
+                 scope.toast('error','Está Tárifa ya se encuentra activa.','');
+                 return false;
+            }
+            $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
+            var url = base_urlHome()+"api/Tarifas/ActBloTar/CodTar/"+dato.CodTarEle+"/TipTar/"+1+"/EstTar/"+1;
+            $http.get(url).then(function(result)
+            {
+                $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+                if(result.data!=false)
+                {
+                    scope.toast('success','Tárifa Eléctrica Activada Correctamente.','');
+                    scope.cargar_lista_Tarifa_Electrica();
+                } 
+                else
+                {
+                    scope.toast('error','Error al intentar Activar la Tárifa Eléctrica.','');
+                    scope.cargar_lista_Tarifa_Electrica();
+                }
+            },function(error)
+            {
+                        $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );                        
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+
+            });
+        }
+        if(opciones_TarEle==4)
+        {
+            if (dato.EstTarEle == 2) {
+                 scope.toast('error','Está Tárifa ya se encuentra bloqueada.','');
+                 return false;
+             }
+            $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
+            var url = base_urlHome()+"api/Tarifas/ActBloTar/CodTar/"+dato.CodTarEle+"/TipTar/"+1+"/EstTar/"+2;
+            $http.get(url).then(function(result)
+            {
+                $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+                if(result.data!=false)
+                {
+                    scope.toast('success','Tárifa Eléctrica Bloqueada Correctamente.','');
+                    scope.cargar_lista_Tarifa_Electrica();
+                } 
+                else
+                {
+                    scope.toast('error','Error al intentar Bloquear la Tárifa Eléctrica.','');
+                    scope.cargar_lista_Tarifa_Electrica();
+                }
+            },function(error)
+            {
+                        $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );                        
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+
+            });
         }
     }
     scope.agregar_tarifa_electrica = function() {
@@ -586,18 +658,90 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         console.log(index);
         console.log(opciones_TarGas);
         console.log(dato);
+        scope.opciones_TarGas[index] = undefined;
+           
         if (opciones_TarGas == 1) {
-            scope.opciones_TarGas[index] = undefined;
-            scope.fdatos_tar_gas = dato;
+           scope.fdatos_tar_gas = dato;
             scope.TVistaTarGas = 2;
             scope.disabled_form_TarGas = 1;
 
         }
         if (opciones_TarGas == 2) {
-            scope.opciones_TarGas[index] = undefined;
             scope.fdatos_tar_gas = dato;
             scope.TVistaTarGas = 2;
             scope.disabled_form_TarGas = undefined;
+        }
+        if(opciones_TarGas==3)
+        {
+            if (dato.EstTarGas == 1){
+                 scope.toast('error','Está Tárifa ya se encuentra activa.','');
+                 return false;
+            }
+            $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
+            var url = base_urlHome()+"api/Tarifas/ActBloTar/CodTar/"+dato.CodTarGas+"/TipTar/"+2+"/EstTar/"+1;
+            $http.get(url).then(function(result)
+            {
+                $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+                if(result.data!=false)
+                {
+                    scope.toast('success','Tárifa Gas Activada Correctamente.','');
+                    scope.cargar_lista_Tarifa_Gas();
+                } 
+                else
+                {
+                    scope.toast('error','Error al intentar Activar la Tárifa Gas.','');
+                    scope.cargar_lista_Tarifa_Gas();
+                }
+            },function(error)
+            {
+                        $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );                        
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+
+            });
+        }
+        if(opciones_TarGas==4)
+        {
+            if (dato.EstTarGas == 2) {
+                 scope.toast('error','Está Tárifa ya se encuentra bloqueada.','');
+                 return false;
+             }
+            $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
+            var url = base_urlHome()+"api/Tarifas/ActBloTar/CodTar/"+dato.CodTarGas+"/TipTar/"+2+"/EstTar/"+2;
+            $http.get(url).then(function(result)
+            {
+                $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+                if(result.data!=false)
+                {
+                    scope.toast('success','Tárifa Gas Bloqueada Correctamente.','');
+                    scope.cargar_lista_Tarifa_Gas();
+                } 
+                else
+                {
+                    scope.toast('error','Error al intentar Bloquear la Tárifa Gas.','');
+                    scope.cargar_lista_Tarifa_Gas();
+                }
+            },function(error)
+            {
+                        $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );                        
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+
+            });
         }
     }
     scope.agg_TarGas = function() {

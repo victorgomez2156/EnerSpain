@@ -133,6 +133,22 @@ class Propuesta_model extends CI_Model
         else
         return false;              
     }
+    public function get_Tarifas_Act($Tabla,$Select_Tarifa,$EstTar,$order_by) 
+    {
+        $this->db->select($Select_Tarifa,FALSE);
+        $this->db->from($Tabla);
+        $this->db->where($EstTar,1); 
+        $this->db->order_by($order_by);              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
     public function Tarifas($Tabla,$order_by)
     {
         $this->db->select('*',false);

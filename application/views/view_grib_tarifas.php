@@ -127,6 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.CanPerTar"/> <b style="color:black;">PERIODOS</b></li></li>
                         <li><input type="checkbox" ng-model="vm.MinPotCon"/> <b style="color:black;">POTENCIA MÍNIMA</b></li>
                         <li><input type="checkbox" ng-model="vm.MaxPotCom"/> <b style="color:black;">POTENCIA MÁXIMA</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstTarEle"/> <b style="color:black;">ESTATUS</b></li>
                         <li><input type="checkbox" ng-model="vm.AccTarElec"/> <b style="color:black;">ACCIÓN</b></li>
                       </ul> 
                     </div>
@@ -165,6 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.CanPerTar==true">Períodos</th>
                     <th ng-show="vm.MinPotCon==true">Mínimo Potencia</th>
                     <th ng-show="vm.MaxPotCom==true">Máximo Potencia</th> 
+                    <th ng-show="vm.EstTarEle==true">Estatus</th> 
                     <th ng-show="vm.AccTarElec==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.T_TarifasEle.length==0"> 
@@ -176,6 +178,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CanPerTar==true">{{dato.CanPerTar}}</td>
                     <td ng-show="vm.MinPotCon==true">{{dato.MinPotCon}} kw</td>
                     <td ng-show="vm.MaxPotCom==true">{{dato.MaxPotCon}} kw</td>                    
+                    <td>
+                      <span class="label label-info" ng-show="dato.EstTarEle==1"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstTarEle==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                    </td>
                     <td ng-show="vm.AccTarElec==true"> 
                          <select class="form-control" id="opciones_TarEle" name="opciones_TarEle" ng-model="vm.opciones_TarEle[$index]" ng-change="vm.validar_opcion_TarEle($index,vm.opciones_TarEle[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
@@ -189,6 +195,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.CanPerTar==true">Períodos</th>
                     <th ng-show="vm.MinPotCon==true">Mínimo Potencia</th>
                     <th ng-show="vm.MaxPotCom==true">Máximo Potencia</th> 
+                    <th ng-show="vm.EstTarEle==true">Estatus</th> 
                     <th ng-show="vm.AccTarElec==true">Acción</th>
                 </tfoot>
               </table>
@@ -337,6 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.NomTarGas"/> <b style="color:black;">Tarifa</b></li></li>
                         <li><input type="checkbox" ng-model="vm.MinConAnu"/> <b style="color:black;">Consumo Mínimo</b></li></li>
                         <li><input type="checkbox" ng-model="vm.MaxConAnu"/> <b style="color:black;">Consumo Máximo</b></li>
+                        <li><input type="checkbox" ng-model="vm.EstTarGas"/> <b style="color:black;">Estatus</b></li>
                         <li><input type="checkbox" ng-model="vm.AccTarGas"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>
@@ -370,6 +378,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
                     <th ng-show="vm.MinConAnu==true">Mínimo Consumo Anual</th>
                     <th ng-show="vm.MaxConAnu==true">Máximo Consumo Anual</th> 
+                    <th ng-show="vm.EstTarGas==true">Estatus</th>
                     <th ng-show="vm.AccTarGas==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.T_TarifasGas.length==0"> 
@@ -380,6 +389,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.NomTarGas==true">{{dato.NomTarGas}}</td>
                     <td ng-show="vm.MinConAnu==true">{{dato.MinConAnu}} kWh</td>
                     <td ng-show="vm.MaxConAnu==true">{{dato.MaxConAnu}} kWh</td>                    
+                    <td>
+                      <span class="label label-info" ng-show="dato.EstTarGas==1"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstTarGas==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                    </td>
+
                     <td ng-show="vm.AccTarGas==true"> 
                       <select class="form-control" id="opciones_TarGas" name="opciones_TarGas" ng-model="vm.opciones_TarGas[$index]" ng-change="vm.validar_opcion_TarGas($index,vm.opciones_TarGas[$index],dato)">
                           <option ng-repeat="opcion in vm.topciones" value="{{opcion.id}}">{{opcion.nombre}}</option>                          
@@ -391,6 +405,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.NomTarGas==true">Nomenclatura</th>
                     <th ng-show="vm.MinConAnu==true">Mínimo Consumo Anual</th>
                     <th ng-show="vm.MaxConAnu==true">Máximo Consumo Anual</th> 
+                    <th ng-show="vm.EstTarGas==true">Estatus</th>
                     <th ng-show="vm.AccTarGas==true">Acción</th>
                 </tfoot>
               </table>

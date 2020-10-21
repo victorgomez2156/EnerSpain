@@ -203,6 +203,7 @@
                 scope.response_customer.TelFijCli = result.data.customer.TelFijCli;
                 scope.response_customer.TelMovCli = result.data.customer.TelMovCli;
                 scope.response_customer.EmaCli = result.data.customer.EmaCli;
+                 scope.response_customer.EmaCliOpc = result.data.customer.EmaCliOpc;
 
                 if(result.data.CUPs_Electricos.length>0)
                 {
@@ -587,6 +588,32 @@
              }
              setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
         }*/
+        if (metodo == 20) {
+             var TelMovCli = document.getElementById("TelMovCli");
+             var contenedor = document.getElementById("xcontainer");
+             TelMovCli.select();
+             try {
+                 var successful = document.execCommand('copy');
+                 if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+                 else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+             } catch (err) {
+                 contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+             }
+             setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
+         }
+         if (metodo == 21) {
+             var EmaCliOpc = document.getElementById("EmaCliOpc");
+             var contenedor = document.getElementById("xcontainer");
+             EmaCliOpc.select();
+             try {
+                 var successful = document.execCommand('copy');
+                 if (successful) contenedor.innerHTML = '<span class="label label-success"><i class="fa fa-check-circle"></i> Copiado!</span>';
+                 else contenedor.innerHTML = '<span class="label label-warning"><i class="fa fa-ban"></i> Incapaz de copiar!</span>';
+             } catch (err) {
+                 contenedor.innerHTML = '<span class="label label-danger"><i class="fa fa-ban"></i> Browser no soportado!</span>';
+             }
+             setTimeout(function() { contenedor.innerHTML = ''; }, 3000);
+         }
      }
      scope.copyTextArray = function(metodo, index) {
          if (metodo == 1) {

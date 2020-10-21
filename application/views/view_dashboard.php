@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <!--Dashboard start -->
         <div class="row" style="margin-top: 20px;">
           
-          <div class="col-md-6 portlets" style="padding-left: 5px; padding-right: 5px;">
+          <div class="col-md-6 portlets">
             <!-- View Information -->
             <div class="panel panel-default">
               <div class="panel-body" ng-click='vm.containerClicked()'>
@@ -272,7 +272,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div><!-- FINAL DIV SHOW DOM SOC DIST DOM FIS-->
           
 
-           <div class="col-12 col-sm-4">
+           <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>           
@@ -281,20 +281,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Movil</label>           
-             <input type="email" class="form-control" id="TelMovCli" name="TelMovCli" ng-model="vm.response_customer.TelMovCli" readonly ng-click="vm.copyText(13)"/>     
+             <input type="email" class="form-control" id="TelMovCli" name="TelMovCli" ng-model="vm.response_customer.TelMovCli" readonly ng-click="vm.copyText(20)"/>     
              </div>
              </div>
           </div>
 
-           <div class="col-12 col-sm-4">
+           <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;"> Email</label>           
              <input type="email" class="form-control" id="EmaCli" name="EmaCli" ng-model="vm.response_customer.EmaCli" readonly ng-click="vm.copyText(14)"/>     
+             </div>
+             </div>
+          </div> 
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">  
+              <label class="font-weight-bold nexa-dark" style="color:black;"> Email Opcional</label>           
+             <input type="email" class="form-control" id="EmaCliOpc" name="EmaCliOpc" ng-model="vm.response_customer.EmaCliOpc" readonly ng-click="vm.copyText(21)"/>     
              </div>
              </div>
           </div> 
@@ -355,7 +364,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 
-  <div class="col-md-6 portlets" style="padding-left: 5px; padding-right: 5px;">
+  <div class="col-md-6 portlets">
             <!-- View Information -->
             <div class="panel panel-default">
               
@@ -379,10 +388,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th style="width: 207px;">CUPS</th>
+                  <th>CUPS</th>
                   <th>Dirección de Suministro</th>
-                  <th style="width: 99px;">Eléct/Gas</th>
-                  <th style="width: 63px;">Acción</th> 
+                  <th>Eléct/Gas</th>
+                  <th>Acción</th> 
                   </tr>
                   <tr ng-show="vm.response_customer.All_CUPs.length==0"> 
                     <td colspan="4" align="center">
@@ -390,12 +399,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>           
                   </tr>
                   <tr ng-repeat="dato in vm.response_customer.All_CUPs | filter:paginate" ng-class-odd="odd">                    
-                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].CUPsName" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="CUPs_{{$index}}" name="CUPs_{{$index}}" ng-click="vm.copyTextArray(5,$index)"> </td>
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].CUPsName" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="CUPs_{{$index}}" name="CUPs_{{$index}}" ng-click="vm.copyTextArray(5,$index)" style="width: auto;"> </td>
                     
-                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].DirPunSum" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="DirPunSum_{{$index}}" name="DirPunSum_{{$index}}" ng-click="vm.copyTextArray(6,$index)">
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].DirPunSum" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="DirPunSum_{{$index}}" name="DirPunSum_{{$index}}" ng-click="vm.copyTextArray(6,$index)" style="width: auto;">
 
                     </td>
-                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)"> </td>                     
+                    <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)" style="width: auto;"> </td>                     
                     <td> 
                       <button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
                     </td>
@@ -696,18 +705,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- modal container section start -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_detalles_CUPs" class="modal fade">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             <h4 class="modal-title">Detalles de CUPs {{vm.ModalTipServ}}</h4>
           </div>
-          <div class="modal-body" style="background-color: white;">
+          <div class="modal-body">
                         <div class="panel">                  
     <form class="form-validate" id="frmFormDetalles" name="frmFormDetalles" ng-submit="SubmitFormDetalles($event)">                 
      
      <div class="row">
-     <div class="col-12" style="margin-left: 15px; margin-right: 15px;">
+     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
       <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
@@ -716,7 +725,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
 
-     <div class="col-12" style="margin-left: 15px; margin-right: 15px;">
+     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;">Dirección Suministro</label>

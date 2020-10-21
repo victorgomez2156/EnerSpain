@@ -263,6 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar' && vm.fdatos.EstProCom!='C' || vm.fdatos.tipo=='ver' && vm.fdatos.EstProCom!='C'">Actualizar</button>
 
             <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_MulCliente/{{vm.fdatos.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
+            <button class="btn btn-success" type="button" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.enviarcorreopropuesta()">Enviar Propuesta</button>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
           </div>
         </div>
@@ -763,4 +764,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando Propuesta Comercial"></div>
 <div id="cargando" class="loader loader-default"  data-text="Cargando datos de la Propuesta Comercial"></div>
 <div id="CUPs" class="loader loader-default"  data-text="Cargando CUPs del Cliente"></div>
+<div id="enviando" class="loader loader-default"  data-text="Enviando Propuesta Comercial"></div>  
 </html>

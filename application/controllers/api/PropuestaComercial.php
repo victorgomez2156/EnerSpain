@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
+require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 /*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class PropuestaComercial extends REST_Controller
 {
@@ -145,9 +147,11 @@ class PropuestaComercial extends REST_Controller
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
 			$this->response(false);
 		}
-		$Tabla='T_Comercializadora';
-		$order_by="RazSocCom ASC";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		
+			$TablaComercializadora="T_Comercializadora";
+			$orderby="RazSocCom ASC";
+			$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($TablaComercializadora,'*','EstCom',$orderby);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');
 		$Referencia=$this->generar_RefProCom();			
 		$arrayName = array('CodCli'=>$Cliente-> CodCli,'NumCifCli'=>$Cliente-> NumCifCli,'RazSocCli'=>$Cliente-> RazSocCli,'Referencia'=>$Referencia,'Fecha_Propuesta'=>date('d/m/Y'),'Comercializadoras'=>$Comercializadoras);
 		$this->response($arrayName);
@@ -233,15 +237,13 @@ class PropuestaComercial extends REST_Controller
 		$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
 		$tabla_Ele="T_TarifaElectrica";
 		$orderby="NomTarEle ASC";
-		$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+		$TarEle=$this->Propuesta_model->get_Tarifas_Act($tabla_Ele,'*','EstTarEle',$orderby);
 		$tabla_Gas="T_TarifaGas";
 		$orderby="NomTarGas ASC";
-		$TarGas=$this->Propuesta_model->Tarifas($tabla_Gas,$orderby);
+		$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarGas',$orderby);
 		$Tabla='T_Comercializadora';
-		$order_by="RazSocCom ASC";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
-		$TarGas=$this->Propuesta_model->Tarifas($tabla_Gas,$orderby);
-			
+		$orderby="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($Tabla,'*','EstCom',$orderby);			
 		$arrayName = array('Cliente' =>$Cliente,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' => $TarEle,'TarGas'=>$TarGas,'Comercializadoras'=>$Comercializadoras);
 		$this->response($arrayName);
 	}
@@ -264,7 +266,7 @@ class PropuestaComercial extends REST_Controller
 		}
 		$Tabla='T_Comercializadora';
 		$order_by="RazSocCom ASC";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($Tabla,'*','EstCom',$order_by);
 		$Referencia=$this->generar_RefProCom();			
 		$arrayName = array('CodCli'=>$Cliente-> CodCli,'NumCifCli'=>$Cliente-> NumCifCli,'RazSocCli'=>$Cliente-> RazSocCli,'Referencia'=>$Referencia,'Fecha_Propuesta'=>date('d/m/Y'),'Comercializadoras'=>$Comercializadoras);
 		$this->response($arrayName);
@@ -290,7 +292,7 @@ class PropuestaComercial extends REST_Controller
 			}
 			$tabla_Ele="T_TarifaElectrica";
 			$orderby="NomTarEle ASC";
-			$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+			$TarEle=$this->Propuesta_model->get_Tarifas_Act($tabla_Ele,'*','EstTarEle',$orderby);
 			$arrayName = array('status'=>200,'menssage'=>'CUPs Encontrados' ,'statusText'=>'OK','CUPs'=>$CUPs,'TarEle'=>$TarEle);
 			$this->response($arrayName);
 		}
@@ -303,9 +305,9 @@ class PropuestaComercial extends REST_Controller
 				$this->response($arrayName);
 				return false;
 			}
-			$tabla_Ele="T_TarifaGas";
+			$tabla_Gas="T_TarifaGas";
 			$orderby="NomTarGas ASC";
-			$TarGas=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+			$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarGas',$orderby);
 			$arrayName = array('status'=>200,'menssage'=>'CUPs Encontrados' ,'statusText'=>'OK','CUPs'=>$CUPs,'TarGas'=>$TarGas);
 			$this->response($arrayName);
 		
@@ -531,15 +533,13 @@ class PropuestaComercial extends REST_Controller
 		$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($T_Propuesta_Comercial_Clientes->CodCli);
 		$tabla_Ele="T_TarifaElectrica";
 		$orderby="NomTarEle ASC";
-		$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+		$TarEle=$this->Propuesta_model->get_Tarifas_Act($tabla_Ele,'*','EstTarEle',$orderby);
 		$tabla_Gas="T_TarifaGas";
 		$orderby="NomTarGas ASC";
-		$TarGas=$this->Propuesta_model->Tarifas($tabla_Gas,$orderby);
-		/*$CUPs_Gas=$this->Clientes_model->get_CUPs_Gas($BuscarPropuesta->CodPunSum);
-	    $CUPs_Electricos=$this->Clientes_model->get_CUPs_Electricos($BuscarPropuesta->CodPunSum);*/
+		$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarGas',$orderby);
 		$Tabla='T_Comercializadora';
-		$order_by="RazSocCom ASC";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		$orderby="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($Tabla,'*','EstCom',$orderby);
 		if($BuscarPropuesta->RefProCom==null)
 		{		
 			$Referencia=$this->generar_RefProCom();
@@ -575,17 +575,17 @@ class PropuestaComercial extends REST_Controller
 			$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodProCom,$this->input->ip_address(),'Buscado Puntos de Suministros.');
 
-			$tabla_Ele="T_TarifaElectrica";
+			$tabla_Gas="T_TarifaElectrica";
 			$orderby="NomTarEle ASC";
-			$TarEle=$this->Propuesta_model->Tarifas($tabla_Ele,$orderby);
+			$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarEle',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_Ele,'GET',null,$this->input->ip_address(),'Buscado Tarifas Eléctricas.');
 			$tabla_Gas="T_TarifaGas";
 			$orderby="NomTarGas ASC";
-			$TarGas=$this->Propuesta_model->Tarifas($tabla_Gas,$orderby);
+			$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarGas',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_Gas,'GET',null,$this->input->ip_address(),'Buscado Tarifas de Gas.');
-			$tabla="T_Comercializadora";
+			$TablaComercializadora="T_Comercializadora";
 			$orderby="RazSocCom ASC";
-			$Comercializadora=$this->Propuesta_model->Tarifas($tabla,$orderby);
+			$TarGas=$this->Propuesta_model->get_Tarifas_Act($TablaComercializadora,'*','EstCom',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');
 			
 			$BuscarPropuesta=$this->Propuesta_model->PropuestasSencilla($CodProCom);			
@@ -624,6 +624,123 @@ class PropuestaComercial extends REST_Controller
 		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
 		$arrayName = array('Propuesta' =>$BuscarPropuesta,'Cliente' =>$Cliente,'Puntos_Suministros' =>$Puntos_Suministros,'TarEle' =>$TarEle,'TarGas' =>$TarGas,'CUPs_Gas' =>$CUPs_Gas,'CUPs_Electricos' =>$CUPs_Electricos,'Comercializadoras' =>$Comercializadoras);
 		$this->response($arrayName);*/
+    }
+    public function EnviarPropuestaCorreo_post()
+    {
+    	$objSalida = json_decode(file_get_contents("php://input"));
+    	$this->db->trans_start();		
+    	
+    	if($objSalida-> TipProCom==1)
+		{
+			$TipProCom='Sencilla.';
+			$url='Doc_Propuesta_Comercial_Cliente_PDF';
+			$tabla="T_Cliente";
+			$where="CodCli";
+			$select="CodCli,RazSocCli,NumCifCli,EmaCli,EmaCliOpc";
+			$Cliente=$this->Propuesta_model->Funcion_Verificadora($objSalida->CodCli,$tabla,$where,$select);
+		}
+		elseif ($objSalida-> TipProCom==2) {
+			$TipProCom='UniCliente - MultiPunto.';
+			$url='Doc_Propuesta_Comercial_UniCliente';
+			$tabla="T_Cliente";
+			$where="CodCli";
+			$select="CodCli,RazSocCli,NumCifCli,EmaCli,EmaCliOpc";
+			$Cliente=$this->Propuesta_model->Funcion_Verificadora($objSalida->CodCli,$tabla,$where,$select);
+		}
+		elseif ($objSalida-> TipProCom==3) {
+			$TipProCom='MultiCliente - MultiPunto.';
+			$url='Doc_Propuesta_Comercial_MulCliente';
+			$tabla="T_Colaborador";
+			$where="CodCol";
+			$select="CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli,EmaCol as EmaCli,EmaCol as EmaCliOpc";
+			$Cliente=$this->Propuesta_model->Funcion_Verificadora($objSalida->CodCli,$tabla,$where,$select);
+		}
+		else
+		{			
+			$TipProCom='';
+			$url='';
+			$Cliente=false;
+		}    	
+		if(empty($Cliente))
+		{
+			$this->response(false);
+			return false;
+		}
+		if($Cliente->EmaCli!=null || $Cliente->EmaCli!='')
+		{
+			$EmailEnviar=$Cliente->EmaCli;
+		}
+		elseif($Cliente->EmaCli==null || $Cliente->EmaCli=='')
+		{
+			$EmailEnviar=$Cliente->EmaCli;
+		}
+		$tabla="T_PropuestaComercial";
+		$where="CodProCom";
+		$select="*";
+		$PropuestaComercial=$this->Propuesta_model->Funcion_Verificadora($objSalida->CodProCom,$tabla,$where,$select);
+		if($PropuestaComercial==false)
+		{
+			$this->response(false);
+			return false;
+		}
+		
+		$Cliente->EmailEnviar=$EmailEnviar;
+		$tabla="T_ConfiguracionesSistema";
+		$where="id";
+		$select="*";
+		$get_configuraciones=$this->Propuesta_model->Funcion_Verificadora(1,$tabla,$where,$select);		
+		//$fullname=$obj->nombres.' '.$obj->apellidos;				
+		$nombre_sistema = $get_configuraciones->nombre_sistema.' '.$get_configuraciones->version_sistema;
+		$banner=$get_configuraciones->url.$get_configuraciones->logo;
+		$sender = $get_configuraciones->smtp_user;// Your name and email address 
+	    $recipient = $EmailEnviar;// The Recipients name and email address 
+	    $subject = "Estimado Cliente, le Adjuntamos la Propuesta Comercial: ".$TipProCom;// Subject for the email 
+    	$html='<div class=""><div class="aHl"></div><div id=":aq" tabindex="-1"></div><div id=":af" class="ii gt"><div id=":ae" class="a3s aXjCH msg1052756172818050662"><u></u><div marginwidth="0" marginheight="0"><center><table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="m_1052756172818050662bodyTable"><tbody><tr><td align="center" valign="top" id="m_1052756172818050662bodyCell"><table border="0" cellpadding="0" cellspacing="0" id="m_1052756172818050662templateContainer"><tbody><tr><td align="center" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" id="m_1052756172818050662templateHeader"><tbody><tr><td valign="top" class="m_1052756172818050662headerContent"></td></tr></tbody></table></td></tr><tr><td align="center" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" id="m_1052756172818050662templateBody"><tbody><tr><td valign="top" class="m_1052756172818050662bodyContent"><table style="height:919px;width:550px" border="0" align="center"><tbody><tr><td><table border="0" cellspacing="0" cellpadding="0" align="center"><tbody><tr><td colspan="2" align="left"><span style="font-size:small"><img src='.$banner.' alt="" width="530" height="75" class="CToWUd">&nbsp;</span></td></tr><tr><td colspan="2" align="center"><span style="font-size:small">&nbsp;</span></td></tr></tbody></table></td></tr><tr><td height="310"><span class="im"><p><span style="font-size:small">Estimado Cliente: '.$Cliente-> NumCifCli.' - '.$Cliente-> RazSocCli.',</span></p><p style="text-align:center"><span style="font-size:small"><strong>El email contiene información de su Propuesta Comercial</strong></span></p><p><span style="font-size:small">Gracias por solicitar nuestros servicios, este email es para informarle sobre la solicitud que realizo para una Propuesta Comercial</span></p><p><span style="font-size:small"><strong>Informacíon de la Propuesta</strong></span></p><p><span style="font-size:small">Fecha: '.$PropuestaComercial-> FecProCom.'</span><br><span style="font-size:small">Nº Propuesta: '.$PropuestaComercial-> RefProCom.'</span><br><span style="font-size:small">Estatus: '.$PropuestaComercial-> EstProCom.'</span><br><span style="font-size:small">Observación: '.$PropuestaComercial-> ObsProCom.'</span><br><span class="im"><p><span style="font-size:small"><a href='.$get_configuraciones->url.'reportes/Exportar_Documentos/'.$url.'/'.$objSalida->CodProCom.'/>Descargar Propuesta Comercial:</a></span></p></td></tr><tr><td><p style="text-align:center"><span style="font-size:small">'.$nombre_sistema.' ©</span></p><div style="text-align:center"><span style="font-size:small">&nbsp;</span></div></td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td align="center" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%" id="m_1052756172818050662templateFooter"><tbody><tr><td valign="top" class="m_1052756172818050662footerContent"><br><div align="center">Copyright © '.$nombre_sistema.', All rights reserved.</div></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></center><div class="yj6qo"></div><div class="adL"></div></div><div class="adL"></div></div></div><div id=":au" class="ii gt" style="display:none"><div id=":av" class="a3s aXjCH undefined"></div></div><div class="hi"></div></div>';   
+		    $crlf = "\n"; 
+		    $headers = array(
+		    'From'   => $sender, 
+		    'To'=>$EmailEnviar, 
+		    'Return-Path' => $sender, 
+		    'Subject'  => $subject,
+		    'X-Priority' =>1,
+		    'Errors-To'=>$get_configuraciones->correo_cc
+		    ); 
+		    //Creating the Mime message 
+		    $mime = new Mail_mime($crlf); 
+		    //$mime->setTXTBody($text); 
+		    $mime->setHTMLBody($html); 
+		    $mimeparams=array();
+		    $mimeparams['text_encoding']="7bit";
+		    $mimeparams['text_charset']="UTF-8";
+		    $mimeparams['html_charset']="UTF-8";
+		    $body = $mime->get($mimeparams); 
+		    $headers = $mime->headers($headers); 
+		    $params["host"] = $get_configuraciones->smtp_host;
+			$params["port"] = $get_configuraciones->smtp_port;
+			$params["auth"] = true;
+			$params["username"] = $get_configuraciones->smtp_user;
+			$params["password"] = $get_configuraciones->smtp_pass;
+		    $mail = Mail::factory($get_configuraciones->protocol, $params); 
+		    $mail->send($recipient, $headers, $body);
+		    //var_dump(PEAR_Error::getMessage($mail));
+		    $Cliente->banner=$banner;
+		    $this->db->trans_complete();
+			$this->response($Cliente);
+		    /*if (PEAR::isError($mail)) 
+			{ 
+				//$this->session->set_flashdata('envio', 'Error al enviar correo electrónico, intente nuevamente');
+				$this->db->trans_complete();
+				$this->response(false);
+			} 
+			else 
+			{ 
+			   $this->db->trans_complete();
+				$this->response($Cliente);
+			   //$this->session->set_flashdata('envio', 'Hemos enviado Contraseña al Correo Electrónico <b>'.$correo_electronico.'</b>');	
+			}*/
+		//return $get_configuraciones;	
+		
+
     }
     public function FiltrarPropuestaComercial_get()
     {
@@ -679,9 +796,12 @@ class PropuestaComercial extends REST_Controller
 			$this->response(false);
 			return false;
 		}
-		$Tabla='T_Comercializadora';
-		$order_by="RazSocCom";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+
+		$TablaComercializadora="T_Comercializadora";
+		$orderby="RazSocCom ASC";
+		$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($TablaComercializadora,'*','EstCom',$orderby);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),$TablaComercializadora,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');
+		
 		$tabla="T_Cliente";
 		$where="CodCli";
 		$select="CodCli,RazSocCli,NumCifCli";
@@ -714,9 +834,12 @@ class PropuestaComercial extends REST_Controller
 			$this->response(false);
 			return false;
 		}
-		$Tabla='T_Comercializadora';
-		$order_by="RazSocCom";
-		$Comercializadoras=$this->Propuesta_model->Tarifas($Tabla,$order_by);
+		
+			$TablaComercializadora="T_Comercializadora";
+			$orderby="RazSocCom ASC";
+			$Comercializadoras=$this->Propuesta_model->get_Tarifas_Act($TablaComercializadora,'*','EstCom',$orderby);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$TablaComercializadora,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');	
+
 		$tabla="T_Colaborador";
 		$where="CodCol";
 		$select="CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli";

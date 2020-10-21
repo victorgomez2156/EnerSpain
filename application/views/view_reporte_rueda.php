@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Hasta</label>
-       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) " readonly="readonly" ng-disabled="vm.FecHasta!=undefined || vm.Nivel==3" />
+       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) " ng-disabled="vm.Nivel==3" />
          
          </div>
          </div>

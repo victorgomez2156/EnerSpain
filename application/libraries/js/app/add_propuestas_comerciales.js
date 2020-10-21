@@ -150,51 +150,51 @@
                     scope.fdatos.CodTarEle = scope.List_CUPsEle[i].CodTarElec;
                     if(scope.List_CUPsEle[i].PotConP1==null)
                     {
-                    	scope.fdatos.PotConP1 ='0.00';
+                        scope.fdatos.PotConP1 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP1 = scope.List_CUPsEle[i].PotConP1;
+                        scope.fdatos.PotConP1 = scope.List_CUPsEle[i].PotConP1;
                     }
                     if(scope.List_CUPsEle[i].PotConP2==null)
                     {
-                    	scope.fdatos.PotConP2 ='0.00';
+                        scope.fdatos.PotConP2 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP2 = scope.List_CUPsEle[i].PotConP2;
+                        scope.fdatos.PotConP2 = scope.List_CUPsEle[i].PotConP2;
                     }
                     if(scope.List_CUPsEle[i].PotConP3==null)
                     {
-                    	scope.fdatos.PotConP3 ='0.00';
+                        scope.fdatos.PotConP3 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP3 = scope.List_CUPsEle[i].PotConP3;
+                        scope.fdatos.PotConP3 = scope.List_CUPsEle[i].PotConP3;
                     }
                     if(scope.List_CUPsEle[i].PotConP4==null)
                     {
-                    	scope.fdatos.PotConP4 ='0.00';
+                        scope.fdatos.PotConP4 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP4 = scope.List_CUPsEle[i].PotConP4;
+                        scope.fdatos.PotConP4 = scope.List_CUPsEle[i].PotConP4;
                     }
                     if(scope.List_CUPsEle[i].PotConP5==null)
                     {
-                    	scope.fdatos.PotConP5 ='0.00';
+                        scope.fdatos.PotConP5 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP5 = scope.List_CUPsEle[i].PotConP5;
+                        scope.fdatos.PotConP5 = scope.List_CUPsEle[i].PotConP5;
                     }
                     if(scope.List_CUPsEle[i].PotConP6==null)
                     {
-                    	scope.fdatos.PotConP6 ='0.00';
+                        scope.fdatos.PotConP6 ='0.00';
                     }
                     else
                     {
-                    	scope.fdatos.PotConP6 = scope.List_CUPsEle[i].PotConP6;
+                        scope.fdatos.PotConP6 = scope.List_CUPsEle[i].PotConP6;
                     }                 
                    
                     if(scope.List_CUPsEle[i].CanPerTar==null||scope.List_CUPsEle[i].CanPerTar==0)
@@ -211,8 +211,8 @@
                     }                     
                 }
                 scope.fdatos.ImpAhoEle='0.00';
-				scope.fdatos.PorAhoEle='0.00';
-				scope.fdatos.ConCupsEle='0.00';
+                scope.fdatos.PorAhoEle='0.00';
+                scope.fdatos.ConCupsEle='0.00';
             }
         }
         if (metodo == 2) 
@@ -223,9 +223,9 @@
                     console.log(scope.List_CUPs_Gas[i]);
 
                     scope.fdatos.Consumo='0.00';
-					scope.fdatos.CauDia='0.00';
-					scope.fdatos.ImpAhoGas='0.00';
-					scope.fdatos.PorAhoGas='0.00';
+                    scope.fdatos.CauDia='0.00';
+                    scope.fdatos.ImpAhoGas='0.00';
+                    scope.fdatos.PorAhoGas='0.00';
                     scope.fdatos.CodTarGas = scope.List_CUPs_Gas[i].CodTarGas;
                     scope.fdatos.Consumo = scope.List_CUPs_Gas[i].ConAnuCup;
                 }
@@ -233,7 +233,7 @@
 
         }
         scope.fdatos.ImpAhoTot='0.00';
-		scope.fdatos.PorAhoTot='0.00';
+        scope.fdatos.PorAhoTot='0.00';
      }
      scope.realizar_filtro = function(metodo, PrimaryKey) {
          var url = base_urlHome() + "api/PropuestaComercial/realizar_filtro/metodo/" + metodo + "/PrimaryKey/" + PrimaryKey;
@@ -374,7 +374,7 @@
             }
                if(scope.fdatos.RenConEle==false)
                {
-               		scope.fdatos.RenConEle=0;
+                    scope.fdatos.RenConEle=0;
                }
                else
                {
@@ -390,7 +390,7 @@
         {
             if(scope.fdatos.RenConGas==false)
             {
-               		scope.fdatos.RenConGas=0;
+                    scope.fdatos.RenConGas=0;
             }
             else
                {
@@ -413,7 +413,7 @@
                     
                     if(scope.fdatos.RenConEle==false)
                {
-               		scope.fdatos.RenConEle=null;
+                    scope.fdatos.RenConEle=null;
                }
                     scope.fdatos.detalleCUPs.push({CodCups:scope.fdatos.CodCupSEle,CodTar:scope.fdatos.CodTarEle,
                     PotConP1:scope.fdatos.PotConP1,PotConP2:scope.fdatos.PotConP2,PotConP3:scope.fdatos.PotConP3,
@@ -429,7 +429,7 @@
                 }
                     if(scope.fdatos.RenConGas==false)
                {
-               		scope.fdatos.RenConGas=null;
+                    scope.fdatos.RenConGas=null;
                }
                     scope.fdatos.detalleCUPs.push({CodCups:scope.fdatos.CodCupGas,CodTar:scope.fdatos.CodTarGas,
                     PotConP1:null,PotConP2:null,PotConP3:null,
@@ -974,45 +974,45 @@
      }
     scope.LimpiarCUPs=function(metodo,CodCup)
     {
-     	//console.log(metodo);
-     	//console.log(CodCup);
-     	scope.crear_array_cups();
-     	//console.log(scope.fdatos.detalleCUPs);
-     	if(metodo==1)
-     	{
-     		scope.fdatos.CodCupSEle=undefined;
-	     	scope.fdatos.CodTarEle=undefined;
-	     	scope.fdatos.PotConP1=undefined;
-	     	scope.fdatos.PotConP2=undefined;
-	     	scope.fdatos.PotConP3=undefined;
-	     	scope.fdatos.PotConP4=undefined;
-	     	scope.fdatos.PotConP5=undefined;
-	     	scope.fdatos.PotConP6=undefined;
-	     	scope.fdatos.ImpAhoEle=undefined;
-	     	scope.fdatos.PorAhoEle=undefined;
-	     	scope.fdatos.RenConEle=null;
-	     	scope.fdatos.ConCupsEle=undefined;
-	     	scope.fdatos.ObsAhoEle=undefined;
-	     	scope.CanPerEle=6;
-     	}
-     	if(metodo==2)
-     	{
-     		scope.fdatos.CodCupGas=undefined;
-     		scope.fdatos.CodTarGas=undefined;
-     		scope.fdatos.Consumo=undefined;
-     		scope.fdatos.CauDia=undefined;
-     		scope.fdatos.ImpAhoGas=undefined;
-			scope.fdatos.PorAhoGas=undefined;
-			scope.fdatos.RenConGas=null;
-			scope.fdatos.ObsAhoGas=undefined;
-     	}
-     	for (var i = 0; i < scope.fdatos.detalleCUPs.length; i++) {
+        //console.log(metodo);
+        //console.log(CodCup);
+        scope.crear_array_cups();
+        //console.log(scope.fdatos.detalleCUPs);
+        if(metodo==1)
+        {
+            scope.fdatos.CodCupSEle=undefined;
+            scope.fdatos.CodTarEle=undefined;
+            scope.fdatos.PotConP1=undefined;
+            scope.fdatos.PotConP2=undefined;
+            scope.fdatos.PotConP3=undefined;
+            scope.fdatos.PotConP4=undefined;
+            scope.fdatos.PotConP5=undefined;
+            scope.fdatos.PotConP6=undefined;
+            scope.fdatos.ImpAhoEle=undefined;
+            scope.fdatos.PorAhoEle=undefined;
+            scope.fdatos.RenConEle=null;
+            scope.fdatos.ConCupsEle=undefined;
+            scope.fdatos.ObsAhoEle=undefined;
+            scope.CanPerEle=6;
+        }
+        if(metodo==2)
+        {
+            scope.fdatos.CodCupGas=undefined;
+            scope.fdatos.CodTarGas=undefined;
+            scope.fdatos.Consumo=undefined;
+            scope.fdatos.CauDia=undefined;
+            scope.fdatos.ImpAhoGas=undefined;
+            scope.fdatos.PorAhoGas=undefined;
+            scope.fdatos.RenConGas=null;
+            scope.fdatos.ObsAhoGas=undefined;
+        }
+        for (var i = 0; i < scope.fdatos.detalleCUPs.length; i++) {
             if (scope.fdatos.detalleCUPs[i].CodCups == CodCup) {
                 scope.fdatos.detalleCUPs.splice(i, 1);
             }
         }
         console.log(scope.fdatos.detalleCUPs);
-     	
+        
 
     }
      
@@ -1091,7 +1091,7 @@
              }
 
          }, function(error) {
-             $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    $("#cargando").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
@@ -1157,6 +1157,35 @@
      if (scope.fdatos.tipo == "renovar") {
          scope.BuscarXidCodProComReno();
          scope.disabled_button = false;
+     }
+     scope.enviarcorreopropuesta=function()
+     {
+        $("#enviando").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url = base_urlHome()+"api/PropuestaComercial/EnviarPropuestaCorreo/";
+        $http.post(url,scope.fdatos).then(function(result)
+        {
+            $("#enviando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data!=false)
+            {
+                scope.toast('success','Se ha enviado un correo electrónico a '+result.data.EmailEnviar+' revisar la bandeja de spam','Correo Enviado'); 
+            }
+            else
+            {
+                scope.toast('error','Un Error ha ocurrido al intentar enviar el correo, intente nuevamente.','Error Email');
+            }
+        },function(error)
+        {
+            $("#enviando").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+        });
      }
      var i = -1;
         var toastCount = 0;

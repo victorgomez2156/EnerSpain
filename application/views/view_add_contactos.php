@@ -144,6 +144,102 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>
 
+    <div ng-show="vm.tContacto_data_modal.CodCli!=undefined">
+      <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.tContacto_data_modal.CodTipViaSoc" ng-disabled="vm.validate_info!=undefined">
+         <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
+        </select>
+       </div>
+       </div>
+      </div>
+
+      <div class="col-12 col-sm-5">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NomViaDomSoc" onkeyup="this.value=this.value.toUpperCase();"  placeholder="* Nombre de la Via del Domicilio del Cliente" ng-disabled="vm.validate_info!=undefined"/>       
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-4">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumViaDomSoc" onkeyup="this.value=this.value.toUpperCase();" min="1" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.BloDomSoc" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Bloque del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.EscDomSoc" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Escalera del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PlaDomSoc" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Planta del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+       </div>
+       </div>
+       </div>
+
+       <div class="col-12 col-sm-3">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PueDomSoc" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Puerta del Domicilio" maxlength="4" ng-disabled="vm.validate_info!=undefined"/>
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-4">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
+        <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.tContacto_data_modal.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.tContacto_data_modal.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
+        <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
+        </select>
+       </div>
+       </div>
+       </div>
+
+        <div class="col-12 col-sm-4">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
+       <select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.tContacto_data_modal.CodLocSoc" ng-disabled="vm.validate_info!=undefined" >
+        <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
+        </select>
+       </div>
+       </div>
+       </div>
+         <div class="col-12 col-sm-4">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CPLocSoc" placeholder="* Zona Postal Social" ng-disabled="vm.validate_info!=undefined"/>
+       </div>
+       </div>
+       </div>
+  </div>
            <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">
@@ -200,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">    
-              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil <b style="color:red;">(*)</b></label>         
+              <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil </label>         
              <input type="text"  class="form-control" ng-model="vm.tContacto_data_modal.TelCelConCli"  ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.TelCelConCli,2)" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
              </div>
              </div>

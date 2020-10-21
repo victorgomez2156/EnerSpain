@@ -44,7 +44,6 @@ class Comercializadora extends REST_Controller
         $Provincias = $this->Comercializadora_model->get_list_providencias();        
         $Tipos_Vias = $this->Comercializadora_model->get_list_tipos_vias();        
         $Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
-
         $Localidades =false; //$this->Comercializadora_model->get_list_localidad();
         $Productos = false;//$this->Comercializadora_model->get_list_productos();
         $Anexos = //$this->Comercializadora_model->get_list_anexos();
@@ -213,7 +212,7 @@ class Comercializadora extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}
-		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora_Act();
 		$Productos = $this->Comercializadora_model->get_list_productos();
 		$fecha=date('d/m/Y');
         $data=array('Comercializadora'=>$Comercializadora,'fecha' =>$fecha,'Productos'=>$Productos);
@@ -328,7 +327,7 @@ public function get_service_anexos_get()
 		{
 			redirect(base_url(), 'location', 301);
 		}
-		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora_Act();
 		$Productos = $this->Comercializadora_model->get_list_productos();
 		$fecha=date('d/m/Y');
 		$TiPCom =$this->Comercializadora_model->get_list_TipCom();
@@ -605,7 +604,7 @@ public function get_service_ServiciosEspeciales_get()
 			redirect(base_url(), 'location', 301);
 		}
 		$fecha=date('d/m/Y');		
-		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora();
+		$Comercializadora = $this->Comercializadora_model->get_list_comercializadora_Act();
         $TipCom = $this->Comercializadora_model->get_list_TipCom();
 		$Tarifa_Gas= $this->Comercializadora_model->get_list_tarifa_Gas();
        	$Tarifa_Ele= $this->Comercializadora_model->list_tarifa_electricas(); 

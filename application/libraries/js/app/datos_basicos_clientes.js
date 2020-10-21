@@ -524,6 +524,13 @@
              scope.toast('error','El Correo Electrónico es requerido','');
              return false;
          }
+         if (scope.fdatos.EmaCliOpc == null || scope.fdatos.EmaCliOpc == undefined || scope.fdatos.EmaCliOpc == '') {
+             scope.fdatos.EmaCliOpc=null;
+         }
+         else
+         {
+            scope.fdatos.EmaCliOpc=scope.fdatos.EmaCliOpc;
+         }
 
          if (!scope.fdatos.CodCom > 0) {
              scope.toast('error','Seleccionar un Comercial','');
@@ -657,8 +664,11 @@
                     }
          });
      }
-     scope.validar_email = function() {
-         document.getElementById('EmaCli').addEventListener('input', function() {
+     scope.validar_email = function(metodo) {
+         
+         if(metodo==1)
+         {
+            document.getElementById('EmaCli').addEventListener('input', function() {
              campo = event.target;
              valido = document.getElementById('emailOK');
              emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -670,7 +680,24 @@
                  valido.innerText = "Formato de Email incorrecto";
                  scope.disabled_button_by_email = true;
              }
+            });
+         }
+         if(metodo==2)
+         {
+            document.getElementById('EmaCliOpc').addEventListener('input', function() {
+             campo = event.target;
+             valido = document.getElementById('emailOKOpc');
+             emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+             //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+             if (emailRegex.test(campo.value)) {
+                 valido.innerText = "";
+                 scope.disabled_button_by_email = false;
+             } else {
+                 valido.innerText = "Formato de Email incorrecto";
+                 scope.disabled_button_by_email = true;
+             }
          });
+         }
      }
      scope.buscarXID = function() {
          $("#cargando_I").removeClass("loader loader-default").addClass("loader loader-default  is-active");

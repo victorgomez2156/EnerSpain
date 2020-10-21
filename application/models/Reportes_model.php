@@ -835,19 +835,38 @@ class Reportes_model extends CI_Model
             return false;
         } 
     }
-    public function PropuestaComercial($CodProCom)
+    public function PropuestaComercial($CodProCom,$TipProCom)
     {   
-        $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
+        if($TipProCom==1 || $TipProCom==2)
+        {
+            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
             ",false);
+        }
+        else
+        {
+            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli
+            ",false);
+        }        
         $this->db->from('T_PropuestaComercial a');
-        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
-        $this->db->join('T_Colaborador c', 'b.CodCli = c.CodCol');
-        $this->db->join('T_TipoVia d', 'c.CodTipVia=d.CodTipVia');
-        $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc');
-        $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro');
-        $this->db->join('T_Comercializadora g', 'g.CodCom = a.CodCom');
-        $this->db->join('T_Producto h', 'h.CodPro = a.CodPro');
-        $this->db->join('T_AnexoProducto i', 'i.CodAnePro = a.CodAnePro');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','left');
+        if($TipProCom==1 || $TipProCom==2)
+        {
+            $this->db->join('T_Cliente c', 'b.CodCli = c.CodCli','left');
+            $this->db->join('T_TipoVia d', 'd.CodTipVia=c.CodTipViaSoc','left');
+            $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLocSoc','left');
+            //$this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
+        }
+        else
+        {
+            $this->db->join('T_Colaborador c', 'b.CodCli = c.CodCol','left');
+            $this->db->join('T_TipoVia d', 'c.CodTipVia=d.CodTipVia','left');
+            $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc','left');
+            //$this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
+        }
+        $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
+        $this->db->join('T_Comercializadora g', 'g.CodCom = a.CodCom','left');
+        $this->db->join('T_Producto h', 'h.CodPro = a.CodPro','left');
+        $this->db->join('T_AnexoProducto i', 'i.CodAnePro = a.CodAnePro','left');
         $this->db->where('a.CodProCom',$CodProCom);
         /*$this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,b.RazSocCli,b.NumCifCli,CONCAT(c.IniTipVia,'-',c.DesTipVia) as TipVia,b.NomViaDomSoc,b.NumViaDomSoc,b.BloDomSoc,b.EscDomSoc,b.PlaDomSoc,b.PueDomSoc,d.DesLoc,e.DesPro,b.CPLocSoc,f.CUPsEle,CONCAT(h.IniTipVia,'-',h.DesTipVia) as TipViaPunSumEle,g.NomViaPunSum as NomViaPunSumEle,g.NumViaPunSum as NumViaPunSumEle,g.BloPunSum as BloPunSumEle,g.EscPunSum as EscPunSumEle,g.PlaPunSum as PlaPunSumEle,g.PuePunSum as PuePunSumEle,i.DesLoc as DesLocPunSumEle,j.DesPro as DesProPunSumEle,g.CPLocSoc as CPLocPunSumEle,k.NomTarEle,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.ImpAhoEle,a.PorAhoEle,(CASE WHEN a.RenConEle = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConEle,a.ObsAhoEle,l.CupsGas,CONCAT(n.IniTipVia,'-',n.DesTipVia) as TipViaPunSumGas,m.NomViaPunSum as NomViaPunSumGas,m.NumViaPunSum as NumViaPunSumGas,m.BloPunSum as BloPunSumGas,m.EscPunSum as EscPunSumGas,m.PlaPunSum as PlaPunSumGas,m.PuePunSum as PuePunSumGas,o.DesLoc as DesLocPunSumGas,p.DesPro as DesProPunSumGas,m.CPLocSoc as CPLocPunSumGas,q.NomTarGas,a.Consumo,a.CauDia,a.ImpAhoGas,a.PorAhoGas,(CASE WHEN a.RenConGas = 0 THEN 'NO' WHEN a.RenConEle = 1 THEN 'SI' ELSE 'N/A' END) AS RenConGas,a.ObsAhoGas,a.ImpAhoTot,a.ObsProCom,CONCAT(r.RazSocCom,' - ',r.NumCifCom) as CodCom,t.DesAnePro,s.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre",false);
         $this->db->from('T_PropuestaComercial a');

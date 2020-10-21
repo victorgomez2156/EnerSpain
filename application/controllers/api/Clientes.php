@@ -144,6 +144,11 @@ public function RealizarConsultaFiltros_get()
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoDocumento','GET',null,$this->input->ip_address(),'Cargando Listado de Tipos de Documentos');
 			# code...
 		}
+		elseif ($metodo==12) {
+			$Response= $this->Clientes_model->get_list_tipos_vias();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TipoVia','GET',null,$this->input->ip_address(),'Cargando listado de tipos via');
+			# code...
+		}
 		else
 		{
 			$Response =array('status' =>201 ,'statusText'=>'Error','menssage'=>'Estatus del Clientes');
@@ -282,12 +287,12 @@ protected function buscar_xID_get()
 		$this->db->trans_start();		
 		if (isset($objSalida->CodCli))
 		{		
-			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli);		
+			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);		
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Datos Del Clientes');
 		}
 		else
 		{
-			$id = $this->Clientes_model->agregar($objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->FecIniCli,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumCifCli,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli);
+			$id = $this->Clientes_model->agregar($objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->FecIniCli,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumCifCli,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);
 			if($id==false)
 			{
 				$arrayName = array('status' =>false ,'response'=> $id, 'message'=>'El Número de CIF ya se encuentra registrado, Por Favor intente con otro.');
@@ -461,8 +466,6 @@ protected function buscar_xID_get()
 			return false;
 		}
 		$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
-        //$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
-        //$data->NumCifCli=$DatosCliente->NumCifCli;
 		$arrayName = array('data' =>$data , 'NumCifCli' =>$DatosCliente->NumCifCli);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');				
 		$this->response($arrayName);		
@@ -626,14 +629,25 @@ protected function buscar_xID_get()
 		}
 		$CodConCli=$this->get('CodConCli');	
 		$select="a.*";	
-        $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);
-        $DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
-        $data->NumCifCli=$DatosCliente->NumCifCli;
+        $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
+        $data->NumCifCli=$DatosCliente->NumCifCli;	
+        $data->CodTipViaSoc=$DatosCliente->CodTipViaSoc;
+        $data->NomViaDomSoc=$DatosCliente->NomViaDomSoc;
+        $data->NumViaDomSoc=$DatosCliente->NumViaDomSoc;
+        $data->BloDomSoc=$DatosCliente->BloDomSoc;
+        $data->EscDomSoc=$DatosCliente->EscDomSoc;
+        $data->PlaDomSoc=$DatosCliente->PlaDomSoc;
+        $data->PueDomSoc=$DatosCliente->PueDomSoc;
+        $data->CodLocSoc=$DatosCliente->CodLocSoc;
+        $data->CodProSoc=$DatosCliente->CodProSoc;
+        $data->CPLocSoc=$DatosCliente->CPLocSoc;
+
 		$this->response($data);		
     }
     public function search_contact_get()
@@ -693,7 +707,10 @@ protected function buscar_xID_get()
 				{
 					$this->Clientes_model->actualizar_contacto($objSalida->CodConCli,$objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod,$objSalida->NumColeCon,$objSalida->ConPrin);
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
+					$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
 					$arrayName = array('status' =>true ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>true);
+					
 					$this->db->trans_complete();
 					$this->response($arrayName);				
 				}
@@ -702,6 +719,8 @@ protected function buscar_xID_get()
 			{
 				$this->Clientes_model->actualizar_contacto($objSalida->CodConCli,$objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod,$objSalida->NumColeCon,$objSalida->ConPrin);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
+				$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
 				$arrayName = array('status' =>true ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>true);
 				$this->db->trans_complete();
 				$this->response($arrayName);
@@ -722,6 +741,8 @@ protected function buscar_xID_get()
 				$id = $this->Clientes_model->agregar_contacto($objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod,$objSalida->NumColeCon,$objSalida->ConPrin);
 				$objSalida->CodConCli=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto.');	
+				$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
 				$arrayName = array('status' =>true ,'menssage'=>'Contacto creado de forma correcta','response'=>true,'objSalida'=>$objSalida);
 				$this->db->trans_complete();
 				$this->response($arrayName);	
@@ -843,8 +864,6 @@ protected function buscar_xID_get()
 		}
 		$CodCueBan=$this->get('CodCueBan');		
         $data = $this->Clientes_model->get_xID_CuentaBancaria($CodCueBan);
-        //$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
-        //$data->NumCifCli=$DatosCliente->NumCifCli;        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria');
 		if (empty($data)){
 			$this->response(false);
@@ -963,14 +982,14 @@ protected function buscar_xID_get()
 			redirect(base_url(), 'location', 301);
 		}
 		$CodTipDocAI=$this->get('CodTipDocAI');		
-        $data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);
-        $DatosCliente = $this->Clientes_model->get_data_cliente($data->CodCli);
-        $data->NumCifCli=$DatosCliente->NumCifCli;
+        $data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Información del Documento');
 		if (empty($data)){
 			$this->response(false);
 			return false;
-		}		
+		}	
+		$DatosCliente = $this->Clientes_model->get_data_cliente($data->CodCli);
+        $data->NumCifCli=$DatosCliente->NumCifCli;	
 		$this->response($data);		
     }
 public function Registrar_Documentos_post()

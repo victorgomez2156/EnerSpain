@@ -4,7 +4,7 @@ class Tarifas_model extends CI_Model
      /////PARA LAS TARIFAS ELECTRICAS START////   
     public function list_tarifa_electricas()
     {
-        $this->db->select('CodTarEle,case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon ',FALSE);
+        $this->db->select('CodTarEle,case TipTen WHEN 0 THEN "BAJA" WHEN 1 THEN "ALTA" END as TipTen,NomTarEle,CanPerTar,MinPotCon,MaxPotCon,EstTarEle',FALSE);
         $this->db->from('T_TarifaElectrica');
         $this->db->order_by('NomTarEle ASC');
         $query = $this->db->get(); 
@@ -68,6 +68,11 @@ class Tarifas_model extends CI_Model
     }
      /////////////////////////////////////////////// PARA LAS TARIFAS ELECTRICAS END /////////////////////////////////////// 
 
+     public function UpdateEstTar($CodTar,$Tabla,$ColEstTar,$where,$EstTar)
+    {   
+        $this->db->where($where, $CodTar);        
+        return $this->db->update($Tabla,array($ColEstTar=>$EstTar));
+    }
     /////////////////////////////////////////////// PARA LAS TARIFAS GAS START ///////////////////////////////////////////////////
     public function get_list_tarifa_Gas()
     {

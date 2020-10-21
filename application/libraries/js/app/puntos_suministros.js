@@ -720,6 +720,11 @@
          } else {
              scope.fpuntosuministro.ObsPunSum = scope.fpuntosuministro.ObsPunSum;
          }
+         if (scope.fpuntosuministro.CodTipInm == undefined || scope.fpuntosuministro.CodTipInm == null || scope.fpuntosuministro.CodTipInm == '') {
+             scope.fpuntosuministro.CodTipInm = null;
+         } else {
+             scope.fpuntosuministro.CodTipInm = scope.fpuntosuministro.CodTipInm;
+         }
          if (scope.fpuntosuministro.TelPunSum == undefined || scope.fpuntosuministro.TelPunSum == null || scope.fpuntosuministro.TelPunSum == '') {
              scope.fpuntosuministro.TelPunSum = null;
          }
@@ -812,10 +817,10 @@
          	scope.toast('error','El Campo Número de Teléfono es requerido','');	           
          	return false;
          }*/
-         if (!scope.fpuntosuministro.CodTipInm > 0) {
+         /*if (!scope.fpuntosuministro.CodTipInm > 0) {
              scope.toast('error','Debe seleccionar un tipo de inmueble de la lista.','');
              return false;
-         }
+         }*/
          if (resultado == false) {
              return false;
          }

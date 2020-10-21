@@ -84,18 +84,22 @@ class Cups extends REST_Controller
 	{
 		$Where="TipSerDis";
 		$Variable=0;
-		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable);
+		$whereEstDist="EstDist";
+		$VariableEstDis=1;
+		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
 		$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar,CanPerTar";
-		$Tarifas_Electricas=$this->Cups_model->get_Tarifas('T_TarifaElectrica',$Select_Tarifa);
+		$Tarifas_Electricas=$this->Cups_model->get_Tarifas_Act('T_TarifaElectrica',$Select_Tarifa,'EstTarEle','NomTarEle ASC');
 		$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifas_Electricas);
 	}
 	elseif ($objSalida->TipServ==2) 
 	{
 		$Where="TipSerDis";
 		$Variable=1;
-		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable);
+		$whereEstDist="EstDist";
+		$VariableEstDis=1;
+		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
 		$Select_Tarifa="CodTarGas as CodTar,NomTarGas as NomTar";
-		$Tarifa_Gas=$this->Cups_model->get_Tarifas('T_TarifaGas',$Select_Tarifa);
+		$Tarifa_Gas=$this->Cups_model->get_Tarifas_Act('T_TarifaGas',$Select_Tarifa,'EstTarGas','NomTarGas ASC');
 		$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifa_Gas);
 	}
 	else
