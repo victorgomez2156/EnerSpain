@@ -158,12 +158,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.DurCon==true">{{dato.DurCon}} Meses</td> 
                     <td ng-show="vm.FecVenCon==true">{{dato.FecVenCon}}</td>
                     <td ng-show="vm.EstBajCon==true">
-                      <span class="label label-danger" ng-show="dato.CodProCom==null"><i class="fa fa-ban"></i> S/P/C</span>
-                      <span class="label label-success" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
-                      <span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
-                      <span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
-                      <span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
+                      <span class="label label-danger" ng-show="dato.CodProCom==null" style="color:black;"><i class="fa fa-ban"></i> S/P/C</span>
+                      <span class="label label-success" ng-show="dato.EstBajCon==0" style="color:black;"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==1" style="color:black;"><i class="fa fa-ban"></i> Dado de Baja</span>
+                      <span class="label label-info" ng-show="dato.EstBajCon==2" style="color:black;"><i class="fa fa-close"></i> Vencido</span>
+                      <span class="label label-primary" ng-show="dato.EstBajCon==3" style="color:black;"><i class="fa fa-check-circle"></i> Renovado</span>
+                      <span class="label label-warning" ng-show="dato.EstBajCon==4" style="color:black;"><i class="fa fa-refresh"></i> En Renovación</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==5" style="color:black;"><i class="fa fa-user"></i> Huérfano</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==6" style="color:black;"><i class="fa fa-config"></i> Implícita</span>
                    </td>
                     <td ng-show="vm.ActCont==true">
                       <div class="btn-group">
@@ -253,7 +255,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <option value="1">Dado de Baja</option> 
          <option value="2">Vencido</option> 
          <option value="3">Renovado</option>
-         <option value="4">En Renovación</option>                         
+         <option value="4">En Renovación</option>
+         <option value="5">Huérfano</option>
+         <option value="6">Implícita</option>                         
         </select>
          
          </div>

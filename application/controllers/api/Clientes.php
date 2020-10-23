@@ -348,6 +348,12 @@ protected function buscar_xID_get()
 		$CodActCNAE=$this->get('CodActCNAE');				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->Buscar_CNAECod($CodActCNAE);
+		if($consulta==false)
+		{
+			$this->response(false);
+			return false;
+		}
+
 		$consulta->FechaServer=date('d/m/Y');							
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CNAE','SEARCH',null,$this->input->ip_address(),'Buscando Código CNAE');
 		$this->db->trans_complete();

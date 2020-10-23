@@ -166,8 +166,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>
                     <td ng-show="vm.NomConCom==true">{{dato.NomConCom}}</td>
                     <td ng-show="vm.EstCom==true">
-                      <span class="label label-info" ng-show="dato.EstCom=='ACTIVA'">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCom=='BLOQUEADA'">Bloqueado</span>
+                      <span class="label label-info" ng-show="dato.EstCom=='Activa'">Activa</span>
+                      <span class="label label-danger" ng-show="dato.EstCom=='Suspendida'">Suspendida</span>
                     </td>
                     <td ng-show="vm.Acc==true">
                       <div class="btn-group">
@@ -227,7 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Comercializadora</h4>
+            <h4 class="modal-title">Suspender Comercializadora</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -237,7 +237,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">CIF</label>
-     <input type="text" class="form-control" ng-model="vm.NumCifComBlo" required readonly/>     
+     <input type="text" class="form-control" ng-model="vm.NumCifComBlo" readonly/>     
      </div>
      </div>
      </div>
@@ -246,7 +246,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
-      <input type="text" class="form-control" ng-model="vm.RazSocComBlo" required readonly />     
+      <input type="text" class="form-control" ng-model="vm.RazSocComBlo" readonly />     
      </div>
      </div>
      </div>
@@ -254,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo Suspender</label>
        <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.t_modal_data.MotBloq">
           <option ng-repeat="dato in vm.tMotBloCom" value="{{dato.CodMotBloCom}}">{{dato.DesMotBloCom}}</option>
         </select>    
@@ -265,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Suspender</label>
      <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" id="fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
      </div>
      </div>
@@ -279,8 +279,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid" style="color:black;">Suspender</button>
+      <a class="btn btn-danger" data-dismiss="modal" style="color:black;">Volver</a>
 </form>
    </div>
     </div>
@@ -393,8 +393,8 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
 
   
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid"><i class="fa fa-check-circle"></i> Aplicar </button>
-      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()">Quitar </a>
+     <button class="btn btn-info" type="submit" ng-disabled="frmfiltros.$invalid" style="color:black;"><i class="fa fa-check-circle"></i> Aplicar </button>
+      <a class="btn btn-danger" ng-click="vm.regresar_filtro_comercializadora()" style="color:black;">Quitar </a>
       </div>
 </form>
    </div>
@@ -419,7 +419,7 @@ jQuery('.soloValidFecha').keypress(function (tecla) {
                               <input type="text" class="form-control" ng-model="vm.fdatos.NumCifCom" placeholder="* Introduzca CIF" maxlength="9" required/>   
                             </div>
                           </div>
-                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>
+                          <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid" style="color:black;"> Consultar</button>
                         </form>
                       </div>
                     </div>

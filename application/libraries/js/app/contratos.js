@@ -1574,6 +1574,45 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.tmodal_data.CodConCom = dato.CodConCom;
             $("#modal_baja_contrato").modal('show');
         }
+        if(opcion_select== 5 || opcion_select== 6)
+        {
+            if(dato.EstBajCon==3)
+            {
+                scope.toast('error','Contrato Renovado no puede cambiar a este estatus.','Error');
+                return false;
+            }
+            else if(dato.EstBajCon==4)
+            {
+                scope.toast('error','Contrato En Renovación no puede cambiar a este estatus.','Error');
+                return false;
+            }
+            var url=base_urlHome()+"api/Contratos/HuerImpli/opcion_select/"+opcion_select+"/CodConCom/"+dato.CodConCom;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    scope.toast('success','Estatus cambiado correctamente.','Estatus');
+                    scope.get_list_contratos();
+                }
+                else
+                {
+                    scope.toast('error','Hubo un error al intentar cambiar el estatus del contrato intente nuevamente.','Error');
+
+                }
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+            });
+        }
 
     }
     $scope.SubmitFormRenovacion = function(event) {
@@ -1777,7 +1816,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.FecVenCon = true;
         scope.EstBajCon = true;
         scope.ActCont = true;
-        scope.opciones_contratos = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'Renovar' }, { id: 4, nombre: 'Dar Baja' }];
+        scope.opciones_contratos = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'Renovar' }, { id: 4, nombre: 'Dar Baja' },{ id: 5, nombre: 'Huérfano' }, { id: 6, nombre: 'Implícita' }];
         scope.get_list_contratos();
     }
     $scope.submitFormlock = function(event) {

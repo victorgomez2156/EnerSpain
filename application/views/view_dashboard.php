@@ -996,13 +996,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th >Fecha Firma</th>
                     <th >Fecha Fin</th>
                     <th >Nº Contrato</th>
+                    <th >Consumo</th>
                     <th >Comercializadora</th> 
                     <th >Tárifa</th> 
                     <th >Tipo Contrato</th>      
                     <th >Agente</th>
                   </tr>
                   <tr ng-show="vm.ContratosTCups.length==0"> 
-                     <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                     <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
                   </tr>
                   <tr ng-repeat="dato in vm.ContratosTCups | filter:paginate1" ng-class-odd="odd">
                     <td >{{dato.CodCli}}</td>                    
@@ -1016,6 +1017,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td >{{dato.FecFirmCon}}</td>
                     <td >{{dato.FecFinCon}}</td>
                     <td >{{dato.RefCon}}</td>
+                    <td >{{dato.ConCup}}</td>
                     <td >{{dato.RazSocCom}}</td>
                     <td >{{dato.NomTar}}</td>  
                     <td >{{dato.TipCon}}</td>                   
@@ -1030,6 +1032,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th >Fecha Firma</th>
                     <th >Fecha Fin</th>
                     <th >Nº Contrato</th>
+                    <th >Consumo</th>
                     <th >Comercializadora</th> 
                     <th >Tárifa</th> 
                     <th >Tipo Contrato</th>      

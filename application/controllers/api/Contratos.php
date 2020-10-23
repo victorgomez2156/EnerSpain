@@ -453,6 +453,13 @@ class Contratos extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($arrayName);
 	}
+	public function HuerImpli_get()
+	{
+		$opcion_select=$this->get('opcion_select');
+		$CodConCom=$this->get('CodConCom');
+		$CambiarEstatus=$this->Contratos_model->NuevoEstatusContratos($CodConCom,$opcion_select);	
+		$this->response($CambiarEstatus);
+	}
 	public function AsignarPropuestaContrato_get()
 	{
 		$CodCli=$this->get('CodCli');

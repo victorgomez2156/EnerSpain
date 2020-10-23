@@ -55,12 +55,12 @@ public function get_data_cliente($CodCli)
         e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli,a.TelMovCli,a.EmaCliOpc
         ,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc,b.CodPro as CodProSoc,a.CPLocSoc
         FROM T_Cliente a 
-        JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
-        JOIN T_Provincia c on b.CodPro=c.CodPro
-        JOIN T_TipoVia   d on a.CodTipViaSoc=d.CodTipVia
-        JOIN T_Localidad e on a.CodLocFis=e.CodLoc
-        JOIN T_Provincia f on e.CodPro=f.CodPro
-        JOIN T_TipoVia   g on a.CodTipViaFis=g.CodTipVia
+        left JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
+        left JOIN T_Provincia c on b.CodPro=c.CodPro
+        left JOIN T_TipoVia   d on a.CodTipViaSoc=d.CodTipVia
+        left JOIN T_Localidad e on a.CodLocFis=e.CodLoc
+        left JOIN T_Provincia f on e.CodPro=f.CodPro
+        left JOIN T_TipoVia   g on a.CodTipViaFis=g.CodTipVia
         where CodCli='$CodCli'");
         if ($sql->num_rows() > 0)
           return $sql->row();
@@ -112,11 +112,11 @@ public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
 {
     if($TipCups==1)
     {
-        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarEle AS NomTar,NULL AS Agente',false);
+        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarEle AS NomTar,NULL AS Agente,a.ConCup',false);
     }
     else
     {
-        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarGas AS NomTar,NULL AS Agente',false);
+        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarGas AS NomTar,NULL AS Agente,a.ConCup',false);
     }
     $this->db->from('T_Propuesta_Comercial_CUPs a');
     $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
@@ -272,7 +272,7 @@ public function getClientessearchFilter($filtrar_clientes)
     //////////////////////////////////////////////////// ACTIVIDADES START ///////////////////////////////////////////////////////
     public function get_activity_clientes()
     {
-       $sql = $this->db->query("SELECT a.*,b.*,case a.EstAct when 1 then 'Activa' when 2 then 'Bloqueada' end as EstAct ,DATE_FORMAT(a.FecIniAct, '%d/%m/%Y') as FecIniAct,c.NumCifCli,c.RazSocCli FROM T_ActividadCliente a join T_CNAE b on a.CodActCNAE=b.id join T_Cliente c on c.CodCli=a.CodCli  order by b.DesActCNAE asc");
+       $sql = $this->db->query("SELECT a.*,b.*,case a.EstAct when 1 then 'Activa' when 2 then 'Suspendida' end as EstAct ,DATE_FORMAT(a.FecIniAct, '%d/%m/%Y') as FecIniAct,c.NumCifCli,c.RazSocCli FROM T_ActividadCliente a join T_CNAE b on a.CodActCNAE=b.id join T_Cliente c on c.CodCli=a.CodCli  order by b.DesActCNAE asc");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else

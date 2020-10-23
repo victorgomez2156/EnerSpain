@@ -846,8 +846,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecAltCup = document.getElementById("FecAltCup").value;
         scope.fdatos_cups.FecAltCup = FecAltCup;
         if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
-            scope.toast('error','La Fecha de Alta es requerida','');
-            return false;
+            scope.fdatos_cups.FecAltCup == null;
         } else {
             var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
             if (FecAltCup.length < 3) {
@@ -873,7 +872,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
 
         }
-        var FecUltLec = document.getElementById("FecUltLec").value;
+        scope.fdatos_cups.FecUltLec = null;
+        /*var FecUltLec = document.getElementById("FecUltLec").value;
         scope.fdatos_cups.FecUltLec = FecUltLec;
         if (scope.fdatos_cups.FecUltLec == null || scope.fdatos_cups.FecUltLec == undefined || scope.fdatos_cups.FecUltLec == '') {
             scope.fdatos_cups.FecUltLec = null;
@@ -902,7 +902,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var final_UltFec = FecUltLec[0] + "/" + FecUltLec[1] + "/" + FecUltLec[2];
                 scope.fdatos_cups.FecUltLec = final_UltFec;
             }
-        }
+        }*/
         var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1;
         if (!scope.valida_cups(CUPS)) {
             return false;

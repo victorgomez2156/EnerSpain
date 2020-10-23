@@ -74,8 +74,8 @@
      scope.AccAct = true;
 
      scope.ttipofiltrosact = [{ id: 1, nombre: 'FECHA DE INICIO' }, { id: 2, nombre: 'ESTATUS ACTIVIDAD' }, { id: 3, nombre: 'CLIENTE' }];
-     scope.topcionesactividades = [{ id: 1, nombre: 'ACTIVAR' }, { id: 2, nombre: 'BLOQUEAR' }];
-     scope.ttipofiltrosEstAct = [{ id: 1, nombre: 'Activa' }, { id: 2, nombre: 'Bloqueada' }];
+     scope.topcionesactividades = [{ id: 1, nombre: 'ACTIVAR' }, { id: 2, nombre: 'SUSPENDER' }];
+     scope.ttipofiltrosEstAct = [{ id: 1, nombre: 'Activa' }, { id: 2, nombre: 'Suspendida' }];
      scope.tmodal_filtroAct = {};
      scope.ruta_reportes_pdf_actividad = 0;
      scope.ruta_reportes_excel_actividad = 0;
@@ -351,8 +351,8 @@
              });
          }
          if (opcion == 2) {
-             if (datos.EstAct == "Bloqueada") {
-                 scope.toast('error','La Actividad ya se encuentra bloqueada','Bloqueando');
+             if (datos.EstAct == "Suspendida") {
+                 scope.toast('error','La Actividad ya se encuentra suspendida','Suspendida');
                  scope.opciones_actividades[index] = undefined;
                  return false;
              }
@@ -391,7 +391,7 @@
                  scope.FecBloAct=result.data.FechaServer;
                  $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecBloAct);
              } else {
-                 scope.toast('error','No hay Motivos de Bloqueo registrados','Motivos Bloqueos');
+                 scope.toast('error','No se encontraron motivos para suspender registrados.','Motivos Suspender');
              }
 
          }, function(error) {
@@ -411,28 +411,28 @@
          var FecBloAct = document.getElementById("FecBloAct").value;
          scope.FecBloAct = FecBloAct;
          if (scope.FecBloAct == undefined || scope.FecBloAct == null || scope.FecBloAct == '') {
-             scope.toast('error','La Fecha de Bloqueo es requerida','Fecha de Bloqueo');
+             scope.toast('error','La Fecha de Suspender es requerida','Fecha de Suspender');
              event.preventDefault();
              return false;
          } else {
              var FecBloAct = (scope.FecBloAct).split("/");
              if (FecBloAct.length < 3) {
-                 scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY','Fecha de Bloqueo');
+                 scope.toast('error','Error en Fecha de Suspender, el formato correcto es DD/MM/YYYY','Fecha de Suspender');
                  event.preventDefault();
                  return false;
              } else {
                  if (FecBloAct[0].length > 2 || FecBloAct[0].length < 2) {
-                     scope.toast('error','Error en Día, debe introducir dos números','Fecha de Bloqueo');
+                     scope.toast('error','Error en Día, debe introducir dos números','Fecha de Suspender');
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloAct[1].length > 2 || FecBloAct[1].length < 2) {
-                     scope.toast('error','Error en Mes, debe introducir dos números','Fecha de Bloqueo');
+                     scope.toast('error','Error en Mes, debe introducir dos números','Fecha de Suspender');
                      event.preventDefault();
                      return false;
                  }
                  if (FecBloAct[2].length < 4 || FecBloAct[2].length > 4) {
-                     scope.toast('error','Error en Año, debe introducir cuatro números','Fecha de Bloqueo');
+                     scope.toast('error','Error en Año, debe introducir cuatro números','Fecha de Suspender');
                      event.preventDefault();
                      return false;
                  }
@@ -442,7 +442,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     scope.toast('error',"Fecha de Bloqueo no debe ser mayor a " + scope.fecha_server,'Fecha de Bloqueo');
+                     scope.toast('error',"Fecha de Suspender no debe ser mayor a " + scope.fecha_server,'Fecha de Suspender');
                      return false;
                  }
                  scope.tmodal_data.FecBloAct = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -450,8 +450,8 @@
          }
          console.log(scope.tmodal_data.FecBloAct);
          Swal.fire({
-             title: 'Bloqueando',
-             text: "¿Seguro que desea bloquear la Actividad?",
+             title: 'Suspender',
+             text: "¿Seguro que desea Suspender la Actividad?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
@@ -466,13 +466,13 @@
                          if (result.data.opcion == 2) {
                              scope.mostrar_all_actividades();
                              $("#estatus_actividad").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                             scope.toast('success','La Actividad ha sido bloqueada de forma de forma correcta','Bloqueando');
+                             scope.toast('success','La Actividad ha sido suspendida de forma de forma correcta','Suspendiendo');
                              scope.opciones_actividades[scope.tmodal_data.index] = undefined;
                              $("#modal_motivo_bloqueo_actividades").modal('hide');
                          }
                      } else {
                          $("#estatus_actividad").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                         scope.toast('error','Ha ocurrido un error, intente nuevamente','Bloqueando');
+                         scope.toast('error','Ha ocurrido un error, intente nuevamente','Suspendiendo');
                          scope.opciones_actividades[scope.tmodal_data.index] = undefined;
                      }
                  }, function(error) {

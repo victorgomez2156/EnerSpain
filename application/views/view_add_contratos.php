@@ -618,7 +618,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="form">                          
           <div class="form-group">
             <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
-            <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'" ng-blur="vm.blurfechachange()"/>         
+            <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver'" ng-blur="vm.blurfechachange()"/>         
          </div>
         </div>
       </div>     

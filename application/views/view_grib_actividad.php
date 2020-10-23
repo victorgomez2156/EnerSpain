@@ -125,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <li><input type="checkbox" ng-model="vm.DesGru"/> <b style="color:black;">Descripción</b></li></li>
                   <li><input type="checkbox" ng-model="vm.EstAct"/> <b style="color:black;">Estatus</b></li>
                   <li><input type="checkbox" ng-model="vm.FecIniAct1"/> <b style="color:black;">Fecha Actividad</b></li></li>
-                  <li><input type="checkbox" ng-model="vm.AccAct"/> <b style="color:black;">Action</b></li>
+                  <li><input type="checkbox" ng-model="vm.AccAct"/> <b style="color:black;">Acción</b></li>
                 </ul> 
               </div>
               <div class="btn-group">
@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.DesGru==true">Descripción</th>
                     <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>
                     <th ng-show="vm.EstAct==true">Estatus Actividad</th>                                        
-                    <th ng-show="vm.AccAct==true">Action</th>
+                    <th ng-show="vm.AccAct==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TActividades.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table"><i class="fa fa-close"></i> No hay Actividades registradas</div></td>           
@@ -179,7 +179,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.FecIniAct1==true">{{dato.FecIniAct}}</td> 
                     <td ng-show="vm.EstAct==true">
                       <span class="label label-info" ng-show="dato.EstAct=='Activa'"><i class="fa fa-check-circle"></i>  {{dato.EstAct}}</span>
-                      <span class="label label-danger" ng-show="dato.EstAct=='Bloqueada'"><i class="fa fa-ban"></i>  {{dato.EstAct}}</span>
+                      <span class="label label-danger" ng-show="dato.EstAct=='Suspendida'"><i class="fa fa-ban"></i>  {{dato.EstAct}}</span>
                    </td>
                                       
                     <td ng-show="vm.AccAct==true">
@@ -200,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.DesGru==true">Descripción</th>
                     <th ng-show="vm.FecIniAct1==true">Fecha Actividad</th>
                     <th ng-show="vm.EstAct==true">Estatus Actividad</th>                                        
-                    <th ng-show="vm.AccAct==true">Action</th>
+                    <th ng-show="vm.AccAct==true">Acción</th>
                 </tfoot>
               </table>
         </div> 
@@ -291,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Actividades</h4>
+            <h4 class="modal-title">Suspender Actividad</h4>
           </div>
           <div class="modal-body">
             <div class="panel"> 
@@ -310,7 +310,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspender</label>
      <input type="text" class="form-control datepicker2" name="FecBloAct" id="FecBloAct" ng-model="vm.FecBloAct" required ng-change="vm.validar_fecha_act(3,vm.FecBloAct)" maxlength="10" />    
      </div>
      </div>
@@ -361,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <div class="form">                          
       <div class="form-group">
-      <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>     
+      <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspención</label>     
       <select class="form-control" name="MotBloq" required ng-model="vm.tmodal_data.MotBloq">
         <option ng-repeat="dato in vm.tMotivosBloqueosActividades" value="{{dato.CodMotBloAct}}">{{dato.DesMotBloAct}}</option>
       </select>
@@ -376,8 +376,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
-      <a class="btn btn-danger" data-dismiss="modal">Volver</a>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid" style="color: black;">Suspender</button>
+      <a class="btn btn-danger" data-dismiss="modal" style="color: black;">Volver</a>
 </form>
    </div>
     </div>

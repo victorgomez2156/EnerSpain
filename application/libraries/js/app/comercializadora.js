@@ -120,9 +120,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.Acc = true;
     scope.validate_cif == 1
     resultado = false;
-    scope.Topciones_comercializadoras = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }];
+    scope.Topciones_comercializadoras = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Suspender' }];
     scope.ttipofiltros = [{ id: 1, nombre: 'Tipo de Suministro' }, { id: 2, nombre: 'Provincia' }, { id: 3, nombre: 'Localidad' }, { id: 4, nombre: 'Estatus' }];
-    scope.EstComFil = [{ id: 1, nombre: 'ACTIVA' }, { id: 2, nombre: 'BLOQUEADA' }];
+    scope.EstComFil = [{ id: 1, nombre: 'Activa' }, { id: 2, nombre: 'Suspendida' }];
     scope.TipServ = [{ id: 1, nom_serv: 'Gas' }, { id: 2, nom_serv: 'Eléctrico' }, { id: 3, nom_serv: 'Servicio Especial' }];
     scope.tmodal_comercializadora = {};
     scope.reporte_pdf_comercializadora = 0;
@@ -344,7 +344,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         //console.log(dato);
         if (opciones_comercializadoras == 1) {
             scope.opciones_comercializadoras[index] = undefined;
-            if (dato.EstCom == 'ACTIVA') {
+            if (dato.EstCom == 'Activa') {
                 scope.toast('error','La Comercializadora ya se encuentra activa.','');
                 return false;
             }
@@ -366,8 +366,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (opciones_comercializadoras == 2) {
             scope.opciones_comercializadoras[index] = undefined;
             scope.t_modal_data = {};
-            if (dato.EstCom == 'BLOQUEADA') {
-                scope.toast('error','La Comercializadora ya se encuentra bloqqueada.','');
+            if (dato.EstCom == 'Suspendida') {
+                scope.toast('error','La Comercializadora ya se encuentra suspendida.','');
                 return false;
             }
             scope.t_modal_data.CodCom = dato.CodCom;
@@ -394,7 +394,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.opciones_comercializadoras[index] = undefined;
                 $("#modal_motivo_bloqueo_comercializadora").modal('show');
             } else {
-                scope.toast('error','No hay Motivos de Bloqueo.','');
+                scope.toast('error','No se encontraron motivos para suspender registrados.','');
                 scope.opciones_comercializadoras[index] = undefined;
             }
 
@@ -420,12 +420,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            scope.toast('error','La Fecha de Bloqueo es requerida.','');
+            scope.toast('error','La Fecha de Suspender es requerida.','');
             return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
             if (FecBlo.length < 3) {
-                scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY.','');
+                scope.toast('error','Error en Fecha de Suspender, el formato correcto es DD/MM/YYYY.','');
                 event.preventDefault();
                 return false;
             } else {
@@ -450,7 +450,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error','La Fecha de Bloqueo no debe ser mayor a ' + scope.fecha_server,'');
+                    scope.toast('error','La Fecha de Suspender no debe ser mayor a ' + scope.fecha_server,'');
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -458,7 +458,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         }
         Swal.fire({
-            text: '¿Seguro que desea bloquear la Comercializadora?',
+            text: '¿Seguro que desea suspender la Comercializadora?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -495,7 +495,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 if (opciones_comercializadoras == 2) {
                     var title = 'Bloqueando';
-                    var text = 'La Comercializadora ha sido bloqueada de forma correcta';
+                    var text = 'La Comercializadora ha sido suspendida de forma correcta';
                     $("#modal_motivo_bloqueo_comercializadora").modal('hide');
                 }
 

@@ -773,27 +773,25 @@
             scope.toast('error','Debe Seleccionar un CUPs Para Poder Eliminarlo.','');
             return false;
         }       
-        for (var i = 0; i < scope.TDetallesCUPsEli.length; i++) 
-        {
-            for (var h= 0; h < scope.fdatos.detalleCUPs.length; h++) 
+        angular.forEach(scope.TDetallesCUPsEli,function(detalleCUPsEli)
+        {                        
+            for (var i = 0; i < scope.fdatos.detalleCUPs.length; i++) 
             {
-               
-                if(scope.fdatos.detalleCUPs[h].CodCups==scope.TDetallesCUPsEli[i].CodCups && scope.fdatos.detalleCUPs[h].TipServ==scope.TDetallesCUPsEli[i].TipServ)
+                if (scope.fdatos.detalleCUPs[i].CodCups == detalleCUPsEli.CodCups && scope.fdatos.detalleCUPs[i].TipServ == detalleCUPsEli.TipServ )
                 {
-                    scope.fdatos.detalleCUPs.splice(h, 1);
-                    scope.TDetallesCUPsEli.splice(i, 1);    
+                    scope.fdatos.detalleCUPs.splice(i, 1);
                 }
-            }               
-        }
+            }                
+        });
+        scope.CanCups=scope.fdatos.detalleCUPs.length;
         scope.fdatos.ImpAhoTot = 0;
-        scope.fdatos.PorAhoTot = 0;
-        console.log(scope.fdatos.detalleCUPs);  
+        scope.fdatos.PorAhoTot = 0;       
         for(var j=0; j<scope.fdatos.detalleCUPs.length; j++) 
         {
-            scope.fdatos.ImpAhoTot=Math.max(parseFloat(scope.fdatos.ImpAhoTot),0)+Math.max(parseFloat(scope.fdatos.detalleCUPs[i].ImpAho),0);
-            scope.fdatos.PorAhoTot=Math.max(parseFloat(scope.fdatos.PorAhoTot),0)+Math.max(parseFloat(scope.fdatos.detalleCUPs[i].PorAho),0);
-        }       
-        scope.CanCups=scope.fdatos.detalleCUPs.length;
+            scope.fdatos.ImpAhoTot=Math.max(parseFloat(scope.fdatos.ImpAhoTot),0)+Math.max(parseFloat(scope.fdatos.detalleCUPs[j].ImpAho),0);
+            scope.fdatos.PorAhoTot=Math.max(parseFloat(scope.fdatos.PorAhoTot),0)+Math.max(parseFloat(scope.fdatos.detalleCUPs[j].PorAho),0);
+        }  
+        scope.TDetallesCUPsEli= []; 
     }
     scope.validar_campos_CUPsElectricos = function() 
     {

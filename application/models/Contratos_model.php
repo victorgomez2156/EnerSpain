@@ -119,6 +119,11 @@ class Contratos_model extends CI_Model
         $this->db->where('CodConCom', $CodConCom);
         return $this->db->update('T_Contrato',array('EstRen'=>$EstRen,'RenMod'=>$RenMod,'ProRenPen'=>$ProRenPen,'EstBajCon'=>$EstBajCon));
     }
+    public function NuevoEstatusContratos($CodConCom,$opcion_select)
+    {   
+        $this->db->where('CodConCom', $CodConCom);
+        return $this->db->update('T_Contrato',array('EstBajCon'=>$opcion_select));
+    }
     public function getContratosFilter($SearchText)
     {
         $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas,TipProCom,CodProComCli",false);
@@ -133,7 +138,7 @@ class Contratos_model extends CI_Model
         $this->db->or_like('DATE_FORMAT(FecVenCon,"%d/%m/%Y")',$SearchText);
         $this->db->or_like('RefCon',$SearchText);
         $this->db->or_like('CodCli',$SearchText);
-        $this->db->order_by('FecVenCon DESC');              
+        $this->db->order_by('DATE_FORMAT(FecVenCon,"%Y/%m/%d") DESC');              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();
