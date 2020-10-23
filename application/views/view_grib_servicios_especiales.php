@@ -370,7 +370,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
       </section>
-    </section>
+    </section><!--main content end-->
+     <div class="text-right">
+      <div class="credits">
+          <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2020</a>
+        </div>
+    </div>
 </div>
 </body>
 
