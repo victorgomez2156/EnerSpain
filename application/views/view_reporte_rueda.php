@@ -139,9 +139,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div><!--FINAL ROW -->
         </form>
 <div ng-show="vm.Table_Contratos.length>0">
-  <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
+ <div ng-show="vm.Nivel==1 || vm.Nivel==2"> 
+<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
 <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
-
+</div>
 
 <label style="margin-top: 0px;">Total: {{vm.Table_Contratos.length}}</label>
 

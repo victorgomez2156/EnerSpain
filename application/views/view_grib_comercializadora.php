@@ -107,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </ul> 
                     </div>
                     
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar En PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Comercializadora/{{vm.reporte_pdf_comercializadora}}"><i class="fa fa-file"></i> Exportar En PDF</a></li>

@@ -128,6 +128,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Agregar_Usuarios/', { templateUrl: 'application/views/view_add_usuarios.php' })
             .when('/Editar_Usuarios/:ID', { templateUrl: 'application/views/view_add_usuarios.php' })
             .when('/Bancos/', { templateUrl: 'application/views/view_grib_bancos.php' })
+            .when('/Logs/', { templateUrl: 'application/views/view_grib_logs.php' })
             .otherwise({
                 //redirectTo: '/Dashboard'
             });

@@ -133,7 +133,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AccMotBloCli"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Cliente/{{vm.ruta_reportes_pdf_bloqueo_cliente}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -250,7 +250,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AcctMotBloAct"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Actividad/{{vm.ruta_reportes_pdf_MotBloAct}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -366,7 +366,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AcctMotBloPunSum"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Punto_Suministro/{{vm.ruta_reportes_pdf_MotBloPunSum}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -487,7 +487,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AcctMotBloCon"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Contacto/{{vm.ruta_reportes_pdf_MotBloContacto}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -609,7 +609,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AcctMotBloCom"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_Comercializadora/{{vm.ruta_reportes_pdf_MotBloComercializadora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -727,7 +727,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AcctMotBloCUPs"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Motivo_Bloqueo_CUPs/{{vm.ruta_reportes_pdf_MotBloCUPs}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>

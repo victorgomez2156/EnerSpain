@@ -132,7 +132,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </ul> 
                     </div>
                     
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Tarifa_Electrica/{{vm.ruta_reportes_pdf_tarifas_electrica}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
@@ -349,7 +349,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </ul> 
                     </div>
                     
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Tarifa_Gas/{{vm.ruta_reportes_pdf_tarifas_gas}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>

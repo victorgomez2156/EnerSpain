@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.AccTPro"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
-                    <div class="btn-group">
+                    <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
                       <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title='Exportar en PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Productos/{{vm.reporte_pdf_productos}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>

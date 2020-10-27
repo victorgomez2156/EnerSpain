@@ -218,7 +218,8 @@
             	<li><a href="#/Comercial"> Comerciales</a></li>
             	<li><a href="#/Tipos"> Tipos</a></li>
             	<li><a href="#/Motivos_Bloqueos"> Motivos</a></li>
-              <li><a href="#/Usuarios"> Usuarios</a></li>            
+              <li><a href="#/Usuarios"> Usuarios</a></li>  
+              <li><a href="#/Logs"> Logs</a></li>          
               
               <!--li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
               <li><a class="fa fa-bullhorn" href="#/Tipo_Contacto"> Tipo Contacto</a></li>
