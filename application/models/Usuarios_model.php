@@ -102,6 +102,21 @@ class Usuarios_model extends CI_Model
             return false;
         }       
     }
+    public function get_list_menu()
+    {
+        $this->db->select('*');
+        $this->db->from('T_Menu');
+        //$this->db->order_by('nombres,apellidos DESC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
     public function get_users_data($huser)
     {
         $this->db->select('id,nombres,apellidos,username,correo_electronico,nivel,date_format(fecha_registro, "%d-%m-%Y") as fecha_registro,bloqueado,key');
@@ -180,6 +195,15 @@ class Usuarios_model extends CI_Model
         $this->db->insert('access',array('key'=>$key,'controller'=>$controller,'huser'=>$huser,'hcontroller'=>$hcontroller));
         return $this->db->insert_id();
     }
+     public function agregar_detalle_menu($CodMenuAsi,$id)
+    {
+        $this->db->insert('T_MenuUsers',array('huser'=>$id,'CodMenuAsi'=>$CodMenuAsi));
+        return $this->db->insert_id();
+    }
+     public function eliminar_all_detalle_menu($huser)
+    {        
+        return $this->db->delete('T_MenuUsers', array('huser' => $huser));       
+    }
      public function eliminar_all($huser,$key)
     {        
         return $this->db->delete('access', array('huser' => $huser,'key' => $key));       
@@ -244,6 +268,22 @@ class Usuarios_model extends CI_Model
         $this->db->select('hcontroller as id,controller');
         $this->db->from('access');
         $this->db->where('huser',$huser);        
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function get_detalle_menu_all($huser)
+    {
+        $this->db->select('a.CodMenuAsi,b.titulo');
+        $this->db->from('T_MenuUsers a');
+        $this->db->join('T_Menu b','a.CodMenuAsi=b.id');
+        $this->db->where('a.huser',$huser);        
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

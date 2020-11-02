@@ -14,7 +14,14 @@ class Logs_model extends CI_Model
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
-            return $query->result(); 
+            if($metodo==1)
+            {
+                return $query->result();
+            }
+            if($metodo==2)
+            {
+                return false;
+            }   
         } 
         else
         {

@@ -133,93 +133,94 @@
     <!--header end-->
 
      <!--sidebar start-->
-    <aside>
+    <aside ng-controller="CtrlMenuController as Menu">
       <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
-          <li class="active">
+          
+          <li class="active" ng-show="Menu.Dashboard==true">
             <a href="#/Dashboard">
-              <i class="icon_house_alt"></i><span>Dashboard</span></a>
+              <i class="fa fa-home"></i><span>Dashboard</span></a>
           </li>
 
-          <li class="sub-menu">
+          <li class="sub-menu" ng-show="Menu.Comercializadora==true">
             <a href="javascript:;" class="">
               <i class="fa fa-bus"></i>
               <span>Comercializadora</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">            	
-              <li><a href="#/Comercializadora"> Datos Básicos</a></li>
-              <li><a href="#/Productos"> Productos</a></li>
-              <li><a href="#/Anexos"> Anexos</a></li>
-              <li><a href="#/Servicios_Adicionales"> Servicios Especiales</a></li>         
+              <li ng-show="Menu.Comercializadora_DatosBasicos==true"><a href="#/Comercializadora"> Datos Básicos</a></li>
+              <li ng-show="Menu.Comercializadora_Productos==true"><a href="#/Productos"> Productos</a></li>
+              <li ng-show="Menu.Comercializadora_Anexos==true"><a href="#/Anexos"> Anexos</a></li>
+              <li ng-show="Menu.Comercializadora_ServiciosEspeciales==true"><a href="#/Servicios_Adicionales"> Servicios Especiales</a></li>         
             </ul>
           </li>
 
-            <li class="sub-menu">
+            <li class="sub-menu" ng-show="Menu.Clientes==true">
             <a href="javascript:;" class="">
               <i class="fa fa-user"></i>
               <span>Clientes</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a href="#/Clientes"> Datos Básicos</a></li>
-              <li><a href="#/Actividades"> Actividad</a></li>
-              <li><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
-              <li><a href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
-              <li><a href="#/Contactos"> Contactos</a></li>  
-              <li><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
-              <li><a href="#/Documentos"> Documentos</a></li> 
+              <li ng-show="Menu.Clientes_DatosBasicos==true"><a href="#/Clientes"> Datos Básicos</a></li>
+              <li ng-show="Menu.Clientes_Actividad==true"><a href="#/Actividades"> Actividad</a></li>
+              <li ng-show="Menu.Clientes_DirPunSum==true"><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
+              <li ng-show="Menu.Clientes_GestionesCups==true"><a href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
+              <li ng-show="Menu.Clientes_Contactos==true"><a href="#/Contactos"> Contactos</a></li>  
+              <li ng-show="Menu.Clientes_CuentasBancarias==true"><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  
+              <li ng-show="Menu.Clientes_Documentos==true"><a href="#/Documentos"> Documentos</a></li> 
                 
             </ul>
           </li>
 
-          <li class="sub-menu">
+          <li class="sub-menu" ng-show="Menu.Gestion_Comercial==true">
             <a href="javascript:;" class="">
               <i class="fa fa-cube"></i>
               <span>Gestión Comercial</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a href="#/Propuesta_Comercial"> Propuesta Comercial</a></li>
-              <li><a href="#/Contratos"> Contratos</a></li>
-              <li><a href="#/Renovacion_Masiva"> Renovación Masiva</a></li>
-              <li><a href="#/Otras_Gestiones"> Otras Gestiones</a></li>
-              <li><a href="#/Seguimientos"> Seguimientos</a></li>
+              <li ng-show="Menu.Gestion_Comercial_ProCom==true"><a href="#/Propuesta_Comercial"> Propuesta Comercial</a></li>
+              <li ng-show="Menu.Gestion_Comercial_Contrato==true"><a href="#/Contratos"> Contratos</a></li>
+              <li ng-show="Menu.Gestion_Comercial_RenMas==true"><a href="#/Renovacion_Masiva"> Renovación Masiva</a></li>
+              <li ng-show="Menu.Gestion_Comercial_OtrasGestiones==true"><a href="#/Otras_Gestiones"> Otras Gestiones</a></li>
+              <li ng-show="Menu.Gestion_Comercial_Seguimientos==true"><a href="#/Seguimientos"> Seguimientos</a></li>
                 
             </ul>
           </li>
 
-          <li class="sub-menu">
+          <li class="sub-menu" ng-show="Menu.Reportes==true">
             <a href="javascript:;" class="">
               <i class="fa fa-file"></i>
               <span>Reportes</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-              <li><a href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
-              <li><a href="#/Rueda">Rueda</a></li>
-              <li><a href="#/Proyeccion_Ingresos">Proyección de Ingresos</a></li>
-              <li><a href="#/Ingresos_Reales">Ingresos Reales </a></li>
-              <li><a href="#/Ingresos_Vs_Proyectado">Ing. Reales Vs Proyectado</a></li>
+              <li ng-show="Menu.Reportes_Colaboradores==true"><a href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
+              <li ng-show="Menu.Reportes_Rueda==true"><a href="#/Rueda">Rueda</a></li>
+              <li ng-show="Menu.Reportes_ProyeccionIngresos==true"><a href="#/Proyeccion_Ingresos">Proyección de Ingresos</a></li>
+              <li ng-show="Menu.Reportes_IngresosReales==true"><a href="#/Ingresos_Reales">Ingresos Reales </a></li>
+              <li ng-show="Menu.Reportes_IngVsProyec==true"><a href="#/Ingresos_Vs_Proyectado">Ing. Reales Vs Proyectado</a></li>
             </ul>
         </li>
           
-          <li class="sub-menu">
+          <li class="sub-menu" ng-show="Menu.Configuracion==true">
             <a href="javascript:;" class="">
-              <i class="icon_cogs"></i>
+              <i class="fa fa-gears"></i>
               <span>Configuración</span>
               <span class="menu-arrow arrow_carrot-right"></span>
             </a>
             <ul class="sub">
-            	<li><a href="#/Distribuidora"> Distribuidora</a></li>
-            	<li><a href="#/Tarifas"> Tarifas</a></li>
-            	<li><a href="#/Colaboradores"> Colaboradores</a></li>
-            	<li><a href="#/Comercial"> Comerciales</a></li>
-            	<li><a href="#/Tipos"> Tipos</a></li>
-            	<li><a href="#/Motivos_Bloqueos"> Motivos</a></li>
-              <li><a href="#/Usuarios"> Usuarios</a></li>  
-              <li><a href="#/Logs"> Logs</a></li>          
+            	<li ng-show="Menu.Configuracion_Distribuidora==true"><a href="#/Distribuidora"> Distribuidora</a></li>
+            	<li ng-show="Menu.Configuracion_Tarifas==true"><a href="#/Tarifas"> Tarifas</a></li>
+            	<li ng-show="Menu.Configuracion_Colaboradores==true"><a href="#/Colaboradores"> Colaboradores</a></li>
+            	<li ng-show="Menu.Configuracion_Comercial==true"><a href="#/Comercial"> Comerciales</a></li>
+            	<li ng-show="Menu.Configuracion_Tipos==true"><a href="#/Tipos"> Tipos</a></li>
+            	<li ng-show="Menu.Configuracion_Motivos==true"><a href="#/Motivos_Bloqueos"> Motivos</a></li>
+              <li ng-show="Menu.Configuracion_Usuarios==true"><a href="#/Usuarios"> Usuarios</a></li>  
+              <li ng-show="Menu.Configuracion_Logs==true"><a href="#/Logs"> Logs</a></li>          
               
               <!--li><a class="fa fa-user" href="#/Tipo_Clientes"> Tipo Clientes</a></li>
               <li><a class="fa fa-bullhorn" href="#/Tipo_Contacto"> Tipo Contacto</a></li>

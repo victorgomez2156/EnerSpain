@@ -42,7 +42,22 @@ class Usuarios extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
         $data = $this->Usuarios_model->get_list_empleados();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Usuarios_Session','GET',0,$this->input->ip_address(),'Cargando Lista de Empleados');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Usuarios_Session','GET',null,$this->input->ip_address(),'Cargando Lista de Empleados');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function cargar_menu_users_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+        $data = $this->Usuarios_model->get_list_menu();
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Menu','GET',null,$this->input->ip_address(),'Cargando Lista de Menu');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -68,10 +83,13 @@ class Usuarios extends REST_Controller
 			$this->response(false);
 			return false;
 		}
-		$data->detalle = $this->obtener_detalle($data->id);		
+		$data->detalle = $this->obtener_detalle($data->id);	
+		$data->detalle_menu = $this->obtener_detalle_menu($data->id);		
+		
+
 		$this->response($data);		
     }
-   public function obtener_detalle($id)
+    public function obtener_detalle($id)
     {
     	$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -79,6 +97,20 @@ class Usuarios extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
     	$detalleG = $this->Usuarios_model->get_detalle_access_all($id);
+		$detalleFinal = Array();
+		if (empty($detalleG)){
+			return false;
+		}
+		return $detalleG;
+	}
+	public function obtener_detalle_menu($id)
+    {
+    	$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+    	$detalleG = $this->Usuarios_model->get_detalle_menu_all($id);
 		$detalleFinal = Array();
 		if (empty($detalleG)){
 			return false;
@@ -93,11 +125,15 @@ class Usuarios extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));
-		$detalle = $objSalida->detalle;		
+		$detalle = $objSalida->detalle;	
+		$detalle_menu = $objSalida->detalle_menu;		
 		$this->db->trans_start();		
 		if (isset($objSalida->id))
 		{
-			$this->Usuarios_model->eliminar_all($objSalida->id,$objSalida->key);		
+			$this->Usuarios_model->eliminar_all($objSalida->id,$objSalida->key);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'controllers','DELETE',null,$this->input->ip_address(),'Limpiando Detalle de Controladores');
+			$this->Usuarios_model->eliminar_all_detalle_menu($objSalida->id);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MenuUsers','DELETE',null,$this->input->ip_address(),'Limpiando Detalle de Menu');		
 			$this->Usuarios_model->actualizar($objSalida->id,$objSalida->nombres,$objSalida->apellidos,$objSalida->username,$objSalida->correo_electronico,$objSalida->nivel,$objSalida->bloqueado);
 			if(!empty($detalle))
 			{
@@ -106,6 +142,16 @@ class Usuarios extends REST_Controller
 					$this->Usuarios_model->agregar_detalle_controladores($objSalida->key,$my_controller->controller,$my_controller->id,$objSalida->id);
 				}
 				endforeach;
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'controllers','INSERT',null,$this->input->ip_address(),'Agregando Detalle de Controladores');
+			}
+			if(!empty($detalle_menu))
+			{
+				foreach ($detalle_menu as $menu => $mymenu): 
+				{
+					$this->Usuarios_model->agregar_detalle_menu($mymenu->CodMenuAsi,$objSalida->id);
+				}
+				endforeach;
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MenuUsers','INSERT',null,$this->input->ip_address(),'Agregnado Detalle de Menu');
 			}
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Usuarios_Session','UPDATE',$objSalida->id,$this->input->ip_address(),'Actualizando Datos Del Usuario');
 		}
@@ -121,10 +167,17 @@ class Usuarios extends REST_Controller
 					$this->Usuarios_model->agregar_detalle_controladores($objSalida->key,$my_controller->controller,$my_controller->id,$objSalida->id);
 				}
 				endforeach;
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'controllers','INSERT',null,$this->input->ip_address(),'Agregando Detalle de Controladores');
 			}
-
-
-			
+			if(!empty($detalle_menu))
+			{
+				foreach ($detalle_menu as $menu => $mymenu): 
+				{
+					$this->Usuarios_model->agregar_detalle_menu($mymenu->CodMenuAsi,$objSalida->id);
+				}
+				endforeach;
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MenuUsers','INSERT',null,$this->input->ip_address(),'Agregnado Detalle de Menu');
+			}			
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Usuarios_Session','INSERT',$objSalida->id,$this->input->ip_address(),'Creando Usuario para Login');			
 		}		
 		$this->db->trans_complete();

@@ -27,7 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">Registro de Usuario</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.id==undefined">Registro de Usuario</h3>
+            <h3 class="page-header" ng-show="vm.fdatos.id>0">Editar Usuario</h3>
             <!--<ol class="breadcrumb">
              <li><i class="fa fa-home"></i><a href="#/Dashboard">Dashboard</a></li>             
               <li>Registro de Usuarios</li>
@@ -115,10 +116,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
 
+<div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(1)" ng-init="vm.cargar_menu()">
+    <h4 class="breadcrumb">     
+      <span class="foreign-supplier-text" style="color:black;"> Asignación de Menu</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showAsigMenu?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
+    </h4>
+</div>
+<div ng-if="vm.showAsigMenu">   
+  <div class="col-lg-12">
+            <section class="panel">
+              <table class="table table-striped table-advance table-hover">
+                <tbody>
+                  <tr>
+                    <td><i class="fa fa-arrows"></i> Tipo Menu</td>
+                    <th><i class="fa fa-archive"></i> Titulo</th> 
+                    <th><i class="fa fa-arrows"></i> Icono</th>                   
+                    <th><i class="fa fa-barcode"></i> Acción</th>
+                  </tr>
+                  <tr ng-show="vm.t_Menu==undefined || vm.t_Menu==false|| vm.t_Menu.length==0"> 
+                     <td colspan="6" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                  </tr>
+                  <tr ng-repeat="dato in vm.t_Menu | filter:paginate2 | filter:search" ng-class-odd="odd">
+                    <td ng-show="dato.Ref==0">
+                      <div class="td-usuario-table"><i class="fa fa-chevron-right"></i><b style="color:black;"> Principal</b></div>
+                    </td>
+                    <td ng-show="dato.Ref==1">
+                      <div class="td-usuario-table"><i class="fa fa-chevron-up"></i><b style="color:blue;"> SubMenu</b></div>
+                    </td>
+                    <td ng-show="dato.Ref==null">
+                      <div class="td-usuario-table"><i class="fa fa-chevron-left"></i><b style="color:black;"> Solo</b></div>
+                    </td>
+                    <td>{{dato.titulo}}</td> 
+                     <td><i class="{{dato.icono}}"></i></td>                                    
+                    <td>
+                      <div class="btn-group">
+                       <button class="btn btn-success" type="button" ng-show="!vm.select_menu[dato.id]" ng-click="vm.agregar_menu($index,dato.id,dato)"><i class="icon_check"></i></button>                        
+                        <button class="btn btn-danger" type="button" ng-show="vm.select_menu[dato.id]" ng-disabled="vm.Nivel==3" ng-click="vm.quitar_menu($index,dato.id,dato)"><i class="icon_close_alt2"></i></button>                        
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>             
+            </section>
+          </div>
+</div> 
 
 
-          <header class="panel-heading">Asignación de Controladores</header>
-          <div class="col-lg-12" ng-init="vm.cargar_controladores()">
+
+<div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(2)" ng-init="vm.cargar_controladores()">
+    <h4 class="breadcrumb">     
+      <span class="foreign-supplier-text" style="color:black;"> Asignación de Controladores</span><div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showAsigControllers?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
+    </h4>
+</div>
+<div ng-if="vm.showAsigControllers">   
+  
+   <div class="col-lg-12" >
             <section class="panel">
               <table class="table table-striped table-advance table-hover">
                 <tbody>
@@ -143,6 +195,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </table>             
             </section>
           </div>
+</div>          
+
+          
+         
             <div class="form-group">
                       <div class="col-lg-offset-2 col-lg-10">
                         

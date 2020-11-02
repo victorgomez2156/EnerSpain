@@ -7,13 +7,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     var scope = this;
     scope.fdatos = {}; // datos del formulario
     scope.fdatos.detalle = [];
+    scope.fdatos.detalle_menu = [];
     scope.nID = $route.current.params.ID; //contiene el id del registro en caso de estarse consultando desde la grid
     scope.Nivel = $cookies.get('nivel');
     scope.Templeados = [];
     scope.TempleadosBack = [];
     scope.select_controller = [];
     scope.controladores_seleccionados = [];
-
+    scope.t_Menu=[];
+    scope.select_menu=[];
     scope.NomComp=true;
     scope.correo_electronico=true;
     scope.nivel=true;
@@ -22,6 +24,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.AccUser=true;
     scope.ruta_reportes_pdf_Usuarios = 0;
     scope.ruta_reportes_excel_Usuarios =0;
+    
     
     $scope.submitForm = function(event)
     {
@@ -55,6 +58,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             console.log('Cancelando ando...');
         }}); 
     };
+    scope.cargar_menu=function()
+    {
+        var url=base_urlHome()+"api/Usuarios/cargar_menu_users/";
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                    scope.t_Menu=result.data;
+            }
+            else
+            {
+                scope.toast('error','no se encontraron menu para asignar','Error');
+                scope.t_Menu=[];
+                scope.select_menu=[];
+            }
+
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+            }if (error.status == 403 && error.statusText == "Forbidden"){
+                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+            }
+        });
+    }
     scope.regresar=function()
     {
         if(scope.fdatos.id==undefined||scope.fdatos.id==null||scope.fdatos.id=='')
@@ -195,9 +227,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (result.data != false) {
                 
                 scope.fdatos = result.data;
-
-                angular.forEach(result.data.detalle, function(controllers) {
+                angular.forEach(result.data.detalle, function(controllers){
                     scope.select_controller[controllers.id] = controllers;
+                });
+                 angular.forEach(result.data.detalle_menu, function(menu){
+                    scope.select_menu[menu.CodMenuAsi] = menu;
                 });
             } else {               
                 scope.toast('error','Hubo un error al intentar cargar los datos.','Error General');
@@ -300,7 +334,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }
         });
-    }
+    }    
     scope.agregar_controlador = function(index, id, datos) {
         if (scope.Nivel == 3) {
             scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
@@ -327,6 +361,33 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
         //console.log(scope.fdatos.detalle);
+    };
+    scope.agregar_menu = function(index, id, datos) {
+        if (scope.Nivel == 3) {
+            scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
+            return false;
+        }
+        var ObjMenu = new Object();
+        scope.select_menu[id] = datos;
+        if (scope.fdatos.detalle_menu == undefined || scope.fdatos.detalle_menu == false) {
+            scope.fdatos.detalle_menu = [];
+        }
+        scope.fdatos.detalle_menu.push({ CodMenuAsi: datos.id, opcion: datos.titulo});
+        console.log(scope.fdatos.detalle_menu);       
+    }
+    scope.quitar_menu = function(index, id, datos) {
+        if (scope.Nivel == 3) {
+            scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
+            return false;
+        }
+        scope.select_menu[id] = false;
+        i = 0;
+        for (var i = 0; i < scope.fdatos.detalle_menu.length; i++) {
+            if (scope.fdatos.detalle_menu[i].CodMenuAsi == id) {
+                scope.fdatos.detalle_menu.splice(i, 1);
+            }
+        }
+        console.log(scope.fdatos.detalle_menu);
     };
     scope.FetchUsuarios=function()
      {
@@ -511,6 +572,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         return true;
     }
+     scope.showDetails = function(menu) {
+         if (menu == 1) {
+             if (scope.showAsigMenu == true) {
+                 scope.showAsigMenu = false;
+             } else {
+                 scope.showAsigMenu = true;
+             }
+         }
+         else if (menu == 2) {
+             if (scope.showAsigControllers == true) {
+                 scope.showAsigControllers = false;
+             } else {
+                 scope.showAsigControllers = true;
+             }
+         }
+     }
         var i = -1;
         var toastCount = 0;
         var $toastlast;

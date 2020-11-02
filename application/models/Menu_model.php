@@ -2,12 +2,22 @@
 class Menu_model extends CI_Model 
 {
     
-public function get_Menu($usuario)
-{
-        $this->db->order_by('CodMenu,hpadre','asc');
-        $this->db->where('CodUser',$usuario);
-        $query = $this->db->get('T_MenuUsers');
-        return $query->result();
-}
+ 	public function get_Menu($huser) 
+    {
+        $this->db->select('a.*,b.*',FALSE);
+        $this->db->from('T_MenuUsers a'); 
+        $this->db->join('T_Menu b','a.CodMenuAsi=b.id'); 
+        $this->db->where('a.huser',$huser);    
+        $this->db->order_by('b.id ASC');              
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->result();
+        }
+        else 
+        {
+            return false;
+        }       
+    }
 }
 ?>
