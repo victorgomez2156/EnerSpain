@@ -71,7 +71,7 @@ $(document).ready(function()
         bootbox.alert({
         message: "<i class='fa fa-check-circle' ></i> "+datax.message+"",
         size: 'large'});        
-        url = "<?php echo base_url('Principal#/Dashboard/')?>";
+        url = "<?php echo base_url('Principal#/Home/')?>";
         $(location).attr('href',url);
       }      
     },error:function(error)

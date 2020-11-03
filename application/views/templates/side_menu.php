@@ -138,7 +138,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
           
-          <li class="active" ng-show="Menu.Dashboard==true">
+          <li class="" ng-show="Menu.Dashboard==true">
             <a href="#/Dashboard">
               <i class="fa fa-home"></i><span>Dashboard</span></a>
           </li>

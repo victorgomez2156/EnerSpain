@@ -69,7 +69,7 @@ class Login extends CI_Controller
 				}
 				else
 				{
-					redirect(base_url("Principal#/Dashboard/"), 'location', 301);
+					redirect(base_url("Principal#/Home/"), 'location', 301);
 				}
 			}
 			/*if (!isset($datausuario['sesion_clientes']))

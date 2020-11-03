@@ -10,6 +10,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $routeProvider
         //Se debe colocar  para cada uno de los controladores que desea para el acceso todos los formularios
+        .when('/Home/', { templateUrl: 'application/views/view_Home.php' })
         .when('/Dashboard/', { templateUrl: 'application/views/view_dashboard.php' })
 
         .when('/Comercializadora/', { templateUrl: 'application/views/view_grib_comercializadora.php' })
