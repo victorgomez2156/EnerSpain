@@ -50,10 +50,7 @@ class Clientes_model extends CI_Model
     }
 public function get_data_cliente($CodCli)
 { 
-    $sql = $this->db->query("SELECT a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,CONCAT(d.IniTipVia,' - ',d.DesTipVia,' ',a.NomViaDomSoc,' ',a.NumViaDomSoc) AS DomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,b.DesLoc as DesLocSoc,c.DesPro as DesProSoc,a.CodLocSoc,b.CodPro,a.CPLocSoc as CPLocSoc,
-        CONCAT(g.IniTipVia,' - ',g.DesTipVia,' ',a.NomViaDomFis,' ',a.NumViaDomFis) AS DomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,
-        e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli,a.TelMovCli,a.EmaCliOpc
-        ,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc,b.CodPro as CodProSoc,a.CPLocSoc
+    $sql = $this->db->query("SELECT a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,d.IniTipVia AS IniTipViasSoc,d.DesTipVia as DesTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,b.DesLoc as DesLocSoc,c.DesPro as DesProSoc,a.CodLocSoc,b.CodPro,a.CPLocSoc as CPLocSoc,g.IniTipVia as IniTipViaFis,g.DesTipVia as DesTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,e.DesLoc as DesLocFis,a.CodLocFis,f.DesPro as DesProFis,f.CodPro as CodProFis,a.TelFijCli,a.EmaCli,a.TelMovCli,a.EmaCliOpc,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc,b.CodPro as CodProSoc,a.CPLocSoc
         FROM T_Cliente a 
         left JOIN T_Localidad b on b.CodLoc=a.CodLocSoc
         left JOIN T_Provincia c on b.CodPro=c.CodPro
@@ -69,7 +66,7 @@ public function get_data_cliente($CodCli)
 }
 public function get_data_puntos_suministros($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,CONCAT(d.IniTipVia,' - ',d.DesTipVia,' ',a.NomViaPunSum,' ',a.NumViaPunSum) AS DirPumSum,c.DesPro,b.DesLoc,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CPLocSoc from T_PuntoSuministro a
+    $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,CONCAT(a.NomViaPunSum,' ',a.NumViaPunSum) AS DirPumSum,c.DesPro,b.DesLoc,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CPLocSoc from T_PuntoSuministro a
     JOIN T_Localidad b on b.CodLoc=a.CodLoc
     JOIN T_Provincia c on b.CodPro=c.CodPro
     JOIN T_TipoVia   d on a.CodTipVia=d.CodTipVia where CodCli='$CodCli'");
@@ -80,7 +77,7 @@ public function get_data_puntos_suministros($CodCli)
 }
 public function get_CUPs_Electricos_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'E' end as TipServ
         FROM T_CUPsElectrico a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -95,7 +92,7 @@ public function get_CUPs_Electricos_Dashboard($CodCli)
 }
 public function get_CUPs_Gas_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'G' end as TipServ
         FROM T_CUPsGas a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -1106,6 +1103,29 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         else
         return false;
     }
+    public function getporcups($SearchText)
+    { 
+        $this->db->distinct();
+        $this->db->select("CodCli",false);
+        $this->db->from('View_CUPsPorClientes');
+        $this->db->like('CUPsName',$SearchText);
+        $this->db->order_by('CodCli ASC');
+        $query = $this->db->get();        
+        return $query->result();
+    }
+    public function getDataClientesCUPs($CodCli)
+    {
+        $this->db->select('*');
+        $this->db->from('T_Cliente');
+        $this->db->where('CodCli',$CodCli);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0){
+            return $query->row();
+        }else{
+            return false;
+        }       
+    }
+
     public function getColaboradoressearch($SearchText)
     {
        

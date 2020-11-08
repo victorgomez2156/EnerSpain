@@ -31,7 +31,8 @@ class MY_Controller extends CI_Controller {
 		}*/
 		$this->id_usuario=$this->session->userdata('id');		
 		$this->usuario=$this->session->userdata('username');
-		$this->nivel=$this->session->userdata('nivel');		
+		$this->nivel=$this->session->userdata('nivel');
+		$this->NombreMostrar=$this->session->userdata('nombres').' '.$this->session->userdata('apellidos');	
 		$this->_build_template();
 	}
 	function _build_template()

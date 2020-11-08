@@ -244,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div-->
 
-       <div class="col-12 col-sm-6">
+       <!--div class="col-12 col-sm-6">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Referencia Castastral</label>
@@ -260,8 +260,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <input type="text" class="form-control" ng-model="vm.fpuntosuministro.DimPunSum" onkeyup="this.value=this.value.toUpperCase();" placeholder="Área del Dirección de Suministro" maxlength="5" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fpuntosuministro.TipRegDir==undefined" ng-change="vm.validarsinuermo(vm.fpuntosuministro.DimPunSum,3)"/>       
        </div>
        </div>
+       </div-->
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
        </div>
-
+       </div>
        <div class="form">                          
        <div class="form-group">
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsPunSum" name="ObsPunSum" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fpuntosuministro.ObsPunSum" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"></textarea>

@@ -107,11 +107,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <div class="t-0029"><!--t-0029 start--> 
                         <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
                           
-                        <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
+                        <div class="btn-group" ng-show="vm.Nivel==1 && vm.response_customer.CodCli>0 || vm.Nivel==2 && vm.response_customer.CodCli>0 ">
                           <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                           <ul class="dropdown-menu">
-                                  <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                                  <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
+                                  <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_Clientes_Dashboard_PDF/{{vm.response_customer.CodCli}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+                                  <!--li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Clientes_Dashboard_Excel/{{vm.response_customer.CodCli}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li-->                         
                           </ul>
                         </div> <div id="xcontainer"></div>              
                       </div><!--t-0031 end--> 
@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="form-group">
                  <input type='text' ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-model='vm.searchText' placeholder='Buscar Cliente...' class="form-control">
                  
-                 <ul id='searchResult'>
+                 <ul id='searchResult' style="height: 250px; overflow-y: auto;">
                   <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
                    <div ng-show="result.NumCifCli!=''">NumCli: {{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
                   </li>
@@ -390,7 +390,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                   <th style="width: 207px;">CUPS</th>
                   <th>Dirección de Suministro</th>
-                  <th style="width: 99px;">Eléct/Gas</th>
+                  <th style="width: 99px;">E/G</th>
                   <th style="width: 63px;">Acción</th> 
                   </tr>
                   <tr ng-show="vm.response_customer.All_CUPs.length==0"> 
@@ -752,7 +752,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>
 
-     <div ng-if="vm.ModalTipServ=='Eléctrico'">
+     <div ng-if="vm.ModalTipServ=='E'">
        
    <div ng-show="vm.CanPerTar==1">
     <div class="col-12 col-sm-12">

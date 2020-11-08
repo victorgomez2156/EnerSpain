@@ -167,7 +167,7 @@ class Login extends CI_Controller
 				if($datausuario!=false)
 				{	
 					//$this->Usuarios_model->actualizar_cookie($datausuario->id,$datausuario->nivel,$ip,$agent,$version,$os,$this->input->cookie('EnerSpain'));
-					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico);
+					$newdata = array('id'=>$datausuario->id,'username'=>$datausuario->username,'nivel'=>$datausuario->nivel,'sesion_clientes'=>TRUE,'key'=>$datausuario->key,'correo_electronico'=>$datausuario->correo_electronico,'nombres'=>$datausuario->nombres,'apellidos'=>$datausuario->apellidos);
 					$this->session->set_userdata($newdata);
 					//echo 2;
 

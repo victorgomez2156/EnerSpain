@@ -15,6 +15,7 @@ class Exportar_Documentos extends CI_Controller
         $this->load->model('Auditoria_model');
         $this->load->model('Contratos_model');
         $this->load->model('Propuesta_model'); 	
+        $this->load->model('Clientes_model');
         $this->load->helper('array');	
         $this->load->library('user_agent');  
         $this->load->helper('cookie');
@@ -16814,6 +16815,207 @@ class Exportar_Documentos extends CI_Controller
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL TÁRIFAS GAS');
         $objWriter->save('php://output');
         exit;   
+    }
+    public function Doc_Clientes_Dashboard_PDF()
+    {        
+        $NombreFiltro="Clientes Dashboard";
+        $Tipo_Cliente="";
+        $CodCli = urldecode($this->uri->segment(4));
+        if($CodCli==null)
+        {
+            echo 'Error debe colocar un Código de Cliente para poder generar el Reporte'; 
+            return false;
+        }
+        $tabla="T_Cliente";
+        $where="CodCli";
+        $select="*";
+        $DataCliente= $this->Clientes_model->get_data_cliente($CodCli);
+        $Contactos=$this->Clientes_model->get_data_cliente_contactos($CodCli);
+        $Electricos=$this->Clientes_model->get_CUPs_Electricos_Dashboard($CodCli);
+        $Gas=$this->Clientes_model->get_CUPs_Gas_Dashboard($CodCli);        
+        $Cuenta_Bancarias=$this->Clientes_model->get_data_cliente_cuentas($CodCli);
+        $Documentos=$this->Clientes_model->get_data_cliente_documentos($CodCli); 
+        //var_dump($DataCliente);
+        $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('Reporte PDF Cliente Dashboard');
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('Reporte PDF Cliente Dashboard');
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="center">'.TITULO.'</h4>';        
+       
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>Datos Generales</b></td>            
+        </tr>
+        </table>';
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$DataCliente-> RazSocCli.'</td>
+            <td border="0" colspan="1">CIF: '.$DataCliente-> NumCifCli.'</td>
+        </tr>
+        <tr>
+            <td border="0" colspan="10">Dirección: '.$DataCliente-> NomViaDomSoc.' '.$DataCliente-> NumViaDomSoc.' </td>
+        </tr>
+        <tr>
+            <td border="0" colspan="2">Localidad: '.$DataCliente-> DesLocSoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$DataCliente-> DesProSoc.'</td>
+            <td border="0" colspan="1">Código Postal: '.$DataCliente-> CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>Contactos / Representante Legal</b></td>            
+        </tr>
+        </table>';
+        
+        $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                    <tr>
+                    <td border="1">Nombre Completo</td>
+                    <td border="1">Nº Documento</td>
+                    <td border="1">Cargo</td>
+                    <td border="1">Representación</td>
+                    </tr>';
+        if($Contactos!=false)
+        {
+            foreach ($Contactos as $key => $value):
+            {                
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> NomConCli.'</td>
+                        <td border="1">'.$value-> NIFConCli.'</td>
+                        <td border="1">'.$value-> CarConCli.'</td>
+                        <td border="1">'.$value-> TipRepr.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+        $html .= '<br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>Puntos de Suministros</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="1">CUPS</td>
+            <td border="1">Dirección de Suministro</td>
+            <td border="1">E/G</td>
+            </tr>';
+             if($Contactos!=false)
+            {
+            foreach ($Contactos as $key => $value):
+            {                
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> NomConCli.'</td>
+                        <td border="1">'.$value-> NIFConCli.'</td>
+                        <td border="1">'.$value-> CarConCli.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+        $html .= '<br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>Datos Bancarios</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="1">Cuenta Bancaria</td>
+            <td border="1">Banco</td>
+            </tr>';
+             if($Cuenta_Bancarias!=false)
+            {
+            foreach ($Cuenta_Bancarias as $key => $value):
+            {                
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> NumIBan.'</td>
+                        <td border="1">'.$value-> DesBan.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+        $html .= '<br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>Documentos</b></td>            
+        </tr>
+        </table>'; 
+
+
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td border="1">Tipo de Documento</td>
+            <td border="1">Fichero</td>
+            </tr>';
+             if($Documentos!=false)
+            {
+            foreach ($Documentos as $key => $value):
+            {                
+                $html .= '
+                    <tr>
+                        <td border="1">'.$value-> DesTipDoc.'</td>
+                        <td border="1">'.$value-> DesDoc.'</td>
+                     </tr>';  
+            }
+            endforeach;
+            $html .= '</table>';  
+        }
+        else
+        {
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="7">No ahí datos disponibles.</td>
+                     </tr>';  
+            $html .= '</table>'; 
+        }
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Generando Reporte Cliente Dashboard');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Reporte Cliente Dashboard'.'.pdf', 'I');
     }
 
 }?>

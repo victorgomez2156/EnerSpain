@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
           <ul class="dropdown-menu">
             <li><input type="checkbox" ng-model="vm.CodCli"/><b style="color:black;">CodCli</b></li>
-            <li><input type="checkbox" ng-model="vm.Cif"/><b style="color:black;">CIF</b></li>
+            <!--li><input type="checkbox" ng-model="vm.Cif"/><b style="color:black;">CIF</b></li-->
             <li><input type="checkbox" ng-model="vm.RazSoc"/><b style="color:black;">Razón Social</b></li>
             <li><input type="checkbox" ng-model="vm.Cups"/> <b style="color:black;">CUPS</b></li>
             <li><input type="checkbox" ng-model="vm.Cups_Ser"/> <b style="color:black;">Tipo de Suministro</b></li></li>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>
                     <th ng-show="vm.CodCli==true">CodCli</th>
-                    <th ng-show="vm.Cif==true">CIF</th>
+                    <!--th ng-show="vm.Cif==true">CIF</th-->
                     <th ng-show="vm.RazSoc==true">Razón Social</th>
                     <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>
@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                   <tr ng-repeat="dato in vm.TCups | filter:paginate" ng-class-odd="odd">
                     <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>                    
-                    <td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td>
+                    <!--td ng-show="vm.Cif==true">{{dato.Cups_Cif}}</td-->
                     <td ng-show="vm.RazSoc==true">{{dato.Cups_RazSocCli}}</td>
                     <td ng-show="vm.Cups==true">{{dato.CupsGas}}</td>
                     <td ng-show="vm.Cups_Ser==true">{{dato.TipServ}}</td>
@@ -186,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.CodCli==true">CodCli</th>
-                    <th ng-show="vm.Cif==true">CIF</th>
+                    <!--th ng-show="vm.Cif==true">CIF</th-->
                     <th ng-show="vm.RazSoc==true">Razón Social</th>
                     <th ng-show="vm.Cups==true">CUPS</th>
                     <th ng-show="vm.Cups_Ser==true">Tipo de Suministro</th>

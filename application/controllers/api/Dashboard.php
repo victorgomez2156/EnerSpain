@@ -26,8 +26,25 @@ class Dashboard extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-		$consulta=$this->Clientes_model->getclientessearch($objSalida->searchText);						
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$PrimeraLetra = substr($objSalida->searchText, 0,2);
+		if($PrimeraLetra=="ES" || $PrimeraLetra=='es')
+		{
+			$consulta1=$this->Clientes_model->getporcups($objSalida->searchText);
+			$detalleFinal = Array();
+			foreach ($consulta1 as $key => $value):
+			{
+				$detalleG = $this->Clientes_model->getDataClientesCUPs($value->CodCli);
+				array_push($detalleFinal, $detalleG);
+			}
+			endforeach;
+			$consulta=$detalleFinal;
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Busqueda de Clientes Para Dashboard Por CUPs');	
+		}
+		else
+		{
+			$consulta=$this->Clientes_model->getclientessearch($objSalida->searchText);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Busqueda de Clientes Para Dashboard Normal');
+		}
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}

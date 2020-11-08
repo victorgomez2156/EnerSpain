@@ -110,7 +110,7 @@
                             <span class="profile-ava">
                                 <img alt="" height="50" width="50" src="<?php echo ESTILOS;?>img/EnerSpain.png">
                             </span>
-                            <span class="username"><b style="color: black;"><?php echo $this->usuario;?></b></span>
+                            <span class="username"><b style="color: black;"><?php echo $this->NombreMostrar;?></b></span>
                             <b class="caret"></b>
                         </a> 
             <ul class="dropdown-menu extended logout">
@@ -119,7 +119,7 @@
                 <a href="#"><i class="icon_profile"></i> My Profile</a>
               </li--> 
               <li>
-                <a href="javascript:void;" id="cerrar-sesion" data-username="<?php $this->usuario;?> " data-end-url="<?php echo 'Login/desconectar';?>" onclick="javascript:void(0)"><span class="fa fa-sign-in"></span> Cerrar Sesión</a>
+                <a href="javascript:void;" id="cerrar-sesion" data-username="<?php $this->NombreMostrar;?> " data-end-url="<?php echo 'Login/desconectar';?>" onclick="javascript:void(0)"><span class="fa fa-sign-in"></span> Cerrar Sesión</a>
               </li>
               
               
@@ -258,7 +258,7 @@
      <script>
 
 $(function(){
-    var username = "<?php echo $this->usuario;?>";
+    var username = "<?php echo $this->NombreMostrar;?>";
  
   $("#cerrar-sesion").on('click', function(){
     Swal.fire({title:"Cerrar Sesión",text:"Seguro que desea cerrar la sesión?",		

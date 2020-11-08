@@ -220,13 +220,13 @@
      }
      scope.asignar_num_domicilio = function(object) {
          console.log(object);
-
-         if (scope.fdatos.distinto_a_social == false) {
-             if (object != undefined) {
+         if (scope.fdatos.distinto_a_social == false) 
+         {
+            /*if (object != undefined) {
                  numero = object;
                  if (!/^([0-9])*$/.test(numero))
                      scope.fdatos.NumViaDomSoc = numero.substring(0, numero.length - 1);
-             }
+            }*/
              scope.fdatos.NumViaDomFis = scope.fdatos.NumViaDomSoc;
          }
      }
@@ -344,13 +344,13 @@
                      scope.fdatos.TelFijCli = numero.substring(0, numero.length - 1);
              }
          }
-         if (metodo == 3) {
+         /*if (metodo == 3) {
              if (object != undefined) {
                  numero = object;
                  if (!/^([0-9])*$/.test(numero))
                      scope.fdatos.NumViaDomFis = numero.substring(0, numero.length - 1);
              }
-         }
+         }*/
          if (metodo == 4) {
              if (object != undefined) {
                  numero = object;
@@ -510,8 +510,13 @@
              }
          }
          if (scope.fdatos.TelFijCli == null || scope.fdatos.TelFijCli == undefined || scope.fdatos.TelFijCli == '') {
-             scope.toast('error','El Número de Teléfono Fijo es requerido','');
-             return false;
+             /*scope.toast('error','El Número de Teléfono Fijo es requerido','');
+             return false;*/
+             scope.fdatos.TelFijCli = null;
+         }
+         else
+         {
+            scope.fdatos.TelFijCli = scope.fdatos.TelFijCli;
          }
          if (scope.fdatos.TelMovCli == null || scope.fdatos.TelMovCli == undefined || scope.fdatos.TelMovCli == '') {
              scope.fdatos.TelMovCli=null;
@@ -533,8 +538,11 @@
          }
 
          if (!scope.fdatos.CodCom > 0) {
-             scope.toast('error','Seleccionar un Comercial','');
-             return false;
+             scope.fdatos.CodCom=null;
+         }
+         else
+         {
+            scope.fdatos.CodCom=scope.fdatos.CodCom;
          }
          if (scope.fdatos.BloDomSoc == undefined || scope.fdatos.BloDomSoc == null || scope.fdatos.BloDomSoc == '') {
              scope.fdatos.BloDomSoc = null;

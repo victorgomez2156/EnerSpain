@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!--Dashboard start -->
         <div align="center">
-         <img src="application/libraries/estilos/img/logo_web_desktop.png" align="center">
+         <img src="application/libraries/estilos/img/enerspain_logotipo_slide.png" align="center">
         </div>
 
           <div class="text-right">
