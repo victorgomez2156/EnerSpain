@@ -161,16 +161,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <div ng-show="vm.response_customer.CodCli>0">
 
-   <form class="form-validate" id="form_datos_generales" name="form_datos_generales">                 
-           <input type="hidden" class="form-control" ng-model="vm.response_customer.CodCli"/>          
+    <form class="form-validate" id="form_datos_generales" name="form_datos_generales">                 
+      <input type="hidden" class="form-control" ng-model="vm.response_customer.CodCli"/>          
       <div class="col-12 col-sm-8">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre </label>
-       <input type="text" class="form-control" id="RazSocCli" name="RazSocCli" placeholder="Razón Social / Apellidos, Nombre" ng-model="vm.response_customer.RazSocCli" readonly ng-click="vm.copyText(1)" /> 
-       </div>
-       </div>
-       </div>
+        <div class="form">                          
+          <div class="form-group">
+            <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre </label>
+            <input type="text" class="form-control" id="RazSocCli" name="RazSocCli" placeholder="Razón Social / Apellidos, Nombre" ng-model="vm.response_customer.RazSocCli" readonly ng-click="vm.copyText(1)" /> 
+          </div>
+        </div>
+      </div>
 
         <div class="col-12 col-sm-4">
           <div class="form">                          
@@ -308,9 +308,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div> 
         </form>
+         <div align="center"><a class="btn btn-success" href="#/Edit_Datos_Basicos_Clientes/{{vm.response_customer.CodCli}}" ng-disabled="vm.disabled_button==true">Ir a Datos Basicos</a></div>
       </div>
 </div>
-
+<br>
 <div class="foreign-supplier-title clearfix" ng-click="vm.showDetails(2)">
     <h4 class="breadcrumb">     
       <span class="foreign-supplier-text" style="color:black;"> Contactos / Representante Legal</span> <div align="right" style="margin-top: -16px;"><span class="foreign-supplier-arrow" style="color:black;"><i ng-class="!vm.showContactosRepresentante?'fa fa-angle-right':'fa fa-angle-down'" aria-hidden="true"></i></span></div>
@@ -341,7 +342,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
     </div>
           
-    <div class="col-12 col-sm-3">
+    <div class="col-12 col-sm-2">
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:black;">Cargo </label>
@@ -350,11 +351,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
     </div>
 
-    <div class="col-12 col-sm-3">
+    <div class="col-12 col-sm-2">
       <div class="form">                          
         <div class="form-group">   
           <label class="font-weight-bold nexa-dark" style="color:black;">Representación </label>
             <input type="text" class="form-control" ng-model="vm.response_customer.Contactos[$index].TipRepr" placeholder="Representación" readonly  ng-click="vm.copyTextArray(4,$index)" id="TipRepr_{{$index}}" name="TipRepr_{{$index}}"/>     
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-2">
+      <div class="form">                          
+        <div class="form-group">   
+          <label class="font-weight-bold nexa-dark" style="color:white;">. </label>
+           <a class="btn btn-success" href="#/Edit_Contactos/{{vm.response_customer.Contactos[$index].CodConCli}}" ng-disabled="vm.disabled_button==true">Ir a Contactos</a>   
         </div>
       </div>
     </div>
@@ -407,6 +417,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)"> </td>                     
                     <td> 
                       <button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
+
+                      <a class="btn btn-success" href="#/Edit_Cups/{{vm.response_customer.All_CUPs[$index].CodCups}}/{{vm.response_customer.All_CUPs[$index].TipServLetra}}">Ir a CUPs</a> 
                     </td>
                   </tr>
                 </tbody>
@@ -623,7 +635,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
 
     <div class="row" ng-repeat="dato in vm.response_customer.Cuentas_Bancarias">
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Cuenta Bancaria </label>
@@ -632,7 +644,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div>          
           
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Banco </label>         
@@ -640,6 +652,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div> 
+
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">Banco </label><br>         
+              <a class="btn btn-success" href="#/Edit_Cuenta_Bancaria/{{vm.response_customer.Cuentas_Bancarias[$index].CodCueBan}}">Ir a Cuenta</a>     
+             </div>
+             </div>
+          </div> 
+
+
+           
   </div>
 </div>
 
@@ -677,11 +701,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-2">
     <div class="form">                          
       <div class="form-group">    
-        <a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento" style="margin-left:-15px; margin-top: 24px;" type="button"><i class="fa fa-download"></i></a>     
+        <a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a>     
+
+        <a class="btn btn-success" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}">Ir</a> 
       </div>
     </div>
   </div>
+  
 </div>
+
+
                
                
               

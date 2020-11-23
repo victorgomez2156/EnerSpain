@@ -12085,9 +12085,22 @@ class Exportar_Documentos extends CI_Controller
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
-        //var_dump($PropuestaComercial);
-        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
-       
+        $ContactoCliente=$this->Reportes_model->GetContactoClientes($PropuestaComercial-> CodCli,1);
+        if($ContactoCliente!=false)
+        {
+            $NombreContacto=$ContactoCliente->NomConCli;
+            $NifContacto=$ContactoCliente->NIFConCli;
+            $TelCont=$ContactoCliente->TelCelConCli;
+            $EmailContacto=$ContactoCliente->EmaConCli;
+        }
+        else
+        {
+            $NombreContacto='';
+            $NifContacto='';
+            $TelCont='';
+            $EmailContacto='';
+        } 
+        $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);      
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial Sencilla '.date('d/m/Y'));
@@ -12118,9 +12131,7 @@ class Exportar_Documentos extends CI_Controller
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>DATOS DEL CLIENTE</b></td>            
         </tr>
-        </table>'; 
-
-
+        </table>';
          $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
             <td style="border-style:none;" colspan="4">Razón Social: '.$PropuestaComercial->RazSocCli.'</td>
@@ -12133,6 +12144,22 @@ class Exportar_Documentos extends CI_Controller
             <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
             <td border="0" colspan="2">Provincia: '.$PropuestaComercial->DesPro.'</td>
             <td border="0" colspan="1">Código Postal: '.$PropuestaComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+        
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CONTACTO</b></td>            
+        </tr>
+        </table>';
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$NombreContacto.'</td>
+            <td border="0" colspan="1">CIF: '.$NifContacto.'</td>
+        </tr>        
+        <tr>
+            <td border="0" colspan="3">Teléfono: '.$TelCont.'</td>
+            <td border="0" colspan="2">Correo: '.$EmailContacto.'</td>
         </tr>       
         </table>';
 
@@ -13734,6 +13761,21 @@ class Exportar_Documentos extends CI_Controller
            echo 'Error en propuesta comercial o no existe en nuestra base de datos.';
            return false; 
         }
+        $ContactoCliente=$this->Reportes_model->GetContactoClientes($PropuestaComercial-> CodCli,1);
+        if($ContactoCliente!=false)
+        {
+            $NombreContacto=$ContactoCliente->NomConCli;
+            $NifContacto=$ContactoCliente->NIFConCli;
+            $TelCont=$ContactoCliente->TelCelConCli;
+            $EmailContacto=$ContactoCliente->EmaConCli;
+        }
+        else
+        {
+            $NombreContacto='';
+            $NifContacto='';
+            $TelCont='';
+            $EmailContacto='';
+        } 
         $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
@@ -13780,6 +13822,22 @@ class Exportar_Documentos extends CI_Controller
             <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
             <td border="0" colspan="2">Provincia: '.$PropuestaComercial->DesPro.'</td>
             <td border="0" colspan="1">Código Postal: '.$PropuestaComercial->CPLocSoc.'</td>
+        </tr>       
+        </table>';
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CONTACTO</b></td>            
+        </tr>
+        </table>';
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$NombreContacto.'</td>
+            <td border="0" colspan="1">CIF: '.$NifContacto.'</td>
+        </tr>        
+        <tr>
+            <td border="0" colspan="3">Teléfono: '.$TelCont.'</td>
+            <td border="0" colspan="2">Correo: '.$EmailContacto.'</td>
         </tr>       
         </table>';
 
@@ -13896,10 +13954,21 @@ class Exportar_Documentos extends CI_Controller
            return false; 
         }
         $PropuestaComercialCUPs=$this->Propuesta_model->GetDetallesCUPs($PropuestaComercial-> CodProComCli);
-        //var_dump($PropuestaComercialCUPs);
-       
-        //var_dump($PropuestaComercial);
-
+        $ContactoCliente=$this->Reportes_model->GetContactoClientes($PropuestaComercial-> CodCli,1);
+        if($ContactoCliente!=false)
+        {
+            $NombreContacto=$ContactoCliente->NomConCli;
+            $NifContacto=$ContactoCliente->NIFConCli;
+            $TelCont=$ContactoCliente->TelCelConCli;
+            $EmailContacto=$ContactoCliente->EmaConCli;
+        }
+        else
+        {
+            $NombreContacto='';
+            $NifContacto='';
+            $TelCont='';
+            $EmailContacto='';
+        } 
         $pdf = new TCPDF ('P','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Propuesta Comercial MulCliente-MultiPunto '.date('d/m/Y'));
@@ -13948,7 +14017,26 @@ class Exportar_Documentos extends CI_Controller
         </tr>       
         </table>';
 
-         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr bgcolor="#E5E5E5">
+            <td style="color:black;" align="center"><b>DATOS DEL CONTACTO</b></td>            
+        </tr>
+        </table>';
+         $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        <tr>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$NombreContacto.'</td>
+            <td border="0" colspan="1">CIF: '.$NifContacto.'</td>
+        </tr>        
+        <tr>
+            <td border="0" colspan="3">Teléfono: '.$TelCont.'</td>
+            <td border="0" colspan="2">Correo: '.$EmailContacto.'</td>
+        </tr>       
+        </table>';
+
+
+
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>RESUMEN AHORRO ENERGÉTICO</b></td>            
         </tr>
@@ -14032,7 +14120,7 @@ class Exportar_Documentos extends CI_Controller
         </tr>      
         </table>';
 
-$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
                             <td border="1" colspan="5"><b align="left">Comentarios:</b> '.$PropuestaComercial-> ObsProCom.'</td>                           
                             

@@ -839,12 +839,12 @@ class Reportes_model extends CI_Model
     {   
         if($TipProCom==1 || $TipProCom==2)
         {
-            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot
+            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.RazSocCli,c.NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,f.DesPro,c.CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot,b.CodCli
             ",false);
         }
         else
         {
-            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot
+            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot,b.CodCli
             ",false);
         }        
         $this->db->from('T_PropuestaComercial a');
@@ -1657,7 +1657,22 @@ class Reportes_model extends CI_Model
         else
         return false;              
     }
-
+    public function GetContactoClientes($CodCli,$ConPri){
+        
+        $this->db->select("*",false);
+        $this->db->from('T_ContactoCliente');        
+        $this->db->where('CodCli',$CodCli);
+        $this->db->where('ConPrin',$ConPri);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        } 
+    }
 
  
 }

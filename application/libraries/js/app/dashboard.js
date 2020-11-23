@@ -218,7 +218,7 @@
                             ,PotConP5:CUPs_Electricos.PotConP5,PotConP6:CUPs_Electricos.PotConP6,NomTar:CUPs_Electricos.NomTarEle,
                             RazSocDis:CUPs_Electricos.RazSocDis
 
-                        ,TipServ:CUPs_Electricos.TipServ,CodCups:CUPs_Electricos.CodCupsEle
+                        ,TipServ:CUPs_Electricos.TipServ,CodCups:CUPs_Electricos.CodCupsEle,TipServLetra:'Eléctrico'
                         });
                      
                     });
@@ -229,7 +229,7 @@
                     {
                         scope.response_customer.All_CUPs.push({CUPsName:CUPs_Gas.CupsGas,DirPunSum:CUPs_Gas.DirPumSum+" "+CUPs_Gas.CPLocSoc+" "+CUPs_Gas.EscPlaPue
                         ,NomTar:CUPs_Gas.NomTarGas,RazSocDis:CUPs_Gas.RazSocDis
-                        ,TipServ:CUPs_Gas.TipServ,CodCups:CUPs_Gas.CodCupGas
+                        ,TipServ:CUPs_Gas.TipServ,CodCups:CUPs_Gas.CodCupGas,TipServLetra:'Gas'
                     });
                      
 
