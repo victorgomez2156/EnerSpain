@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.SerTEleAne"/> <b style="color:black;">Suministro Eléctrico</b></li>
                         <li><input type="checkbox" ng-model="vm.TipPreAne"/> <b style="color:black;">Tipo Precio</b></li>
                         <li><input type="checkbox" ng-model="vm.CodTipComAne"/> <b style="color:black;">Tipo Comisión</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <b style="color:black;">Observación</b></li>
+                        <li><input type="checkbox" ng-model="vm.ObsAnePro"/> <b style="color:black;">Comentarios</b></li>
                         <li><input type="checkbox" ng-model="vm.FecIniAne"/> <b style="color:black;">Fecha de Inicio</b></li>   
                         <li><input type="checkbox" ng-model="vm.EstAne"/> <b style="color:black;">Estatus</b></li>
                         <li><input type="checkbox" ng-model="vm.AccTAne"/> <b style="color:black;">Acción</b></li>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.TipPreFijAne==true"> Precio Fijo</th>
                     <th ng-show="vm.TipPreIndeAne==true"> Precio Indexando</th>
                     <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"> Observación</th>
+                    <th ng-show="vm.ObsAnePro==true"> Comentarios</th>
                     <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>
                     <th ng-show="vm.EstAne==true"> Estatus</th>
                     <th ng-show="vm.AccTAne==true"> Acción</th>
@@ -202,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <th ng-show="vm.TipPreFijAne==true"> Precio Fijo</th>
                     <th ng-show="vm.TipPreIndeAne==true"> Precio Indexando</th>
                     <th ng-show="vm.CodTipComAne==true"> Tipo Comisión</th>
-                    <th ng-show="vm.ObsAnePro==true"> Observación</th>
+                    <th ng-show="vm.ObsAnePro==true"> Comentarios</th>
                     <th ng-show="vm.FecIniAne==true"> Fecha de Inicio</th>
                     <th ng-show="vm.EstAne==true"> Estatus</th>
                     <th ng-show="vm.AccTAne==true"> Acción</th>
@@ -378,7 +378,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
      <textarea type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.ObsMotBloAne" rows="5" maxlength="100"/></textarea>
      </div>
      </div>

@@ -243,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
      <textarea type="text" class="form-control" ng-model="vm.tmodal_data.ObsBloDis" rows="5" maxlength="100"></textarea>
      </div>
      </div>

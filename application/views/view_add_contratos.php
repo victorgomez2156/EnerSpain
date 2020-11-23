@@ -704,8 +704,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Observación</label>
-        <textarea class="form-control" name="ObsCon" id="ObsCon" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsCon" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
+         <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Comentarios</label>
+        <textarea class="form-control" name="ObsCon" id="ObsCon" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsCon" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
          </div>
          </div>
             <input class="form-control" id="CodConCom" name="CodConCom" type="hidden" ng-model="vm.fdatos.CodConCom" readonly/>

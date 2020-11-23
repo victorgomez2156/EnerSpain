@@ -139,26 +139,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Tipo de CUPs</th>
                     <th>CUPs</th>
                     <th>Tárifa</th>
-                    <th>Consumo</th>
+                    <th>Consumo (KW/h)</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>                   
+                    <th>Ahorro €</th> 
+                    <th>%</th>                  
                   </tr>
                   <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
-                  <tr ng-repeat="dato in vm.fdatos.detalleCUPs | filter:paginate" ng-class-odd="odd" ng-click="vm.SelecQuitCUPs(dato,$index)">                    
-                    <td>{{$index+1}}</td>
-                    <td>{{dato.DirPunSum}}</td>
+                  <tr ng-repeat="dato in vm.fdatos.detalleCUPs | filter:paginate" ng-class-odd="odd" >                  
                     <td>
-                      <span ng-show="dato.TipServ==1">Eléctrico</span>
-                      <span ng-show="dato.TipServ==2">Gas</span>
+                      <button class="btn btn-success" type="button" ng-show="!vm.select_cups[dato.CodCups]" ng-click="vm.SelecQuitCUPs(dato,$index,dato.CodCups)" ng-disabled="vm.fdatos.tipo=='ver'"><i class="icon_check"></i></button>
+                      <button class="btn btn-danger" type="button" ng-show="vm.select_cups[dato.CodCups]" ng-click="vm.QuitarCUPsDetalle($index,dato,dato.CodCups)" ng-disabled="vm.fdatos.tipo=='ver'"><i class="icon_close_alt2"></i></button>
+                  </td>
+                    <td>{{dato.DirPunSum}} {{dato.DesLoc}} {{dato.DesPro}}
+                  </td>
+                    <td>
+                      <span ng-show="dato.TipServ==1">E</span>
+                      <span ng-show="dato.TipServ==2">G</span>
                     </td>
                     <td>{{dato.CUPsName}}</td>
                     <td>{{dato.NomTar}}</td>
                     <td>{{dato.ConCUPs}}</td>
                     <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
                       <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
-                    <td>{{dato.ImpAho}}</td>                    
+                    <td>{{dato.ImpAho}}</td>
+                    <td>{{dato.PorAho}}</td>                     
                   </tr>
                 </tbody>
                 <tfoot> 
@@ -167,9 +173,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Tipo de CUPs</th>
                     <th>CUPs</th>
                     <th>Tárifa</th>
-                    <th>Consumo</th>
+                    <th>Consumo (KW/h)</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>    
+                    <th>Ahorro €</th> 
+                    <th>%</th>   
                 </tfoot>
               </table>
         </div>
@@ -243,10 +250,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
              </div>
           </div>
-
+<div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+       </div>
+       </div>
           <div class="form" >                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Observaciónes Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
        </div>
        </div> 
       <input class="form-control" id="CodProCom" name="CodProCom" type="hidden" ng-model="vm.fdatos.CodProCom" readonly/>
@@ -569,8 +580,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"> Observación</label>    
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Observaciónes Generales" ng-model="vm.fdatos.ObsCup"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;"> Comentarios</label>    
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsCup"></textarea>        
        </div>
        </div>     
     <div style="margin-left:15px; ">
@@ -677,11 +688,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
 
-
+    <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+       </div>
+       </div>
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;"> Observación</label>    
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Observaciónes Generales" ng-model="vm.fdatos.ObsCup"></textarea>        
+        
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsCup"></textarea>        
        </div>
        </div> 
 

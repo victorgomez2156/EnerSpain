@@ -6301,8 +6301,8 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">NOMBRE Tárifa</td>
-            <td style="color:white;">CONSUMO MÍNIMO</td>
-            <td style="color:white;">CONSUMO MÁXIMO</td>
+            <td style="color:white;">CONSUMO MÍNIMO (KW/h)</td>
+            <td style="color:white;">CONSUMO MÁXIMO (KW/h)</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -6485,9 +6485,9 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "NOMBRE Tárifa");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CONSUMO MÍNIMO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CONSUMO MÍNIMO (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CONSUMO MÁXIMO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CONSUMO MÁXIMO (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -7338,7 +7338,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -7514,7 +7514,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -7604,7 +7604,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -7780,7 +7780,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -7870,7 +7870,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -8046,7 +8046,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+         $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -8136,7 +8136,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
             <td style="color:white;">es requerido</td>
         </tr>';
         if($Resultado!=false)
@@ -8313,7 +8313,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $objPHPExcel->getActiveSheet()->SetCellValue("C9", "es requerido");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
@@ -8406,7 +8406,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -8584,7 +8584,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -8674,7 +8674,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -8852,7 +8852,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -8942,7 +8942,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -9120,7 +9120,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -9210,7 +9210,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -9388,7 +9388,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -9478,7 +9478,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -9656,7 +9656,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -9746,7 +9746,7 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">DESCRIPCIÓN</td>
-            <td style="color:white;">OBSERVACIÓN</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado!=false)
         {
@@ -9924,7 +9924,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "DESCRIPCIÓN");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "OBSERVACIÓN");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Comentarios");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
@@ -10977,7 +10977,7 @@ class Exportar_Documentos extends CI_Controller
             <tr bgcolor="#636161">
                 <td style="color:white;">Fecha Inicio</td>
                 <td style="color:white;">Fecha Final</td>
-                <td style="color:white;">Consumo</td>
+                <td style="color:white;">Consumo (KW/h)</td>
             </tr>';
             $Tabla="T_HistorialCUPsGas";
             $Where="CodCupGas";
@@ -10995,7 +10995,7 @@ class Exportar_Documentos extends CI_Controller
                     }
                     endforeach;
                    $html.='<tr>
-                            <td colspan="2" align="left">Total Consumo: </td>
+                            <td colspan="2" align="left">Total Consumo (KW/h): </td>
                             
                             <td>'.$total_consumo->AcumConCup.'</td>
                         </tr>';  
@@ -11024,7 +11024,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">PotCon6</td>
             <td style="color:white;">Fecha Inicio</td>
             <td style="color:white;">Fecha Final</td>
-            <td style="color:white;">Consumo</td>
+            <td style="color:white;">Consumo (KW/h)</td>
             </tr>';
             $Resultado=$this->Reportes_model->generar_historial_consumo_cups($desde,$hasta,$CodPunSum,$Tabla,$Where);
             //$Resultado=false;
@@ -11047,7 +11047,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 endforeach;
                 $html.='<tr>
-                        <td colspan="8" align="left">Total Consumo: </td>
+                        <td colspan="8" align="left">Total Consumo (KW/h): </td>
                         <td>'.$total_consumo->AcumConCup.'</td>
                         </tr>'; 
             }
@@ -11228,7 +11228,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
                  $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Fecha Final");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-                 $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Consumo");
+                 $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Consumo (KW/h)");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
                 $fila=9;
                 for($i=0; $i<count($Resultado); $i++) 
@@ -11263,7 +11263,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
                 $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Fecha Final");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-                $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Consumo");
+                $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Consumo (KW/h)");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
                 $fila=9;
                 for($i=0; $i<count($Resultado); $i++) 
@@ -11275,7 +11275,7 @@ class Exportar_Documentos extends CI_Controller
                     $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:C$fila");  
                 }
                 $fila+=1;                
-                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO:'); 
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO (KW/h):'); 
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila",$total_consumo->AcumConCup);
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:C$fila");                
             } 
@@ -11380,7 +11380,7 @@ class Exportar_Documentos extends CI_Controller
             <tr bgcolor="#636161">
                 <td style="color:white;">Fecha Inicio</td>
                 <td style="color:white;">Fecha Final</td>
-                <td style="color:white;">Consumo</td>
+                <td style="color:white;">Consumo (KW/h)</td>
             </tr>';
             $Select="DATE_FORMAT(FecIniCon,'%d-%m-%Y') as FecIniCon,DATE_FORMAT(FecFinCon,'%d-%m-%Y') as FecFinCon,ConCup";
             $Tabla="T_HistorialCUPsGas";
@@ -11400,7 +11400,7 @@ class Exportar_Documentos extends CI_Controller
                     }
                     endforeach;
                    $html.='<tr>
-                            <td colspan="2" align="left">Total Consumo: </td>
+                            <td colspan="2" align="left">Total Consumo (KW/h): </td>
                             <td>'.$total_consumo->AcumConCup.'</td>
                         </tr>';  
                 }
@@ -11425,7 +11425,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">PotCon6</td>
             <td style="color:white;">Fecha Inicio</td>
             <td style="color:white;">Fecha Final</td>
-            <td style="color:white;">Consumo</td>
+            <td style="color:white;">Consumo (KW/h)</td>
             </tr>';
             $Select="PotCon1,PotCon2,PotCon3,PotCon4,PotCon5,PotCon6,DATE_FORMAT(FecIniCon,'%d-%m-%Y') as FecIniCon,DATE_FORMAT(FecFinCon,'%d-%m-%Y') as FecFinCon,ConCup";
             $Tabla="T_HistorialCUPsElectrico";
@@ -11452,7 +11452,7 @@ class Exportar_Documentos extends CI_Controller
                 }
                 endforeach;
                 $html.='<tr>
-                        <td colspan="8" align="left">Total Consumo: </td>
+                        <td colspan="8" align="left">Total Consumo (KW/h): </td>
                         <td>'.$total_consumo->AcumConCup.'</td>
                         </tr>'; 
             }
@@ -11671,7 +11671,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
                  $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Fecha Final");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-                 $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Consumo");
+                 $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Consumo (KW/h)");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
                 $fila=9;
                 for($i=0; $i<count($Resultado); $i++) 
@@ -11689,7 +11689,7 @@ class Exportar_Documentos extends CI_Controller
                     $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:I$fila");  
                 }
                 $fila+=1;                
-                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO:'); #$total_consumo->AcumConCup);
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO (KW/h):'); #$total_consumo->AcumConCup);
                 $objPHPExcel->getActiveSheet()->SetCellValue("I$fila",$total_consumo->AcumConCup); #$total_consumo->AcumConCup);
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:I$fila");                
             }           
@@ -11707,7 +11707,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
                 $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Fecha Final");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-                $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Consumo");
+                $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Consumo (KW/h)");
                 $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
                 $fila=9;
                 for($i=0; $i<count($Resultado); $i++) 
@@ -11719,7 +11719,7 @@ class Exportar_Documentos extends CI_Controller
                     $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:C$fila");  
                 }
                 $fila+=1;                
-                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO:'); 
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila",'TOTAL CONSUMO (KW/h):'); 
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila",$total_consumo->AcumConCup);
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:C$fila");                
             } 
@@ -12127,7 +12127,7 @@ class Exportar_Documentos extends CI_Controller
             <td border="0" colspan="1">CIF: '.$PropuestaComercial->NumCifCli.'</td>
         </tr>
         <tr>
-            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->TipVia.' '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
+            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
         </tr>
         <tr>
             <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
@@ -12160,7 +12160,7 @@ class Exportar_Documentos extends CI_Controller
                     </tr>
                         <tr>
                             <td border="1">'.$value-> CUPsName.'</td>
-                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
                             <td border="1">'.$value->DesLoc.'</td>
                             <td border="1">'.$value->DesPro.'</td>
                             <td border="1">'.$value->CPLocSoc.'</td>
@@ -12206,13 +12206,13 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>'.$RenCon.'                                                   
                         </td>
-                        <td>Consumo:                                                    
+                        <td>Consumo (KW/h):                                                    
                         </td >
                         <td colspan="2">'.number_format($value-> ConCUPs, 2, ',', '.').'                                                    
                         </td>
                         </tr>
                         <tr>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td>
                         <td colspan="4" align="left">'.$value-> ObsCup.'                                                   
                         </td>                        
@@ -12235,7 +12235,7 @@ class Exportar_Documentos extends CI_Controller
                             </tr>
                             <tr>
                             <td border="1">'.$value-> CUPsName.'</td>
-                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value-> DirPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
                             <td border="1">'.$value->DesLoc.'</td>
                             <td border="1">'.$value->DesPro.'</td>
                             <td border="1">'.$value->CPLocSoc.'</td>
@@ -12244,7 +12244,7 @@ class Exportar_Documentos extends CI_Controller
                             <tr>
                             <td class="borde"><h3>Tárifa</h3> '.$value-> NomTar.'</td> 
 
-                            <td class="borde"><h3>Consumo</h3> '.$value-> ConCUPs.'</td>
+                            <td class="borde"><h3>Consumo</h3> '.number_format($value-> ConCUPs, 2, ',', '.') .'</td>
 
                             <td class="borde"><h3>Caudal Diario</h3> '.$value-> CauDia.'</td>
 
@@ -12266,7 +12266,7 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>'.$RenCupGas.'                                                   
                         </td>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td>
                         <td colspan="2">'.$value-> ObsCup.'                                                   
                         </td>
@@ -12336,7 +12336,7 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>                                                   
                         </td>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td >
                         <td colspan="2">                                                    
                         </td>
@@ -12362,7 +12362,7 @@ class Exportar_Documentos extends CI_Controller
                             <tr>
                             <td class="borde"><h3>Tárifa</h3> </td> 
 
-                            <td class="borde"><h3>Consumo</h3> </td>
+                            <td class="borde"><h3>Consumo (KW/h)</h3> </td>
 
                             <td class="borde"><h3>Caudal Diario</h3> </td>
 
@@ -12384,7 +12384,7 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>                                                   
                         </td>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td >
                         <td colspan="2">                                                   
                         </td>
@@ -12394,8 +12394,9 @@ class Exportar_Documentos extends CI_Controller
 
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
-                            <td border="1" colspan="2"><b align="left">Ahorro Total:</b>'.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
-                            <td border="1" colspan="3"><b align="left">Observación General: </b>'.$PropuestaComercial->ObsProCom.' </td>
+                            <td border="1" colspan="1"><b align="left">Ahorro Total:</b> '.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
+                            <td border="1" colspan="1"><b align="left">% Total:</b> '.number_format($PropuestaComercial-> PorAhoTot, 2, ',', '.').'</td>
+                            <td border="1" colspan="3"><b align="left">Comentarios: </b>'.$PropuestaComercial->ObsProCom.' </td>
                             
                             </tr>                           
                         
@@ -12422,6 +12423,13 @@ class Exportar_Documentos extends CI_Controller
         </tr>      
         </table>';
 
+         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="5"><b align="left">Comentarios:</b> '.$PropuestaComercial-> ObsProCom.'</td>                           
+                            
+                            </tr>                           
+                        
+                    </table><br><br>';
 
          $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
@@ -13787,9 +13795,9 @@ class Exportar_Documentos extends CI_Controller
                     <td border="1">Tipo de CUPs</td>
                     <td border="1">CUPs</td>
                     <td border="1">Tárifa</td>
-                    <td border="1">Consumo</td>
-                    <td border="1">Ren</td>
+                    <td border="1">Consumo (KW/h)</td>                    
                     <td border="1">Ahorro</td>
+                    <td border="1">%</td>
                     </tr>';
         if($PropuestaComercialCUPs!=false)
         {
@@ -13797,33 +13805,31 @@ class Exportar_Documentos extends CI_Controller
             {
                 if($value-> TipServ==1)
                 {
-                    $TipServ="Eléctrico";
+                    $TipServ="E";
                 }
                 else
                 {
-                    $TipServ="Gas";
-                }
-                if($value-> RenCon==1)
-                {
-                    $RenCon="Si";
-                }
-                else
-                {
-                    $RenCon="No";
-                }
+                    $TipServ="G";
+                }               
 
                 $html .= '
                     <tr>
-                        <td border="1">'.$value-> DirPunSum.'</td>
+                        <td border="1">'.$value-> DirPunSum.' '.$value-> DesLoc.' '.$value-> DesPro.'</td>
                         <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
                         <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$RenCon.'</td>
                         <td border="1">'.$value-> ImpAho.'</td>
+                        <td border="1">'.$value-> PorAho.'</td>
                      </tr>';  
             }
             endforeach;
+             $html .= '
+                    <tr>
+                        <td border="1" colspan="5"></td>
+                        <td border="1">'.$PropuestaComercial-> ImpAhoTot.'</td>
+                        <td border="1">'.$PropuestaComercial-> PorAhoTot.'</td>
+                     </tr>';  
             $html .= '</table>';  
         }
         else
@@ -13834,7 +13840,7 @@ class Exportar_Documentos extends CI_Controller
                      </tr>';  
             $html .= '</table>'; 
         }
-        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
+        $html .= '<br><br><br><table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
             <td style="color:black;" align="center"><b>CONTRATACIÓN</b></td>            
         </tr>
@@ -13856,7 +13862,13 @@ class Exportar_Documentos extends CI_Controller
         </tr>      
         </table>';
 
-
+        $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="5"><b align="left">Comentarios:</b> '.$PropuestaComercial-> ObsProCom.'</td>                           
+                            
+                            </tr>                           
+                        
+                    </table><br><br>';
          $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
             <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
@@ -13927,7 +13939,7 @@ class Exportar_Documentos extends CI_Controller
             <td border="0" colspan="1">CIF: '.$PropuestaComercial->NumCifCli.'</td>
         </tr>
         <tr>
-            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->TipVia.' '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
+            <td border="0" colspan="10">Dirección: '.$PropuestaComercial->NomViaDomSoc.' '.$PropuestaComercial->NumViaDomSoc.' '.$PropuestaComercial->BloDomSoc.' '.$PropuestaComercial->EscDomSoc.' '.$PropuestaComercial->PlaDomSoc.' '.$PropuestaComercial->PueDomSoc.'</td>
         </tr>
         <tr>
             <td border="0" colspan="2">Localidad: '.$PropuestaComercial->DesLoc.'</td>
@@ -13950,9 +13962,9 @@ class Exportar_Documentos extends CI_Controller
                     <td border="1">Tipo de CUPs</td>
                     <td border="1">CUPs</td>
                     <td border="1">Tárifa</td>
-                    <td border="1">Consumo</td>
-                    <td border="1">Ren</td>
+                    <td border="1">Consumo (KW/h)</td>                    
                     <td border="1">Ahorro</td>
+                    <td border="1">%</td>
                     </tr>';
         if($PropuestaComercialCUPs!=false)
         {
@@ -13960,35 +13972,33 @@ class Exportar_Documentos extends CI_Controller
             {
                 if($value-> TipServ==1)
                 {
-                    $TipServ="Eléctrico";
+                    $TipServ="E";
                 }
                 else
                 {
-                    $TipServ="Gas";
-                }
-                if($value-> RenCon==1)
-                {
-                    $RenCon="Si";
-                }
-                else
-                {
-                    $RenCon="No";
-                }
+                    $TipServ="G";
+                }                
                 $html .= '
                     <tr>
                         <td border="1">'.$value-> NumCifCli.'</td>
                         <td border="1">'.$value-> RazSocCli.'</td>
-                        <td border="1">'.$value-> DirPunSum.'</td>
+                        <td border="1">'.$value-> DirPunSum.' '.$value-> DesLoc.' '.$value-> DesPro.'</td>
                         <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
                         <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$RenCon.'</td>
-                        <td border="1">'.$value-> ImpAho.'</td>
+                        <td border="1">'.$value-> ImpAho.'</td>                        
+                        <td border="1">'.$value-> PorAho.'</td>
                      </tr>';  
             }
             endforeach;
-            $html .= '</table>';  
+            $html .= '<tr>
+                        <td border="1" colspan="7"></td>
+                        <td border="1">'.$PropuestaComercial-> ImpAhoTot.'</td>
+                        <td border="1">'.$PropuestaComercial-> PorAhoTot.'</td>
+                     </tr></table>';
+
+
         }
         else
         {
@@ -13998,6 +14008,7 @@ class Exportar_Documentos extends CI_Controller
                      </tr>';  
             $html .= '</table>'; 
         }
+
 
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
@@ -14021,7 +14032,13 @@ class Exportar_Documentos extends CI_Controller
         </tr>      
         </table>';
 
-
+$html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
+                            <tr>
+                            <td border="1" colspan="5"><b align="left">Comentarios:</b> '.$PropuestaComercial-> ObsProCom.'</td>                           
+                            
+                            </tr>                           
+                        
+                    </table><br><br>';
          $html .='<br><br><br><table align="right" border="1" celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
             <td colspan="1" >Firma y Sello <br><br><br><br><br><br><br><br><br><br></td>
@@ -14188,13 +14205,13 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>'.$RenCon.'                                                   
                         </td>
-                        <td>Consumo:                                                    
+                        <td>Consumo (KW/h):                                                    
                         </td >
                         <td colspan="2">'.number_format($value-> ConCUPs, 2, ',', '.').'                                                    
                         </td>
                         </tr>
                         <tr>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td>
                         <td colspan="4" align="left">'.$value-> ObsCup.'                                                   
                         </td>                        
@@ -14226,7 +14243,7 @@ class Exportar_Documentos extends CI_Controller
                             <tr>
                             <td class="borde"><h3>Tárifa</h3> '.$value-> NomTar.'</td> 
 
-                            <td class="borde"><h3>Consumo</h3> '.$value-> ConCUPs.'</td>
+                            <td class="borde"><h3>Consumo (KW/h)</h3> '.$value-> ConCUPs.'</td>
 
                             <td class="borde"><h3>Caudal Diario</h3> '.$value-> CauDia.'</td>
 
@@ -14248,7 +14265,7 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>'.$RenCupGas.'                                                   
                         </td>
-                        <td>Observación:                                                    
+                        <td>Comentarios:                                                    
                         </td>
                         <td colspan="2">'.$value-> ObsCup.'                                                   
                         </td>
@@ -14276,7 +14293,7 @@ class Exportar_Documentos extends CI_Controller
                 <td border="1">Tipo de CUPs</td>
                 <td border="1">CUPs</td>
                 <td border="1">Tárifa</td>
-                <td border="1">Consumo</td>
+                <td border="1">Consumo (KW/h)</td>
                 <td border="1">Ren</td>
                 <td border="1">Ahorro</td>
             </tr>';
@@ -14333,7 +14350,7 @@ class Exportar_Documentos extends CI_Controller
                     <td border="1">Tipo de CUPs</td>
                     <td border="1">CUPs</td>
                     <td border="1">Tárifa</td>
-                    <td border="1">Consumo</td>
+                    <td border="1">Consumo (KW/h)</td>
                     <td border="1">Ren</td>
                     <td border="1">Ahorro</td>
                     </tr>';
@@ -14971,7 +14988,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">Descripción</td>
             <td style="color:white;">Referencia</td>
             <td style="color:white;">Resultado</td>
-            <td style="color:white;">Observación</td>
+            <td style="color:white;">Comentarios</td>
         </tr>';
         if($Resultado_Seguimientos!=false)
         {
@@ -15553,7 +15570,7 @@ class Exportar_Documentos extends CI_Controller
             <td colspan="2">'.$Resultado_Gestion_Comercial->NumCifCli.'</td>            
         </tr>
         <tr bgcolor="#636161">
-            <td style="color:white;">Tipo de Gestion General</td>
+            <td style="color:white;">Tipo de Gestion</td>
             <td style="color:white;">Fecha de Registro</td> 
             <td style="color:white;">Nº Gestión</td> 
             <td style="color:white;">Resultado</td>  
@@ -15594,7 +15611,7 @@ class Exportar_Documentos extends CI_Controller
         </tr>
 
         <tr bgcolor="#636161">
-            <td style="color:white;" colspan="4">Observación</td>     
+            <td style="color:white;" colspan="4">Comentarios</td>     
         </tr>
          <tr>
            <td colspan="4">'.$Resultado_Gestion_Comercial->ObsGesGen.'</td>
@@ -16015,10 +16032,10 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">Cliente</td>            
             <td style="color:white;">CUPs Eléctrico</td>
             <td style="color:white;">Tárifa Eléctrica</td>
-            <td style="color:white;">Consumo</td>
+            <td style="color:white;">Consumo (KW/h)</td>
             <td style="color:white;">CUPs Gas</td>
             <td style="color:white;">Tárifa Gas</td>
-            <td style="color:white;">Consumo</td>
+            <td style="color:white;">Consumo (KW/h)</td>
             <td style="color:white;">Tipo Renovación</td>
             <td style="color:white;">EmailCon</td>
             <td style="color:white;">NIF</td>
@@ -16231,13 +16248,13 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
         $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tárifa Eléctrica");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
         $objPHPExcel->getActiveSheet()->SetCellValue("I9", "CUPs Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
         $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Tárifa Gas");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Consumo");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Consumo (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
         $objPHPExcel->getActiveSheet()->SetCellValue("L9", "Tipo Renovación");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
@@ -16619,8 +16636,8 @@ class Exportar_Documentos extends CI_Controller
         $html.='
         <tr bgcolor="#636161">
             <td style="color:white;">Nomenclatura</td> 
-            <td style="color:white;">Mínimo Consumo Anual</td>
-            <td style="color:white;">Máximo Consumo Anual</td>
+            <td style="color:white;">Mínimo Consumo Anual (KW/h)</td>
+            <td style="color:white;">Máximo Consumo Anual (KW/h)</td>
         </tr>';
 
         $ResultadoTarifaGas=$this->Reportes_model->ListTarGas();
@@ -16785,9 +16802,9 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Nomenclatura");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Mínimo Consumo Anual");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "Mínimo Consumo Anual (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Máximo Consumo Anual");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "Máximo Consumo Anual (KW/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $objPHPExcel->getActiveSheet()->setAutoFilter("A9:C9");  
         $fila=9;       
@@ -16857,7 +16874,7 @@ class Exportar_Documentos extends CI_Controller
        
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr bgcolor="#E5E5E5">
-            <td style="color:black;" align="center"><b>Datos Generales</b></td>            
+            <td style="color:black;" align="center"><b>Datoses</b></td>            
         </tr>
         </table>';
          $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  

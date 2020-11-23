@@ -148,8 +148,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          
                          <div class="form">                          
                          <div class="form-group">
-                         <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
-                         <textarea class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Observación" ng-disabled="vm.disabled_form==1"/></textarea>                  
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+                         <textarea class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Comentarios" ng-disabled="vm.disabled_form==1"/></textarea>                  
                          </div>
                          </div>
 

@@ -417,7 +417,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
        <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Observaciones</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Comentarios</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsCom" name="ObsCom" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCom" ng-disabled="vm.validate_info!=undefined"></textarea>
         <input class="form-control" name="CodCom" type="hidden" ng-model="vm.fdatos.CodCom" readonly/>
        </div>

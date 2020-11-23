@@ -298,7 +298,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
         <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos!=undefined"></textarea>
         
        </div>

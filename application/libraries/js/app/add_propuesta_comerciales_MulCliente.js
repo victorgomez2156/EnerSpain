@@ -12,6 +12,7 @@
      scope.fdatos.detalleCUPs=[];
      scope.TDetallesCUPs=[];
      scope.TDetallesCUPsEli=[];
+     scope.select_cups=[];
      scope.Nivel = $cookies.get('nivel');
      scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }, { TipPre: 2, nombre: 'Ambos' }];
      var fecha = new Date();
@@ -668,8 +669,10 @@
             for (var i = 0; i < scope.List_CUPsEle.length; i++) 
             {
                 if (scope.List_CUPsEle[i].CodCupsEle == scope.fdatos.CodCupSEle) {
-                     scope.DirPunSumCUPsEle=scope.List_CUPsEle[i].DirPumSum;
+                     scope.DirPunSumCUPsEle=scope.List_CUPsEle[i].DirPunSum;
                      scope.CUPsEle = scope.List_CUPsEle[i].CUPsEle;
+                     scope.DesLoc = scope.List_CUPsEle[i].DesLoc;
+                     scope.DesPro = scope.List_CUPsEle[i].DesPro;
                 }
             }
             for (var i = 0; i < scope.List_TarEle.length; i++) 
@@ -689,7 +692,7 @@
                 CodTar:scope.fdatos.CodTar,PotConP1:scope.fdatos.PotEleConP1,PotConP2:scope.fdatos.PotEleConP2,
                 PotConP3:scope.fdatos.PotEleConP3,PotConP4:scope.fdatos.PotEleConP4,PotConP5:scope.fdatos.PotEleConP5,
                 PotConP6:scope.fdatos.PotEleConP6,RenCon:scope.fdatos.RenCup,ImpAho:scope.fdatos.ImpAho,PorAho:scope.fdatos.PorAho,ObsCup:scope.fdatos.ObsCup,
-                ConCUPs:scope.fdatos.ConCup,CauDia:null,TipServ:1,DirPunSum:scope.DirPunSumCUPsEle,CUPsName:scope.CUPsEle,NomTar:scope.NomTar,NumCifCli:scope.NumCifCliCups,RazSocCli:scope.RazSocCliCups});
+                ConCUPs:scope.fdatos.ConCup,CauDia:null,TipServ:1,DirPunSum:scope.DirPunSumCUPsEle,CUPsName:scope.CUPsEle,NomTar:scope.NomTar,NumCifCli:scope.NumCifCliCups,RazSocCli:scope.RazSocCliCups,DesLoc:scope.DesLoc,DesPro:scope.DesPro});
             console.log(scope.fdatos.detalleCUPs);
             scope.CanCups=scope.fdatos.detalleCUPs.length;
             $("#modal_CUPsElectrico").modal('hide');
@@ -706,8 +709,10 @@
             for (var i = 0; i < scope.List_CUPsGas.length; i++) 
             {
                 if (scope.List_CUPsGas[i].CodCupGas == scope.fdatos.CodCupSGas) {
-                     scope.DirPunSumCUPsGas=scope.List_CUPsGas[i].DirPumSum;
+                     scope.DirPunSumCUPsGas=scope.List_CUPsGas[i].DirPunSum;
                      scope.CupsGas = scope.List_CUPsGas[i].CupsGas;
+                     scope.DesLoc = scope.List_CUPsGas[i].DesLoc;
+                     scope.DesPro = scope.List_CUPsGas[i].DesPro;
                      
                  }
             }
@@ -728,7 +733,7 @@
                 CodTar:scope.fdatos.CodTar,PotConP1:null,PotConP2:null,
                 PotConP3:null, PotConP4:null,PotConP5:null,
                 PotConP6:null,RenCon:scope.fdatos.RenCup,ImpAho:scope.fdatos.ImpAho,PorAho:scope.fdatos.PorAho,ObsCup:scope.fdatos.ObsCup,
-                ConCUPs:scope.fdatos.ConCup,CauDia:scope.fdatos.CauDiaGas,TipServ:2,DirPunSum:scope.DirPunSumCUPsGas,CUPsName:scope.CupsGas,NomTar:scope.NomTar,NumCifCli:scope.NumCifCliCups,RazSocCli:scope.RazSocCliCups});
+                ConCUPs:scope.fdatos.ConCup,CauDia:scope.fdatos.CauDiaGas,TipServ:2,DirPunSum:scope.DirPunSumCUPsGas,CUPsName:scope.CupsGas,NomTar:scope.NomTar,NumCifCli:scope.NumCifCliCups,RazSocCli:scope.RazSocCliCups,DesLoc:scope.DesLoc,DesPro:scope.DesPro});
             console.log(scope.fdatos.detalleCUPs);
             scope.CanCups=scope.fdatos.detalleCUPs.length;
             $("#modal_CUPsGas").modal('hide');
@@ -747,7 +752,7 @@
         console.log(scope.fdatos.ImpAhoTot);
         console.log(scope.fdatos.PorAhoTot);
     };
-    scope.SelecQuitCUPs=function(dato,index)
+    scope.SelecQuitCUPs=function(dato,index,CodCups)
     {   
         console.log(index);
         console.log(dato);
@@ -760,9 +765,17 @@
             if (scope.TDetallesCUPsEli[i].CodCups == dato.CodCups && scope.TDetallesCUPsEli[i].TipServ==dato.TipServ) 
             {
                 scope.TDetallesCUPsEli.splice(i, 1);
+                scope.select_cups[CodCups] = false;
             }
         }
         scope.TDetallesCUPsEli.push({CodCups:dato.CodCups,TipServ:dato.TipServ});
+        for (var i = 0; i < scope.TDetallesCUPsEli.length; i++) 
+        {
+            if (scope.TDetallesCUPsEli[i].CodCups == dato.CodCups && scope.TDetallesCUPsEli[i].TipServ==dato.TipServ) 
+            {
+                scope.select_cups[CodCups] = dato; 
+            }                   
+        }
         console.log(scope.TDetallesCUPsEli);        
         
     }
@@ -792,6 +805,20 @@
             scope.fdatos.PorAhoTot=Math.max(parseFloat(scope.fdatos.PorAhoTot),0)+Math.max(parseFloat(scope.fdatos.detalleCUPs[j].PorAho),0);
         }  
         scope.TDetallesCUPsEli= []; 
+    }
+    scope.QuitarCUPsDetalle=function(index,dato,CodCups)
+    {
+        
+       for (var i = 0; i < scope.TDetallesCUPsEli.length; i++) 
+        {
+            if (scope.TDetallesCUPsEli[i].CodCups == dato.CodCups && scope.TDetallesCUPsEli[i].TipServ==dato.TipServ) 
+            {
+                scope.TDetallesCUPsEli.splice(i, 1);
+                scope.select_cups[CodCups] = false; 
+            }                   
+        }
+        console.log(scope.TDetallesCUPsEli);
+        console.log(scope.select_cups);
     }
     scope.validar_campos_CUPsElectricos = function() 
     {

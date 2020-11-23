@@ -177,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           ss="col-12 col-sm-12">
             <div class="form">                          
              <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+             <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
              <textarea class="form-control" rows="5" ng-model="vm.fagregar_documentos.ObsDoc"></textarea>   
              </div>
              </div>

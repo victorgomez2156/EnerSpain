@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesMotBloCli"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsMotBloCli"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCli"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AccMotBloCli"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesMotBloCli==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCli==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCli==true">Comentarios</th>   
                     <th ng-show="vm.AccMotBloCli==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloCliente.length==0"> 
@@ -181,7 +181,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesMotBloCli==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCli==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCli==true">Comentarios</th>   
                     <th ng-show="vm.AccMotBloCli==true">Acción</th>
                 </tfoot>
               </table>
@@ -210,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsMotBloCli" name="ObsMotBloCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_clientes.ObsMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -246,7 +246,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesMotBloAct"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsMotBloAct"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloAct"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AcctMotBloAct"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -277,7 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesMotBloAct==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloAct==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloAct==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloAct==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloActividad.length==0"> 
@@ -298,7 +298,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesMotBloAct==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloAct==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloAct==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloAct==true">Acción</th>
                 </tfoot>
               </table>
@@ -328,7 +328,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsMotBloAct" name="ObsMotBloAct" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_actividad.ObsMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -362,7 +362,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesMotBloPun"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsMotBloPun"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloPun"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AcctMotBloPunSum"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -393,7 +393,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesMotBloPun==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloPun==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloPun==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloPunSum==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloPunSum.length==0"> 
@@ -414,7 +414,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesMotBloPun==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloPun==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloPun==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloPunSum==true">Acción</th>
                 </tfoot>
               </table>
@@ -442,7 +442,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsMotBloPun" name="ObsMotBloPun" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_PunSum.ObsMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -483,7 +483,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesMotBlocon"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsMotBloCon"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCon"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AcctMotBloCon"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -514,7 +514,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesMotBlocon==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCon==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCon==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloCon==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloContacto.length==0"> 
@@ -535,7 +535,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesMotBlocon==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCon==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCon==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloCon==true">Acción</th>
                 </tfoot>
               </table>
@@ -567,7 +567,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsMotBloCon" name="ObsMotBloCon" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_contacto.ObsMotBloCon" ng-disabled="vm.validate_mot_contacto==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -605,7 +605,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesMotBloCom"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsMotBloCom"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsMotBloCom"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AcctMotBloCom"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -636,7 +636,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesMotBloCom==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCom==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCom==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloCom==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.TMotivo_BloComercializadora.length==0"> 
@@ -657,7 +657,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesMotBloCom==true">Descripción</th> 
-                    <th ng-show="vm.ObsMotBloCom==true">Observación</th>   
+                    <th ng-show="vm.ObsMotBloCom==true">Comentarios</th>   
                     <th ng-show="vm.AcctMotBloCom==true">Acción</th>
                 </tfoot>
               </table>

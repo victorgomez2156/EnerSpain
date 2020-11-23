@@ -203,8 +203,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
-        <textarea class="form-control" name="ObsSeg" id="ObsSeg" rows="5" placeholder="Observación del seguimiento" ng-model="vm.fdatos.ObsSeg" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
+         <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+        <textarea class="form-control" name="ObsSeg" id="ObsSeg" rows="5" placeholder="Comentarios del seguimiento" ng-model="vm.fdatos.ObsSeg" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
          </div>
          </div>
 
@@ -232,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th>Descripción</th>
                   <th>Referencia</th> 
                   <th>Resultado</th>  
-                  <th>Observación</th>
+                  <th>Comentarios</th>
                   </tr>
                   <tr ng-show="vm.T_Seguimientos.length==0"> 
                     <td colspan="6" align="center">
@@ -258,7 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th>Descripción</th>
                   <th>Referencia</th> 
                   <th>Resultado</th>  
-                  <th>Observación</th>
+                  <th>Comentarios</th>
                 </tfoot>
               </table>
           </div>

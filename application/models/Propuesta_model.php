@@ -388,7 +388,7 @@ class Propuesta_model extends CI_Model
     
     public function BuscarProComUniCliente($CodProCom)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.TipProCom,a.CodCon,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,a.TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,b.CodCli,b.CodProComCli',false);
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.TipProCom,a.CodCon,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,a.TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,b.CodCli,b.CodProComCli,a.ImpAhoTot,a.PorAhoTot',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
         $this->db->where('a.CodProCom',$CodProCom);              
@@ -401,9 +401,8 @@ class Propuesta_model extends CI_Model
     public function GetDetallesCUPs($CodProComCli)
 {
     $sql = $this->db->query("SELECT a.CodProComCup,a.CodProComCli,b.CUPsEle AS CUPsName,a.CauDiaGas AS CauDia,a.CodCup AS CodCups,a.CodPunSum,a.CodTar,a.ConCup AS ConCUPs
-,CONCAT(e.IniTipVia,' - ',e.DesTipVia) AS DirPunSum,a.ImpAho,
-c.NomTarEle AS NomTar,a.ObsCup,a.PorAho,a.PotEleConP1 AS PotConP1,a.PotEleConP2 AS PotConP2,a.PotEleConP3 AS PotConP3,a.PotEleConP4 AS
-PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli,c.CanPerTar,f.DesLoc,g.DesPro,d.CPLocSoc,d.NomViaPunSum,d.NumViaPunSum,d.BloPunSum,d.EscPunSum,d.PlaPunSum,d.PuePunSum
+,(CASE WHEN d.BloPunSum IS NULL OR d.BloPunSum='' THEN CONCAT(d.NomViaPunSum,'  ',d.NumViaPunSum) ELSE CONCAT(d.NomViaPunSum,'  ',d.NumViaPunSum,'  ',d.BloPunSum) END) AS DirPunSum,a.ImpAho,c.NomTarEle AS NomTar,a.ObsCup,a.PorAho,a.PotEleConP1 AS PotConP1,a.PotEleConP2 AS PotConP2,a.PotEleConP3 AS PotConP3,a.PotEleConP4 AS
+PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli,c.CanPerTar,f.DesLoc,g.DesPro,d.CPLocSoc,d.EscPunSum,d.PlaPunSum,d.PuePunSum
 FROM T_Propuesta_Comercial_CUPs a 
 JOIN T_CUPsElectrico b ON a.CodCup=b.CodCupsEle AND a.TipCups=1 
 left JOIN T_TarifaElectrica c ON a.CodTar=c.CodTarEle
@@ -414,10 +413,10 @@ left JOIN T_Provincia g ON g.CodPro=f.CodPro
 left JOIN T_Cliente h ON h.CodCli=d.CodCli
 WHERE a.CodProComCli='$CodProComCli'
 UNION ALL
-SELECT h.CodProComCup,h.CodProComCli,i.CupsGas AS CUPsName,h.CauDiaGas AS CauDia,h.CodCup AS CodCups,h.CodPunSum,h.CodTar,h.ConCup AS ConCUPs
-,CONCAT(l.IniTipVia,' - ',l.DesTipVia) AS DirPunSum,h.ImpAho,
+SELECT h.CodProComCup,h.CodProComCli,i.CupsGas AS CUPsName,h.CauDiaGas AS CauDia,h.CodCup AS CodCups,h.CodPunSum,h.CodTar,h.ConCup AS ConCUPs,(CASE WHEN k.BloPunSum IS NULL OR k.BloPunSum='' THEN CONCAT(k.NomViaPunSum,'  ',k.NumViaPunSum) ELSE CONCAT(k.NomViaPunSum,'  ',k.NumViaPunSum,'  ',k.BloPunSum) END) AS DirPunSum
+,h.ImpAho,
 j.NomTarGas AS NomTar,h.ObsCup,h.PorAho,h.PotEleConP1 AS PotConP1,h.PotEleConP2 AS PotConP2,h.PotEleConP3 AS PotConP3,h.PotEleConP4 AS
-PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli,NULL as CanPerTar,m.DesLoc,n.DesPro,k.CPLocSoc,k.NomViaPunSum,k.NumViaPunSum,k.BloPunSum,k.EscPunSum,k.PlaPunSum,k.PuePunSum
+PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli,NULL as CanPerTar,m.DesLoc,n.DesPro,k.CPLocSoc,k.EscPunSum,k.PlaPunSum,k.PuePunSum
 FROM T_Propuesta_Comercial_CUPs h 
 JOIN T_CUPsGas i ON h.CodCup=i.CodCupGas AND h.TipCups=2 
 left JOIN T_TarifaGas j ON h.CodTar=j.CodTarGas
@@ -458,8 +457,8 @@ left JOIN T_Cliente o ON o.CodCli=k.CodCli WHERE h.CodProComCli='$CodProComCli'"
         return $this->db->delete('T_Propuesta_Comercial_CUPs', array('CodProComCli' => $CodProComCli));
     }
     public function get_CUPs_Electricos($CodCli)
-{
-    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ,a.CodTarElec,a.CodPunSum,h.RazSocCli,h.NumCifCli
+    {
+        $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,(CASE WHEN b.BloPunSum IS NULL OR b.BloPunSum='' THEN CONCAT(b.NomViaPunSum,'  ',b.NumViaPunSum) ELSE CONCAT(b.NomViaPunSum,'  ',b.NumViaPunSum,'  ',b.BloPunSum) END) AS DirPunSum,d.DesPro,c.DesLoc,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'Eléctrico' end as TipServ,a.CodTarElec,a.CodPunSum,h.RazSocCli,h.NumCifCli
         FROM T_CUPsElectrico a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -475,7 +474,8 @@ left JOIN T_Cliente o ON o.CodCli=k.CodCli WHERE h.CodProComCli='$CodProComCli'"
 }
 public function get_CUPs_Gas($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(e.IniTipVia,' - ',e.DesTipVia,' ',b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ,a.CodPunSum,a.CodTarGas,h.RazSocCli,h.NumCifCli
+    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,
+(CASE WHEN b.BloPunSum IS NULL OR b.BloPunSum='' THEN CONCAT(b.NomViaPunSum,'  ',b.NumViaPunSum) ELSE CONCAT(b.NomViaPunSum,'  ',b.NumViaPunSum,'  ',b.BloPunSum) END) AS DirPunSum,d.DesPro,c.DesLoc,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'Gas' end as TipServ,a.CodPunSum,a.CodTarGas,h.RazSocCli,h.NumCifCli
         FROM T_CUPsGas a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc

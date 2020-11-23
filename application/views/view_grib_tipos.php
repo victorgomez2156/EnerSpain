@@ -127,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <ul class="dropdown-menu">
                         <!--li><input type="checkbox" ng-model="vm.fdatos_clientes.Cod"/> <b style="color:black;">CodCli</b></li-->
                         <li><input type="checkbox" ng-model="vm.DesTipCli"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsTipCli"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsTipCli"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AccCli"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesTipCli==true">Descripción</th> 
-                    <th ng-show="vm.ObsTipCli==true">Observación</th>   
+                    <th ng-show="vm.ObsTipCli==true">Comentarios</th>   
                     <th ng-show="vm.AccCli==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Cliente.length==0"> 
@@ -208,7 +208,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsTipCli" name="ObsTipCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_clientes.ObsTipCli" ng-disabled="vm.validate_cliente==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -244,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesSecCli"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsSecCli"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsSecCli"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AccSecCli"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -275,7 +275,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesSecCli==true">Descripción</th> 
-                    <th ng-show="vm.ObsSecCli==true">Observación</th>   
+                    <th ng-show="vm.ObsSecCli==true">Comentarios</th>   
                     <th ng-show="vm.AccSecCli==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Sector.length==0"> 
@@ -296,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                    <th ng-show="vm.DesSecCli==true">Descripción</th> 
-                    <th ng-show="vm.ObsSecCli==true">Observación</th>   
+                    <th ng-show="vm.ObsSecCli==true">Comentarios</th>   
                     <th ng-show="vm.AccSecCli==true">Acción</th>
                 </tfoot>
               </table>
@@ -326,7 +326,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsSecCli" name="ObsSecCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_sector.ObsSecCli" ng-disabled="vm.validate_sector==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -363,7 +363,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesTipCon"/> <b style="color:black;">Descripción</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsTipCon"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsTipCon"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AccTipCon"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -394,7 +394,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tbody>
                   <tr>                    
                     <th ng-show="vm.DesTipCon==true">Descripción</th> 
-                    <th ng-show="vm.ObsTipCon==true">Observación</th>   
+                    <th ng-show="vm.ObsTipCon==true">Comentarios</th>   
                     <th ng-show="vm.AccTipCon==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Contacto.length==0"> 
@@ -415,7 +415,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </tbody>
                 <tfoot>
                   <th ng-show="vm.DesTipCon==true">Descripción</th> 
-                  <th ng-show="vm.ObsTipCon==true">Observación</th>   
+                  <th ng-show="vm.ObsTipCon==true">Comentarios</th>   
                   <th ng-show="vm.AccTipCon==true">Acción</th>
                 </tfoot>
               </table>
@@ -443,7 +443,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
         <div class="form-group ">
-          <label for="fullname" class="control-label col-lg-2">Observación</label>            
+          <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
               <textarea class="form-control" id="ObsTipCon" name="ObsTipCon" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_contacto.ObsTipCon" ng-disabled="vm.validate_contacto==1" rows="5" maxlength="50"></textarea>
             </div>
@@ -486,7 +486,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <ul class="dropdown-menu">
                         <li><input type="checkbox" ng-model="vm.DesTipDoc"/> <b style="color:black;">Documento</b></li></li>
                         <li><input type="checkbox" ng-model="vm.EstReq"/> <b style="color:black;">Obligatorio</b></li></li>
-                        <li><input type="checkbox" ng-model="vm.ObsTipDoc"/> <b style="color:black;">Observación</b></li></li>
+                        <li><input type="checkbox" ng-model="vm.ObsTipDoc"/> <b style="color:black;">Comentarios</b></li></li>
                         <li><input type="checkbox" ng-model="vm.AccTipDoc"/> <b style="color:black;">Acción</b></li>
                       </ul> 
                     </div>                    
@@ -518,7 +518,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>                    
                     <th ng-show="vm.DesTipDoc==true">Documento</th> 
                     <th ng-show="vm.EstReq==true">Obligatorio</th>
-                    <th ng-show="vm.ObsTipDoc==true">Observación</th>    
+                    <th ng-show="vm.ObsTipDoc==true">Comentarios</th>    
                     <th ng-show="vm.AccTipDoc==true">Acción</th>
                   </tr>
                   <tr ng-show="vm.Tipo_Documento.length==0"> 
@@ -541,7 +541,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>
                   <th ng-show="vm.DesTipDoc==true">Documento</th> 
                     <th ng-show="vm.EstReq==true">Obligatorio</th>
-                    <th ng-show="vm.ObsTipDoc==true">Observación</th>    
+                    <th ng-show="vm.ObsTipDoc==true">Comentarios</th>    
                     <th ng-show="vm.AccTipDoc==true">Acción</th>
                 </tfoot>
               </table>

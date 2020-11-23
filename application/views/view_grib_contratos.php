@@ -705,8 +705,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-3">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -753,8 +753,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-4">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -814,8 +814,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-6">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -879,8 +879,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-4">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();"  minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();"  minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -955,8 +955,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-3">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -1038,8 +1038,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="col-12 col-sm-4">
       <div class="form" >                          
        <div class="form-group">
-        <label class="font-weight-bold nexa-dark" style="color:black;">Observación </label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();"  minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
+        <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios </label>
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();"  minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined"></textarea>        
        </div>
       </div> 
   </div>
@@ -1125,7 +1125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
       <div class="form" >                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAhoGas" name="ObsAhoGas" minlength="1" maxlength="200" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsAhoGas" ng-disabled="vm.fdatos.CodCupGas==undefined"></textarea>        
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAhoGas" name="ObsAhoGas" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoGas" ng-disabled="vm.fdatos.CodCupGas==undefined"></textarea>        
        </div>
        </div>  
     </div>
@@ -1196,7 +1196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <div class="form" >                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Observaciónes Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
+        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
        </div>
        </div> 
 

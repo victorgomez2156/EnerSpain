@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.DesTPro"/> <b style="color:black;">Descripción</b></li></li>
                         <li><input type="checkbox" ng-model="vm.SerTGas"/> <b style="color:black;">Gas</b></li>
                         <li><input type="checkbox" ng-model="vm.SerTEle"/> <b style="color:black;">Eléctrico</b></li>
-                        <li><input type="checkbox" ng-model="vm.ObsTPro"/> <b style="color:black;">Observación</b></li>
+                        <li><input type="checkbox" ng-model="vm.ObsTPro"/> <b style="color:black;">Comentarios</b></li>
                         <li><input type="checkbox" ng-model="vm.FecIniTPro"/><b style="color:black;">Fecha de Inicio</b></li>   <li><input type="checkbox" ng-model="vm.EstTPro"/> <i class="fa fa-plus-square"></i> <b style="color:black;">Estatus</b></li>
                         <li><input type="checkbox" ng-model="vm.AccTPro"/> <b style="color:black;">Acción</b></li>
                       </ul> 
@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.DesTPro==true">Descripción</th>
                     <th ng-show="vm.SerTGas==true">Gas</th>
                     <th ng-show="vm.SerTEle==true">Eléctrico</th>
-                    <th ng-show="vm.ObsTPro==true">Observación</th>
+                    <th ng-show="vm.ObsTPro==true">Comentarios</th>
                     <th ng-show="vm.FecIniTPro==true">Fecha de Inicio</th>
                     <th ng-show="vm.EstTPro==true">Estatus</th>
                     <th ng-show="vm.AccTPro==true">Acción</th>
@@ -174,7 +174,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th ng-show="vm.DesTPro==true">Descripción</th>
                     <th ng-show="vm.SerTGas==true">Gas</th>
                     <th ng-show="vm.SerTEle==true">Eléctrico</th>
-                    <th ng-show="vm.ObsTPro==true">Observación</th>
+                    <th ng-show="vm.ObsTPro==true">Comentarios</th>
                     <th ng-show="vm.FecIniTPro==true">Fecha de Inicio</th>
                     <th ng-show="vm.EstTPro==true">Estatus</th>
                     <th ng-show="vm.AccTPro==true">Acción</th>
@@ -256,7 +256,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
      <textarea type="text" class="form-control" ng-model="vm.t_modal_data.ObsBloPro" rows="5" maxlength="100"/></textarea>
      </div>
      </div>
