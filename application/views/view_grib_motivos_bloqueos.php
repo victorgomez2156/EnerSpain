@@ -205,14 +205,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBloCli" name="DesMotBloCli" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_clientes.DesMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1"/>
+              <input class=" form-control" id="DesMotBloCli" name="DesMotBloCli" type="text"  required ng-model="vm.fdatos_mot_clientes.DesMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloCli" name="ObsMotBloCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_clientes.ObsMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloCli" name="ObsMotBloCli" type="text"  ng-model="vm.fdatos_mot_clientes.ObsMotBloCli" ng-disabled="vm.validate_mot_bloqueo_cliente==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -323,14 +323,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBloAct" name="DesMotBloAct" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_actividad.DesMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1"/>
+              <input class=" form-control" id="DesMotBloAct" name="DesMotBloAct" type="text"  required ng-model="vm.fdatos_mot_actividad.DesMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloAct" name="ObsMotBloAct" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_actividad.ObsMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloAct" name="ObsMotBloAct" type="text"  ng-model="vm.fdatos_mot_actividad.ObsMotBloAct" ng-disabled="vm.validate_mot_bloqueo_actividad==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -437,14 +437,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBloPun" name="DesMotBloPun" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_PunSum.DesMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1"/>
+              <input class=" form-control" id="DesMotBloPun" name="DesMotBloPun" type="text"  required ng-model="vm.fdatos_mot_PunSum.DesMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloPun" name="ObsMotBloPun" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_PunSum.ObsMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloPun" name="ObsMotBloPun" type="text"  ng-model="vm.fdatos_mot_PunSum.ObsMotBloPun" ng-disabled="vm.validato_mot_bloqueo_PunSum==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -562,14 +562,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBlocon" name="DesMotBlocon" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_contacto.DesMotBlocon" ng-disabled="vm.validate_mot_contacto==1"/>
+              <input class=" form-control" id="DesMotBlocon" name="DesMotBlocon" type="text"  required ng-model="vm.fdatos_mot_contacto.DesMotBlocon" ng-disabled="vm.validate_mot_contacto==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloCon" name="ObsMotBloCon" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_contacto.ObsMotBloCon" ng-disabled="vm.validate_mot_contacto==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloCon" name="ObsMotBloCon" type="text"  ng-model="vm.fdatos_mot_contacto.ObsMotBloCon" ng-disabled="vm.validate_mot_contacto==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -680,14 +680,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBloCom" name="DesMotBloCom" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_comercializadora.DesMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1"/>
+              <input class=" form-control" id="DesMotBloCom" name="DesMotBloCom" type="text"  required ng-model="vm.fdatos_mot_comercializadora.DesMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Observación</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloCom" name="ObsMotBloCom" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_comercializadora.ObsMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloCom" name="ObsMotBloCom" type="text"  ng-model="vm.fdatos_mot_comercializadora.ObsMotBloCom" ng-disabled="vm.validate_mot_comercializadora==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -798,14 +798,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción<span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesMotBloCUPs" name="DesMotBloCUPs" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_mot_cups.DesMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1"/>
+              <input class=" form-control" id="DesMotBloCUPs" name="DesMotBloCUPs" type="text"  required ng-model="vm.fdatos_mot_cups.DesMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Observación</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsMotBloCUPs" name="ObsMotBloCUPs" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_mot_cups.ObsMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsMotBloCUPs" name="ObsMotBloCUPs" type="text"  ng-model="vm.fdatos_mot_cups.ObsMotBloCUPs" ng-disabled="vm.validate_mot_bloqueo_cups==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">

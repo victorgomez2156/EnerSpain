@@ -80,7 +80,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">IBAN</label>
-             <input type="text" class="form-control" ng-model="vm.CodEur" onkeyup="this.value=this.value.toUpperCase();" maxlength="4" required ng-disabled="vm.tgribBancos.CodBan==undefined" ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
+             <input type="text" class="form-control" ng-model="vm.CodEur" maxlength="4" required ng-disabled="vm.tgribBancos.CodBan==undefined" ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
              </div>
              </div>
           </div>

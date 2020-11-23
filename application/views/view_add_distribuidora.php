@@ -48,7 +48,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">CIF <b style="color:red;">(*)</b></label>
-                        <input type="text" class="form-control" ng-model="vm.fdatos.NumCifDis" maxlength="25" onkeyup="this.value=this.value.toUpperCase();" placeholder="* B12345678"/>
+                        <input type="text" class="form-control" ng-model="vm.fdatos.NumCifDis" maxlength="25"  placeholder="* B12345678"/>
                         </div>
                         </div>
                       </div>       
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social <b style="color:red;">(*)</b></label>
-                         <input type="text" class="form-control" ng-model="vm.fdatos.RazSocDis" onkeyup="this.value=this.value.toUpperCase();" required placeholder="* Razón Social" ng-change="vm.misma_comercial()" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="text" class="form-control" ng-model="vm.fdatos.RazSocDis"  required placeholder="* Razón Social" ng-change="vm.misma_comercial()" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div>  
@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="form">                          
                         <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Comercial <b style="color:red;">(*)</b></label>
-                        <input type="text" class="form-control" ng-model="vm.fdatos.NomComDis" onkeyup="this.value=this.value.toUpperCase();" ng-disabled="vm.fdatos.misma_razon==false||vm.disabled_form==1" required placeholder="* Nombre Comercial"/>
+                        <input type="text" class="form-control" ng-model="vm.fdatos.NomComDis"  ng-disabled="vm.fdatos.misma_razon==false||vm.disabled_form==1" required placeholder="* Nombre Comercial"/>
                         </div>
                         </div>
                       </div>       
@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Correo Eléctronico</label>
-                         <input type="email" class="form-control" ng-model="vm.fdatos.EmaDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Correo Eléctronico" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="email" class="form-control" ng-model="vm.fdatos.EmaDis"  maxlength="50" placeholder="Correo Eléctronico" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div> 
@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Prefijo CUPs</label>
-                         <input type="text" class="form-control" ng-model="vm.fdatos.PreCups" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Prefijo CUPs" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="text" class="form-control" ng-model="vm.fdatos.PreCups"  maxlength="50" placeholder="Prefijo CUPs" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div> 
@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Página Web</label>
-                         <input type="text" class="form-control" ng-model="vm.fdatos.PagWebDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" placeholder="Página Web" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="text" class="form-control" ng-model="vm.fdatos.PagWebDis"  maxlength="50" placeholder="Página Web" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div>
@@ -120,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;"> Persona Contacto</label>
-                         <input type="text" class="form-control" ng-model="vm.fdatos.PerConDis" onkeyup="this.value=this.value.toUpperCase();" maxlength="100" placeholder="Persona Contacto" ng-disabled="vm.disabled_form==1"/>                       
+                         <input type="text" class="form-control" ng-model="vm.fdatos.PerConDis"  maxlength="100" placeholder="Persona Contacto" ng-disabled="vm.disabled_form==1"/>                       
                          </div>
                          </div>
                        </div>                       
@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          <div class="form">                          
                          <div class="form-group">
                          <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
-                         <textarea class="form-control" ng-model="vm.fdatos.ObsDis" onkeyup="this.value=this.value.toUpperCase();" rows="5" placeholder="Comentarios" ng-disabled="vm.disabled_form==1"/></textarea>                  
+                         <textarea class="form-control" ng-model="vm.fdatos.ObsDis"  rows="5" placeholder="Comentarios" ng-disabled="vm.disabled_form==1"/></textarea>                  
                          </div>
                          </div>
 

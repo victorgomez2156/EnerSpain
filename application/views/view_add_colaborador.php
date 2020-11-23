@@ -61,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">DNI/NIE  <b style="color:red;">(*)</b></label></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.NumIdeFis" id="NumIdeFis" name="NumIdeFis" maxlength="9" ng-change="vm.validarsiletras(vm.fdatos.NumIdeFis)" placeholder="* Número del DNI/NIE del Colaborador" onkeyup="this.value=this.value.toUpperCase();" ng-blur="vm.comprobar_cif()" ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.NumIdeFis" id="NumIdeFis" name="NumIdeFis" maxlength="9" ng-change="vm.validarsiletras(vm.fdatos.NumIdeFis)" placeholder="* Número del DNI/NIE del Colaborador"  ng-blur="vm.comprobar_cif()" ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form"> 
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Colaborador <b style="color:red;">(*)</b></label></label>       
-        <input class="form-control" type="text" placeholder="* Nombre del Colaborador" onkeyup="this.value=this.value.toUpperCase();" maxlength="50" ng-model="vm.fdatos.NomCol" ng-disabled="vm.validate_info!=undefined">     
+        <input class="form-control" type="text" placeholder="* Nombre del Colaborador"  maxlength="50" ng-model="vm.fdatos.NomCol" ng-disabled="vm.validate_info!=undefined">     
        </div>
        </div>
        </div>
@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDir" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30" ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDir"  ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30" ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDir" onkeyup="this.value=this.value.toUpperCase();" min="1" ng-change="vm.asignar_num_domicilio()" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDir"  min="1" ng-change="vm.asignar_num_domicilio()" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.BloDir" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Bloque del Domicilio" maxlength="3" ng-change="vm.asignar_bloq_domicilio()" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.BloDir"  placeholder="* Bloque del Domicilio" maxlength="3" ng-change="vm.asignar_bloq_domicilio()" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.EscDir" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Escalera del Domicilio" ng-change="vm.asignar_esc_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.EscDir"  placeholder="* Escalera del Domicilio" ng-change="vm.asignar_esc_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.PlaDir" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Planta del Domicilio" ng-change="vm.asignar_pla_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.PlaDir"  placeholder="* Planta del Domicilio" ng-change="vm.asignar_pla_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -155,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.PueDir" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Puerta del Domicilio" ng-change="vm.asignar_puer_domicilio()" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos.PueDir"  placeholder="* Puerta del Domicilio" ng-change="vm.asignar_puer_domicilio()" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Correo Eléctronico</label>
-       <input type="email" class="form-control" ng-model="vm.fdatos.EmaCol" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Correo Electrónico del Colaborador" maxlength="50"  ng-disabled="vm.validate_info!=undefined"/>       
+       <input type="email" class="form-control" ng-model="vm.fdatos.EmaCol"  placeholder="* Correo Electrónico del Colaborador" maxlength="50"  ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
        </div>      
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Comentarios</label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsCol" name="ObsCol" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCol" ng-disabled="vm.validate_info!=undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;"  id="ObsCol" name="ObsCol" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCol" ng-disabled="vm.validate_info!=undefined"></textarea>
         <input class="form-control" id="CodCom" name="CodCom" type="hidden" ng-model="vm.fdatos.CodCom" readonly/>
        </div>
        </div>

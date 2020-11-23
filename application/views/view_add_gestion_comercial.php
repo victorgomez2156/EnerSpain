@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group"> 
         <label class="font-weight-bold nexa-dark" style="color:black;">Referencia</label> 
-        <input type="text" name="RefGesGen" id="RefGesGen" value="1" ng-model="vm.fdatos.RefGesGen" class="form-control" ng-disabled="vm.fdatos.tipo=='ver'" onkeyup="this.value=this.value.toUpperCase();">
+        <input type="text" name="RefGesGen" id="RefGesGen" value="1" ng-model="vm.fdatos.RefGesGen" class="form-control" ng-disabled="vm.fdatos.tipo=='ver'" >
        </div>
        </div>
        </div>
@@ -193,14 +193,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Análisis previo</label>
-        <textarea class="form-control" name="DesAnaGesGen" id="DesAnaGesGen" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Análisis previo" ng-model="vm.fdatos.DesAnaGesGen" onkeyup="this.value=this.value.toUpperCase();" ></textarea>        
+        <textarea class="form-control" name="DesAnaGesGen" id="DesAnaGesGen" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Análisis previo" ng-model="vm.fdatos.DesAnaGesGen"  ></textarea>        
          </div>
          </div>
      
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Observación</label>
-        <textarea class="form-control" name="ObsGesGen" id="ObsGesGen" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsGesGen" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
+        <textarea class="form-control" name="ObsGesGen" id="ObsGesGen" ng-disabled="vm.fdatos.tipo=='ver'" rows="5" placeholder="Observación" ng-model="vm.fdatos.ObsGesGen" ></textarea>        
          </div>
          </div>
             <input class="form-control" id="CodGesGen" name="CodGesGen" type="hidden" ng-model="vm.fdatos.CodGesGen" readonly/>

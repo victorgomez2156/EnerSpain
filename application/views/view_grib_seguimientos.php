@@ -197,14 +197,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Descripción</label>
-        <textarea class="form-control" name="DesSeg" id="DesSeg" rows="5" placeholder="Descripción del seguimiento" ng-model="vm.fdatos.DesSeg" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
+        <textarea class="form-control" name="DesSeg" id="DesSeg" rows="5" placeholder="Descripción del seguimiento" ng-model="vm.fdatos.DesSeg" ></textarea>        
          </div>
          </div>
 
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
-        <textarea class="form-control" name="ObsSeg" id="ObsSeg" rows="5" placeholder="Comentarios del seguimiento" ng-model="vm.fdatos.ObsSeg" onkeyup="this.value=this.value.toUpperCase();"></textarea>        
+        <textarea class="form-control" name="ObsSeg" id="ObsSeg" rows="5" placeholder="Comentarios del seguimiento" ng-model="vm.fdatos.ObsSeg" ></textarea>        
          </div>
          </div>
 

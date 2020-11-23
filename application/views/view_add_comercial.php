@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form"> 
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Comercial <b style="color:red;">(*)</b></label></label>       
-       <input class=" form-control" id="NomCom" name="NomCom" type="text"  ng-model="vm.fdatos.NomCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>     
+       <input class=" form-control" id="NomCom" name="NomCom" type="text"  ng-model="vm.fdatos.NomCom" ng-disabled="vm.validate_form==1" />     
        </div>
        </div>
        </div>
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Cargo </label>
-       <input class="form-control " id="CarCom" name="CarCom" type="text"  ng-model="vm.fdatos.CarCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>        
+       <input class="form-control " id="CarCom" name="CarCom" type="text"  ng-model="vm.fdatos.CarCom" ng-disabled="vm.validate_form==1" />        
        </div>
        </div>
        </div>
@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>
-       <input class="form-control " id="EmaCom" name="EmaCom" type="email"  ng-model="vm.fdatos.EmaCom" ng-disabled="vm.validate_form==1" onkeyup="this.value=this.value.toUpperCase();"/>       
+       <input class="form-control " id="EmaCom" name="EmaCom" type="email"  ng-model="vm.fdatos.EmaCom" ng-disabled="vm.validate_form==1" />       
        </div>
        </div>
        </div> 
@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">IBAN</label>
-             <input type="text" class="form-control" ng-model="vm.CodEur" onkeyup="this.value=this.value.toUpperCase();" maxlength="4" ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
+             <input type="text" class="form-control" ng-model="vm.CodEur"  maxlength="4" ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
              </div>
              </div>
           </div>
@@ -167,7 +167,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Comentarios</label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsCom" name="ObsCom" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCom" ng-disabled="vm.validate_form==1"></textarea>
+        <textarea class="form-control" style="display: inline-block;"  id="ObsCom" name="ObsCom" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCom" ng-disabled="vm.validate_form==1"></textarea>
        <input class="form-control" id="CodCom" name="CodCom" type="hidden" ng-model="vm.fdatos.CodCom" readonly/>
        </div>
        </div>

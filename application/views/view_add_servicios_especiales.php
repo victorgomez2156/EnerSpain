@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Servicio Especial <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.servicio_especial.DesSerEsp" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Servicio Especial" maxlength="50" ng-disabled="vm.validate_info_servicio_especiales!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.servicio_especial.DesSerEsp" placeholder="* Nombre del Servicio Especial" maxlength="50" ng-disabled="vm.validate_info_servicio_especiales!=undefined"/>       
        </div>
        </div>
        </div>
@@ -188,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Caracteristicas del Servicio Especial <b style="color:red;">(*)</b></label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="CarSerEsp" name="CarSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.CarSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;" id="CarSerEsp" name="CarSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.CarSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
         
        </div>
        </div> 
@@ -210,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;"><i class="fa fa-adjust"></i> Comentarios</label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="OsbSerEsp" name="OsbSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.OsbSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;" id="OsbSerEsp" name="OsbSerEsp" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.servicio_especial.OsbSerEsp" ng-disabled="vm.validate_info_servicio_especiales!=undefined"></textarea>
         
        </div>
        </div>    

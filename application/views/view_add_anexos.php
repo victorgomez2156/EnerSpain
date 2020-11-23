@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Anexo <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Nombre del Anexo" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
+       <input type="text" class="form-control" ng-model="vm.anexos.DesAnePro" placeholder="* Nombre del Anexo" maxlength="50" ng-disabled="vm.validate_info_anexos!=undefined"/>       
        </div>
        </div>
        </div>
@@ -299,7 +299,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos!=undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;" id="ObsAnePro" name="ObsAnePro" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.anexos.ObsAnePro" ng-disabled="vm.validate_info_anexos!=undefined"></textarea>
         
        </div>
        </div>    

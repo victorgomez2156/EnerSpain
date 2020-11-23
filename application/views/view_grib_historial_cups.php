@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Desde <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control datepicker" name="desde" id="desde" ng-model="vm.historial.desde" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(20,vm.historial.desde)" maxlength="10" />
+        <input type="text" class="form-control datepicker" name="desde" id="desde" ng-model="vm.historial.desde"  ng-change="vm.validar_fecha_inputs(20,vm.historial.desde)" maxlength="10" />
        </div>
        </div>
        </div>
@@ -105,7 +105,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Hasta <b style="color:red;">DD/MM/YYYY</b></label>
-        <input type="text" class="form-control datepicker2" name="hasta" id="hasta" ng-model="vm.historial.hasta" onkeyup="this.value=this.value.toUpperCase();" ng-change="vm.validar_fecha_inputs(21,vm.historial.hasta)" maxlength="10" />
+        <input type="text" class="form-control datepicker2" name="hasta" id="hasta" ng-model="vm.historial.hasta"  ng-change="vm.validar_fecha_inputs(21,vm.historial.hasta)" maxlength="10" />
        </div>
        </div>
        </div>

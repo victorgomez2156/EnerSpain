@@ -277,7 +277,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Tarifa <b style="color:red;">(*)</b></label>
-               <input class=" form-control" id="NomTarEle" onkeyup="this.value=this.value.toUpperCase();" name="NomTarEle" type="text" maxlength="10" required ng-model="vm.fdatos_tar_elec.NomTarEle" ng-disabled="vm.disabled_form_TarEle==1"/>               
+               <input class=" form-control" id="NomTarEle"  name="NomTarEle" type="text" maxlength="10" required ng-model="vm.fdatos_tar_elec.NomTarEle" ng-disabled="vm.disabled_form_TarEle==1"/>               
                </div>
                </div>
               </div>
@@ -432,7 +432,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Tarifa <b style="color:red;">(*)</b></label>
-               <input class=" form-control" id="NomTarGas" onkeyup="this.value=this.value.toUpperCase();" name="NomTarGas" type="text" maxlength="10" required ng-model="vm.fdatos_tar_gas.NomTarGas" ng-disabled="vm.disabled_form_TarGas==1"/>               
+               <input class=" form-control" id="NomTarGas"  name="NomTarGas" type="text" maxlength="10" required ng-model="vm.fdatos_tar_gas.NomTarGas" ng-disabled="vm.disabled_form_TarGas==1"/>               
                </div>
                </div>
               </div>

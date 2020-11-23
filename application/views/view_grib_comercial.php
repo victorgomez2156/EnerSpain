@@ -333,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label"><i class="fa fa-vcard" title="Número de DNI/NIE"></i> Número de DNI/NIE:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" name="NumDNI_NIECli" id="NumDNI_NIECli" ng-model="vm.fdatos.NumDNI_NIECli" onkeyup="this.value=this.value.toUpperCase();" placeholder="* Ingrese Número de DNI/NIE" maxlength="9" required/>   
+                              <input type="text" class="form-control" name="NumDNI_NIECli" id="NumDNI_NIECli" ng-model="vm.fdatos.NumDNI_NIECli"  placeholder="* Ingrese Número de DNI/NIE" maxlength="9" required/>   
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="DNI_NIE_consulta_form.$invalid">CONSULTAR</button>

@@ -203,14 +203,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción del Tipo Cliente <span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesTipCli" name="DesTipCli" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_clientes.DesTipCli" ng-disabled="vm.validate_cliente==1"/>
+              <input class=" form-control" id="DesTipCli" name="DesTipCli" type="text"  required ng-model="vm.fdatos_clientes.DesTipCli" ng-disabled="vm.validate_cliente==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsTipCli" name="ObsTipCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_clientes.ObsTipCli" ng-disabled="vm.validate_cliente==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsTipCli" name="ObsTipCli" type="text"  ng-model="vm.fdatos_clientes.ObsTipCli" ng-disabled="vm.validate_cliente==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -321,14 +321,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción del Tipo Sector <span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesSecCli" name="DesSecCli" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_sector.DesSecCli" ng-disabled="vm.validate_sector==1"/>
+              <input class=" form-control" id="DesSecCli" name="DesSecCli" type="text"  required ng-model="vm.fdatos_sector.DesSecCli" ng-disabled="vm.validate_sector==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsSecCli" name="ObsSecCli" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_sector.ObsSecCli" ng-disabled="vm.validate_sector==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsSecCli" name="ObsSecCli" type="text"  ng-model="vm.fdatos_sector.ObsSecCli" ng-disabled="vm.validate_sector==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -438,14 +438,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <label for="fullname" class="control-label col-lg-2">Descripción del Tipo Contacto <span class="required">*</span></label>
             
             <div class="col-lg-10">
-              <input class=" form-control" id="DesTipCon" name="DesTipCon" type="text" onkeyup="this.value=this.value.toUpperCase();" required ng-model="vm.fdatos_contacto.DesTipCon" ng-disabled="vm.validate_contacto==1"/>
+              <input class=" form-control" id="DesTipCon" name="DesTipCon" type="text"  required ng-model="vm.fdatos_contacto.DesTipCon" ng-disabled="vm.validate_contacto==1"/>
             </div>
         </div>
 
         <div class="form-group ">
           <label for="fullname" class="control-label col-lg-2">Comentarios</label>            
             <div class="col-lg-10">
-              <textarea class="form-control" id="ObsTipCon" name="ObsTipCon" type="text" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos_contacto.ObsTipCon" ng-disabled="vm.validate_contacto==1" rows="5" maxlength="50"></textarea>
+              <textarea class="form-control" id="ObsTipCon" name="ObsTipCon" type="text"  ng-model="vm.fdatos_contacto.ObsTipCon" ng-disabled="vm.validate_contacto==1" rows="5" maxlength="50"></textarea>
             </div>
         </div>
         <div class="form-group">
@@ -564,7 +564,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Documento <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_documento.DesTipDoc" required onkeyup="this.value=this.value.toUpperCase();" placeholder="* Tipo de Documento" maxlength="50" ng-disabled="vm.validate_documento==1"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_documento.DesTipDoc" required  placeholder="* Tipo de Documento" maxlength="50" ng-disabled="vm.validate_documento==1"/>
        </div>
        </div>
        </div>
@@ -579,7 +579,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
        <div class="form">                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsTipDoc" name="ObsTipDoc" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_documento.ObsTipDoc" ng-disabled="vm.validate_documento==1"></textarea>
+        <textarea class="form-control" style="display: inline-block;"  id="ObsTipDoc" name="ObsTipDoc" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_documento.ObsTipDoc" ng-disabled="vm.validate_documento==1"></textarea>
         
        </div>
        </div>
@@ -697,7 +697,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Descripción <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_gestiones.DesTipGes" required onkeyup="this.value=this.value.toUpperCase();" placeholder="* Descripción" maxlength="50" ng-disabled="vm.validate_gestiones==1"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_gestiones.DesTipGes" required  placeholder="* Descripción" maxlength="50" ng-disabled="vm.validate_gestiones==1"/>
        </div>
        </div>
        </div>

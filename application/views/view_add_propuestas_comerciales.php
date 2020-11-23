@@ -465,7 +465,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-4">      
       <div class="form" >                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAhoEle" name="ObsAhoEle" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"></textarea>        
+        <textarea class="form-control" style="display: inline-block;"  id="ObsAhoEle" name="ObsAhoEle" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoEle" ng-disabled="vm.fdatos.CodCupSEle==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"></textarea>        
        </div>
        </div> </div> 
           </div>
@@ -542,7 +542,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         <div class="form" >                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsAhoGas" name="ObsAhoGas" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoGas" ng-disabled="vm.fdatos.CodCupGas==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"></textarea>        
+        <textarea class="form-control" style="display: inline-block;"  id="ObsAhoGas" name="ObsAhoGas" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.fdatos.ObsAhoGas" ng-disabled="vm.fdatos.CodCupGas==undefined || vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"></textarea>        
        </div>
        </div>  
     </div>
@@ -617,7 +617,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;" onkeyup="this.value=this.value.toUpperCase();" id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
+        <textarea class="form-control" style="display: inline-block;"  id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.fdatos.ObsProCom"></textarea>        
        </div>
        </div> 
       <input class="form-control" id="CodProCom" name="CodProCom" type="hidden" ng-model="vm.fdatos.CodProCom" readonly/>

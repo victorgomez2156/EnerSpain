@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">CUPs <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" name="CUPSES" id="CUPSES" ng-model="vm.fdatos_cups.cups" onkeyup="this.value=this.value.toUpperCase();" placeholder="* ES" readonly="readonly" maxlength="2" ng-disabled=" vm.validate_info==undefined || vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSES" id="CUPSES" ng-model="vm.fdatos_cups.cups"  placeholder="* ES" readonly="readonly" maxlength="2" ng-disabled=" vm.validate_info==undefined || vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>    
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">  
        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>     
-       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1" onkeyup="this.value=this.value.toUpperCase();" maxlength="18" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1"  maxlength="18" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>  
@@ -169,7 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-       <input type="text" class="form-control" name="CUPSNUM2" id="CUPSNUM2" ng-model="vm.fdatos_cups.cups2" onkeyup="this.value=this.value.toUpperCase();" maxlength="2" ng-disabled=" vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSNUM2" id="CUPSNUM2" ng-model="vm.fdatos_cups.cups2"  maxlength="2" ng-disabled=" vm.validate_info!=undefined"/>
        </div>
        </div>
        </div-->      
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -235,7 +235,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -248,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -257,7 +257,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
         </div>
       </div>
       </div>
@@ -266,7 +266,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -280,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -289,7 +289,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
         </div>
       </div>
       </div>
@@ -298,7 +298,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3"  ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
         </div>
       </div>
       </div>
@@ -307,7 +307,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -320,7 +320,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -329,7 +329,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
         </div>
       </div>
       </div>
@@ -338,7 +338,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3"  ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
         </div>
       </div>
       </div>
@@ -347,7 +347,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4"  ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
         </div>
       </div>
       </div>
@@ -356,7 +356,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -371,7 +371,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -380,7 +380,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
         </div>
       </div>
       </div>
@@ -389,7 +389,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3"  ng-disabled=" vm.validate_info!=undefined" placeholder="P3" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
         </div>
       </div>
       </div>
@@ -398,7 +398,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4"  ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
         </div>
       </div>
       </div>
@@ -407,7 +407,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5"  ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
         </div>
       </div>
       </div>
@@ -416,7 +416,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -431,7 +431,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
         <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP1"  ng-disabled=" vm.validate_info!=undefined" placeholder="P1" ng-change="vm.validar_fecha_inputs(4,vm.fdatos_cups.PotConP1)"/>
        </div>
        </div>
        </div> 
@@ -440,7 +440,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP2"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(5,vm.fdatos_cups.PotConP2)"/>
         </div>
       </div>
       </div>
@@ -449,7 +449,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP3"  ng-disabled=" vm.validate_info!=undefined" placeholder="P2" ng-change="vm.validar_fecha_inputs(6,vm.fdatos_cups.PotConP3)"/>
         </div>
       </div>
       </div>
@@ -458,7 +458,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP4"  ng-disabled=" vm.validate_info!=undefined" placeholder="P4" ng-change="vm.validar_fecha_inputs(7,vm.fdatos_cups.PotConP4)"/>
         </div>
       </div>
       </div>
@@ -467,7 +467,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP5"  ng-disabled=" vm.validate_info!=undefined" placeholder="P5" ng-change="vm.validar_fecha_inputs(8,vm.fdatos_cups.PotConP5)"/>
         </div>
       </div>
       </div>
@@ -476,7 +476,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="form">                          
         <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:white;">.</label>
-          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP6" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" placeholder="P6" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.PotConP6)"/>
+          <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotConP6"  ng-disabled=" vm.validate_info!=undefined" placeholder="P6" ng-change="vm.validar_fecha_inputs(9,vm.fdatos_cups.PotConP6)"/>
         </div>
       </div>
       </div>
@@ -485,7 +485,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Potencia Máxima BIE </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.PotMaxBie" placeholder="Potencia Máxima BIE"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(10,vm.fdatos_cups.PotMaxBie)"/>
        </div>
        </div>
        </div>
@@ -499,7 +499,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta</label>
-        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup" onkeyup="this.value=this.value.toUpperCase();" placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
+        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup"  placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
        </div>
        </div>
        </div>
@@ -508,7 +508,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Última Lectura </label>
-        <input type="text" class="form-control datepicker2" ng-model="vm.fdatos_cups.FecUltLec"  name="FecUltLec" id="FecUltLec" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
+        <input type="text" class="form-control datepicker2" ng-model="vm.fdatos_cups.FecUltLec"  name="FecUltLec" id="FecUltLec"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(2,vm.fdatos_cups.FecUltLec)"/>
        </div>
        </div>
        </div-->
@@ -517,7 +517,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Consumo (Kw) <b style="color:red;">(*)</b></label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.ConAnuCup" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.ConAnuCup)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.ConAnuCup"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(3,vm.fdatos_cups.ConAnuCup)"/>
        </div>
        </div>
        </div>
@@ -526,7 +526,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Derechos de Acceso (Kw) </label>
-        <input type="text" class="form-control" ng-model="vm.fdatos_cups.DerAccKW" onkeyup="this.value=this.value.toUpperCase();" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(23,vm.fdatos_cups.DerAccKW)"/>
+        <input type="text" class="form-control" ng-model="vm.fdatos_cups.DerAccKW"  ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(23,vm.fdatos_cups.DerAccKW)"/>
        </div>
        </div>
        </div>
