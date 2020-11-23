@@ -308,7 +308,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              </div>
           </div> 
         </form>
-         <div align="center"><a class="btn btn-success" href="#/Edit_Datos_Basicos_Clientes/{{vm.response_customer.CodCli}}" ng-disabled="vm.disabled_button==true">Ir a Datos Basicos</a></div>
+         <div align="center"><a class="btn btn-success" href="#/Edit_Datos_Basicos_Clientes/{{vm.response_customer.CodCli}}" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</a></div>
       </div>
 </div>
 <br>
@@ -363,8 +363,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-2">
       <div class="form">                          
         <div class="form-group">   
-          <label class="font-weight-bold nexa-dark" style="color:white;">. </label>
-           <a class="btn btn-success" href="#/Edit_Contactos/{{vm.response_customer.Contactos[$index].CodConCli}}" ng-disabled="vm.disabled_button==true">Ir a Contactos</a>   
+          <label class="font-weight-bold nexa-dark" style="color:white;">Acción </label>
+           <a class="btn btn-success" href="#/Edit_Contactos/{{vm.response_customer.Contactos[$index].CodConCli}}" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i></a>   
         </div>
       </div>
     </div>
@@ -418,7 +418,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td> 
                       <button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
 
-                      <a class="btn btn-success" href="#/Edit_Cups/{{vm.response_customer.All_CUPs[$index].CodCups}}/{{vm.response_customer.All_CUPs[$index].TipServLetra}}">Ir a CUPs</a> 
+                      <a class="btn btn-success" href="#/Edit_Cups/{{vm.response_customer.All_CUPs[$index].CodCups}}/{{vm.response_customer.All_CUPs[$index].TipServLetra}}"><i class="fa fa-edit"></i></a> 
                     </td>
                   </tr>
                 </tbody>
@@ -656,8 +656,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-4">
             <div class="form">                          
              <div class="form-group">    
-              <label class="font-weight-bold nexa-dark" style="color:black;">Banco </label><br>         
-              <a class="btn btn-success" href="#/Edit_Cuenta_Bancaria/{{vm.response_customer.Cuentas_Bancarias[$index].CodCueBan}}">Ir a Cuenta</a>     
+              <label class="font-weight-bold nexa-dark" style="color:black;">Acción </label><br>         
+              <a class="btn btn-success" href="#/Edit_Cuenta_Bancaria/{{vm.response_customer.Cuentas_Bancarias[$index].CodCueBan}}"><i class="fa fa-edit"></i></a>     
              </div>
              </div>
           </div> 
@@ -700,10 +700,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <div class="col-12 col-sm-2">
     <div class="form">                          
-      <div class="form-group">    
+      <div class="form-group"> 
+      <label class="font-weight-bold nexa-dark" style="color:black;">Acción </label>    
         <a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a>     
 
-        <a class="btn btn-success" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}">Ir</a> 
+        <a class="btn btn-success" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a> 
       </div>
     </div>
   </div>
