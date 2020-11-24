@@ -400,8 +400,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr>
                   <th style="width: 207px;">CUPS</th>
                   <th>Dirección de Suministro</th>
-                  <th style="width: 99px;">E/G</th>
-                  <th style="width: 63px;">Acción</th> 
+                  <th style="width: 50px; text-align: center;">E/G</th>
+                  <th style="width: 100px;">Acción</th> 
                   </tr>
                   <tr ng-show="vm.response_customer.All_CUPs.length==0"> 
                     <td colspan="4" align="center">
@@ -425,7 +425,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tfoot>                 
                   <th>CUPS</th>
                   <th>Dirección de Suministro</th>
-                  <th>Eléct/Gas</th>
+                  <th style="text-align: center;">E/G</th>
                   <th>Acción</th> 
                 </tfoot>
               </table>
