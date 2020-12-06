@@ -14158,12 +14158,15 @@ class Exportar_Documentos extends CI_Controller
         if($ContratoComercial-> TipProCom==1)
         {
             $TipoContrato="Contrato Comercial Sencillo ";
+            $DatosClientes=$this->Reportes_model->ClienteDatosContratoComercial($ContratoComercial->CodCli,$ContratoComercial-> TipProCom);
         }
         elseif ($ContratoComercial-> TipProCom==2) {
             $TipoContrato="Contrato Comercial UniCliente - MultiPunto ";
+            $DatosClientes=$this->Reportes_model->ClienteDatosContratoComercial($ContratoComercial->CodCli,$ContratoComercial-> TipProCom);
         }
         elseif ($ContratoComercial-> TipProCom==3) {
             $TipoContrato="Contrato Comercial MultiCliente - MultiPunto ";
+            $DatosClientes=$this->Reportes_model->ClienteDatosContratoComercial($ContratoComercial->CodCli,$ContratoComercial-> TipProCom);
         }
         else
         {
@@ -14206,16 +14209,16 @@ class Exportar_Documentos extends CI_Controller
 
          $html .= '<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped">  
         <tr>
-            <td style="border-style:none;" colspan="4">Razón Social: '.$ContratoComercial->RazSocCli.'</td>
-             <td border="0" colspan="1">CIF: '.$ContratoComercial->NumCifCli.'</td>
+            <td style="border-style:none;" colspan="4">Razón Social: '.$DatosClientes-> RazSocCli.' </td>
+             <td border="0" colspan="1">CIF: '.$DatosClientes-> NumCifCli.'</td>
         </tr>
         <tr>
-            <td border="0" colspan="10">Dirección: '.$ContratoComercial->IniTipVia.'-'.$ContratoComercial->DesTipVia.' '.$ContratoComercial->NomViaDomSoc.' '.$ContratoComercial->NumViaDomSoc.' '.$ContratoComercial->BloDomSoc.' '.$ContratoComercial->EscDomSoc.' '.$ContratoComercial->PlaDomSoc.' '.$ContratoComercial->PueDomSoc.'</td>
+            <td border="0" colspan="10">Dirección: '.$DatosClientes-> NomViaDomSoc.' '.$DatosClientes-> NumViaDomSoc.' '.$DatosClientes-> BloDomSoc.' '.$DatosClientes-> EscDomSoc.' '.$DatosClientes-> PlaDomSoc.' '.$DatosClientes-> PueDomSoc.'</td>
         </tr>
         <tr>
-            <td border="0" colspan="2">Localidad: '.$ContratoComercial->DesLoc.'</td>
-            <td border="0" colspan="2">Provincia: '.$ContratoComercial->DesPro.'</td>
-            <td border="0" colspan="1">Código Postal: '.$ContratoComercial->CPLocSoc.'</td>
+            <td border="0" colspan="2">Localidad: '.$DatosClientes-> DesLoc.'</td>
+            <td border="0" colspan="2">Provincia: '.$DatosClientes-> CPLocSoc.'</td>
+            <td border="0" colspan="1">Código Postal: '.$DatosClientes-> DesPro.'</td>
         </tr>       
         </table>';
 
@@ -14536,7 +14539,7 @@ class Exportar_Documentos extends CI_Controller
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',$CodConCom,$this->input->ip_address(),'GENERANDO REPORTE PDF CONTRATO COMERCIAL');
         $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
         $pdf->lastPage();
-        $pdf->Output('Contrato Comercial '.$TipoContrato.$ContratoComercial->RazSocCli.' - '.$ContratoComercial->NumCifCli.'.pdf', 'I');
+        $pdf->Output('Contrato Comercial '.$TipoContrato.'.pdf', 'I');
     }
     public function Doc_Contratos_PDF()
     {        
@@ -16156,10 +16159,10 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->RazSocCli.'</td>                        
                         <td>'.$record->CUPsEle.'</td>
                         <td>'.$record->NomTarEle.'</td>
-                        <td>'.number_format($record->ConCupEle, 2, ',', '.').'</td>
+                        <td>'.$record->ConCupEle.'</td>
                         <td>'.$record->CupsGas.'</td>
                         <td>'.$record->NomTarGas.'</td> 
-                        <td>'.number_format($record->ConCupGas, 2, ',', '.').'</td>
+                        <td>'.$record->ConCupGas.'</td>
                         <td>N/A</td>
                         <td>'.$record->EmaCli.'</td> 
                         <td>'.$record->NumCifCom.'</td>
@@ -16381,10 +16384,10 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsEle);
                 $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarEle);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", number_format($Resultado_Renovacion_Contratos[$i]-> ConCupEle, 2, ',', '.'));
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Renovacion_Contratos[$i]-> ConCupEle);
                 $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> CupsGas);
                 $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]-> NomTarGas);
-                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", number_format($Resultado_Renovacion_Contratos[$i]-> ConCupGas, 2, ',', '.'));
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]-> ConCupGas);
                 $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", 'N/A');
                 $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCom);    

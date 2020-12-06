@@ -195,7 +195,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CUPsEle==true">{{dato.CUPsEle}}</td>
                     <td ng-show="vm.CUPsGas==true">{{dato.CupsGas}}</td> 
                     <td ng-show="vm.EstPro==true">
-                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                      
+                      <span class="label label-info" style="background-color: #FFFF00" ng-show="dato.EstProCom=='P'"><i style="color:black;" class="fa fa-clock-o"></i> <b style="color:black;">Pendiente</b></span>
                       <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
                       <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
                       <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
@@ -298,7 +299,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.NomCliUniCli==true">{{dato.RazSocCli}}</td>
                     <td ng-show="vm.CUPsEleUniCli==true">{{dato.TotalCUPs}}</td>                    
                     <td ng-show="vm.EstProUniCli==true">
-                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                       <span class="label label-info" style="background-color: #FFFF00" ng-show="dato.EstProCom=='P'"><i style="color:black;" class="fa fa-clock-o"></i> <b style="color:black;">Pendiente</b></span>
                       <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
                       <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
                       <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
@@ -399,7 +400,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CanCliMulCli==true">{{dato.CantCli}}</td>
                     <td ng-show="vm.CanCups==true">{{dato.CantCups}}</td>                    
                     <td ng-show="vm.EstProMulCli==true">
-                      <span class="label label-warning" ng-show="dato.EstProCom=='P'"><i class="fa fa-clock-o"></i> Pendiente</span>
+                      <span class="label label-info" style="background-color: #FFFF00" ng-show="dato.EstProCom=='P'"><i style="color:black;" class="fa fa-clock-o"></i> <b style="color:black;">Pendiente</b></span>
                       <span class="label label-info" ng-show="dato.EstProCom=='A'"><i class="fa fa-check-circle"></i> Aprobada</span>
                       <span class="label label-success" ng-show="dato.EstProCom=='C'"><i class="fa fa-check-circle"></i> Completada</span>  
                       <span class="label label-danger" ng-show="dato.EstProCom=='R'"><i class="fa fa-ban"></i> Rechazada</span>
@@ -470,7 +471,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Representante" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -541,7 +542,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Representante" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -612,7 +613,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Representante" ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -727,14 +728,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Introduzca CIF</h4>
+                        <h4 class="modal-title">NIF/Nombre Contacto/Representante/Administrador/Colaborador</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre Contacto/Representante/Administrador/Colaborador:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* NIF/Nombre Contacto/Representante/Administrador/Colaborador" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -759,14 +760,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Introduzca CIF</h4>
+                        <h4 class="modal-title">NIF/Nombre Contacto/Representante/Administrador/Colaborador</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form_UniCli" name="cif_consulta_form_UniCli" ng-submit="Consultar_CIFUniMulCli($event,2)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre Contacto/Representante/Administrador/Colaborador:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* NIF/Nombre Contacto/Representante/Administrador/Colaborador" required ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -788,14 +789,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Introduzca CIF</h4>
+                        <h4 class="modal-title">Representante</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form_MulCli" name="cif_consulta_form_MulCli" ng-submit="Consultar_CIFUniMulCli($event,3)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">CIF/NIF  del   Cliente:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Representante:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* Representante" required ng-keyup='vm.fetchClientes(3)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult' style="height: 350px; overflow-y: auto;">
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 

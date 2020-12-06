@@ -17,6 +17,17 @@ class Contratos extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}
+		$this->load->helper('cookie');
+		$this->load->library('user_agent');  
+        $this->load->helper('form');
+		$this->load->helper('url');
+		$this->load->helper("file");
+
+		$config['upload_path']          = './uploads/';
+		$config['allowed_types']        = '*';
+		$config['encrypt_name']        = false;
+		
+		$this->load->library('upload', $config);
     }
     
      public function get_list_contratos_clientes_get()
@@ -45,14 +56,16 @@ class Contratos extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 		$consulta=$this->Clientes_model->getclientessearch($objSalida->NumCifCli);						
-		if($objSalida->metodo==1 && empty($consulta))
+		
+		if($objSalida->metodo==1 && $consulta==false)
 		{
 			$consulta=$this->Clientes_model->getColaboradoressearch($objSalida->NumCifCli);
 		}
+
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
 		$this->db->trans_complete();
 		$this->response($consulta);
-	}
+	}	
 	public function get_valida_datos_clientes_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -139,6 +152,31 @@ class Contratos extends REST_Controller
 		$arrayName = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
 		$this->response($arrayName);
 	}
+	public function PropuestaMultiCliente_get()
+    {
+    	$CodCli=$this->get('CodCol');
+		$tabla="T_Colaborador";
+		$where="CodCol";	
+		$select='CodCol as CodCli,NumIdeFis as NumCifCli,NomCol as RazSocCli'; 
+		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
+		if(empty($Cliente))
+		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
+			$this->response(false);
+			return false;
+		}
+		$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,3); 
+		if($BuscarPropuestaAprobada==false)
+		{
+			$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial con estatus aprobada.','statusText'=>'Error');
+			$this->response($response);	
+			return false;
+		}
+		$ReferenciaContrato=$this->generar_RefProContrato();
+		$Fecha=date('d/m/Y');
+		$arrayName = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
+		$this->response($arrayName);
+	}
 	public function BuscarXIDContrato_get()
     {
     	$CodCli=$this->get('CodCli');
@@ -179,7 +217,14 @@ class Contratos extends REST_Controller
 		$where="CodConCom";	
 		$select='CodCli,CodConCom,CodProCom,DocConRut,DocGenCom,DurCon,EstBajCon,EstRen,DATE_FORMAT(FecBajCon,"%d/%m/%Y") as FecBajCon,DATE_FORMAT(FecConCom,"%d/%m/%Y") as FecConCom,DATE_FORMAT(FecFinCon,"%d/%m/%Y") as FecFinCon,DATE_FORMAT(FecIniCon,"%d/%m/%Y") as FecIniCon,DATE_FORMAT(FecVenCon,"%d/%m/%Y") as FecVenCon,JusBajCon,ObsCon,ProRenPen,RefCon,RenMod,UltTipSeg,DATE_FORMAT(FecFirmCon,"%d/%m/%Y") as FecFirmCon,DATE_FORMAT(FecAct,"%d/%m/%Y") as FecAct'; 
 		$Contratos = $this->Propuesta_model->Funcion_Verificadora($CodConCom,$tabla,$where,$select);
-		
+		if($Contratos!=false)
+		{
+			$List_Archivos=$this->Contratos_model->getDocumentosContratos($CodConCom);
+		}
+		else
+		{
+			$List_Archivos=false;
+		}
 		//// comentado antes start ///
 		//$List_Pro = array('List' => $BuscarPropuestaList);
 		/*$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobada($Cliente->CodCli); 
@@ -193,7 +238,7 @@ class Contratos extends REST_Controller
 		$Fecha=date('d/m/Y');*/
 		//// comentado antes emnd ///
 
-		$arrayName = array('Cliente' =>$Cliente,'List_Pro' =>$BuscarPropuestaList,'Contrato' =>$Contratos);
+		$arrayName = array('Cliente' =>$Cliente,'List_Pro' =>$BuscarPropuestaList,'Contrato' =>$Contratos,'List_Archivos' =>$List_Archivos);
 		$this->response($arrayName);
 	}
 	public function GetDetallesCUPsTipProCom_get()
@@ -203,14 +248,13 @@ class Contratos extends REST_Controller
     	$BuscarDetallesCUPs=$this->Propuesta_model->GetDetallesCUPs($CodProComCli); 
     	if($BuscarDetallesCUPs==false)
     	{
-    		$arrayName = array('status' =>false,'menssage' =>'no se encontraron detalles para esta propuesta comercial','statusText' =>'Error');
+    		$arrayName = array('status' =>404,'menssage' =>'no se encontraron detalles para esta propuesta comercial','statusText' =>'Error');
 			$this->response($arrayName);
 			return false;
     	}
-    	$this->response($BuscarDetallesCUPs);
-
-		//$arrayName = array('Cliente' =>$Cliente,'List_Pro' =>$BuscarPropuestaList,'Contrato' =>$Contratos);
-		//$this->response($arrayName);
+    	$arrayName = array('status' =>200,'menssage' =>'Cargando CUPs para contrato','statusText' =>'CUPs','BuscarDetallesCUPs'=>$BuscarDetallesCUPs);
+    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','GET',$CodProComCli,$this->input->ip_address(),'Cargando CUPs para Contrato');
+    	$this->response($arrayName);
 	}
     public function generar_RefProContrato()
     {
@@ -261,10 +305,23 @@ class Contratos extends REST_Controller
 		if($objSalida->tipo=='nuevo')
 		{
 			$this->db->trans_start();
-			$CodConCom=$this->Contratos_model->agregar_contrato($objSalida->CodCli,$objSalida->CodProCom,date('Y-m-d'),false,false,false,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->RefCon,$objSalida->ObsCon,$objSalida->DocConRut);
+			$CodConCom=$this->Contratos_model->agregar_contrato($objSalida->CodCli,$objSalida->CodProCom,date('Y-m-d'),false,false,false,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->RefCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->FecAct);
 			$objSalida->CodConCom=$CodConCom;
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','INSERT',$CodConCom,$this->input->ip_address(),'Generando Contrato Comercial.');			
-			
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','INSERT',$CodConCom,$this->input->ip_address(),'Generando Contrato Comercial.');
+			if(!empty($objSalida->detalleCUPs))
+			{
+				foreach ($objSalida->detalleCUPs as $key => $value):
+				{	
+					if($value->FecActCUPs!=null)
+					{
+						$FecActCUPs=explode("/", $value->FecActCUPs);
+						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->TipServ,$FecActCUPsFinal);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
+					}
+				}
+				endforeach;	
+			}
 			/*$tabla="T_PropuestaComercial";
 			$where="CodProCom";	
 			$select='*'; 
@@ -275,6 +332,7 @@ class Contratos extends REST_Controller
 			$update_CUPsGas=$this->Contratos_model->update_CUPsGasDB($PropuestaComercial->CodCupsGas,$PropuestaComercial->CodTarGas,$PropuestaComercial->Consumo);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CUPsGas','UPDATE',$PropuestaComercial->CodCupsGas,$this->input->ip_address(),'Actualizando CUPs Gas Generando Contrato Comercial.');*/
 			$update_propuesta=$this->Contratos_model->update_propuesta($objSalida->CodProCom,'C');
+			$objSalida->tipo='editar';
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','UPDATE',$objSalida->CodProCom,$this->input->ip_address(),'Actualizando Propuesta Comercial ha C Desde Contrato Comercial');
 			$arrayName = array('status'=>200 ,'menssage'=>'Contrato Comercial generado correctamente bajo el número de contrato: '.$objSalida->RefCon,'statusText'=>'OK','objSalida' =>$objSalida);			
 			$this->db->trans_complete();
@@ -286,7 +344,7 @@ class Contratos extends REST_Controller
 			$update_CUPsGas=$this->Contratos_model->update_contrato_documento($objSalida->CodConCom,$objSalida->DocConRut);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Documento.');
 			$this->db->trans_complete();
-			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK" );
+			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK",'objSalida' =>$objSalida );
 			$this->response($arrayName);
 		}
 		elseif($objSalida->tipo=='editar')
@@ -301,9 +359,25 @@ class Contratos extends REST_Controller
 		    	}
 			}*/
 			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon,$objSalida->FecFirmCon,$objSalida->FecAct);
+			if(!empty($objSalida->detalleCUPs))
+			{
+				foreach ($objSalida->detalleCUPs as $key => $value):
+				{	
+					if($value->FecActCUPs!=null)
+					{
+						$FecActCUPs=explode("/", $value->FecActCUPs);
+						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->TipServ,$FecActCUPsFinal);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
+			
+					}
+
+				}
+				endforeach;	
+			}
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial.');
 			$this->db->trans_complete();
-			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK" );
+			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK",'objSalida' =>$objSalida );
 			$this->response($arrayName);
 		}
 		else
@@ -460,6 +534,30 @@ class Contratos extends REST_Controller
 		$CambiarEstatus=$this->Contratos_model->NuevoEstatusContratos($CodConCom,$opcion_select);	
 		$this->response($CambiarEstatus);
 	}
+	public function GenerarSepaClientes_get()
+	{
+		//$opcion_select=$this->get('opcion_select');
+		$CodCli=$this->get('CodCli');
+		$CodProCom=$this->get('CodProCom');
+		$CodConCom=$this->get('CodConCom');
+		$DatosClienteCuentasBancarias=$this->Contratos_model->getaudaxcuentasbancariasColaboradores($CodCli,$CodProCom,$CodConCom);	
+		$detalleFinal = Array();
+		$detalleFinal2 = Array();
+		foreach ($DatosClienteCuentasBancarias as $key => $value):
+		{
+			$detalleG = $this->Contratos_model->getCuentasClientes($value->CodCli);			
+			if($detalleG!=false)
+			{
+				foreach ($detalleG as $key => $valueDetalleG): 
+				{
+					array_push($detalleFinal2, $valueDetalleG);
+				}
+				endforeach;
+			}
+		}
+		endforeach;
+		$this->response($detalleFinal2);
+	}
 	public function AsignarPropuestaContrato_get()
 	{
 		$CodCli=$this->get('CodCli');
@@ -563,6 +661,66 @@ class Contratos extends REST_Controller
 		$arrayName = array('status' =>200 ,'statusText'=>'OK','objSalida'=>$objSalida,'menssage'=>'Propuesta Comercial Asignada correctamente ahora puede solicitar la renovación del contrato.' );		
 		$this->db->trans_complete();
 		$this->response($arrayName);
+	}
+	public function agregar_documento_contrato_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$this->db->trans_start();
+		$data = $this->upload->do_upload('file');
+		//$api=$this->get('x-api-key');
+		if (!$data)
+		{
+			$error = array('status'=>0,'nombre'=>$this->upload->display_errors());	
+			return 	$this->response($error);
+		}
+		else
+		{
+			$data = array($this->upload->data());
+			$CodDetDocCon=$this->Contratos_model->agregar_documentos($_POST['CodConCom'],$data[0]['file_name'],$data[0]['file_ext'],$data[0]['raw_name']);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleDocumentosContratos','INSERT',$CodDetDocCon,$this->input->ip_address(),'Registro de Documento del Contrato');
+			$this->db->trans_complete();	
+			$this->response(array('CodDetDocCon'=>$CodDetDocCon,'file_ext'=>$data[0]['file_ext'],'CodConCom'=>$_POST['CodConCom'],'DocGenCom'=>$data[0]['raw_name'],'DocConRut'=>'uploads/'.$data[0]['file_name']));
+		}		
+	}
+	public function borrar_documento_contrato_get()
+    {
+    	$CodDetDocCon=$this->get('CodDetDocCon');
+    	$tabla="T_DetalleDocumentosContratos";
+		$where="CodDetDocCon";	
+		$select='*'; 
+		$DocumentoArchivo = $this->Propuesta_model->Funcion_Verificadora($CodDetDocCon,$tabla,$where,$select);
+		if($DocumentoArchivo==false)
+		{
+			$arrayName = array('status' =>404,'menssage' =>'Error Con el archivo o no existe','statusText' =>'Error');
+			$this->response($arrayName);
+			return false;
+		}
+		$path_to_file = './uploads/'.$DocumentoArchivo-> DocConRut;
+		//$path_to_file = './uploads/emmy.jpg';
+		$exists = file_exists($path_to_file);
+		if($exists==true)
+		{
+			if(unlink($path_to_file)) 
+			{
+			    $statusFile='Delete success';
+			}
+			else
+			{
+			    $statusFile='errors occured';
+			}
+		}
+		else
+		{
+			$statusFile='El archivo que esta intentado borrar no existe en nuestro servidor.';
+		}
+		$DocumentoArchivo = $this->Contratos_model->borrar_documentoDB($CodDetDocCon);		
+		$arrayName = array('status' =>200,'menssage' =>'Archivo borrado correctamente.','statusText' =>'OK','DocumentoArchivo'=>$DocumentoArchivo,'statusFile'=>$statusFile);
+    	$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'DELETE',$CodDetDocCon,$this->input->ip_address(),'Borrando archivo de contrato');
+    	$this->response($arrayName);
 	}
 }
 ?>

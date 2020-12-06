@@ -33,6 +33,7 @@ app.controller('Controlador_Contratos', ['$http', '$scope', '$filter', '$route',
     }])
 
 function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, upload) {
+    
     var scope = this;
     scope.fdatos = {};
     scope.T_Contratos = [];
@@ -43,8 +44,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.CodCli = $route.current.params.CodCli;
     scope.CodProCom = $route.current.params.CodProCom;
     scope.fdatos.tipo = $route.current.params.Tipo;
+    scope.TipProCom = $route.current.params.TipProCom;
+    scope.fdatos.TDocumentosContratos=[];
     scope.Nivel = $cookies.get('nivel');
-    scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }, { TipPre: 2, nombre: 'Ambos' }];
+    scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
     //
     //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDFSencillo/";
     //scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
@@ -247,9 +250,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.NumCifCli = result.data.Cliente.NumCifCli;
                 scope.List_Propuestas_Comerciales = result.data.List_Propuesta;
                 scope.fdatos.RefCon = result.data.RefCon;
-                $("#FecVenConClass").removeClass("col-sm-4").addClass("col-sm-2");
-                $("#DurConClass").removeClass("col-sm-6").addClass("col-sm-2");
-                $("#RefConClass").removeClass("col-sm-6").addClass("col-sm-4");
+                $("#FecVenConClass").removeClass("col-sm-4").addClass("col-sm-6");
+                $("#DurConClass").removeClass("col-sm-6").addClass("col-sm-6");
+                $("#TipPreClass").removeClass("col-sm-4").addClass("col-sm-6");
+                $("#FecActClass").removeClass("col-sm-4").addClass("col-sm-6");
+                //$("#RefConClass").removeClass("col-sm-6").addClass("col-sm-4");
 
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
             } else {
@@ -553,11 +558,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         $http.get(url).then(function(result)
         {
             $("#DetallesCUPs").removeClass("loader loader-default is-active").addClass("loader loader-default");
-            if(result.data!=false)
+            if(result.data.status==200 && result.data.statusText=="CUPs")
             {
-                if(TipProCom==1)
+            	if(TipProCom==1)
                 {
-                    angular.forEach(result.data,function(CUPs)
+                    angular.forEach(result.data.BuscarDetallesCUPs,function(CUPs)
                     {
                         if(CUPs.CanPerTar==null || CUPs.CanPerTar==0)
                         {
@@ -597,22 +602,25 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 else if(TipProCom==2)
                 {
-                    scope.fdatos.detalleCUPs=result.data;
+                    scope.fdatos.detalleCUPs=result.data.BuscarDetallesCUPs;
                 }
                 else if(TipProCom==3)
                 {
-                    scope.fdatos.detalleCUPs=result.data;
+                    scope.fdatos.detalleCUPs=result.data.BuscarDetallesCUPs;
                 }
                 else
                 {
-
+                	scope.toast('error','Error en Tipo de Propuesta Comercial','Error');
+                	scope.fdatos.detalleCUPs=[];
                 }
             }
-            else
+            if(result.data.status==404 && result.data.statusText=="Error")
             {
-
+            	scope.toast('error','No se encontraron CUPs para este contrato','Error');
+            	
+            	scope.fdatos.detalleCUPs=[];
+            	console.log(scope.fdatos.detalleCUPs);
             }
-
         },function(error)
         {
             $("#DetallesCUPs").removeClass("loader loader-default is-active").addClass("loader loader-default"); 
@@ -626,6 +634,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
             }
         });
+
+    }
+    scope.validar_fecha=function(FecActCUPs,index,dato)
+    {
+    	console.log(FecActCUPs);
+    	console.log(index);
+    	console.log(dato);
+    	if (FecActCUPs != undefined) {
+                numero = FecActCUPs;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.fdatos.detalleCUPs[index].FecActCUPs = numero.substring(0, numero.length - 1);
+            }
+        var FecActCUPs = document.getElementById("FecActCUPs_"+index);
+		var id = FecActCUPs.getAttribute("id");
+		console.log(id);
 
     }
     scope.regresar = function() {
@@ -675,9 +698,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (!scope.validar_campos_contratos()) {
             return false;
         }
-        let archivos_fotocopia = $archivofotocopia.files;
-        if ($archivofotocopia.files.length > 0) {
-            if ($archivofotocopia.files[0].type == "application/pdf") {
+        //let archivos_fotocopia = $archivofotocopia.files;
+        //if ($archivofotocopia.files.length > 0) 
+        //{
+           // var tipo_file = ($archivofotocopia.files[0].type).split("/");
+            //$archivofotocopia.files[0].type;
+            //$scope.updloadfotocopia();
+            //scope.fdatos.DocConRut = 'documentos/' + $archivofotocopia.files[0].name;
+            /*if ($archivofotocopia.files[0].type == "application/pdf") {
                 console.log('Fichero correcto');
                 var tipo_file = ($archivofotocopia.files[0].type).split("/");
                 $archivofotocopia.files[0].type;
@@ -687,17 +715,18 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.toast('error','Error en fichero, el formato debe ser PDF','Error');
                 scope.fdatos.DocConRut = null;
                 document.getElementById('file_fotocopia').value = '';
+                $('#file_fotocopia1').html('');
                 return false;
-            }
-        } else {
+            }*/
+        //}// else {
 
-            if (scope.fdatos.DocConRut != null) {
-                scope.fdatos.DocConRut = scope.fdatos.DocConRut;
-            } else {
-                scope.fdatos.DocConRut = null;
-            }
+            //if (scope.fdatos.DocConRut != null) {
+              //  scope.fdatos.DocConRut = scope.fdatos.DocConRut;
+           // } else {
+             //   scope.fdatos.DocConRut = null;
+           // }
 
-        }
+       // }
         console.log(scope.fdatos);
         Swal.fire({
             title: titulo,
@@ -720,17 +749,33 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             scope.toast('success',result.data.menssage,titulo);
                             document.getElementById('file_fotocopia').value = '';
                             $('#file_fotocopia1').html('');
-                            location.href = "#/Contratos";
-                        }
+                            if(result.data.objSalida.TipProCom==1 || result.data.objSalida.TipProCom==2)
+                            {
+                               location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo;
+                            }
+                            if(result.data.objSalida.TipProCom==3)
+                            {
+                               //location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo+"/"+3;
+                               location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo;
+                            
+                            }
+                        } 
                         if (result.data.status == false && result.data.statusText == 'Fecha') {
                             scope.toast('error',result.data.menssage,titulo);
                             document.getElementById('file_fotocopia').value = '';
                             $('#file_fotocopia1').html('');
-                            //location.href="#/Contratos";
-                        } //location.href = "#/Edit_fdatos/" + scope.nIDfdatos;
+                            if(result.data.objSalida.TipProCom==1 || result.data.objSalida.TipProCom==2)
+                            { 
+                               location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo;
+                            } 
+                            if(result.data.objSalida.TipProCom==3)
+                            {
+                               location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo;
+                            //location.href = "#/Edit_Contrato/"+result.data.objSalida.CodCli+"/"+result.data.objSalida.CodConCom+"/"+result.data.objSalida.CodProCom+"/"+result.data.objSalida.tipo+"/"+3;
+                            }                        
+                        } 
                     } else {
-                      scope.toast('error','','');
-                      //  Swal.fire({ title: "Error", text: "No se ha completado la operación, intente nuevamente", type: "error", confirmButtonColor: "#188ae2" });
+                      scope.toast('error','No se ha completado la operación, intente nuevamente','');
                     }
                 }, function(error) {
                     $("#" + titulo).removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -755,7 +800,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
           scope.toast('error','Debe seleccionar una Propuesta Comercial.','');
             return false;
         }
-        var FecIniCon1 = document.getElementById("FecIniCon").value;
+        /*var FecIniCon1 = document.getElementById("FecIniCon").value;
         scope.FecIniCon = FecIniCon1;
         if (scope.FecIniCon == null || scope.FecIniCon == undefined || scope.FecIniCon == '') {
           scope.toast('error','La Fecha de Inicio es requerida','');
@@ -785,7 +830,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 valuesStart = scope.FecIniCon.split("/");
                 scope.fdatos.FecIniCon = FecIniCon[2] + "-" + FecIniCon[1] + "-" + FecIniCon[0];
             }
-        }
+        }*/
+        scope.fdatos.FecIniCon =null;
         if (!scope.fdatos.DurCon > 0) {
           scope.toast('error','La Duración del Contrato es requerida','');
             return false;
@@ -891,6 +937,49 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             scope.fdatos.ObsCon = scope.fdatos.ObsCon;
         }
+        for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
+		{
+			if (scope.fdatos.detalleCUPs[i].FecActCUPs==null||scope.fdatos.detalleCUPs[i].FecActCUPs=='') 
+			{
+				//scope.toast('error','El CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+' no tiene fecha de activación debe colocarla','Fecha Activación');
+				scope.fdatos.detalleCUPs[i].FecActCUPs=null;
+				i=scope.fdatos.detalleCUPs.length;
+				//resultado = true;
+			}						
+		}
+		for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
+		{
+			if (scope.fdatos.detalleCUPs[i].FecActCUPs!=null) 
+			{
+				var FecActCUPs = (scope.fdatos.detalleCUPs[i].FecActCUPs).split("/");
+				console.log(FecActCUPs);
+				if (FecActCUPs.length < 3 && FecActCUPs[0]!="") 
+				{
+                	scope.toast('error','El Formato de Fecha de Activación del CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+' debe Ser EJ: DD/MM/YYYY.','');
+                	i=scope.fdatos.detalleCUPs.length;
+                	return false;
+             	}
+             	else
+             	{
+             		if (FecActCUPs[0].length > 2 || FecActCUPs[0].length < 2 || FecActCUPs[0] > 31) {
+                     	scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha de Activación deben ser 2 números solamente. EJ: 01','');
+                     	return false;
+                 	}
+                 	if (FecActCUPs[1].length > 2 || FecActCUPs[1].length < 2 || FecActCUPs[1] > 12) {
+                    	scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha de Activación deben ser 2 números solamente. EJ: 01','');
+                   		return false;
+                 	}
+                 	if (FecActCUPs[2].length < 4 || FecActCUPs[2].length > 4) {
+                     	scope.toast('error','Por Favor Corrija el Formato del ano en la Fecha de Activación Ya que deben ser 4 números solamente.','');
+                     	return false;
+                 	}
+             	}
+			}
+			
+								
+		}
+
+
         if (resultado == false) {
             //quiere decir que al menos un renglon no paso la validacion
             return false;
@@ -1612,7 +1701,47 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
 
             });
+        }        
+        if(opcion_select==7 || opcion_select==8|| opcion_select==0)
+        {
+           if(dato.EstBajCon==3)
+            {
+                scope.toast('error','Contrato Renovado no puede cambiar a este estatus.','Error');
+                return false;
+            }
+            else if(dato.EstBajCon==4)
+            {
+                scope.toast('error','Contrato En Renovación no puede cambiar a este estatus.','Error');
+                return false;
+            } 
+            var url=base_urlHome()+"api/Contratos/HuerImpli/opcion_select/"+opcion_select+"/CodConCom/"+dato.CodConCom;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    scope.toast('success','Estatus cambiado correctamente.','Estatus');
+                    scope.get_list_contratos();
+                }
+                else
+                {
+                    scope.toast('error','Hubo un error al intentar cambiar el estatus del contrato intente nuevamente.','Error');
+
+                }
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+            });
         }
+        
 
     }
     $scope.SubmitFormRenovacion = function(event) {
@@ -1777,10 +1906,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecIniCon);
                 $('.datepicker_Vencimiento').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecVenCon);
                 $('.FecFirmCon').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecFirmCon);
-                 $('.FecAct').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecAct);
-                
-                //console.log(result.data.List_Pro);
-                //console.log(scope.fdatos);
+                $('.FecAct').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.Contrato.FecAct);
+                if(result.data.List_Archivos!=false)
+                {
+                    scope.fdatos.TDocumentosContratos=result.data.List_Archivos;
+                }
+                else
+                {
+                    scope.fdatos.TDocumentosContratos=[];
+                }
             } 
             else {
               scope.toast('error','','');
@@ -1816,7 +1950,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.FecVenCon = true;
         scope.EstBajCon = true;
         scope.ActCont = true;
-        scope.opciones_contratos = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'Renovar' }, { id: 4, nombre: 'Dar Baja' },{ id: 5, nombre: 'Huérfano' }, { id: 6, nombre: 'Implícita' }];
+        scope.opciones_contratos = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'Renovar' }, { id: 4, nombre: 'Dar Baja' },{ id: 5, nombre: 'Huérfano' }, { id: 6, nombre: 'Implícita' }, { id: 7, nombre: 'Redactado' }, { id: 8, nombre: 'Enviado' }, { id: 0, nombre: 'Activo' }];
         scope.get_list_contratos();
     }
     $scope.submitFormlock = function(event) {
@@ -2109,6 +2243,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.CodContCli=0;
         scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
+        console.log(scope.fdatos);
      	var url=base_urlHome()+"api/Contratos/generar_audax/";
      	$http.post(url,scope.fdatos).then(function(result)
      	{
@@ -2206,10 +2341,42 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 {
                    scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                  
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
+                
+                    var url_Sepa =base_urlHome()+"api/Contratos/GenerarSepaClientes/CodCli/"+scope.CodCli+"/CodProCom/"+scope.CodProCom+"/CodConCom/"+scope.CodConCom;
+                    $http.get(url_Sepa).then(function(result)
+                    {
+                        if(result.data!=false)
+                        {
+                            console.log(result.data);
+                            angular.forEach(result.data, function(data) {
+                                //console.log(data);
+                                scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
+                                var url2=scope.url_AnexoPunSumEle+data.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+data.CodCueBan; 
+                                var win2 = window.open(url2, '_blank');
+                            });
+                        }
+                        else
+                        {
+
+                        }
+                    },function(error)
+                    {
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+                    });
+
+                    
+
+                    /*scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan; 
-                    var win2 = window.open(url2, '_blank');
+                    var win2 = window.open(url2, '_blank');*/
                 }
      			console.log(url);
                 var win = window.open(url, '_blank');
@@ -2291,6 +2458,199 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         });
     };
+    scope.tramitar_Audax=function()
+    {
+        var req = {
+            method: 'POST',
+            url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Login',
+            headers: {
+            'Access-Control-Allow-Credentials':undefined,
+            'Access-Control-Allow-Methods':undefined,
+            'Access-Control-Allow-Origin':undefined,
+            'Access-Control-Max-Age':undefined,
+            'Accept':undefined,
+            'x-api-key':undefined,
+            'Access-Control-Allow-Headers':undefined,
+            'content-type':undefined
+        },
+            data: { UserId: 'Enerspain' ,Password: '1404'}
+        }
+        $http(req).then(function(result)
+        {
+        	if(result.data.Data!=false && result.data.Error==null)
+        	{
+        		scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
+        	}
+        	else if(result.data.Error!=false && result.data.Data==null)
+        	{
+        		scope.toast('error','Ocurrio un error al enviar el contrato a audax.',result.data.Error.AdditionalInfo);
+        	}
+        },function(error)
+        {
+        	if(error.data==null && error.statusText=="" )
+        	{
+        		scope.toast('error','Ocurrio un error al enviar el contrato a audax.','Error Protocolo');
+        	}
+        	console.log(error)
+        });       
+    }
+    scope.BuscarXIDPropuestaContratoColaborador=function()
+    {
+        var url=base_urlHome()+"api/Contratos/PropuestaMultiCliente/CodCol/"+scope.CodCli;
+        $http.get(url).then(function(result)
+        {
+            console.log(result);
+            $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (result.data != false) {
+                if (result.data.status == false && result.data.statusText == "Error") {
+                  scope.toast('error',result.data.menssage,'Error');
+                    location.href = "#/Contratos/";
+                    return false;
+                }
+                scope.fdatos.CodCli = result.data.Cliente.CodCli;
+                scope.RazSocCli = result.data.Cliente.RazSocCli;
+                scope.NumCifCli = result.data.Cliente.NumCifCli;
+                scope.List_Propuestas_Comerciales = result.data.List_Propuesta;
+                scope.fdatos.RefCon = result.data.RefCon;
+                $("#TipPreClass").removeClass("col-sm-4").addClass("col-sm-6");
+                $("#FecVenConClass").removeClass("col-sm-6").addClass("col-sm-6");
+                $("#DurConClass").removeClass("col-sm-6").addClass("col-sm-6");                
+                $("#FecActClass").removeClass("col-sm-4").addClass("col-sm-6");
+                /*scope.fdatos.CodProCom=scope.CodProCom;
+                scope.filtrar_propuesta_contratos();
+                console.log(scope.fdatos.CodProCom);*/
+                $('.datepicker_Inicio').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FechaServer);
+            } else {
+              scope.toast('error','Este Número de CIF no se encuentra registrado.','Error');
+            }
+
+        },function(error)
+        {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    } 
+        });
+    }
+    scope.generar_contratos_t=function(fdatos,tipo_t)
+    {
+        
+        if(tipo_t==2)
+        {
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T2/';
+            var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+        else if(tipo_t==3)
+        {
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T3/';
+            var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+        else if(tipo_t==4)
+        {
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T4/';
+            var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
+            var win = window.open(url, '_blank');
+            win.focus();
+        }        
+    }
+    $scope.SelectFile = function (e) {
+        //scope.AddImagen(e.target.files[0]);
+        //console.log(e);
+        //alert(e.target.files[0]);
+        //console.log(e.target.files[0]);
+        scope.AddImagen(e.target.files[0]);
+    };
+    scope.AddImagen = function(archivo)
+    {
+        //$("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");        
+        if (archivo==null){
+            $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");   
+            scope.toast('error','Seleccione otro archivo','Error');
+        }
+        else
+        {
+            $("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            formData = new FormData();
+            formData.append('file', archivo);
+            formData.append('x-api-key', $cookies.get('ApiKey'));
+            formData.append('CodConCom', scope.fdatos.CodConCom);             
+            $.ajax({
+                url : base_urlHome()+"api/Contratos/agregar_documento_contrato/",
+                type: "POST",
+                data : formData,
+                processData: false,
+                contentType: false,
+                async:false,
+                success:function(data,textStatus,jqXHR){ 
+                $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
+                        if (data.status==0){
+                            //$("#subiendo_archivo").removeClass("loader loader-default is-active" ).addClass( "loader loader-default" );
+                            scope.toast('success','Archivo cargado correctamente.',data.nombre);
+                            return; 
+                        }else{
+                            //$("#subiendo_archivo").removeClass("loader loader-default is-active" ).addClass( "loader loader-default" );
+                            scope.imagen = null; //reiniciamos la imagen para evitar que se cargue nuevamente si hay clic
+                            document.getElementById('file_fotocopia').value = '';
+                            $('#file_fotocopia1').html('');
+                            console.log(data);
+                            //console.log(textStatus);
+                            //console.log(jqXHR);  
+                            scope.fdatos.TDocumentosContratos.push({CodDetDocCon:data.CodDetDocCon,file_ext:data.file_ext,CodConCom:data.CodConCom,DocGenCom:data.DocGenCom,DocConRut:data.DocConRut}); 
+                            $scope.$apply();
+                            console.log(scope.fdatos.TDocumentosContratos);
+                        }
+                },              
+                error: function(jqXHR, textStatus, errorThrown){
+                        $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        scope.toast('error','Error Subiendo archivo.','Error');
+                    }
+            });
+        }
+            
+    }
+    scope.borrar_row=function(index,CodDetDocCon)
+    {
+        console.log(index);
+        console.log(CodDetDocCon);
+        $("#borrando_archivo").removeClass( "loader loader-default" ).addClass( "loader loader-default is-active" );
+        var url =base_urlHome()+"api/Contratos/borrar_documento_contrato/CodDetDocCon/"+CodDetDocCon;
+        $http.get(url).then(function(result)
+        {
+            $("#borrando_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+            if (result.data!=false)
+            {
+                scope.toast('success','Archivo borrado correctamente','Borrado');
+                scope.fdatos.TDocumentosContratos.splice(index,1);
+            }
+            else
+            {
+                scope.toast('error','Error al intentar Borrar el Archivo','Error');
+            }   
+        },function(error)
+        {
+           $("#borrando_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    } 
+        });
+    }
      	var i = -1;
         var toastCount = 0;
         var $toastlast;
@@ -2509,11 +2869,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         ///////// PARA CALCULAR DNI/NIE END /////////////////
 
-    if (scope.CodCli != undefined && scope.fdatos.tipo == "nuevo") {
+    if (scope.CodCli != undefined && scope.fdatos.tipo == "nuevo" && scope.TipProCom==3) {
+        scope.BuscarXIDPropuestaContratoColaborador();
+    }    
+    if (scope.CodCli != undefined && scope.fdatos.tipo == "nuevo" && scope.TipProCom==undefined) {
         scope.BuscarXIDPropuestaContrato();
     }
-    if (scope.CodCli != undefined && scope.fdatos.tipo == "ver" || scope.CodCli != undefined && scope.fdatos.tipo == "editar") {
+    if (scope.CodCli != undefined && scope.fdatos.tipo == "ver" && scope.TipProCom==undefined || scope.CodCli != undefined && scope.fdatos.tipo == "editar" && scope.TipProCom==undefined) {
         scope.BuscarXIDContrato();
+    }
+    if (scope.CodCli != undefined && scope.fdatos.tipo == "ver" && scope.TipProCom==3 || scope.CodCli != undefined && scope.fdatos.tipo == "editar" && scope.TipProCom==3) {
+        scope.BuscarXIDContratoColaborador();
     }
     /*if(scope.CodCli!=undefined)
     {

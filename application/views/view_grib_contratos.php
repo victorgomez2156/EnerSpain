@@ -165,7 +165,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <span class="label label-primary" ng-show="dato.EstBajCon==3" style="color:black;"><i class="fa fa-check-circle"></i> Renovado</span>
                       <span class="label label-warning" ng-show="dato.EstBajCon==4" style="color:black;"><i class="fa fa-refresh"></i> En Renovación</span>
                       <span class="label label-danger" ng-show="dato.EstBajCon==5" style="color:black;"><i class="fa fa-user"></i> Huérfano</span>
-                      <span class="label label-danger" ng-show="dato.EstBajCon==6" style="color:black;"><i class="fa fa-config"></i> Implícita</span>
+                      <span class="label label-danger" style="background-color: #079354;" ng-show="dato.EstBajCon==6" style="color:black;"><i class="fa fa-adjust"></i> Implícita</span>
+                      <span class="label label-danger" style="background-color: #09b61d;" ng-show="dato.EstBajCon==7" style="color:black;"><i class="fa fa-handshake-o"></i> Redactado</span>
+                      <span class="label label-danger" style="background-color: #092cb6;" ng-show="dato.EstBajCon==8" style="color:black;"><i class="fa fa-envelope-open"></i> Enviado</span>
                    </td>
                     <td ng-show="vm.ActCont==true">
                       <div class="btn-group">
@@ -236,7 +238,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-12" ng-show="vm.tmodal_filtros.tipo_filtro==2" ng-click="vm.containerClicked()">
      <div class="form">                          
      <div class="form-group">
-        <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.NumCifCliFil" placeholder="* Representante" ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
           {{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -257,7 +259,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <option value="3">Renovado</option>
          <option value="4">En Renovación</option>
          <option value="5">Huérfano</option>
-         <option value="6">Implícita</option>                         
+         <option value="6">Implícita</option>
+         <option value="7">Redactado</option>
+         <option value="8">Enviado</option>                         
         </select>
          
          </div>
@@ -283,16 +287,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Introduzca CIF</h4>
+                        <h4 class="modal-title">Representante</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Representante:</label>
                             <div class="col-lg-10">
                               
                               <!--input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'  /-->                                
-                             <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' name="NumCifCli1" id="NumCifCli1" >
+                             <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Representante" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' name="NumCifCli1" id="NumCifCli1" >
                              
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >

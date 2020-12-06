@@ -14,7 +14,7 @@
      scope.TDetallesCUPsEli=[];
      scope.select_cups=[];
      scope.Nivel = $cookies.get('nivel');
-     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }, { TipPre: 2, nombre: 'Ambos' }];
+     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
      var fecha = new Date();
     scope.fdatos.ImpAhoTot=0;
     scope.fdatos.PorAhoTot=0;
@@ -79,26 +79,25 @@
                         if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial') 
                          {                            
                             scope.toast('success',result.data.menssage,loader);
-                            location.href="#/Add_Contrato/"+result.data.objSalida.CodCli+"/nuevo";
+                            //location.href="#/Add_Contrato/"+result.data.objSalida.CodCli+"/nuevo";
+                            location.reload();
                             return false;
                          }                         
                          if (result.data.status == true && result.data.statusText == 'Propuesta Comercial') 
                          {                            
                             scope.toast('success',result.data.menssage,loader);
+                            location.reload();
                             return false;
                          }
                          if (result.data.status == 200 && result.data.statusText == 'Propuesta Comercial Renovación') 
                          {                            
                             scope.toast('success',result.data.menssage,loader);
                             location.href="#/Edit_Propuesta_Comercial_UniCliente/"+result.data.objSalida.CodProCom+"/editar";
-                            //location.reload();
                             return false;
                          }
 
                          scope.toast('success',"Propuesta Comercial generada correctamente bajo el número de referencia: " + result.data.RefProCom,'Propuesta Comercial');
-                         location.href="#/Edit_Propuesta_Comercial_UniCliente/"+result.data.CodProCom+"/editar";
-                         //location.href="#/Add_Contrato/"+result.data.CodCli+"/nuevo";
-                         //location.href = "#/Propuesta_Comercial";
+                         location.href="#/Edit_Propuesta_Comercial_UniCliente/"+result.data.CodProCom+"/editar";                        
                      } else {
                          scope.toast('error','Ha ocurrido un error, intente nuevamente.','');
                      }
@@ -1092,6 +1091,18 @@
                     scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }
         });
+     }
+     scope.generar_contrato=function()
+     {
+        if(scope.fdatos.EstProCom=='A')
+        {
+            location.href="#/Add_Contrato/"+scope.fdatos.CodCli+"/nuevo";
+        }
+        else
+        {
+            scope.toast('error','Solo se puede generar contrato de una propuesta con estatus aprobada.','Error Propuesta');
+        }
+        
      }
     var i = -1;
     var toastCount = 0;

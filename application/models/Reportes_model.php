@@ -1638,19 +1638,45 @@ class Reportes_model extends CI_Model
         return false;              
     } 
     public function ContratoComercial($CodConCom)
-    {
-        $this->db->select("a.CodConCom,a.CodProCom,a.RefCon,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,c.RazSocCli,c.NumCifCli,d.IniTipVia,d.DesTipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,c.CPLocSoc,f.DesPro,g.RazSocCom,h.DesAnePro,i.DesPro,(CASE WHEN b.TipPre =0 THEN 'Fijo' WHEN b.TipPre = 1 THEN 'Indexado' WHEN b.TipPre = 2 THEN 'Ambos' ELSE 'S/D' END) AS TipPre,b.TipProCom,j.CodProComCli,DATE_FORMAT(a.FecFirmCon,'%d/%m/%Y') as FecFirmCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.DurCon",false);  
+    {/*,c.RazSocCli,c.NumCifCli,d.IniTipVia,d.DesTipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,c.CPLocSoc,f.DesPro*/
+        $this->db->select("a.CodConCom,a.CodProCom,a.RefCon,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,g.RazSocCom,h.DesAnePro,i.DesPro,(CASE WHEN b.TipPre =0 THEN 'Fijo' WHEN b.TipPre = 1 THEN 'Indexado' WHEN b.TipPre = 2 THEN 'Ambos' ELSE 'S/D' END) AS TipPre,b.TipProCom,j.CodProComCli,DATE_FORMAT(a.FecFirmCon,'%d/%m/%Y') as FecFirmCon,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,a.DurCon,a.CodCli",false);  
         $this->db->from('T_Contrato a');
         $this->db->join('T_PropuestaComercial b','b.CodProCom=a.CodProCom','left');
-        $this->db->join('T_Cliente c','c.CodCli=a.CodCli');
-        $this->db->join('T_TipoVia d','d.CodTipVia=c.CodTipViaSoc');
-        $this->db->join('T_Localidad e','e.CodLoc=c.CodLocSoc');
-        $this->db->join('T_Provincia f','f.CodPro=e.CodPro');        
+        //$this->db->join('T_Cliente c','c.CodCli=a.CodCli');
+        //$this->db->join('T_TipoVia d','d.CodTipVia=c.CodTipViaSoc');
+        //$this->db->join('T_Localidad e','e.CodLoc=c.CodLocSoc');
+        //$this->db->join('T_Provincia f','f.CodPro=e.CodPro');        
         $this->db->join('T_Comercializadora g','g.CodCom=b.CodCom','left');
         $this->db->join('T_AnexoProducto h','h.CodAnePro=b.CodAnePro','left'); 
         $this->db->join('T_Producto i','i.CodPro=b.CodPro','left');
         $this->db->join('T_Propuesta_Comercial_Clientes j','j.CodProCom=b.CodProCom','left');
         $this->db->where('a.CodConCom',$CodConCom);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+     public function ClienteDatosContratoComercial($CodCli,$TipProCom)
+    {/*,*/
+        if($TipProCom==1 || $TipProCom==2)
+        {
+            $this->db->select("c.RazSocCli,c.NumCifCli,d.IniTipVia,d.DesTipVia,c.NomViaDomSoc,c.NumViaDomSoc,c.BloDomSoc,c.EscDomSoc,c.PlaDomSoc,c.PueDomSoc,e.DesLoc,c.CPLocSoc,f.DesPro",false); 
+            $this->db->from('T_Cliente c');
+            $this->db->join('T_TipoVia d','d.CodTipVia=c.CodTipViaSoc');
+            $this->db->join('T_Localidad e','e.CodLoc=c.CodLocSoc');
+            $this->db->join('T_Provincia f','f.CodPro=e.CodPro'); 
+            $this->db->where('c.CodCli',$CodCli);
+        }
+        else
+        {
+            $this->db->select("c.NomCol as RazSocCli,c.NumIdeFis as NumCifCli,d.IniTipVia,d.DesTipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,c.CPLoc as CPLocSoc,f.DesPro",false); 
+            $this->db->from('T_Colaborador c');
+            $this->db->join('T_TipoVia d','d.CodTipVia=c.CodTipVia');
+            $this->db->join('T_Localidad e','e.CodLoc=c.CodLoc');
+            $this->db->join('T_Provincia f','f.CodPro=e.CodPro'); 
+            $this->db->where('c.CodCol',$CodCli);
+        } 
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->row();

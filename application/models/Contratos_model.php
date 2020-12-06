@@ -13,36 +13,27 @@ class Contratos_model extends CI_Model
        	return $query->result();
         else
         return false;              
-    }
+    }    
     public function BuscarPropuestaAprobada($CodCli,$metodo)
     {
-        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.RefProCom,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,j.NumCifCom,j.RazSocCom,k.DesPro as DesProducto,l.DesAnePro,a.TipProCom,b.CodProComCli'
-
-
-
-
-
-            /*'CONCAT(c.IniTipVia," - ", c.DesTipVia," ",b.NomViaPunSum," ",b.NumViaPunSum) as DirPunSum,b.BloPunSum,b.EscPunSum ,b.PlaPunSum,b.PuePunSum,b.CPLocSoc,d.DesLoc,e.DesPro,f.CUPsEle,g.NomTarEle,h.CupsGas,i.NomTarGas,g.CanPerTar'*/,false);
+        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.RefProCom,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,j.NumCifCom,j.RazSocCom,k.DesPro as DesProducto,l.DesAnePro,a.TipProCom,b.CodProComCli',false);
         $this->db->from('T_PropuestaComercial a'); 
-        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','LEFT');
-        //$this->db->join('T_PuntoSuministro b','a.CodPunSum=b.CodPunSum');
-        ///$this->db->join('T_TipoVia c','b.CodTipVia=c.CodTipVia'); 
-        //$this->db->join('T_Localidad d','b.CodLoc=d.CodLoc');
-        //$this->db->join('T_Provincia e','e.CodPro=d.CodPro');     
-        //$this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCupsEle',"left");
-        //$this->db->join('T_TarifaElectrica g','g.CodTarEle=a.CodTarEle',"left");
-        //$this->db->join('T_CUPsGas h','h.CodCupGas=a.CodCupsGas',"left");
-        //$this->db->join('T_TarifaGas i','i.CodTarGas=a.CodTarGas',"left");
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','LEFT');       
         $this->db->join('T_Comercializadora j','j.CodCom=a.CodCom','LEFT');
         $this->db->join('T_Producto k','k.CodPro=a.CodPro','LEFT');
         $this->db->join('T_AnexoProducto l','l.CodAnePro=a.CodAnePro','LEFT');
         $this->db->where('b.CodCli',$CodCli);
-        if($metodo==1)
+        if($metodo==1 /*|| $metodo==2*/)
         {
             $this->db->where('a.EstProCom','A');  
-        }        
+            //$this->db->where('a.TipProCom<=2');
+        }
+        /*if($metodo==3)
+        {
+            $this->db->where('a.EstProCom','A');  
+            $this->db->where('a.TipProCom=3');
+        }*/        
         $this->db->order_by('a.FecProCom DESC');
-        //$this->db->limit(1);              
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -57,12 +48,16 @@ class Contratos_model extends CI_Model
         $this->db->join('T_Comercializadora c','c.CodCom=a.CodCom');
         $this->db->join('T_Producto d','d.CodPro=a.CodPro');
         $this->db->join('T_AnexoProducto e','e.CodAnePro=a.CodAnePro');
-
-
         $this->db->where('b.CodCli',$CodCli);
         if($metodo==1)
         {
-            $this->db->where('a.EstProCom','A');  
+            $this->db->where('a.EstProCom','A');
+            $this->db->where('a.TipProCom<=2');
+        } 
+        if($metodo==3)
+        {
+            $this->db->where('a.EstProCom','A');
+            $this->db->where('a.TipProCom=3');
         }        
         $this->db->order_by('a.FecProCom DESC');
         //$this->db->limit(1);              
@@ -72,9 +67,9 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
-    public function agregar_contrato($CodCli,$CodProCom,$FecConCom,$EstRen,$RenMod,$ProRenPen,$FecIniCon,$DurCon,$FecVenCon,$RefCon,$ObsCon,$DocConRut)
+    public function agregar_contrato($CodCli,$CodProCom,$FecConCom,$EstRen,$RenMod,$ProRenPen,$FecIniCon,$DurCon,$FecVenCon,$RefCon,$ObsCon,$DocConRut,$FecAct)
     {
-        $this->db->insert('T_Contrato',array('CodProCom'=>$CodProCom,'CodCli'=>$CodCli,'FecConCom'=>$FecConCom,'EstRen'=>$EstRen,'RenMod'=>$RenMod,'ProRenPen'=>$ProRenPen,'FecIniCon'=>$FecIniCon,'RefCon'=>$RefCon,'ObsCon'=>$ObsCon,'DocConRut'=>$DocConRut,'FecVenCon'=>$FecVenCon,'DurCon'=>$DurCon));
+        $this->db->insert('T_Contrato',array('CodProCom'=>$CodProCom,'CodCli'=>$CodCli,'FecConCom'=>$FecConCom,'EstRen'=>$EstRen,'RenMod'=>$RenMod,'ProRenPen'=>$ProRenPen,'FecIniCon'=>$FecIniCon,'RefCon'=>$RefCon,'ObsCon'=>$ObsCon,'DocConRut'=>$DocConRut,'FecVenCon'=>$FecVenCon,'DurCon'=>$DurCon,'FecAct'=>$FecAct));
         return $this->db->insert_id();
     }
     public function update_propuesta($CodProCom,$EstProCom)
@@ -207,8 +202,51 @@ class Contratos_model extends CI_Model
         $this->db->where('CodCli', $CodCli);
         return $this->db->update('T_Contrato',array('CodProCom'=>$CodProCom));
     }
-
-
+    public function getaudaxcuentasbancariasColaboradores($CodCli,$CodProCom,$CodConCom)
+    {
+        $sql = $this->db->query("SELECT DISTINCT(d.CodCli) AS CodCli FROM T_Propuesta_Comercial_Clientes a
+            JOIN T_Propuesta_Comercial_CUPs b ON a.CodProComCli=b.CodProComCli
+            JOIN T_PuntoSuministro c ON b.CodPunSum=c.CodPunSum 
+            JOIN T_Cliente d ON c.CodCli=d.CodCli
+            WHERE  a.CodCli='$CodCli' AND a.CodProCom='$CodProCom'");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else  
+        return false;      
+    }
+    public function getCuentasClientes($CodCli)
+    {
+        $this->db->select('*',false);
+        $this->db->from('T_CuentaBancaria');       
+        $this->db->where('CodCli',$CodCli); 
+        $this->db->where('EstCue=1'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function agregar_documentos($CodConCom,$DocConRut,$file_ext,$DocGenCom)
+    {
+        $this->db->insert('T_DetalleDocumentosContratos',array('CodConCom'=>$CodConCom,'DocConRut'=>$DocConRut,'file_ext'=>$file_ext,'DocGenCom'=>$DocGenCom));
+        return $this->db->insert_id();
+    }
+    public function getDocumentosContratos($CodConCom)
+    {
+        $this->db->select("*",false);
+        $this->db->from('T_DetalleDocumentosContratos');
+        $this->db->where('CodConCom',$CodConCom);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;              
+    }
+    public function borrar_documentoDB($CodDetDocCon)
+    {
+       return $this->db->delete('T_DetalleDocumentosContratos', array('CodDetDocCon' => $CodDetDocCon));             
+    }
+    
 
 
 ///////////////////////////////////////////////// PARA CONTRATOS END ////////////////////////////////////////////////

@@ -483,7 +483,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Tárifa</th>
                     <th>Consumo</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>                   
+                    <th>Ahorro €</th> 
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>                   
                   </tr>
                   <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -492,26 +493,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td>{{$index+1}}</td>
                     <td>{{dato.DirPunSum}}</td>
                     <td>
-                      <span ng-show="dato.TipServ==1">Eléctrico</span>
-                      <span ng-show="dato.TipServ==2">Gas</span>
+                      <span ng-show="dato.TipServ==1">E</span>
+                      <span ng-show="dato.TipServ==2">G</span>
                     </td>
                     <td>{{dato.CUPsName}}</td>
                     <td>{{dato.NomTar}}</td>
                     <td>{{dato.ConCUPs}}</td>
                     <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
                       <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
-                    <td>{{dato.ImpAho}}</td>                    
+                    <td>{{dato.ImpAho}}</td>
+                    <td><input class="form-control" name="FecActCUPs_{{$index}}" id="FecActCUPs_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                    
                   </tr>
                 </tbody>
                 <tfoot> 
-                    <th></th>                
+                    <th></th>
                     <th>Dirección de Suministro</th>
                     <th>Tipo de CUPs</th>
                     <th>CUPs</th>
                     <th>Tárifa</th>
                     <th>Consumo</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>    
+                    <th>Ahorro €</th> 
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>    
                 </tfoot>
               </table>
         </div>
@@ -533,7 +536,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Tárifa</th>
                     <th>Consumo</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>                   
+                    <th>Ahorro €</th>
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>                   
                   </tr>
                   <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
                      <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -544,15 +548,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td>{{dato.NumCifCli}}</td>
                     <td>{{dato.DirPunSum}}</td>
                     <td>
-                      <span ng-show="dato.TipServ==1">Eléctrico</span>
-                      <span ng-show="dato.TipServ==2">Gas</span>
+                      <span ng-show="dato.TipServ==1">E</span>
+                      <span ng-show="dato.TipServ==2">G</span>
                     </td>
                     <td>{{dato.CUPsName}}</td>
                     <td>{{dato.NomTar}}</td>
                     <td>{{dato.ConCUPs}}</td>
                     <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
                       <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
-                    <td>{{dato.ImpAho}}</td>                    
+                    <td>{{dato.ImpAho}}</td> 
+                    <td><input class="form-control" name="FecActCUPs_{{$index}}_{{$index}}" id="FecActCUPs_{{$index}}_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                   
                   </tr>
                 </tbody>
                 <tfoot> 
@@ -565,7 +570,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Tárifa</th>
                     <th>Consumo</th>
                     <th>Ren</th>
-                    <th>Ahorro €</th>    
+                    <th>Ahorro €</th>
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>      
                 </tfoot>
               </table>
         </div>
@@ -605,7 +611,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
           
-        <div class="col-12 col-sm-2">
+        <div class="col-12 col-sm-4" id="TipPreClass">
             <div class="form">                          
               <div class="form-group">   
                 <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>
@@ -614,16 +620,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
         </div>  
 
-      <div class="col-12 col-sm-2">
+      <!--div class="col-12 col-sm-2">
         <div class="form">                          
           <div class="form-group">
             <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Inicio</label>
             <input type="text" class="form-control datepicker_Inicio" name="FecIniCon" id="FecIniCon" ng-model="vm.FecIniCon" placeholder="DD/MM/YYYY" maxlength="10" ng-keyup="vm.validar_formatos_input(1,vm.FecIniCon)" ng-disabled="vm.fdatos.tipo=='ver'" ng-blur="vm.blurfechachange()"/>         
          </div>
         </div>
-      </div>     
-
-      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
+      </div-->
+      <div class="col-12 col-sm-4" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Firma</label>
@@ -633,7 +638,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
       </div> 
 
-      <div class="col-12 col-sm-2" id="FecFirmConClass" ng-show="vm.fdatos.tipo=='ver' || vm.fdatos.tipo=='editar'">
+      <div class="col-12 col-sm-4" id="FecActClass">
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
@@ -643,7 +648,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          </div>
       </div> 
 
-      <div class="col-12 col-sm-4" id="FecVenConClass">
+      <div class="col-12 col-sm-6" id="FecVenConClass">
         <div class="form">                          
           <div class="form-group">
           <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
@@ -657,7 +662,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="form">                          
           <div class="form-group">   
             <label class="font-weight-bold nexa-dark" style="color:black;">Duración </label>          
-            <select class="form-control" id="DurCon" name="DurCon" required ng-model="vm.fdatos.DurCon" ng-change="vm.calcular_vencimiento()" ng-disabled="vm.fdatos.tipo=='ver'">   
+            <select class="form-control" id="DurCon" name="DurCon" required ng-model="vm.fdatos.DurCon" ng-disabled="vm.fdatos.tipo=='ver'">   
               <option value="12">12 Meses</option>
               <option value="18">18 Meses</option>
               <option value="24">24 Meses</option>
@@ -667,7 +672,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-     <div class="col-12 col-sm-6" id="RefConClass">
+     <!--div class="col-12 col-sm-6" id="RefConClass">
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Referencia</label>
@@ -675,33 +680,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
          </div>
          </div>
-      </div>
+      </div-->
 
          <div class="form">                          
          <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black; padding-left:15px">Fotocopia del Contrato <a title='Descargar Documento' ng-show="vm.fdatos.DocConRut!=null && vm.fdatos.CodConCom>0" href="{{vm.fdatos.DocConRut}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
-
-
-
-          <div id="file-wrap">
+         <!--label class="font-weight-bold nexa-dark" style="color:black; padding-left:15px">Fotocopia del Contrato <a title='Descargar Documento' ng-show="vm.fdatos.DocConRut!=null && vm.fdatos.CodConCom>0" href="{{vm.fdatos.DocConRut}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label-->
+         <label class="font-weight-bold nexa-dark" style="color:black; padding-left:15px">Agregar Documento </label>
+          <div id="file-wrap" style="cursor: pointer">
             <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
-            <input type="file" id="file_fotocopia"  name="file_fotocopia" class="file_b" updloadfotocopia-model="file_fotocopia" draggable="true">
+            <input type="file" id="file_fotocopia"  name="file_fotocopia" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event)" draggable="true">
             <div id="file_fotocopia1"></div>                       
           </div>
         <script>      
-      $('#file_fotocopia').on('change', function() 
-      {          
-        const $file_fotocopia = document.querySelector("#file_fotocopia");
-        console.log($file_fotocopia);
-        let file_fotocopia = $file_fotocopia.files;                      
-        filenameDocCliDoc = '<i class="fa fa-file"> '+$file_fotocopia.files[0].name+'</i>';
-        $('#file_fotocopia1').html(filenameDocCliDoc);
-        console.log($file_fotocopia.files[0].name);
-      });     
-</script> 
+        /*$('#file_fotocopia').on('change', function() 
+        {          
+          const $file_fotocopia = document.querySelector("#file_fotocopia");
+          //console.log($file_fotocopia);
+          let file_fotocopia = $file_fotocopia.files;                      
+          filenameDocCliDoc = '<i class="fa fa-file"> '+$file_fotocopia.files[0].name+'</i>';
+          $('#file_fotocopia1').html(filenameDocCliDoc);
+         // console.log($file_fotocopia.files[0].name);
+        });*/    
+      </script> 
          </div>
          </div>
      
+         
+         <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                    <th> Nombre Documento</th>
+                    <th> Acción</th>
+                  </tr> 
+                  <tr ng-show="vm.fdatos.TDocumentosContratos.length==0"> 
+                    <td colspan="2" align="center"><div class="td-usuario-table">No hay información disponible</div></td>
+                  </tr>
+                  <tr ng-repeat="dato in vm.fdatos.TDocumentosContratos" ng-class-odd="odd">                    
+                    <td>{{dato.DocGenCom}}</td>
+                    <td >
+                      <a title='Ver Archivo {{dato.DocGenCom}}' class="btn btn-info btn-icon mg-r-5" target="_black" href="uploads/{{dato.DocConRut}}"><div><i class="fa fa-eye" style="color:white;"></i></div></a>
+                      <a ng-click="vm.borrar_row($index,dato.CodDetDocCon)" title='Eliminar Archivo {{dato.DocGenCom}}' class="btn btn-danger btn-icon mg-r-5"><div><i class="fa fa-trash" style="color:white;"></i></div></a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <th> Nombre Documento</th>
+                    <th> Acción</th>
+                </tfoot>
+              </table>
+        </div>
+
+
+
+
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;padding-left:15px">Comentarios</label>
@@ -722,6 +754,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" id="showtoast2" ng-show="vm.fdatos.TipProCom==2 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==2 &&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(2)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato UniCliente - MultiPunto</button>
 
             <button class="btn btn-info" id="showtoast3" ng-show="vm.fdatos.TipProCom==3 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==3&&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(3)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiCliente - MultiPunto</button>
+
+            <button class="btn btn-info" id="showtoast4" ng-show="vm.fdatos.TipProCom==3 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==3&&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(3)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiCliente - MultiPunto</button>
+            <button class="btn btn-info" id="showtoast5" ng-show="vm.fdatos.TipProCom==3 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==3&&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(3)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiCliente - MultiPunto</button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,2)"><b>Generar T2</b></button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,3)"><b>Generar T3</b></button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,4)"><b >Generar T4</b></button>
+
+            <button class="btn btn-danger" id="showtoast4" ng-show="vm.fdatos.tipo=='editar'||vm.fdatos.tipo=='ver'" type="button" ng-click="vm.tramitar_Audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'"><b>Tramitar Contrato En Audax</b></button>
 
             <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 14px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             
@@ -805,11 +845,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 
 
-<script>  
+<script>    
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
   $('.FecFirmCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
-  $('.FecAct').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+  $('.FecAct').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>
@@ -817,4 +857,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="Actualizando" class="loader loader-default"  data-text="Actualizando Contrato"></div>
 <div id="cargando" class="loader loader-default"  data-text="Cargando datos del Contrato"></div>
 <div id="DetallesCUPs" class="loader loader-default"  data-text="Cargando Detalles del Contrato"></div>
+<div id="subiendo_archivo" class="loader loader-default"  data-text="Subiendo Archivo"></div>
+<div id="borrando_archivo" class="loader loader-default"  data-text="Borrando Archivo"></div>
 </html>

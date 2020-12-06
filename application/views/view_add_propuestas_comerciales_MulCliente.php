@@ -271,7 +271,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12 col-sm-6">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nueva' || vm.fdatos.tipo=='renovar'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar' && vm.fdatos.EstProCom!='C' || vm.fdatos.tipo=='ver' && vm.fdatos.EstProCom!='C'">Actualizar</button>
-
+            <button class="btn btn-info" style="background-color: #4e30b9" type="button" ng-show="vm.fdatos.EstProCom=='A'" ng-click="vm.generar_contrato()">Generar Contrato</button>
             <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_MulCliente/{{vm.fdatos.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             <button class="btn btn-success" type="button" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.enviarcorreopropuesta()">Enviar Propuesta</button>
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
