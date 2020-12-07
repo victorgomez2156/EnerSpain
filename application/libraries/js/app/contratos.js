@@ -2239,7 +2239,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.toast('error','Código Contrato Comercial es Requerido.','');
             return false;
         }
-
+        scope.metodo=metodo;
         scope.CodContCli=0;
         scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
@@ -2288,7 +2288,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 						}
 					}); 
                     scope.titulo_modal='Quien Firma';                    
-					scope.get_list_contratos();
+					//scope.get_list_contratos();
 					console.log(scope.List_Firmantes);
                     scope.List_Cuentas=result.data.CuentasBancarias;
                     console.log(scope.List_Cuentas);
@@ -2298,7 +2298,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 if(result.data.CuentasBancarias.length>1)
                 {
                     scope.titulo_modal='Cuentas Bancarias';
-                    scope.get_list_contratos();
+                    //scope.get_list_contratos();
                     console.log(scope.List_Firmantes);                    
                     scope.List_Cuentas=result.data.CuentasBancarias;
                     console.log(scope.List_Cuentas);
@@ -2339,6 +2339,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 else if(metodo==3)
                 {
+                   
+                   scope.url_pdf_audax_multiCIF="http://10.72.0.16/Contrato_MultiCIF_v1_sinSEPA/";
+                   var url_MultiCIFSinSepa=scope.url_pdf_audax_multiCIF+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
+
                    scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 
@@ -2371,16 +2375,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                         }
                     });
-
-                    
-
-                    /*scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
-                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan; 
-                    var win2 = window.open(url2, '_blank');*/
                 }
      			console.log(url);
+                
                 var win = window.open(url, '_blank');
-		        win.focus();                
+                var win2 = window.open(url_MultiCIFSinSepa, '_blank');
+		        win2.focus();                
 		    }
      		else
      		{
@@ -2446,8 +2446,31 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }).then(function(t) {
             if (t.value == true)
             {
-            	var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
-     			var win = window.open(url, '_blank');
+            	
+                if(scope.metodo==1)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                }
+                else if(scope.metodo==2)
+                {
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
+                    var win2 = window.open(url2, '_blank');
+
+                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
+                    var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
+                    var win3 = window.open(url3, '_blank');
+                }
+
+                //scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+
+                var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
+     			console.log(url);
+                var win = window.open(url, '_blank');
 		        win.focus();
 		        scope.CodContCli=undefined;
 		        scope.List_Firmantes=[];

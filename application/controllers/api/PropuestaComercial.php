@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 /*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class PropuestaComercial extends REST_Controller
 {
@@ -575,17 +575,17 @@ class PropuestaComercial extends REST_Controller
 			$Puntos_Suministros=$this->Clientes_model->get_data_puntos_suministros($CodCli);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodProCom,$this->input->ip_address(),'Buscado Puntos de Suministros.');
 
-			$tabla_Gas="T_TarifaElectrica";
+			$tabla_Ele="T_TarifaElectrica";
 			$orderby="NomTarEle ASC";
-			$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarEle',$orderby);
+			$TarEle=$this->Propuesta_model->get_Tarifas_Act($tabla_Ele,'*','EstTarEle',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_Ele,'GET',null,$this->input->ip_address(),'Buscado Tarifas Eléctricas.');
 			$tabla_Gas="T_TarifaGas";
 			$orderby="NomTarGas ASC";
 			$TarGas=$this->Propuesta_model->get_Tarifas_Act($tabla_Gas,'*','EstTarGas',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla_Gas,'GET',null,$this->input->ip_address(),'Buscado Tarifas de Gas.');
-			$TablaComercializadora="T_Comercializadora";
+			$tabla="T_Comercializadora";
 			$orderby="RazSocCom ASC";
-			$TarGas=$this->Propuesta_model->get_Tarifas_Act($TablaComercializadora,'*','EstCom',$orderby);
+			$Comercializadora=$this->Propuesta_model->get_Tarifas_Act($tabla,'*','EstCom',$orderby);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',null,$this->input->ip_address(),'Cargando Lista de Comercializadoras.');
 			
 			$BuscarPropuesta=$this->Propuesta_model->PropuestasSencilla($CodProCom);			

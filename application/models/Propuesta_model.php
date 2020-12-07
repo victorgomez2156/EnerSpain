@@ -165,7 +165,7 @@ class Propuesta_model extends CI_Model
         $this->db->select('*',false);
         $this->db->from('T_Producto');
         $this->db->where('CodCom',$CodCom); 
-        $this->db->order_by('DesPro DESC'); 
+        $this->db->order_by('DesPro ASC'); 
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->result();

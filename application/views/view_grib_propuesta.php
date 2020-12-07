@@ -728,14 +728,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">NIF/Nombre Contacto/Representante/Administrador/Colaborador</h4>
+                        <h4 class="modal-title">NIF/Nombre</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre Contacto/Representante/Administrador/Colaborador:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* NIF/Nombre Contacto/Representante/Administrador/Colaborador" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* NIF/Nombre" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
@@ -760,14 +760,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">NIF/Nombre Contacto/Representante/Administrador/Colaborador</h4>
+                        <h4 class="modal-title">NIF/Nombre</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form_UniCli" name="cif_consulta_form_UniCli" ng-submit="Consultar_CIFUniMulCli($event,2)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre Contacto/Representante/Administrador/Colaborador:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">NIF/Nombre:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* NIF/Nombre Contacto/Representante/Administrador/Colaborador" required ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>                                
+                              <input type="text" class="form-control" ng-model="vm.NumCifCliUniMulCli" placeholder="* NIF/Nombre" required ng-keyup='vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
