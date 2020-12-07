@@ -745,7 +745,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--href="http://pdfaudax.local/AudaxPDF/{{vm.CodCli}}/{{vm.CodConCom}}/{{vm.CodProCom}}"-->
          <div class="form-group" >
-          <div class="col-12 col-sm-6">
+          <div class="col-12 col-sm-12">
             <button class="btn btn-info" type="submit" ng-show="vm.fdatos.tipo=='nuevo'" ng-disabled="vm.disabled_button==true">Grabar</button>
             <button class="btn btn-success" type="submit" ng-show="vm.fdatos.tipo=='editar'|| vm.fdatos.tipo=='ver'">Actualizar</button>
             
@@ -755,13 +755,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <button class="btn btn-info" id="showtoast3" ng-show="vm.fdatos.TipProCom==3 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==3&&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(3)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiCliente - MultiPunto</button>
             
-            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,2)"><b>Generar T2</b></button>
-            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,3)"><b>Generar T3</b></button>
-            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,4)"><b >Generar T4</b></button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,2)">Generar T2</button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,3)">Generar T3</button>
+            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,4)">Generar T4</button>
 
-            <button class="btn btn-danger" id="showtoast4" ng-show="vm.fdatos.tipo=='editar'||vm.fdatos.tipo=='ver'" type="button" ng-click="vm.tramitar_Audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'"><b>Tramitar Contrato En Audax</b></button>
+            <button class="btn btn-danger" id="showtoast4" ng-show="vm.fdatos.tipo=='editar'||vm.fdatos.tipo=='ver'" type="button" ng-click="vm.tramitar_Audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Tramitar Contrato En Audax</button>
 
-            <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 14px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
+            <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.fdatos.CodConCom}}" style="margin-top: 9px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar PDF</a>
             
 
             <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
