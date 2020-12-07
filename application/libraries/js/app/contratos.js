@@ -2572,6 +2572,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.AddImagen = function(archivo)
     {
         //$("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");        
+        /*if(scope.fdatos.CodConCom==null || scope.fdatos.CodConCom==undefined|| scope.fdatos.CodConCom=='')
+        {
+            scope.toast('error','Debe generar primero el contrato para poder agregar un documento.','Error');
+            return false;
+        }*/
         if (archivo==null){
             $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");   
             scope.toast('error','Seleccione otro archivo','Error');
@@ -2590,23 +2595,22 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 processData: false,
                 contentType: false,
                 async:false,
-                success:function(data,textStatus,jqXHR){ 
-                $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
-                        if (data.status==0){
-                            //$("#subiendo_archivo").removeClass("loader loader-default is-active" ).addClass( "loader loader-default" );
-                            scope.toast('success','Archivo cargado correctamente.',data.nombre);
-                            return; 
-                        }else{
-                            //$("#subiendo_archivo").removeClass("loader loader-default is-active" ).addClass( "loader loader-default" );
-                            scope.imagen = null; //reiniciamos la imagen para evitar que se cargue nuevamente si hay clic
+                success:function(data,textStatus,jqXHR)
+                { 
+                    $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
+                        if(data.status==404 && data.statusText=="Error")
+                        {
+                            scope.toast('error',data.menssage,data.statusText);
+                            return false; 
+                        }
+                        if(data.status==200 && data.statusText=="OK")
+                        {
+                            scope.toast('success',data.menssage,data.statusText);
+                            scope.imagen = null;
                             document.getElementById('file_fotocopia').value = '';
-                            $('#file_fotocopia1').html('');
-                            console.log(data);
-                            //console.log(textStatus);
-                            //console.log(jqXHR);  
                             scope.fdatos.TDocumentosContratos.push({CodDetDocCon:data.CodDetDocCon,file_ext:data.file_ext,CodConCom:data.CodConCom,DocGenCom:data.DocGenCom,DocConRut:data.DocConRut}); 
                             $scope.$apply();
-                            console.log(scope.fdatos.TDocumentosContratos);
+                            return false; 
                         }
                 },              
                 error: function(jqXHR, textStatus, errorThrown){

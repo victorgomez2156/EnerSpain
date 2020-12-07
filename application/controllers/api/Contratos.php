@@ -305,7 +305,7 @@ class Contratos extends REST_Controller
 		if($objSalida->tipo=='nuevo')
 		{
 			$this->db->trans_start();
-			$CodConCom=$this->Contratos_model->agregar_contrato($objSalida->CodCli,$objSalida->CodProCom,date('Y-m-d'),false,false,false,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->RefCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->FecAct);
+			$CodConCom=$this->Contratos_model->agregar_contrato($objSalida->CodCli,$objSalida->CodProCom,date('Y-m-d'),false,false,false,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->RefCon,$objSalida->ObsCon,null,$objSalida->FecAct);
 			$objSalida->CodConCom=$CodConCom;
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','INSERT',$CodConCom,$this->input->ip_address(),'Generando Contrato Comercial.');
 			if(!empty($objSalida->detalleCUPs))
@@ -341,7 +341,7 @@ class Contratos extends REST_Controller
 		elseif($objSalida->tipo=='ver')
 		{
 			$this->db->trans_start();
-			$update_CUPsGas=$this->Contratos_model->update_contrato_documento($objSalida->CodConCom,$objSalida->DocConRut);
+			$update_CUPsGas=$this->Contratos_model->update_contrato_documento($objSalida->CodConCom,null);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Documento.');
 			$this->db->trans_complete();
 			$arrayName = array('status' =>200,'menssage'=>'Contrato actualizado de forma correcta','statusText'=>"OK",'objSalida' =>$objSalida );
@@ -358,7 +358,7 @@ class Contratos extends REST_Controller
 		    		$this->response($arrayName);
 		    	}
 			}*/
-			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,$objSalida->DocConRut,$objSalida->CodConCom,$objSalida->RefCon,$objSalida->FecFirmCon,$objSalida->FecAct);
+			$this->Contratos_model->update_DBcontrato($objSalida->CodCli,$objSalida->CodProCom,$objSalida->FecIniCon,$objSalida->DurCon,$objSalida->FecVenCon,$objSalida->ObsCon,null,$objSalida->CodConCom,$objSalida->RefCon,$objSalida->FecFirmCon,$objSalida->FecAct);
 			if(!empty($objSalida->detalleCUPs))
 			{
 				foreach ($objSalida->detalleCUPs as $key => $value):
@@ -669,6 +669,11 @@ class Contratos extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}
+		if($_POST['CodConCom']=="undefined")
+		{
+			$this->response(array('status'=>404,'menssage'=>'Error debe generar un número de contrato primero para poder guardar un documento.','statusText'=>'Error'));
+			return false;
+		}
 		$this->db->trans_start();
 		$data = $this->upload->do_upload('file');
 		//$api=$this->get('x-api-key');
@@ -683,7 +688,7 @@ class Contratos extends REST_Controller
 			$CodDetDocCon=$this->Contratos_model->agregar_documentos($_POST['CodConCom'],$data[0]['file_name'],$data[0]['file_ext'],$data[0]['raw_name']);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_DetalleDocumentosContratos','INSERT',$CodDetDocCon,$this->input->ip_address(),'Registro de Documento del Contrato');
 			$this->db->trans_complete();	
-			$this->response(array('CodDetDocCon'=>$CodDetDocCon,'file_ext'=>$data[0]['file_ext'],'CodConCom'=>$_POST['CodConCom'],'DocGenCom'=>$data[0]['raw_name'],'DocConRut'=>'uploads/'.$data[0]['file_name']));
+			$this->response(array('CodDetDocCon'=>$CodDetDocCon,'file_ext'=>$data[0]['file_ext'],'CodConCom'=>$_POST['CodConCom'],'DocGenCom'=>$data[0]['raw_name'],'DocConRut'=>$data[0]['file_name'],'status' =>200,'statusText' =>'OK','menssage'=>'Archivo cargado correctamente.'));
 		}		
 	}
 	public function borrar_documento_contrato_get()
