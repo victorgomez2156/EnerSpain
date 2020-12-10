@@ -636,19 +636,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
 
     }
-    scope.validar_fecha=function(FecActCUPs,index,dato)
+    scope.validar_fecha=function(FecActCUPs,index,dato,metodo)
     {
     	console.log(FecActCUPs);
     	console.log(index);
     	console.log(dato);
-    	if (FecActCUPs != undefined) {
+
+        if(metodo==1)
+        {
+            if (FecActCUPs != undefined) {
                 numero = FecActCUPs;
                 if (!/^([/0-9])*$/.test(numero))
                     scope.fdatos.detalleCUPs[index].FecActCUPs = numero.substring(0, numero.length - 1);
             }
-        var FecActCUPs = document.getElementById("FecActCUPs_"+index);
-		var id = FecActCUPs.getAttribute("id");
-		console.log(id);
+            var FecActCUPs = document.getElementById("FecActCUPs_"+index);
+            var id = FecActCUPs.getAttribute("id");
+            console.log(id);
+        }
+        else if(metodo==2)
+        {
+            if (FecVenCUPs != undefined) {
+                numero = FecVenCUPs;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.fdatos.detalleCUPs[index].FecVenCUPs = numero.substring(0, numero.length - 1);
+            }
+            var FecVenCUPs = document.getElementById("FecActCUPs_"+index);
+            var id = FecVenCUPs.getAttribute("id");
+            console.log(id);
+        }
+    	
 
     }
     scope.regresar = function() {

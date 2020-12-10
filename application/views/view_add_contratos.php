@@ -476,7 +476,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr> 
-                    <th></th>
+                     <th></th>
                     <th>Dirección de Suministro</th>
                     <th>Tipo de CUPs</th>
                     <th>CUPs</th>
@@ -484,7 +484,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo</th>
                     <th>Ren</th>
                     <th>Ahorro €</th> 
-                    <th>Fecha Activación<br>DD/MM/YYYY</th>                   
+                    <th>Fecha Activación<br>DD/MM/YYYY</th> 
+                    <th>Fecha Vencimiento<br>DD/MM/YYYY</th>                    
                   </tr>
                   <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
                      <td colspan="8" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -502,7 +503,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
                       <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
                     <td>{{dato.ImpAho}}</td>
-                    <td><input class="form-control" name="FecActCUPs_{{$index}}" id="FecActCUPs_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                    
+                    <td><input class="form-control" name="FecActCUPs_{{$index}}" id="FecActCUPs_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato,1)" maxlength="10" placeholder="DD/MM/YYYY" /></td>
+                    <td><input class="form-control" name="FecVenCUPs_{{$index}}" id="FecVenCUPs_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecVenCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecVenCUPs,$index,dato,2)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                    
                   </tr>
                 </tbody>
                 <tfoot> 
@@ -514,7 +516,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo</th>
                     <th>Ren</th>
                     <th>Ahorro €</th> 
-                    <th>Fecha Activación<br>DD/MM/YYYY</th>    
+                    <th>Fecha Activación<br>DD/MM/YYYY</th> 
+                    <th>Fecha Vencimiento<br>DD/MM/YYYY</th>   
                 </tfoot>
               </table>
         </div>
@@ -537,7 +540,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo</th>
                     <th>Ren</th>
                     <th>Ahorro €</th>
-                    <th>Fecha Activación<br>DD/MM/YYYY</th>                   
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>
+                    <th>Fecha Vencimiento<br>DD/MM/YYYY</th>                    
                   </tr>
                   <tr ng-show="vm.fdatos.detalleCUPs.length==0"> 
                      <td colspan="10" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
@@ -557,11 +561,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td><span ng-show="dato.RenCon==false || dato.RenCon=='0'">No</span>
                       <span ng-show="dato.RenCon==true || dato.RenCon=='1'">Si</td>
                     <td>{{dato.ImpAho}}</td> 
-                    <td><input class="form-control" name="FecActCUPs_{{$index}}_{{$index}}" id="FecActCUPs_{{$index}}_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                   
+                    <td><input class="form-control" name="FecActCUPs_{{$index}}_{{$index}}" id="FecActCUPs_{{$index}}_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecActCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecActCUPs,$index,dato,1)" maxlength="10" placeholder="DD/MM/YYYY" /></td>
+                    <td><input class="form-control" name="FecVenCUPs_{{$index}}_{{$index}}" id="FecVenCUPs_{{$index}}_{{$index}}" type="text" ng-model="vm.fdatos.detalleCUPs[$index].FecVenCUPs" ng-change="vm.validar_fecha(vm.fdatos.detalleCUPs[$index].FecVenCUPs,$index,dato,2)" maxlength="10" placeholder="DD/MM/YYYY" /></td>                    
                   </tr>
                 </tbody>
                 <tfoot> 
-                    <th></th>
+                     <th></th>
                     <th>Cliente</th>
                     <th>CIF/NIF</th>
                     <th>Dirección de Suministro</th>
@@ -571,7 +576,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <th>Consumo</th>
                     <th>Ren</th>
                     <th>Ahorro €</th>
-                    <th>Fecha Activación<br>DD/MM/YYYY</th>      
+                    <th>Fecha Activación<br>DD/MM/YYYY</th>
+                    <th>Fecha Vencimiento<br>DD/MM/YYYY</th>    
                 </tfoot>
               </table>
         </div>

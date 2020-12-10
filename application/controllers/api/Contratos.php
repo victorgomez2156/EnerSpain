@@ -316,8 +316,15 @@ class Contratos extends REST_Controller
 					{
 						$FecActCUPs=explode("/", $value->FecActCUPs);
 						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
-						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->TipServ,$FecActCUPsFinal);
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecActCUPsFinal);
 						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
+					}
+					if($value->FecVenCUPs!=null)
+					{
+						$FecVenCUPs=explode("/", $value->FecVenCUPs);
+						$FecVenCUPsFinal=$FecVenCUPs[2].'-'.$FecVenCUPs[1].'-'.$FecVenCUPs[0];
+						$this->Propuesta_model->update_detallesCUPsFecVenCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecVenCUPsFinal);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Vencimiento CUPs.');
 					}
 				}
 				endforeach;	
@@ -367,13 +374,18 @@ class Contratos extends REST_Controller
 					{
 						$FecActCUPs=explode("/", $value->FecActCUPs);
 						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
-						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->TipServ,$FecActCUPsFinal);
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecActCUPsFinal);
 						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
-			
 					}
-
+					if($value->FecVenCUPs!=null)
+					{
+						$FecVenCUPs=explode("/", $value->FecVenCUPs);
+						$FecVenCUPsFinal=$FecVenCUPs[2].'-'.$FecVenCUPs[1].'-'.$FecVenCUPs[0];
+						$this->Propuesta_model->update_detallesCUPsFecVenCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecVenCUPsFinal);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Vencimiento CUPs.');
+					}
 				}
-				endforeach;	
+				endforeach;
 			}
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','UPDATE',$objSalida->CodConCom,$this->input->ip_address(),'Actualizando Contrato Comercial.');
 			$this->db->trans_complete();
