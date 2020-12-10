@@ -174,14 +174,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         });
     }
     $scope.Consultar_CIF = function(event) {
-        
-        if (!scope.validarNIFDNI())
-        {
-            return false;
-        }
-
-
-
         if (scope.fdatos.NumCifCom == undefined || scope.fdatos.NumCifCom == null || scope.fdatos.NumCifCom == '') {
             scope.toast('error',"El CIF es requerido.",'');
             return false;
@@ -798,110 +790,5 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.Tcomercializadoras = scope.TcomercializadorasBack;
             }                
         }*/
-        ///////// PARA CALCULAR DNI/NIE START /////////////////
-    scope.validarNIFDNI=function()
-    { 
-        var letter = scope.validar_dni_nie($("#CIFNIFComercializadora").parent(),$("#CIFNIFComercializadora").val());
-        console.log(letter[0]);
-        if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="DNI")
-        {
-            scope.dni_nie_validar = scope.fdatos.NumCifCom.substring(0,8)+letter[0].letter;
-            if(scope.dni_nie_validar!=scope.fdatos.NumCifCom)
-            {
-               scope.toast('error',"El Número de DNI/NIE es Invalido Intente Nuevamente.",'');
-                return false;
-            }
-            else
-            {
-                return true;
-            } 
-        }
-        else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="CIF")
-        {
-            scope.dni_nie_validar = scope.fdatos.NumCifCom.substring(0,8)+letter[0].letter;
-            if(scope.dni_nie_validar!=scope.fdatos.NumCifCom)
-            {
-               scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
-                return false;
-            }
-            else
-            {
-                return true;
-            } 
-        }
-        else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="No CIF/DNI")
-        {
-           return true;
-        }
-        else
-        {
-            scope.toast('error',"Error en Calculo de CIF/DNI/NIF/NIE.",'');
-            return false;
-        }        
-    }    
-    function isNumeric(expression) {
-    return (String(expression).search(/^\d+$/) != -1);
-    }
-    function calculateLetterForDni(dni)
-    {
-        // Letras en funcion del modulo de 23
-        string = "TRWAGMYFPDXBNJZSQVHLCKET"
-        // se obtiene la posiciÃ³n de la cadena anterior
-        position = dni % 23
-        // se extrae dicha posiciÃ³n de la cadena
-        letter = string.substring(position, position + 1)
-        return letter
-    }
-    scope.validar_dni_nie=function(field, txt)
-    {
-        var letter = ""
-        // Si es un dni extrangero, es decir, empieza por X, Y, Z
-        // Si la longitud es 8 longitud total de los dni nacionales)
-        if (txt.length == 9) 
-        {
-          
-            var first = txt.substring(0, 1)
-            var last = txt.substring(8,9)
-            if (first == 'X' || first == 'Y' || first == 'Z') 
-            {               
-                // Si la longitud es 9(longitud total de los dni extrangeros)
-                // Se calcula la letra para el numero de dni
-                var number = txt.substring(1, 8);
-                if (first == 'X') {
-                    number = '0' + number
-                    //final = first + number
-                }
-                if (first == 'Y') {
-                    number = '1' + number
-                    //final = first + number
-                }
-                if (first == 'Z') {
-                    number = '2' + number
-                    //final = first + number
-                }
-                if (isNumeric(number)){
-                    letter = calculateLetterForDni(number)
-                }
-                var response = [{ status: 200, menssage: 'DNI',statusText:'OK',letter:letter}];               
-                return response;
-            }
-            else if(first == 'A' || first == 'B' || first == 'C'||first == 'D' || first == 'E' || first == 'F'||first == 'G' || first == 'H' || first == 'J'||first == 'P' || first == 'Q' || first == 'R'||first == 'S' || first == 'U' || first == 'V'||first == 'N' || first == 'W')
-            {
-                var response = [{ status: 200, menssage: 'No CIF/DNI',statusText:'OK'}];               
-                return response;
-            } 
-            else 
-            {
-                letter = calculateLetterForDni(txt.substring(0, 8))                
-                var response = [{ status: 200, menssage: 'CIF',statusText:'OK',letter:letter}];               
-                return response;
-            }
-        }
-        else
-        {
-            return false
-        }
-       
-    } 
         //////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////	
 }

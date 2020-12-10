@@ -199,21 +199,13 @@ class Propuesta_model extends CI_Model
         $this->db->insert('T_Propuesta_Comercial_CUPs',array('CodProComCli'=>$CodProComCli,'CodPunSum'=>$CodPunSum,'CodCup'=>$CodCups,'CodTar'=>$CodTar,'PotEleConP1'=>$PotConP1,'PotEleConP2'=>$PotConP2,'PotEleConP3'=>$PotConP3,'PotEleConP4'=>$PotConP4,'PotEleConP5'=>$PotConP5,'PotEleConP6'=>$PotConP6,'RenCup'=>$RenCon,'ImpAho'=>$ImpAho,'PorAho'=>$PorAho,'ObsCup'=>$ObsCup,'ConCup'=>$ConCUPs,'CauDiaGas'=>$CauDia,'TipCups'=>$TipServ,'FecActCUPs'=>$FecActCUPs));
         return $this->db->insert_id();
     }
-    public function update_detallesCUPs($CodProComCup,$CodCups,$CodProComCli,$TipServ,$FecActCUPs)
+     public function update_detallesCUPs($CodProComCup,$CodCups,$CodProComCli,$TipServ,$TipServ,$FecActCUPs)
     {   
         $this->db->where('CodProComCup', $CodProComCup); 
         $this->db->where('CodCup', $CodCups); 
         $this->db->where('CodProComCli', $CodProComCli);  
         $this->db->where('TipCups', $TipServ);      
         return $this->db->update('T_Propuesta_Comercial_CUPs',array('FecActCUPs'=>$FecActCUPs));
-    }
-    public function update_detallesCUPsFecVenCUPs($CodProComCup,$CodCups,$CodProComCli,$TipServ,$FecVenCUPs)
-    {   
-        $this->db->where('CodProComCup', $CodProComCup); 
-        $this->db->where('CodCup', $CodCups); 
-        $this->db->where('CodProComCli', $CodProComCli);  
-        $this->db->where('TipCups', $TipServ);      
-        return $this->db->update('T_Propuesta_Comercial_CUPs',array('FecVenCUPs'=>$FecVenCUPs));
     }
     public function agregar_detallesHistorialCUPs($CodProComCli,$CodPunSum,$CodCups,$CodTar,$PotConP1,$PotConP2,$PotConP3,$PotConP4,$PotConP5,$PotConP6,$RenCon,$ImpAho,$PorAho,$ObsCup,$ConCUPs,$CauDia,$TipServ)
     {
@@ -418,7 +410,7 @@ class Propuesta_model extends CI_Model
 {
     $sql = $this->db->query("SELECT a.CodProComCup,a.CodProComCli,b.CUPsEle AS CUPsName,a.CauDiaGas AS CauDia,a.CodCup AS CodCups,a.CodPunSum,a.CodTar,a.ConCup AS ConCUPs
 ,(CASE WHEN d.BloPunSum IS NULL OR d.BloPunSum='' THEN CONCAT(d.NomViaPunSum,'  ',d.NumViaPunSum) ELSE CONCAT(d.NomViaPunSum,'  ',d.NumViaPunSum,'  ',d.BloPunSum) END) AS DirPunSum,a.ImpAho,c.NomTarEle AS NomTar,a.ObsCup,a.PorAho,a.PotEleConP1 AS PotConP1,a.PotEleConP2 AS PotConP2,a.PotEleConP3 AS PotConP3,a.PotEleConP4 AS
-PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli,c.CanPerTar,f.DesLoc,g.DesPro,d.CPLocSoc,d.EscPunSum,d.PlaPunSum,d.PuePunSum,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,date_format(a.FecVenCUPs,'%d/%m/%Y') as FecVenCUPs
+PotConP4,a.PotEleConP5 AS PotConP5,a.PotEleConP6 AS PotConP6,a.RenCup AS RenCon,a.TipCups AS TipServ,RazSocCli,NumCifCli,c.CanPerTar,f.DesLoc,g.DesPro,d.CPLocSoc,d.EscPunSum,d.PlaPunSum,d.PuePunSum,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs
 FROM T_Propuesta_Comercial_CUPs a 
 JOIN T_CUPsElectrico b ON a.CodCup=b.CodCupsEle AND a.TipCups=1 
 left JOIN T_TarifaElectrica c ON a.CodTar=c.CodTarEle
@@ -432,7 +424,7 @@ UNION ALL
 SELECT h.CodProComCup,h.CodProComCli,i.CupsGas AS CUPsName,h.CauDiaGas AS CauDia,h.CodCup AS CodCups,h.CodPunSum,h.CodTar,h.ConCup AS ConCUPs,(CASE WHEN k.BloPunSum IS NULL OR k.BloPunSum='' THEN CONCAT(k.NomViaPunSum,'  ',k.NumViaPunSum) ELSE CONCAT(k.NomViaPunSum,'  ',k.NumViaPunSum,'  ',k.BloPunSum) END) AS DirPunSum
 ,h.ImpAho,
 j.NomTarGas AS NomTar,h.ObsCup,h.PorAho,h.PotEleConP1 AS PotConP1,h.PotEleConP2 AS PotConP2,h.PotEleConP3 AS PotConP3,h.PotEleConP4 AS
-PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli,NULL as CanPerTar,m.DesLoc,n.DesPro,k.CPLocSoc,k.EscPunSum,k.PlaPunSum,k.PuePunSum,date_format(h.FecActCUPs,'%d/%m/%Y') as FecActCUPs,date_format(h.FecVenCUPs,'%d/%m/%Y') as FecVenCUPs
+PotConP4,h.PotEleConP5 AS PotConP5,h.PotEleConP6 AS PotConP6,h.RenCup AS RenCon,h.TipCups AS TipServ,RazSocCli,NumCifCli,NULL as CanPerTar,m.DesLoc,n.DesPro,k.CPLocSoc,k.EscPunSum,k.PlaPunSum,k.PuePunSum,date_format(h.FecActCUPs,'%d/%m/%Y') as FecActCUPs
 FROM T_Propuesta_Comercial_CUPs h 
 JOIN T_CUPsGas i ON h.CodCup=i.CodCupGas AND h.TipCups=2 
 left JOIN T_TarifaGas j ON h.CodTar=j.CodTarGas

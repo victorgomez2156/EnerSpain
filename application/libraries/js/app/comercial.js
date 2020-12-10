@@ -901,7 +901,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }              
     }
-    ///////// PARA CALCULAR DNI/NIE START /////////////////
+     ///////// PARA CALCULAR DNI/NIE START /////////////////
     scope.validarNIFDNI=function()
     {
         var letter = scope.validar_dni_nie($("#NumDNI_NIECli").parent(),$("#NumDNI_NIECli").val());
