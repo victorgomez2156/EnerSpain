@@ -271,6 +271,18 @@ class Comercializadora_model extends CI_Model
         {return  $query->result();}else{return false;
         }              
     }
+    public function get_LocalidadByCPLoc($CPLoc)
+    {
+        $this->db->select('a.CodLoc,a.CodPro,a.DesLoc,a.CPLoc,b.DesPro',false);
+        $this->db->from('T_Localidad a');
+        $this->db->join('T_Provincia b','a.CodPro=b.CodPro');
+        $this->db->like('a.CPLoc',$CPLoc);              
+        $this->db->order_by('a.DesLoc ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {return  $query->result();}else{return false;
+        }              
+    }
 ////////////////////////////////////////////////////// COMERCIALIZADORAS END /////////////////////////////////////////////////    
  
 

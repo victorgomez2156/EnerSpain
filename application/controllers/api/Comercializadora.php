@@ -18,7 +18,7 @@ class Comercializadora extends REST_Controller
 		}
     }
     ///////////////////////////////////////////////////COMERCIALIZADORAS START //////////////////////////////////////////////////////////
-     public function get_list_comercializadora_get()
+    public function get_list_comercializadora_get()
     {
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -867,6 +867,22 @@ public function obtener_detalle_tarifa_electrica_SerEsp($CodSerEsp)
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
+	public function LocalidadCodigoPostal_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CPLoc=$this->get('CPLoc');			
+        $data = $this->Comercializadora_model->get_LocalidadByCPLoc($CPLoc);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
 
 /////////////////////////// PARA LOS SERVICIOS ESPECIALES END /////////////////////////////////////////////////////////////////
 
