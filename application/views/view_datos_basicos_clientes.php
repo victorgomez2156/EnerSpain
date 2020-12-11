@@ -198,6 +198,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
+        <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocSoc" placeholder="* Zona Postal Social" ng-change="vm.asignar_CPLoc()" ng-disabled="vm.validate_info!=undefined" ng-click="vm.searchboxClicked()"/>
+       <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+          </li>
+        </ul>
+
+       </div>
+       </div>
+       </div>
+
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
@@ -219,20 +234,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-         <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocSoc" placeholder="* Zona Postal Social" ng-change="vm.asignar_CPLoc()" ng-disabled="vm.validate_info!=undefined"/>
-       <ul id='searchResult'>
-          <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-          </li>
-        </ul>
-
-       </div>
-       </div>
-       </div>
+        
+     
        <div style="margin-top: 8px;">
        <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label></div></div>
         <div align="left">
@@ -304,6 +307,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
+        <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.fdatos.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
+       <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
+          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+          </li>
+        </ul>
+       </div>
+       </div>
+       </div>
+
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
@@ -325,19 +342,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-         <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.fdatos.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
-       <ul id='searchResult'>
-          <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
-          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-          </li>
-        </ul>
-       </div>
-       </div>
-       </div>
+      
+
 
        <div class="col-12 col-sm-4">
        <div class="form">                          

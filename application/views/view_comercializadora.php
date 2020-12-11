@@ -252,6 +252,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
 
+       <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
+       <div class="form">                          
+       <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>
+       <input type="text" class="form-control" ng-model="vm.fdatos.ZonPos" placeholder="* Zona Postal" ng-disabled="vm.validate_info!=undefined" ng-click='vm.searchboxClicked($event)' ng-keyup='vm.LocalidadCodigoPostal()'/>
+       <ul id='searchResult'>
+          <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+          </li>
+        </ul>
+       </div>
+       </div>
+       </div>
+
         <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
@@ -273,20 +287,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-       <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal </label>
-       <input type="text" class="form-control" ng-model="vm.fdatos.ZonPos" placeholder="* Zona Postal" ng-disabled="vm.validate_info!=undefined" ng-click='vm.searchboxClicked($event)' ng-keyup='vm.LocalidadCodigoPostal()'/>
-       <ul id='searchResult'>
-          <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-          </li>
-        </ul>
-       </div>
-       </div>
-       </div>
-
 
        <div class="col-12 col-sm-4">
        <div class="form">                          
