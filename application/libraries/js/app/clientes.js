@@ -828,6 +828,7 @@
             });
         }
     }
+    
     var i = -1;
         var toastCount = 0;
         var $toastlast;

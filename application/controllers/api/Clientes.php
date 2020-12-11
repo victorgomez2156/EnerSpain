@@ -319,6 +319,22 @@ protected function buscar_xID_get()
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
+	public function LocalidadCodigoPostal_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CPLoc=$this->get('CPLoc');			
+        $data = $this->Clientes_model->get_LocalidadByCPLoc($CPLoc);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
 /////////////////////////////////////////////////////////////////////////// PARA CLIENTES END //////////////////////////////////////
 
     ////////////////////////////////////// PARA LAS ACTIVIDADES CLIENTES START /////////////////////////////////////////////////
@@ -472,7 +488,15 @@ protected function buscar_xID_get()
 			return false;
 		}
 		$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCliPunSum);
-		$arrayName = array('data' =>$data , 'NumCifCli' =>$DatosCliente->NumCifCli);
+		if($DatosCliente==false)
+		{
+			$DatosClienteResponse=false;
+		}
+		else
+		{
+			$DatosClienteResponse=$DatosCliente->NumCifCli;
+		}
+		$arrayName = array('data' =>$data , 'NumCifCli' =>$DatosClienteResponse);
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');				
 		$this->response($arrayName);		
     }

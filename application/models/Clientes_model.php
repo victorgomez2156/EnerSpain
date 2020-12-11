@@ -252,7 +252,8 @@ public function getClientessearchFilter($filtrar_clientes)
     $this->db->select('*');
     $this->db->from('T_Localidad');
     //$this->db->join('T_TipoDocumento b','a.CodTipDoc=b.CodTipDoc');
-    $this->db->where('CodPro',$CodPro);        
+    $this->db->where('CodPro',$CodPro);
+    $this->db->order_by('DesLoc ASC');        
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {
@@ -263,6 +264,23 @@ public function getClientessearchFilter($filtrar_clientes)
         return false;
     }       
 }
+ public function get_LocalidadByCPLoc($CPLoc)
+    {
+        /*$this->db->select('a.CodLoc,a.CodPro,a.DesLoc,a.CPLoc,b.DesPro',false);
+        $this->db->from('T_Localidad a');
+        $this->db->join('T_Provincia b','a.CodPro=b.CodPro');
+      
+        $this->db->where('LIKE a.CPLoc',$CPLoc);              
+        $this->db->order_by('a.DesLoc ASC');
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {return  $query->result();}else{return false;*/
+        $sql = $this->db->query("SELECT a.CodLoc,a.CodPro,a.DesLoc,a.CPLoc,b.DesPro FROM T_Localidad a join T_Provincia b on a.CodPro=b.CodPro where a.CPLoc like '%$CPLoc%' ORDER BY a.DesLoc ASC");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else
+        return false;                      
+    }
 ////////////////////////////////////// CLIENTES END /////////////////////////////////////////////////
 
     

@@ -710,6 +710,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         	scope.fdatos.CodPro=scope.searchResult[index].CodPro;
         	scope.SearchLocalidades();
         	scope.fdatos.CodLoc=scope.searchResult[index].CodLoc;
+        	scope.fdatos.ZonPos=scope.searchResult[index].CPLoc;
         	scope.searchResult = {};
             $event.stopPropagation();
         }

@@ -1311,7 +1311,76 @@
                                         }
             });
     }
-                 var i = -1;
+    scope.containerClicked = function() 
+    {
+        scope.searchResultCPLoc = {};
+    }
+    scope.searchboxClicked = function($event) 
+    {
+        $event.stopPropagation();
+    }
+    scope.LocalidadCodigoPostal=function(metodo)
+    {
+        var searchText_len = scope.tContacto_data_modal.CPLocSoc.trim().length;
+        if (searchText_len >=3) 
+        {
+            if(metodo==1)
+            {
+               var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
+            }
+            $http.get(url).then(function(result) 
+            {
+                if (result.data != false) 
+                {
+                    if(metodo==1)
+                    {
+                        scope.searchResultCPLoc = result.data;
+                    }
+                } 
+                else
+                {                    
+                    if(metodo==1)
+                    {
+                        scope.searchResultCPLoc = {};
+                        scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
+                        scope.fpuntosuministro.CPLocSoc=null;
+                    }                   
+                }
+            },function(error) 
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+        } 
+        else 
+        {
+            scope.searchResultCPLoc = {};
+        }
+    }
+    scope.setValueCPLoc = function(index, $event, result, metodo) 
+    {
+        if (metodo == 1) 
+        {
+            console.log(index);
+            console.log($event);
+            console.log(result);
+            console.log(metodo);
+            scope.tContacto_data_modal.CodProSoc=scope.searchResultCPLoc[index].CodPro;
+            scope.BuscarLocalidad(1,scope.tContacto_data_modal.CodProSoc);
+            scope.tContacto_data_modal.CodLocSoc=scope.searchResultCPLoc[index].CodLoc;
+            scope.tContacto_data_modal.CPLocSoc= scope.searchResultCPLoc[index].CPLoc;
+            scope.searchResultCPLoc = {};
+            $event.stopPropagation();
+        }
+    }
+        var i = -1;
         var toastCount = 0;
         var $toastlast;
         var getMessage = function () {

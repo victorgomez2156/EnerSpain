@@ -231,11 +231,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-         <div class="col-12 col-sm-4">
+         <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CPLocSoc" placeholder="* Zona Postal Social" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CPLocSoc" placeholder="* Zona Postal Social" ng-disabled="vm.validate_info!=undefined" ng-click='vm.searchboxClicked($event)' ng-keyup='vm.LocalidadCodigoPostal(1)'/>
+       <ul id='searchResult'>
+          <li ng-click='vm.setValueCPLoc($index,$event,result,1)' ng-repeat="result in vm.searchResultCPLoc" >
+          {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+          </li>
+        </ul>
+
+
+
        </div>
        </div>
        </div>

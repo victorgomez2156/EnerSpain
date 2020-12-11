@@ -50,7 +50,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
     //
     //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDFSencillo/";
-    //scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+    //scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -2337,29 +2337,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }*/
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
 
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win2 = window.open(url2, '_blank');
 
-                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
+                    scope.url_AnexoPunSumGas="https://audax.enerspain.es/Anexo_Puntos_SumGas/";
                     var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win3 = window.open(url3, '_blank');
                 }
                 else if(metodo==3)
                 {
                    
-                   scope.url_pdf_audax_multiCIF="http://10.72.0.16/Contrato_MultiCIF_v1_sinSEPA/";
+                   scope.url_pdf_audax_multiCIF="https://audax.enerspain.es/Contrato_MultiCIF_v1_sinSEPA/";
                    var url_MultiCIFSinSepa=scope.url_pdf_audax_multiCIF+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
 
-                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
+                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 
                     var url_Sepa =base_urlHome()+"api/Contratos/GenerarSepaClientes/CodCli/"+scope.CodCli+"/CodProCom/"+scope.CodProCom+"/CodConCom/"+scope.CodConCom;
@@ -2370,7 +2370,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             console.log(result.data);
                             angular.forEach(result.data, function(data) {
                                 //console.log(data);
-                                scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
+                                scope.url_AnexoPunSumEle="https://audax.enerspain.es/SepaAudax/";
                                 var url2=scope.url_AnexoPunSumEle+data.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+data.CodCueBan; 
                                 var win2 = window.open(url2, '_blank');
                             });
@@ -2404,14 +2404,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodCuenBan=0;
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win = window.open(url2, '_blank');
                     win.focus();
@@ -2419,7 +2419,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 else if(metodo==3)
                 {
-                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
+                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                   
                 }
@@ -2465,24 +2465,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             	
                 if(scope.metodo==1)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(scope.metodo==2)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
 
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win2 = window.open(url2, '_blank');
 
-                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
+                    scope.url_AnexoPunSumGas="https://audax.enerspain.es/Anexo_Puntos_SumGas/";
                     var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win3 = window.open(url3, '_blank');
                 }
 
-                //scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
+                //scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
 
                 var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
      			console.log(url);
@@ -2581,21 +2581,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         
         if(tipo_t==2)
         {
-            scope.url_pdf_t2='http://10.72.0.16/Generar_T2/';
+            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T2/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();
         }
         else if(tipo_t==3)
         {
-            scope.url_pdf_t2='http://10.72.0.16/Generar_T3/';
+            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T3/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();
         }
         else if(tipo_t==4)
         {
-            scope.url_pdf_t2='http://10.72.0.16/Generar_T4/';
+            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T4/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();
