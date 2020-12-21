@@ -762,8 +762,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <button class="btn btn-info" id="showtoast3" ng-show="vm.fdatos.TipProCom==3 && vm.fdatos.tipo=='editar'||vm.fdatos.TipProCom==3&&  vm.fdatos.tipo=='ver'" type="button" ng-click="vm.generar_audax(3)" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Generar Contrato MultiCliente - MultiPunto</button>
             
             <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,2)">Generar T2</button>
-            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,3)">Generar T3</button>
-            <button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,4)">Generar T4</button>
+            <button class="btn btn-info" id="showtoast7" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,3)">Generar T3</button>
+            <button class="btn btn-info" id="showtoast8" type="button" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'" ng-click="vm.generar_contratos_t(vm.fdatos,4)">Generar T4</button>
 
             <button class="btn btn-danger" id="showtoast4" ng-show="vm.fdatos.tipo=='editar'||vm.fdatos.tipo=='ver'" type="button" ng-click="vm.tramitar_Audax()" style="margin-top: 0px;" target="_black" ng-show="vm.fdatos.tipo=='editar' || vm.fdatos.tipo=='ver'">Tramitar Contrato En Audax</button>
 
@@ -863,4 +863,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="DetallesCUPs" class="loader loader-default"  data-text="Cargando Detalles del Contrato"></div>
 <div id="subiendo_archivo" class="loader loader-default"  data-text="Subiendo Archivo"></div>
 <div id="borrando_archivo" class="loader loader-default"  data-text="Borrando Archivo"></div>
+<div id="enviandoaudax" class="loader loader-default"  data-text="Enviando contrato a Audax"></div>
 </html>

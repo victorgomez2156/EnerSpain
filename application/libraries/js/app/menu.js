@@ -28,6 +28,7 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	scope.Reportes_ProyeccionIngresos=false;
 	scope.Reportes_IngresosReales=false;
 	scope.Reportes_IngVsProyec=false;
+	scope.CUPSConsumos=false;
 	scope.Configuracion=false;
 	scope.Configuracion_Distribuidora=false;
 	scope.Configuracion_Tarifas=false;
@@ -44,7 +45,7 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 		//console.log(dato);
 		angular.forEach(dato, function(menu)
 		{
-	            console.log(menu); 
+	            //console.log(menu); 
 	            if(menu.titulo=="Dashboard" && menu.id==1) 
 	            {
 	            	scope.Dashboard=true;
@@ -148,6 +149,10 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	            else if(menu.titulo=="Ing. Reales Vs Proyectado" && menu.id==26)
 	            {
 	            	scope.Reportes_IngVsProyec=true;
+	            }
+	            else if(menu.titulo=="CUPS/Consumos" && menu.id==36)
+	            {
+	            	scope.CUPSConsumos=true;
 	            }
 	            else if(menu.titulo=="Configuración" && menu.id==27)
 	            {

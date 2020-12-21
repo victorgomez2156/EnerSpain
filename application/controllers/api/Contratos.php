@@ -311,15 +311,29 @@ class Contratos extends REST_Controller
 			if(!empty($objSalida->detalleCUPs))
 			{
 				foreach ($objSalida->detalleCUPs as $key => $value):
-				{	
-					if($value->FecActCUPs!=null)
+				{
+					$FecActCUPs='';
+					$FecActCUPsFinal='';
+					if($value->FecActCUPs==null)
+					{
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->FecActCUPs);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
+					}
+					else
 					{
 						$FecActCUPs=explode("/", $value->FecActCUPs);
 						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
 						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecActCUPsFinal);
 						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
 					}
-					if($value->FecVenCUPs!=null)
+					$FecVenCUPs='';
+					$FecVenCUPsFinal='';						
+					if($value->FecVenCUPs==null)
+					{
+						$this->Propuesta_model->update_detallesCUPsFecVenCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->FecVenCUPs);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Vencimiento CUPs.');
+					}
+					else
 					{
 						$FecVenCUPs=explode("/", $value->FecVenCUPs);
 						$FecVenCUPsFinal=$FecVenCUPs[2].'-'.$FecVenCUPs[1].'-'.$FecVenCUPs[0];
@@ -327,7 +341,7 @@ class Contratos extends REST_Controller
 						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Vencimiento CUPs.');
 					}
 				}
-				endforeach;	
+				endforeach;
 			}
 			/*$tabla="T_PropuestaComercial";
 			$where="CodProCom";	
@@ -369,15 +383,29 @@ class Contratos extends REST_Controller
 			if(!empty($objSalida->detalleCUPs))
 			{
 				foreach ($objSalida->detalleCUPs as $key => $value):
-				{	
-					if($value->FecActCUPs!=null)
+				{
+					$FecActCUPs='';
+					$FecActCUPsFinal='';
+					if($value->FecActCUPs==null)
+					{
+						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->FecActCUPs);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
+					}
+					else
 					{
 						$FecActCUPs=explode("/", $value->FecActCUPs);
 						$FecActCUPsFinal=$FecActCUPs[2].'-'.$FecActCUPs[1].'-'.$FecActCUPs[0];
 						$this->Propuesta_model->update_detallesCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$FecActCUPsFinal);
 						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Activación CUPs.');
 					}
-					if($value->FecVenCUPs!=null)
+					$FecVenCUPs='';
+					$FecVenCUPsFinal='';						
+					if($value->FecVenCUPs==null)
+					{
+						$this->Propuesta_model->update_detallesCUPsFecVenCUPs($value->CodProComCup,$value->CodCups,$value->CodProComCli,$value->TipServ,$value->FecVenCUPs);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$value->CodCups,$this->input->ip_address(),'Actualizando Fecha de Vencimiento CUPs.');
+					}
+					else
 					{
 						$FecVenCUPs=explode("/", $value->FecVenCUPs);
 						$FecVenCUPsFinal=$FecVenCUPs[2].'-'.$FecVenCUPs[1].'-'.$FecVenCUPs[0];
@@ -705,6 +733,11 @@ class Contratos extends REST_Controller
 	}
 	public function borrar_documento_contrato_get()
     {
+    	$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
     	$CodDetDocCon=$this->get('CodDetDocCon');
     	$tabla="T_DetalleDocumentosContratos";
 		$where="CodDetDocCon";	
@@ -738,6 +771,72 @@ class Contratos extends REST_Controller
 		$arrayName = array('status' =>200,'menssage' =>'Archivo borrado correctamente.','statusText' =>'OK','DocumentoArchivo'=>$DocumentoArchivo,'statusFile'=>$statusFile);
     	$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'DELETE',$CodDetDocCon,$this->input->ip_address(),'Borrando archivo de contrato');
     	$this->response($arrayName);
+	}
+	public function DatosParaAudax_post()
+    {
+    	$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));	
+		$this->db->trans_start();
+		$Cliente = $this->Contratos_model->DatosClientesAudax($objSalida->CodCli);
+		$DatosContactoCliente=$this->Contratos_model->DatosContactosClientesAudax($objSalida->CodCli);
+		if($DatosContactoCliente==null)
+		{
+			$NomConCli='';
+            $CarConCli='';
+            $NIFConCli='';
+            $direccion_contacto='';
+            $tipovia_contacto='';
+            $numdire_contacto='';
+            $pisodire_contacto='';
+            $cp_contacto='';
+            $TelCelConCli='';
+            $TelFijConCli='';                       
+            $EmaConCli='';
+		}
+		else
+		{
+			$NomConCli=$DatosContactoCliente-> NomConCli;
+            $CarConCli=$DatosContactoCliente-> CarConCli;
+            $NIFConCli=$DatosContactoCliente-> NIFConCli;
+            $direccion_contacto='';
+            $tipovia_contacto='';
+            $numdire_contacto='';
+            $pisodire_contacto='';
+            $cp_contacto='';
+            $TelCelConCli=$DatosContactoCliente-> TelCelConCli;
+            $TelFijConCli=$DatosContactoCliente-> TelFijConCli;                       
+            $EmaConCli=$DatosContactoCliente-> EmaConCli;
+		}
+		$DatosCuentaClientes=$this->Contratos_model->DatosCuentaClientesAudax($objSalida->CodCli);
+		if($DatosCuentaClientes==null)
+		{
+			$iban='';
+			$entidad='';
+			$sucursal='';
+			$dc='';
+			$cuenta='';
+		}
+		else
+		{
+			$iban=$DatosCuentaClientes-> iban;
+			$entidad=$DatosCuentaClientes-> entidad;
+			$sucursal=$DatosCuentaClientes-> sucursal;
+			$dc=$DatosCuentaClientes-> dc;
+			$cuenta=$DatosCuentaClientes-> cuenta;
+		}
+
+
+		$arrayResponseByAudax = array('CPLocSoc'=> $Cliente-> CPLocSoc,'DesLoc'=> $Cliente-> DesLoc,'DesPro'=> $Cliente-> DesPro,'DesTipVia'=> $Cliente-> DesTipVia,'EscDomCliEnv'=> $Cliente-> EscDomCliEnv,'EscDomSoc'=> $Cliente-> EscDomSoc,'IniTipVia'=> $Cliente-> IniTipVia,'NomViaDomSoc'=> $Cliente-> NomViaDomSoc,'NumCifCli'=> $Cliente-> NumCifCli,'NumViaDomSoc'=> $Cliente-> NumViaDomSoc,'PueDomCliEnv'=> $Cliente-> PueDomCliEnv,'PueDomSoc'=> $Cliente-> PueDomSoc,'RazSocCli'=> $Cliente-> RazSocCli,'TelFijCli'=>$Cliente-> TelFijCli,'TelMovCli'=>$Cliente-> TelMovCli,'EmaCli'=>$Cliente-> EmaCli,
+		'NomConCli'=>$NomConCli, 'CarConCli'=>$CarConCli, 'NIFConCli'=>$NIFConCli, 'direccion_contacto'=>$direccion_contacto, 'tipovia_contacto'=>$tipovia_contacto, 'numdire_contacto'=>$numdire_contacto, 'pisodire_contacto'=>$pisodire_contacto, 'cp_contacto'=>$cp_contacto, 'TelCelConCli'=>$TelCelConCli, 'TelFijConCli'=>$TelFijConCli, 'EmaConCli'=>$EmaConCli,
+
+		'iban'=>$iban,'entidad'=>$entidad,'sucursal'=>$sucursal,'dc'=>$dc,'cuenta'=>$cuenta,
+		 );
+		$this->db->trans_complete();
+		$this->response($arrayResponseByAudax);			
 	}
 }
 ?>

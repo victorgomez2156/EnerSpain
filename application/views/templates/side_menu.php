@@ -203,6 +203,7 @@
               <li ng-show="Menu.Reportes_ProyeccionIngresos==true"><a href="#/Proyeccion_Ingresos">Proyección de Ingresos</a></li>
               <li ng-show="Menu.Reportes_IngresosReales==true"><a href="#/Ingresos_Reales">Ingresos Reales </a></li>
               <li ng-show="Menu.Reportes_IngVsProyec==true"><a href="#/Ingresos_Vs_Proyectado">Ing. Reales Vs Proyectado</a></li>
+              <li ng-show="Menu.CUPSConsumos==true"><a href="#/CUPSConsumos">CUPS/Consumos</a></li>
             </ul>
         </li>
           

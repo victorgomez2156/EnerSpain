@@ -442,10 +442,7 @@ public function get_Historicos_Consumos_CUPs_get()
        	{
        		$data = array('status' =>false,'response'=>'Error en Tipo de Suministro');
        		return false;
-       	}
-
-
-       	
+       	}       	
 		if (empty($data))
 		{
 			$this->response(false);

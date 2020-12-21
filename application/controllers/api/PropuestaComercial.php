@@ -442,7 +442,7 @@ class PropuestaComercial extends REST_Controller
 					{
 						$CodPunSum=$value-> CodPunSum;
 					}
-					$this->Propuesta_model->agregar_detallesCUPs($objSalida-> CodProComCli,$CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ);
+					$this->Propuesta_model->agregar_detallesCUPs($objSalida-> CodProComCli,$CodPunSum,$value->CodCups,$value->CodTar,$value->PotConP1,$value->PotConP2,$value->PotConP3,$value->PotConP4,$value->PotConP5,$value->PotConP6,$value->RenCon,$value->ImpAho,$value->PorAho,$value->ObsCup,$value->ConCUPs,$value->CauDia,$value->TipServ,null);
 				}
 				endforeach;
 				if($updatePropuesta==true)

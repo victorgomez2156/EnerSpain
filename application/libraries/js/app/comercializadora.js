@@ -63,7 +63,6 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.tLocalidades = [];
     scope.Tcomercializadoras = [];
     scope.TcomercializadorasBack = [];
-
     console.log($route.current.$$route.originalPath);
     //////////////////////////////////////////////////////////// VISTA PRINCIPAL DE LAS COMERCIALIZADORAS START //////////////////////////////////////////////////////////
     ServiceComercializadora.getAll().then(function(dato) {
@@ -845,7 +844,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     function calculateLetterForDni(dni)
     {
         // Letras en funcion del modulo de 23
-        string = "TRWAGMYFPDXBNJZSQVHLCKET"
+        string = "TRWAGMYFPDXBNJZSQVHLCKE"
         // se obtiene la posiciÃ³n de la cadena anterior
         position = dni % 23
         // se extrae dicha posiciÃ³n de la cadena

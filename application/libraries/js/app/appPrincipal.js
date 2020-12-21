@@ -73,6 +73,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Proyeccion_Ingresos', { templateUrl: 'application/views/view_reporte_proyeccion_ingresos.php' })
             .when('/Ingresos_Reales', { templateUrl: 'application/views/view_reporte_ingresos_reales.php' })
             .when('/Ingresos_Vs_Proyectado', { templateUrl: 'application/views/view_reporte_ingreso_vs_proyectado.php' })
+            .when('/CUPSConsumos', { templateUrl: 'application/views/view_reporte_CUPSConsumos.php' })
 
             .when('/Propuesta_Comercial/', { templateUrl: 'application/views/view_grib_propuesta.php' })
             .when('/Add_Propuesta_Comercial/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales.php' })

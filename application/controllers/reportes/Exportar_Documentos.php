@@ -12206,12 +12206,12 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">P6</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.number_format($value-> PotConP1, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotConP2, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotConP3, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotConP4, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotConP5, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PotConP6, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP1, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP2, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP3, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP4, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP5, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PotConP6, 3, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -14250,7 +14250,7 @@ class Exportar_Documentos extends CI_Controller
                     </tr>
                         <tr>
                             <td border="1">'.$value-> CUPsName.'</td>
-                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
+                            <td border="1">'.$value-> DirPunSum.'</td>
                             <td border="1">'.$value->DesLoc.'</td>
                             <td border="1">'.$value->DesPro.'</td>
                             <td border="1">'.$value->CPLocSoc.'</td>
@@ -14381,7 +14381,6 @@ class Exportar_Documentos extends CI_Controller
             $html.='<table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
             <tr>
                 <td border="1">Dirección de Suministro</td>
-                <td border="1">Tipo de CUPs</td>
                 <td border="1">CUPs</td>
                 <td border="1">Tárifa</td>
                 <td border="1">Consumo (KW/h)</td>
@@ -14394,11 +14393,11 @@ class Exportar_Documentos extends CI_Controller
                 {
                     if($value-> TipServ==1)
                     {
-                        $TipServ="Eléctrico";
+                        $TipServ="E";
                     }
                     else
                     {
-                        $TipServ="Gas";
+                        $TipServ="G";
                     }
                     if($value-> RenCon==1)
                     {
@@ -14411,7 +14410,6 @@ class Exportar_Documentos extends CI_Controller
                     $html .='
                         <tr>
                             <td border="1">'.$value-> DirPunSum.'</td>
-                            <td border="1">'.$TipServ.'</td>
                             <td border="1">'.$value-> CUPsName.'</td>
                             <td border="1">'.$value-> NomTar.'</td>
                             <td border="1">'.$value-> ConCUPs.'</td>
@@ -14438,7 +14436,6 @@ class Exportar_Documentos extends CI_Controller
                     <td border="1">Cliente</td>
                     <td border="1">Razón Social</td>
                     <td border="1">Dirección de Suministro</td>
-                    <td border="1">Tipo de CUPs</td>
                     <td border="1">CUPs</td>
                     <td border="1">Tárifa</td>
                     <td border="1">Consumo (KW/h)</td>
@@ -14451,11 +14448,11 @@ class Exportar_Documentos extends CI_Controller
             {
                 if($value-> TipServ==1)
                 {
-                    $TipServ="Eléctrico";
+                    $TipServ="E";
                 }
                 else
                 {
-                    $TipServ="Gas";
+                    $TipServ="G";
                 }
                 if($value-> RenCon==1)
                 {
@@ -14470,7 +14467,6 @@ class Exportar_Documentos extends CI_Controller
                         <td border="1">'.$value-> NumCifCli.'</td>
                         <td border="1">'.$value-> RazSocCli.'</td>
                         <td border="1">'.$value-> DirPunSum.'</td>
-                        <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
                         <td border="1">'.$value-> ConCUPs.'</td>

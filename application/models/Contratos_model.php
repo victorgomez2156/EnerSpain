@@ -246,6 +246,45 @@ class Contratos_model extends CI_Model
     {
        return $this->db->delete('T_DetalleDocumentosContratos', array('CodDetDocCon' => $CodDetDocCon));             
     }
+    public function DatosClientesAudax($CodCli)
+    {
+        $this->db->select("a.RazSocCli,a.NumCifCli,b.IniTipVia,b.DesTipVia,a.EscDomSoc,a.PueDomSoc,NULL as EscDomCliEnv,NULL as PueDomCliEnv,c.DesLoc,d.DesPro,a.NomViaDomSoc,a.NumViaDomSoc,a.CPLocSoc,a.TelFijCli,a.TelMovCli,a.EmaCli",false);
+        $this->db->from('T_Cliente a');
+        $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia');        
+        $this->db->join('T_Localidad c','c.CodLoc=a.CodLocSoc');
+        $this->db->join('T_Provincia d','d.CodPro=c.CodPro'); 
+        $this->db->where('a.CodCli',$CodCli);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+    public function DatosContactosClientesAudax($CodCli)
+    {
+        $this->db->select("a.*",false);
+        $this->db->from('T_ContactoCliente a');
+        $this->db->where('a.CodCli',$CodCli);
+        $this->db->limit(1);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+    public function DatosCuentaClientesAudax($CodCli)
+    {
+        $this->db->select("SUBSTRING(a.NumIBan,1,4)AS iban,SUBSTRING(a.NumIBan,5,4)AS entidad,SUBSTRING(a.NumIBan,9,4)AS sucursal,SUBSTRING(a.NumIBan,13,2)AS dc,SUBSTRING(a.NumIBan,15,24)AS cuenta",false);
+        $this->db->from('T_CuentaBancaria a');
+        $this->db->where('a.CodCli',$CodCli);
+        $this->db->limit(1);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
+
     
 
 

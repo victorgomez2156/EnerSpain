@@ -50,7 +50,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
     //
     //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDFSencillo/";
-    //scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
+    //scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -699,7 +699,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }
         });
     }
-    $scope.submitFormContratos = function(event) {
+    $scope.submitFormContratos = function(event) 
+    {
         if (scope.fdatos.tipo == 'nuevo') {
             var titulo = 'Guardando';
             var texto = '¿Seguro de grabar el contrato?';
@@ -743,7 +744,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
            // }
 
        // }
-        console.log(scope.fdatos);
+        //console.log(scope.fdatos);
         Swal.fire({
             title: titulo,
             text: texto,
@@ -953,7 +954,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         } else {
             scope.fdatos.ObsCon = scope.fdatos.ObsCon;
         }
-        for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
+        /*for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
 		{
 			if (scope.fdatos.detalleCUPs[i].FecActCUPs==null||scope.fdatos.detalleCUPs[i].FecActCUPs=='') 
 			{
@@ -962,40 +963,47 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 				i=scope.fdatos.detalleCUPs.length;
 				//resultado = true;
 			}						
-		}
+		}*/
 		for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
 		{
-			if (scope.fdatos.detalleCUPs[i].FecActCUPs!=null) 
-			{
-				var FecActCUPs = (scope.fdatos.detalleCUPs[i].FecActCUPs).split("/");
-				console.log(FecActCUPs);
-				if (FecActCUPs.length < 3 && FecActCUPs[0]!="") 
-				{
-                	scope.toast('error','El Formato de Fecha de Activación del CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+' debe Ser EJ: DD/MM/YYYY.','');
-                	i=scope.fdatos.detalleCUPs.length;
-                	return false;
-             	}
-             	else
-             	{
-             		if (FecActCUPs[0].length > 2 || FecActCUPs[0].length < 2 || FecActCUPs[0] > 31) {
-                     	scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha de Activación deben ser 2 números solamente. EJ: 01','');
-                     	return false;
-                 	}
-                 	if (FecActCUPs[1].length > 2 || FecActCUPs[1].length < 2 || FecActCUPs[1] > 12) {
-                    	scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha de Activación deben ser 2 números solamente. EJ: 01','');
-                   		return false;
-                 	}
-                 	if (FecActCUPs[2].length < 4 || FecActCUPs[2].length > 4) {
-                     	scope.toast('error','Por Favor Corrija el Formato del ano en la Fecha de Activación Ya que deben ser 4 números solamente.','');
-                     	return false;
-                 	}
-             	}
-			}
 			
-								
+            //console.log(scope.fdatos.detalleCUPs[i].FecActCUPs);
+            if(scope.fdatos.detalleCUPs[i].FecActCUPs==null || scope.fdatos.detalleCUPs[i].FecActCUPs==""|| scope.fdatos.detalleCUPs[i].FecActCUPs==undefined)
+            {
+                scope.fdatos.detalleCUPs[i].FecActCUPs=null;
+            }
+            else
+            {
+                //scope.toast('success','Formato de Fecha de Activación del CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+' DD/MM/YYYY.','');
+                var FecActCUPs = (scope.fdatos.detalleCUPs[i].FecActCUPs).split("/");
+                //console.log(FecActCUPs);
+                if (FecActCUPs.length < 3) 
+                {
+                    scope.toast('error','El Formato de Fecha de Activación del CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+' debe Ser EJ: DD/MM/YYYY.','');
+                    i=scope.fdatos.detalleCUPs.length;
+                    return false;
+                }
+                else{
+
+                    if (FecActCUPs[0].length > 2 || FecActCUPs[0].length < 2 || FecActCUPs[0] > 31) {
+                        scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha de Activación en el CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+ ' deben ser 2 números solamente. EJ: 01','');
+                        i=scope.fdatos.detalleCUPs.length;
+                        return false;
+                    }
+                    if (FecActCUPs[1].length > 2 || FecActCUPs[1].length < 2 || FecActCUPs[1] > 12) {
+                        scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha de Activación en el CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+ ' deben ser 2 números solamente. EJ: 01','');
+                        i=scope.fdatos.detalleCUPs.length;
+                        return false;
+                    }
+                    if (FecActCUPs[2].length < 4 || FecActCUPs[2].length > 4) {
+                        scope.toast('error','Por Favor Corrija el Formato del año en la Fecha de Activación en el CUPs '+scope.fdatos.detalleCUPs[i].CUPsName+ ' Ya que deben ser 4 números solamente.','');
+                        i=scope.fdatos.detalleCUPs.length;
+                        return false;
+                    }
+                }    
+            }				
 		}
-
-
+        console.log(scope.fdatos.detalleCUPs);
         if (resultado == false) {
             //quiere decir que al menos un renglon no paso la validacion
             return false;
@@ -2337,29 +2345,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }*/
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
 
-                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win2 = window.open(url2, '_blank');
 
-                    scope.url_AnexoPunSumGas="https://audax.enerspain.es/Anexo_Puntos_SumGas/";
+                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
                     var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win3 = window.open(url3, '_blank');
                 }
                 else if(metodo==3)
                 {
                    
-                   scope.url_pdf_audax_multiCIF="https://audax.enerspain.es/Contrato_MultiCIF_v1_sinSEPA/";
+                   scope.url_pdf_audax_multiCIF="http://10.72.0.16/Contrato_MultiCIF_v1_sinSEPA/";
                    var url_MultiCIFSinSepa=scope.url_pdf_audax_multiCIF+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
 
-                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
+                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 
                     var url_Sepa =base_urlHome()+"api/Contratos/GenerarSepaClientes/CodCli/"+scope.CodCli+"/CodProCom/"+scope.CodProCom+"/CodConCom/"+scope.CodConCom;
@@ -2370,7 +2378,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             console.log(result.data);
                             angular.forEach(result.data, function(data) {
                                 //console.log(data);
-                                scope.url_AnexoPunSumEle="https://audax.enerspain.es/SepaAudax/";
+                                scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
                                 var url2=scope.url_AnexoPunSumEle+data.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+data.CodCueBan; 
                                 var win2 = window.open(url2, '_blank');
                             });
@@ -2391,12 +2399,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                         }
                     });
+                    var win2 = window.open(url_MultiCIFSinSepa, '_blank');
+                    win2.focus();   
                 }
      			console.log(url);
                 
                 var win = window.open(url, '_blank');
-                var win2 = window.open(url_MultiCIFSinSepa, '_blank');
-		        win2.focus();                
+                             
 		    }
      		else
      		{
@@ -2404,14 +2413,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodCuenBan=0;
                 if(metodo==1)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(metodo==2)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win = window.open(url2, '_blank');
                     win.focus();
@@ -2419,7 +2428,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 else if(metodo==3)
                 {
-                   scope.url_pdf_audax="https://audax.enerspain.es/Anexo_Datos_ClientesPunSum/";
+                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                   
                 }
@@ -2465,24 +2474,24 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             	
                 if(scope.metodo==1)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/AudaxPDFSencillo/";
+                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
                 }
                 else if(scope.metodo==2)
                 {
-                    scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
+                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
                     var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
 
-                    scope.url_AnexoPunSumEle="https://audax.enerspain.es/Anexo_Puntos_SumEle/";
+                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
                     var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win2 = window.open(url2, '_blank');
 
-                    scope.url_AnexoPunSumGas="https://audax.enerspain.es/Anexo_Puntos_SumGas/";
+                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
                     var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
                     var win3 = window.open(url3, '_blank');
                 }
 
-                //scope.url_pdf_audax="https://audax.enerspain.es/Contrato_MultiPunto_V14/";
+                //scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
 
                 var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
      			console.log(url);
@@ -2497,11 +2506,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         });
     };
+
     scope.tramitar_Audax=function()
     {
+        $("#enviandoaudax").removeClass("loader loader-default").addClass("loader loader-default is-active");
         var req = {
-            method: 'POST',
-            url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Login',
+        method: 'POST',
+        url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Login',
             headers: {
             'Access-Control-Allow-Credentials':undefined,
             'Access-Control-Allow-Methods':undefined,
@@ -2512,33 +2523,386 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             'Access-Control-Allow-Headers':undefined,
             'content-type':undefined
         },
-            data: { UserId: 'Enerspain' ,Password: '1404'}
+            data: { UserId: 'Enerspain',Password: '1404'}
+            /*data: 
+            {   
+                UserId: 'Enerspain' ,Password: '1404',
+                authToken:'token',
+                comercial:'153',
+                razon_social: 'TEST PRUEBA',
+                nif_cliente: '00000000B',
+                escalera_cliente: '1',
+                puerta_cliente: '2',
+                escalera_envio: '3',
+                puerta_envio: '4',
+                direccion_cliente: 'test direccion cliente',
+                tipovia_cliente: 'CL',
+                numdire_cliente: '7654',
+                pisodire_cliente: '8',
+                cp_cliente: '08291',
+                telefono_cliente: '601336090',
+                movil_cliente:'601336091',
+                fax_cliente: '',
+                email_cliente:'dzamora@audaxrenovables.com',
+                numerodire_cliente2:'14',
+                letra_cliente:'L',
+                nombreApellidos_contacto:'TEST CONTACTO',
+                cargo_contacto:'CARGO CONTACTO',
+                nif_contacto:'11111111H',
+                direccion_contacto:'DIRE CONTACTO',
+                tipovia_contacto:'CL',
+                numdire_contacto:'9',
+                  pisodire_contacto:'10',
+                  cp_contacto:'08291',
+                  telefono_contacto:'666666666',
+                  fax_contacto:'',
+                  email_contacto:'dzamora@audaxenergia.com',
+                  cups_luz:'ES0021000013190863NS',
+                  cups_gas:'ES0021000013190863NS',
+                  direccion_cups:'test dire cups',
+                  tipovia_cups:'CL',
+                  numerodire_cups:'11',
+                  pisodire_cups:'12',
+                  cp_cups:'08291',
+                  email_cups:'dzamora@hotmail.com',
+                  escalera_cups: '5',
+                  puerta_cups: '6',
+                  numerodire_cups2:'16',
+                  letra_cups:'B',
+                  iban:'ES76',
+                  entidad:'2038',
+                  sucursal:'9603',
+                  dc:'91',
+                  cuenta:'3000413111',
+                  gama_comentario:'CL -> classic, CO -> corporate',
+                  gama:'CL',
+                  potencia1:'15',
+                  potencia2:'15',
+                  potencia3:'15',
+                  potencia4:'',
+                  potencia5:'',
+                  potencia6:'',
+                  potencia_anterior1:'',
+                  potencia_anterior2:'',
+                  potencia_anterior3:'',
+                  potencia_anterior4:'',
+                  potencia_anterior5:'',
+                  potencia_anterior6:'',
+                  subtarifa:'T1',
+                  subtarifa_gas:'T1',
+                  procedencia:'',
+                  duracion:'12 MESES',
+                  titular_suministro:'TEST',
+                  nif_titular_suministro:'46942693S',
+                  tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
+                  tipo_contrato:'1', 
+                  tipo_contrato_gas:'2', 
+                  consumo:'1',
+                  importe_medio_factura:'',
+                  fecha_firma:'2020-09-24',
+                  deposito:'',
+                  desvios:'',
+                  nif_representante_contacto:'47726211S',
+                  representante_contacto:'TEST',
+                  cnae:'2600',
+                  distribuidora_anterior:'OTROS',
+                  cambio_titular_luz:'1',
+                  Nombre_apellidos_cambiotit_luz:'test cambio antiguo',
+                  causa_cambio_titular_luz_comentario:'1-> subrogación, 2-> Justo titulo,3 -> traspaso',
+                  causa_cambio_titular_luz:'3',
+                  nif_anterior_titular_luz:'11111111h',
+                  cambio_titular_gas:'0',
+                  Nombre_apellidos_cambiotit_gas:'',
+                  nif_anterior_titular_gas:'',
+                  cambio_potencia:'1',
+                  referencia_catastral:'',
+                   nombre_envio:'TEST ENVIO',
+                  tipovia_envio:'CL',
+                  direccion_envio:'TEST ENVIO',
+                  numerodire_envio:'13',
+                  pisodire_envio:'14',
+                  cp_envio:'08291',
+                  numerodire_envio2:'15',
+                  letra_envio:'A',
+                  liquidacion:'',
+                  tarifacups:'30A',
+                  tarifa:'CLFP31XXT11XX1219V04',
+                  tarifacups_gas:'GESAU33T2XXFXXX1809',
+                  tarifa_gas:'3.1',
+                  cert_verde:'',
+                  complemento_municipio_cliente:'',
+                  complemento_municipio_envio:'',
+                  complemento_municipio_cups:'',
+                  servicio_urgencias:'1',
+                  servicio_mantenimiento:'',
+                  servicio_proteccion:'',
+                  securluz_particular_plus:'1',
+                  securLuz_particular_elect:'',
+                  securLuz_particular_urge:'',
+                  securLuz_negocios:'',
+                  securGas_particular:'',
+                  securGas_negocios:'',
+                  consumo_gas:'1',
+                  consumo_media_anual_gas:'1',
+                  fecha_inicio_corporate:'2020-09-04',
+                  tarifa_corporate:[
+                        {
+                            tarifacups:'AIX20XX0XV180200',
+                            tipoContrato:'1',
+                            fecha_inicio:'2019-03-22',
+                            fecha_fin:'2019-03-31'
+                        },
+                        {
+                            tarifacups:'AFN20XX0X04190619V180300',
+                            tipoContrato:'0',
+                            fecha_inicio:'2019-04-01',
+                            fecha_fin:'2019-06-30'
+                        }
+                    ],
+                    tarifa_corporate_gas:[]
+            }*/
         }
         $http(req).then(function(result)
         {
-        	if(result.data.Data!=false && result.data.Error==null)
+        	$("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data.Data!=false && result.data.Error==null)
         	{
         		scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
+                scope.SessionStart={};
+                scope.SessionStart.sessionToken=result.data.Data.sessionToken;
+                scope.SessionStart.userId=result.data.Data.userId;
+                scope.SendAudaxContrato();
         	}
         	else if(result.data.Error!=false && result.data.Data==null)
         	{
         		scope.toast('error','Ocurrio un error al enviar el contrato a audax.',result.data.Error.AdditionalInfo);
+                scope.SessionStart={};
         	}
         },function(error)
         {
+            $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
         	if(error.data==null && error.statusText=="" )
         	{
         		scope.toast('error','Ocurrio un error al enviar el contrato a audax.','Error Protocolo');
+                scope.SessionStart={};
         	}
         	console.log(error)
-        });       
+        });      
+    }
+    scope.SendAudaxContrato=function()
+    {
+        if(scope.fdatos.TipProCom==1)
+        {
+           scope.DatosAudax={};
+            scope.DatosAudax.CodCli=scope.fdatos.CodCli;
+            scope.DatosAudax.CodConCom=scope.fdatos.CodConCom;
+            scope.DatosAudax.CodProCom=scope.fdatos.CodProCom;
+            scope.DatosAudax.TipProCom=scope.fdatos.TipProCom;
+            var url= base_urlHome()+"api/Contratos/DatosParaAudax/";
+            $http.post(url,scope.DatosAudax).then(function(result)
+            {
+                scope.DatosAudaxSend={};
+                scope.DatosAudaxSend=result.data;
+                var req = {
+                method: 'POST',
+                //url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Contratar',
+                url:'http://10.72.0.16/Audax',
+                    headers: {
+                    'Access-Control-Allow-Credentials':undefined,
+                    'Access-Control-Allow-Methods':undefined,
+                    'Access-Control-Allow-Origin':undefined,
+                    'Access-Control-Max-Age':undefined,
+                    'Accept':undefined,
+                    'x-api-key':undefined,
+                    'Access-Control-Allow-Headers':undefined,
+                    'content-type':undefined
+                },
+                    data: 
+                    {   
+                        authToken:scope.SessionStart.sessionToken,
+                        comercial:'153',
+                        //////// DATOS CLIENTES START /////
+                        razon_social: scope.DatosAudaxSend.RazSocCli,
+                        nif_cliente: scope.DatosAudaxSend.NumCifCli,
+                        escalera_cliente: scope.DatosAudaxSend.EscDomSoc,
+                        puerta_cliente: scope.DatosAudaxSend.PueDomSoc,
+                        escalera_envio: scope.DatosAudaxSend.EscDomCliEnv,
+                        puerta_envio: scope.DatosAudaxSend.PueDomCliEnv,
+                        direccion_cliente: scope.DatosAudaxSend.NomViaDomSoc+" "+scope.DatosAudaxSend.DesPro+" "+scope.DatosAudaxSend.DesLoc,
+                        tipovia_cliente: scope.DatosAudaxSend.IniTipVia,
+                        numdire_cliente: '',
+                        pisodire_cliente: '',
+                        cp_cliente: scope.DatosAudaxSend.CPLocSoc,
+                        telefono_cliente: scope.DatosAudaxSend.TelFijCli,
+                        movil_cliente:scope.DatosAudaxSend.TelMovCli,
+                        fax_cliente: '',
+                        email_cliente:scope.DatosAudaxSend.EmaCli,
+                        numerodire_cliente2:'',
+                        letra_cliente:'',
+                        //////// DATOS CLIENTES END /////
+                        
+                        //////// DATOS CONTACTOS START /////
+                        nombreApellidos_contacto:scope.DatosAudaxSend.NomConCli,
+                        cargo_contacto:scope.DatosAudaxSend.CarConCli,
+                        nif_contacto:scope.DatosAudaxSend.NIFConCli,
+                        direccion_contacto:scope.DatosAudaxSend.direccion_contacto,
+                        tipovia_contacto:scope.DatosAudaxSend.tipovia_contacto,
+                        numdire_contacto:scope.DatosAudaxSend.numdire_contacto,
+                        pisodire_contacto:scope.DatosAudaxSend.pisodire_contacto,
+                        cp_contacto:scope.DatosAudaxSend.cp_contacto,
+                        telefono_contacto:scope.DatosAudaxSend.TelCelConCli,
+                        fax_contacto:scope.DatosAudaxSend.TelFijConCli,                        
+                        email_contacto:scope.DatosAudaxSend.EmaConCli,
+                        //////// DATOS CONTACTOS END /////
+
+                        //////// DATOS CUENTA BANCARIA START /////
+                        iban:scope.DatosAudaxSend.iban,
+                        entidad:scope.DatosAudaxSend.entidad,
+                        sucursal:scope.DatosAudaxSend.sucursal,
+                        dc:scope.DatosAudaxSend.dc,
+                        cuenta:scope.DatosAudaxSend.cuenta,
+                        //////// DATOS CUENTA BANCARIA END /////
+
+                        cups_luz:'ES0021000013190863NS',
+                        cups_gas:'ES0021000013190863NS',
+                        
+                        direccion_cups:'test dire cups',
+                        tipovia_cups:'CL',
+                        numerodire_cups:'11',
+                        pisodire_cups:'12',
+                        cp_cups:'08291',
+                        email_cups:'dzamora@hotmail.com',
+                        escalera_cups: '5',
+                        puerta_cups: '6',
+                        numerodire_cups2:'16',
+                        letra_cups:'B',
+                        gama_comentario:'CL -> classic, CO -> corporate',
+                        gama:'CL',
+                        potencia1:'',
+                        potencia2:'',
+                        potencia3:'',
+                        potencia4:'',
+                        potencia5:'',
+                        potencia6:'',
+                        potencia_anterior1:'',
+                        potencia_anterior2:'',
+                        potencia_anterior3:'',
+                        potencia_anterior4:'',
+                        potencia_anterior5:'',
+                        potencia_anterior6:'',
+                        subtarifa:'T1',
+                        subtarifa_gas:'T1',
+                        procedencia:'',
+                        duracion:'12 MESES',
+                        titular_suministro:'TEST',
+                        nif_titular_suministro:'46942693S',
+                        tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
+                        tipo_contrato:'1', 
+                        tipo_contrato_gas:'2', 
+                        consumo:'1',
+                        importe_medio_factura:'',
+                        fecha_firma:'2020-09-24',
+                        deposito:'',
+                        desvios:'',
+                        
+                        nif_representante_contacto:'47726211S',
+                        representante_contacto:'TEST',
+                        cnae:'2600',
+                        
+                        distribuidora_anterior:'OTROS',
+                        cambio_titular_luz:'1',
+                        Nombre_apellidos_cambiotit_luz:'test cambio antiguo',
+                        causa_cambio_titular_luz_comentario:'1-> subrogación, 2-> Justo titulo,3 -> traspaso',
+                        causa_cambio_titular_luz:'3',
+                        nif_anterior_titular_luz:'11111111h',
+                        cambio_titular_gas:'0',
+                        Nombre_apellidos_cambiotit_gas:'',
+                        nif_anterior_titular_gas:'',
+                        cambio_potencia:'1',
+                        referencia_catastral:'',
+                        nombre_envio:'TEST ENVIO',
+                        tipovia_envio:'CL',
+                        direccion_envio:'TEST ENVIO',
+                        numerodire_envio:'13',
+                        pisodire_envio:'14',
+                        cp_envio:'08291',
+                        numerodire_envio2:'15',
+                        letra_envio:'A',
+                        liquidacion:'',
+                        tarifacups:'30A',
+                        tarifa:'CLFP31XXT11XX1219V04',
+                        tarifacups_gas:'GESAU33T2XXFXXX1809',
+                        tarifa_gas:'3.1',
+                        cert_verde:'',
+                        complemento_municipio_cliente:'',
+                        complemento_municipio_envio:'',
+                        complemento_municipio_cups:'',
+                        servicio_urgencias:'1',
+                        servicio_mantenimiento:'',
+                        servicio_proteccion:'',
+                        securluz_particular_plus:'1',
+                        securLuz_particular_elect:'',
+                        securLuz_particular_urge:'',
+                        securLuz_negocios:'',
+                        securGas_particular:'',
+                        securGas_negocios:'',
+                        consumo_gas:'1',
+                        consumo_media_anual_gas:'1',
+                        fecha_inicio_corporate:'2020-09-04',
+                        tarifa_corporate:[],
+                        tarifa_corporate_gas:[]
+                    }
+                }
+                $http(req).then(function(result)
+                {
+                    $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if(result.data.Data!=false && result.data.Error==null)
+                    {
+                        scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
+                        scope.SessionStart={};
+                        scope.SessionStart.sessionToken=result.data.Data.sessionToken;
+                        scope.SessionStart.userId=result.data.Data.userId;
+                        scope.SendAudaxContrato();
+                    }
+                    else if(result.data.Error!=false && result.data.Data==null)
+                    {
+                        scope.toast('error','Ocurrio un error al enviar el contrato a audax.',result.data.Error.AdditionalInfo);
+                        scope.SessionStart={};
+                    }
+                },function(error)
+                {
+                    $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if(error.data==null && error.statusText=="" )
+                    {
+                        scope.toast('error','Ocurrio un error al enviar el contrato a audax.','Error Protocolo');
+                        scope.SessionStart={};
+                    }
+                    console.log(error)
+                }); 
+            
+
+            },function(error)
+            {
+                console.log(error);
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+            });  
+        }
+        
     }
     scope.BuscarXIDPropuestaContratoColaborador=function()
     {
         var url=base_urlHome()+"api/Contratos/PropuestaMultiCliente/CodCol/"+scope.CodCli;
         $http.get(url).then(function(result)
         {
-            console.log(result);
+           // console.log(result);
             $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if (result.data != false) {
                 if (result.data.status == false && result.data.statusText == "Error") {
@@ -2581,21 +2945,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         
         if(tipo_t==2)
         {
-            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T2/';
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T2/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();
         }
         else if(tipo_t==3)
         {
-            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T3/';
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T3/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();
         }
         else if(tipo_t==4)
         {
-            scope.url_pdf_t2='https://audax.enerspain.es/Generar_T4/';
+            scope.url_pdf_t2='http://10.72.0.16/Generar_T4/';
             var url=scope.url_pdf_t2+scope.CodCli+"/"+fdatos.TipProCom;
             var win = window.open(url, '_blank');
             win.focus();

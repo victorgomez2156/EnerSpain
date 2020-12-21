@@ -106,7 +106,7 @@ class Usuarios_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('T_Menu');
-        //$this->db->order_by('nombres,apellidos DESC');
+        $this->db->order_by('orden ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {
