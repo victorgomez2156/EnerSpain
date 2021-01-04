@@ -14325,10 +14325,10 @@ class Exportar_Documentos extends CI_Controller
                             </tr>
                             <tr>
                             <td border="1">'.$value-> CUPsName.'</td>
-                            <td border="1">'.$value-> DirPunSum.' '.$value-> NomViaPunSum.' '.$value-> NumViaPunSum.' '.$value-> BloPunSum.' '.$value-> EscPunSum.' '.$value-> PlaPunSum.' '.$value-> PuePunSum.'</td>
-                            <td border="1">'.$value->DesLoc.'</td>
-                            <td border="1">'.$value->DesPro.'</td>
-                            <td border="1">'.$value->CPLocSoc.'</td>
+                            <td border="1">'.$value-> DirPunSum.'</td>
+                            <td border="1">'.$value-> DesLoc.'</td>
+                            <td border="1">'.$value-> DesPro.'</td>
+                            <td border="1">'.$value-> CPLocSoc.'</td>
                             </tr>
                             
                             <tr>

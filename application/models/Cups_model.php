@@ -114,8 +114,8 @@ class Cups_model extends CI_Model
     {
         if($TipServ==1)
         {
-        	$this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
-        	return $this->db->insert_id();
+        	 $this->db->insert($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CUPsEle'=>$cups,'CodTarElec'=>$CodTar,'PotConP1'=>$PotConP1,'PotConP2'=>$PotConP2,'PotConP3'=>$PotConP3,'PotConP4'=>$PotConP4,'PotConP5'=>$PotConP5,'PotConP6'=>$PotConP6,'PotMaxBie'=>$PotMaxBie,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
+                return $this->db->insert_id();
         }
         if($TipServ==2)
         {
@@ -137,6 +137,21 @@ class Cups_model extends CI_Model
         	return $this->db->update($Tabla,array('CodPunSum'=>$CodPunSum,'CodDis'=>$CodDis,'CupsGas'=>$cups,'CodTarGas'=>$CodTar,'FecAltCup'=>$FecAltCup,'FecUltLec'=>$FecUltLec,'ConAnuCup'=>$ConAnuCup,'DerAccKW'=>$DerAccKW));
         }
         
+    }
+    public function validarCUPsExiste($Tabla,$CUPs,$Where) 
+    {
+        $this->db->select('*',FALSE);
+        $this->db->from($Tabla);
+        $this->db->where($Where,$CUPs);               
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        { 
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
     }
     public function borrar_registro_anterior_CUPs($Tabla_Delete,$where,$CodCup)
     { 

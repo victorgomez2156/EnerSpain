@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">  
        <label class="font-weight-bold nexa-dark" style="color:white;">.</label>     
-       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1"  maxlength="18" ng-disabled="vm.validate_info!=undefined"/>
+       <input type="text" class="form-control" name="CUPSNUM" id="CUPSNUM" ng-model="vm.fdatos_cups.cups1" onkeyup="this.value=this.value.toUpperCase();" maxlength="18" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>  
@@ -190,9 +190,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora <b style="color:red;">(*)</b></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Distribuidora</label>
         <select class="form-control" id="CodDis" name="CodDis"  ng-model="vm.fdatos_cups.CodDis" ng-disabled="vm.fdatos_cups.TipServ==0||vm.validate_info!=undefined">
-        <option ng-repeat="dato in vm.T_Distribuidoras" value="{{dato.CodDist}}">{{dato.NumCifDis}} - {{dato.RazSocDis}}</option>                          
+        <option ng-repeat="dato in vm.T_Distribuidoras" value="{{dato.CodDist}}">{{dato.RazSocDis}}</option>                          
         </select>
        </div>
        </div>

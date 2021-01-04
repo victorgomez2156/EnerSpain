@@ -2523,144 +2523,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             'Access-Control-Allow-Headers':undefined,
             'content-type':undefined
         },
-            data: { UserId: 'Enerspain',Password: '1404'}
-            /*data: 
-            {   
-                UserId: 'Enerspain' ,Password: '1404',
-                authToken:'token',
-                comercial:'153',
-                razon_social: 'TEST PRUEBA',
-                nif_cliente: '00000000B',
-                escalera_cliente: '1',
-                puerta_cliente: '2',
-                escalera_envio: '3',
-                puerta_envio: '4',
-                direccion_cliente: 'test direccion cliente',
-                tipovia_cliente: 'CL',
-                numdire_cliente: '7654',
-                pisodire_cliente: '8',
-                cp_cliente: '08291',
-                telefono_cliente: '601336090',
-                movil_cliente:'601336091',
-                fax_cliente: '',
-                email_cliente:'dzamora@audaxrenovables.com',
-                numerodire_cliente2:'14',
-                letra_cliente:'L',
-                nombreApellidos_contacto:'TEST CONTACTO',
-                cargo_contacto:'CARGO CONTACTO',
-                nif_contacto:'11111111H',
-                direccion_contacto:'DIRE CONTACTO',
-                tipovia_contacto:'CL',
-                numdire_contacto:'9',
-                  pisodire_contacto:'10',
-                  cp_contacto:'08291',
-                  telefono_contacto:'666666666',
-                  fax_contacto:'',
-                  email_contacto:'dzamora@audaxenergia.com',
-                  cups_luz:'ES0021000013190863NS',
-                  cups_gas:'ES0021000013190863NS',
-                  direccion_cups:'test dire cups',
-                  tipovia_cups:'CL',
-                  numerodire_cups:'11',
-                  pisodire_cups:'12',
-                  cp_cups:'08291',
-                  email_cups:'dzamora@hotmail.com',
-                  escalera_cups: '5',
-                  puerta_cups: '6',
-                  numerodire_cups2:'16',
-                  letra_cups:'B',
-                  iban:'ES76',
-                  entidad:'2038',
-                  sucursal:'9603',
-                  dc:'91',
-                  cuenta:'3000413111',
-                  gama_comentario:'CL -> classic, CO -> corporate',
-                  gama:'CL',
-                  potencia1:'15',
-                  potencia2:'15',
-                  potencia3:'15',
-                  potencia4:'',
-                  potencia5:'',
-                  potencia6:'',
-                  potencia_anterior1:'',
-                  potencia_anterior2:'',
-                  potencia_anterior3:'',
-                  potencia_anterior4:'',
-                  potencia_anterior5:'',
-                  potencia_anterior6:'',
-                  subtarifa:'T1',
-                  subtarifa_gas:'T1',
-                  procedencia:'',
-                  duracion:'12 MESES',
-                  titular_suministro:'TEST',
-                  nif_titular_suministro:'46942693S',
-                  tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
-                  tipo_contrato:'1', 
-                  tipo_contrato_gas:'2', 
-                  consumo:'1',
-                  importe_medio_factura:'',
-                  fecha_firma:'2020-09-24',
-                  deposito:'',
-                  desvios:'',
-                  nif_representante_contacto:'47726211S',
-                  representante_contacto:'TEST',
-                  cnae:'2600',
-                  distribuidora_anterior:'OTROS',
-                  cambio_titular_luz:'1',
-                  Nombre_apellidos_cambiotit_luz:'test cambio antiguo',
-                  causa_cambio_titular_luz_comentario:'1-> subrogación, 2-> Justo titulo,3 -> traspaso',
-                  causa_cambio_titular_luz:'3',
-                  nif_anterior_titular_luz:'11111111h',
-                  cambio_titular_gas:'0',
-                  Nombre_apellidos_cambiotit_gas:'',
-                  nif_anterior_titular_gas:'',
-                  cambio_potencia:'1',
-                  referencia_catastral:'',
-                   nombre_envio:'TEST ENVIO',
-                  tipovia_envio:'CL',
-                  direccion_envio:'TEST ENVIO',
-                  numerodire_envio:'13',
-                  pisodire_envio:'14',
-                  cp_envio:'08291',
-                  numerodire_envio2:'15',
-                  letra_envio:'A',
-                  liquidacion:'',
-                  tarifacups:'30A',
-                  tarifa:'CLFP31XXT11XX1219V04',
-                  tarifacups_gas:'GESAU33T2XXFXXX1809',
-                  tarifa_gas:'3.1',
-                  cert_verde:'',
-                  complemento_municipio_cliente:'',
-                  complemento_municipio_envio:'',
-                  complemento_municipio_cups:'',
-                  servicio_urgencias:'1',
-                  servicio_mantenimiento:'',
-                  servicio_proteccion:'',
-                  securluz_particular_plus:'1',
-                  securLuz_particular_elect:'',
-                  securLuz_particular_urge:'',
-                  securLuz_negocios:'',
-                  securGas_particular:'',
-                  securGas_negocios:'',
-                  consumo_gas:'1',
-                  consumo_media_anual_gas:'1',
-                  fecha_inicio_corporate:'2020-09-04',
-                  tarifa_corporate:[
-                        {
-                            tarifacups:'AIX20XX0XV180200',
-                            tipoContrato:'1',
-                            fecha_inicio:'2019-03-22',
-                            fecha_fin:'2019-03-31'
-                        },
-                        {
-                            tarifacups:'AFN20XX0X04190619V180300',
-                            tipoContrato:'0',
-                            fecha_inicio:'2019-04-01',
-                            fecha_fin:'2019-06-30'
-                        }
-                    ],
-                    tarifa_corporate_gas:[]
-            }*/
+            data: { UserId: 'Enerspain',Password: '1404'}            
         }
         $http(req).then(function(result)
         {
@@ -2691,194 +2554,237 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     scope.SendAudaxContrato=function()
     {
-        if(scope.fdatos.TipProCom==1)
-        {
-           scope.DatosAudax={};
-            scope.DatosAudax.CodCli=scope.fdatos.CodCli;
-            scope.DatosAudax.CodConCom=scope.fdatos.CodConCom;
-            scope.DatosAudax.CodProCom=scope.fdatos.CodProCom;
-            scope.DatosAudax.TipProCom=scope.fdatos.TipProCom;
+       // if(scope.fdatos.TipProCom==1)
+        //{
+            //scope.DatosAudax={};
+            scope.SessionStart.CodCli=scope.fdatos.CodCli;
+            scope.SessionStart.CodConCom=scope.fdatos.CodConCom;
+            scope.SessionStart.CodProCom=scope.fdatos.CodProCom;
+            scope.SessionStart.TipProCom=scope.fdatos.TipProCom;
+            //console.log(scope.SessionStart);
             var url= base_urlHome()+"api/Contratos/DatosParaAudax/";
-            $http.post(url,scope.DatosAudax).then(function(result)
+            $http.post(url,scope.SessionStart).then(function(result)
             {
                 scope.DatosAudaxSend={};
-                scope.DatosAudaxSend=result.data;
-                var req = {
-                method: 'POST',
-                //url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Contratar',
-                url:'http://10.72.0.16/Audax',
-                    headers: {
-                    'Access-Control-Allow-Credentials':undefined,
-                    'Access-Control-Allow-Methods':undefined,
-                    'Access-Control-Allow-Origin':undefined,
-                    'Access-Control-Max-Age':undefined,
-                    'Accept':undefined,
-                    'x-api-key':undefined,
-                    'Access-Control-Allow-Headers':undefined,
-                    'content-type':undefined
-                },
-                    data: 
-                    {   
-                        authToken:scope.SessionStart.sessionToken,
-                        comercial:'153',
-                        //////// DATOS CLIENTES START /////
-                        razon_social: scope.DatosAudaxSend.RazSocCli,
-                        nif_cliente: scope.DatosAudaxSend.NumCifCli,
-                        escalera_cliente: scope.DatosAudaxSend.EscDomSoc,
-                        puerta_cliente: scope.DatosAudaxSend.PueDomSoc,
-                        escalera_envio: scope.DatosAudaxSend.EscDomCliEnv,
-                        puerta_envio: scope.DatosAudaxSend.PueDomCliEnv,
-                        direccion_cliente: scope.DatosAudaxSend.NomViaDomSoc+" "+scope.DatosAudaxSend.DesPro+" "+scope.DatosAudaxSend.DesLoc,
-                        tipovia_cliente: scope.DatosAudaxSend.IniTipVia,
-                        numdire_cliente: '',
-                        pisodire_cliente: '',
-                        cp_cliente: scope.DatosAudaxSend.CPLocSoc,
-                        telefono_cliente: scope.DatosAudaxSend.TelFijCli,
-                        movil_cliente:scope.DatosAudaxSend.TelMovCli,
-                        fax_cliente: '',
-                        email_cliente:scope.DatosAudaxSend.EmaCli,
-                        numerodire_cliente2:'',
-                        letra_cliente:'',
-                        //////// DATOS CLIENTES END /////
-                        
-                        //////// DATOS CONTACTOS START /////
-                        nombreApellidos_contacto:scope.DatosAudaxSend.NomConCli,
-                        cargo_contacto:scope.DatosAudaxSend.CarConCli,
-                        nif_contacto:scope.DatosAudaxSend.NIFConCli,
-                        direccion_contacto:scope.DatosAudaxSend.direccion_contacto,
-                        tipovia_contacto:scope.DatosAudaxSend.tipovia_contacto,
-                        numdire_contacto:scope.DatosAudaxSend.numdire_contacto,
-                        pisodire_contacto:scope.DatosAudaxSend.pisodire_contacto,
-                        cp_contacto:scope.DatosAudaxSend.cp_contacto,
-                        telefono_contacto:scope.DatosAudaxSend.TelCelConCli,
-                        fax_contacto:scope.DatosAudaxSend.TelFijConCli,                        
-                        email_contacto:scope.DatosAudaxSend.EmaConCli,
-                        //////// DATOS CONTACTOS END /////
-
-                        //////// DATOS CUENTA BANCARIA START /////
-                        iban:scope.DatosAudaxSend.iban,
-                        entidad:scope.DatosAudaxSend.entidad,
-                        sucursal:scope.DatosAudaxSend.sucursal,
-                        dc:scope.DatosAudaxSend.dc,
-                        cuenta:scope.DatosAudaxSend.cuenta,
-                        //////// DATOS CUENTA BANCARIA END /////
-
-                        cups_luz:'ES0021000013190863NS',
-                        cups_gas:'ES0021000013190863NS',
-                        
-                        direccion_cups:'test dire cups',
-                        tipovia_cups:'CL',
-                        numerodire_cups:'11',
-                        pisodire_cups:'12',
-                        cp_cups:'08291',
-                        email_cups:'dzamora@hotmail.com',
-                        escalera_cups: '5',
-                        puerta_cups: '6',
-                        numerodire_cups2:'16',
-                        letra_cups:'B',
-                        gama_comentario:'CL -> classic, CO -> corporate',
-                        gama:'CL',
-                        potencia1:'',
-                        potencia2:'',
-                        potencia3:'',
-                        potencia4:'',
-                        potencia5:'',
-                        potencia6:'',
-                        potencia_anterior1:'',
-                        potencia_anterior2:'',
-                        potencia_anterior3:'',
-                        potencia_anterior4:'',
-                        potencia_anterior5:'',
-                        potencia_anterior6:'',
-                        subtarifa:'T1',
-                        subtarifa_gas:'T1',
-                        procedencia:'',
-                        duracion:'12 MESES',
-                        titular_suministro:'TEST',
-                        nif_titular_suministro:'46942693S',
-                        tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
-                        tipo_contrato:'1', 
-                        tipo_contrato_gas:'2', 
-                        consumo:'1',
-                        importe_medio_factura:'',
-                        fecha_firma:'2020-09-24',
-                        deposito:'',
-                        desvios:'',
-                        
-                        nif_representante_contacto:'47726211S',
-                        representante_contacto:'TEST',
-                        cnae:'2600',
-                        
-                        distribuidora_anterior:'OTROS',
-                        cambio_titular_luz:'1',
-                        Nombre_apellidos_cambiotit_luz:'test cambio antiguo',
-                        causa_cambio_titular_luz_comentario:'1-> subrogación, 2-> Justo titulo,3 -> traspaso',
-                        causa_cambio_titular_luz:'3',
-                        nif_anterior_titular_luz:'11111111h',
-                        cambio_titular_gas:'0',
-                        Nombre_apellidos_cambiotit_gas:'',
-                        nif_anterior_titular_gas:'',
-                        cambio_potencia:'1',
-                        referencia_catastral:'',
-                        nombre_envio:'TEST ENVIO',
-                        tipovia_envio:'CL',
-                        direccion_envio:'TEST ENVIO',
-                        numerodire_envio:'13',
-                        pisodire_envio:'14',
-                        cp_envio:'08291',
-                        numerodire_envio2:'15',
-                        letra_envio:'A',
-                        liquidacion:'',
-                        tarifacups:'30A',
-                        tarifa:'CLFP31XXT11XX1219V04',
-                        tarifacups_gas:'GESAU33T2XXFXXX1809',
-                        tarifa_gas:'3.1',
-                        cert_verde:'',
-                        complemento_municipio_cliente:'',
-                        complemento_municipio_envio:'',
-                        complemento_municipio_cups:'',
-                        servicio_urgencias:'1',
-                        servicio_mantenimiento:'',
-                        servicio_proteccion:'',
-                        securluz_particular_plus:'1',
-                        securLuz_particular_elect:'',
-                        securLuz_particular_urge:'',
-                        securLuz_negocios:'',
-                        securGas_particular:'',
-                        securGas_negocios:'',
-                        consumo_gas:'1',
-                        consumo_media_anual_gas:'1',
-                        fecha_inicio_corporate:'2020-09-04',
-                        tarifa_corporate:[],
-                        tarifa_corporate_gas:[]
+                scope.DatosAudaxSend=result.data;                
+                if(scope.fdatos.TipProCom==1)
+                {
+                    //console.log(scope.DatosAudaxSend.DetallesCUPs.length);
+                    if(scope.DatosAudaxSend.DetallesCUPs.length==1)
+                    {
+                        scope.cups_gas='';
+                        scope.subtarifa_gas='';
+                        scope.tarifacups_gas='';
+                        scope.tarifa_gas='';
+                        scope.consumo_gas='';
+                        scope.consumo_media_anual_gas='';
                     }
+                    else if (scope.DatosAudaxSend.DetallesCUPs.length==2)
+                    {
+                        scope.cups_gas=scope.DatosAudaxSend.DetallesCUPs[1].CUPsName;
+                        scope.subtarifa_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
+                        scope.tarifacups_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
+                        scope.tarifa_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
+                        scope.consumo_gas=scope.DatosAudaxSend.DetallesCUPs[1].ConCup;
+                        scope.consumo_media_anual_gas=scope.DatosAudaxSend.DetallesCUPs[1].ConCup;
+                    }
+                    else
+                    {
+
+                    }
+                    var req = 
+                    {
+                        method: 'POST',
+                        //url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Contratar',
+                        url:'http://10.72.0.16/Audax',
+                        headers: {
+                        'Access-Control-Allow-Credentials':undefined,
+                        'Access-Control-Allow-Methods':undefined,
+                        'Access-Control-Allow-Origin':undefined,
+                        'Access-Control-Max-Age':undefined,
+                        'Accept':undefined,
+                        'x-api-key':undefined,
+                        'Access-Control-Allow-Headers':undefined,
+                        'content-type':undefined
+                    },
+                        data: 
+                        {   
+                            authToken:scope.SessionStart.sessionToken,
+                            comercial:'01171',
+                            //////// DATOS CLIENTES START /////
+                            razon_social: scope.DatosAudaxSend.RazSocCli,
+                            nif_cliente: scope.DatosAudaxSend.NumCifCli,
+                            escalera_cliente: scope.DatosAudaxSend.EscDomSoc,
+                            puerta_cliente: scope.DatosAudaxSend.PueDomSoc,
+                            escalera_envio: scope.DatosAudaxSend.EscDomCliEnv,
+                            puerta_envio: scope.DatosAudaxSend.PueDomCliEnv,
+                            direccion_cliente: scope.DatosAudaxSend.NomViaDomSoc,
+                            tipovia_cliente: scope.DatosAudaxSend.IniTipVia,
+                            numdire_cliente: scope.DatosAudaxSend.NumViaDomSoc,
+                            pisodire_cliente: '',
+                            cp_cliente: scope.DatosAudaxSend.CPLocSoc,
+                            telefono_cliente: scope.DatosAudaxSend.TelFijCli,
+                            movil_cliente:scope.DatosAudaxSend.TelMovCli,
+                            fax_cliente: '',
+                            email_cliente:scope.DatosAudaxSend.EmaCli,
+                            numerodire_cliente2:'',
+                            letra_cliente:'',
+                            //////// DATOS CLIENTES END /////
+                            
+                            //////// DATOS CONTACTOS START /////
+                            nombreApellidos_contacto:scope.DatosAudaxSend.NomConCli,
+                            cargo_contacto:scope.DatosAudaxSend.CarConCli,
+                            nif_contacto:scope.DatosAudaxSend.NIFConCli,
+                            direccion_contacto:scope.DatosAudaxSend.direccion_contacto,
+                            tipovia_contacto:scope.DatosAudaxSend.tipovia_contacto,
+                            numdire_contacto:scope.DatosAudaxSend.numdire_contacto,
+                            pisodire_contacto:'',
+                            cp_contacto:scope.DatosAudaxSend.cp_contacto,
+                            telefono_contacto:'',
+                            fax_contacto:'',                        
+                            email_contacto:scope.DatosAudaxSend.EmaConCli,
+                            //////// DATOS CONTACTOS END /////
+
+                            //////// DATOS CUENTA BANCARIA START /////
+                            iban:scope.DatosAudaxSend.iban,
+                            entidad:scope.DatosAudaxSend.entidad,
+                            sucursal:scope.DatosAudaxSend.sucursal,
+                            dc:scope.DatosAudaxSend.dc,
+                            cuenta:scope.DatosAudaxSend.cuenta,
+                            //////// DATOS CUENTA BANCARIA END /////
+
+                            cups_luz:scope.DatosAudaxSend.DetallesCUPs[0].CUPsName,
+                            cups_gas:scope.cups_gas,                        
+                            direccion_cups:scope.DatosAudaxSend.DetallesCUPs[0].NomViaPunSum,
+                            tipovia_cups:scope.DatosAudaxSend.DetallesCUPs[0].IniTipVia,
+                            numerodire_cups:scope.DatosAudaxSend.DetallesCUPs[0].NumViaPunSum,
+                            pisodire_cups:'',
+                            cp_cups:scope.DatosAudaxSend.DetallesCUPs[0].CPLocSoc,
+                            email_cups:scope.DatosAudaxSend.EmaCli,
+                            escalera_cups: scope.DatosAudaxSend.DetallesCUPs[0].EscPunSum,
+                            puerta_cups: scope.DatosAudaxSend.DetallesCUPs[0].PuePunSum,
+                            
+                            numerodire_cups2:'',
+                            letra_cups:'',
+
+                            gama_comentario:scope.DatosAudaxSend.DetallesCUPs[0].ObsProGam,
+                            gama:scope.DatosAudaxSend.DetallesCUPs[0].DesProGam,
+                            
+                            potencia1:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP1,
+                            potencia2:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP2,
+                            potencia3:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP3,
+                            potencia4:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP4,
+                            potencia5:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP5,
+                            potencia6:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP6,
+                            
+                            potencia_anterior1:'',
+                            potencia_anterior2:'',
+                            potencia_anterior3:'',
+                            potencia_anterior4:'',
+                            potencia_anterior5:'',
+                            potencia_anterior6:'',
+
+                            subtarifa:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
+                            subtarifa_gas:scope.subtarifa_gas,
+                            procedencia:'',
+                            
+                            duracion:'12 MESES',
+                            titular_suministro:scope.DatosAudaxSend.RazSocCli,
+                            nif_titular_suministro:scope.DatosAudaxSend.NumCifCli,
+                            tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
+                            tipo_contrato:'1', 
+                            tipo_contrato_gas:'2', 
+                            consumo:'requerido',
+                            importe_medio_factura:'requerido',
+                            fecha_firma:'2020-09-24',
+                            deposito:'',
+                            desvios:'',
+                            
+                            nif_representante_contacto:scope.DatosAudaxSend.NIFConCli,
+                            representante_contacto:scope.DatosAudaxSend.NomConCli,
+                            cnae:'0',
+                            
+                            distribuidora_anterior:'',
+                            cambio_titular_luz:'',
+                            Nombre_apellidos_cambiotit_luz:'',
+                            causa_cambio_titular_luz_comentario:'',
+                            causa_cambio_titular_luz:'',
+                            nif_anterior_titular_luz:'',
+                            cambio_titular_gas:'',
+                            Nombre_apellidos_cambiotit_gas:'',
+                            nif_anterior_titular_gas:'',
+                            cambio_potencia:'',
+                            referencia_catastral:'',
+                            
+                            nombre_envio:scope.DatosAudaxSend.RazSocCli,
+                            tipovia_envio:scope.DatosAudaxSend.DetallesCUPs[0].IniTipVia,
+                            direccion_envio:scope.DatosAudaxSend.DetallesCUPs[0].NomViaPunSum,
+                            numerodire_envio:scope.DatosAudaxSend.DetallesCUPs[0].NumViaPunSum,
+                            pisodire_envio:'',
+                            cp_envio:scope.DatosAudaxSend.DetallesCUPs[0].CPLocSoc,
+                            numerodire_envio2:'',
+                            letra_envio:'',
+                            liquidacion:'',    
+                            
+                            tarifacups:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
+                            tarifa:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
+                            tarifacups_gas:scope.tarifacups_gas,
+                            tarifa_gas:scope.tarifa_gas,
+                            
+                            cert_verde:'',
+                            complemento_municipio_cliente:'',
+                            complemento_municipio_envio:'',
+                            complemento_municipio_cups:'',
+                            servicio_urgencias:'',
+                            servicio_mantenimiento:'',
+                            servicio_proteccion:'',
+                            securluz_particular_plus:'',
+                            securLuz_particular_elect:'',
+                            securLuz_particular_urge:'',
+                            securLuz_negocios:'',
+                            securGas_particular:'',
+                            securGas_negocios:'',
+                            
+                            consumo_gas:scope.consumo_gas,
+                            consumo_media_anual_gas:scope.consumo_media_anual_gas,
+                            
+                            fecha_inicio_corporate:'requerido',
+                            tarifa_corporate:[],
+                            tarifa_corporate_gas:[]
+                        }
+                    }
+                    $http(req).then(function(result)
+                    {
+                        $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                        //console.log(req);
+                        //console.log(result);
+                        /*if(result.data.Data!=false && result.data.Error==null)
+                        {
+                            scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
+                            scope.SessionStart={};
+                            scope.SessionStart.sessionToken=result.data.Data.sessionToken;
+                            scope.SessionStart.userId=result.data.Data.userId;
+                            scope.SendAudaxContrato();
+                        }
+                        else if(result.data.Error!=false && result.data.Data==null)
+                        {
+                            scope.toast('error','Ocurrio un error al enviar el contrato a audax.',result.data.Error.AdditionalInfo);
+                            scope.SessionStart={};
+                        }*/
+                    },function(error)
+                    {
+                        $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                        /*if(error.data==null && error.statusText=="" )
+                        {
+                            scope.toast('error','Ocurrio un error al enviar el contrato a audax.','Error Protocolo');
+                           scope.SessionStart={};
+                        }*/
+                        //console.log(error)
+                    });
+
                 }
-                $http(req).then(function(result)
-                {
-                    $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if(result.data.Data!=false && result.data.Error==null)
-                    {
-                        scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
-                        scope.SessionStart={};
-                        scope.SessionStart.sessionToken=result.data.Data.sessionToken;
-                        scope.SessionStart.userId=result.data.Data.userId;
-                        scope.SendAudaxContrato();
-                    }
-                    else if(result.data.Error!=false && result.data.Data==null)
-                    {
-                        scope.toast('error','Ocurrio un error al enviar el contrato a audax.',result.data.Error.AdditionalInfo);
-                        scope.SessionStart={};
-                    }
-                },function(error)
-                {
-                    $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if(error.data==null && error.statusText=="" )
-                    {
-                        scope.toast('error','Ocurrio un error al enviar el contrato a audax.','Error Protocolo');
-                        scope.SessionStart={};
-                    }
-                    console.log(error)
-                }); 
+
+
             
 
             },function(error)
@@ -2894,7 +2800,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                         }
             });  
-        }
+        //}
         
     }
     scope.BuscarXIDPropuestaContratoColaborador=function()

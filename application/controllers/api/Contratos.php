@@ -780,10 +780,17 @@ class Contratos extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));	
-		$this->db->trans_start();
-		$Cliente = $this->Contratos_model->DatosClientesAudax($objSalida->CodCli);
+		$this->db->trans_start();				
+		if($objSalida-> TipProCom==1 || $objSalida-> TipProCom==2)
+		{
+			$Cliente = $this->Contratos_model->DatosClientesAudax($objSalida->CodCli);
+		}
+		else
+		{
+			$Cliente = $this->Contratos_model->DatosClientesColaboradorAudax($objSalida->CodCli);
+		}
 		$DatosContactoCliente=$this->Contratos_model->DatosContactosClientesAudax($objSalida->CodCli);
-		if($DatosContactoCliente==null)
+		if($DatosContactoCliente==false)
 		{
 			$NomConCli='';
             $CarConCli='';
@@ -812,7 +819,7 @@ class Contratos extends REST_Controller
             $EmaConCli=$DatosContactoCliente-> EmaConCli;
 		}
 		$DatosCuentaClientes=$this->Contratos_model->DatosCuentaClientesAudax($objSalida->CodCli);
-		if($DatosCuentaClientes==null)
+		if($DatosCuentaClientes==false)
 		{
 			$iban='';
 			$entidad='';
@@ -828,13 +835,17 @@ class Contratos extends REST_Controller
 			$dc=$DatosCuentaClientes-> dc;
 			$cuenta=$DatosCuentaClientes-> cuenta;
 		}
-
-
+		$DetallesCUPs=$this->Contratos_model->DatosDetallesCUPsClientesAudax($objSalida->CodProCom);
 		$arrayResponseByAudax = array('CPLocSoc'=> $Cliente-> CPLocSoc,'DesLoc'=> $Cliente-> DesLoc,'DesPro'=> $Cliente-> DesPro,'DesTipVia'=> $Cliente-> DesTipVia,'EscDomCliEnv'=> $Cliente-> EscDomCliEnv,'EscDomSoc'=> $Cliente-> EscDomSoc,'IniTipVia'=> $Cliente-> IniTipVia,'NomViaDomSoc'=> $Cliente-> NomViaDomSoc,'NumCifCli'=> $Cliente-> NumCifCli,'NumViaDomSoc'=> $Cliente-> NumViaDomSoc,'PueDomCliEnv'=> $Cliente-> PueDomCliEnv,'PueDomSoc'=> $Cliente-> PueDomSoc,'RazSocCli'=> $Cliente-> RazSocCli,'TelFijCli'=>$Cliente-> TelFijCli,'TelMovCli'=>$Cliente-> TelMovCli,'EmaCli'=>$Cliente-> EmaCli,
 		'NomConCli'=>$NomConCli, 'CarConCli'=>$CarConCli, 'NIFConCli'=>$NIFConCli, 'direccion_contacto'=>$direccion_contacto, 'tipovia_contacto'=>$tipovia_contacto, 'numdire_contacto'=>$numdire_contacto, 'pisodire_contacto'=>$pisodire_contacto, 'cp_contacto'=>$cp_contacto, 'TelCelConCli'=>$TelCelConCli, 'TelFijConCli'=>$TelFijConCli, 'EmaConCli'=>$EmaConCli,
 
 		'iban'=>$iban,'entidad'=>$entidad,'sucursal'=>$sucursal,'dc'=>$dc,'cuenta'=>$cuenta,
+
+		'DetallesCUPs'=>$DetallesCUPs
+
 		 );
+		
+
 		$this->db->trans_complete();
 		$this->response($arrayResponseByAudax);			
 	}

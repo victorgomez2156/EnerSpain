@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        </div>
        </div>
-           <div class="col-12 col-sm-12">
+           <!--div class="col-12 col-sm-12">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Banco</label>
@@ -74,13 +74,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </select>     
              </div>
              </div>
-          </div>
+          </div-->
           
           <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">IBAN</label>
-             <input type="text" class="form-control" ng-model="vm.CodEur" maxlength="4" required ng-disabled="vm.tgribBancos.CodBan==undefined" ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
+             <input type="text" class="form-control" ng-model="vm.CodEur" maxlength="4" required  ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
              </div>
              </div>
           </div>
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">   
               <label class="font-weight-bold nexa-dark" style="color:black;"></label>          
-             <input type="text" class="form-control" style="margin-top: 5px;" ng-model="vm.IBAN1" maxlength="4" ng-change="vm.validarsinuermoIBAN(1,vm.IBAN1)" required  ng-disabled="vm.tgribBancos.CodBan==undefined"/>     
+             <input type="text" class="form-control" style="margin-top: 5px;" ng-model="vm.IBAN1" maxlength="4" ng-change="vm.validarsinuermoIBAN(1,vm.IBAN1)" required  />     
              </div>
              </div>
           </div>
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;"></label>         
-             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN2" maxlength="4" required ng-change="vm.validarsinuermoIBAN(2,vm.IBAN2)" ng-disabled="vm.tgribBancos.CodBan==undefined"/>     
+             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN2" maxlength="4" required ng-change="vm.validarsinuermoIBAN(2,vm.IBAN2)" />     
              </div>
              </div>
           </div>
@@ -104,7 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;"></label>           
-             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN3" maxlength="4" required ng-change="vm.validarsinuermoIBAN(3,vm.IBAN3)"  ng-disabled="vm.tgribBancos.CodBan==undefined"/>     
+             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN3" maxlength="4" required ng-change="vm.validarsinuermoIBAN(3,vm.IBAN3)"  />     
              </div>
              </div>
           </div>
@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">
               <label class="font-weight-bold nexa-dark" style="color:black;"></label>             
-             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN4" maxlength="4" required ng-change="vm.validarsinuermoIBAN(4,vm.IBAN4)"  ng-disabled="vm.tgribBancos.CodBan==undefined"/>     
+             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN4" maxlength="4" required ng-change="vm.validarsinuermoIBAN(4,vm.IBAN4)"  />     
              </div>
              </div>
           </div>
@@ -120,7 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="form">                          
              <div class="form-group">  
               <label class="font-weight-bold nexa-dark" style="color:black;"></label>           
-             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN5" maxlength="4" required ng-change="vm.validarsinuermoIBAN(5,vm.IBAN5)" ng-disabled="vm.tgribBancos.CodBan==undefined"/>     
+             <input type="text" style="margin-top: 5px;" class="form-control" ng-model="vm.IBAN5" maxlength="4" required ng-change="vm.validarsinuermoIBAN(5,vm.IBAN5)" />     
              </div>
              </div>
           </div>

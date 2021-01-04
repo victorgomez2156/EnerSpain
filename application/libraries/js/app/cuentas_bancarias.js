@@ -384,6 +384,7 @@
          }
      }
      $scope.submitFormRegistroCuentaBanca = function(event) {
+         scope.tgribBancos.CodBan=null;
          scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
          var url = base_urlHome() + "api/Clientes/Comprobar_Cuenta_Bancaria/";
          $http.post(url, scope.tgribBancos).then(function(result) {
@@ -412,6 +413,7 @@
                      confirmButtonText: "Confirmar"
                  }).then(function(t) {
                      if (t.value == true) {
+                         
                          $("#" + title).removeClass("loader loader-default").addClass("loader loader-default  is-active");
                          var url = base_urlHome() + "api/Clientes/crear_cuenta_bancaria/";
                          $http.post(url, scope.tgribBancos).then(function(result) {

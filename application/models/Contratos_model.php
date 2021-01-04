@@ -260,6 +260,20 @@ class Contratos_model extends CI_Model
         else
         return false;              
     }
+    public function DatosClientesColaboradorAudax($CodCol)
+    {
+        $this->db->select("a.NomCol as RazSocCli,a.NumIdeFis as NumCifCli,b.IniTipVia,b.DesTipVia,a.EscDir as EscDomSoc,a.PueDir as PueDomSoc,NULL as EscDomCliEnv,NULL as PueDomCliEnv,c.DesLoc,d.DesPro,a.NomViaDir as NomViaDomSoc,a.NumViaDir as NumViaDomSoc,a.CPLoc as CPLocSoc,a.TelFijCol as TelFijCli,a.TelCelCol as TelMovCli,a.EmaCol as EmaCli",false);
+        $this->db->from('T_Colaborador a');
+        $this->db->join('T_TipoVia b','a.CodTipVia=b.CodTipVia');        
+        $this->db->join('T_Localidad c','c.CodLoc=a.CodLocSoc');
+        $this->db->join('T_Provincia d','d.CodPro=c.CodPro'); 
+        $this->db->where('a.CodCol',$CodCol);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
+        return false;              
+    }
     public function DatosContactosClientesAudax($CodCli)
     {
         $this->db->select("a.*",false);
@@ -282,6 +296,48 @@ class Contratos_model extends CI_Model
         if($query->num_rows()>0)
         return $query->row();
         else
+        return false;              
+    }
+    public function DatosDetallesCUPsClientesAudax($CodProCom)
+    {
+        /*$this->db->select("a.*",false);
+        $this->db->from('T_Propuesta_Comercial_CUPs a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+        $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom');
+        $this->db->where('c.CodProCom',$CodProCom);        
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;*/
+        $sql = $this->db->query("SELECT d.CUPsEle AS CUPsName,f.IniTipVia,e.NomViaPunSum,e.NumViaPunSum,e.BloPunSum,e.EscPunSum,e.PlaPunSum,e.PuePunSum,e.CPLocSoc,g.DesLoc,h.DesPro,a.PotEleConP1,a.PotEleConP2,a.PotEleConP3,a.PotEleConP4,a.PotEleConP5,a.PotEleConP6,i.NomTarEle as NomTar,SUBSTRING(j.DesPro,1,2) AS DesProGam,j.ObsPro AS ObsProGam,a.TipCups,a.ConCup
+        	FROM T_Propuesta_Comercial_CUPs a 
+			JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+			JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+			JOIN T_CUPsElectrico d ON a.CodCup=d.CodCupsEle
+			JOIN T_PuntoSuministro e ON a.CodPunSum=e.CodPunSum
+			JOIN T_TipoVia f ON e.CodTipVia=f.CodTipVia
+			JOIN T_Localidad g ON g.CodLoc=e.CodLoc
+			JOIN T_Provincia h ON g.CodPro=h.CodPro
+			JOIN T_TarifaElectrica i ON i.CodTarEle=a.CodTar
+			JOIN T_Producto j ON j.CodPro=c.CodPro
+			WHERE c.CodProCom='$CodProCom' AND a.TipCups=1
+			UNION ALL
+			SELECT d.CupsGas AS CUPsName,f.IniTipVia,e.NomViaPunSum,e.NumViaPunSum,e.BloPunSum,e.EscPunSum,e.PlaPunSum,e.PuePunSum,e.CPLocSoc,g.DesLoc,h.DesPro,a.PotEleConP1,a.PotEleConP2,a.PotEleConP3,a.PotEleConP4,a.PotEleConP5,a.PotEleConP6,i.NomTarGas as NomTar,SUBSTRING(j.DesPro,1,2) AS DesProGam,j.ObsPro AS ObsProGam,a.TipCups,a.ConCup 
+			FROM T_Propuesta_Comercial_CUPs a 
+			JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+			JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+			JOIN T_CUPsGas d ON a.CodCup=d.CodCupGas
+			JOIN T_PuntoSuministro e ON a.CodPunSum=e.CodPunSum
+			JOIN T_TipoVia f ON e.CodTipVia=f.CodTipVia
+			JOIN T_Localidad g ON g.CodLoc=e.CodLoc
+			JOIN T_Provincia h ON g.CodPro=h.CodPro
+			JOIN T_TarifaGas i ON i.CodTarGas=a.CodTar
+			JOIN T_Producto j ON j.CodPro=c.CodPro
+			WHERE c.CodProCom='$CodProCom' AND a.TipCups=2");
+        if ($sql->num_rows() > 0)
+          return $sql->result();
+        else  
         return false;              
     }
 

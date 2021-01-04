@@ -721,7 +721,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
 
     public function get_all_Cuentas_Bancarias_clientes()
     {
-       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a JOIN T_Banco b ON a.CodBan=b.CodBan JOIN T_Cliente c ON a.CodCli=c.CodCli ORDER BY c.RazSocCli ASC");
+       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli ORDER BY c.RazSocCli ASC");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
@@ -729,7 +729,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }
     public function get_xID_CuentaBancaria($CodConCli)
     {
-        $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a JOIN T_Banco b ON a.CodBan=b.CodBan JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
+        $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
         if ($sql->num_rows() > 0)
           return $sql->row();
         else
@@ -739,9 +739,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     {
         $this->db->select('NumIBan');
         $this->db->from('T_CuentaBancaria');
-        //$this->db->where('CodBan',$CodBan);
         $this->db->where('NumIBan',$NumIBan);
-        //$this->db->order_by('DesSec,DesGru,DesEpi ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return true;
@@ -764,8 +762,8 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
         //return false;
         $this->db->select("a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli",false);
         $this->db->from('T_CuentaBancaria a');
-        $this->db->join('T_Banco b','a.CodBan=b.CodBan');
-        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->join('T_Banco b','a.CodBan=b.CodBan','left');
+        $this->db->join('T_Cliente c','a.CodCli=c.CodCli','left');
         $this->db->like('c.NumCifCli',$SearchText);
         $this->db->or_like('c.RazSocCli',$SearchText);
         $this->db->or_like('b.DesBan',$SearchText); 
@@ -790,7 +788,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     {
        $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
        $this->db->from('T_Documentos a');
-       $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
+       $this->db->join('T_Cliente b','a.CodCli=b.CodCli','left');
        $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc');
 
         $this->db->order_by('a.DesDoc ASC');
@@ -808,8 +806,8 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     {
         $this->db->select('a.CodTipDocAI,b.NumCifCli,b.RazSocCli,a.CodCli,c.DesTipDoc,a.CodTipDoc,a.DesDoc,a.TieVen,DATE_FORMAT(a.FecVenDoc,"%d/%m/%Y") as FecVenDoc,a.ObsDoc,CASE TieVen WHEN 1 THEN "SI" WHEN 2 THEN "NO" END AS TieVenDes,a.ArcDoc',false);
        $this->db->from('T_Documentos a');
-       $this->db->join('T_Cliente b','a.CodCli=b.CodCli');
-       $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc');
+       $this->db->join('T_Cliente b','a.CodCli=b.CodCli','left');
+       $this->db->join('T_TipoDocumento c','a.CodTipDoc=c.CodTipDoc','left');
        $this->db->like('b.NumCifCli',$SearchText);
        $this->db->or_like('b.RazSocCli',$SearchText);
        $this->db->or_like('c.DesTipDoc',$SearchText);

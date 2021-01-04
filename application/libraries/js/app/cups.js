@@ -599,17 +599,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (t.value == true) {
                 $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
                 var url = base_urlHome() + "api/Cups/Registrar_Cups/";
-                $http.post(url, scope.fdatos_cups).then(function(result) {
+                $http.post(url, scope.fdatos_cups).then(function(result) 
+                {
                     $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                    if (result.data != false) {
+                    
+                    console.log(result.data);
+                    if(result.data.status==400 && result.data.statusText=='OK')
+                    {
+                        scope.toast('error',result.data.response,'CUPs Registrado');
+                        return false;
+                    }
+                    else if(result.data.status==200 && result.data.statusText=='OK')
+                    {
+                        scope.fdatos_cups = result.data.objSalida;
+                        $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecAltCup);
+                        $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecUltLec);
+                        scope.toast('success',result.data.response,title);
+                    }
+
+                    /*if (result.data != false) 
+                    {
                         scope.fdatos_cups = result.data;
                         $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
                         $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecUltLec);
                         scope.toast('success',response,title);
-
-                    } else {
+                    } 
+                    else 
+                    {
                         scope.toast('error','Error en la operación por favor intente nuevamente.','Error');
-                    }
+                    }*/
 
                 }, function(error) {
                     $("#" + title).removeClass("loader loader-defaul is-active").addClass("loader loader-default");
@@ -663,10 +681,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
 
         if (scope.fdatos_cups.TipServ == 1) {
+            
             if (!scope.fdatos_cups.CodDis > 0) {
-                scope.toast('error','Debe Seleccionar una Distribuidora Eléctrica de la lista.','');
-                return false;
+                //scope.toast('error','Debe Seleccionar una Distribuidora Eléctrica de la lista.','');
+                //return false;
+                scope.fdatos_cups.CodDis=null;
             }
+            else
+            {
+                scope.fdatos_cups.CodDis=scope.fdatos_cups.CodDis;
+            }            
             if (!scope.fdatos_cups.CodTar > 0) {
                 scope.toast('error','Debe Seleccionar una Tarifa de Eléctrica la lista.','');
                 return false;
@@ -822,8 +846,13 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (scope.fdatos_cups.TipServ == 2) {
             if (!scope.fdatos_cups.CodDis > 0) {
-                scope.toast('error','Debe Seleccionar una Distribuidora de Gas de la lista.','');
-                return false;
+                //scope.toast('error','Debe Seleccionar una Distribuidora Gas de la lista.','');
+                //return false;
+                scope.fdatos_cups.CodDis=null;
+            }
+            else
+            {
+                scope.fdatos_cups.CodDis=scope.fdatos_cups.CodDis;
             }
             if (!scope.fdatos_cups.CodTar > 0) {
                 scope.toast('error','Debe Seleccionar una Tarifa de Gas la lista.','');
@@ -914,17 +943,46 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         {   
             scope.fdatos_cups.DerAccKW = scope.fdatos_cups.DerAccKW;
         }
-
-
-
         if (resultado == false) {
             return false;
         }
         return true;
     }
+    scope.valida_cups_existe=function(CUPS)
+    {
+        var url=base_urlHome()+"api/Cups/VerificarCUPsExistente/Cups/"+CUPS;
+        $http.get(url).then(function(result)
+        {
+            if(result.data.status==200 && result.data.statusText=='OK')
+            {
+                scope.toast('success',result.data.response,result.data.statusText);
+                return true;
+            }
+            else if(result.data.status==400  && result.data.statusText=='Bad Request')
+            {
+                scope.toast('error',result.data.response,result.data.statusText);
+                return false;
+            }
+            else
+            {
+                scope.toast('error','Error en Petición intente nuevamente.','Error');
+                return false;
+            }
 
-    //
-
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+                            return false;
+        });
+    }
     Math.fmod = function (a,b) { return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); };
     scope.valida_cups=function(CUPS)
     { 
