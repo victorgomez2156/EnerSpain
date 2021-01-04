@@ -16935,8 +16935,10 @@ class Exportar_Documentos extends CI_Controller
         $select="*";
         $DataCliente= $this->Clientes_model->get_data_cliente($CodCli);
         $Contactos=$this->Clientes_model->get_data_cliente_contactos($CodCli);
-        $Electricos=$this->Clientes_model->get_CUPs_Electricos_Dashboard($CodCli);
-        $Gas=$this->Clientes_model->get_CUPs_Gas_Dashboard($CodCli);        
+        //$Electricos=$this->Clientes_model->get_CUPs_Electricos_Dashboard($CodCli);
+        //$Gas=$this->Clientes_model->get_CUPs_Gas_Dashboard($CodCli);        
+        //var_dump($Electricos,$Gas);
+        $CupsEleGas=$this->Clientes_model->getCupsEleGas($CodCli);
         $Cuenta_Bancarias=$this->Clientes_model->get_data_cliente_cuentas($CodCli);
         $Documentos=$this->Clientes_model->get_data_cliente_documentos($CodCli); 
         //var_dump($DataCliente);
@@ -17028,16 +17030,16 @@ class Exportar_Documentos extends CI_Controller
             <td border="1">Dirección de Suministro</td>
             <td border="1">E/G</td>
             </tr>';
-             if($Contactos!=false)
-            {
-            foreach ($Contactos as $key => $value):
+        if($CupsEleGas!=false)
+        {
+            foreach ($CupsEleGas as $key => $value):
             {                
                 $html .= '
-                    <tr>
-                        <td border="1">'.$value-> NomConCli.'</td>
-                        <td border="1">'.$value-> NIFConCli.'</td>
-                        <td border="1">'.$value-> CarConCli.'</td>
-                     </tr>';  
+                        <tr>
+                            <td border="1">'.$value-> CUPsName.'</td>
+                            <td border="1">'.$value-> DirPumSum.'</td>
+                            <td border="1">'.$value-> TipServ.'</td>
+                         </tr>';  
             }
             endforeach;
             $html .= '</table>';  

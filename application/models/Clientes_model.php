@@ -105,6 +105,34 @@ public function get_CUPs_Gas_Dashboard($CodCli)
     else
     return false;     
 }
+public function getCupsEleGas($CodCli)
+{
+    $sql = $this->db->query("SELECT a.CodCupsEle AS CodCups,b.CodCli,a.CUPsEle AS CUPsName,g.RazSocDis,f.NomTarEle,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,
+CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,
+a.PotConP6,case a.TipServ when 1 then 'E' end as TipServ
+        FROM T_CUPsElectrico a 
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaElectrica f ON a.CodTarElec=f.CodTarEle
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'
+UNION 
+SELECT a.CodCupGas AS CodCups,b.CodCli,a.CupsGas AS CUPsName,g.RazSocDis,f.NomTarGas,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,
+CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,NULL as CanPerTar,NULL as PotConP1,NULL as PotConP2,NULL as PotConP3,NULL as PotConP4,NULL as PotConP5,
+NULL as PotConP6,case a.TipServ when 2 then 'G' end as TipServ
+        FROM T_CUPsGas a 
+        LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
+        LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
+        LEFT JOIN T_Provincia d on d.CodPro=c.CodPro
+        LEFT JOIN T_TipoVia   e on b.CodTipVia=e.CodTipVia
+        LEFT JOIN T_TarifaGas f ON a.CodTarGas=f.CodTarGas
+        LEFT JOIN T_Distribuidora g ON a.CodDis=g.CodDist where CodCli='$CodCli'");
+    if ($sql->num_rows() > 0)
+        return $sql->result();
+    else
+    return false;     
+}
 public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
 {
     if($TipCups==1)
@@ -164,7 +192,7 @@ public function get_data_cliente_cuentas($CodCli)
 {
     $this->db->select('a.*,b.DesBan');
     $this->db->from('T_CuentaBancaria a');
-     $this->db->join('T_Banco b','a.CodBan=b.CodBan');
+     $this->db->join('T_Banco b','a.CodBan=b.CodBan','LEFT');
     $this->db->where('CodCli',$CodCli);        
     $query = $this->db->get(); 
     if($query->num_rows()>0)
@@ -180,7 +208,7 @@ public function get_data_cliente_documentos($CodCli)
 {
     $this->db->select('a.CodTipDocAI,b.DesTipDoc,a.DesDoc,a.ArcDoc');
     $this->db->from('T_Documentos a');
-    $this->db->join('T_TipoDocumento b','a.CodTipDoc=b.CodTipDoc');
+    $this->db->join('T_TipoDocumento b','a.CodTipDoc=b.CodTipDoc','left');
     $this->db->where('CodCli',$CodCli);        
     $query = $this->db->get(); 
     if($query->num_rows()>0)
