@@ -95,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <li><input type="checkbox" ng-model="vm.CodCli"/> <b style="color:black;">CodCli</b></li>
                   <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF</b></li>
                   <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
-                  <li><input type="checkbox" ng-model="vm.CodBan1"/> <b style="color:black;">Banco</b></li>
+                  <!--li><input type="checkbox" ng-model="vm.CodBan1"/> <b style="color:black;">Banco</b></li-->
                   <li><input type="checkbox" ng-model="vm.NumIBan1"/>  <b style="color:black;">IBAN</b></li></li>
                   <li><input type="checkbox" ng-model="vm.EstCue"/> <b style="color:black;">Estatus</b></li></li>
                   <li><input type="checkbox" ng-model="vm.ActBan1"/> <b style="color:black;">Acción</b></li>
@@ -135,7 +135,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NumCifCli==true">CIF</th>
                   <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                  <th ng-show="vm.CodBan1==true">Banco</th>
+                  <!--th ng-show="vm.CodBan1==true">Banco</th-->
                   <th ng-show="vm.NumIBan1==true">IBAN</th> 
                   <th ng-show="vm.EstCue==true">Estatus</th>                
                   <th ng-show="vm.ActBan1==true">Acción</th>
@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
                     <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
-                    <td ng-show="vm.CodBan1==true">{{dato.DesBan}}</td>
+                    <!--td ng-show="vm.CodBan1==true">{{dato.DesBan}}</td-->
                     <td ng-show="vm.NumIBan1==true">{{dato.CodEur}} {{dato.IBAN1}} {{dato.IBAN2}} {{dato.IBAN3}} {{dato.IBAN4}} {{dato.IBAN5}}</td>
                     <td ng-show="vm.EstCue==true">
 
@@ -169,7 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th ng-show="vm.CodCli==true">CodCli</th>
                   <th ng-show="vm.NumCifCli==true">CIF</th>
                   <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                  <th ng-show="vm.CodBan1==true">Banco</th>
+                  <!--th ng-show="vm.CodBan1==true">Banco</th-->
                   <th ng-show="vm.NumIBan1==true">IBAN</th> 
                   <th ng-show="vm.EstCue==true">Estatus</th>                
                   <th ng-show="vm.ActBan1==true">Acción</th>
@@ -264,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Licensing information: https://bootstrapmade.com/license/
             Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
           -->
-          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2020</a>
+          Diseñado Por <a href="https://somostuwebmaster.es/" target="_black">SomosTuWebMaster.es - 2019 - 2021</a>
         </div>
     </div>
 </div>
