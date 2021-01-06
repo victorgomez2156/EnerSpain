@@ -23,6 +23,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.FecIniConHis = true;
     scope.FecFinConHis = true;
     scope.ConCupHis = true;
+
+    scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+    scope.AgregarNueva=true;
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -547,13 +550,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.search_PunSum = function() {
             var url = base_urlHome() + "api/Cups/search_PunSum_Data/CodCli/" + scope.fdatos_cups.CodCli;
             $http.get(url).then(function(result) {
-                if (result.data != false) {
+                if (result.data != false) 
+                {
                     scope.T_PuntoSuministros = result.data;
                 } else {
                     scope.toast('error','No existen Direcciones de Suministros Registrados','Error');
+                    scope.T_PuntoSuministros = [];
                 }
             }, function(error) {
-                $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                //$("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
                 if (error.status == 404 && error.statusText == "Not Found"){
                             scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                             }if (error.status == 401 && error.statusText == "Unauthorized"){
@@ -570,6 +575,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos_cups.cups='ES';
 
             //scope.search_PunSum();
+        }
+        scope.agregarnuevadireccion=function(value)
+        {
+            console.log(value);
+            if(value==false)
+            {
+                scope.T_PuntoSuministrosVistaNuevaDireccion=true;
+                scope.AgregarNueva=value;
+            }
+            else
+            {
+                scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+                scope.AgregarNueva=value;
+            }
+            
         }
     $scope.submitFormCups = function(event) {
         //scope.fdatos_cups.CodPunSum=scope.CodPunSum;

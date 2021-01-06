@@ -41,14 +41,17 @@ class Login extends CI_Controller
 			elseif ($this->agent->is_robot())
 			{
 				$agent = $this->agent->robot();
+				$version= $this->agent->version();
 			}
 			elseif ($this->agent->is_mobile())
 			{
 		        $agent = $this->agent->mobile();
+		        $version= $this->agent->version();
 			}		
 			else
 			{
         		$agent = 'Unidentified User Agent';
+        		$version= null;
 			}
 			$ip=$this->input->ip_address();
 			$os=$this->agent->platform();			
