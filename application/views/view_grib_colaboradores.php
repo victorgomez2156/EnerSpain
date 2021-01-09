@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.EmaCol==true">{{dato.EmaCol}}</td>
                     <td ng-show="vm.EstCol==true">
                       <span class="label label-info" ng-show="dato.EstCol==1">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCol==2">Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstCol==2">Suspendido</span>
                     </td>                                       
                     <td ng-show="vm.AccCol==true">
                       <select class="form-control" style="width: auto;" id="opciones_colaboradores" name="opciones_colaboradores" ng-model="vm.opciones_colaboradores[$index]" ng-change="vm.validar_opcion($index,vm.opciones_colaboradores[$index],dato)">
@@ -243,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">     
       <select class="form-control" id="EstColFil" name="EstColFil" ng-model="vm.tmodal_colaboradores.EstColFil">
         <option value="1">Activo</option> 
-        <option value="2">Bloqueado</option>                         
+        <option value="2">Suspendido</option>                         
       </select>     
      </div> 
      </div>
@@ -269,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Colaborador</h4>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> Suspender Colaborador</h4>
           </div>
           <div class="modal-body">
       <div class="panel"> 
@@ -287,7 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre del Colaborador</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre Colaborador</label>
       <input type="text" class="form-control" ng-model="vm.NomColBlo" readonly />     
      </div>
      </div>
@@ -297,7 +297,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">{{ 'FEC_BLO_COM_MODAL'  }}</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker" ng-model="vm.FecBloColBlo" name="FecBloColBlo" id="FecBloColBlo"  />    
      </div>
      </div>
@@ -305,7 +305,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>          
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Suspensión</label>          
       <input type="text" class="form-control" id="MotBloqCol" name="MotBloqCol" required ng-model="vm.t_modal_data.MotBloqColBlo" required/>
      </div>
      </div>
@@ -319,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

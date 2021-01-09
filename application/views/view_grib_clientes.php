@@ -313,7 +313,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
       <select class="form-control" id="EstCliFil" name="EstCliFil" ng-model="vm.tmodal_data.EstCliFil">
         <option value="1">ACTIVO</option> 
-        <option value="2">BLOQUEADO</option>                         
+        <option value="2">SUSPENDIDO</option>                         
       </select>     
      </div> 
      </div>
@@ -339,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Clientes</h4>
+            <h4 class="modal-title">Suspender Clientes</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -357,7 +357,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker" ng-model="vm.FechBlo" id="FechBlo" name="FechBlo" required ng-change="vm.validar_fecha_blo(vm.FechBlo)" maxlength="10" />    
      </div>
      </div>
@@ -372,7 +372,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Suspensión</label>
      
       <select class="form-control" name="MotBloq" required ng-model="vm.tmodal_data.MotBloq">
           <option ng-repeat="dato in vm.tMotivosBloqueos" value="{{dato.CodMotBloCli}}">{{dato.DesMotBloCli}}</option>
@@ -390,7 +390,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock2.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock2.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

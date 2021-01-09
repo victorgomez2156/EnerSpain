@@ -182,7 +182,16 @@ class Cups extends REST_Controller
 				$this->response($response_fail);
 				return false;
 			}			
-			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
+			if($objSalida-> AgregarNueva==true)
+			{
+				$CodPunSum=$objSalida->CodPunSum; 
+			}
+			else
+			{
+				$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+				$objSalida->CodPunSum=(string)$CodPunSum;
+			}
+			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 			$objSalida->TipServAnt=$objSalida->TipServ;	
 			$objSalida->CodCup=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -248,8 +257,17 @@ class Cups extends REST_Controller
 				$this->db->trans_complete();
 				$this->response($response_fail);
 				return false;
+			}
+			if($objSalida-> AgregarNueva==true)
+			{
+				$CodPunSum=$objSalida->CodPunSum; 
+			}
+			else
+			{
+				$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+				$objSalida->CodPunSum=(string)$CodPunSum;
 			}	
-			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
+			$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 			$objSalida->TipServAnt=$objSalida->TipServ;
 			$objSalida->CodCup=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -442,12 +460,77 @@ public function Buscar_XID_Servicio_get()
 		$this->db->trans_complete();
 		$this->response($consulta);
 	}
+	public function TipViaProvin_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}						
+		$this->db->trans_start();
+		$Provincias = $this->Clientes_model->get_list_providencias();
+		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Consulta','GET',null,$this->input->ip_address(),'Cargando Tipos de Vias y Provincias');
+		$arrayName = array('tProvidencias' => $Provincias,'tTiposVias' => $Tipo_Vias );
+		$this->db->trans_complete();
+		$this->response($arrayName);
+	}
+	public function buscar_direccion_Soc_Fis_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Cliente=$this->get('Cliente');
+		$TipRegDir=$this->get('TipRegDir');	
+
+		if($TipRegDir==1)	
+		{
+			$variable="a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc,b.CodPro as CodProSoc,a.CPLocSoc";
+			$response = $this->Clientes_model->get_direccion_Soc_Fis($Cliente,$variable);
+			$data=$response;
+		}
+		elseif($TipRegDir==2)
+		{
+			$variable="a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,c.CodPro as CodProFis,a.CPLocFis";
+			$response = $this->Clientes_model->get_direccion_Soc_Fis($Cliente,$variable);
+			$data=$response;
+		}	
+		else
+		{
+			$this->response(false);
+			return false;
+		}
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function LocalidadCodigoPostal_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CPLoc=$this->get('CPLoc');			
+        $data = $this->Clientes_model->get_LocalidadByCPLoc($CPLoc);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}				
+		$this->response($data);		
+    }
 ///////////////////////////////////////// PARA CUPS END //////////////////////////////////////////////////////////////////////////
 
 
 
 
-////////////////////////////////////////////////////////////////////////// PARA CONSUMO CUPS START ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////// PARA CONSUMO CUPS START /////////////////////////////////////////////////////////
 public function get_Historicos_Consumos_CUPs_get()
     {
 		$datausuario=$this->session->all_userdata();	

@@ -38,7 +38,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.MaxConAnu = true;
     scope.EstTarGas = true;
     scope.AccTarGas = true;
-    scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id:3, nombre: 'Activar' }, { id: 4, nombre: 'Bloquear' }];
+    scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id:3, nombre: 'Activar' }, { id: 4, nombre: 'Suspender' }];
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -256,7 +256,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if(opciones_TarEle==4)
         {
             if (dato.EstTarEle == 2) {
-                 scope.toast('error','Está Tárifa ya se encuentra bloqueada.','');
+                 scope.toast('error','Está Tárifa ya se encuentra suspendida.','');
                  return false;
              }
             $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
@@ -266,12 +266,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
                 if(result.data!=false)
                 {
-                    scope.toast('success','Tárifa Eléctrica Bloqueada Correctamente.','');
+                    scope.toast('success','Tárifa Eléctrica suspendida Correctamente.','');
                     scope.cargar_lista_Tarifa_Electrica();
                 } 
                 else
                 {
-                    scope.toast('error','Error al intentar Bloquear la Tárifa Eléctrica.','');
+                    scope.toast('error','Error al intentar suspender la Tárifa Eléctrica.','');
                     scope.cargar_lista_Tarifa_Electrica();
                 }
             },function(error)
@@ -710,7 +710,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if(opciones_TarGas==4)
         {
             if (dato.EstTarGas == 2) {
-                 scope.toast('error','Está Tárifa ya se encuentra bloqueada.','');
+                 scope.toast('error','Está Tárifa ya se encuentra suspendida.','');
                  return false;
              }
             $("#Actualizando").removeClass( "loader loader-default" ).addClass( "loader loader-default  is-active"); 
@@ -720,12 +720,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 $("#Actualizando").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );
                 if(result.data!=false)
                 {
-                    scope.toast('success','Tárifa Gas Bloqueada Correctamente.','');
+                    scope.toast('success','Tárifa Gas suspendida Correctamente.','');
                     scope.cargar_lista_Tarifa_Gas();
                 } 
                 else
                 {
-                    scope.toast('error','Error al intentar Bloquear la Tárifa Gas.','');
+                    scope.toast('error','Error al intentar suspender la Tárifa Gas.','');
                     scope.cargar_lista_Tarifa_Gas();
                 }
             },function(error)

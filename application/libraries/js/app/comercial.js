@@ -28,7 +28,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.EmaCom = true;
     scope.EstCom = true;
     scope.AccCom = true;
-    scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'BLOQUEAR' }];
+    scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'SUSPENDER' }];
     console.log($route.current.$$route.originalPath);
     if ($route.current.$$route.originalPath == "/Editar_Comercial/:ID/:INF") {
        
@@ -722,7 +722,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         if (opcion == 4) {
             scope.opciones_comercial[index] = undefined;
             if (datos.EstCom == 2) {
-                scope.toast('error',"Ya este Comercial se encuentra bloqueado.",'');
+                scope.toast('error',"Ya este Comercial se encuentra suspendido.",'');
                 return false;
             }
             scope.datos_update = {};
@@ -739,12 +739,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FechBloCom = document.getElementById("FechBloCom").value;
         scope.FechBloCom = FechBloCom;
         if (scope.FechBloCom == null || scope.FechBloCom == undefined || scope.FechBloCom == '') {
-            scope.toast('error',"La Fecha de Bloqueo es requerida.",'');
+            scope.toast('error',"La Fecha de Suspensión es requerida.",'');
             return false;
         } else {
             var FechBloCom = (scope.FechBloCom).split("/");
             if (FechBloCom.length < 3) {
-                scope.toast('error',"El formato Fecha de Bloqueo correcto es DD/MM/YYYY.",'');
+                scope.toast('error',"El formato Fecha de Suspensión correcto es DD/MM/YYYY.",'');
                 event.preventDefault();
                 return false;
             } else {
@@ -769,7 +769,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error',"La Fecha de Bloqueo no puede ser mayor al " + fecha + " Verifique e intente nuevamente.",'');
+                    scope.toast('error',"La Fecha de Suspensión no puede ser mayor al " + fecha + " Verifique e intente nuevamente.",'');
                     return false;
                 }
                 scope.datos_update.FechBloCom = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
@@ -782,8 +782,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         console.log(scope.datos_update);
         Swal.fire({
-            title: 'BLOQUEAR',
-            text: "¿Seguro que desea de bloquear el Comercial?",
+            title: 'Suspender',
+            text: "¿Seguro que desea de Suspender el Comercial?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -798,7 +798,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     if (result.data.resultado != false) {
                         console.log(result.data);
                         scope.datos_update = {};
-                        scope.toast('success',"Comercial Bloqueado Correctamente.",'');
+                        scope.toast('success',"Comercial suspendido Correctamente.",'');
                         $("#modal_motivo_bloqueo").modal('hide');
                         scope.cargar_lista_comercial();
                     } else {

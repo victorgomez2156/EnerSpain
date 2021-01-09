@@ -86,7 +86,7 @@
      scope.ruta_reportes_excel_Banco = 0;
      scope.tgribBancos = {};
      scope.numIBanValidado = false;
-     scope.topcionesBan = [{ id: 3, nombre: 'EDITAR' }, { id: 1, nombre: 'ACTIVAR' }, { id: 2, nombre: 'BLOQUEAR' }];
+     scope.topcionesBan = [{ id: 3, nombre: 'EDITAR' }, { id: 1, nombre: 'ACTIVAR' }, { id: 2, nombre: 'SUSPENDER' }];
      scope.Tclientes = [];
      scope.tListBanc = [];
      scope.CodEur = "ES";
@@ -258,7 +258,7 @@
          }
          if (opcion == 2) {
              if (datos.EstCue == 2) {
-                 scope.toast('error','Esta Cuenta Bancaria Ya Se Encuentra Bloqueada.','Cuentas Bancarias');
+                 scope.toast('error','Esta Cuenta Bancaria Ya Se Encuentra Suspendida.','Cuentas Bancarias');
                  return false;
              }
              scope.update_status_CueBan(scope.bloquear_cueban);
@@ -277,7 +277,7 @@
                      scope.toast('success','Cuenta Bancaria Activada de forma correcta','Activando');
                  }
                  if (total_datos.EstCue == 2) {
-                     scope.toast('success','Cuenta Bancaria Bloqueada de forma correcta','Bloqueando');
+                     scope.toast('success','Cuenta Bancaria suspendida de forma correcta','Suspendida');
                  }
                  scope.cargar_cuentas_bancarias();
              } else {

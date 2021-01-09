@@ -24,7 +24,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.tColaboradoresBack = [];
     scope.index = 0;
     scope.tTipoColaborador = [{ CodTipCol: 1, DesTipCol: 'Persona Física' }, { CodTipCol: 2, DesTipCol: 'Empresa' }];
-    scope.tEstColaborador = [{ id: 1, nombre: 'Activo' }, { id: 2, nombre: 'Bloqueado' }];
+    scope.tEstColaborador = [{ id: 1, nombre: 'Activo' }, { id: 2, nombre: 'Suspendido' }];
     scope.vColaboradorSeleccionado = null;
     scope.habilitar_button = 0;
     resultado = false;
@@ -81,7 +81,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.AccCol = true;
         scope.ruta_reportes_pdf_colaboradores = 0;
         scope.ruta_reportes_excel_colaboradores = 0;
-        scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id: 3, nombre: 'Activar' }, { id: 4, nombre: 'Bloquear' }];
+        scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id: 3, nombre: 'Activar' }, { id: 4, nombre: 'Suspendido' }];
         scope.ttipofiltros = [{ id: 1, nombre: 'Tipo Colaborador' }, { id: 2, nombre: 'Estatus del Colaborador' }];
     }
 
@@ -563,7 +563,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (opcion == 4) {
             if (datos.EstCol == 2) {
-                scope.toast('error','Ya este Colaborador se encuentra bloqueado.','Error');
+                scope.toast('error','Ya este Colaborador se encuentra suspendido.','Error');
                 return false;
             }
             scope.t_modal_data = {};
@@ -608,12 +608,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecBloColBlo = document.getElementById("FecBloColBlo").value;
         scope.FecBloColBlo = FecBloColBlo;
         if (scope.FecBloColBlo == null || scope.FecBloColBlo == undefined || scope.FecBloColBlo == '') {
-            scope.toast('error','La Fecha de Bloqueo es requerida','');
+            scope.toast('error','La Fecha de suspensión es requerida','');
             return false;
         } else {
             var FecBloColBlo = (scope.FecBloColBlo).split("/");
             if (FecBloColBlo.length < 3) {
-                scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY','');
+                scope.toast('error','Error en Fecha de suspensión, el formato correcto es DD/MM/YYYY','');
                 event.preventDefault();
                 return false;
             } else {
@@ -638,7 +638,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error',"La Fecha de Bloqueo no puede ser mayor a " + fecha,'');                    
+                    scope.toast('error',"La Fecha de suspensión no puede ser mayor a " + fecha,'');                    
                     return false;
                 }
                 scope.t_modal_data.FecBloColBlo = valuesStart[2] + "/" + valuesStart[1] + "/" + valuesStart[0];
@@ -652,7 +652,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.t_modal_data.opcion = 2;
         console.log(scope.t_modal_data);
         Swal.fire({
-            title: "¿Seguro que desea bloquear el Colaborador?",
+            title: "¿Seguro que desea suspender el Colaborador?",
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -664,7 +664,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var url = base_urlHome() + "api/Colaboradores/update_status/";
                 $http.post(url, scope.t_modal_data).then(function(result) {
                     if (result.data != false) {
-                        scope.toast('success','El Colaborador se ha Bloqueado de forma correcta','Exito');
+                        scope.toast('success','El Colaborador se ha suspendido de forma correcta','Exito');
                         $("#modal_motivo_bloqueo").modal('hide');
                         scope.t_modal_data = {};
                         scope.NumIdeFisBlo = undefined;

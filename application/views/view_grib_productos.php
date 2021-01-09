@@ -157,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.FecIniTPro==true">{{dato.FecIniPro}}</td>
                     <td ng-show="vm.EstTPro==true">
                       <span class="label label-info" ng-show="dato.EstPro=='ACTIVO'">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstPro=='BLOQUEADO'">Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstPro=='SUSPENDIDO'">Suspendido</span>
                     </td>
                     <td ng-show="vm.AccTPro==true">
                       <div class="btn-group">
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Producto</h4>
+            <h4 class="modal-title">Suspender Producto</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -239,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo<b style="color:red;"> (*)</b></label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspensión<b style="color:red;"> (*)</b></label>
       <input type="text" class="form-control" ng-model="vm.t_modal_data.MotBloPro" required /> 
      </div>
      </div>
@@ -248,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo <b style="color:red;"> (*)</b></label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión <b style="color:red;"> (*)</b></label>
      <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" name="fecha_bloqueo" id="fecha_bloqueo" maxlength="10" ng-change="vm.validarsifechaproductos(vm.fecha_bloqueo,2)" />    
      </div>
      </div>
@@ -262,7 +262,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lockPro.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lockPro.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
@@ -339,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">     
       <select class="form-control" id="EstPro" name="EstPro" ng-model="vm.tmodal_productos.EstPro">
         <option value="ACTIVO">Activo</option>
-        <option value="BLOQUEADO">Bloqueado</option>
+        <option value="SUSPENDIDO">Suspendido</option>
       </select>   
      </div>
      </div>

@@ -250,7 +250,7 @@ class Exportar_Documentos extends CI_Controller
                     $Tipo_Cliente="ACTIVO";
                 }
                 elseif($Tipo_Cliente==2) {
-                    $Tipo_Cliente="BLOQUEADO";
+                    $Tipo_Cliente="SUSPENDIDO";
                 }
                 else {
                     $Tipo_Cliente="Estatus de Cliente incorrecto";
@@ -556,7 +556,7 @@ class Exportar_Documentos extends CI_Controller
                     $Tipo_Cliente="ACTIVO";
                 }
                 elseif($Tipo_Cliente==2) {
-                    $Tipo_Cliente="BLOQUEADO";
+                    $Tipo_Cliente="SUSPENDIDO";
                 }
                 else {
                     $Tipo_Cliente="Estatus de Cliente incorrecto";
@@ -1419,11 +1419,11 @@ class Exportar_Documentos extends CI_Controller
             }
             else
             {               
-               if($Tipo_Filtro=="Activo")
+               if($Tipo_Filtro=="ACTIVO")
                {
                   $Resultado_Filtro_Puntos_Suministros=$this->Reportes_model->get_data_PumSum_all_filtro('a.EstPunSum',1);
                }
-               elseif ($Tipo_Filtro=="Bloqueado") 
+               elseif ($Tipo_Filtro=="SUSPENDIDO") 
                {
                   $Resultado_Filtro_Puntos_Suministros=$this->Reportes_model->get_data_PumSum_all_filtro('a.EstPunSum',2);
                }
@@ -1655,7 +1655,7 @@ class Exportar_Documentos extends CI_Controller
                {
                   $Resultado_Filtro_Puntos_Suministros=$this->Reportes_model->get_data_PumSum_all_filtro('a.EstPunSum',1);
                }
-               elseif ($Tipo_Filtro=="Bloqueado") 
+               elseif ($Tipo_Filtro=="SUSPENDIDO") 
                {
                   $Resultado_Filtro_Puntos_Suministros=$this->Reportes_model->get_data_PumSum_all_filtro('a.EstPunSum',2);
                }
@@ -1996,7 +1996,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $Tipo_Filtro=1;
                 }  
-                elseif($Tipo_Filtro=="BLOQUEADO")
+                elseif($Tipo_Filtro=="SUSPENDIDO")
                 {
                     $Tipo_Filtro=2;
                 }
@@ -2013,7 +2013,7 @@ class Exportar_Documentos extends CI_Controller
                 }  
                 else
                 {
-                    $Tipo_Filtro="BLOQUEADO";
+                    $Tipo_Filtro="SUSPENDIDO";
                 }
             } 
         }
@@ -2246,7 +2246,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $Tipo_Filtro=1;
                 }  
-                elseif($Tipo_Filtro=="BLOQUEADO")
+                elseif($Tipo_Filtro=="SUSPENDIDO")
                 {
                     $Tipo_Filtro=2;
                 }
@@ -2263,7 +2263,7 @@ class Exportar_Documentos extends CI_Controller
                 }  
                 else
                 {
-                    $Tipo_Filtro="BLOQUEADO";
+                    $Tipo_Filtro="SUSPENDIDO";
                 }
             } 
         }
@@ -3655,7 +3655,7 @@ class Exportar_Documentos extends CI_Controller
         }
         elseif($tipo_filtro==4) 
         {
-            $nombre_filtro="Estatus";
+            $nombre_filtro="Estatus: ";
             $Tipo_Filtro = urldecode($this->uri->segment(5));
             if($Tipo_Filtro==null)
             {
@@ -3666,7 +3666,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all_filtrados('a.EstPro',1);
                 }
-                elseif ($Tipo_Filtro=="BLOQUEADO") 
+                elseif ($Tipo_Filtro=="SUSPENDIDO") 
                 {
                     $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all_filtrados('a.EstPro',2);
                 }
@@ -3905,7 +3905,7 @@ class Exportar_Documentos extends CI_Controller
                 {
                     $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all_filtrados('a.EstPro',1);
                 }
-                elseif ($Tipo_Filtro=="BLOQUEADO") 
+                elseif ($Tipo_Filtro=="SUSPENDIDO") 
                 {
                     $Resultado_Filtro_Productos=$this->Reportes_model->get_data_productos_all_filtrados('a.EstPro',2);
                 }
@@ -4304,7 +4304,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos_filtradas('a.EstAne',1);
             }
-            elseif($Tipo_Cliente=="BLOQUEADO")
+            elseif($Tipo_Cliente=="SUSPENDIDO")
             {
                  $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos_filtradas('a.EstAne',2);
             }
@@ -4596,7 +4596,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos_filtradas('a.EstAne',1);
             }
-            elseif($Tipo_Cliente=="BLOQUEADO")
+            elseif($Tipo_Cliente=="SUSPENDIDO")
             {
                  $Resultado_Filtro_Anexos=$this->Reportes_model->get_data_all_anexos_filtradas('a.EstAne',2);
             }
@@ -4979,7 +4979,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicio_especiales_filtradas('a.EstSerEsp',1);
             }
-            elseif($Tipo_Cliente=="BLOQUEADO")
+            elseif($Tipo_Cliente=="SUSPENDIDO")
             {
                  $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicio_especiales_filtradas('a.EstSerEsp',2);
             }
@@ -5241,7 +5241,7 @@ class Exportar_Documentos extends CI_Controller
             {
                $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicio_especiales_filtradas('a.EstSerEsp',1);
             }
-            elseif($Tipo_Cliente=="BLOQUEADO")
+            elseif($Tipo_Cliente=="SUSPENDIDO")
             {
                  $Resultado_Filtro_Servicios_Especiales=$this->Reportes_model->get_data_all_servicio_especiales_filtradas('a.EstSerEsp',2);
             }
@@ -5532,7 +5532,7 @@ class Exportar_Documentos extends CI_Controller
                {
                     $Resultado=$this->Reportes_model->get_data_all_distribuidoras_filtradas('EstDist',1);
                }
-               elseif($Tipo_Cliente=="BLOQUEADO")
+               elseif($Tipo_Cliente=="SUSPENDIDA")
                {
                     $Resultado=$this->Reportes_model->get_data_all_distribuidoras_filtradas('EstDist',2);
                }
@@ -5694,7 +5694,7 @@ class Exportar_Documentos extends CI_Controller
                {
                     $Resultado=$this->Reportes_model->get_data_all_distribuidoras_filtradas('EstDist',1);
                }
-               elseif($Tipo_Cliente=="BLOQUEADO")
+               elseif($Tipo_Cliente=="SUSPENDIDA")
                {
                     $Resultado=$this->Reportes_model->get_data_all_distribuidoras_filtradas('EstDist',2);
                }
@@ -6568,7 +6568,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($Estatus==2)
             {
-                $Tipo_Cliente="BLOQUEADO";
+                $Tipo_Cliente="SUSPENDIDO";
                 $Resultado=$this->Reportes_model->get_data_all_colaboradores_filtradas('EstCol',$Estatus);
             }
             else
@@ -6709,7 +6709,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($Estatus==2)
             {
-                $Tipo_Cliente="BLOQUEADO";
+                $Tipo_Cliente="SUSPENDIDO";
                 $Resultado=$this->Reportes_model->get_data_all_colaboradores_filtradas('EstCol',$Estatus);
             }
             else
@@ -6938,7 +6938,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($EstCom==2)
             {
-                $Tipo_Cliente="BLOQUEADO";
+                $Tipo_Cliente="SUSPENDIDO";
                 $Resultado=$this->Reportes_model->get_data_all_comerciales_filtradas('EstCom',$EstCom);
             }
             else
@@ -7069,7 +7069,7 @@ class Exportar_Documentos extends CI_Controller
             }
             elseif($EstCom==2)
             {
-                $Tipo_Cliente="BLOQUEADO";
+                $Tipo_Cliente="SUSPENDIDO";
                 $Resultado=$this->Reportes_model->get_data_all_comerciales_filtradas('EstCom',$EstCom);
             }
             else
@@ -15803,7 +15803,7 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->correo_electronico.'</td> 
                         <td>'.$record->nivel.'</td>
                         <td>'.$record->fecha_registro.'</td> 
-                        <td>'.$record->bloqueado.' </td>                       
+                        <td>'.$record->SUSPENDIDO.' </td>                       
                     </tr>';     
                 }
                 endforeach;
@@ -16006,7 +16006,7 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Usuarios[$i]->correo_electronico);
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Usuarios[$i]->nivel);
                 $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Usuarios[$i]->fecha_registro);
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Usuarios[$i]->bloqueado);
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Usuarios[$i]->SUSPENDIDO);
                 $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:E$fila");  
             }   
         }        

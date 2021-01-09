@@ -30,9 +30,9 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         scope.EstDist = true;
         scope.AccDis = true;
         scope.tmodal_distribuidora = {};
-        scope.ruta_reportes_pdf_distribuidora_distribuidora = 0;
-        scope.ruta_reportes_excel_distribuidora_distribuidora = 0;
-        scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id: 3, nombre: 'Activar' }, { id: 4, nombre: 'Bloquear' }];
+        scope.ruta_reportes_pdf_distribuidora = 0;
+        scope.ruta_reportes_excel_distribuidora = 0;
+        scope.topciones = [{ id: 1, nombre: 'Ver' }, { id: 2, nombre: 'Editar' }, { id: 3, nombre: 'Activar' }, { id: 4, nombre: 'Suspender' }];
     }
     if ($route.current.$$route.originalPath == "/Add_Distribuidora/") {
         scope.CIF_DISTRIBUIDORA = $cookies.get('CIF_DISTRIBUIDORA');
@@ -156,8 +156,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             });
         }
         if (opciones_distribuidoras == 4) {
-            if (dato.EstDist == "BLOQUEADO") {
-                scope.toast('error','Está Distribuidora ya se encuentra Bloqueada.','Bloqueando');
+            if (dato.EstDist == "SUSPENDIDA") {
+                scope.toast('error','Está Distribuidora ya se encuentra suspendida.','SUSPENDIDA');
                 return false;
             }
             scope.tmodal_data = {};
@@ -524,24 +524,24 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         var FechBlo = document.getElementById("FechBlo").value;
         scope.FechBlo = FechBlo;
         if (scope.FechBlo == null || scope.FechBlo == undefined || scope.FechBlo == '') {
-            scope.toast('error','El Campo de Fecha de Bloqueo es requerido.','Fecha de Bloqueo');
+            scope.toast('error','El Campo de Fecha de Suspensión es requerido.','Fecha de Suspensión');
             return false;
         } else {
             var FechBlo = (scope.FechBlo).split("/");
             if (FechBlo.length < 3) {
-                scope.toast('error',"El Formato de la Fecha de Bloqueo debe Ser: " + fecha,'Fecha de Bloqueo');
+                scope.toast('error',"El Formato de la Fecha de Suspensión debe Ser: " + fecha,'Fecha de Suspensión');
                 return false;
             } else {
                 if (FechBlo[0].length > 2 || FechBlo[0].length < 2) {
-                    scope.toast('error','El Formato del Día debe ser EJ: 01','Fecha de Bloqueo');
+                    scope.toast('error','El Formato del Día debe ser EJ: 01','Fecha de Suspensión');
                     return false;
                 }
                 if (FechBlo[1].length > 2 || FechBlo[1].length < 2) {
-                    scope.toast('error','El Formato del Mes debe ser EJ: 01','Fecha de Bloqueo');
+                    scope.toast('error','El Formato del Mes debe ser EJ: 01','Fecha de Suspensión');
                     return false;
                 }
                 if (FechBlo[2].length < 4 || FechBlo[2].length > 4) {
-                    scope.toast('error','El Formato del Año debe ser EJ: 1999','Fecha de Bloqueo');
+                    scope.toast('error','El Formato del Año debe ser EJ: 1999','Fecha de Suspensión');
                     return false;
                 }
                 valuesStart = scope.FechBlo.split("/");
@@ -550,7 +550,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error',"La Fecha de Bloqueo no puede ser mayor a " + fecha + " Verifique he intente nuevamente.",'Fecha de Bloqueo');
+                    scope.toast('error',"La Fecha de Suspensión no puede ser mayor a " + fecha + " Verifique he intente nuevamente.",'Fecha de Suspensión');
                     return false;
                 }
                 scope.tmodal_data.FechBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -558,12 +558,12 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
         }
         Swal.fire({
             title: 'Bloqueando',
-            text: 'Estás seguro de bloquear esta Distribuidora?',
+            text: 'Estás seguro de suspender esta Distribuidora?',
             type: "info",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: "Bloquear"
+            confirmButtonText: "Suspender"
         }).then(function(t) {
             if (t.value == true) {
                 scope.datos_update = {};
@@ -583,7 +583,7 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                     $("#bloquendo").removeClass("loader loader-default is-active").addClass("loader loader-default");
                     if (result.data != false) {
                         $("#modal_motivo_bloqueo").modal('hide');
-                        scope.toast('success','Distribuidora Bloqueada de forma correcta.','Bloqueando');
+                        scope.toast('success','Distribuidora suspendida de forma correcta.','Suspendida');
                         scope.cargar_lista_distribuidoras();
                     } else {
                         scope.toast('error','Error en el proceso, por favor intente nuevamente.','Error');
@@ -626,8 +626,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 index = scope.TDistribuidora.indexOf(value);
                 return (begin <= index && index < end);
             };
-            scope.ruta_reportes_pdf_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
-            scope.ruta_reportes_excel_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
+            scope.ruta_reportes_pdf_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
+            scope.ruta_reportes_excel_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.TipSerDis;
         }
         if (scope.tmodal_distribuidora.tipo_filtro == 2) {
             $scope.predicate = 'id';
@@ -647,8 +647,9 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
                 index = scope.TDistribuidora.indexOf(value);
                 return (begin <= index && index < end);
             };
-            scope.ruta_reportes_pdf_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
-            scope.ruta_reportes_excel_distribuidora_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
+            console.log(scope.tmodal_distribuidora);
+            scope.ruta_reportes_pdf_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
+            scope.ruta_reportes_excel_distribuidora = scope.tmodal_distribuidora.tipo_filtro + '/' + scope.tmodal_distribuidora.EstDist;
         }
 
     };
@@ -700,8 +701,8 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
             index = scope.TDistribuidora.indexOf(value);
             return (begin <= index && index < end);
         };
-        scope.ruta_reportes_pdf_distribuidora_distribuidora = 0;
-        scope.ruta_reportes_excel_distribuidora_distribuidora = 0;
+        scope.ruta_reportes_pdf_distribuidora = 0;
+        scope.ruta_reportes_excel_distribuidora = 0;
     }
     scope.FetchDistribuidoras = function() {
         if (scope.filter_search == undefined || scope.filter_search == null || scope.filter_search == '') {

@@ -4,7 +4,7 @@ class Clientes_model extends CI_Model
 /////////////////////////////////////////// CLIENTES START ///////////////////////////////////////
     public function get_list_clientes() 
     {
-        $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "BLOQUEADO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
+        $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "SUSPENDIDO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
         $this->db->from('T_Cliente a'); 
         $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia','LEFT');       
         $this->db->join('T_Localidad c','a.CodLocSoc=c.CodLoc','LEFT'); 
@@ -244,7 +244,7 @@ public function get_CUPs_Electricos($CodPunSum)
 }
 public function getClientessearchFilter($filtrar_clientes) 
     {
-        $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "BLOQUEADO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
+        $this->db->select('a.CodCli,a.NumCifCli,a.RazSocCli,a.TelFijCli,a.NomComCli,b.DesTipVia as CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,d.DesPro as CodPro,c.DesLoc as CodLoc,a.EmaCli,a.WebCli,e.DesTipCli as CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,f.NomCom as CodCom,a.ObsCli,a.EstCli,g.DesSecCli AS CodSecCli,h.NomCol AS CodCol,i.DesTipVia as CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,k.DesPro as CodProFis,j.DesLoc as CodLocFis,CASE a.EstCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "SUSPENDIDO" END AS EstCliN,a.CodTipViaSoc as CodTipViaSoc1,a.CodLocSoc as CodLocSoc1,c.CodPro as CodProSoc2,a.CodTipCli as CodTipCliSoc2,a.CodSecCli as CodSecCliSoc2,c.CPLoc as CPLocSoc,a.CodTipViaFis as CodTipViaFis2,a.CodLocFis as CodLocFis2,j.CodPro as CodProFis2,j.CPLoc as CPLocFis,a.CodCom as CodCom2,a.CodCol as CodCol2 ',FALSE);
         $this->db->from('T_Cliente a'); 
         $this->db->join('T_TipoVia b','a.CodTipViaSoc=b.CodTipVia','LEFT');       
         $this->db->join('T_Localidad c','a.CodLocSoc=c.CodLoc','LEFT'); 
@@ -406,7 +406,7 @@ public function getClientessearchFilter($filtrar_clientes)
     }
     public function getActividadesFilter($filtrar_search)
     {
-       $this->db->select('a.*,b.*,case a.EstAct when 1 then "Activa" when 2 then "Bloqueada" end as EstAct ,DATE_FORMAT(a.FecIniAct, "%d/%m/%Y") as FecIniAct,c.NumCifCli,c.RazSocCli',FALSE);
+       $this->db->select('a.*,b.*,case a.EstAct when 1 then "Activa" when 2 then "SUSPENDIDA" end as EstAct ,DATE_FORMAT(a.FecIniAct, "%d/%m/%Y") as FecIniAct,c.NumCifCli,c.RazSocCli',FALSE);
         $this->db->from('T_ActividadCliente a'); 
         $this->db->join('T_CNAE b','a.CodActCNAE=b.id');       
         $this->db->join('T_Cliente c','c.CodCli=a.CodCli');  
@@ -463,7 +463,7 @@ public function getClientessearchFilter($filtrar_clientes)
     }
      public function get_puntos_suministros_clientes()
     {
-        $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum',FALSE);
+        $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "ACTIVO" WHEN 2 THEN "SUSPENDIDO" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum',FALSE);
         $this->db->from('T_PuntoSuministro a');   
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli','LEFT'); 
         $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc','LEFT');
@@ -485,8 +485,8 @@ public function getClientessearchFilter($filtrar_clientes)
     {
         $this->db->select($variable);
         $this->db->from('T_Cliente a');
-        $this->db->join('T_Localidad b','a.CodLocSoc=b.CodLoc');
-        $this->db->join('T_Localidad c','a.CodLocFis=c.CodLoc');
+        $this->db->join('T_Localidad b','a.CodLocSoc=b.CodLoc','left');
+        $this->db->join('T_Localidad c','a.CodLocFis=c.CodLoc','left');
         $this->db->where('a.CodCli', $Cliente);     
         //$this->db->order_by('RazSocCli ASC');              
         $query = $this->db->get(); 
@@ -539,7 +539,7 @@ public function getClientessearchFilter($filtrar_clientes)
     }
     public function getPunSumFilter($filtrar_search)
     {
-       $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "Bloqueado" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,b.CodCli',FALSE);
+       $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "SUSPENDIDO" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,b.CodCli',FALSE);
         $this->db->from('T_PuntoSuministro a');   
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
         $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
@@ -601,7 +601,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
 
  public function get_lista_contactos()
     {
-       $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'BLOQUEADO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli");
+       $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
@@ -704,7 +704,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }
     public function getContactosFilter($SearchText)
     {
-        $this->db->select("a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'BLOQUEADO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli",false);
+        $this->db->select("a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli",false);
         $this->db->from('T_ContactoCliente a');
         $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
@@ -749,7 +749,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
 
     public function get_all_Cuentas_Bancarias_clientes()
     {
-       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli ORDER BY c.RazSocCli ASC");
+       $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'SUSPENDIDA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli ORDER BY c.RazSocCli ASC");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else
@@ -757,7 +757,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }
     public function get_xID_CuentaBancaria($CodConCli)
     {
-        $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
+        $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'SUSPENDIDA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
         if ($sql->num_rows() > 0)
           return $sql->row();
         else
@@ -788,7 +788,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     public function getCuentasBancariasFilter($SearchText)
     {
         //return false;
-        $this->db->select("a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'BLOQUEADA' END AS EstaCue,c.NumCifCli,c.RazSocCli",false);
+        $this->db->select("a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'SUSPENDIDA' END AS EstaCue,c.NumCifCli,c.RazSocCli",false);
         $this->db->from('T_CuentaBancaria a');
         $this->db->join('T_Banco b','a.CodBan=b.CodBan','left');
         $this->db->join('T_Cliente c','a.CodCli=c.CodCli','left');
@@ -1199,7 +1199,7 @@ public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
     }
     public function get_all_contactos($CodCli)
     {
-       $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,a.TipRegDir,case a.TipRegDir when 0 then 'Nuevo' when 1 then 'Misma Dirección Social' when 2 then 'Misma Dirección Fiscal' end as TipDir,b.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,d.DesPro,c.DesLoc,c.CPLoc,e.DesTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,a.TelPunSum,a.EstPunSum,case a.EstPunSum when 1 then 'Activo' when 2 then 'Bloqueado' end as EstuPunSum,c.CodLoc as CodLocPunSum,d.CodPro as CodProPunSum,a.CodTipVia,a.CodTipInm,c.CPLoc as ZonPosPunSum FROM T_PuntoSuministro a JOIN T_TipoVia b on a.CodTipVia=b.CodTipVia JOIN T_Localidad c ON a.CodLoc=c.CodLoc JOIN T_Provincia d ON c.CodPro=d.CodPro JOIN T_TipoInmueble e ON a.CodTipInm=e.CodTipInm where CodCli='$CodCli'");
+       $sql = $this->db->query("SELECT a.CodPunSum,a.CodCli,a.TipRegDir,case a.TipRegDir when 0 then 'Nuevo' when 1 then 'Misma Dirección Social' when 2 then 'Misma Dirección Fiscal' end as TipDir,b.DesTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,d.DesPro,c.DesLoc,c.CPLoc,e.DesTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,a.TelPunSum,a.EstPunSum,case a.EstPunSum when 1 then 'Activo' when 2 then 'SUSPENDIDO' end as EstuPunSum,c.CodLoc as CodLocPunSum,d.CodPro as CodProPunSum,a.CodTipVia,a.CodTipInm,c.CPLoc as ZonPosPunSum FROM T_PuntoSuministro a JOIN T_TipoVia b on a.CodTipVia=b.CodTipVia JOIN T_Localidad c ON a.CodLoc=c.CodLoc JOIN T_Provincia d ON c.CodPro=d.CodPro JOIN T_TipoInmueble e ON a.CodTipInm=e.CodTipInm where CodCli='$CodCli'");
         if ($sql->num_rows() > 0)
           return $sql->result();
         else

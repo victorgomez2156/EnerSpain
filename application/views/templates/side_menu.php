@@ -166,7 +166,7 @@
             <ul class="sub">
               <li ng-show="Menu.Clientes_DatosBasicos==true"><a href="#/Clientes"> Datos Básicos</a></li>
               <li ng-show="Menu.Clientes_Actividad==true"><a href="#/Actividades"> Actividad</a></li>
-              <li ng-show="Menu.Clientes_DirPunSum==true"><a href="#/Puntos_Suministros"> Dirección Suministros</a></li>
+              <li ng-show="Menu.Clientes_DirPunSum==true"><a href="#/Puntos_Suministros"> Detalle Suministros</a></li>
               <li ng-show="Menu.Clientes_GestionesCups==true"><a href="#/Gestionar_Cups"> Gestionar Cups</a></li>  
               <li ng-show="Menu.Clientes_Contactos==true"><a href="#/Contactos"> Contactos</a></li>  
               <li ng-show="Menu.Clientes_CuentasBancarias==true"><a href="#/Cuentas_Bancarias"> Cuentas Bancarias</a></li>  

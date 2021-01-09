@@ -2530,7 +2530,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         	$("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
             if(result.data.Data!=false && result.data.Error==null)
         	{
-        		scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
+        		scope.toast('success','Sesión inciada correctamente siguiente paso.','Sesión Iniciada');
                 scope.SessionStart={};
                 scope.SessionStart.sessionToken=result.data.Data.sessionToken;
                 scope.SessionStart.userId=result.data.Data.userId;
@@ -2569,34 +2569,92 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.DatosAudaxSend=result.data;                
                 if(scope.fdatos.TipProCom==1)
                 {
-                    //console.log(scope.DatosAudaxSend.DetallesCUPs.length);
                     if(scope.DatosAudaxSend.DetallesCUPs.length==1)
                     {
-                        scope.cups_gas='';
-                        scope.subtarifa_gas='';
-                        scope.tarifacups_gas='';
-                        scope.tarifa_gas='';
-                        scope.consumo_gas='';
-                        scope.consumo_media_anual_gas='';
-                    }
-                    else if (scope.DatosAudaxSend.DetallesCUPs.length==2)
-                    {
-                        scope.cups_gas=scope.DatosAudaxSend.DetallesCUPs[1].CUPsName;
-                        scope.subtarifa_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
-                        scope.tarifacups_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
-                        scope.tarifa_gas=scope.DatosAudaxSend.DetallesCUPs[1].NomTar;
-                        scope.consumo_gas=scope.DatosAudaxSend.DetallesCUPs[1].ConCup;
-                        scope.consumo_media_anual_gas=scope.DatosAudaxSend.DetallesCUPs[1].ConCup;
-                    }
-                    else
-                    {
+                        angular.forEach(scope.DatosAudaxSend.DetallesCUPs, function(CUPs)
+                        {
+                            if(CUPs.TipCups==1)
+                            {                               
+                                scope.cups_luz=CUPs.CUPsName;
+                                scope.cups_gas='';                        
+                                scope.direccion_cups=CUPs.NomViaPunSum;
+                                scope.tipovia_cups=CUPs.IniTipVia;
+                                scope.numerodire_cups=CUPs.NumViaPunSum;
+                                scope.pisodire_cups='';
+                                scope.cp_cups=CUPs.CPLocSoc;
+                                scope.email_cups=scope.DatosAudaxSend.EmaCli;
+                                scope.escalera_cups= CUPs.EscPunSum;
+                                scope.puerta_cups= CUPs.PuePunSum;
+                                scope.gama_comentario=CUPs.ObsProGam;
+                                scope.gama=CUPs.DesProGam;
 
+                                scope.potencia1=CUPs.PotEleConP1;
+                                scope.potencia2=CUPs.PotEleConP2;
+                                scope.potencia3=CUPs.PotEleConP3;
+                                scope.potencia4=CUPs.PotEleConP4;
+                                scope.potencia5=CUPs.PotEleConP5;
+                                scope.potencia6=CUPs.PotEleConP6;
+                               
+                                scope.subtarifa=CUPs.NomTar;
+                                scope.subtarifa_gas='';
+                                scope.procedencia='';
+                                scope.tipovia_envio=CUPs.IniTipVia;
+                                scope.direccion_envio=CUPs.NomViaPunSum;
+                                scope.numerodire_envio=CUPs.NumViaPunSum;
+                                scope.cp_envio=CUPs.CPLocSoc;
+                                scope.tarifacups=CUPs.NomTar;
+                                scope.tarifa=CUPs.NomTar;
+                                scope.tarifacups_gas='';
+                                scope.tarifa_gas='';
+                                scope.consumo_gas='';
+                                scope.consumo_media_anual_gas='';
+                                scope.consumo=CUPs.ConCup;
+                            }
+                            else
+                            {
+                                scope.cups_luz='';
+                                scope.cups_gas=CUPs.CUPsName;                      
+                                scope.direccion_cups=CUPs.NomViaPunSum;
+                                scope.tipovia_cups=CUPs.IniTipVia;
+                                scope.numerodire_cups=CUPs.NumViaPunSum;
+                                scope.pisodire_cups='';
+                                scope.cp_cups=CUPs.CPLocSoc;
+                                scope.email_cups=scope.DatosAudaxSend.EmaCli;
+                                scope.escalera_cups= CUPs.EscPunSum;
+                                scope.puerta_cups= CUPs.PuePunSum;
+                                scope.gama_comentario=CUPs.ObsProGam;
+                                scope.gama=CUPs.DesProGam;
+
+                                scope.potencia1='';
+                                scope.potencia2='';
+                                scope.potencia3='';
+                                scope.potencia4='';
+                                scope.potencia5='';
+                                scope.potencia6='';
+                               
+                                scope.subtarifa='';
+                                scope.subtarifa_gas=CUPs.NomTar;
+                                scope.procedencia='';
+                                scope.tipovia_envio=CUPs.IniTipVia;
+                                scope.direccion_envio=CUPs.NomViaPunSum;
+                                scope.numerodire_envio=CUPs.NumViaPunSum;
+                                scope.cp_envio=CUPs.CPLocSoc;
+                                scope.tarifacups='';
+                                scope.tarifa='';
+                                scope.tarifacups_gas=CUPs.NomTar;
+                                scope.tarifa_gas=CUPs.NomTar;
+                                scope.consumo_gas=CUPs.ConCup;
+                                scope.consumo_media_anual_gas=CUPs.ConCup;
+                                scope.consumo=CUPs.ConCup;
+                            }
+                        });
                     }
+                    $("#enviandoaudax").removeClass("loader loader-default ").addClass("loader loader-default is-active");
                     var req = 
                     {
                         method: 'POST',
-                        //url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Contratar',
-                        url:'http://10.72.0.16/Audax',
+                        url: 'http://webservice.audaxenergia.com:8080/WSAudaxTest/Contratar',
+                        //url:'http://10.72.0.16/Audax',
                         headers: {
                         'Access-Control-Allow-Credentials':undefined,
                         'Access-Control-Allow-Methods':undefined,
@@ -2653,29 +2711,29 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             cuenta:scope.DatosAudaxSend.cuenta,
                             //////// DATOS CUENTA BANCARIA END /////
 
-                            cups_luz:scope.DatosAudaxSend.DetallesCUPs[0].CUPsName,
+                            cups_luz:scope.cups_luz,
                             cups_gas:scope.cups_gas,                        
-                            direccion_cups:scope.DatosAudaxSend.DetallesCUPs[0].NomViaPunSum,
-                            tipovia_cups:scope.DatosAudaxSend.DetallesCUPs[0].IniTipVia,
-                            numerodire_cups:scope.DatosAudaxSend.DetallesCUPs[0].NumViaPunSum,
-                            pisodire_cups:'',
-                            cp_cups:scope.DatosAudaxSend.DetallesCUPs[0].CPLocSoc,
-                            email_cups:scope.DatosAudaxSend.EmaCli,
-                            escalera_cups: scope.DatosAudaxSend.DetallesCUPs[0].EscPunSum,
-                            puerta_cups: scope.DatosAudaxSend.DetallesCUPs[0].PuePunSum,
+                            direccion_cups:scope.direccion_cups,
+                            tipovia_cups:scope.tipovia_cups,
+                            numerodire_cups:scope.numerodire_cups,
+                            pisodire_cups:scope.pisodire_cups,
+                            cp_cups:scope.cp_cups,
+                            email_cups:scope.email_cups,
+                            escalera_cups: scope.escalera_cups,
+                            puerta_cups: scope.puerta_cups,
                             
                             numerodire_cups2:'',
                             letra_cups:'',
 
-                            gama_comentario:scope.DatosAudaxSend.DetallesCUPs[0].ObsProGam,
-                            gama:scope.DatosAudaxSend.DetallesCUPs[0].DesProGam,
+                            gama_comentario:scope.gama_comentario,
+                            gama:scope.gama, 
                             
-                            potencia1:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP1,
-                            potencia2:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP2,
-                            potencia3:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP3,
-                            potencia4:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP4,
-                            potencia5:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP5,
-                            potencia6:scope.DatosAudaxSend.DetallesCUPs[0].PotEleConP6,
+                            potencia1:scope.potencia1,
+                            potencia2:scope.potencia2,
+                            potencia3:scope.potencia3,
+                            potencia4:scope.potencia4,
+                            potencia5:scope.potencia5,
+                            potencia6:scope.potencia6,
                             
                             potencia_anterior1:'',
                             potencia_anterior2:'',
@@ -2683,20 +2741,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             potencia_anterior4:'',
                             potencia_anterior5:'',
                             potencia_anterior6:'',
-
-                            subtarifa:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
+                                
+                            subtarifa:scope.subtarifa,
                             subtarifa_gas:scope.subtarifa_gas,
-                            procedencia:'',
+                            procedencia:scope.procedencia,
                             
-                            duracion:'12 MESES',
+                            duracion:scope.DatosAudaxSend.duracion+' MESES',
                             titular_suministro:scope.DatosAudaxSend.RazSocCli,
                             nif_titular_suministro:scope.DatosAudaxSend.NumCifCli,
-                            tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
-                            tipo_contrato:'1', 
-                            tipo_contrato_gas:'2', 
-                            consumo:'requerido',
-                            importe_medio_factura:'requerido',
-                            fecha_firma:'2020-09-24',
+                            //tipo_contrato_comentario:'1 -> Fijo, 2-> Indexado', 
+                            tipo_contrato_comentario:scope.DatosAudaxSend.tipo_contrato_comentario, 
+                            tipo_contrato:scope.DatosAudaxSend.tipo_contrato, 
+                            tipo_contrato_gas:scope.DatosAudaxSend.tipo_contrato_gas, 
+                            consumo:scope.consumo,
+                            importe_medio_factura:0,
+                            fecha_firma:scope.DatosAudaxSend.fecha_firma,
                             deposito:'',
                             desvios:'',
                             
@@ -2717,17 +2776,17 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             referencia_catastral:'',
                             
                             nombre_envio:scope.DatosAudaxSend.RazSocCli,
-                            tipovia_envio:scope.DatosAudaxSend.DetallesCUPs[0].IniTipVia,
-                            direccion_envio:scope.DatosAudaxSend.DetallesCUPs[0].NomViaPunSum,
-                            numerodire_envio:scope.DatosAudaxSend.DetallesCUPs[0].NumViaPunSum,
+                            tipovia_envio:scope.tipovia_envio,
+                            direccion_envio:scope.direccion_envio,
+                            numerodire_envio:scope.numerodire_envio,
                             pisodire_envio:'',
-                            cp_envio:scope.DatosAudaxSend.DetallesCUPs[0].CPLocSoc,
+                            cp_envio:scope.cp_envio,
                             numerodire_envio2:'',
                             letra_envio:'',
                             liquidacion:'',    
                             
-                            tarifacups:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
-                            tarifa:scope.DatosAudaxSend.DetallesCUPs[0].NomTar,
+                            tarifacups:scope.tarifacups,
+                            tarifa:scope.tarifacups,
                             tarifacups_gas:scope.tarifacups_gas,
                             tarifa_gas:scope.tarifa_gas,
                             
@@ -2744,11 +2803,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             securLuz_negocios:'',
                             securGas_particular:'',
                             securGas_negocios:'',
-                            
+
                             consumo_gas:scope.consumo_gas,
                             consumo_media_anual_gas:scope.consumo_media_anual_gas,
-                            
-                            fecha_inicio_corporate:'requerido',
+
+                            fecha_inicio_corporate:scope.DatosAudaxSend.fecha_inicio_corporate,
                             tarifa_corporate:[],
                             tarifa_corporate_gas:[]
                         }
@@ -2756,8 +2815,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     $http(req).then(function(result)
                     {
                         $("#enviandoaudax").removeClass("loader loader-default is-active").addClass("loader loader-default");
-                        //console.log(req);
-                        //console.log(result);
+                        //console.log(data);
+                        console.log(result);
                         /*if(result.data.Data!=false && result.data.Error==null)
                         {
                             scope.toast('success','El Contrato fue enviado a Audax correctamente.','Enviado A Audax');
@@ -2782,10 +2841,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         //console.log(error)
                     });
 
-                }
-
-
-            
+                }           
 
             },function(error)
             {

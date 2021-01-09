@@ -179,8 +179,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.CodProPunSum==true">{{dato.DesPro}}</td>
                     <td ng-show="vm.CodLocPunSum==true">{{dato.DesLoc}}</td>                    
                     <td ng-show="vm.EstPunSumGrid==true">
-                      <span class="label label-info" ng-show="dato.EstPunSum=='Activo'"><i class="fa fa-check-circle"></i> {{dato.EstPunSum}}</span>
-                      <span class="label label-danger" ng-show="dato.EstPunSum=='Bloqueado'"><i class="fa fa-ban"></i> {{dato.EstPunSum}}</span>
+                      <span class="label label-info" ng-show="dato.EstPunSum=='ACTIVO'"><i class="fa fa-check-circle"></i> {{dato.EstPunSum}}</span>
+                      <span class="label label-danger" ng-show="dato.EstPunSum=='SUSPENDIDO'"><i class="fa fa-ban"></i> {{dato.EstPunSum}}</span>
                     </td>
                     <td ng-show="vm.ActPunSum==true">
                       <div class="btn-group">
@@ -298,8 +298,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">
      
       <select class="form-control" id="EstPunSum" name="EstPunSum" ng-model="vm.fpuntosuministro.EstPunSum">
-        <option value="Activo">ACTIVO</option> 
-        <option value="Bloqueado">BLOQUEADO</option>                         
+        <option value="ACTIVO">ACTIVO</option> 
+        <option value="SUSPENDIDO">SUSPENDIDO</option>                         
       </select>     
      </div> 
      </div>
@@ -323,7 +323,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Direcciones de Suministros</h4>
+            <h4 class="modal-title">Suspender Direcciones de Suministros</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -341,7 +341,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo <b style="color:red;">DD/MM/YYYY</b></label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión <b style="color:red;">DD/MM/YYYY</b></label>
      <input type="text" class="form-control datepicker" name="FecBloPun" id="FecBloPun" ng-model="vm.FecBloPun" required ng-change="validar_fecha_blo(vm.FecBloPun)" maxlength="10"/>    
      </div>
      </div>
@@ -350,13 +350,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form">                          
      <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social</label>
-     <input type="text" class="form-control" ng-model="vm.tPunSum.RazSocCli" required readonly />     
+     <input type="text" class="form-control" ng-model="vm.tPunSum.RazSocCli" readonly />     
      </div>
      </div>
 
       <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspensión</label>
      
       <select class="form-control" id="MotBloPunSum" name="MotBloPunSum" required ng-model="vm.tPunSum.MotBloPunSum">
           <option ng-repeat="dato in vm.tMotivosBloqueosPunSum" value="{{dato.CodMotBloPun}}">{{dato.DesMotBloPun}}</option>
@@ -370,7 +370,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
      </div>    
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_PunSum.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_PunSum.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

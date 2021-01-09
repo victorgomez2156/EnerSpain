@@ -157,7 +157,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.FecIniSerEsp==true">{{dato.FecIniSerEsp}}</td>
                     <td ng-show="vm.EstSerEsp==true">
                       <span class="label label-info" ng-show="dato.EstSerEsp=='ACTIVO'">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstSerEsp=='BLOQUEADO'">Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstSerEsp=='SUSPENDIDO'">Suspendido</span>
                     </td>
                     <td ng-show="vm.AccSerEsp==true">
                       <div class="btn-group">
@@ -273,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">     
       <select class="form-control" id="EstSerEsp" name="EstSerEsp" ng-model="vm.tmodal_servicio_especiales.EstSerEsp">
         <option value="ACTIVO">Activo</option>
-        <option value="BLOQUEADO">Bloqueado</option>                          
+        <option value="SUSPENDIDO">Suspendido</option>                          
       </select>   
      </div>
      </div>
@@ -296,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Servicio Especial</h4>
+            <h4 class="modal-title">Suspender Servicio Especial</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -319,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de BLoqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspensión</label>
        <input type="text" class="form-control" ng-model="vm.servicio_especial_bloqueo.MotBloSerEsp" required/> 
      </div>
      </div>
@@ -328,7 +328,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker2" name="FecBloSerEsp" id="FecBloSerEsp" ng-model="vm.FecBloSerEsp" required maxlength="10" ng-change="vm.validarsifechaserespe(vm.FecBloSerEsp,2)" />    
      </div>
      </div>
@@ -342,7 +342,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_servicio_especial.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

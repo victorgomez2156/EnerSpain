@@ -131,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
         <input type="hidden" ng-model="vm.fdatos_cups.CodCli" placeholder="CodCli" readonly />
 
-
+        <label class="font-weight-bold nexa-dark" style="color:black;" ng-show="vm.fdatos_cups.CodCup>0">Cambio de Titular <i class="fa fa-refresh" title="Cambiar de Cliente" ></i></label>
        </div>
        </div>
       </div>
@@ -140,8 +140,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b> <i class="fa fa-plus-square" title="Agregar Dirección Suministros" ng-click="vm.agregarnuevadireccion(false)" ng-show="vm.AgregarNueva==true"></i> <i class="fa fa-close" title="Quitar Dirección Suministros" ng-click="vm.agregarnuevadireccion(true)" ng-show="vm.AgregarNueva==false"></i></label>
-        <select class="form-control" id="CodPunSum" name="CodPunSum" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined|| vm.AgregarNueva==false">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b> <i class="fa fa-plus-square" title="Agregar Dirección Suministros" ng-click="vm.agregarnuevadireccion(false)" ng-show="vm.fdatos_cups.AgregarNueva==true"></i> <i class="fa fa-close" title="Quitar Dirección Suministros" ng-click="vm.agregarnuevadireccion(true)" ng-show="vm.fdatos_cups.AgregarNueva==false"></i></label>
+        <select class="form-control" id="CodPunSum" name="CodPunSum" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined|| vm.fdatos_cups.AgregarNueva==false">
         <option ng-repeat="dato in vm.T_PuntoSuministros" value="{{dato.CodPunSum}}">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</option>                          
         </select>
        </div>
@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodTipVia" name="CodTipVia"  placeholder="* Tipo de Via" ng-model="vm.fdatos_cups.CodTipVia" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fdatos_cups.TipRegDir==undefined " required>
+       <select class="form-control" id="CodTipVia" placeholder="* Tipo de Via" ng-model="vm.fdatos_cups.CodTipVia" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fdatos_cups.TipRegDir==undefined " required>
          <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
         </select>
        </div>
@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Via <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NomViaPunSum"  placeholder="* Nombre de la Via del Dirección de Suministro" maxlength="30"  ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NomViaPunSum"  placeholder="* Nombre de la Via del Dirección de Suministro" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required/>       
        </div>
        </div>
        </div>
@@ -263,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" name="CodPro"  ng-model="vm.fdatos_cups.CodProPunSum" ng-change="vm.BuscarLocalidadesPunSun(vm.fdatos_cups.CodProPunSum,2)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required>
+        <select class="form-control" ng-model="vm.fdatos_cups.CodProPunSum" ng-change="vm.BuscarLocalidadesPunSun(vm.fdatos_cups.CodProPunSum,2)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required>
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>
@@ -274,7 +274,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodLocPunSum" name="CodLocPunSum" ng-model="vm.fdatos_cups.CodLocPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined || vm.fdatos_cups.CodProPunSum==undefined" required>
+       <select class="form-control" id="CodLocPunSum" ng-model="vm.fdatos_cups.CodLocPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined || vm.fdatos_cups.CodProPunSum==undefined" required>
         <option ng-repeat="dato in vm.TLocalidadesfiltradaPunSum" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
         </select>
        </div>
@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        <div class="form">                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;"  id="ObsPunSum" name="ObsPunSum" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_cups.ObsPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;"  id="ObsPunSum" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_cups.ObsPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"></textarea>
        </div>
        </div>      
 

@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.FecIniAne==true">{{dato.FecIniAne}}</td>
                     <td ng-show="vm.EstAne==true">
                       <span class="label label-info" ng-show="dato.EstAne=='ACTIVO'">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstAne=='BLOQUEADO'">Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstAne=='SUSPENDIDO'">Suspendido</span>
                     </td>
                     <td ng-show="vm.AccTAne==true">
                       <div class="btn-group">
@@ -306,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="form-group">     
       <select class="form-control" id="EstAne" name="EstAne" ng-model="vm.tmodal_anexos.EstAne">
         <option value="ACTIVO">Activo</option>
-        <option value="BLOQUEADO">Bloqueado</option>                          
+        <option value="SUSPENDIDO">Suspendido</option>                          
       </select>   
      </div>
      </div>
@@ -331,7 +331,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title"><i class="fa fa-ban"></i> Bloqueo de Anexo</h4>
+            <h4 class="modal-title"><i class="fa fa-ban"></i> Suspender Anexo</h4>
           </div>
           <div class="modal-body">
                         <div class="panel"> 
@@ -361,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspensión</label>
        <input type="text" class="form-control" ng-model="vm.anexos_motivo_bloqueos.MotBloAne" required/> 
      </div>
      </div>
@@ -370,7 +370,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker2" id="FecBloAne" name="FecBloAne" ng-model="vm.FecBloAne" required maxlength="10" ng-change="vm.validarsifechaanexos(vm.FecBloAne,2)" />    
      </div>
      </div>
@@ -384,7 +384,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid"><i class="fa fa-lock"></i>  Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock_Anexos.$invalid"><i class="fa fa-lock"></i> Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>

@@ -33,7 +33,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     }
     ////////////////////////////////////////////////////////////PARA LA LISTA Y CONFIGURACIONES DE PRODUCTOS START///////////////////////////////////////////////////
 
-    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }];
+    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Suspender' }];
     scope.NumCifCom = true;
     scope.RazSocCom = true;
     scope.DesTPro = true;
@@ -293,12 +293,12 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var fecha_bloqueo = document.getElementById("fecha_bloqueo").value;
         scope.fecha_bloqueo = fecha_bloqueo;
         if (scope.fecha_bloqueo == undefined || scope.fecha_bloqueo == null || scope.fecha_bloqueo == '') {
-            scope.toast('error','La Fecha de Bloqueo es requerida.','');
+            scope.toast('error','La Fecha para Suspender es requerida.','');
            return false;
         } else {
             var FecBlo = (scope.fecha_bloqueo).split("/");
             if (FecBlo.length < 3) {
-               scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY','');
+               scope.toast('error','Error en Fecha de Suspensión, el formato correcto es DD/MM/YYYY','');
                return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
@@ -319,14 +319,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error','La Fecha de Bloqueo no puede ser mayor a ' + scope.Fecha_Server,'');
+                    scope.toast('error','La Fecha para suspender no puede ser mayor a ' + scope.Fecha_Server,'');
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
             }
         }
         Swal.fire({
-            text: '¿Seguro que desea bloquear el Producto?',
+            text: '¿Seguro que desea suspender el Producto?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
@@ -364,8 +364,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     var text = 'El Producto ha sido activado de forma correcta';
                 }
                 if (opciones_productos == 2) {
-                    var title = 'Bloqueando';
-                    var text = 'El Producto ha sido bloqueado de forma correcta';
+                    var title = 'Suspender';
+                    var text = 'El Producto ha sido suspendido de forma correcta';
                     $("#modal_motivo_bloqueo_productos").modal('hide');
                 }
                 scope.toast('success',text,title);
@@ -419,7 +419,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.t_modal_data = {};
             scope.opciones_productos[index] = undefined;
             if (dato.EstPro == 'BLOQUEADO') {
-               scope.toast('error','El Producto ya se encuentra bloqueado.','');
+               scope.toast('error','El Producto ya se encuentra suspendido.','');
                return false;
             }
             scope.t_modal_data.CodPro = dato.CodPro;

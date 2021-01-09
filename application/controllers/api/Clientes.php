@@ -328,7 +328,7 @@ protected function buscar_xID_get()
 		}
 		$CPLoc=$this->get('CPLoc');			
         $data = $this->Clientes_model->get_LocalidadByCPLoc($CPLoc);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
 		if (empty($data)){
 			$this->response(false);
 			return false;
@@ -543,8 +543,6 @@ protected function buscar_xID_get()
 			$this->response(false);
 			return false;
 		}
-        
-        
         $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
 		if (empty($data)){
 			$this->response(false);

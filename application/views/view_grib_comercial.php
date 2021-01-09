@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.EmaCom==true">{{dato.EmaCom}}</td>                 
                     <td ng-show="vm.EstCom==true">
                       <span class="label label-info" ng-show="dato.EstCom==1">Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstCom==2">Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstCom==2">Suspendido</span>
                     </td> 
                     <td ng-show="vm.AccCom==true">
                       <div class="btn-group">
@@ -209,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">Bloqueo de Comercial</h4>
+            <h4 class="modal-title">Suspender Comercial</h4>
           </div>
           <div class="modal-body">
           <div class="panel"> 
@@ -235,14 +235,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-4">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker" ng-model="vm.FechBloCom" name="FechBloCom" id="FechBloCom"/>    
      </div>
      </div>
      </div>
     <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Bloqueo</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo del Suspensión</label>
      <input type="text" class="form-control" ng-model="vm.datos_update.MotBloqCom" required/>      
      </div>
      </div>
@@ -255,7 +255,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      </div>
     
     <br>
-     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Bloquear</button>
+     <button class="btn btn-info" type="submit" ng-disabled="form_lock.$invalid">Suspender</button>
       <a class="btn btn-danger" data-dismiss="modal">Volver</a>
 </form>
    </div>
@@ -303,7 +303,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
       <select class="form-control" id="EstCom" name="EstCom" ng-model="vm.tmodal_data.EstCom">
         <option value="1">Activo</option> 
-        <option value="2">Bloqueado</option>                         
+        <option value="2">Suspendido</option>                         
       </select>     
      </div> 
      </div>

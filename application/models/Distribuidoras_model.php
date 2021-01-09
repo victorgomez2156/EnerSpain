@@ -3,7 +3,7 @@ class Distribuidoras_model extends CI_Model
 {
     public function get_list_distribuidoras()
     {
-        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,case TipSerDis when 0 then "ELÉCTRICO" WHEN 1 THEN "GAS" WHEN 2 THEN "AMBOS SERVICIOS" end as TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstDist',false);
+        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,case TipSerDis when 0 then "ELÉCTRICO" WHEN 1 THEN "GAS" WHEN 2 THEN "AMBOS SERVICIOS" end as TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "SUSPENDIDA" end as EstDist',false);
         $this->db->from('T_Distribuidora');       
         $this->db->order_by('RazSocDis ASC');              
         $query = $this->db->get(); 
@@ -43,7 +43,7 @@ class Distribuidoras_model extends CI_Model
     }
     public function get_distribuidora_data($CodDist)
     {
-        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstDist',false);
+        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "SUSPENDIDA" end as EstDist',false);
         $this->db->from('T_Distribuidora');       
         $this->db->where('CodDist',$CodDist);              
         $query = $this->db->get(); 
@@ -72,7 +72,7 @@ class Distribuidoras_model extends CI_Model
     }
     public function getDistribuidorasFilter($SearchText)
     {
-        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,case TipSerDis when 0 then "ELÉCTRICO" WHEN 1 THEN "GAS" WHEN 2 THEN "AMBOS SERVICIOS" end as TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "BLOQUEADO" end as EstDist',false);
+        $this->db->select('CodDist,NumCifDis,RazSocDis,NomComDis,TelFijDis,EmaDis,PagWebDis,PerConDis,case TipSerDis when 0 then "ELÉCTRICO" WHEN 1 THEN "GAS" WHEN 2 THEN "AMBOS SERVICIOS" end as TipSerDis,ObsDis,case EstDist when 1 then "ACTIVO" WHEN 2 THEN "SUSPENDIDA" end as EstDist',false);
         $this->db->from('T_Distribuidora');
         $this->db->like('NumCifDis',$SearchText);
         $this->db->or_like('RazSocDis',$SearchText); 

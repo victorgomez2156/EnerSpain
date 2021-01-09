@@ -80,7 +80,7 @@
      scope.ActPunSum = true;
      scope.ruta_reportes_pdf_puntos_suministros = 0;
      scope.ruta_reportes_excel_puntos_suministros = 0;
-     scope.topcionesPunSum = [{ id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'VER' }, { id: 4, nombre: 'BLOQUEAR' }, { id: 5, nombre: 'ACTIVAR' }, ];
+     scope.topcionesPunSum = [{ id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'VER' }, { id: 4, nombre: 'SUSPENDER' }, { id: 5, nombre: 'ACTIVAR' }, ];
      scope.ttipofiltrosPunSum = [{ id: 1, nombre: 'CLIENTES' }, { id: 2, nombre: 'LOCALIDAD' }, { id: 3, nombre: 'PROVINCIA' }, { id: 4, nombre: 'TIPO INMUEBLE' }, { id: 5, nombre: 'ESTATUS' }];
      scope.fpuntosuministro = {};
      scope.tPuntosSuminitros = [];
@@ -118,8 +118,8 @@
      scope.filtrar_locaPumSum = function() {
          scope.TLocalidadesfiltradaPumSum = $filter('filter')(scope.tLocalidades, { DesPro: scope.fpuntosuministro.CodPro }, true);
      }
-     scope.BuscarLocalidadesPunSun=function(NomPro,metodo)
-     {
+    scope.BuscarLocalidadesPunSun=function(NomPro,metodo)
+    {
         console.log(NomPro);
         if(metodo==1)
         {
@@ -163,9 +163,7 @@
                     }
 
         });
-        
-
-     }
+    }
      $scope.SubmitFormFiltrosPumSum = function(event) {
 
          if (scope.fpuntosuministro.tipo_filtro == 1) {
@@ -379,8 +377,8 @@
              console.log(opciones_PunSum);
          }
          if (opciones_PunSum == 4) {
-             if (dato.EstPunSum == "Bloqueado") {
-                 scope.toast('error','Este Dirección de Suministro Ya Se Encuentra Bloqueado.','');
+             if (dato.EstPunSum == "SUSPENDIDO") {
+                 scope.toast('error','Este Dirección de Suministro Ya Se Encuentra Suspendida.','');
                  return false;
              }
              scope.tPunSum = {};
@@ -395,7 +393,7 @@
              $("#modal_motivo_bloqueo_punto_suministro").modal('show');
          }
          if (opciones_PunSum == 5) {
-             if (dato.EstPunSum == "Activo") {
+             if (dato.EstPunSum == "ACTIVO") {
                  scope.toast('error','Este Dirección de Suministro Ya Se Encuentra Activo.','');
                  return false;
              }
@@ -417,7 +415,7 @@
                      $http.post(url, scope.tPunSum).then(function(result) {
                          $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                          if (result.data != false) {
-                             scope.toast('error','El Dirección de Suministro a sido activo de forma correcta','Exito');
+                             scope.toast('success','La Dirección de Suministro ha sido activa de forma correcta','Exito');
                              scope.mostrar_all_puntos();
                          } else {
                              scope.toast('error','Hubo un error al ejecutar esta acción por favor intente nuevamente.','Error');
@@ -452,7 +450,7 @@
              if (result.data.data != false) {
                  scope.tMotivosBloqueosPunSum = result.data.data;
                            } else {                
-                 scope.toast('error','No hemos encontrados Motivos de Bloqueos para el Dirección de Suministro.','Error');
+                 scope.toast('error','No hemos encontrados Motivos de Suspensión para el Dirección de Suministro.','Error');
                  
              }
 
@@ -480,13 +478,13 @@
          var FecBloPun = document.getElementById("FecBloPun").value;
          scope.FecBloPun = FecBloPun;
          if (scope.FecBloPun == undefined || scope.FecBloPun == null || scope.FecBloPun == '') {
-             scope.toast('error','La Fecha de Bloqueo es requerida','');
+             scope.toast('error','La Fecha de Suspensión es requerida','');
              event.preventDefault();
              return false;
          } else {
              var FecBloPun = (scope.FecBloPun).split("/");
              if (FecBloPun.length < 3) {
-                 scope.toast('error','El formato Fecha de Bloqueo correcto es DD/MM/YYYY','');
+                 scope.toast('error','El formato Fecha de Suspensión correcto es DD/MM/YYYY','');
                  event.preventDefault();
                  return false;
              } else {
@@ -511,7 +509,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     scope.toast('error',"La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente",'');
+                     scope.toast('error',"La Fecha de Suspensión no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente",'');
                      return false;
                  }
                  scope.tPunSum.FecBloPun = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -524,12 +522,12 @@
          }
 
          Swal.fire({
-             title: "¿Seguro que desea Bloquear la Dirección de Suministro?",
+             title: "¿Seguro que desea Suspender la Dirección de Suministro?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "OK"
+             confirmButtonText: "Suspender"
          }).then(function(t) {
              if (t.value == true) {
                  $("#estatus_PumSum").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -538,7 +536,7 @@
                      $("#estatus_PumSum").removeClass("loader loader-default is-active").addClass("loader loader-default");
                      scope.tPunSum = result.data;
                      if (result.data != false) {
-                         scope.toast('success','La Dirección de Suministro ha sido bloqueada de forma correcta','Procesado');
+                         scope.toast('success','La Dirección de Suministro ha sido suspendida de forma correcta','Dirección de Suministro');
                           $("#modal_motivo_bloqueo_punto_suministro").modal('hide');
                          scope.mostrar_all_puntos();
                      } else {
@@ -563,12 +561,13 @@
              }
          });
      };
-     scope.punto_suministro = function() {
-         if (!scope.fpuntosuministro.CodCliPunSum > 0) {
+    scope.punto_suministro = function() 
+    {
+        if (!scope.fpuntosuministro.CodCliPunSum > 0) {
              scope.toast('error','Debe Seleccionar un Cliente Para Aplicar la Dirección.','Error');
              return false;
-         }
-         if (scope.fpuntosuministro.TipRegDir == 0) {
+        }
+        if (scope.fpuntosuministro.TipRegDir == 0) {
              scope.restringir_input = 0;
              scope.fpuntosuministro.CodTipVia = undefined;
              scope.fpuntosuministro.NomViaPunSum = undefined;
@@ -662,7 +661,7 @@
                     }
              });
          }
-     }
+    }
      scope.filtrarLocalidadPunSum = function() {
          scope.TLocalidadesfiltradaPunSum = $filter('filter')(scope.tLocalidades, { CodPro: scope.fpuntosuministro.CodProPunSum }, true);
      }

@@ -92,7 +92,7 @@
 
      scope.servicio_especial.T_DetalleServicioEspecialTarifaGas = [];
      scope.ttipofiltrosServicioEspecial = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Tipo de Suministro' }, { id: 3, nombre: 'Tipo de Cliente' }, { id: 4, nombre: 'Tipo Comisión' }, { id: 5, nombre: 'Fecha de Inicio' }, { id: 6, nombre: 'Estatus' }];
-     scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }, { id: 5, nombre: 'Comisiones' }];
+     scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Suspender' }, { id: 5, nombre: 'Comisiones' }];
      //scope.Topciones_Grib = [{id: 4, nombre: 'VER'},{id: 3, nombre: 'EDITAR'},{id: 1, nombre: 'ACTIVAR'},{id: 2, nombre: 'BLOQUEAR'},{id: 5, nombre: 'COMISIONES'}];
      scope.validate_info_servicio_especiales = scope.INF;
      console.log($route.current.$$route.originalPath);
@@ -475,8 +475,8 @@
              });
          }
          if (opciones_servicio_especiales == 2) {
-             if (dato.EstSerEsp == "BLOQUEADO") {
-                 scope.toast('error','Este Servicio Especial se encuentra bloqueado ya.','Bloqueando');
+             if (dato.EstSerEsp == "SUSPENDIDO") {
+                 scope.toast('error','Este Servicio Especial ya se encuentra suspendido.','Suspendido');
                  return false;
              }
              scope.servicio_especial_bloqueo = {};
@@ -520,8 +520,8 @@
                      var text = 'El Servicio Especial ha sido activado de forma correcta';
                  }
                  if (opciones_servicio_especiales == 2) {
-                     var title = 'Bloqueando';
-                     var text = 'El Servicio Especial ha sido bloqueado de forma correcta';
+                     var title = 'Suspender';
+                     var text = 'El Servicio Especial ha sido suspendido de forma correcta';
                      $("#modal_motivo_bloqueo_servicio_especial").modal('hide');
                  }
                  $("#estatus").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -556,24 +556,24 @@
          var FecBloSerEsp1 = document.getElementById("FecBloSerEsp").value;
          scope.FecBloSerEsp = FecBloSerEsp1;
          if (scope.FecBloSerEsp == undefined || scope.FecBloSerEsp == null || scope.FecBloSerEsp == '') {
-             scope.toast('error','La Fecha de Bloqueo es requerido.','Fecha de Bloqueo');
+             scope.toast('error','La Fecha de suspensión es requerido.','Fecha de suspensión');
              return false;
          } else {
              var FecBlo = (scope.FecBloSerEsp).split("/");
              if (FecBlo.length < 3) {
-                 scope.toast('error','El Formato de la Fecha de Bloqueo Debe Ser: ' + scope.Fecha_Server,'Fecha de Bloqueo');
+                 scope.toast('error','El Formato de la Fecha de suspensión Debe Ser: ' + scope.Fecha_Server,'Fecha de suspensión');
                  return false;
              } else {
                  if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                     scope.toast('error','El Formato Día la Fecha de Bloqueo Debe Ser EJ: 01','Fecha de Bloqueo');
+                     scope.toast('error','El Formato Día la Fecha de suspensión Debe Ser EJ: 01','Fecha de suspensión');
                      return false;
                  }
                  if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                     scope.toast('error','El Formato Mes la Fecha de Bloqueo Debe Ser EJ: 01','Fecha de Bloqueo');
+                     scope.toast('error','El Formato Mes la Fecha de suspensión Debe Ser EJ: 01','Fecha de suspensión');
                      return false;
                  }
                  if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                     scope.toast('error','El Formato Año la Fecha de Bloqueo Debe Ser EJ: 1999','Fecha de Bloqueo');
+                     scope.toast('error','El Formato Año la Fecha de suspensión Debe Ser EJ: 1999','Fecha de suspensión');
                      return false;
                  }
                  valuesStart = scope.FecBloSerEsp.split("/");
@@ -582,7 +582,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                    scope.toast('error',"La Fecha de Bloqueo No Puede Ser Mayor a: " + scope.Fecha_Server + ' Por Favor verifique e intente nuevamente.','Fecha de Bloqueo');
+                    scope.toast('error',"La Fecha de suspensión No Puede Ser Mayor a: " + scope.Fecha_Server + ' Por Favor verifique e intente nuevamente.','Fecha de suspensión');
                     return false;
                  }
                  scope.servicio_especial_bloqueo.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
@@ -590,13 +590,13 @@
          }
          console.log(scope.servicio_especial_bloqueo);
          Swal.fire({
-             title: 'Bloqueando',
-             text: 'Estás Seguro de Bloquear Este Servicio Especial?',
+             title: 'Suspendiendo',
+             text: 'Estás Seguro de Suspender Este Servicio Especial?',
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: 'Bloquear'
+             confirmButtonText: 'Suspender'
          }).then(function(t) {
              if (t.value == true) {
                  console.log(scope.servicio_especial_bloqueo);

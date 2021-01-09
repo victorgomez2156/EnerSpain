@@ -180,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.MaxPotCom==true">{{dato.MaxPotCon}} kw</td>                    
                     <td>
                       <span class="label label-info" ng-show="dato.EstTarEle==1"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstTarEle==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstTarEle==2"><i class="fa fa-ban"></i> Suspendida</span>
                     </td>
                     <td ng-show="vm.AccTarElec==true"> 
                          <select class="form-control" id="opciones_TarEle" name="opciones_TarEle" ng-model="vm.opciones_TarEle[$index]" ng-change="vm.validar_opcion_TarEle($index,vm.opciones_TarEle[$index],dato)">
@@ -391,7 +391,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <td ng-show="vm.MaxConAnu==true">{{dato.MaxConAnu}} kWh</td>                    
                     <td>
                       <span class="label label-info" ng-show="dato.EstTarGas==1"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstTarGas==2"><i class="fa fa-ban"></i> Bloqueado</span>
+                      <span class="label label-danger" ng-show="dato.EstTarGas==2"><i class="fa fa-ban"></i> Suspendida</span>
                     </td>
 
                     <td ng-show="vm.AccTarGas==true"> 

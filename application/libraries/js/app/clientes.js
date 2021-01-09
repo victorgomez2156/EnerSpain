@@ -89,7 +89,7 @@
      scope.ruta_reportes_excel = 0;
      scope.Tclientes = [];
      scope.TclientesBack = [];
-     scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'BLOQUEAR' }];
+     scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'SUSPENDER' }];
      scope.Filtro_Clientes = [{ id: 1, nombre: 'TIPO DE CLIENTE' }, { id: 2, nombre: 'SECTOR' }, { id: 3, nombre: 'PROVINCIA FISCAL' }, { id: 4, nombre: 'LOCALIDAD FISCAL' }, { id: 5, nombre: 'COMERCIAL' }, { id: 6, nombre: 'COLABORADOR' }, { id: 7, nombre: 'ESTATUS CLIENTE' }];
      scope.tmodal_data = {};
      scope.fdatos.misma_razon = false;
@@ -472,7 +472,7 @@
          }
          if (opcion == 4) {
              if (datos.EstCli == 2) {
-                 scope.toast('error','Ya este cliente se encuentra bloqueado.','Error');
+                 scope.toast('error','Ya este cliente se encuentra suspendido.','Error');
                  return false;
              }
              scope.tmodal_data = {};
@@ -492,7 +492,7 @@
                  $("#modal_motivo_bloqueo").modal('show');
                  scope.tMotivosBloqueos = result.data;
              } else {
-                 scope.toast('error','No hay Motivos de Bloqueo registrados','Error');
+                 scope.toast('error','No hay Motivos de Suspensión registrados','Error');
                 
              }
          }, function(error) {
@@ -512,13 +512,13 @@
          var FechBlo = document.getElementById("FechBlo").value;
          scope.FechBlo = FechBlo;
          if (scope.FechBlo == undefined || scope.FechBlo == null || scope.FechBlo == '') {
-             scope.toast('error','La Fecha de Bloqueo es requerida','');
+             scope.toast('error','La Fecha de Suspensión es requerida','');
              event.preventDefault();
              return false;
          } else {
              var FechBlo = (scope.FechBlo).split("/");
              if (FechBlo.length < 3) {
-                 scope.toast('error','El dormato de Fecha de Bloqueo debe ser DD/MM/YYYY','');
+                 scope.toast('error','El dormato de Fecha de Suspensión debe ser DD/MM/YYYY','');
                  event.preventDefault();
                  return false;
              } else {
@@ -543,7 +543,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     scope.toast('error',"La Fecha de Bloqueo no puede ser mayor a" + scope.fecha_server + "verifique e intente nuevamente",'');
+                     scope.toast('error',"La Fecha de Suspensión no puede ser mayor a" + scope.fecha_server + "verifique e intente nuevamente",'');
                      //Swal.fire({ text: , type: "error", confirmButtonColor: "#188ae2" });
                      return false;
                  }
@@ -551,7 +551,7 @@
              }
          }
          Swal.fire({
-             title: "¿Seguro que desea Bloquear el Cliente?",
+             title: "¿Seguro que desea suspender el Cliente?",
              type: "info",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
@@ -575,7 +575,7 @@
                  $http.post(url, scope.datos_update).then(function(result) {
                      if (result.data != false) {
                          $("#modal_motivo_bloqueo").modal('hide');
-                         scope.toast('error','El Cliente ha sido bloqueado de forma correcta','Procesado');
+                         scope.toast('error','El Cliente ha sido suspendido de forma correcta','Procesado');
                           scope.cargar_lista_clientes();
                      } else {
                          scope.toast('error','Ha ocurrido un error, intente nuevamente','Error');

@@ -784,12 +784,15 @@ class Contratos extends REST_Controller
 		if($objSalida-> TipProCom==1 || $objSalida-> TipProCom==2)
 		{
 			$Cliente = $this->Contratos_model->DatosClientesAudax($objSalida->CodCli);
+			$DatosContactoCliente=$this->Contratos_model->DatosContactosClientesAudax($objSalida->CodCli);
+			$DatosCuentaClientes=$this->Contratos_model->DatosCuentaClientesAudax($objSalida->CodCli);
 		}
 		else
 		{
 			$Cliente = $this->Contratos_model->DatosClientesColaboradorAudax($objSalida->CodCli);
-		}
-		$DatosContactoCliente=$this->Contratos_model->DatosContactosClientesAudax($objSalida->CodCli);
+			$DatosContactoCliente=false;
+			$DatosCuentaClientes=false;
+		}		
 		if($DatosContactoCliente==false)
 		{
 			$NomConCli='';
@@ -817,8 +820,7 @@ class Contratos extends REST_Controller
             $TelCelConCli=$DatosContactoCliente-> TelCelConCli;
             $TelFijConCli=$DatosContactoCliente-> TelFijConCli;                       
             $EmaConCli=$DatosContactoCliente-> EmaConCli;
-		}
-		$DatosCuentaClientes=$this->Contratos_model->DatosCuentaClientesAudax($objSalida->CodCli);
+		}		
 		if($DatosCuentaClientes==false)
 		{
 			$iban='';
@@ -835,13 +837,32 @@ class Contratos extends REST_Controller
 			$dc=$DatosCuentaClientes-> dc;
 			$cuenta=$DatosCuentaClientes-> cuenta;
 		}
+		$DatosContrato=$this->Contratos_model->DatosContratoClientesAudax($objSalida->CodConCom);
+		if($DatosContrato!=false)
+		{
+			$duracion=$DatosContrato-> DurCon;
+			$tipo_contrato_comentario=$DatosContrato-> ObsProCom;
+			$tipo_contrato=$DatosContrato-> TipPre;
+			$fecha_firma=$DatosContrato-> FecFirmCon;
+			$fecha_inicio_corporate=$DatosContrato-> FecConCom;
+		}
+		else
+		{
+			$duracion='';
+			$tipo_contrato_comentario='';
+			$tipo_contrato='';
+			$fecha_firma='';
+			$fecha_inicio_corporate='';
+		}
 		$DetallesCUPs=$this->Contratos_model->DatosDetallesCUPsClientesAudax($objSalida->CodProCom);
 		$arrayResponseByAudax = array('CPLocSoc'=> $Cliente-> CPLocSoc,'DesLoc'=> $Cliente-> DesLoc,'DesPro'=> $Cliente-> DesPro,'DesTipVia'=> $Cliente-> DesTipVia,'EscDomCliEnv'=> $Cliente-> EscDomCliEnv,'EscDomSoc'=> $Cliente-> EscDomSoc,'IniTipVia'=> $Cliente-> IniTipVia,'NomViaDomSoc'=> $Cliente-> NomViaDomSoc,'NumCifCli'=> $Cliente-> NumCifCli,'NumViaDomSoc'=> $Cliente-> NumViaDomSoc,'PueDomCliEnv'=> $Cliente-> PueDomCliEnv,'PueDomSoc'=> $Cliente-> PueDomSoc,'RazSocCli'=> $Cliente-> RazSocCli,'TelFijCli'=>$Cliente-> TelFijCli,'TelMovCli'=>$Cliente-> TelMovCli,'EmaCli'=>$Cliente-> EmaCli,
 		'NomConCli'=>$NomConCli, 'CarConCli'=>$CarConCli, 'NIFConCli'=>$NIFConCli, 'direccion_contacto'=>$direccion_contacto, 'tipovia_contacto'=>$tipovia_contacto, 'numdire_contacto'=>$numdire_contacto, 'pisodire_contacto'=>$pisodire_contacto, 'cp_contacto'=>$cp_contacto, 'TelCelConCli'=>$TelCelConCli, 'TelFijConCli'=>$TelFijConCli, 'EmaConCli'=>$EmaConCli,
 
 		'iban'=>$iban,'entidad'=>$entidad,'sucursal'=>$sucursal,'dc'=>$dc,'cuenta'=>$cuenta,
 
-		'DetallesCUPs'=>$DetallesCUPs
+		'DetallesCUPs'=>$DetallesCUPs,
+
+		'duracion'=>$duracion,'tipo_contrato_comentario'=>$tipo_contrato_comentario,'tipo_contrato'=>$tipo_contrato,'fecha_firma'=>$fecha_firma,'fecha_inicio_corporate'=>$fecha_inicio_corporate,
 
 		 );
 		

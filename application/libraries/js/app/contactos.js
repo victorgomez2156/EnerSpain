@@ -102,7 +102,7 @@
      scope.tmodal_contacto = {};
      const $Archivo_DocNIF = document.querySelector("#DocNIF");
      const $Archivo_DocPod = document.querySelector("#DocPod");
-     scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'BLOQUEAR' }];
+     scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'SUSPENDER' }];
      scope.Tabla_Contacto = [];
      scope.Tabla_ContactoBack = [];
      ///////////////////////////// CONTACTOS CLIENTES END ///////////////////////////
@@ -347,8 +347,8 @@
              });
          }
          if (validar_OpcCont == 4) {
-             if (dato.EstConCli == "BLOQUEADO") {
-                 scope.toast('error','Este Contacto Ya Se Encuentra Bloqueado.','');
+             if (dato.EstConCli == "SUSPENDIDO") {
+                 scope.toast('error','Este Contacto Ya Se Encuentra Suspendido.','');
                  return false;
              }
              scope.tmodal_data = {};
@@ -382,7 +382,7 @@
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FechBlo);
                  $("#modal_motivo_bloqueo_contacto").modal('show');
              } else {
-                 scope.toast('info','No existen motivos de bloqueos de contacto','Contactos');
+                 scope.toast('info','No existen motivos de suspensión de contacto','Contactos');
                  scope.tMotivosBloqueoContacto =[];
              }
          }, function(error) {
@@ -414,11 +414,11 @@
              if (result.data.resultado != false) {
                  if (validar_OpcCont == 1) {
                      var title = 'Activando.';
-                     var text = 'El Contacto a sido activado con exito.';
+                     var text = 'El Contacto ha sido activado con exito.';
                  }
                  if (validar_OpcCont == 2) {
                      var title = 'Bloquear.';
-                     var text = 'El Contacto a sido bloqueado con exito.';
+                     var text = 'El Contacto ha sido suspendido con exito.';
                      $("#modal_motivo_bloqueo_contacto").modal('hide');
                  }
                  scope.tmodal_data = {};
@@ -448,13 +448,13 @@
          var FechBlo1 = document.getElementById("FechBlo").value;
          scope.FechBlo = FechBlo1;
          if (scope.FechBlo == undefined || scope.FechBlo == null || scope.FechBlo == '') {
-             scope.toast('error','La Fecha de Bloqueo es requerida','');
+             scope.toast('error','La Fecha de Suspensión es requerida','');
              event.preventDefault();
              return false;
          } else {
              var FechBlo = (scope.FechBlo).split("/");
              if (FechBlo.length < 3) {
-                 scope.toast('error','El formato Fecha de Bloqueo correcto es DD/MM/YYYY','');
+                 scope.toast('error','El formato Fecha de Suspensión correcto es DD/MM/YYYY','');
                  event.preventDefault();
                  return false;
              } else {
@@ -479,7 +479,7 @@
                  var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                  var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                  if (dateStart > dateEnd) {
-                     scope.toast('error',"La Fecha de Bloqueo no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente",'');
+                     scope.toast('error',"La Fecha de Suspensión no puede ser mayor al " + scope.fecha_server + " Verifique e intente nuevamente",'');
                      
                      return false;
                  }
@@ -492,12 +492,12 @@
              scope.tmodal_data.ObsBloContacto = scope.tmodal_data.ObsBloContacto;
          }
          Swal.fire({
-             title: "¿Esta Seguro de Bloquear Este Contacto?",
+             title: "¿Esta Seguro de Suspender Este Contacto?",
              type: "question",
              showCancelButton: !0,
              confirmButtonColor: "#31ce77",
              cancelButtonColor: "#f34943",
-             confirmButtonText: "Bloquear"
+             confirmButtonText: "Suspender"
          }).then(function(t) {
              if (t.value == true) {
                  scope.update_estatus_contacto(2, scope.tmodal_data.CodConCli, scope.tmodal_data.index);

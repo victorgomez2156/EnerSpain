@@ -83,7 +83,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.EstAne = true;
     scope.AccTAne = true;
     scope.ttipofiltrosAnexos = [{ id: 1, nombre: 'Comercializadora' }, { id: 2, nombre: 'Productos' }, { id: 3, nombre: 'Tipo de Suministro' }, { id: 4, nombre: 'Tipo de Comisión' }, { id: 5, nombre: 'Fecha de Inicio' }, { id: 6, nombre: 'Estatus' }];
-    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Bloquear' }, { id: 5, nombre: 'Comisiones' }];
+    scope.Topciones_Grib = [{ id: 4, nombre: 'Ver' }, { id: 3, nombre: 'Editar' }, { id: 1, nombre: 'Activar' }, { id: 2, nombre: 'Suspender' }, { id: 5, nombre: 'Comisiones' }];
     scope.comisiones = false;
     scope.anexos.SerEle = false;
     scope.anexos.SerGas = false;
@@ -489,9 +489,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         if (opciones_anexos == 2) {
             scope.t_modal_data = {};
-            if (dato.EstAne == 'BLOQUEADO') {
+            if (dato.EstAne == 'SUSPENDIDO') {
                 //Swal.fire({ title: "Bloqueado", text: 'El Anexo ya se encuentra Bloqueado', type: "error", confirmButtonColor: "#188ae2" });
-                scope.toast('error','El Anexo ya se encuentra Bloqueado.','Bloqueado');
+                scope.toast('error','El Anexo ya se encuentra suspendido.','Suspendido');
                 return false;
             }
             scope.anexos_motivo_bloqueos = {};
@@ -523,26 +523,26 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecBloAne = document.getElementById("FecBloAne").value;
         scope.FecBloAne = FecBloAne;
         if (scope.FecBloAne == undefined || scope.FecBloAne == null || scope.FecBloAne == '') {
-            scope.toast('error','La Fecha de Bloqueo es requerida.','Fecha de Bloqueo');
+            scope.toast('error','La Fecha de suspensión es requerida.','Fecha Suspender');
             return false;
         } else {
             var FecBlo = (scope.FecBloAne).split("/");
             if (FecBlo.length < 3) {
-                scope.toast('error','Error en Fecha de Bloqueo, el formato correcto es DD/MM/YYYY.','Fecha de Bloqueo');
+                scope.toast('error','Error en Fecha de suspensión, el formato correcto es DD/MM/YYYY.','Fecha Suspender');
                 return false;
             } else {
                 if (FecBlo[0].length > 2 || FecBlo[0].length < 2) {
-                    scope.toast('error','Error en Día, debe introducir dos números.','Fecha de Bloqueo');
+                    scope.toast('error','Error en Día, debe introducir dos números.','Fecha Suspender');
                     return false;
                 }
                 if (FecBlo[1].length > 2 || FecBlo[1].length < 2) {
-                    scope.toast('error','Error en Mes, debe introducir dos números.','Fecha de Bloqueo');
+                    scope.toast('error','Error en Mes, debe introducir dos números.','Fecha Suspender');
                     event.preventDefault();
                     return false;
                 }
                 if (FecBlo[2].length < 4 || FecBlo[2].length > 4) {
-                    scope.toast('error','Error en Año, debe introducir cuatro números.','Fecha de Bloqueo');
-                    //Swal.fire({ title: "Fecha de Bloqueo", text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error','Error en Año, debe introducir cuatro números.','Fecha Suspender');
+                    //Swal.fire({ title: "Fecha Suspender", text: 'Error en Año, debe introducir cuatro números', type: "error", confirmButtonColor: "#188ae2" });
                     event.preventDefault();
                     return false;
                 }
@@ -552,21 +552,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
                 if (dateStart > dateEnd) {
-                    scope.toast('error',"La Fecha de Bloqueo no debe ser mayor a: " + scope.Fecha_Server,'Fecha de Bloqueo');
-                    //Swal.fire({ title: "Fecha de Bloqueo", text: "La Fecha de Bloqueo no debe ser mayor a" + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
+                    scope.toast('error',"La Fecha de suspensión no debe ser mayor a: " + scope.Fecha_Server,'Fecha Suspender');
+                    //Swal.fire({ title: "Fecha Suspender", text: "La Fecha Suspender no debe ser mayor a" + scope.Fecha_Server, type: "error", confirmButtonColor: "#188ae2" });
                     return false;
                 }
                 scope.t_modal_data.FecBlo = valuesStart[2] + "-" + valuesStart[1] + "-" + valuesStart[0];
             }
         }
         Swal.fire({
-            title: "Bloqueado",
-            text: '¿Seguro de bloquear el Anexo?',
+            title: "Suspender Anexo",
+            text: '¿Seguro que desea suspender el Anexo?',
             type: "question",
             showCancelButton: !0,
             confirmButtonColor: "#31ce77",
             cancelButtonColor: "#f34943",
-            confirmButtonText: 'Bloquear'
+            confirmButtonText: 'Suspender'
         }).then(function(t) {
             if (t.value == true) {
                 console.log(scope.t_modal_data);
@@ -599,8 +599,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     var text = 'Anexo activado de forma correcta';
                 }
                 if (opciones_anexos == 2) {
-                    var title = 'Bloquando';
-                    var text = 'Anexo bloqueado de forma correcta';
+                    var title = 'Suspender';
+                    var text = 'Anexo suspendido de forma correcta';
                     $("#modal_motivo_bloqueo_anexos").modal('hide');
                 }
 

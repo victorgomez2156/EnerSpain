@@ -300,16 +300,6 @@ class Contratos_model extends CI_Model
     }
     public function DatosDetallesCUPsClientesAudax($CodProCom)
     {
-        /*$this->db->select("a.*",false);
-        $this->db->from('T_Propuesta_Comercial_CUPs a');
-        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
-        $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom');
-        $this->db->where('c.CodProCom',$CodProCom);        
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        return $query->result();
-        else
-        return false;*/
         $sql = $this->db->query("SELECT d.CUPsEle AS CUPsName,f.IniTipVia,e.NomViaPunSum,e.NumViaPunSum,e.BloPunSum,e.EscPunSum,e.PlaPunSum,e.PuePunSum,e.CPLocSoc,g.DesLoc,h.DesPro,a.PotEleConP1,a.PotEleConP2,a.PotEleConP3,a.PotEleConP4,a.PotEleConP5,a.PotEleConP6,i.NomTarEle as NomTar,SUBSTRING(j.DesPro,1,2) AS DesProGam,j.ObsPro AS ObsProGam,a.TipCups,a.ConCup
         	FROM T_Propuesta_Comercial_CUPs a 
 			JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
@@ -338,6 +328,19 @@ class Contratos_model extends CI_Model
         if ($sql->num_rows() > 0)
           return $sql->result();
         else  
+        return false;              
+    }
+    public function DatosContratoClientesAudax($CodConCom)
+    {
+        $this->db->select("a.*,b.TipPre,b.ObsProCom",false);
+        $this->db->from('T_Contrato a');
+        $this->db->join('T_PropuestaComercial b','a.CodProCom=b.CodProCom','LEFT');
+        $this->db->where('a.CodConCom',$CodConCom);
+        $this->db->limit(1);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->row();
+        else
         return false;              
     }
 

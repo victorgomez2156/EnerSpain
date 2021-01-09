@@ -254,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo Suspender</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Motivo de Suspensión</label>
        <select class="form-control" id="MotBloq" name="MotBloq" required ng-model="vm.t_modal_data.MotBloq">
           <option ng-repeat="dato in vm.tMotBloCom" value="{{dato.CodMotBloCom}}">{{dato.DesMotBloCom}}</option>
         </select>    
@@ -265,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="col-12 col-sm-6">
      <div class="form">                          
      <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Suspender</label>
+     <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Suspensión</label>
      <input type="text" class="form-control datepicker" ng-model="vm.fecha_bloqueo" id="fecha_bloqueo" required maxlength="10" ng-change="vm.validar_fecha_blo(vm.fecha_bloqueo)" />    
      </div>
      </div>
