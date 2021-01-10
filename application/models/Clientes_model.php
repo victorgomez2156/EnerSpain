@@ -147,17 +147,17 @@ public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
     $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
     $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom');
     $this->db->join('T_Contrato d','d.CodProCom=c.CodProCom');
-    $this->db->join('T_Comercializadora e','c.CodCom=e.CodCom');
+    $this->db->join('T_Comercializadora e','c.CodCom=e.CodCom','LEFT');
     
     if($TipCups==1)
     {
         $this->db->join('T_CUPsElectrico f','f.CodCupsEle=a.CodCup');
-        $this->db->join('T_TarifaElectrica g','g.CodTarEle=f.CodTarElec');
+        $this->db->join('T_TarifaElectrica g','g.CodTarEle=f.CodTarElec','LEFT');
     }
     else
     {
         $this->db->join('T_CUPsGas f','f.CodCupGas=a.CodCup');
-        $this->db->join('T_TarifaGas g','g.CodTarGas=f.CodTarGas');
+        $this->db->join('T_TarifaGas g','g.CodTarGas=f.CodTarGas','LEFT');
     }
     $this->db->where('a.CodCup',$CodCups);
     $this->db->where('b.CodCli',$CodCli);        
@@ -541,11 +541,11 @@ public function getClientessearchFilter($filtrar_clientes)
     {
        $this->db->select('b.NumCifCli,b.RazSocCli,c.DesLoc,d.DesPro,a.EstPunSum,CASE a.EstPunSum WHEN 1 THEN "Activo" WHEN 2 THEN "SUSPENDIDO" END AS EstPunSum,e.DesTipVia,e.IniTipVia,a.NomViaPunSum,a.NumViaPunSum,a.BloPunSum,a.EscPunSum,a.PlaPunSum,a.PuePunSum,a.CodPunSum,a.CodCli,f.DesTipInm,a.TipRegDir,a.CodTipVia,a.CodLoc,c.CodPro,c.CPLoc,a.CodTipInm,a.RefCasPunSum,a.DimPunSum,a.ObsPunSum,b.CodCli',FALSE);
         $this->db->from('T_PuntoSuministro a');   
-        $this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
-        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc');
-        $this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
-        $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm'); 
+        $this->db->join('T_Cliente b','a.CodCli=b.CodCli','LEFT'); 
+        $this->db->join('T_Localidad c','a.CodLoc=c.CodLoc','LEFT');
+        $this->db->join('T_Provincia d','c.CodPro=d.CodPro','LEFT');
+        $this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia','LEFT');
+        $this->db->join('T_TipoInmueble f','a.CodTipInm=f.CodTipInm','LEFT'); 
         $this->db->like('b.NumCifCli',$filtrar_search); 
         $this->db->or_like('b.CodCli',$filtrar_search);
         $this->db->or_like('b.RazSocCli',$filtrar_search);

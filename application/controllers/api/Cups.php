@@ -138,8 +138,17 @@ class Cups extends REST_Controller
 				}	
 				$Tabla_Delete="T_CUPsGas";
 				$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupGas',$objSalida->CodCup);
-				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups');				
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
+				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups Eléctrico');	
+				if($objSalida-> AgregarNueva==true)
+				{
+						$CodPunSum=$objSalida->CodPunSum; 
+				}
+				else
+				{
+					$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+					$objSalida->CodPunSum=(string)$CodPunSum;
+				}		
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;	
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -159,13 +168,31 @@ class Cups extends REST_Controller
 						$this->response($response_fail);
 						return false;
 					}
-					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
-					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
+					if($objSalida-> AgregarNueva==true)
+					{
+						$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}
+					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs Eléctrico');
 					$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 				}
 				else
 				{
-					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+					if($objSalida-> AgregarNueva==true)
+					{
+						$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}
+					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
 					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 					$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 				}
@@ -216,7 +243,16 @@ class Cups extends REST_Controller
 				$Tabla_Delete="T_CUPsElectrico";
 				$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupsEle',$objSalida->CodCup);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups');
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,$objSalida->DerAccKW);
+				if($objSalida-> AgregarNueva==true)
+					{
+						$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;	
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -235,13 +271,31 @@ class Cups extends REST_Controller
 						$this->response($response_fail);
 						return false;
 					}
-					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+					if($objSalida-> AgregarNueva==true)
+					{
+						$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}
+					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
 					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 					$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 				}
 				else
 				{
-					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$objSalida->CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+					if($objSalida-> AgregarNueva==true)
+					{
+						$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}
+					$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
 					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 					$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 				}				
@@ -271,7 +325,7 @@ class Cups extends REST_Controller
 			$objSalida->TipServAnt=$objSalida->TipServ;
 			$objSalida->CodCup=$id;	
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
-			$response = array('status' =>200 ,'response' =>'CUPs creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );				
+			$response = array('status' =>200 ,'response' =>'CUPs Gas creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );				
 		}
 	}
 	else
@@ -355,49 +409,49 @@ public function Buscar_XID_Servicio_get()
 		}		
 		$this->response($Result);		
     }
-     public function Dar_Baja_Cups_post()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
+    public function Dar_Baja_Cups_post()
 	{
-		redirect(base_url(), 'location', 301);
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();						
+		$fecha_volteada=explode("/",$objSalida->FecBaj);
+		$fecha_final_volteada=$fecha_volteada[2]."-".$fecha_volteada[1]."-".$fecha_volteada[0];
+		if($objSalida->TipServ=="Gas")
+		{
+			
+			$Tabla_Update="T_CUPsGas";
+			$Where="CodCupGas";
+			$Tabla_Insert="T_BloqueoCUPsGas";
+			$Estatus="EstCUPs";
+			$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Gas');
+			$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Gas');
+		}
+		elseif ($objSalida->TipServ=="Eléctrico") 
+		{
+			$Tabla_Update="T_CUPsElectrico";
+			$Where="CodCupsEle";
+			$Tabla_Insert="T_BloqueoCUPsElectrico";
+			$Estatus="EstCUPs";
+			$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Eléctrico');
+			$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Eléctrico');
+		}
+		else
+		{
+			$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
+			$this->response($response_fail);
+			return false;
+		}	
+		$this->db->trans_complete();
+		$this->response($objSalida);
 	}
-	$objSalida = json_decode(file_get_contents("php://input"));				
-	$this->db->trans_start();						
-	$fecha_volteada=explode("/",$objSalida->FecBaj);
-	$fecha_final_volteada=$fecha_volteada[2]."-".$fecha_volteada[1]."-".$fecha_volteada[0];
-	if($objSalida->TipServ=="Gas")
-	{
-		
-		$Tabla_Update="T_CUPsGas";
-		$Where="CodCupGas";
-		$Tabla_Insert="T_BloqueoCUPsGas";
-		$Estatus="EstCUPs";
-		$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Gas');
-		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Gas');
-	}
-	elseif ($objSalida->TipServ=="Eléctrico") 
-	{
-		$Tabla_Update="T_CUPsElectrico";
-		$Where="CodCupsEle";
-		$Tabla_Insert="T_BloqueoCUPsElectrico";
-		$Estatus="EstCUPs";
-		$Result_Update=$this->Cups_model->update_status_cups($Tabla_Update,$Where,$objSalida->CodCUPs,$Estatus);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Update,'UPDATE',$objSalida->CodCUPs,$this->input->ip_address(),'Actualizando Estatus CUPs Eléctrico');
-		$Result_Insert=$this->Cups_model->insert_motiv_blo_cups($Tabla_Insert,$objSalida->CodCUPs,$objSalida->MotBloq,$objSalida->ObsMotCUPs,$fecha_final_volteada);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla_Insert,'INSERT',$Result_Insert,$this->input->ip_address(),'Agregando Motivo de Baja de CUPs Eléctrico');
-	}
-	else
-	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
-		$this->response($response_fail);
-		return false;
-	}	
-	$this->db->trans_complete();
-	$this->response($objSalida);
-}
  	public function Buscar_Tarifas_get()
     {
 		$datausuario=$this->session->all_userdata();	
@@ -525,6 +579,23 @@ public function Buscar_XID_Servicio_get()
 		}				
 		$this->response($data);		
     }
+    public function CambiodeClienteCUPs_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+
+		$response_punto_suministro=$this->Cups_model->validarCUPsExiste('T_PuntoSuministro',$objSalida-> CodPunSum,'CodPunSum');
+		$insert_log_punto_suministro=$this->Cups_model->insert_old_datos_PunSum($response_punto_suministro-> CodPunSum,$response_punto_suministro-> CodCli,$response_punto_suministro-> TipRegDir,$response_punto_suministro-> CodTipVia,$response_punto_suministro-> NomViaPunSum,$response_punto_suministro-> NumViaPunSum,$response_punto_suministro-> BloPunSum,$response_punto_suministro-> EscPunSum,$response_punto_suministro-> PlaPunSum,$response_punto_suministro-> PuePunSum,$response_punto_suministro-> CodLoc,$response_punto_suministro-> CPLocSoc,$response_punto_suministro-> TelPunSum,$response_punto_suministro-> CodTipInm,$response_punto_suministro-> RefCasPunSum,$response_punto_suministro-> DimPunSum,$response_punto_suministro-> ObsPunSum,$response_punto_suministro-> EstPunSum,$response_punto_suministro-> AclPunSum);
+		$objSalida-> insert_log_punto_suministro =$insert_log_punto_suministro;
+		$updatePunSum=$this->Cups_model->UpdateCodCliPunSum($objSalida-> CodCli,$objSalida-> CodPunSum);		
+		$this->db->trans_complete();
+		$this->response($updatePunSum);
+	}
 ///////////////////////////////////////// PARA CUPS END //////////////////////////////////////////////////////////////////////////
 
 

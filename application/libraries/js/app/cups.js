@@ -340,7 +340,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
     }
-    $scope.submitFormlockCUPs = function(event) {
+    $scope.submitFormlockCUPs = function(event) 
+    {
         console.log(scope.tmodal_data);
         if (scope.tmodal_data.ObsMotCUPs == undefined || scope.tmodal_data.ObsMotCUPs == null || scope.tmodal_data.ObsMotCUPs == '') {
             scope.tmodal_data.ObsMotCUPs = null;
@@ -760,10 +761,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         }
     }
-   scope.containerClicked = function() 
+    scope.containerClicked = function() 
     {
         scope.searchResultCPLoc = {};
     }
+    scope.containerClickedCUPs = function() 
+    {
+        scope.searchResultCUPs = {};
+    }
+    
     scope.searchboxClicked = function($event) 
     {
         $event.stopPropagation();
@@ -1711,6 +1717,35 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.searchResult = {};
             }
         }
+        scope.fetchClientesCambioTitular = function() {
+            var searchText_len = scope.NumCifCliCambio.trim().length;
+            scope.fdatos_cups.Cups_Cif = scope.NumCifCliCambio;
+            if (searchText_len > 0) {
+                var url = base_urlHome() + "api/Cups/getclientes";
+                $http.post(url, scope.fdatos_cups).then(function(result) {
+                    //console.log(result);
+                    if (result.data != false) {
+                        scope.searchResultCUPs = result.data;
+                        console.log(scope.searchResultCUPs);
+                    } else {
+                        scope.toast('error','No hay Clientes registrados','Error');
+                        scope.searchResultCUPs = {};
+                    }
+                }, function(error) {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+                });
+            } else {
+                scope.searchResultCUPs = {};
+            }
+        }
         // Set value to search box
     scope.setValue = function(index, $event, result) {
         console.log(index);
@@ -1722,6 +1757,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.searchResult = {};
         $event.stopPropagation();
         scope.search_PunSum();
+    }
+    scope.setValueCambio = function(index, $event, result) {
+        console.log(index);
+        console.log($event);
+        console.log(result);
+        console.log(scope.searchResultCUPs[index].CodCli);
+        scope.CambioTitular.CodCli = scope.searchResultCUPs[index].CodCli;
+        scope.NumCifCliCambio = scope.searchResultCUPs[index].NumCifCli + " - " + scope.searchResultCUPs[index].RazSocCli
+        scope.searchResultCUPs = {};
+        $event.stopPropagation();
     }
     scope.searchboxClicked = function($event) {
         $event.stopPropagation();
@@ -1858,7 +1903,56 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }
     }
-   
+    scope.CambiarTitularModal=function()
+    {
+       scope.CambioTitular={};
+       $("#modalCambiarTitularCUPs").modal('show'); 
+    }
+    $scope.CambiarTitular = function(event) 
+    {       
+        scope.CambioTitular.CodPunSum=scope.fdatos_cups.CodPunSum;
+        Swal.fire({
+            title: 'Cambio de Cliente',
+            text: 'Esta Seguro de cambiar el cliente del CUPs?',
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Continuar"
+        }).then(function(t) {
+            if (t.value == true) 
+            {
+                var url = base_urlHome()+"api/Cups/CambiodeClienteCUPs";
+                $http.post(url,scope.CambioTitular).then(function(result)
+                {
+                   if(result.data!=false)
+                    {
+                        scope.toast('success','Cliente Cambiado Correctamente','Cambio de Cliente');
+                        $("#modalCambiarTitularCUPs").modal('hide');
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        scope.toast('error','Error intentando cambiar de cliente','Error');
+                    }
+                },function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+                });
+                console.log(scope.CambioTitular);        
+            } else {
+                event.preventDefault();
+            }
+        });
+    };
     var i = -1;
         var toastCount = 0;
         var $toastlast;

@@ -300,13 +300,16 @@ class Cups_model extends CI_Model
             return false;
         }       
     }
-
-
-
-
-
-
-
+    public function insert_old_datos_PunSum($CodPunSum,$CodCli,$TipRegDir,$CodTipVia,$NomViaPunSum,$NumViaPunSum,$BloPunSum,$EscPunSum,$PlaPunSum,$PuePunSum,$CodLoc,$CPLocSoc,$TelPunSum,$CodTipInm,$RefCasPunSum,$DimPunSum,$ObsPunSum,$EstPunSum,$AclPunSum)
+    {
+        $this->db->insert('T_Log_PuntoSuministro',array('CodPunSum'=>$CodPunSum,'CodCli'=>$CodCli,'TipRegDir'=>$TipRegDir,'CodTipVia'=>$CodTipVia,'NomViaPunSum'=>$NomViaPunSum,'NumViaPunSum'=>$NumViaPunSum,'BloPunSum'=>$BloPunSum,'EscPunSum'=>$EscPunSum,'PlaPunSum'=>$PlaPunSum,'PuePunSum'=>$PuePunSum,'CodLoc'=>$CodLoc,'CPLocSoc'=>$CPLocSoc,'TelPunSum'=>$TelPunSum,'CodTipInm'=>$CodTipInm,'RefCasPunSum'=>$RefCasPunSum,'DimPunSum'=>$DimPunSum,'ObsPunSum'=>$ObsPunSum,'EstPunSum'=>$EstPunSum,'AclPunSum'=>$AclPunSum));
+        return $this->db->insert_id();
+    }
+     public function UpdateCodCliPunSum($CodCli,$CodPunSum)
+    {   
+        $this->db->where('CodPunSum',$CodPunSum);      
+        return $this->db->update('T_PuntoSuministro',array('CodCli'=>$CodCli));       
+    }
 
 //////////////////////////////////////////////////////////// PARA CONSUMO CUPS START ////////////////////////////////////////////////
 public function get_list_consumos_cups($Select,$Tabla,$Join,$Joinb,$Join2,$Joinc,$Where,$CodCup) 

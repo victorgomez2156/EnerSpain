@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Cliente {{vm.fdatos_cups.CodCli}}<b style="color:red;">(*)</b></label>
-        <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" placeholder="* Razón Social / Número CIF / Email / Teléfono" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)'/>
+        <input type="text" class="form-control" ng-model="vm.Cups_Cif" maxlength="9" placeholder="* Razón Social / Número CIF / Email / Teléfono" ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.validate_info!=undefined || vm.validate_info==undefined&&vm.fdatos_cups.CodCup>0">
          <ul id='searchResult'>
           <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
            <div ng-show="result.NumCifCli!=''">{{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
@@ -131,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
         <input type="hidden" ng-model="vm.fdatos_cups.CodCli" placeholder="CodCli" readonly />
 
-        <label class="font-weight-bold nexa-dark" style="color:black;" ng-show="vm.fdatos_cups.CodCup>0">Cambio de Titular <i class="fa fa-refresh" title="Cambiar de Cliente" ></i></label>
+        <label class="font-weight-bold nexa-dark" style="color:black;" ng-show="vm.fdatos_cups.CodCup>0">Cambio de Titular <i class="fa fa-refresh" title="Cambiar de Cliente" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined" ng-click="vm.CambiarTitularModal()"></i></label>
        </div>
        </div>
       </div>
@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="col-12 col-sm-12">
        <div class="form">                          
        <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b> <i class="fa fa-plus-square" title="Agregar Dirección Suministros" ng-click="vm.agregarnuevadireccion(false)" ng-show="vm.fdatos_cups.AgregarNueva==true"></i> <i class="fa fa-close" title="Quitar Dirección Suministros" ng-click="vm.agregarnuevadireccion(true)" ng-show="vm.fdatos_cups.AgregarNueva==false"></i></label>
+       <label class="font-weight-bold nexa-dark" style="color:black;">Dirección de Suministro <b style="color:red;">(*)</b> <i class="fa fa-plus-square" title="Agregar Dirección Suministros" ng-click="vm.agregarnuevadireccion(false)" ng-show="vm.fdatos_cups.AgregarNueva==true" ng-disabled="vm.validate_info!=undefined"></i> <i class="fa fa-close" title="Quitar Dirección Suministros" ng-click="vm.agregarnuevadireccion(true)" ng-show="vm.fdatos_cups.AgregarNueva==false"></i></label>
         <select class="form-control" id="CodPunSum" name="CodPunSum" ng-model="vm.fdatos_cups.CodPunSum" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined|| vm.fdatos_cups.AgregarNueva==false">
         <option ng-repeat="dato in vm.T_PuntoSuministros" value="{{dato.CodPunSum}}">{{dato.DesTipVia}} {{dato.NomViaPunSum}} {{dato.NumViaPunSum}} {{dato.BloPunSum}} {{dato.EscPunSum}} {{dato.PlaPunSum}} {{dato.PuePunSum}}</option>                          
         </select>
@@ -153,7 +153,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="form">                          
           <div class="form-group">
             <label class="font-weight-bold nexa-dark" style="color:black;">Nuevo</label>
-            <input type="radio" class="form-control" name="punto_suministro"  ng-model="vm.fdatos_cups.TipRegDir" value="0" ng-click="vm.punto_suministro(1,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.fdatos_cups.CodCli==undefined"/> 
+            <input type="radio" class="form-control" name="punto_suministro"  ng-model="vm.fdatos_cups.TipRegDir" value="0" ng-click="vm.punto_suministro(1,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined"/> 
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Misma Dirección Social</label>
-       <input type="radio" class="form-control" name="punto_suministro" ng-model="vm.fdatos_cups.TipRegDir" value="1" ng-click="vm.punto_suministro(2,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.fdatos_cups.CodCli==undefined"/>       
+       <input type="radio" class="form-control" name="punto_suministro" ng-model="vm.fdatos_cups.TipRegDir" value="1" ng-click="vm.punto_suministro(2,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined"/>       
        </div>
        </div>
        </div> 
@@ -171,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Misma Dirección Fiscal</label>
-       <input type="radio" class="form-control" name="punto_suministro" ng-model="vm.fdatos_cups.TipRegDir" value="2" ng-click="vm.punto_suministro(3,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.fdatos_cups.CodCli==undefined"/>
+       <input type="radio" class="form-control" name="punto_suministro" ng-model="vm.fdatos_cups.TipRegDir" value="2" ng-click="vm.punto_suministro(3,vm.fdatos_cups.TipRegDir)" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.CodCli==undefined"/>
        </div>
        </div>
        </div> 
@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodTipVia" placeholder="* Tipo de Via" ng-model="vm.fdatos_cups.CodTipVia" ng-disabled="vm.validate_info_PunSum!=undefined || vm.fdatos_cups.TipRegDir==undefined " required>
+       <select class="form-control" id="CodTipVia" placeholder="* Tipo de Via" ng-model="vm.fdatos_cups.CodTipVia" ng-disabled="vm.validate_info!=undefined || vm.fdatos_cups.TipRegDir==undefined || vm.fdatos_cups.CodCli==undefined" required>
          <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
         </select>
        </div>
@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Via <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NomViaPunSum"  placeholder="* Nombre de la Via del Dirección de Suministro" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NomViaPunSum"  placeholder="* Nombre de la Via del Dirección de Suministro" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined || vm.validate_info!=undefined " required/>       
        </div>
        </div>
        </div>
@@ -203,7 +203,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Número <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NumViaPunSum"  min="1" placeholder="* Numero del Dirección de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fdatos_cups.NumViaPunSum,1)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.NumViaPunSum"  min="1" placeholder="* Numero del Dirección de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fdatos_cups.NumViaPunSum,1)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" required/>       
        </div>
        </div>
        </div>
@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.BloPunSum"  placeholder="Bloque del Dirección de Suministro" maxlength="3" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.BloPunSum"  placeholder="Bloque del Dirección de Suministro" maxlength="3" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.EscPunSum"  placeholder="Escalera del Dirección de Suministro" maxlength="2" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.EscPunSum"  placeholder="Escalera del Dirección de Suministro" maxlength="2" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -230,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.PlaPunSum"  placeholder="Planta del Dirección de Suministro" maxlength="3" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.PlaPunSum"  placeholder="Planta del Dirección de Suministro" maxlength="3" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -239,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-       <input type="text" class="form-control" ng-model="vm.fdatos_cups.PuePunSum"  placeholder="Puerta del Dirección de Suministro" maxlength="4" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"/>
+       <input type="text" class="form-control" ng-model="vm.fdatos_cups.PuePunSum"  placeholder="Puerta del Dirección de Suministro" maxlength="4" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"/>
        </div>
        </div>
        </div>
@@ -248,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-       <input type="text" class="form-control" ng-click='vm.searchboxClicked($event)' ng-model="vm.fdatos_cups.CPLocSoc" placeholder="Zona Postal" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" ng-keyup='vm.LocalidadCodigoPostal(1)'/>
+       <input type="text" class="form-control" ng-click='vm.searchboxClicked($event)' ng-model="vm.fdatos_cups.CPLocSoc" placeholder="Zona Postal" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" ng-keyup='vm.LocalidadCodigoPostal(1)'/>
         <ul id='searchResult'>
           <li ng-click='vm.setValueCPLoc($index,$event,result,1)' ng-repeat="result in vm.searchResultCPLoc" >
           {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
@@ -263,7 +263,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-        <select class="form-control" ng-model="vm.fdatos_cups.CodProPunSum" ng-change="vm.BuscarLocalidadesPunSun(vm.fdatos_cups.CodProPunSum,2)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined" required>
+        <select class="form-control" ng-model="vm.fdatos_cups.CodProPunSum" ng-change="vm.BuscarLocalidadesPunSun(vm.fdatos_cups.CodProPunSum,2)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" required>
         <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
         </select>
        </div>
@@ -274,7 +274,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodLocPunSum" ng-model="vm.fdatos_cups.CodLocPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined || vm.fdatos_cups.CodProPunSum==undefined" required>
+       <select class="form-control" id="CodLocPunSum" ng-model="vm.fdatos_cups.CodLocPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined || vm.fdatos_cups.CodProPunSum==undefined|| vm.validate_info!=undefined" required>
         <option ng-repeat="dato in vm.TLocalidadesfiltradaPunSum" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
         </select>
        </div>
@@ -288,7 +288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        </div>
        <div class="form">                          
        <div class="form-group">
-        <textarea class="form-control" style="display: inline-block;"  id="ObsPunSum" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_cups.ObsPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined"></textarea>
+        <textarea class="form-control" style="display: inline-block;"  id="ObsPunSum" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos_cups.ObsPunSum" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"></textarea>
        </div>
        </div>      
 
@@ -722,7 +722,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </section>
 
-
+<!--modal modal_cif_comercializadora section START -->
+   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalCambiarTitularCUPs" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Cambiar CUPs de Cliente</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="CambiarTitular_form" name="CambiarTitular_form" ng-submit="CambiarTitular($event)"> 
+                          <div class="form-group" ng-click='vm.containerClickedCUPs()'>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
+                            <div class="col-lg-10">
+                              <input type="text" class="form-control" name="CambiarTitularCUPs" id="CambiarTitularCUPs" ng-model="vm.NumCifCliCambio" placeholder="* Introduzca CIF" required onkeyup="this.value=this.value.toUpperCase();" ng-keyup='vm.fetchClientesCambioTitular()' ng-click='vm.searchboxClicked($event)'/>
+                              <ul id='searchResult' style="height: 250px; overflow-y: auto;">
+                                <li ng-click='vm.setValueCambio($index,$event,result)' ng-repeat="result in vm.searchResultCUPs" >
+                                 <div ng-show="result.NumCifCli!=''">NumCli: {{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
+                                </li>
+                            </ul>   
+                            </div>
+                          </div>
+                          <input type="hidden" name="" ng-model="vm.CambioTitular.CodCli" readonly="readonly">
+                          <button class="btn btn-info" type="submit" ng-disabled="CambiarTitular_form.$invalid" style="color:black;"> Cambiar Titular</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<!--modal modal_cif_comercializadora section END -->
  <script>
       $(function(){
         jQuery(function($) 
