@@ -12222,8 +12222,8 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">%</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> ImpAho, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 3, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12235,7 +12235,7 @@ class Exportar_Documentos extends CI_Controller
                         </td>
                         <td>Consumo (KW/h):                                                    
                         </td >
-                        <td colspan="2">'.number_format($value-> ConCUPs, 2, ',', '.').'                                                    
+                        <td colspan="2">'.number_format($value-> ConCUPs, 3, ',', '.').'                                                    
                         </td>
                         </tr>
                         <tr>
@@ -12271,7 +12271,7 @@ class Exportar_Documentos extends CI_Controller
                             <tr>
                             <td class="borde"><h3>Tárifa</h3> '.$value-> NomTar.'</td> 
 
-                            <td class="borde"><h3>Consumo</h3> '.number_format($value-> ConCUPs, 2, ',', '.') .'</td>
+                            <td class="borde"><h3>Consumo</h3> '.number_format($value-> ConCUPs, 3, ',', '.') .'</td>
 
                             <td class="borde"><h3>Caudal Diario</h3> '.$value-> CauDia.'</td>
 
@@ -12282,8 +12282,8 @@ class Exportar_Documentos extends CI_Controller
                                     <td border="1">%</td>
                                 </tr>
                                 <tr>
-                                    <td border="1">'.number_format($value-> ImpAho, 2, ',', '.').'</td>
-                                    <td border="1">'.number_format($value-> PorAho, 2, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> ImpAho, 3, ',', '.').'</td>
+                                    <td border="1">'.number_format($value-> PorAho, 3, ',', '.').'</td>
                                 </tr>
                                 </table>
                             </td>
@@ -12421,8 +12421,8 @@ class Exportar_Documentos extends CI_Controller
 
         $html .= '<table width="100%" border="1"   celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">
                             <tr>
-                            <td border="1" colspan="1"><b align="left">Ahorro Total:</b> '.number_format($PropuestaComercial-> ImpAhoTot, 2, ',', '.').'</td>
-                            <td border="1" colspan="1"><b align="left">% Total:</b> '.number_format($PropuestaComercial-> PorAhoTot, 2, ',', '.').'</td>
+                            <td border="1" colspan="1"><b align="left">Ahorro Total:</b> '.number_format($PropuestaComercial-> ImpAhoTot, 3, ',', '.').'</td>
+                            <td border="1" colspan="1"><b align="left">% Total:</b> '.number_format($PropuestaComercial-> PorAhoTot, 3, ',', '.').'</td>
                             <td border="1" colspan="3"><b align="left">Comentarios: </b>'.$PropuestaComercial->ObsProCom.' </td>
                             
                             </tr>                           
@@ -13876,17 +13876,17 @@ class Exportar_Documentos extends CI_Controller
                         <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
-                        <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$value-> ImpAho.'</td>
-                        <td border="1">'.$value-> PorAho.'</td>
+                        <td border="1">'.number_format($value-> ConCUPs, 3, ',', '.').'</td>
+                        <td border="1">'.number_format($value-> ImpAho, 3, ',', '.').'</td>
+                        <td border="1">'.number_format($value-> PorAho, 3, ',', '.').'</td>
                      </tr>';  
             }
             endforeach;
              $html .= '
                     <tr>
                         <td border="1" colspan="5"></td>
-                        <td border="1">'.$PropuestaComercial-> ImpAhoTot.'</td>
-                        <td border="1">'.$PropuestaComercial-> PorAhoTot.'</td>
+                        <td border="1">'.number_format($PropuestaComercial-> ImpAhoTot, 3, ',', '.').'</td>
+                        <td border="1">'.number_format($PropuestaComercial-> PorAhoTot, 3, ',', '.').'</td>
                      </tr>';  
             $html .= '</table>';  
         }
@@ -14074,16 +14074,16 @@ class Exportar_Documentos extends CI_Controller
                         <td border="1">'.$TipServ.'</td>
                         <td border="1">'.$value-> CUPsName.'</td>
                         <td border="1">'.$value-> NomTar.'</td>
-                        <td border="1">'.$value-> ConCUPs.'</td>
-                        <td border="1">'.$value-> ImpAho.'</td>                        
-                        <td border="1">'.$value-> PorAho.'</td>
+                        <td border="1">'.number_format($value-> ConCUPs, 3, ',', '.').'</td>
+                        <td border="1">'.number_format($value-> ImpAho, 3, ',', '.').'</td>                        
+                        <td border="1">'.number_format($value-> PorAho, 3, ',', '.').'</td>
                      </tr>';  
             }
             endforeach;
             $html .= '<tr>
                         <td border="1" colspan="7"></td>
-                        <td border="1">'.$PropuestaComercial-> ImpAhoTot.'</td>
-                        <td border="1">'.$PropuestaComercial-> PorAhoTot.'</td>
+                        <td border="1">'.number_format($PropuestaComercial-> ImpAhoTot, 3, ',', '.').'</td>
+                        <td border="1">'.number_format($PropuestaComercial-> PorAhoTot, 3, ',', '.').'</td>
                      </tr></table>';
 
 

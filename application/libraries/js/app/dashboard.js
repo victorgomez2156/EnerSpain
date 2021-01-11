@@ -31,7 +31,7 @@
      scope.response_customer.documentos = [];
      scope.response_customer.Puntos_Suministros = [];
      scope.response_customer.All_CUPs=[];
-
+     scope.tContacto_data_modal={};
      //console.log(scope.response_customer.Contactos);
      //console.log(scope.response_customer.Cuentas_Bancarias);
      //console.log(scope.response_customer.documentos);
@@ -973,7 +973,13 @@
         $('#modal_detalles_CUPs').modal('show');
      }
      //scope.load_customers();
-
+     scope.agregar_datos_dashboard=function(metodo)
+     {
+        if(metodo==1)
+        {
+           $('#modal_agregarContactos').modal('show');  
+        }
+     }
      var i = -1;
         var toastCount = 0;
         var $toastlast;

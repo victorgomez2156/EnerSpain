@@ -956,76 +956,108 @@
          ///////// PARA CALCULAR DNI/NIE START /////////////////
      scope.validarNIFDNI = function() {
          var letter = scope.validar_dni_nie($("#NIFConCli1").parent(), $("#NIFConCli1").val());
-         if (letter != false) {
-             //$("#iLetter").replaceWith("<p id='iLetter' class='ok'>La letra es: <strong>" + letter+ "</strong></p>");
-             scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0, 8) + letter;
-             if (scope.dni_nie_validar != scope.tContacto_data_modal.NIFConCli) {
-                 scope.toast('error','El Número de DNI/NIE es Invalido Intente Nuevamente.','');
-                 return false;
-             } else {
-                 return true;
-             }
-         } else {
-             scope.toast('error','Debe ingresar los 9 Números de su DNI/NIE EJ: 12345678F/Y1234567B','');
-            //$("#iLetter").replaceWith("<p id='iLetter' class='error'>Esperando a los n&uacute;meros</p>");
-         }
-         //console.log(letter);
-         //console.log($("#NIFConCli").val() + letter);
+         console.log(letter[0]);
+        if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="DNI")
+        {
+            scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter[0].letter;
+            if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
+            {
+               scope.toast('error',"El Número de DNI/NIE es Invalido Intente Nuevamente.",'');
+                return false;
+            }
+            else
+            {
+                return true;
+            } 
+        }
+        else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="CIF")
+        {
+            scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter[0].letter;
+            if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
+            {
+               scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
+                return false;
+            }
+            else
+            {
+                return true;
+            } 
+        }
+        else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="No CIF/DNI")
+        {
+           return true;
+        }
+        else
+        {
+            scope.toast('error',"Error en Calculo de CIF/DNI/NIF/NIE.",'');
+            return false;
+        }  
      }
 
-     function isNumeric(expression) {
-         return (String(expression).search(/^\d+$/) != -1);
-     }
-
-     function calculateLetterForDni(dni) {
-         // Letras en funcion del modulo de 23
-         string = "TRWAGMYFPDXBNJZSQVHLCKET"
-             // se obtiene la posiciÃ³n de la cadena anterior
-         position = dni % 23
-             // se extrae dicha posiciÃ³n de la cadena
-         letter = string.substring(position, position + 1)
-         return letter
-     }
-     scope.validar_dni_nie = function(field, txt) {
-             var letter = ""
-                 // Si es un dni extrangero, es decir, empieza por X, Y, Z
-                 // Si la longitud es 8 longitud total de los dni nacionales)
-             if (txt.length == 9) {
-
-                 var first = txt.substring(0, 1)
-                 var last = txt.substring(8, 9)
-                 if (first == 'X' || first == 'Y' || first == 'Z') {
-                     // Si la longitud es 9(longitud total de los dni extrangeros)
-                     // Se calcula la letra para el numero de dni
-                     var number = txt.substring(1, 8);
-                     console.log(number)
-                     if (first == 'X') {
-                         number = '0' + number
-                             //final = first + number
-                     }
-                     if (first == 'Y') {
-                         number = '1' + number
-                             //final = first + number
-                     }
-                     if (first == 'Z') {
-                         number = '2' + number
-                             //final = first + number
-                     }
-                     if (isNumeric(number)) {
-                         letter = calculateLetterForDni(number)
-                     }
-                     return letter
-
-                 } else {
-
-                     letter = calculateLetterForDni(txt.substring(0, 8))
-                     return letter
-                 }
-             } else {
-                 return false
-             }
-
-         }
+    function isNumeric(expression) {
+    return (String(expression).search(/^\d+$/) != -1);
+    }
+    function calculateLetterForDni(dni)
+    {
+        // Letras en funcion del modulo de 23
+        string = "TRWAGMYFPDXBNJZSQVHLCKE"
+        // se obtiene la posiciÃ³n de la cadena anterior
+        position = dni % 23
+        // se extrae dicha posiciÃ³n de la cadena
+        letter = string.substring(position, position + 1)
+        return letter
+    }
+    scope.validar_dni_nie=function(field, txt)
+    {
+        var letter = ""
+        // Si es un dni extrangero, es decir, empieza por X, Y, Z
+        // Si la longitud es 8 longitud total de los dni nacionales)
+        if (txt.length == 9) 
+        {
+          
+            var first = txt.substring(0, 1)
+            var last = txt.substring(8,9)
+            if (first == 'X' || first == 'Y' || first == 'Z') 
+            {               
+                // Si la longitud es 9(longitud total de los dni extrangeros)
+                // Se calcula la letra para el numero de dni
+                var number = txt.substring(1, 8);
+                if (first == 'X') {
+                    number = '0' + number
+                    //final = first + number
+                }
+                if (first == 'Y') {
+                    number = '1' + number
+                    //final = first + number
+                }
+                if (first == 'Z') {
+                    number = '2' + number
+                    //final = first + number
+                }
+                if (isNumeric(number)){
+                    letter = calculateLetterForDni(number)
+                }
+                var response = [{ status: 200, menssage: 'DNI',statusText:'OK',letter:letter}];               
+                return response;
+            }
+            else if(first == 'A' || first == 'B' || first == 'C'||first == 'D' || first == 'E' || first == 'F'||first == 'G' || first == 'H' || first == 'J'||first == 'P' || first == 'Q' || first == 'R'||first == 'S' || first == 'U' || first == 'V'||first == 'N' || first == 'W')
+            {
+                var response = [{ status: 200, menssage: 'No CIF/DNI',statusText:'OK'}];               
+                return response;
+            } 
+            else 
+            {
+                letter = calculateLetterForDni(txt.substring(0, 8))                
+                var response = [{ status: 200, menssage: 'CIF',statusText:'OK',letter:letter}];               
+                return response;
+            }
+        }
+        else
+        {
+            return false
+        }
+       
+    } 
          scope.cargar_tiposContactos=function(metodo)
          {
            var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+metodo;

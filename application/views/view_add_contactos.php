@@ -8,19 +8,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
 <style>
-  #sinborde {
+   #sinborde {
     border: 0;
-	background: inherit;
-	background-color:transparent;
-	width: 120px;
+  background: inherit;
+  background-color:transparent;
+  width: 120px;
   }
   #sinbordeAJUST {
     border: 0;
-	background: inherit;
-	background-color:transparent;
+  background: inherit;
+  background-color:transparent;
   }
-</style>
-<style>
 
         .file-item{
             background: white;
@@ -112,16 +110,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="panel-body">
 
 
-                <form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
-           <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly />          
-      
-
+    <form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
+      <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly /> 
       <div class="col-12 col-sm-10" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.tContacto_data_modal.CodCli}} <b style="color:red;">(*)</b></label>
-       
-
        <input type="text" class="form-control" ng-model="vm.CodCliContacto" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cont==1||vm.no_editable!=undefined"/>
           <ul id='searchResult'>
             <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
@@ -132,7 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
        </div>
        </div>
-       </div>
+      </div>
 
        <div class="col-12 col-sm-2">
             <div class="form">                          
@@ -142,18 +136,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
              </div>
              </div>
-          </div>
+        </div>
 
     <div ng-show="vm.tContacto_data_modal.CodCli!=undefined">
       <div class="col-12 col-sm-3">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-       <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.tContacto_data_modal.CodTipViaSoc" ng-disabled="vm.validate_info!=undefined">
-         <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
-        </select>
-       </div>
-       </div>
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
+         <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.tContacto_data_modal.CodTipViaSoc" ng-disabled="vm.validate_info!=undefined">
+           <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
+          </select>
+         </div>
+         </div>
       </div>
 
       <div class="col-12 col-sm-5">
@@ -163,55 +157,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NomViaDomSoc"   placeholder="* Nombre de la Via del Domicilio del Cliente" ng-disabled="vm.validate_info!=undefined"/>       
        </div>
        </div>
-       </div>
+      </div>
 
        <div class="col-12 col-sm-4">
-       <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumViaDomSoc"  min="1" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
-       </div>
-       </div>
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
+         <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumViaDomSoc"  min="1" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
+         </div>
+         </div>
        </div>
 
-        <div class="col-12 col-sm-3">
+      <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.BloDomSoc"  placeholder="* Bloque del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
-       </div>
+      </div>
 
-        <div class="col-12 col-sm-3">
+      <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.EscDomSoc"  placeholder="* Escalera del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
-       </div>
+      </div>
 
-        <div class="col-12 col-sm-3">
+      <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PlaDomSoc"  placeholder="* Planta del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
-       </div>
+      </div>
 
-       <div class="col-12 col-sm-3">
+      <div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PueDomSoc"  placeholder="* Puerta del Domicilio" maxlength="4" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
-       </div>
+      </div>
 
 
-        <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
+      <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
@@ -225,8 +219,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
        </div>
        </div>
-       </div>
-        <div class="col-12 col-sm-4">
+      </div>
+      
+      <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
@@ -235,9 +230,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </select>
        </div>
        </div>
-       </div>
+      </div>
 
-        <div class="col-12 col-sm-4">
+      <div class="col-12 col-sm-4">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
@@ -246,9 +241,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </select>
        </div>
        </div>
-       </div>
-
-  </div>
+      </div>
+    </div>
            <div class="col-12 col-sm-6">
             <div class="form">                          
              <div class="form-group">
