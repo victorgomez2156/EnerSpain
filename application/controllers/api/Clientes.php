@@ -5,9 +5,9 @@ class Clientes extends REST_Controller
 {
 	function __construct()
 	{
-    	parent::__construct(); 
+		parent::__construct(); 
 		$this->load->database('default');
-        $this->load->library('form_validation');   	
+		$this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
 		$this->load->model('Clientes_model');
 		header('Access-Control-Allow-Origin: *');
@@ -16,81 +16,81 @@ class Clientes extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}
-    }
-     public function get_all_functions_get()
-    {
+	}
+	public function get_all_functions_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}        
-        $Provincias = $this->Clientes_model->get_list_providencias();
-        $Localidades = $this->Clientes_model->get_list_localidades();       
-        $Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
-        $Comerciales = $this->Clientes_model->get_list_comerciales();
-        $Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();
-        $Colaborador = $this->Clientes_model->get_list_colaboradores();
-        $Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
-        $Tipo_Inmuebles = $this->Clientes_model->get_list_tipo_inmuebles();
-        $Bancos = $this->Clientes_model->get_list_bancos();
-        $Tipo_Contacto = $this->Clientes_model->get_list_tipo_contacto();        
-        $Tipos_Documentos=$this->Clientes_model->get_list_tipos_documentos();
-        $Clientes=$this->Clientes_model->get_list_clientes();
-        $Actividades_Clientes=$this->Clientes_model->get_activity_clientes();
-        $Puntos_Suministros_Clientes=$this->Clientes_model->get_puntos_suministros_clientes();
-        $Contactos=$this->Clientes_model->get_lista_contactos();
-        $Cuentas_Bancarias = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
-        $Documentos = $this->Clientes_model->get_all_documentos();
-        $Fecha=date('d/m/Y');
-        $data= array('Provincias' =>$Provincias , 'Localidades' =>$Localidades  , 'Tipo_Cliente' =>$Tipo_Cliente , 'Comerciales' =>$Comerciales ,'Sector_Cliente' =>$Sector_Cliente,'Colaborador' =>$Colaborador,'Tipo_Vias' =>$Tipo_Vias,'Tipo_Inmuebles' =>$Tipo_Inmuebles,'Bancos' =>$Bancos,'Tipo_Contacto' =>$Tipo_Contacto,'Tipos_Documentos' =>$Tipos_Documentos,'Fecha_Server'=>$Fecha
-        	,
-        	'Clientes'=>$Clientes,'Actividades_Clientes'=>$Actividades_Clientes,'Puntos_Suministros_Clientes'=>$Puntos_Suministros_Clientes,'Contactos'=>$Contactos,'Cuentas_Bancarias'=>$Cuentas_Bancarias,'Documentos'=>$Documentos );
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Varias Consultas');
+		$Provincias = $this->Clientes_model->get_list_providencias();
+		$Localidades = $this->Clientes_model->get_list_localidades();       
+		$Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
+		$Comerciales = $this->Clientes_model->get_list_comerciales();
+		$Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();
+		$Colaborador = $this->Clientes_model->get_list_colaboradores();
+		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$Tipo_Inmuebles = $this->Clientes_model->get_list_tipo_inmuebles();
+		$Bancos = $this->Clientes_model->get_list_bancos();
+		$Tipo_Contacto = $this->Clientes_model->get_list_tipo_contacto();        
+		$Tipos_Documentos=$this->Clientes_model->get_list_tipos_documentos();
+		$Clientes=$this->Clientes_model->get_list_clientes();
+		$Actividades_Clientes=$this->Clientes_model->get_activity_clientes();
+		$Puntos_Suministros_Clientes=$this->Clientes_model->get_puntos_suministros_clientes();
+		$Contactos=$this->Clientes_model->get_lista_contactos();
+		$Cuentas_Bancarias = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
+		$Documentos = $this->Clientes_model->get_all_documentos();
+		$Fecha=date('d/m/Y');
+		$data= array('Provincias' =>$Provincias , 'Localidades' =>$Localidades  , 'Tipo_Cliente' =>$Tipo_Cliente , 'Comerciales' =>$Comerciales ,'Sector_Cliente' =>$Sector_Cliente,'Colaborador' =>$Colaborador,'Tipo_Vias' =>$Tipo_Vias,'Tipo_Inmuebles' =>$Tipo_Inmuebles,'Bancos' =>$Bancos,'Tipo_Contacto' =>$Tipo_Contacto,'Tipos_Documentos' =>$Tipos_Documentos,'Fecha_Server'=>$Fecha
+			,
+			'Clientes'=>$Clientes,'Actividades_Clientes'=>$Actividades_Clientes,'Puntos_Suministros_Clientes'=>$Puntos_Suministros_Clientes,'Contactos'=>$Contactos,'Cuentas_Bancarias'=>$Cuentas_Bancarias,'Documentos'=>$Documentos );
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Varias Consultas');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
+	}
 ////////////////////////////////////////////////////////////// PARA CLIENTES START ////////////////////////////////////////////////
-public function get_service_clientes_get()
-    {
+	public function get_service_clientes_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}  
 		$Clientes=$this->Clientes_model->get_list_clientes();
-        $Fecha=date('d/m/Y');
-        
-        $data= array('Fecha_Server'=>$Fecha,'Clientes'=>$Clientes);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Varias Consultas');
+		$Fecha=date('d/m/Y');
+
+		$data= array('Fecha_Server'=>$Fecha,'Clientes'=>$Clientes);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_V_T','GET',null,$this->input->ip_address(),'Cargando Varias Consultas');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function get_service_AddClientes_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
 	}
-	$Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
-	$Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();		
-    $Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
-	$Provincias = $this->Clientes_model->get_list_providencias();
-	$Comerciales = $this->Clientes_model->get_list_comerciales();
-	$Colaborador = $this->Clientes_model->get_list_colaboradores();
-    $arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Cliente'=>$Tipo_Cliente,'Sector_Cliente'=>$Sector_Cliente,'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Comerciales'=>$Comerciales,'Colaborador'=>$Colaborador );
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'Generando ServiceAddClientes');
-	$this->response($arrayName);		
-}
+	public function get_service_AddClientes_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
+		$Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();		
+		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$Provincias = $this->Clientes_model->get_list_providencias();
+		$Comerciales = $this->Clientes_model->get_list_comerciales();
+		$Colaborador = $this->Clientes_model->get_list_colaboradores();
+		$arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Cliente'=>$Tipo_Cliente,'Sector_Cliente'=>$Sector_Cliente,'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Comerciales'=>$Comerciales,'Colaborador'=>$Colaborador );
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'Generando ServiceAddClientes');
+		$this->response($arrayName);		
+	}
 
-public function RealizarConsultaFiltros_get()
-    {
+	public function RealizarConsultaFiltros_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -155,129 +155,129 @@ public function RealizarConsultaFiltros_get()
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'Estatus','GET',null,$this->input->ip_address(),'Estatus');
 		}		
 		$this->response($Response);		
-    }
-public function BuscarLocalidadesFil_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
+	}
+	public function BuscarLocalidadesFil_get()
 	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $CodPro=$this->get('CodPro');
-    $data = $this->Clientes_model->get_localidadesProvincia($CodPro);
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
-	if (empty($data))
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$CodPro=$this->get('CodPro');
+		$data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
+	public function BuscarLocalidadAddClientes_get()
 	{
-		$this->response(false);
-		return false;
-	}		
-	$this->response($data);		
-}
-public function BuscarLocalidadAddClientes_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $CodPro=$this->get('CodPro');
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$CodPro=$this->get('CodPro');
     //$Metodo=$this->get('Metodo');
-    $data = $this->Clientes_model->get_localidadesProvincia($CodPro);
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
-	if (empty($data))
-	{
-		$this->response(false);
-		return false;
-	}		
-	$this->response($data);		
-}
-public function list_clientes_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $data = $this->Clientes_model->get_list_clientes();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Cargando Lista de Clientes');
-	if (empty($data))
-	{
-		$this->response(false);
-		return false;
-	}		
-	$this->response($data);		
-}
-public function comprobar_cif_existente_post()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
+		$data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
 	}
-	$objSalida = json_decode(file_get_contents("php://input"));				
-	$this->db->trans_start();
-	$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
-	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
-	$this->db->trans_complete();
-	$this->response($consulta);
-}
-public function update_status_post()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
+	public function list_clientes_get()
 	{
-		redirect(base_url(), 'location', 301);
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$data = $this->Clientes_model->get_list_clientes();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Cargando Lista de Clientes');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
 	}
-	$objSalida = json_decode(file_get_contents("php://input"));				
-	$this->db->trans_start();
-	$this->Clientes_model->update_status_cliente($objSalida->opcion,$objSalida->hcliente);
-	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->opcion,$this->input->ip_address(),'Actualizando Estatus del Cliente a Activo');
-	
-	if($objSalida->opcion==2)
+	public function comprobar_cif_existente_post()
 	{
-		$Fecha_Bloqueo=explode("/", $objSalida->FechBlo);
-		$Fecha_Bloqueo_Final=$Fecha_Bloqueo[2]."-".$Fecha_Bloqueo[1]."-".$Fecha_Bloqueo[0];
-		$CodBloq=$this->Clientes_model->agregar_motivo_bloqueo($objSalida->hcliente,$Fecha_Bloqueo_Final,$objSalida->CodMotBloCli,$objSalida->ObsBloCli);
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoCliente','INSERT',$CodBloq,$this->input->ip_address(),'Actualizando Estatus del Cliente a Activo');
-	}		
-	$this->db->trans_complete();
-	$this->response(true);
-}
-public function Motivos_Bloqueos_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $data = $this->Clientes_model->get_list_motivos_bloqueos();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCli','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos');
-	if (empty($data))
-	{
-		$this->response(false);
-		return false;
-	}		
-	$this->response($data);		
-}
-protected function buscar_xID_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$consulta=$this->Clientes_model->comprobar_cif_existencia($objSalida->Clientes_CIF);							
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de CIF');
+		$this->db->trans_complete();
+		$this->response($consulta);
 	}
-	$huser=$this->get('huser');		
-    $data = $this->Clientes_model->get_clientes_data($huser);
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$huser,$this->input->ip_address(),'Consultando datos del Cliente');
-	if (empty($data))
+	public function update_status_post()
 	{
-		$this->response(false);
-		return false;
-	}	
-	$this->response($data);		
-} 
-    public function crear_clientes_post()
-    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$this->Clientes_model->update_status_cliente($objSalida->opcion,$objSalida->hcliente);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->opcion,$this->input->ip_address(),'Actualizando Estatus del Cliente a Activo');
+
+		if($objSalida->opcion==2)
+		{
+			$Fecha_Bloqueo=explode("/", $objSalida->FechBlo);
+			$Fecha_Bloqueo_Final=$Fecha_Bloqueo[2]."-".$Fecha_Bloqueo[1]."-".$Fecha_Bloqueo[0];
+			$CodBloq=$this->Clientes_model->agregar_motivo_bloqueo($objSalida->hcliente,$Fecha_Bloqueo_Final,$objSalida->CodMotBloCli,$objSalida->ObsBloCli);
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_BloqueoCliente','INSERT',$CodBloq,$this->input->ip_address(),'Actualizando Estatus del Cliente a Activo');
+		}		
+		$this->db->trans_complete();
+		$this->response(true);
+	}
+	public function Motivos_Bloqueos_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$data = $this->Clientes_model->get_list_motivos_bloqueos();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCli','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
+	protected function buscar_xID_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$huser=$this->get('huser');		
+		$data = $this->Clientes_model->get_clientes_data($huser);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$huser,$this->input->ip_address(),'Consultando datos del Cliente');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}	
+		$this->response($data);		
+	} 
+	public function crear_clientes_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -304,8 +304,8 @@ protected function buscar_xID_get()
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    } 
-    public function getClientesFilter_post()
+	} 
+	public function getClientesFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -320,41 +320,41 @@ protected function buscar_xID_get()
 		$this->response($consulta);
 	}
 	public function LocalidadCodigoPostal_get()
-    {
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CPLoc=$this->get('CPLoc');			
-        $data = $this->Clientes_model->get_LocalidadByCPLoc($CPLoc);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
+		$data = $this->Clientes_model->get_LocalidadByCPLoc($CPLoc);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Localidad','GET',null,$this->input->ip_address(),'Cargando Listado de Localidades Por Código Postal');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}				
 		$this->response($data);		
-    }
+	}
 /////////////////////////////////////////////////////////////////////////// PARA CLIENTES END //////////////////////////////////////
 
     ////////////////////////////////////// PARA LAS ACTIVIDADES CLIENTES START /////////////////////////////////////////////////
 	public function all_actividades_get()
-    {
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CodCli=$this->get('CodCli');		
-        $data = $this->Clientes_model->get_activity_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','GET',null,$this->input->ip_address(),'Cargando Lista de Actividades');
+		$data = $this->Clientes_model->get_activity_clientes();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ActividadCliente','GET',null,$this->input->ip_address(),'Cargando Lista de Actividades');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function Buscar_CNAE_get()
+	}
+	public function Buscar_CNAE_get()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -376,7 +376,7 @@ protected function buscar_xID_get()
 		$this->response($consulta);
 	}
 	public function Asignar_Actividad_post()
-    {
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -403,9 +403,9 @@ protected function buscar_xID_get()
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-     public function update_status_activity_post()
-    {
+	}
+	public function update_status_activity_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -424,24 +424,24 @@ protected function buscar_xID_get()
 		}
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-     public function Motivos_Bloqueos_Actividades_get()
-    {
+	}
+	public function Motivos_Bloqueos_Actividades_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}		
-        $data = $this->Clientes_model->get_list_motivos_bloqueos_actividades();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Actividades');
+		$data = $this->Clientes_model->get_list_motivos_bloqueos_actividades();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloAct','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Actividades');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
 		$arrayName = array('FechaServer' =>date('d/m/Y'), 'data'=>$data);		
 		$this->response($arrayName);		
-    }
-    public function getActividadesFilter_post()
+	}
+	public function getActividadesFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -456,10 +456,10 @@ protected function buscar_xID_get()
 		$this->response($consulta);
 	}
     //////////////////////////////////////PARA LAS ACTIVIDADES CLIENTES END ///////////////////////////////////////////////////////
-   
+
 
     //////////////////////////// PARA LOS Direcciones de SuministroS START ////////////////////////////////////////////////
-	    public function get_service_PuntoSuministros_get()
+	public function get_service_PuntoSuministros_get()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -467,23 +467,23 @@ protected function buscar_xID_get()
 			redirect(base_url(), 'location', 301);
 		}
 		
-	    $Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
 		$Provincias = $this->Clientes_model->get_list_providencias();
 		$Tipo_Inmuebles = $this->Clientes_model->get_list_tipo_inmuebles();
-	    $arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Tipo_Inmuebles'=>$Tipo_Inmuebles);
-	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'ServicePuntoSuministro');
+		$arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Tipo_Inmuebles'=>$Tipo_Inmuebles);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'ServicePuntoSuministro');
 		$this->response($arrayName);		
 	}
-    public function BuscarXIDPunSumData_get()
-    {
+	public function BuscarXIDPunSumData_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CodPunSum=$this->get('CodPunSum');		
-        $data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
-        if (empty($data)){
+		$data = $this->Clientes_model->get_xID_puntos_suministros($CodPunSum);
+		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
@@ -497,27 +497,27 @@ protected function buscar_xID_get()
 			$DatosClienteResponse=$DatosCliente->NumCifCli;
 		}
 		$arrayName = array('data' =>$data , 'NumCifCli' =>$DatosClienteResponse);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');				
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',$CodPunSum,$this->input->ip_address(),'Cargando Información de la Dirección de Suministro');				
 		$this->response($arrayName);		
-    }
-    public function get_all_puntos_sum_get()
-    {
+	}
+	public function get_all_puntos_sum_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		//$hcliente=$this->get('hcliente');		
-        $data = $this->Clientes_model->get_puntos_suministros_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando listado de Direcciones de Suministro');
+		$data = $this->Clientes_model->get_puntos_suministros_clientes();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando listado de Direcciones de Suministro');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function buscar_direccion_Soc_Fis_get()
-    {
+	}
+	public function buscar_direccion_Soc_Fis_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -543,15 +543,15 @@ protected function buscar_xID_get()
 			$this->response(false);
 			return false;
 		}
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-     public function crear_punto_suministro_cliente_post()
-    {
+	}
+	public function crear_punto_suministro_cliente_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -573,25 +573,25 @@ protected function buscar_xID_get()
 		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-     public function Motivos_Bloqueos_PunSum_get()
-    {
+	}
+	public function Motivos_Bloqueos_PunSum_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}		
-        $data = $this->Clientes_model->get_list_motivos_bloqueos_PunSum();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Direcciones de Suministros');
+		$data = $this->Clientes_model->get_list_motivos_bloqueos_PunSum();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloPun','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos Direcciones de Suministros');
 		/*if (empty($data)){
 			$this->response(false);
 			return false;
 		}*/
 		$arrayName = array('FechaServer' =>date('d/m/Y') ,'data'=> $data);		
 		$this->response($arrayName);		
-    }
-     public function bloquear_PunSum_post()
-    {
+	}
+	public function bloquear_PunSum_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -613,8 +613,8 @@ protected function buscar_xID_get()
 		}			
 		$this->db->trans_complete();
 		$this->response(true);
-    }
-    public function getPunSumFilter_post()
+	}
+	public function getPunSumFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -632,24 +632,24 @@ protected function buscar_xID_get()
 
 	////////////////////////////////////// PARA CONTACTOS CLIENTES START ///////////////////////////////////////////////////
 
-     public function lista_contactos_get()
-    {
+	public function lista_contactos_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		//$CodCli=$this->get('CodCli');		
-        $data = $this->Clientes_model->get_lista_contactos();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Cargando Lista Contactos Clientes');
+		$data = $this->Clientes_model->get_lista_contactos();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Cargando Lista Contactos Clientes');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-     public function BuscarXIDContactos_Data_get()
-    {
+	}
+	public function BuscarXIDContactos_Data_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -657,29 +657,29 @@ protected function buscar_xID_get()
 		}
 		$CodConCli=$this->get('CodConCli');	
 		$select="a.*";	
-        $data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Información del Contacto');
+		$data = $this->Clientes_model->get_xID_Contactos($CodConCli,$select);        
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}	
 		$DatosCliente=$this->Clientes_model->get_data_cliente($data->CodCli);
-        $data->NumCifCli=$DatosCliente->NumCifCli;	
-        $data->CodTipViaSoc=$DatosCliente->CodTipViaSoc;
-        $data->NomViaDomSoc=$DatosCliente->NomViaDomSoc;
-        $data->NumViaDomSoc=$DatosCliente->NumViaDomSoc;
-        $data->BloDomSoc=$DatosCliente->BloDomSoc;
-        $data->EscDomSoc=$DatosCliente->EscDomSoc;
-        $data->PlaDomSoc=$DatosCliente->PlaDomSoc;
-        $data->PueDomSoc=$DatosCliente->PueDomSoc;
-        $data->CodLocSoc=$DatosCliente->CodLocSoc;
-        $data->CodProSoc=$DatosCliente->CodProSoc;
-        $data->CPLocSoc=$DatosCliente->CPLocSoc;
+		$data->NumCifCli=$DatosCliente->NumCifCli;	
+		$data->CodTipViaSoc=$DatosCliente->CodTipViaSoc;
+		$data->NomViaDomSoc=$DatosCliente->NomViaDomSoc;
+		$data->NumViaDomSoc=$DatosCliente->NumViaDomSoc;
+		$data->BloDomSoc=$DatosCliente->BloDomSoc;
+		$data->EscDomSoc=$DatosCliente->EscDomSoc;
+		$data->PlaDomSoc=$DatosCliente->PlaDomSoc;
+		$data->PueDomSoc=$DatosCliente->PueDomSoc;
+		$data->CodLocSoc=$DatosCliente->CodLocSoc;
+		$data->CodProSoc=$DatosCliente->CodProSoc;
+		$data->CPLocSoc=$DatosCliente->CPLocSoc;
 
 		$this->response($data);		
-    }
-    public function search_contact_get()
-    {
+	}
+	public function search_contact_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -687,16 +687,16 @@ protected function buscar_xID_get()
 		}
 		$NIFConCli=$this->get('NIFConCli');
 		$select="a.*";		
-        $data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Información del Contacto');
+		$data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function comprobar_cif_contacto_post()
-    {
+	}
+	public function comprobar_cif_contacto_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -708,9 +708,9 @@ protected function buscar_xID_get()
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','SEARCH',null,$this->input->ip_address(),'Comprobando Registro de DNI/NIE');
 		$this->db->trans_complete();
 		$this->response($consulta);
-    }
-     public function Registro_Contacto_post()
-    {
+	}
+	public function Registro_Contacto_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -736,7 +736,7 @@ protected function buscar_xID_get()
 					$this->Clientes_model->actualizar_contacto($objSalida->CodConCli,$objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod,$objSalida->NumColeCon,$objSalida->ConPrin);
 					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
 					$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
-					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente desde Contactos');
 					$arrayName = array('status' =>true ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>true);
 					
 					$this->db->trans_complete();
@@ -748,7 +748,7 @@ protected function buscar_xID_get()
 				$this->Clientes_model->actualizar_contacto($objSalida->CodConCli,$objSalida->NIFConCli,$objSalida->EsRepLeg,$objSalida->TieFacEsc,$objSalida->CanMinRep,$objSalida->CodCli,$objSalida->CodTipCon,$objSalida->CarConCli,$objSalida->NomConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->TipRepr,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->DocPod,$objSalida->NumColeCon,$objSalida->ConPrin);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
 				$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
-					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
 				$arrayName = array('status' =>true ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>true);
 				$this->db->trans_complete();
 				$this->response($arrayName);
@@ -770,15 +770,15 @@ protected function buscar_xID_get()
 				$objSalida->CodConCli=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto.');	
 				$updateDirCli=$this->Clientes_model->actualizar_DirCLi($objSalida->CodCli,$objSalida->CodTipViaSoc,$objSalida->NomViaDomSoc,$objSalida->NumViaDomSoc,$objSalida->BloDomSoc,$objSalida->EscDomSoc,$objSalida->PlaDomSoc,$objSalida->PueDomSoc,$objSalida->CodLocSoc,$objSalida->CPLocSoc);
-					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Dirección del Cliente');
 				$arrayName = array('status' =>true ,'menssage'=>'Contacto creado de forma correcta','response'=>true,'objSalida'=>$objSalida);
 				$this->db->trans_complete();
 				$this->response($arrayName);	
 			}		
 		}		
-    }
-    public function cambiar_estatus_contactos_post()
-    {
+	}
+	public function cambiar_estatus_contactos_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -797,25 +797,25 @@ protected function buscar_xID_get()
 		}
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-    public function list_motivos_bloqueos_contactos_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
-	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $data = $this->Clientes_model->get_all_list_contactos();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos.');
-	if (empty($data))
-	{
-		$this->response(false);
-		return false;
 	}
-	$fecha=date('d/m/Y');
-	$arrayName = array('FechaServer' =>$fecha ,'MotivosContactos' =>$data );		
-	$this->response($arrayName);		
-}
+	public function list_motivos_bloqueos_contactos_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$data = $this->Clientes_model->get_all_list_contactos();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_MotivoBloCon','GET',null,$this->input->ip_address(),'Cargando Lista de Motivos de BLoqueos.');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}
+		$fecha=date('d/m/Y');
+		$arrayName = array('FechaServer' =>$fecha ,'MotivosContactos' =>$data );		
+		$this->response($arrayName);		
+	}
 	public function getContactosFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -831,7 +831,7 @@ protected function buscar_xID_get()
 		$this->response($consulta);
 	}
 	public function ValidarContactoPrincipal_get()
-    {
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -839,68 +839,68 @@ protected function buscar_xID_get()
 		}
 		$CodCli=$this->get('CodCli');
 		$ConPri=$this->get('ConPri');			
-        $data = $this->Clientes_model->Get_valida_contacto_principal($CodCli,$ConPri);        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodCli,$this->input->ip_address(),'Comprobando Contacto Principal');
+		$data = $this->Clientes_model->Get_valida_contacto_principal($CodCli,$ConPri);        
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodCli,$this->input->ip_address(),'Comprobando Contacto Principal');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function UpdateOldContacto_get()
-    {
+	}
+	public function UpdateOldContacto_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CodConCli=$this->get('CodConCli');	
-        $data = $this->Clientes_model->UpdateOldContacto($CodConCli);        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$CodConCli,$this->input->ip_address(),'Quitando Contacto Como Principal');
+		$data = $this->Clientes_model->UpdateOldContacto($CodConCli);        
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$CodConCli,$this->input->ip_address(),'Quitando Contacto Como Principal');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
+	}
 
 	////////////////////////////////////// PARA CONTACTOS CLIENTES END ////////////////////////////////////////////////////
 
 
 	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES START ///////////////////////////////////////////////////
-	 public function get_cuentas_bancarias_cliente_get()
-    {
+	public function get_cuentas_bancarias_cliente_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}				
-        $data = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',null,$this->input->ip_address(),'Cargando listado de Cuentas Bancarias del Cliente');
+		$data = $this->Clientes_model->get_all_Cuentas_Bancarias_clientes();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',null,$this->input->ip_address(),'Cargando listado de Cuentas Bancarias del Cliente');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-    public function BuscarXIDCuenta_Data_get()
-    {
+	}
+	public function BuscarXIDCuenta_Data_get()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CodCueBan=$this->get('CodCueBan');		
-        $data = $this->Clientes_model->get_xID_CuentaBancaria($CodCueBan);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria');
+		$data = $this->Clientes_model->get_xID_CuentaBancaria($CodCueBan);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodCueBan,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}		
 		$this->response($data);		
-    }
-     public function Comprobar_Cuenta_Bancaria_post()
-    {
+	}
+	public function Comprobar_Cuenta_Bancaria_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -912,9 +912,9 @@ protected function buscar_xID_get()
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','SEARCH',null,$this->input->ip_address(),'Buscando Número IBAN');
 		$this->db->trans_complete();
 		$this->response($result);
-    }
-     public function crear_cuenta_bancaria_post()
-    {
+	}
+	public function crear_cuenta_bancaria_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -937,9 +937,9 @@ protected function buscar_xID_get()
 		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }
-     public function update_status_CueBan_post()
-    {
+	}
+	public function update_status_CueBan_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -951,8 +951,8 @@ protected function buscar_xID_get()
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','UPDATE',$objSalida->CodCueBan,$this->input->ip_address(),'Actualizando Estatus de la Cuenta Bancaria');			
 		$this->db->trans_complete();
 		$this->response($result);
-    }
-    public function getCuentasBancariasFilter_post()
+	}
+	public function getCuentasBancariasFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -972,22 +972,22 @@ protected function buscar_xID_get()
 	////////////////////////////////////// PARA CUENTAS BANCARIAS CLIENTES END /////////////////////////////////////////////////////
 
 	////////////////////////////////////// PARA DOCUMENTOS CLIENTES START ////////////////////////////////////////////////
-    public function get_all_documentos_get()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
+	public function get_all_documentos_get()
 	{
-		redirect(base_url(), 'location', 301);
-	}		
-    $data = $this->Clientes_model->get_all_documentos();
-    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',null,$this->input->ip_address(),'Cargando listado de Documentos del Cliente');
-	if (empty($data))
-	{
-		$this->response(false);
-		return false;
-	}		
-	$this->response($data);		
-}
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$data = $this->Clientes_model->get_all_documentos();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',null,$this->input->ip_address(),'Cargando listado de Documentos del Cliente');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
 	public function getDocumentosFilter_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -1003,25 +1003,25 @@ protected function buscar_xID_get()
 		$this->response($consulta);
 	}
 	public function Buscar_xID_Documentos_get()
-    {
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
 			redirect(base_url(), 'location', 301);
 		}
 		$CodTipDocAI=$this->get('CodTipDocAI');		
-        $data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);        
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Información del Documento');
+		$data = $this->Clientes_model->get_xID_Documentos($CodTipDocAI);        
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodTipDocAI,$this->input->ip_address(),'Cargando Información del Documento');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}	
 		$DatosCliente = $this->Clientes_model->get_data_cliente($data->CodCli);
-        $data->NumCifCli=$DatosCliente->NumCifCli;	
+		$data->NumCifCli=$DatosCliente->NumCifCli;	
 		$this->response($data);		
-    }
-public function Registrar_Documentos_post()
-    {
+	}
+	public function Registrar_Documentos_post()
+	{
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
 		{
@@ -1042,7 +1042,7 @@ public function Registrar_Documentos_post()
 		}		
 		$this->db->trans_complete();
 		$this->response($objSalida);
-    }	
+	}	
 	////////////////////////////////////// PARA DOCUMENTOS CLIENTES END ////////////////////////////////////////////////////////
 
 

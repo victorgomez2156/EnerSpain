@@ -22,11 +22,9 @@ class Contratos extends REST_Controller
         $this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->helper("file");
-
 		$config['upload_path']          = './uploads/';
 		$config['allowed_types']        = '*';
-		$config['encrypt_name']        = false;
-		
+		$config['encrypt_name']        = false;		
 		$this->load->library('upload', $config);
     }
     
