@@ -1471,28 +1471,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="panel">                  
 
 							<form class="form-validate" id="form_cuenta_bancaria" name="form_cuenta_bancaria" ng-submit="submitFormRegistroCuentaBanca($event)">                 
-								<div class="col-12 col-sm-12">
-									<div class="form">                          
-										<div class="form-group">
-											<label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.tgribBancos.CodCli}}<b style="color:red;">(*)</b></label>
-
-
-											<input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_cuen==1||vm.no_editable_cuen==1"/>
-											<ul id='searchResult'>
-												<li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
-													{{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
-												</li>
-											</ul> 
-											<input type="hidden" name="CodCliCuen" id="CodCliCuen" ng-model="vm.tgribBancos.CodCli" class="form-control">
-										</div>
-									</div>
-								</div>
-
+								
 								<div class="col-12 col-sm-2">
 									<div class="form">                          
 										<div class="form-group">
 											<label class="font-weight-bold nexa-dark" style="color:black;">IBAN</label>
-											<input type="text" class="form-control" ng-model="vm.CodEur" maxlength="4" required  ng-change="vm.validarsinuermoCodEur(vm.CodEur)" />     
+											<input type="text" class="form-control" ng-model="vm.CodEur" maxlength="4" required/>     
 										</div>
 									</div>
 								</div>
@@ -1537,7 +1521,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</div>
 								</div>
 
-								<button class="btn btn-info" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan==undefined">REGISTRAR</button>  
+								<button class="btn btn-info" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan==undefined">REGISTRAR</button> 
+
+								<input type="hidden" class="form-control" ng-model="vm.tgribBancos.CodCueBan"/>    
 							</form>
 
 
@@ -1555,28 +1541,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-						<h4 class="modal-title">Agregar Documentos</h4>
+						<h4 class="modal-title">Agregar Documento</h4>
 					</div>
 					<div class="modal-body" style="background-color: white;">
 						<div class="panel">                  
 							<form class="form-validate" id="form_documentos" name="form_documentos" ng-submit="submitFormRegistroDocumentos($event)">                 
-
-								<div class="col-12 col-sm-12" ng-click="vm.containerClicked()">
-									<div class="form">                          
-										<div class="form-group">
-											<label class="font-weight-bold nexa-dark" style="color:black;">Clientes {{vm.fagregar_documentos.CodCli}}<b style="color:red;">(*)</b></label>
-
-											<input type="text" class="form-control" ng-model="vm.NumCifCliSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchClientes(2)' ng-click='vm.searchboxClicked($event)' ng-disabled="vm.restringir_cliente_doc==1||vm.no_editable_doc==1"/>
-											<ul id='searchResult'>
-												<li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResult" >
-													{{ result.CodCli }},  {{ result.NumCifCli }} - {{ result.RazSocCli }} 
-												</li>
-											</ul> 
-											<input type="hidden" name="CodCli" id="CodCli" ng-model="vm.fagregar_documentos.CodCli" class="form-control">
-
-										</div>
-									</div>
-								</div>
+							
 								<div class="col-12 col-sm-12">
 									<div class="form">                          
 										<div class="form-group">
@@ -1595,23 +1565,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 											<div id="file-wrap">
 												<p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
-												<input type="file" id="DocCliDoc" name="DocCliDoc" class="file_b" uploader-model="DocCliDoc" draggable="true">
+												<input type="file" id="DocCliDoc" name="DocCliDoc" class="file_b" uploader-model="DocCliDoc" draggable="true" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,4)">
 												<div id="filenameDocCli"></div>                       
 											</div>
-											<script>
-
-
-												$('#DocCliDoc').on('change', function() 
-												{          
-													const $Archivo_DocCli1 = document.querySelector("#DocCliDoc");
-    //console.log($Archivo_DocCli1);
-    let Archivo_DocCli1 = $Archivo_DocCli1.files;                      
-    filenameDocCli = '<i class="fa fa-file"> '+$Archivo_DocCli1.files[0].name+'</i>';
-    $('#filenameDocCli').html(filenameDocCli);
-});
-
-</script>            
-<!--input type="file" class="form-control" accept="application/pdf" id="DocCliDoc" name="DocCliDoc" uploader-model="DocCliDoc"/-->     
+										   
 </div>
 </div>
 </div>
@@ -1646,7 +1603,7 @@ ss="col-12 col-sm-12">
 </div>
 </div>
 
-
+<input type="hidden" class="form-control datepicker" ng-model="vm.fagregar_documentos.CodTipDocAI" name="CodTipDocAI" id="CodTipDocAI"/>  
 
 <button class="btn btn-info" type="submit" ng-disabled="form_documentos.$invalid" ng-show="vm.fagregar_documentos.CodTipDocAI==undefined">REGISTRAR</button>
 </form>
@@ -2046,6 +2003,10 @@ ss="col-12 col-sm-12">
 </div>
 <div id="List_Cli" class="loader loader-default"  data-text="Cargando listado de Clientes"></div>
 <div id="Buscando_Informacion" class="loader loader-default"  data-text="Buscando Información"></div>
+<script>    
+  $('.FecVenDocAco').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+ 
+</script>
 
 <script language="JavaScript">
 // Establecemos las variables

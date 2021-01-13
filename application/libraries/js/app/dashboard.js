@@ -1018,14 +1018,25 @@ scope.filter_DirPumSum = function(CodPunSum) {
         }
         else if(metodo==2)
         {
-         $('#modal_agregarCUPs').modal('show');  
-     }
+          $('#modal_agregarCUPs').modal('show');  
+        }
      else if(metodo==3)
      {
-         $('#modal_agregarCuentasBancarias').modal('show');  
+         scope.tgribBancos={};
+         scope.tgribBancos.CodCli=scope.response_customer.CodCli;
+        scope.CodEur='ES';
+        $('#modal_agregarCuentasBancarias').modal('show');  
      }
      else if(metodo==4)
      {
+        scope.cargar_tiposContactos(11);
+        scope.fagregar_documentos={};
+        scope.fagregar_documentos.CodCli=scope.response_customer.CodCli;
+        scope.fagregar_documentos.TieVen=0;
+        scope.FecVenDocAco=null;
+        document.getElementById('DocCliDoc').value = '';
+        var filenameDocCli = '';
+        $('#filenameDocCli').html(filenameDocCli);
         $('#modal_agregarDocumentos').modal('show');  
      }
      else if(metodo==5)
@@ -1447,6 +1458,10 @@ scope.filter_DirPumSum = function(CodPunSum) {
             {
                 scope.tProvidencias=result.data;
             }
+            else if(metodo==11)
+            {   
+                scope.tListDocumentos=result.data;
+            } 
             else if(metodo==12)
             {   
                 scope.tTiposVias=result.data;
@@ -1462,6 +1477,10 @@ scope.filter_DirPumSum = function(CodPunSum) {
             {
                 scope.tProvidencias=[];
             }
+            else if(metodo==11)
+            {   
+                scope.tListDocumentos=[];
+            } 
             else if(metodo==12)
             {   
                 scope.tTiposVias=[];
@@ -1528,7 +1547,15 @@ scope.filter_DirPumSum = function(CodPunSum) {
                              scope.tContacto_data_modal.DocPod=data.DocNIF;
                             scope.toast('success','Archivo subido correctamente no actualice ni cierre la página hasta finalizar el proceso correctamente.','Archivo Cargado');
                         }
-                },              
+                        if(data.metodo==4)
+                        {
+                            var filenameDocCli = '<i class="fa fa-file"> '+data.file_name+'</i>';
+                            $('#filenameDocCli').html(filenameDocCli);
+                            scope.fagregar_documentos.ArcDoc =data.DocNIF;
+                            scope.fagregar_documentos.DesDoc =data.file_name;
+                            scope.toast('success','Archivo subido correctamente no actualice ni cierre la página hasta finalizar el proceso correctamente.','Archivo Cargado');
+                        }
+                      },              
                 error: function(jqXHR, textStatus, errorThrown){
                         $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
                         console.log(jqXHR);
@@ -1654,10 +1681,10 @@ $scope.submitFormRegistroContacto = function(event)
                    }
                    if (result.data.status == true && result.data.response == true) {
                        $('#modal_agregarContactos').modal('hide'); 
-                        $('#modal_agregarCUPs').modal('hide');
+                        /*$('#modal_agregarCUPs').modal('hide');
                         $('#modal_agregarCuentasBancarias').modal('hide');
                         $('#modal_agregarDocumentos').modal('hide');
-                        $('#modal_agregarNuevoCliente').modal('hide');
+                        $('#modal_agregarNuevoCliente').modal('hide');*/
 
                        //$('#modal_agregarContactos').modal('hide');
                        scope.view_information();                       
@@ -1843,6 +1870,328 @@ $scope.submitFormRegistroContacto = function(event)
            scope.tContacto_data_modal.DocPod = null;
        }
    }
+
+/////////////////////////////////// PARA CUENTAS BANCARIAS DASHBOARD START /////////////////////////////
+ scope.validarsinuermoIBAN = function(IBAN, object) {
+         
+         if (object != undefined && IBAN == 1) {
+             numero = object;
+             if (!/^([0-9])*$/.test(numero))
+                scope.IBAN1 = numero.substring(0, numero.length - 1);
+         }
+         if (object != undefined && IBAN == 2) {
+             numero = object;
+             if (!/^([0-9])*$/.test(numero))
+                 scope.IBAN2 = numero.substring(0, numero.length - 1);
+         }
+         if (object != undefined && IBAN == 3) {
+             numero = object;
+             if (!/^([0-9])*$/.test(numero))
+                 scope.IBAN3 = numero.substring(0, numero.length - 1);
+         }
+         if (object != undefined && IBAN == 4) {
+             numero = object;
+             if (!/^([0-9])*$/.test(numero))
+                 scope.IBAN4 = numero.substring(0, numero.length - 1);
+         }
+         if (object != undefined && IBAN == 5) {
+             numero = object;
+             if (!/^([0-9])*$/.test(numero))
+                 scope.IBAN5 = numero.substring(0, numero.length - 1);
+         }
+         
+         if (scope.IBAN1.length == 4 && scope.IBAN2.length == 4 && scope.IBAN3.length == 4 && scope.IBAN4.length == 4 && scope.IBAN5.length == 4) 
+         {             
+            scope.dig_control = scope.CodEur.substr(2, 4);
+            scope.cod_pais = "1428";
+            scope.tira_cuenta = scope.IBAN1 + scope.IBAN2 + scope.IBAN3 + scope.IBAN4 + scope.IBAN5;
+            scope.tira_completa = scope.tira_cuenta + scope.cod_pais + scope.dig_control;
+            scope.TIR_RES1 = scope.tira_completa.substr(0, 8);
+            scope.VAL_TIR_RES1 = parseInt(scope.TIR_RES1);
+            scope.VAL_RES_TIR_RES1 = scope.VAL_TIR_RES1 - (97 * parseInt(scope.VAL_TIR_RES1 / 97));
+            var x = scope.VAL_RES_TIR_RES1,
+                toString = x.toString(),
+                toConcat = x + "";
+            scope.CAR_RES_TIR_RES1 = toConcat;
+            scope.TIR_RES2 = scope.CAR_RES_TIR_RES1 + scope.tira_completa.substr(8, 8);
+            scope.VAL_TIR_RES2 = parseInt(scope.TIR_RES2);
+            scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES2 - (97 * parseInt(scope.VAL_TIR_RES2 / 97));
+            scope.CAR_RES_TIR_RES2 = "0" + scope.VAL_RES_TIR_RES2;
+            scope.TIR_RES3 = scope.CAR_RES_TIR_RES2 + scope.tira_completa.substr(16, 6);
+            scope.VAL_TIR_RES3 = parseInt(scope.TIR_RES3);
+            scope.VAL_RES_TIR_RES3 = scope.VAL_TIR_RES3 - (97 * parseInt(scope.VAL_TIR_RES3 / 97));
+            var x1 = scope.VAL_RES_TIR_RES3,
+                toString1 = x1.toString(),
+                toConcat1 = x1 + "";
+            scope.CAR_RES_TIR_RES3 = toConcat1;
+            scope.TIR_RES4 = scope.CAR_RES_TIR_RES3 + scope.tira_completa.substr(22, 4);
+            scope.VAL_TIR_RES4 = parseInt(scope.TIR_RES4);
+            scope.VAL_RES_TIR_RES2 = scope.VAL_TIR_RES4 - (97 * parseInt(scope.VAL_TIR_RES4 / 97));
+             
+             /*console.log(scope.tira_cuenta);
+             console.log(scope.dig_control);
+             console.log(scope.cod_pais);
+             console.log(scope.tira_completa);
+             console.log(scope.TIR_RES1);
+             console.log(scope.VAL_TIR_RES1);
+             console.log(scope.VAL_RES_TIR_RES1);
+             console.log(scope.CAR_RES_TIR_RES1);
+             console.log(scope.TIR_RES2);
+             console.log(scope.VAL_TIR_RES2);
+             console.log(scope.VAL_RES_TIR_RES2);
+             console.log(scope.CAR_RES_TIR_RES2);
+             console.log(scope.TIR_RES3);
+             console.log(scope.VAL_TIR_RES3);
+             console.log(scope.VAL_RES_TIR_RES3);
+             console.log(scope.CAR_RES_TIR_RES3);
+             console.log(scope.TIR_RES4);
+             console.log(scope.VAL_TIR_RES4);
+             console.log(scope.VAL_RES_TIR_RES2);*/
+             if (scope.VAL_RES_TIR_RES2 == 1) {
+                 scope.toast('success','El IBAN que introdujo es correcto','IBAN');
+                 scope.numIBanValidado = true;
+             } else {
+                 scope.toast('error','El IBAN que introdujo es incorrecto, verifique e intente de nuevo','Error');
+                 scope.numIBanValidado = false;
+             }
+         } else {
+             scope.numIBanValidado = false;
+         }
+     }
+     $scope.submitFormRegistroCuentaBanca = function(event) {
+         scope.tgribBancos.CodBan=null;
+         scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
+         var url = base_urlHome() + "api/Dashboard/Comprobar_Cuenta_Bancaria/";
+         $http.post(url, scope.tgribBancos).then(function(result) {
+             if (result.data == true) {
+                 scope.toast('error','La Cuenta Bancaria ya se encuentra registrada','Error');
+                 scope.numIBanValidado = false;
+                 return false;
+             } else {
+                 if (scope.tgribBancos.CodCueBan > 0) {
+                     var title = 'Actualizando';
+                     var text = '¿Seguro que desea modificar la información de la Cuenta Bancaria?';
+                     var response = "Cuenta Bancaria actualizada de forma correcta";
+                 }
+                 if (scope.tgribBancos.CodCueBan == undefined) {
+                     var title = 'Guardando';
+                     var text = '¿Seguro que desea registrar la Cuenta Bancaria?';
+                     var response = "Cuenta Bancaria creada de forma correcta";
+                 }
+                 Swal.fire({
+                     title: title,
+                     text: text,
+                     type: "question",
+                     showCancelButton: !0,
+                     confirmButtonColor: "#31ce77",
+                     cancelButtonColor: "#f34943",
+                     confirmButtonText: "Confirmar"
+                 }).then(function(t) {
+                     if (t.value == true) {
+                         
+                         $("#" + title).removeClass("loader loader-default").addClass("loader loader-default  is-active");
+                         var url = base_urlHome() + "api/Dashboard/crear_cuenta_bancaria/";
+                         $http.post(url, scope.tgribBancos).then(function(result) {
+                             scope.tgribBancos = result.data;
+                             if (result.data != false) {
+                                 $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                                 scope.toast('success',response,title);
+                                 scope.numIBanValidado = false;
+                                 $('#modal_agregarCuentasBancarias').modal('hide');  
+                                 scope.view_information();
+                             } else {
+                                 $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                                 scope.toast('error','Hubo un error al ejecutar esta acción por favor intente nuevamente.','Error');
+                                 scope.numIBanValidado = false;
+                                 scope.view_information();
+                             }
+                         }, function(error) {
+                             $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                             scope.numIBanValidado = false;
+
+                             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                         });
+
+                     } else {
+                         event.preventDefault();
+                         scope.numIBanValidado = false;
+                         scope.view_information();
+                         console.log('Cancelando ando...');
+                     }
+                 });
+             } //end else////
+         }, function(error) {
+             if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+         });
+     };
+
+
+
+
+///////////////////////////////// PARA CUENTAS BAMCARIAS DASHBOARD END //////////////////////////////////
+
+
+
+
+
+
+///////////////////////////////////// PARA DOCUMENTOS DASHBOARD START //////////////////////////////////////////////////
+$scope.submitFormRegistroDocumentos = function(event) 
+{  
+  if (!scope.validar_campos_documentos_null()) {
+            return false;
+        }
+        if (scope.fagregar_documentos.CodTipDocAI > 0) {
+            var title = 'Actualizando';
+            var text = '¿Seguro que desea modificar la información del Documento?';
+            var response = "Documento actualizado de forma correcta";
+        }
+        if (scope.fagregar_documentos.CodTipDocAI == undefined) {
+            var title = 'Guardando';
+            var text = '¿Seguro que desea registrar el Documento?';
+            var response = "Documento registrado de forma correcta";
+        }
+        Swal.fire({
+            title: title,
+            text: text,
+            type: "info",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Confirmar"
+        }).then(function(t) {
+            if (t.value == true) {                
+                
+                
+                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+                var url = base_urlHome() + "api/Dashboard/Registrar_Documentos";
+                $http.post(url, scope.fagregar_documentos).then(function(result) {
+
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (result.data != false) {
+
+                        scope.toast('success',response,title);
+                        scope.fagregar_documentos = result.data; 
+                        $('#modal_agregarDocumentos').modal('hide');                       
+                        console.log(result.data);
+                        scope.view_information();
+                    } else {
+                        scope.toast('error','Error en el proceso intente nuevamente.','Error');                        
+                    }
+
+                }, function(error) {
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                });
+            } else {
+                event.preventDefault();
+                console.log('Cancelando ando...');
+            }
+        });
+    };
+    scope.validar_campos_documentos_null = function() {
+        resultado = true;
+        if (!scope.fagregar_documentos.CodCli > 0) {
+            scope.toast('error','Seleccione un Cliente.','');
+            return false;
+        }
+        if (!scope.fagregar_documentos.CodTipDoc > 0) {
+            scope.toast('error','Seleccione un Tipo de Documento.','');
+           return false;
+        }         
+        if (scope.fagregar_documentos.DesDoc ==null) {
+            scope.toast('error','Debe Seleccionar un Documento.','');
+           return false;
+        }        
+
+        if (scope.fagregar_documentos.TieVen == 0) {
+            scope.toast('error','Indicar si el Documento tiene o no Fecha de Vencimiento.','');
+            return false;
+        }
+        if (scope.fagregar_documentos.TieVen == 1) {
+
+            var FecVenDocAco = document.getElementById("FecVenDocAco").value;
+            scope.FecVenDocAco = FecVenDocAco;
+            if (scope.FecVenDocAco == undefined) {
+                scope.toast('error','Colocar Fecha de Vencimiento con el formato DD/MM/YYYY.','');
+                return false;
+            } else {
+                var FecActDoc = (scope.FecVenDocAco).split("/");
+                if (FecActDoc.length < 3) {
+                    scope.toast('error','Error en Fecha de Vencimiento, el formato correcto es DD/MM/YYYY.','');
+                    event.preventDefault();
+                    return false;
+                } else {
+                    if (FecActDoc[0].length > 2 || FecActDoc[0].length < 2) {
+                        scope.toast('error','Error en Día, debe contener dos números.','');
+                        event.preventDefault();
+                        return false;
+
+                    }
+                    if (FecActDoc[1].length > 2 || FecActDoc[1].length < 2) {
+                        scope.toast('error','Error en Mes, debe contener dos números.','');
+                        event.preventDefault();
+                        return false;
+                    }
+                    if (FecActDoc[2].length < 4 || FecActDoc[2].length > 4) {
+                        scope.toast('error','Error en Año, debe contener cuatro números.','');
+                        event.preventDefault();
+                        return false;
+                    }
+                    scope.fagregar_documentos.FecVenDocAco = FecActDoc[2] + "/" + FecActDoc[1] + "/" + FecActDoc[0];
+                    //scope.tmodal_servicio_especiales.FecIniSerEsp=FecIniSerEsp[0]+"/"+FecIniSerEsp[1]+"/"+FecIniSerEsp[2];          
+                }
+            }
+        }
+        if (scope.fagregar_documentos.TieVen == 2) {
+            scope.fagregar_documentos.FecVenDocAco = null;
+        }
+        if (scope.fagregar_documentos.ObsDoc == null || scope.fagregar_documentos.ObsDoc == undefined || scope.fagregar_documentos.ObsDoc == '') {
+            scope.fagregar_documentos.ObsDoc = null;
+        } else {
+            scope.fagregar_documentos.ObsDoc = scope.fagregar_documentos.ObsDoc;
+        }
+        if (resultado == false) {
+            return false;
+        }
+        return true;
+    }
+    scope.validarfechadocumento = function(object) {
+        if (object != undefined) {
+            numero = object;
+            if (!/^([/0-9])*$/.test(numero))
+                scope.FecVenDocAco = numero.substring(0, numero.length - 1);
+        }
+    }
+
+/////////////////////////////////// PARA DOCUMENTOS DASHBOARD END ////////////////////////////////////////////////////
+
+
+   //////////////////////////////////////////////// para mensajes y alertas dinamicas /////////////////////////////////////////////
  var i = -1;
  var toastCount = 0;
  var $toastlast;
