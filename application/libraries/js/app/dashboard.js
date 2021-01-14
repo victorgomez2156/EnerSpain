@@ -989,6 +989,30 @@ scope.filter_DirPumSum = function(CodPunSum) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////// PARA AGREGAR DATOS EN EL MODAL DASHBOARD START //////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1018,6 +1042,14 @@ scope.filter_DirPumSum = function(CodPunSum) {
         }
         else if(metodo==2)
         {
+          scope.fdatos_cups={};
+          scope.fdatos_cups.TipServ = 0;
+          scope.fdatos_cups.CodCli=scope.response_customer.CodCli;
+          scope.fdatos_cups.cups='ES';
+          scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+          scope.fdatos_cups.AgregarNueva=true;
+          scope.fdatos_cups.TipRegDir='1';
+          scope.search_PunSum();
           $('#modal_agregarCUPs').modal('show');  
         }
      else if(metodo==3)
@@ -1870,6 +1902,945 @@ $scope.submitFormRegistroContacto = function(event)
            scope.tContacto_data_modal.DocPod = null;
        }
    }
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////// para cups start///////////////////////////////////////////////////////////
+scope.search_PunSum = function() 
+    {
+            var url = base_urlHome() + "api/Dashboard/search_PunSum_Data/CodCli/" + scope.fdatos_cups.CodCli;
+            $http.get(url).then(function(result) {
+                if (result.data != false) 
+                {
+                    scope.T_PuntoSuministros = result.data;
+                } else {
+                    scope.toast('error','No existen Direcciones de Suministros Registrados','Error');
+                    scope.T_PuntoSuministros = [];
+                }
+            }, function(error) {
+                //$("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+            });
+        }
+        scope.agregarnuevadireccion=function(value)
+        {
+            console.log(value);
+
+            if(value==false)
+            {
+                if (!scope.fdatos_cups.CodCli > 0) 
+                {
+                    scope.toast('error','Debe Seleccionar un Cliente Para Aplicar la Dirección.','Error');
+                    return false;
+                }
+                scope.fdatos_cups.TipRegDir=1;
+                scope.punto_suministro();
+                scope.T_PuntoSuministrosVistaNuevaDireccion=true;
+                var oldpunsum=scope.fdatos_cups.CodPunSum;
+                console.log(oldpunsum);
+                scope.fdatos_cups.CodPunSum=null;
+                scope.fdatos_cups.AgregarNueva=value;
+                var url = base_urlHome()+"api/Dashboard/TipViaProvin/";
+                $http.get(url).then(function(result)
+                {
+                    if(result.data!=false)
+                    {
+                        scope.tTiposVias=result.data.tTiposVias;
+                        scope.tProvidencias=result.data.tProvidencias;
+
+                    }
+                    else
+                    {
+                        scope.toast('error','no se encontraron los complementos para este procedimiento','Error');
+                        scope.tTiposVias=[];
+                        scope.tProvidencias=[];
+                    }
+                },function(error)
+                {
+                                if (error.status == 404 && error.statusText == "Not Found"){
+                                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                                }if (error.status == 403 && error.statusText == "Forbidden"){
+                                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                                }
+                });
+            }
+            else
+            {
+                scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+                scope.fdatos_cups.AgregarNueva=value;
+                //scope.fdatos_cups.CodPunSum=null;
+            }
+            
+        }
+        scope.punto_suministro = function() 
+    {
+        if (!scope.fdatos_cups.CodCli > 0) 
+        {
+            scope.toast('error','Debe Seleccionar un Cliente Para Aplicar la Dirección.','Error');
+            return false;
+        }
+        if (scope.fdatos_cups.TipRegDir == 0) 
+        {
+             scope.restringir_input = 0;
+             scope.fdatos_cups.CodTipVia = undefined;
+             scope.fdatos_cups.NomViaPunSum = undefined;
+             scope.fdatos_cups.NumViaPunSum = undefined;
+             scope.fdatos_cups.BloPunSum = undefined;
+             scope.fdatos_cups.EscPunSum = undefined;
+             scope.fdatos_cups.PlaPunSum = undefined;
+             scope.fdatos_cups.PuePunSum = undefined;             
+             scope.fdatos_cups.CPLocSoc = undefined;
+             scope.fdatos_cups.CodProPunSum = undefined;
+             scope.fdatos_cups.CodLocPunSum = undefined;
+             scope.fdatos_cups.ObsPunSum = undefined;
+        }        
+        else if (scope.fdatos_cups.TipRegDir == 1) 
+        {
+             scope.restringir_input = 1;
+             $("#DirFisSoc").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+             var url = base_urlHome() + "api/Dashboard/buscar_direccion_Soc_Fis/Cliente/" + scope.fdatos_cups.CodCli + "/TipRegDir/" + scope.fdatos_cups.TipRegDir;
+             $http.get(url).then(function(result) {
+                 $("#DirFisSoc").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                 if (result.data != false) {
+                    
+                    scope.fdatos_cups.CodTipVia = result.data.CodTipViaSoc;
+                    scope.fdatos_cups.NomViaPunSum = result.data.NomViaDomSoc;
+                    scope.fdatos_cups.NumViaPunSum = result.data.NumViaDomSoc;
+                    scope.fdatos_cups.BloPunSum = result.data.BloDomSoc;
+                    scope.fdatos_cups.EscPunSum = result.data.EscDomSoc;
+                    scope.fdatos_cups.PlaPunSum = result.data.PlaDomSoc;
+                    scope.fdatos_cups.PuePunSum = result.data.PueDomSoc;
+                    scope.fdatos_cups.CodProPunSum = result.data.CodProSoc;
+                    scope.fdatos_cups.CodLocPunSum = result.data.CodLocSoc;
+                    scope.fdatos_cups.CPLocSoc = result.data.CPLocSoc;
+                    scope.TLocalidadesfiltradaPunSum = [];                    
+                    scope.BuscarLocalidadesPunSun(result.data.CodProSoc,2);
+                 } else {
+                    scope.toast('error','No hemos encontrados dirección compatible con este cliente.','Error');
+                 }
+
+             }, function(error) {
+                 $("#DirFisSoc").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                 if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+             });
+        }
+        else if (scope.fdatos_cups.TipRegDir == 2) 
+        {
+             scope.restringir_input = 1;
+             $("#DirFisSoc").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+             var url = base_urlHome() + "api/Dashboard/buscar_direccion_Soc_Fis/Cliente/" + scope.fdatos_cups.CodCli + "/TipRegDir/" + scope.fdatos_cups.TipRegDir;
+             $http.get(url).then(function(result) {
+                 $("#DirFisSoc").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (result.data != false) {
+                     scope.fdatos_cups.CodTipVia = result.data.CodTipViaFis;
+                     scope.fdatos_cups.NomViaPunSum = result.data.NomViaDomFis;
+                     scope.fdatos_cups.NumViaPunSum = result.data.NumViaDomFis;
+                     scope.fdatos_cups.BloPunSum = result.data.BloDomFis;
+                     scope.fdatos_cups.EscPunSum = result.data.EscDomFis;
+                     scope.fdatos_cups.PlaPunSum = result.data.PlaDomFis;
+                     scope.fdatos_cups.PuePunSum = result.data.PueDomFis;
+                     scope.fdatos_cups.CodProPunSum = result.data.CodProFis;
+                     scope.fdatos_cups.CodLocPunSum = result.data.CodLocFis;
+                     scope.fdatos_cups.CPLocSoc = result.data.CPLocFis;
+                     scope.TLocalidadesfiltradaPunSum = [];
+                     scope.BuscarLocalidadesPunSun(result.data.CodProFis,2);
+
+                 } else {
+                     scope.toast('error','No hemos encontrados dirección compatible con este cliente.','Error');
+                 }
+
+             }, function(error) {
+                 $("#DirFisSoc").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                 if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+             });
+        }
+        else
+        {
+
+        }
+    }    
+     scope.BuscarLocalidadesPunSun=function(CodPro,metodo)
+    {
+        console.log(CodPro);        
+        var url=base_urlHome()+"api/Dashboard/BuscarLocalidadesFil/CodPro/"+CodPro;
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                scope.TLocalidadesfiltradaPunSum=result.data;
+            }
+            else
+            {
+               scope.toast('error','No se encontraron Localidades asignada a esta Provincia','Error');
+               scope.TLocalidadesfiltradaPunSum=[];
+               scope.fdatos_cups.CodLocPunSum=undefined;
+               scope.fdatos_cups.CodLocFil=undefined;
+            }
+
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+        });
+    }
+    scope.por_servicios = function(objecto) {
+        if (scope.fdatos_cups.CodCup > 0 && scope.fdatos_cups.TipServ != scope.fdatos_cups.TipServAnt) {
+            scope.fdatos_cups.PotConP1 = null;
+            scope.fdatos_cups.PotConP2 = null;
+            scope.fdatos_cups.PotConP3 = null;
+            scope.fdatos_cups.PotConP4 = null;
+            scope.fdatos_cups.PotConP5 = null;
+            scope.fdatos_cups.PotConP6 = null;
+            scope.fdatos_cups.PotMaxBie = null;
+            scope.fdatos_cups.CodDis = null;
+            scope.fdatos_cups.CodTar = null;
+            scope.fdatos_cups.FecAltCup = null;
+            scope.fdatos_cups.FecUltLec = null;
+            scope.fdatos_cups.ConAnuCup = null;
+        }
+        if (scope.fdatos_cups.CodCup == undefined && scope.fdatos_cups.TipServAnt == undefined) {
+            scope.fdatos_cups.PotConP1 = null;
+            scope.fdatos_cups.PotConP2 = null;
+            scope.fdatos_cups.PotConP3 = null;
+            scope.fdatos_cups.PotConP4 = null;
+            scope.fdatos_cups.PotConP5 = null;
+            scope.fdatos_cups.PotConP6 = null;
+            scope.fdatos_cups.PotMaxBie = null;
+            scope.fdatos_cups.CodDis = null;
+            scope.fdatos_cups.CodTar = null;
+            scope.fdatos_cups.FecAltCup = null;
+            scope.fdatos_cups.FecUltLec = null;
+            scope.fdatos_cups.ConAnuCup = null;
+        }
+        scope.sin_data = 1;
+        if (objecto == 1) {
+            var url = base_urlHome() + "api/Dashboard/Por_Servicios";
+            $http.post(url, scope.fdatos_cups).then(function(result) {
+                if (result.data != false) {
+                    scope.T_Distribuidoras = result.data.Distribuidoras;
+                    scope.T_Tarifas = result.data.Tarifas;
+                    scope.sin_data = 0;
+                } else {
+                    scope.toast('info','No existen datos registrados.','Error');
+                    scope.sin_data = 1;
+                }
+
+            }, function(error) {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+            });
+        }
+        if (objecto == 2) {
+            var url = base_urlHome() + "api/Dashboard/Por_Servicios";
+            $http.post(url, scope.fdatos_cups).then(function(result) {
+                if (result.data != false) {
+                    scope.T_Distribuidoras = result.data.Distribuidoras;
+                    scope.T_Tarifas = result.data.Tarifas;
+                    scope.sin_data = 0;
+                } else {
+                    scope.toast('error','No existen datos registrados.','Error');
+                    scope.sin_data = 1;
+                }
+
+            }, function(error) {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+            });
+        }
+    }
+    scope.PeriodosTarifas = function(TipServ, CodTar) {
+        if (TipServ == 1) {
+            console.log(TipServ);
+            console.log(CodTar);
+            console.log(scope.T_Tarifas);
+            for (var i = 0; i < scope.T_Tarifas.length; i++) {
+                if (scope.T_Tarifas[i].CodTar == CodTar) {
+                    //console.log(scope.T_Tarifas[i]);
+                    scope.totalPot = scope.T_Tarifas[i].CanPerTar;
+                }
+            }
+            console.log(scope.totalPot);
+        }
+    }
+    scope.validar_fecha_inputs = function(metodo, object) {
+        if (metodo == 1) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.fdatos_cups.FecAltCup = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 2) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.fdatos_cups.FecUltLec = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 3) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.ConAnuCup = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 4) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP1 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 5) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP2 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 6) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP3 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 7) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP4 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 8) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP5 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 9) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotConP6 = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 10) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([.0-9])*$/.test(numero))
+                    scope.fdatos_cups.PotMaxBie = numero.substring(0, numero.length - 1);
+            }
+        }
+
+        if (metodo == 20) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.historial.desde = numero.substring(0, numero.length - 1);
+            }
+        }
+
+        if (metodo == 21) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.historial.hasta = numero.substring(0, numero.length - 1);
+            }
+        }
+        if (metodo == 22) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([/0-9])*$/.test(numero))
+                    scope.tmodal_data.FecBaj = numero.substring(0, numero.length - 1);
+            }
+        }
+         if (metodo == 23) {
+            if (object != undefined) {
+                numero = object;
+                if (!/^([,0-9])*$/.test(numero))
+                    scope.fdatos_cups.DerAccKW = numero.substring(0, numero.length - 1);
+            }
+        }
+    }
+     $scope.submitFormCups = function(event) {
+        //scope.fdatos_cups.CodPunSum=scope.CodPunSum;
+        console.log(scope.fdatos_cups);
+        if (!scope.validar_campos_cups()) {
+            return false;
+        }
+        if (scope.fdatos_cups.CodCup > 0) {
+            var title = 'Actualizando';
+            var text = '¿Seguro que desea modificar la información del CUPs?';
+            var response = "CUPs actualizado de forma correcta";
+        }
+        if (scope.fdatos_cups.CodCup == undefined) {
+            var title = 'Guardando';
+            var text = '¿Seguro que desea registrar el CUPs?';
+            var response = "CUPs creado de forma correcta";
+        }
+        Swal.fire({
+            title: title,
+            text: text,
+            type: "question",
+            showCancelButton: !0,
+            confirmButtonColor: "#31ce77",
+            cancelButtonColor: "#f34943",
+            confirmButtonText: "Confirmar"
+        }).then(function(t) {
+            if (t.value == true) {
+                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+                var url = base_urlHome() + "api/Dashboard/Registrar_Cups/";
+                $http.post(url, scope.fdatos_cups).then(function(result) 
+                {
+                    $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    console.log(result.data);
+                    if(result.data.status==400 && result.data.statusText=='OK')
+                    {
+                        scope.toast('error',result.data.response,'CUPs Registrado');
+                        return false;
+                    }
+                    else if(result.data.status==200 && result.data.statusText=='OK')
+                    {
+                        $('#modal_agregarCUPs').modal('hide');  
+                        scope.view_information();                         
+                        /*console.log(result.data.objSalida);
+                        scope.fdatos_cups = result.data.objSalida;
+                        console.log(scope.fdatos_cups);
+                        $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecAltCup);
+                        $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecUltLec);
+                        scope.toast('success',result.data.response,title);
+                        if(scope.fdatos_cups.AgregarNueva==false && scope.fdatos_cups.CodCup!=undefined)                            
+                        { 
+                            scope.agregarnuevadireccion(true)
+                            scope.search_PunSum();
+                            scope.fdatos_cups.CodPunSum=result.data.objSalida.CodPunSum;
+                            console.log(result.data.objSalida.CodPunSum);
+                            console.log(scope.fdatos_cups.CodPunSum);
+                        }*/
+                    }
+                }, function(error) {
+                    $("#" + title).removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                   if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+                });
+            } else {
+                event.preventDefault();
+            }
+        });
+    };
+    scope.validar_campos_cups = function()
+    {
+        resultado = true;
+        if (!scope.fdatos_cups.CodCli > 0) {
+            scope.toast('error','Debe seleccionar un Cliente.','');
+            return false;
+        }        
+        if(scope.fdatos_cups.AgregarNueva==true)
+        {
+            if (!scope.fdatos_cups.CodPunSum > 0) 
+            {
+                scope.toast('error','Debe seleccionar un Dirección de Suministro de la lista.','');
+                return false;
+            }  
+        }
+        else
+        {
+            if (!scope.fdatos_cups.CodTipVia > 0) 
+            {
+               scope.toast('error','Debe seleccionar un Tipo de Vía de la lista.','');
+                return false;
+            } 
+            if (scope.fdatos_cups.NomViaPunSum == null || scope.fdatos_cups.NomViaPunSum == undefined || scope.fdatos_cups.NomViaPunSum == '') {
+                scope.toast('error','Debe colocar el nombre de la vía','Requerido');
+                return false;
+            }
+            if (scope.fdatos_cups.NumViaPunSum == null || scope.fdatos_cups.NumViaPunSum == undefined || scope.fdatos_cups.NumViaPunSum == '') {
+                scope.toast('error','Debe colocar el nombre de la vía','Requerido');
+                return false;
+            }
+            if (scope.fdatos_cups.BloPunSum == null || scope.fdatos_cups.BloPunSum == undefined || scope.fdatos_cups.BloPunSum == '') {
+                scope.fdatos_cups.BloPunSum=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.BloPunSum=scope.fdatos_cups.BloPunSum;
+            }
+            if (scope.fdatos_cups.EscPunSum == null || scope.fdatos_cups.EscPunSum == undefined || scope.fdatos_cups.EscPunSum == '') {
+                 scope.fdatos_cups.EscPunSum=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.EscPunSum=scope.fdatos_cups.EscPunSum;
+            }
+
+
+            if (scope.fdatos_cups.PlaPunSum == null || scope.fdatos_cups.PlaPunSum == undefined || scope.fdatos_cups.PlaPunSum == '') {
+                 scope.fdatos_cups.PlaPunSum=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.PlaPunSum=scope.fdatos_cups.PlaPunSum;
+            }
+            if (scope.fdatos_cups.PuePunSum == null || scope.fdatos_cups.PuePunSum == undefined || scope.fdatos_cups.PuePunSum == '') {
+                 scope.fdatos_cups.PuePunSum=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.PuePunSum=scope.fdatos_cups.PuePunSum;
+            }
+            if (scope.fdatos_cups.CPLocSoc == null || scope.fdatos_cups.CPLocSoc == undefined || scope.fdatos_cups.CPLocSoc == '') {
+                 scope.fdatos_cups.CPLocSoc=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.CPLocSoc=scope.fdatos_cups.CPLocSoc;
+            }
+            if (!scope.fdatos_cups.CodProPunSum > 0) 
+            {
+               scope.toast('error','Debe seleccionar una provincia de la lista.','');
+                return false;
+            } 
+            if (!scope.fdatos_cups.CodLocPunSum > 0) 
+            {
+               scope.toast('error','Debe seleccionar una localidad de la lista.','');
+                return false;
+            }
+            if (scope.fdatos_cups.ObsPunSum == null || scope.fdatos_cups.ObsPunSum == undefined || scope.fdatos_cups.ObsPunSum == '') {
+                 scope.fdatos_cups.ObsPunSum=null;
+            } 
+            else 
+            {
+                scope.fdatos_cups.ObsPunSum=scope.fdatos_cups.ObsPunSum;
+            }
+        }
+        if (scope.fdatos_cups.cups == null || scope.fdatos_cups.cups == undefined || scope.fdatos_cups.cups == '') {
+            scope.toast('error','El Campo CUPs es requerido','');
+            return false;
+        } else {
+            if (scope.fdatos_cups.cups.length < 2) {
+                scope.toast('error','El Campo CUPs Debe Contener 2 Letras o Números.','');
+                return false;
+            }
+        }
+        if (scope.fdatos_cups.cups1 == null || scope.fdatos_cups.cups1 == undefined || scope.fdatos_cups.cups1 == '') {
+            scope.toast('error','El Campo CUPs 1 es requerido','');
+            return false;
+        } else {
+            if (scope.fdatos_cups.cups1.length < 16) {
+                scope.toast('error','El Campo CUPs Debe Contener 16 Letras o Números.','');
+                return false;
+            }
+        }        
+        if (scope.fdatos_cups.TipServ == 0) {
+            scope.toast('error','Debe Seleccionar un Tipo de Suministro','');
+            return false;
+        }
+
+        if (scope.fdatos_cups.TipServ == 1) {
+            
+            if (!scope.fdatos_cups.CodDis > 0) {
+                //scope.toast('error','Debe Seleccionar una Distribuidora Eléctrica de la lista.','');
+                //return false;
+                scope.fdatos_cups.CodDis=null;
+            }
+            else
+            {
+                scope.fdatos_cups.CodDis=scope.fdatos_cups.CodDis;
+            }            
+            if (!scope.fdatos_cups.CodTar > 0) {
+                scope.toast('error','Debe Seleccionar una Tarifa de Eléctrica la lista.','');
+                return false;
+            }
+            if (scope.totalPot == 1) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');                   
+                    return false;
+                }*/
+                scope.fdatos_cups.PotConP2 = null;
+                scope.fdatos_cups.PotConP3 = null;
+                scope.fdatos_cups.PotConP4 = null;
+                scope.fdatos_cups.PotConP5 = null;
+                scope.fdatos_cups.PotConP6 = null;
+
+            }
+            if (scope.totalPot == 2) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
+                    scope.toast('error','El Campo P2 Es requerido','');
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');
+                    return false;
+                }*/
+                scope.fdatos_cups.PotConP3 = null;
+                scope.fdatos_cups.PotConP4 = null;
+                scope.fdatos_cups.PotConP5 = null;
+                scope.fdatos_cups.PotConP6 = null;
+            }
+            if (scope.totalPot == 3) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
+                    scope.toast('error','El Campo P2 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP3 == null || scope.fdatos_cups.PotConP3 == undefined || scope.fdatos_cups.PotConP3 == '') {
+                    scope.toast('error','El Campo P3 Es requerido','');
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');
+                    return false;
+                }*/
+                scope.fdatos_cups.PotConP4 = null;
+                scope.fdatos_cups.PotConP5 = null;
+                scope.fdatos_cups.PotConP6 = null;
+            }
+            if (scope.totalPot == 4) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
+                    scope.toast('error','El Campo P2 Es requerido','');
+                    
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP3 == null || scope.fdatos_cups.PotConP3 == undefined || scope.fdatos_cups.PotConP3 == '') {
+                    scope.toast('error','El Campo P3 Es requerido','');
+                    
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP4 == null || scope.fdatos_cups.PotConP4 == undefined || scope.fdatos_cups.PotConP4 == '') {
+                    scope.toast('error','El Campo P4 Es requerido','');
+                    
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');
+                    return false;
+                }*/
+                scope.fdatos_cups.PotConP5 = null;
+                scope.fdatos_cups.PotConP6 = null;
+            }
+            if (scope.totalPot == 5) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
+                    scope.toast('error','El Campo P2 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP3 == null || scope.fdatos_cups.PotConP3 == undefined || scope.fdatos_cups.PotConP3 == '') {
+                    scope.toast('error','El Campo P3 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP4 == null || scope.fdatos_cups.PotConP4 == undefined || scope.fdatos_cups.PotConP4 == '') {
+                    scope.toast('error','El Campo P4 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP5 == null || scope.fdatos_cups.PotConP5 == undefined || scope.fdatos_cups.PotConP5 == '') {
+                    scope.toast('error','El CampoP5 Es requerido','');
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');
+                    return false;
+                }*/
+                scope.fdatos_cups.PotConP6 = null;
+            }
+            if (scope.totalPot == 6) {
+                if (scope.fdatos_cups.PotConP1 == null || scope.fdatos_cups.PotConP1 == undefined || scope.fdatos_cups.PotConP1 == '') {
+                    scope.toast('error','El Campo P1 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP2 == null || scope.fdatos_cups.PotConP2 == undefined || scope.fdatos_cups.PotConP2 == '') {
+                    scope.toast('error','El Campo P2 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP3 == null || scope.fdatos_cups.PotConP3 == undefined || scope.fdatos_cups.PotConP3 == '') {
+                    scope.toast('error','El Campo P3 Es requerido','');                    
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP4 == null || scope.fdatos_cups.PotConP4 == undefined || scope.fdatos_cups.PotConP4 == '') {
+                    scope.toast('error','El Campo P4 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP5 == null || scope.fdatos_cups.PotConP5 == undefined || scope.fdatos_cups.PotConP5 == '') {
+                    scope.toast('error','El CampoP5 Es requerido','');
+                    return false;
+                }
+                if (scope.fdatos_cups.PotConP6 == null || scope.fdatos_cups.PotConP6 == undefined || scope.fdatos_cups.PotConP6 == '') {
+                    scope.toast('error','El Campo P6 Es requerido','');
+                    return false;
+                }
+                /*if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                    scope.toast('error','El Campo Potencia Máxima Es requerido','');
+                    return false;
+                }*/
+            }
+            if (scope.fdatos_cups.ConAnuCup == null || scope.fdatos_cups.ConAnuCup == undefined || scope.fdatos_cups.ConAnuCup == '') {
+                scope.toast('error','El Campo Consumo es requerido','');
+                return false;
+            }
+            if (scope.fdatos_cups.PotMaxBie == null || scope.fdatos_cups.PotMaxBie == undefined || scope.fdatos_cups.PotMaxBie == '') {
+                   
+                   scope.fdatos_cups.PotMaxBie = null;
+            }
+        }
+        if (scope.fdatos_cups.TipServ == 2) {
+            if (!scope.fdatos_cups.CodDis > 0) {
+                //scope.toast('error','Debe Seleccionar una Distribuidora Gas de la lista.','');
+                //return false;
+                scope.fdatos_cups.CodDis=null;
+            }
+            else
+            {
+                scope.fdatos_cups.CodDis=scope.fdatos_cups.CodDis;
+            }
+            if (!scope.fdatos_cups.CodTar > 0) {
+                scope.toast('error','Debe Seleccionar una Tarifa de Gas la lista.','');
+                return false;
+            }
+
+            if (scope.fdatos_cups.ConAnuCup == null || scope.fdatos_cups.ConAnuCup == undefined || scope.fdatos_cups.ConAnuCup == '') {
+                scope.toast('error','El Campo Consumo es requerido','');
+                return false;
+            }
+            scope.fdatos_cups.PotConP1 = null;
+            scope.fdatos_cups.PotConP2 = null;
+            scope.fdatos_cups.PotConP3 = null;
+            scope.fdatos_cups.PotConP4 = null;
+            scope.fdatos_cups.PotConP5 = null;
+            scope.fdatos_cups.PotConP6 = null;
+            scope.fdatos_cups.PotMaxBie = null;
+
+        }
+        var FecAltCup = document.getElementById("FecAltCup").value;
+        scope.fdatos_cups.FecAltCup = FecAltCup;
+        if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
+            scope.fdatos_cups.FecAltCup == null;
+        } else {
+            var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
+            if (FecAltCup.length < 3) {
+                scope.toast('error','El formato Fecha de Alta correcto es DD/MM/YYYY','');
+                return false;
+            } else {
+                if (FecAltCup[0].length > 2 || FecAltCup[0].length < 2) {
+                    scope.toast('error','Error en Día, debe introducir dos números','');
+                    return false;
+
+                }
+                if (FecAltCup[1].length > 2 || FecAltCup[1].length < 2) {
+                    scope.toast('error','Error en Mes, debe introducir dos números','');
+                    return false;
+                }
+                if (FecAltCup[2].length < 4 || FecAltCup[2].length > 4) {
+                    scope.toast('error','Error en Año, debe introducir cuatro números','');
+                    return false;
+                }
+                var h1 = new Date();
+                var final = FecAltCup[0] + "/" + FecAltCup[1] + "/" + FecAltCup[2];
+                scope.fdatos_cups.FecAltCup = final;
+            }
+
+        }
+        scope.fdatos_cups.FecUltLec = null;        
+        var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1;
+        if (!scope.valida_cups(CUPS)) {
+            return false;
+        }
+        if (scope.fdatos_cups.DerAccKW == null || scope.fdatos_cups.DerAccKW == undefined || scope.fdatos_cups.DerAccKW == '') {
+            scope.fdatos_cups.DerAccKW = null;
+        }
+        else
+        {   
+            scope.fdatos_cups.DerAccKW = scope.fdatos_cups.DerAccKW;
+        }
+        if (resultado == false) {
+            return false;
+        }
+        return true;
+    }
+    scope.valida_cups_existe=function(CUPS)
+    {
+        var url=base_urlHome()+"api/Cups/VerificarCUPsExistente/Cups/"+CUPS;
+        $http.get(url).then(function(result)
+        {
+            if(result.data.status==200 && result.data.statusText=='OK')
+            {
+                scope.toast('success',result.data.response,result.data.statusText);
+                return true;
+            }
+            else if(result.data.status==400  && result.data.statusText=='Bad Request')
+            {
+                scope.toast('error',result.data.response,result.data.statusText);
+                return false;
+            }
+            else
+            {
+                scope.toast('error','Error en Petición intente nuevamente.','Error');
+                return false;
+            }
+
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+                            return false;
+        });
+    }
+    Math.fmod = function (a,b) { return Number((a - (Math.floor(a / b) * b)).toPrecision(8)); };
+    scope.valida_cups=function(CUPS)
+    { 
+        
+        console.log(CUPS);
+        var status=false;
+        var RegExPattern =/^ES[0-9]{16}[a-zA-Z]{2}[0-9]{0,1}[a-zA-Z]{0,1}$/;
+        if ((CUPS.match(RegExPattern)) && (CUPS!='')) {
+            var CUPS_16 = CUPS.substr(2,16);
+            var control = CUPS.substr(18,2);
+            var letters = Array('T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E');
+
+            var fmodv = Math.fmod(CUPS_16,529);
+            var imod = parseInt(fmodv);
+            var quotient = Math.floor(imod / 23);
+            var remainder = imod % 23;            
+            var dc1 = letters[quotient];
+            var dc2 = letters[remainder];
+            status = (control == dc1+dc2);
+        } else {
+            status=false;
+        }
+        if(!status){
+           //alert("ERROR: Código CUPS incorrecto");
+            scope.toast('error','Este CUPS es incorrecto por favor intente con otro','Error CUPS');            
+            $('#CUPSNUM').val("");
+            $('#CUPSNUM2').val("");
+            $('#CUPSES').focus();
+            $('#CUPSNUM').focus();
+            $('#CUPSNUM2').focus();
+        }
+        console.log(status);
+        return status;  
+    }
+
+//////////////////////////////////////////////////////// para cups end ///////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////////// PARA CUENTAS BANCARIAS DASHBOARD START /////////////////////////////
  scope.validarsinuermoIBAN = function(IBAN, object) {

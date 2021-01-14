@@ -608,10 +608,10 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }
         scope.agregarnuevadireccion=function(value)
         {
-            console.log(value);
-
+            console.log(value);           
+           // var oldpunsum=scope.fdatos_cups.CodPunSum;
             if(value==false)
-            {
+            {                
                 if (!scope.fdatos_cups.CodCli > 0) 
                 {
                     scope.toast('error','Debe Seleccionar un Cliente Para Aplicar la Dirección.','Error');
@@ -619,7 +619,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
                 scope.fdatos_cups.TipRegDir=1;
                 scope.punto_suministro();
-                scope.T_PuntoSuministrosVistaNuevaDireccion=true;
+                scope.T_PuntoSuministrosVistaNuevaDireccion=true;                
+                
+                //console.log(oldpunsum);
                 scope.fdatos_cups.CodPunSum=null;
                 scope.fdatos_cups.AgregarNueva=value;
                 var url = base_urlHome()+"api/Cups/TipViaProvin/";
@@ -654,9 +656,16 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             {
                 scope.T_PuntoSuministrosVistaNuevaDireccion=false;
                 scope.fdatos_cups.AgregarNueva=value;
+                //console.log(oldpunsum);
+                //scope.fdatos_cups.CodPunSum=punsumold;
+                //console.log(punsumold);
+                /*if(scope.fdatos_cups.CodCli>0)
+                {
+                    
+                }*/
                 //scope.fdatos_cups.CodPunSum=null;
             }
-            
+            //console.log(punsumold);
         }
     scope.punto_suministro = function() 
     {

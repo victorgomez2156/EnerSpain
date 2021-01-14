@@ -11,6 +11,7 @@ class Dashboard extends REST_Controller
 		$this->load->model('Auditoria_model');
 		$this->load->model('Clientes_model');
 		$this->load->model('Dashboard_model');
+		$this->load->model('Cups_model');
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -396,7 +397,357 @@ class Dashboard extends REST_Controller
 
 	
 	////////////////////////////////////// PARA CUPS CLIENTES START ////////////////////////////////////////////////////////
-	
+	public function search_PunSum_Data_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodCli=$this->get('CodCli');
+		$Result = $this->Cups_model->get_PumSum_for_cups($CodCli); 
+	    $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Direcciones de Suministros');
+		if (empty($Result))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($Result);	
+    }
+    public function buscar_direccion_Soc_Fis_get()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$Cliente=$this->get('Cliente');
+		$TipRegDir=$this->get('TipRegDir');	
+
+		if($TipRegDir==1)	
+		{
+			$variable="a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc,b.CodPro as CodProSoc,a.CPLocSoc";
+			$response = $this->Clientes_model->get_direccion_Soc_Fis($Cliente,$variable);
+			$data=$response;
+		}
+		elseif($TipRegDir==2)
+		{
+			$variable="a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,a.EscDomFis,a.PlaDomFis,a.PueDomFis,a.CodLocFis,c.CodPro as CodProFis,a.CPLocFis";
+			$response = $this->Clientes_model->get_direccion_Soc_Fis($Cliente,$variable);
+			$data=$response;
+		}	
+		else
+		{
+			$this->response(false);
+			return false;
+		}
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_PuntoSuministro','GET',null,$this->input->ip_address(),'Cargando Lista de Direcciones de Suministros');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+    }
+    public function TipViaProvin_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}						
+		$this->db->trans_start();
+		$Provincias = $this->Clientes_model->get_list_providencias();
+		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Consulta','GET',null,$this->input->ip_address(),'Cargando Tipos de Vias y Provincias');
+		$arrayName = array('tProvidencias' => $Provincias,'tTiposVias' => $Tipo_Vias );
+		$this->db->trans_complete();
+		$this->response($arrayName);
+	}
+	public function BuscarLocalidadesFil_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$CodPro=$this->get('CodPro');
+		$data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
+	public function Por_Servicios_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		if($objSalida->TipServ==1)
+		{
+			$Where="TipSerDis";
+			$Variable=0;
+			$whereEstDist="EstDist";
+			$VariableEstDis=1;
+			$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
+			$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar,CanPerTar";
+			$Tarifas_Electricas=$this->Cups_model->get_Tarifas_Act('T_TarifaElectrica',$Select_Tarifa,'EstTarEle','NomTarEle ASC');
+			$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifas_Electricas);
+		}
+		elseif ($objSalida->TipServ==2) 
+		{
+			$Where="TipSerDis";
+			$Variable=1;
+			$whereEstDist="EstDist";
+			$VariableEstDis=1;
+			$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
+			$Select_Tarifa="CodTarGas as CodTar,NomTarGas as NomTar";
+			$Tarifa_Gas=$this->Cups_model->get_Tarifas_Act('T_TarifaGas',$Select_Tarifa,'EstTarGas','NomTarGas ASC');
+			$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifa_Gas);
+		}
+		else
+		{
+			$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
+			$this->response($response_fail);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
+		$this->db->trans_complete();
+		$this->response($data);
+	}
+	public function Registrar_Cups_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();	
+		if($objSalida->TipServ==1)
+		{
+			if (isset($objSalida->CodCup))
+			{	
+				$Tabla="T_CUPsElectrico";
+				if($objSalida->TipServAnt==2)
+				{
+					$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CUPsEle');
+					if($CUPs!=false)
+					{
+						$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+						$this->db->trans_complete();
+						$this->response($response_fail);
+						return false;
+					}	
+					$Tabla_Delete="T_CUPsGas";
+					$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupGas',$objSalida->CodCup);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups Eléctrico');	
+					if($objSalida-> AgregarNueva==true)
+					{
+							$CodPunSum=$objSalida->CodPunSum; 
+					}
+					else
+					{
+						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+						$objSalida->CodPunSum=(string)$CodPunSum;
+					}		
+					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+					$objSalida->TipServAnt=$objSalida->TipServ;	
+					$objSalida->CodCup=$id;	
+					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
+					$response = array('status' =>200 ,'response' =>'CUPs creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+				}
+				else
+				{
+					
+					$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->CodCup,'CodCupsEle');
+					if($CUPs-> CUPsEle !=$objSalida-> cups.''.$objSalida-> cups1)
+					{
+						$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CUPsEle');
+						if($CUPs!=false)
+						{
+							$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+							$this->db->trans_complete();
+							$this->response($response_fail);
+							return false;
+						}
+						if($objSalida-> AgregarNueva==true)
+						{
+							$CodPunSum=$objSalida->CodPunSum; 
+						}
+						else
+						{
+							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+							$objSalida->CodPunSum=(string)$CodPunSum;
+						}
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs Eléctrico');
+						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+					}
+					else
+					{
+						if($objSalida-> AgregarNueva==true)
+						{
+							$CodPunSum=$objSalida->CodPunSum; 
+						}
+						else
+						{
+							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+							$objSalida->CodPunSum=(string)$CodPunSum;
+						}
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
+						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+					}
+				}
+			}
+			else
+			{
+				$Tabla="T_CUPsElectrico";
+				$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CUPsEle');
+				if($CUPs!=false)
+				{
+					$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+					$this->db->trans_complete();
+					$this->response($response_fail);
+					return false;
+				}			
+				if($objSalida-> AgregarNueva==true)
+				{
+					$CodPunSum=$objSalida->CodPunSum; 
+				}
+				else
+				{
+					$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+					$objSalida->CodPunSum=(string)$CodPunSum;
+				}
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+				$objSalida->TipServAnt=$objSalida->TipServ;	
+				$objSalida->CodCup=$id;	
+				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
+				$response = array('status' =>200 ,'response' =>'CUPs creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );		
+			}
+		}
+		elseif ($objSalida->TipServ==2) 
+		{
+			if (isset($objSalida->CodCup))
+			{		
+				$Tabla="T_CUPsGas";
+				if($objSalida->TipServAnt==1)
+				{
+					$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CupsGas');
+					if($CUPs!=false)
+					{
+						$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+						$this->db->trans_complete();
+						$this->response($response_fail);
+						return false;
+					}
+					$Tabla_Delete="T_CUPsElectrico";
+					$this->Cups_model->borrar_registro_anterior_CUPs($Tabla_Delete,'CodCupsEle',$objSalida->CodCup);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'DELETE',$objSalida->CodCup,$this->input->ip_address(),'Borrando Cups');
+					if($objSalida-> AgregarNueva==true)
+						{
+							$CodPunSum=$objSalida->CodPunSum; 
+						}
+						else
+						{
+							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+							$objSalida->CodPunSum=(string)$CodPunSum;
+						}
+					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+					$objSalida->TipServAnt=$objSalida->TipServ;	
+					$objSalida->CodCup=$id;	
+					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
+					$response = array('status' =>200 ,'response' =>'CUPs creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+				}
+				else
+				{				
+					$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->CodCup,'CodCupGas');
+					if($CUPs-> CupsGas !=$objSalida-> cups.''.$objSalida-> cups1)
+					{
+						$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CodCupGas');
+						if($CUPs!=false)
+						{
+							$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+							$this->db->trans_complete();
+							$this->response($response_fail);
+							return false;
+						}
+						if($objSalida-> AgregarNueva==true)
+						{
+							$CodPunSum=$objSalida->CodPunSum; 
+						}
+						else
+						{
+							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+							$objSalida->CodPunSum=(string)$CodPunSum;
+						}
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
+						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+					}
+					else
+					{
+						if($objSalida-> AgregarNueva==true)
+						{
+							$CodPunSum=$objSalida->CodPunSum; 
+						}
+						else
+						{
+							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+							$objSalida->CodPunSum=(string)$CodPunSum;
+						}
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
+						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
+					}				
+				}
+			}
+			else
+			{
+				$Tabla="T_CUPsGas";
+				$CUPs=$this->Cups_model->validarCUPsExiste($Tabla,$objSalida->cups.''.$objSalida->cups1,'CupsGas');
+				if($CUPs!=false)
+				{
+					$response_fail= array('status' =>400 ,'response' =>'Este CUPs ya se encuentra registrado.','statusText'=>'OK','objSalida'=>$objSalida);
+					$this->db->trans_complete();
+					$this->response($response_fail);
+					return false;
+				}
+				if($objSalida-> AgregarNueva==true)
+				{
+					$CodPunSum=$objSalida->CodPunSum; 
+				}
+				else
+				{
+					$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
+					$objSalida->CodPunSum=(string)$CodPunSum;
+				}	
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+				$objSalida->TipServAnt=$objSalida->TipServ;
+				$objSalida->CodCup=$id;	
+				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
+				$response = array('status' =>200 ,'response' =>'CUPs Gas creado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );				
+			}
+		}
+		else
+		{
+			$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
+			$this->db->trans_complete();
+			$this->response($response_fail);
+			return false;
+		}
+		//$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
+		$this->db->trans_complete();
+		$this->response($response);
+	}
 	////////////////////////////////////// PARA CUPS CLIENTES END ////////////////////////////////////////////////////////
 
 

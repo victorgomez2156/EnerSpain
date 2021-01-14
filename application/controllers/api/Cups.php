@@ -72,46 +72,46 @@ class Cups extends REST_Controller
 			$this->response($Result);		
     }
     public function Por_Servicios_post()
-{
-	$datausuario=$this->session->all_userdata();	
-	if (!isset($datausuario['sesion_clientes']))
 	{
-		redirect(base_url(), 'location', 301);
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		if($objSalida->TipServ==1)
+		{
+			$Where="TipSerDis";
+			$Variable=0;
+			$whereEstDist="EstDist";
+			$VariableEstDis=1;
+			$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
+			$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar,CanPerTar";
+			$Tarifas_Electricas=$this->Cups_model->get_Tarifas_Act('T_TarifaElectrica',$Select_Tarifa,'EstTarEle','NomTarEle ASC');
+			$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifas_Electricas);
+		}
+		elseif ($objSalida->TipServ==2) 
+		{
+			$Where="TipSerDis";
+			$Variable=1;
+			$whereEstDist="EstDist";
+			$VariableEstDis=1;
+			$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
+			$Select_Tarifa="CodTarGas as CodTar,NomTarGas as NomTar";
+			$Tarifa_Gas=$this->Cups_model->get_Tarifas_Act('T_TarifaGas',$Select_Tarifa,'EstTarGas','NomTarGas ASC');
+			$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifa_Gas);
+		}
+		else
+		{
+			$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
+			$this->response($response_fail);
+			return false;
+		}
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
+		$this->db->trans_complete();
+		$this->response($data);
 	}
-	$objSalida = json_decode(file_get_contents("php://input"));				
-	$this->db->trans_start();
-	if($objSalida->TipServ==1)
-	{
-		$Where="TipSerDis";
-		$Variable=0;
-		$whereEstDist="EstDist";
-		$VariableEstDis=1;
-		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
-		$Select_Tarifa="CodTarEle as CodTar,NomTarEle as NomTar,CanPerTar";
-		$Tarifas_Electricas=$this->Cups_model->get_Tarifas_Act('T_TarifaElectrica',$Select_Tarifa,'EstTarEle','NomTarEle ASC');
-		$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifas_Electricas);
-	}
-	elseif ($objSalida->TipServ==2) 
-	{
-		$Where="TipSerDis";
-		$Variable=1;
-		$whereEstDist="EstDist";
-		$VariableEstDis=1;
-		$Distribuidoras=$this->Cups_model->get_Distribuidoras($Where,$Variable,$whereEstDist,$VariableEstDis);
-		$Select_Tarifa="CodTarGas as CodTar,NomTarGas as NomTar";
-		$Tarifa_Gas=$this->Cups_model->get_Tarifas_Act('T_TarifaGas',$Select_Tarifa,'EstTarGas','NomTarGas ASC');
-		$data= array('Distribuidoras' => $Distribuidoras,'Tarifas'=>$Tarifa_Gas);
-	}
-	else
-	{
-		$response_fail= array('status' =>false ,'response' =>'El Tipo de Suministro es Incorrecto Intente Nuevamente.');
-		$this->response($response_fail);
-		return false;
-	}
-	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Distribuidora','SEARCH',0,$this->input->ip_address(),'Distribuidora con Suministro Eléctrico o Gas');
-	$this->db->trans_complete();
-	$this->response($data);
-}
  public function Registrar_Cups_post()
 {
 	$datausuario=$this->session->all_userdata();	
