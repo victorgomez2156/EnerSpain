@@ -634,8 +634,8 @@
          $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
          var url = base_urlHome() + "api/Clientes/crear_clientes/";
          $http.post(url, scope.fdatos).then(function(result) {
+             $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
              console.log(result);
-             $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
              if (result.data.status == false && result.data.response == false) {
                  scope.toast('error',result.data.message,'');
                  $cookies.remove('CIF');
@@ -650,7 +650,7 @@
                      $cookies.remove('CIF');
                      document.getElementById("NumCifCliRe").setAttribute("readonly", "readonly");
                 }
-                $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                
                 scope.toast('success',response,title);
                 if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") 
                 {
@@ -658,9 +658,10 @@
                    return false;
                 }
                 location.href = "#/Edit_Datos_Basicos_Clientes/" + scope.nID;
-             } else {
-                 $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
-                 scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');
+             } 
+             else 
+             {
+                scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');
 
              }
          }, function(error) {

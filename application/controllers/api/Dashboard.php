@@ -395,6 +395,49 @@ class Dashboard extends REST_Controller
 	}
 	////////////////////////////////////// PARA CONTACTOS CLIENTES END ////////////////////////////////////////////////////////
 
+
+
+	////////////////////////////////////////// para clientes dashboard start ///////////////////////////////////////////
+	public function crear_clientes_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();		
+		if (isset($objSalida->CodCli))
+		{		
+			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);		
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Datos Del Clientes desde el Dashboard');
+		}
+		else
+		{
+			$id = $this->Clientes_model->agregar($objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->FecIniCli,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumCifCli,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);
+			if($id==false)
+			{
+				$arrayName = array('status' =>false ,'response'=> $id, 'message'=>'El Número de CIF ya se encuentra registrado, Por Favor intente con otro.');
+				$this->response($arrayName);
+				return false;
+			}	
+			$objSalida->CodCli=$id;	
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','INSERT',$objSalida->CodCli,$this->input->ip_address(),'Creando Registro de Clientes desde el Dashboard');			
+		}		
+		$this->db->trans_complete();
+		$this->response($objSalida);
+	} 
+
+
+
+
+
+
+
+
+
+
+	///////////////////////////////////// para clientes dashboard end /////////////////////////////////////////////////
 	
 	////////////////////////////////////// PARA CUPS CLIENTES START ////////////////////////////////////////////////////////
 	public function search_PunSum_Data_get()

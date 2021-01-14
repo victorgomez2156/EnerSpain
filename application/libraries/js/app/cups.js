@@ -847,7 +847,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.BuscarLocalidadesPunSun=function(CodPro,metodo)
     {
         console.log(CodPro);        
-        var url=base_urlHome()+"api/Clientes/BuscarLocalidadesFil/CodPro/"+CodPro;
+        var url=base_urlHome()+"api/Cups/BuscarLocalidadesFil/CodPro/"+CodPro;
         $http.get(url).then(function(result)
         {
             if(result.data!=false)

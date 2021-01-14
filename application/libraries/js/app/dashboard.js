@@ -1,6 +1,6 @@
- app.controller('Controlador_Dashbord', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile', Controlador]);
+ app.controller('Controlador_Dashbord', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile','ServiceAddClientes', Controlador]);
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile,ServiceAddClientes) {
    var scope = this;
    scope.fdatos = {};
    scope.searchResult = {};
@@ -130,9 +130,11 @@
      scope.searchboxClicked = function($event) {
        $event.stopPropagation();
    }
-   scope.containerClicked = function() {
+   scope.containerClicked = function() 
+   {
        scope.searchResult = {};
    }
+
    scope.load_customers = function() {
        $("#List_Cli").removeClass("loader loader-default").addClass("loader loader-default  is-active");
        var url = base_urlHome() + "api/Dashboard/get_all_list_customers";
@@ -1017,6 +1019,476 @@ scope.filter_DirPumSum = function(CodPunSum) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD START///////////////////////////////////////////////////////////
+scope.asignar_a_nombre_comercial = function() {
+         scope.tModalDatosClientes.NomComCli = scope.tModalDatosClientes.RazSocCli;
+     }
+scope.misma_razon = function(opcion) {
+         if (opcion == true) {
+             scope.tModalDatosClientes.NomComCli = undefined;
+         } else {
+             scope.tModalDatosClientes.NomComCli = scope.tModalDatosClientes.RazSocCli;
+         }
+     }
+     scope.asignar_tipo_via = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.CodTipViaFis = scope.tModalDatosClientes.CodTipViaSoc;
+         }
+     }
+     scope.asignar_domicilio = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.NomViaDomFis = scope.tModalDatosClientes.NomViaDomSoc;
+         }
+     }
+     scope.asignar_num_domicilio = function(object) {
+         console.log(object);
+         if (scope.tModalDatosClientes.distinto_a_social == false) 
+         {
+            /*if (object != undefined) {
+                 numero = object;
+                 if (!/^([0-9])*$/.test(numero))
+                     scope.fdatos.NumViaDomSoc = numero.substring(0, numero.length - 1);
+            }*/
+             scope.tModalDatosClientes.NumViaDomFis = scope.tModalDatosClientes.NumViaDomSoc;
+         }
+     }
+     scope.asignar_bloq_domicilio = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.BloDomFis = scope.tModalDatosClientes.BloDomSoc;
+         }
+     }
+     scope.asignar_esc_domicilio = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.EscDomFis = scope.tModalDatosClientes.EscDomSoc;
+         }
+     }
+     scope.asignar_pla_domicilio = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.PlaDomFis = scope.tModalDatosClientes.PlaDomSoc;
+         }
+     }
+     scope.asignar_puer_domicilio = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.PueDomFis = scope.tModalDatosClientes.PueDomSoc;
+         }
+     }
+     scope.asignar_CPLoc = function()
+     {
+        if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.CPLocFis = scope.tModalDatosClientes.CPLocSoc;
+        }
+        scope.LocalidadCodigoPostal(1);
+     }
+     scope.distinto_a_social = function() 
+     {
+         
+         if (scope.tModalDatosClientes.distinto_a_social == true) {
+             scope.tModalDatosClientes.CodTipViaFis = undefined;
+             scope.tModalDatosClientes.NomViaDomFis = undefined;
+             scope.tModalDatosClientes.NumViaDomFis = undefined;
+             scope.tModalDatosClientes.BloDomFis = undefined;
+             scope.tModalDatosClientes.EscDomFis = undefined;
+             scope.tModalDatosClientes.PlaDomFis = undefined;
+             scope.tModalDatosClientes.PueDomFis = undefined;
+             scope.tModalDatosClientes.CodProFis = undefined;
+             scope.tModalDatosClientes.CodLocFis = undefined;
+             scope.tModalDatosClientes.CPLocFis = undefined;
+             scope.TLocalidadesfiltradaFisc = [];
+         } else {
+             scope.tModalDatosClientes.CodTipViaFis = scope.tModalDatosClientes.CodTipViaSoc;
+             scope.tModalDatosClientes.NomViaDomFis = scope.tModalDatosClientes.NomViaDomSoc;
+             scope.tModalDatosClientes.NumViaDomFis = scope.tModalDatosClientes.NumViaDomSoc;
+             scope.tModalDatosClientes.BloDomFis = scope.tModalDatosClientes.BloDomSoc;
+             scope.tModalDatosClientes.EscDomFis = scope.tModalDatosClientes.EscDomSoc;
+             scope.tModalDatosClientes.PlaDomFis = scope.tModalDatosClientes.PlaDomSoc;
+             scope.tModalDatosClientes.PueDomFis = scope.tModalDatosClientes.PueDomSoc;
+             scope.tModalDatosClientes.CodProFis = scope.tModalDatosClientes.CodProSoc;
+             scope.tModalDatosClientes.CodLocFis = scope.tModalDatosClientes.CodLocSoc;
+             scope.tModalDatosClientes.CPLocFis = scope.tModalDatosClientes.CPLocSoc;
+             scope.TLocalidadesfiltradaFisc = scope.TLocalidadesfiltrada;
+             //scope.filtrarLocalidadFisc();
+         }
+     }
+     scope.asignar_LocalidadFis = function() {
+         if (scope.tModalDatosClientes.distinto_a_social == false) {
+             scope.tModalDatosClientes.CodLocFis = scope.tModalDatosClientes.CodLocSoc;
+         }
+     }
+   
+    scope.containerClickedCliente = function($event) {
+       $event.stopPropagation();
+   }
+   scope.searchboxClickedCliente = function() 
+   {
+       scope.searchResultCPLocModal = {};
+   }
+   $scope.submitForm = function(event) {
+         console.log(scope.tModalDatosClientes);
+         if (scope.nID > 0 && scope.Nivel == 3) {
+             scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
+             return false;
+         }
+         if (!scope.validarNIFDNIClienteDashboard()) {
+               return false;
+           }
+         if (!scope.validar_campos_datos_basicos()) {
+             return false;
+         }
+
+         if (scope.tModalDatosClientes.CodCli > 0) {
+             var title = 'Actualizando';
+             var text = '¿Seguro que desea modificar la información del Cliente?';
+             var response = "Cliente actualizado de forma correcta";
+         }
+         if (scope.tModalDatosClientes.CodCli == undefined) {
+             var title = 'Guardando';
+             var text = '¿Seguro que desea registrar el Cliente?';
+             var response = "Cliente creado de forma correcta";
+         }
+         Swal.fire({
+             title: title,
+             text: text,
+             type: "question",
+             showCancelButton: !0,
+             confirmButtonColor: "#31ce77",
+             cancelButtonColor: "#f34943",
+             confirmButtonText: "Confirmar"
+         }).then(function(t) {
+             if (t.value == true) {
+                 scope.guardar();
+             } else {
+                 event.preventDefault();
+             }
+         });
+     };
+     scope.validar_campos_datos_basicos = function() 
+     {
+         resultado = true;         
+         if (scope.tModalDatosClientes.NumCifCli == null || scope.tModalDatosClientes.NumCifCli == undefined || scope.tModalDatosClientes.NumCifCli == '') {
+             scope.toast('error','El número de DNI/NIE/CIF es requerido','');
+             return false;
+         }
+         var FecIniCli1 = document.getElementById("FecIniCli").value;
+         scope.FecIniCli = FecIniCli1;
+         if (scope.FecIniCli == null || scope.FecIniCli == undefined || scope.FecIniCli == '') {
+             scope.toast('error','La Fecha de Inicio es requerida','');
+             return false;
+         } else {
+             var FecIniCli = (scope.FecIniCli).split("/");
+             if (FecIniCli.length < 3) {
+                 scope.toast('error','El formato de Fecha de Inicio correcto es DD/MM/YYYY','');
+                 event.preventDefault();
+                 return false;
+             } else {
+                 if (FecIniCli[0].length > 2 || FecIniCli[0].length < 2) {
+                     scope.toast('error','Error en Día, debe introducir dos números','');
+                     event.preventDefault();
+                     return false;
+                 }
+                 if (FecIniCli[1].length > 2 || FecIniCli[1].length < 2) {
+                     scope.toast('error','Error en Mes, debe introducir dos números','');
+                     event.preventDefault();
+                     return false;
+                 }
+                 if (FecIniCli[2].length < 4 || FecIniCli[2].length > 4) {
+                     scope.toast('error','Error en Año, debe introducir cuatro números','');
+                     event.preventDefault();
+                     return false;
+                 }
+                 valuesStart = scope.FecIniCli.split("/");
+                 valuesEnd = scope.Fecha_Server.split("/");
+                 // Verificamos que la fecha no sea posterior a la actual
+                 var dateStart = new Date(valuesStart[2], (valuesStart[1] - 1), valuesStart[0]);
+                 var dateEnd = new Date(valuesEnd[2], (valuesEnd[1] - 1), valuesEnd[0]);
+                 if (dateStart > dateEnd) {
+                     scope.toast('error',"La Fecha de Inicio no puede ser mayor al " + scope.Fecha_Server + " Verifique e intente nuevamente",'');
+                     return false;
+                 }
+                 scope.tModalDatosClientes.FecIniCli = FecIniCli[2] + "-" + FecIniCli[1] + "-" + FecIniCli[0];
+             }
+         }
+         if (scope.tModalDatosClientes.RazSocCli == null || scope.tModalDatosClientes.RazSocCli == undefined || scope.tModalDatosClientes.RazSocCli == '') {
+             scope.toast('error','La Razón Social del Cliente es requerida','');
+             return false;
+         }
+         if (scope.tModalDatosClientes.NomComCli == null || scope.tModalDatosClientes.NomComCli == undefined || scope.tModalDatosClientes.NomComCli == '') {
+             scope.toast('error','El Nombre Comercial del Cliente es requerido','');
+             return false;
+         }
+         if (!scope.tModalDatosClientes.CodTipCli > 0) {
+             scope.toast('error','Seleccione un Tipo de Cliente','');
+             return false;
+         }
+         if (!scope.tModalDatosClientes.CodSecCli > 0) 
+         {
+            scope.tModalDatosClientes.CodSecCli=null;             
+         }
+         else
+         {
+            scope.tModalDatosClientes.CodSecCli=scope.tModalDatosClientes.CodSecCli;
+         }
+
+         if (!scope.tModalDatosClientes.CodTipViaSoc > 0) {
+             scope.toast('error','Seleccione un Tipo de Vía para el Domicilio Social','');
+             return false;
+         }
+         if (scope.tModalDatosClientes.NomViaDomSoc == null || scope.tModalDatosClientes.NomViaDomSoc == undefined || scope.tModalDatosClientes.NomViaDomSoc == '') {
+             scope.toast('error','El Nombre de la Vía es requerido','');
+             return false;
+         }
+         if (scope.tModalDatosClientes.NumViaDomSoc == null || scope.tModalDatosClientes.NumViaDomSoc == undefined || scope.tModalDatosClientes.NumViaDomSoc == '') {
+             scope.toast('error','El Número de la Vía es requerido','');
+             return false;
+         }
+         if (!scope.tModalDatosClientes.CodProSoc > 0) {
+             scope.toast('error','Seleccione una Provincia para el Domicilio Social','');
+             return false;
+         }
+         if (!scope.tModalDatosClientes.CodLocSoc > 0) {
+             scope.toast('error','Seleccione una Localidad para el Domicilio Social','');
+             return false;
+         }
+         if (scope.tModalDatosClientes.distinto_a_social == true) {
+             if (!scope.tModalDatosClientes.CodTipViaFis > 0) {
+                 scope.toast('error','Seleccione un Tipo de Vía para el Domicilio Fiscal','');
+                 return false;
+             }
+             if (scope.tModalDatosClientes.NomViaDomFis == null || scope.tModalDatosClientes.NomViaDomFis == undefined || scope.tModalDatosClientes.NomViaDomFis == '') {
+                 scope.toast('error','El Nombre del Domicilio Fiscal del Cliente es obligatorio','');
+                 
+                 return false;
+             }
+             if (scope.tModalDatosClientes.NumViaDomFis == null || scope.tModalDatosClientes.NumViaDomFis == undefined || scope.tModalDatosClientes.NumViaDomFis == '') {
+                 scope.toast('error','El Número del Domicilio Fiscal del Cliente es requerido','');
+                 return false;
+             }
+             if (!scope.tModalDatosClientes.CodProFis > 0) {
+                 scope.toast('error','Seleccione una Provincia para el Domicilio Fiscal','');
+                 return false;
+             }
+             if (!scope.tModalDatosClientes.CodLocFis > 0) {
+                 scope.toast('error','Seleccione una Localidad para el Domicilio Fiscal','');
+                 return false;
+             }
+         }
+         if (scope.tModalDatosClientes.TelFijCli == null || scope.tModalDatosClientes.TelFijCli == undefined || scope.tModalDatosClientes.TelFijCli == '') {
+             /*scope.toast('error','El Número de Teléfono Fijo es requerido','');
+             return false;*/
+             scope.tModalDatosClientes.TelFijCli = null;
+         }
+         else
+         {
+            scope.tModalDatosClientes.TelFijCli = scope.tModalDatosClientes.TelFijCli;
+         }
+         if (scope.tModalDatosClientes.TelMovCli == null || scope.tModalDatosClientes.TelMovCli == undefined || scope.tModalDatosClientes.TelMovCli == '') {
+             scope.tModalDatosClientes.TelMovCli=null;
+         }
+         else
+         {
+            scope.tModalDatosClientes.TelMovCli=scope.tModalDatosClientes.TelMovCli;
+         }
+         if (scope.tModalDatosClientes.EmaCli == null || scope.tModalDatosClientes.EmaCli == undefined || scope.tModalDatosClientes.EmaCli == '') {
+             scope.toast('error','El Correo Electrónico es requerido','');
+             return false;
+         }
+         if (scope.tModalDatosClientes.EmaCliOpc == null || scope.tModalDatosClientes.EmaCliOpc == undefined || scope.tModalDatosClientes.EmaCliOpc == '') {
+             scope.tModalDatosClientes.EmaCliOpc=null;
+         }
+         else
+         {
+            scope.tModalDatosClientes.EmaCliOpc=scope.tModalDatosClientes.EmaCliOpc;
+         }
+
+         if (!scope.tModalDatosClientes.CodCom > 0) {
+             scope.tModalDatosClientes.CodCom=null;
+         }
+         else
+         {
+            scope.tModalDatosClientes.CodCom=scope.tModalDatosClientes.CodCom;
+         }
+         if (scope.tModalDatosClientes.BloDomSoc == undefined || scope.tModalDatosClientes.BloDomSoc == null || scope.tModalDatosClientes.BloDomSoc == '') {
+             scope.tModalDatosClientes.BloDomSoc = null;
+         } else {
+             scope.tModalDatosClientes.BloDomSoc = scope.tModalDatosClientes.BloDomSoc;
+         }
+         if (scope.tModalDatosClientes.EscDomSoc == undefined || scope.tModalDatosClientes.EscDomSoc == null || scope.tModalDatosClientes.EscDomSoc == '') {
+             scope.tModalDatosClientes.EscDomSoc = null;
+         } else {
+             scope.tModalDatosClientes.EscDomSoc = scope.tModalDatosClientes.EscDomSoc;
+         }
+         if (scope.tModalDatosClientes.PlaDomSoc == undefined || scope.tModalDatosClientes.PlaDomSoc == null || scope.tModalDatosClientes.PlaDomSoc == '') {
+             scope.tModalDatosClientes.PlaDomSoc = null;
+         } else {
+             scope.tModalDatosClientes.PlaDomSoc = scope.tModalDatosClientes.PlaDomSoc;
+         }
+         if (scope.tModalDatosClientes.PueDomSoc == undefined || scope.tModalDatosClientes.PueDomSoc == null || scope.tModalDatosClientes.PueDomSoc == '') {
+             scope.tModalDatosClientes.PueDomSoc = null;
+         } else {
+             scope.tModalDatosClientes.PueDomSoc = scope.tModalDatosClientes.PueDomSoc;
+         }
+         if (scope.tModalDatosClientes.BloDomFis == undefined || scope.tModalDatosClientes.BloDomFis == null || scope.tModalDatosClientes.BloDomFis == '') {
+             scope.tModalDatosClientes.BloDomFis = null;
+         } else {
+             scope.tModalDatosClientes.BloDomFis = scope.tModalDatosClientes.BloDomFis;
+         }
+         if (scope.tModalDatosClientes.EscDomFis == undefined || scope.tModalDatosClientes.EscDomFis == null || scope.tModalDatosClientes.EscDomFis == '') {
+             scope.tModalDatosClientes.EscDomFis = null;
+         } else {
+             scope.tModalDatosClientes.EscDomFis = scope.tModalDatosClientes.EscDomFis;
+         }
+         if (scope.tModalDatosClientes.PlaDomFis == undefined || scope.tModalDatosClientes.PlaDomFis == null || scope.tModalDatosClientes.PlaDomFis == '') {
+             scope.tModalDatosClientes.PlaDomFis = null;
+         } else {
+             scope.tModalDatosClientes.PlaDomFis = scope.tModalDatosClientes.PlaDomFis;
+         }
+         if (scope.tModalDatosClientes.PueDomFis == undefined || scope.tModalDatosClientes.PueDomFis == null || scope.tModalDatosClientes.PueDomFis == '') {
+             scope.tModalDatosClientes.PueDomFis = null;
+         } else {
+             scope.tModalDatosClientes.PueDomFis = scope.tModalDatosClientes.PueDomFis;
+         }
+         if (scope.tModalDatosClientes.WebCli == undefined || scope.tModalDatosClientes.WebCli == null || scope.tModalDatosClientes.WebCli == '') {
+             scope.tModalDatosClientes.WebCli = null;
+         } else {
+             scope.tModalDatosClientes.WebCli = scope.tModalDatosClientes.WebCli;
+         }
+         if (scope.tModalDatosClientes.ObsCli == undefined || scope.tModalDatosClientes.ObsCli == null || scope.tModalDatosClientes.ObsCli == '') {
+             scope.tModalDatosClientes.ObsCli = null;
+         } else {
+             scope.tModalDatosClientes.ObsCli = scope.tModalDatosClientes.ObsCli;
+         }
+         if (scope.tModalDatosClientes.CodCol == undefined || scope.tModalDatosClientes.CodCol == null || scope.tModalDatosClientes.CodCol == '') {
+             scope.tModalDatosClientes.CodCol = null;
+         } else {
+             scope.tModalDatosClientes.CodCol = scope.tModalDatosClientes.CodCol;
+         }
+         if (scope.tModalDatosClientes.CPLocSoc == undefined || scope.tModalDatosClientes.CPLocSoc == null || scope.tModalDatosClientes.CPLocSoc == '') {
+             scope.tModalDatosClientes.CPLocSoc = null;
+         } else {
+             scope.tModalDatosClientes.CPLocSoc = scope.tModalDatosClientes.CPLocSoc;
+         }
+         if (scope.tModalDatosClientes.CPLocFis == undefined || scope.tModalDatosClientes.CPLocFis == null || scope.tModalDatosClientes.CPLocFis == '') {
+             scope.tModalDatosClientes.CPLocFis = null;
+         } else {
+             scope.tModalDatosClientes.CPLocFis = scope.tModalDatosClientes.CPLocFis;
+         }
+
+
+
+
+
+         if (resultado == false) {
+             //quiere decir que al menos un renglon no paso la validacion
+             return false;
+         }
+         return true;
+     }
+     scope.guardar = function() {
+         
+         if (scope.tModalDatosClientes.CodCli > 0) {
+             var title = 'Actualizando';
+             var text = '¿Seguro que desea actualizar la información del Cliente?';
+             var response = "El Cliente ha sido modificado de forma correcta";
+         }
+         if (scope.tModalDatosClientes.CodCli == undefined) {
+             var title = 'Guardando';
+             var text = '¿Seguro que desea crear el Cliente?';
+             var response = "El Cliente ha sido registrado de forma correcta";
+         }
+         $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+         var url = base_urlHome() + "api/Dashboard/crear_clientes/";
+         $http.post(url, scope.tModalDatosClientes).then(function(result) 
+         {
+            console.log(result);
+            $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if (result.data.status == false && result.data.response == false) {
+                 scope.toast('error',result.data.message,'DNI/NIE/CIF');                 
+                 scope.validate_cif = true;
+                 //document.getElementById("NumCifCliRe").removeAttribute("readonly");
+                 return false;
+             }
+            
+             scope.nID = result.data.CodCli;
+             if (scope.nID > 0) 
+             {
+                scope.toast('success',response,title);
+                $('#modal_agregarNuevoCliente').modal('hide');
+                scope.searchText=result.data.CodCli+" - "+result.data.RazSocCli;
+                scope.fdatos.CodCli=result.data.CodCli;
+                scope.view_information();                
+             } else {
+                 $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                 scope.toast('error','Ha ocurrido un error, por favor intente nuevamente','Error');
+
+             }
+         }, function(error) {
+             $("#" + title).removeClass("loader loader-default is-active").addClass("loader loader-default");
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+         });
+     }
+     scope.validar_email = function(metodo) {
+         
+         if(metodo==1)
+         {
+            document.getElementById('EmaCli').addEventListener('input', function() {
+             campo = event.target;
+             valido = document.getElementById('emailOK');
+             emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+             //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+             if (emailRegex.test(campo.value)) {
+                 valido.innerText = "";
+                 scope.disabled_button_by_email = false;
+             } else {
+                 valido.innerText = "Formato de Email incorrecto";
+                 scope.disabled_button_by_email = true;
+             }
+            });
+         }
+         if(metodo==2)
+         {
+            document.getElementById('EmaCliOpc').addEventListener('input', function() {
+             campo = event.target;
+             valido = document.getElementById('emailOKOpc');
+             emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+             //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+             if (emailRegex.test(campo.value)) {
+                 valido.innerText = "";
+                 scope.disabled_button_by_email = false;
+             } else {
+                 valido.innerText = "Formato de Email incorrecto";
+                 scope.disabled_button_by_email = true;
+             }
+         });
+         }
+     }
+     
+///////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD END///////////////////////////////////////////////////////////
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
      scope.agregar_datos_dashboard=function(metodo)
      {
@@ -1074,6 +1546,30 @@ scope.filter_DirPumSum = function(CodPunSum) {
      else if(metodo==5)
      {
         scope.tModalDatosClientes={};
+        scope.index = 0;
+         scope.tProvidencias = [];
+         scope.tTipoCliente = [];
+         scope.tLocalidades = [];
+         scope.tComerciales = [];
+         scope.tSectores = [];
+         scope.tColaboradores = [];
+         scope.tTiposVias = [];
+         scope.TtiposInmuebles = [];
+         scope.tModalDatosClientes.misma_razon = false;
+         scope.tModalDatosClientes.distinto_a_social = false;
+         scope.tModalDatosClientes.CodCli=undefined;
+         scope.validate_cif=false;
+         scope.validate_info==undefined;
+         ServiceAddClientes.getAll().then(function(dato) {
+         scope.Fecha_Server = dato.Fecha_Server;         
+         scope.FecIniCli = dato.Fecha_Server;
+         scope.tProvidencias = dato.Provincias;
+         scope.tTipoCliente = dato.Tipo_Cliente;
+         scope.tComerciales = dato.Comerciales;
+         scope.tSectores = dato.Sector_Cliente;
+         scope.tColaboradores = dato.Colaborador;
+         scope.tTiposVias = dato.Tipo_Vias;
+     }).catch(function(err) { console.log(err); });
         $('#modal_agregarNuevoCliente').modal('show');  
      }
      else
@@ -1081,20 +1577,39 @@ scope.filter_DirPumSum = function(CodPunSum) {
 
      }
  }
- scope.LocalidadCodigoPostal=function(metodo)
+
+    scope.LocalidadCodigoPostal=function(metodo)
     {
-        var searchText_len = scope.tContacto_data_modal.CPLocSoc.trim().length;
+            if(metodo==1)
+            { 
+               var searchText_len = scope.tModalDatosClientes.CPLocSoc.trim().length;
+               var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tModalDatosClientes.CPLocSoc;
+            }
+            else if(metodo==2)
+            {
+              var searchText_len = scope.tModalDatosClientes.CPLocFis.trim().length;
+              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tModalDatosClientes.CPLocFis;
+            }
+            else if(metodo==3)
+            {
+              var searchText_len = scope.tContacto_data_modal.CodProSoc.trim().length;
+              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CodProSoc;
+            }
         if (searchText_len >=3) 
         {
-            if(metodo==1)
-            {
-               var url= base_urlHome()+"api/Dashboard/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
-            }
             $http.get(url).then(function(result) 
             {
                 if (result.data != false) 
                 {
                     if(metodo==1)
+                    {
+                        scope.searchResultCPLocModal = result.data;
+                    }
+                    else if(metodo==2)
+                    {
+                        scope.searchResultFis = result.data;
+                    }
+                    else if(metodo==3)
                     {
                         scope.searchResultCPLoc = result.data;
                     }
@@ -1103,10 +1618,22 @@ scope.filter_DirPumSum = function(CodPunSum) {
                 {                    
                     if(metodo==1)
                     {
+                        scope.searchResult = {};
+                        scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
+                        scope.tContacto_data_modal.CPLocSoc=null;
+                    }
+                    else if(metodo==2)
+                    {
+                        scope.searchResultFis = {};
+                        scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
+                        scope.tContacto_data_modal.CPLocFis=null;
+                    }
+                    else if(metodo==3)
+                    {
                         scope.searchResultCPLoc = {};
                         scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
-                        scope.fpuntosuministro.CPLocSoc=null;
-                    }                   
+                        scope.tContacto_data_modal.CodProSoc=null;
+                    }
                 }
             },function(error) 
             {
@@ -1123,35 +1650,69 @@ scope.filter_DirPumSum = function(CodPunSum) {
         } 
         else 
         {
-            scope.searchResultCPLoc = {};
+            scope.searchResult = {};
+            scope.searchResultFis = {};
         }
     }
-  scope.BuscarLocalidad=function(metodo,CodPro)
-    {   
-        var url = base_urlHome()+"api/Clientes/BuscarLocalidadesFil/CodPro/"+CodPro;
-        $http.get(url).then (function(result)
+     scope.BuscarLocalidad=function(metodo,CodPro)
+    {
+        console.log(metodo);
+        console.log(CodPro);
+        var url = base_urlHome()+"api/Clientes/BuscarLocalidadAddClientes/metodo/"+metodo+"/CodPro/"+CodPro;        
+        $http.get(url).then(function(result)
         {
-                if(result.data!=false)
+            if(result.data!=false)
+            {
+                if(metodo==1)
                 {
+                    if (scope.tModalDatosClientes.distinto_a_social == false) 
+                    {
+                        scope.TLocalidadesfiltradaFisc=[];
+                        scope.TLocalidadesfiltradaFisc=result.data;
+                        scope.tModalDatosClientes.CodProFis = CodPro;                         
+                    }
+                    scope.TLocalidadesfiltrada=[];
                     scope.TLocalidadesfiltrada=result.data;
+                }
+                else if(metodo==2)
+                {
+                    scope.TLocalidadesfiltradaFisc=[];
+                    scope.TLocalidadesfiltradaFisc=result.data;
                 }
                 else
                 {
-                   scope.toast('error','No hemos encontrado Localidades asignada a esta Provincia','Error');
-                   scope.TLocalidadesfiltrada=[];
+
                 }
-            },function(error)
+            }
+            else
             {
-                                        if (error.status == 404 && error.statusText == "Not Found"){
-                                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
-                                        }if (error.status == 401 && error.statusText == "Unauthorized"){
-                                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
-                                        }if (error.status == 403 && error.statusText == "Forbidden"){
-                                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
-                                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
-                                        }
-            });
+                if(metodo==1)
+                {
+                    scope.tModalDatosClientes.CodLocSoc=undefined;
+                    scope.TLocalidadesfiltrada=[];
+                    scope.toast('error','No se encontraron Localidades asignada a esta provincia.','Error');                    
+                }
+                else
+                {
+                    scope.tModalDatosClientes.CodLocFis=undefined;
+                    scope.TLocalidadesfiltradaFisc=[];
+                    scope.toast('error','No se encontraron Localidades asignada a esta provincia.','Error');                    
+                }
+
+            }
+        },function(error)
+        {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+        });
     }
  scope.DirCliente=function()
  {
@@ -1249,10 +1810,21 @@ scope.filter_DirPumSum = function(CodPunSum) {
          // Set value to search box
          scope.setValueModal = function(index, $event, result,metodo) 
          {
-            scope.fdatos.CodCli = scope.searchResult[index].CodCli;
-            scope.searchText=scope.searchResult[index].CodCli+" - "+scope.searchResult[index].NumCifCli;
-            scope.searchResult = {};
-            $event.stopPropagation();
+            if (metodo == 1) 
+            {
+            	scope.tModalDatosClientes.CodProSoc=scope.searchResultCPLocModal[index].CodPro;
+                scope.BuscarLocalidad(1,scope.tModalDatosClientes.CodProSoc);
+                scope.tModalDatosClientes.CodLocSoc=scope.searchResultCPLocModal[index].CodLoc;
+                scope.tModalDatosClientes.CPLocSoc= scope.searchResultCPLocModal[index].CPLoc;           
+                if (scope.tModalDatosClientes.distinto_a_social == false) 
+                {
+                    scope.tModalDatosClientes.CodProFis=scope.searchResultCPLocModal[index].CodPro;
+                    scope.tModalDatosClientes.CodLocFis = scope.searchResultCPLocModal[index].CodLoc;
+                    scope.tModalDatosClientes.CPLocFis=scope.searchResultCPLocModal[index].CPLoc;
+                }
+                scope.searchResultCPLocModal = {};
+                $event.stopPropagation();
+            }
         }
         scope.searchboxClickedModal = function($event) {
            $event.stopPropagation();
@@ -1389,9 +1961,56 @@ scope.filter_DirPumSum = function(CodPunSum) {
                 scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter[0].letter.toUpperCase();
                 if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
                 {
-                 scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
-                 return false;
-             }
+                 	scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
+                 	return false;
+             	}
+             else
+             {
+                return true;
+            } 
+            }
+            else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="No CIF/DNI")
+            {
+             return true;
+            }
+            else
+            {
+            scope.toast('error',"Error en Calculo de CIF/DNI/NIF/NIE.",'');
+            return false;
+            }  
+    }
+    scope.validarNIFDNIClienteDashboard = function() 
+    {
+           if($("#NumCifCliDashboard").val().length<9 || $("#NumCifCliDashboard").val().length>9)
+           {
+                scope.toast('error',"El Número de DNI/NIE debe contener solo 9 números.",'');
+                return false;
+           }
+           var letter = scope.validar_dni_nie($("#NumCifCliDashboard").parent(), $("#NumCifCliDashboard").val());
+           //console.log(letter[0]);
+           if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="DNI")
+           {
+                console.log(letter[0].letter.toUpperCase());
+                scope.dni_nie_validar = scope.tModalDatosClientes.NumCifCli.substring(0,8)+letter[0].letter.toUpperCase();
+                if(scope.dni_nie_validar!=scope.tModalDatosClientes.NumCifCli)
+                {
+                scope.toast('error',"El Número de DNI/NIE es Invalido Intente Nuevamente.",'');
+                return false;
+                }
+             else
+             {
+                return true;
+            } 
+            }
+            else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="CIF")
+            {
+                console.log(letter[0].letter.toUpperCase());
+                scope.dni_nie_validar = scope.tModalDatosClientes.NumCifCli.substring(0,8)+letter[0].letter.toUpperCase();
+                if(scope.dni_nie_validar!=scope.tModalDatosClientes.NumCifCli)
+                {
+                 	scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
+                 	return false;
+             	}
              else
              {
                 return true;

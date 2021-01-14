@@ -122,323 +122,323 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div align="center">
                     <label ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO SOCIAL</b></label>
                   </div>
-                </div>
+                  </div>
                 
+
+                  <div class="form">                          
+                   <div class="form-group">
+                     <label class="font-weight-bold nexa-dark" style="color:black;">DIRECCIÓN BBDD<b style="color:red;">(*)</b></label>
+                     <input ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" style="border:none; background:transparent" type="text" class="form-control" ng-model="vm.fdatos.DireccionBBDD" readonly/>        
+                   </div>
+                 </div>
+
+
+                   <div class="col-12 col-sm-3">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
+                         <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.fdatos.CodTipViaSoc" ng-change="vm.asignar_tipo_via()" ng-disabled="vm.validate_info!=undefined">
+                           <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
+                         </select>
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="col-12 col-sm-5">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
+                         <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomSoc"  ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
+                       </div>
+                     </div>
+                   </div>
+
+                               <div class="col-12 col-sm-4">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.fdatos.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>       
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="col-12 col-sm-3">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.BloDomSoc"  placeholder="* Bloque del Domicilio" maxlength="3" ng-change="vm.asignar_bloq_domicilio()" ng-disabled="vm.validate_info!=undefined"/>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="col-12 col-sm-3">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.EscDomSoc"  placeholder="* Escalera del Domicilio" ng-change="vm.asignar_esc_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="col-12 col-sm-3">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.PlaDomSoc"  placeholder="* Planta del Domicilio" ng-change="vm.asignar_pla_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="col-12 col-sm-3">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.PueDomSoc"  placeholder="* Puerta del Domicilio" ng-change="vm.asignar_puer_domicilio()" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>
+                                   </div>
+                                 </div>
+                               </div>
+
+                               <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
+                                 <div class="form">                          
+                                   <div class="form-group">
+                                     <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+                                     <input type="text" class="form-control" ng-model="vm.fdatos.CPLocSoc" placeholder="* Zona Postal Social" ng-change="vm.asignar_CPLoc()" ng-disabled="vm.validate_info!=undefined" ng-click="vm.searchboxClicked()"/>
+                                     <ul id='searchResult'>
+                                      <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+                                        {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+                                      </li>
+                                    </ul>
+
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-12 col-sm-4">
+                               <div class="form">                          
+                                 <div class="form-group">
+                                   <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
+                                   <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.fdatos.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
+                                    <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4">
+                             <div class="form">                          
+                               <div class="form-group">
+                                 <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
+                                 <select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.fdatos.CodLocSoc" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_LocalidadFis()">
+                                  <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          
+                          <div style="margin-top: 8px;">
+                           <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label></div></div>
+                           <div align="left">
+                            <input type="checkbox" ng-model="vm.fdatos.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.fdatos.CodTipViaSoc==undefined|| vm.fdatos.NomViaDomSoc==undefined|| vm.fdatos.NumViaDomSoc==undefined|| vm.fdatos.CodProSoc==undefined|| vm.fdatos.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
+                          </div>
+
+                          <div class="col-12 col-sm-3">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;" >(*)</b></label>
+                               <select class="form-control" id="CodTipViaFis" name="CodTipViaFis"  placeholder="* Tipo de Via" ng-model="vm.fdatos.CodTipViaFis" ng-disabled="vm.validate_info!=undefined ||vm.fdatos.distinto_a_social==false">
+                                 <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
+                               </select>
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-5">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomFis"  placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30"  ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>       
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-4">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomFis"   min="1" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false" ng-change="vm.validar_fecha_blo(3,vm.fdatos.NumViaDomFis)"/>       
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-3">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.BloDomFis"  placeholder="* Bloque del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-3">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.EscDomFis"  placeholder="* Escalera del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-3">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.PlaDomFis"  placeholder="* Planta del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-3">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.PueDomFis"  placeholder="* Puerta del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
+                             </div>
+                           </div>
+                         </div>
+
+                         <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
+                           <div class="form">                          
+                             <div class="form-group">
+                               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+                               <input type="text" class="form-control" ng-model="vm.fdatos.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.fdatos.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
+                               <ul id='searchResult'>
+                                <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
+                                  {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                         <div class="form">                          
+                           <div class="form-group">
+                             <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
+                             <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.fdatos.CodProFis" ng-change="vm.BuscarLocalidad(2,vm.fdatos.CodProFis)"  ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
+                              <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-4">
+                       <div class="form">                          
+                         <div class="form-group">
+                           <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
+                           <select class="form-control" id="CodLocFis" name="CodLocFis" ng-model="vm.fdatos.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
+                            <option ng-repeat="dato in vm.TLocalidadesfiltradaFisc" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+
+
+                    <div class="col-12 col-sm-4">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>
+                         <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCli" ng-change="vm.validar_fecha_blo(2,vm.fdatos.TelFijCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="col-12 col-sm-4">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil</label>
+                         <input type="text" class="form-control" ng-model="vm.fdatos.TelMovCli" ng-change="vm.validar_fecha_blo(5,vm.fdatos.TelMovCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
+                       </div>
+                     </div>
+                   </div>
+                   
+                   <div class="col-12 col-sm-4">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b> <span id="emailOK" style="color:red;"></span></label>
+                         <input type="text" class="form-control" id="EmaCli" ng-model="vm.fdatos.EmaCli"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(1)"/>
+                         
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="col-12 col-sm-6">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Email Opcional <span id="emailOKOpc" style="color:red;"></span></label>
+                         <input type="text" class="form-control" id="EmaCliOpc" ng-model="vm.fdatos.EmaCliOpc"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(2)"/>
+                         
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="col-12 col-sm-6">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Página Web</label>
+                         <input type="url" class="form-control" ng-model="vm.fdatos.WebCli"  placeholder="* Pagina Web del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="col-12 col-sm-6">
+                     <div class="form">                          
+                       <div class="form-group">
+                         <label class="font-weight-bold nexa-dark" style="color:black;">Comercial </label>
+                         <select class="form-control" id="CodCom" name="CodCom"  ng-model="vm.fdatos.CodCom" ng-disabled="vm.validate_info!=undefined"> 
+                          <option ng-repeat="dato in vm.tComerciales" value="{{dato.CodCom}}">NIF: {{dato.NIFCom}} - {{dato.NomCom}}</option>                          
+                        </select>       
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                   <div class="form">                          
+                     <div class="form-group">
+                       <label class="font-weight-bold nexa-dark" style="color:black;">Colaborador</label>
+                       <select class="form-control" id="CodCol" name="CodCol"  ng-model="vm.fdatos.CodCol" ng-disabled="vm.validate_info!=undefined"> 
+                        <option ng-repeat="dato in vm.tColaboradores" value="{{dato.CodCol}}">{{dato.NomCol}}</option>                          
+                      </select>       
+                    </div>
+                  </div>
+                </div>
 
                 <div class="form">                          
                  <div class="form-group">
-                   <label class="font-weight-bold nexa-dark" style="color:black;">DIRECCIÓN BBDD<b style="color:red;">(*)</b></label>
-                   <input ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null" style="border:none; background:transparent" type="text" class="form-control" ng-model="vm.fdatos.DireccionBBDD" readonly/>        
+                   <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
                  </div>
-               </div>
+                </div>
+                <div class="form">                          
+                 <div class="form-group">
+                  <textarea class="form-control" style="display: inline-block;"  id="ObsCli" name="ObsCli" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCli" ng-disabled="vm.validate_info!=undefined"></textarea>
+                  <input class="form-control" id="CodCli" name="CodCli" type="hidden" ng-model="vm.fdatos.CodCli" readonly/>
+                </div>
+                </div>
 
+                <div class="form-group" >
+                  <div class="col-12 col-sm-6">
+                    <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''" ng-disabled="vm.disabled_button_by_email==true">Grabar</button>
+                    <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button_by_email==true" >Actualizar</button>
+                    
+                    <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button-->
 
-               <div class="col-12 col-sm-3">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-                     <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.fdatos.CodTipViaSoc" ng-change="vm.asignar_tipo_via()" ng-disabled="vm.validate_info!=undefined">
-                       <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
-                     </select>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-5">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomSoc"  ng-change="vm.asignar_domicilio()" placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-4">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.fdatos.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>       
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-3">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.BloDomSoc"  placeholder="* Bloque del Domicilio" maxlength="3" ng-change="vm.asignar_bloq_domicilio()" ng-disabled="vm.validate_info!=undefined"/>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-3">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.EscDomSoc"  placeholder="* Escalera del Domicilio" ng-change="vm.asignar_esc_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-3">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.PlaDomSoc"  placeholder="* Planta del Domicilio" ng-change="vm.asignar_pla_domicilio()" maxlength="2" ng-disabled="vm.validate_info!=undefined"/>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-3">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.PueDomSoc"  placeholder="* Puerta del Domicilio" ng-change="vm.asignar_puer_domicilio()" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>
-                   </div>
-                 </div>
-               </div>
-
-               <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
-                 <div class="form">                          
-                   <div class="form-group">
-                     <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-                     <input type="text" class="form-control" ng-model="vm.fdatos.CPLocSoc" placeholder="* Zona Postal Social" ng-change="vm.asignar_CPLoc()" ng-disabled="vm.validate_info!=undefined" ng-click="vm.searchboxClicked()"/>
-                     <ul id='searchResult'>
-                      <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
-                        {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-                      </li>
-                    </ul>
-
+                    <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''">LIMPIAR</button-->
+                    <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-12 col-sm-4">
-               <div class="form">                          
-                 <div class="form-group">
-                   <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-                   <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.fdatos.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.fdatos.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
-                    <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-4">
-             <div class="form">                          
-               <div class="form-group">
-                 <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-                 <select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.fdatos.CodLocSoc" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_LocalidadFis()">
-                  <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
-                </select>
-              </div>
-            </div>
-          </div>
-          
-          
-          <div style="margin-top: 8px;">
-           <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label></div></div>
-           <div align="left">
-            <input type="checkbox" ng-model="vm.fdatos.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.fdatos.CodTipViaSoc==undefined|| vm.fdatos.NomViaDomSoc==undefined|| vm.fdatos.NumViaDomSoc==undefined|| vm.fdatos.CodProSoc==undefined|| vm.fdatos.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
-          </div>
-
-          <div class="col-12 col-sm-3">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;" >(*)</b></label>
-               <select class="form-control" id="CodTipViaFis" name="CodTipViaFis"  placeholder="* Tipo de Via" ng-model="vm.fdatos.CodTipViaFis" ng-disabled="vm.validate_info!=undefined ||vm.fdatos.distinto_a_social==false">
-                 <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
-               </select>
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-5">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.NomViaDomFis"  placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30"  ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>       
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-4">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomFis"   min="1" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false" ng-change="vm.validar_fecha_blo(3,vm.fdatos.NumViaDomFis)"/>       
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-3">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.BloDomFis"  placeholder="* Bloque del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-3">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.EscDomFis"  placeholder="* Escalera del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-3">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.PlaDomFis"  placeholder="* Planta del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-3">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.PueDomFis"  placeholder="* Puerta del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false"/>
-             </div>
-           </div>
-         </div>
-
-         <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
-           <div class="form">                          
-             <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-               <input type="text" class="form-control" ng-model="vm.fdatos.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.fdatos.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
-               <ul id='searchResult'>
-                <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
-                  {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 col-sm-4">
-         <div class="form">                          
-           <div class="form-group">
-             <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-             <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.fdatos.CodProFis" ng-change="vm.BuscarLocalidad(2,vm.fdatos.CodProFis)"  ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
-              <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-sm-4">
-       <div class="form">                          
-         <div class="form-group">
-           <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-           <select class="form-control" id="CodLocFis" name="CodLocFis" ng-model="vm.fdatos.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.fdatos.distinto_a_social==false">
-            <option ng-repeat="dato in vm.TLocalidadesfiltradaFisc" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
-          </select>
-        </div>
-      </div>
-    </div>
-    
-
-
-    <div class="col-12 col-sm-4">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>
-         <input type="text" class="form-control" ng-model="vm.fdatos.TelFijCli" ng-change="vm.validar_fecha_blo(2,vm.fdatos.TelFijCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
-       </div>
-     </div>
-   </div>
-
-   <div class="col-12 col-sm-4">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil</label>
-         <input type="text" class="form-control" ng-model="vm.fdatos.TelMovCli" ng-change="vm.validar_fecha_blo(5,vm.fdatos.TelMovCli)" placeholder="* Telefono del Cliente" maxlength="14"  ng-disabled="vm.validate_info!=undefined"/>       
-       </div>
-     </div>
-   </div>
-   
-   <div class="col-12 col-sm-4">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b> <span id="emailOK" style="color:red;"></span></label>
-         <input type="text" class="form-control" id="EmaCli" ng-model="vm.fdatos.EmaCli"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(1)"/>
-         
-       </div>
-     </div>
-   </div>
-
-   <div class="col-12 col-sm-6">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Email Opcional <span id="emailOKOpc" style="color:red;"></span></label>
-         <input type="text" class="form-control" id="EmaCliOpc" ng-model="vm.fdatos.EmaCliOpc"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(2)"/>
-         
-       </div>
-     </div>
-   </div>
-
-   <div class="col-12 col-sm-6">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Página Web</label>
-         <input type="url" class="form-control" ng-model="vm.fdatos.WebCli"  placeholder="* Pagina Web del Cliente" maxlength="150"  ng-disabled="vm.validate_info!=undefined"/>       
-       </div>
-     </div>
-   </div>
-
-   <div class="col-12 col-sm-6">
-     <div class="form">                          
-       <div class="form-group">
-         <label class="font-weight-bold nexa-dark" style="color:black;">Comercial </label>
-         <select class="form-control" id="CodCom" name="CodCom"  ng-model="vm.fdatos.CodCom" ng-disabled="vm.validate_info!=undefined"> 
-          <option ng-repeat="dato in vm.tComerciales" value="{{dato.CodCom}}">NIF: {{dato.NIFCom}} - {{dato.NomCom}}</option>                          
-        </select>       
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-sm-6">
-   <div class="form">                          
-     <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Colaborador</label>
-       <select class="form-control" id="CodCol" name="CodCol"  ng-model="vm.fdatos.CodCol" ng-disabled="vm.validate_info!=undefined"> 
-        <option ng-repeat="dato in vm.tColaboradores" value="{{dato.CodCol}}">{{dato.NomCol}}</option>                          
-      </select>       
-    </div>
-  </div>
-</div>
-
-<div class="form">                          
- <div class="form-group">
-   <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
- </div>
-</div>
-<div class="form">                          
- <div class="form-group">
-  <textarea class="form-control" style="display: inline-block;"  id="ObsCli" name="ObsCli" type="text" minlength="1" maxlength="200" rows="5"  ng-model="vm.fdatos.ObsCli" ng-disabled="vm.validate_info!=undefined"></textarea>
-  <input class="form-control" id="CodCli" name="CodCli" type="hidden" ng-model="vm.fdatos.CodCli" readonly/>
-</div>
-</div>
-
-<div class="form-group" >
-  <div class="col-12 col-sm-6">
-    <button class="btn btn-info" type="submit" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''" ng-disabled="vm.disabled_button_by_email==true">Grabar</button>
-    <button class="btn btn-success" type="submit" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.validate_info!=undefined || vm.disabled_button_by_email==true" >Actualizar</button>
-    
-    <!--button class="btn btn-danger" type="button"  ng-click="vm.borrar()" ng-show="vm.fdatos.CodCli>0 && vm.validate_info==undefined" ng-disabled="vm.Nivel==3 || vm.validate_info!=undefined">BORRAR</button-->
-
-    <!--button class="btn btn-warning" type="button" ng-click="vm.limpiar()" ng-show="vm.fdatos.CodCli==undefined||vm.fdatos.CodCli==null||vm.fdatos.CodCli==''">LIMPIAR</button-->
-    <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
-  </div>
-</div>
-</div><!--FINAL ROW -->
-</form>
+                </div><!--FINAL ROW -->
+          </form>
 
 
 
