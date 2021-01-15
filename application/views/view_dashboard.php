@@ -167,8 +167,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<form class="form-inline" role="form">
 										<div class="form-group">
 											<input type='text' ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-model='vm.searchText' placeholder='Buscar Cliente...' class="form-control">
-
-											<ul id='searchResult' style="height: 250px; overflow-y: auto;">
+											<ul id='searchResult' style="height: 250px; overflow-y: auto; display: block;">
 												<li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult">
 													<div ng-show="result.NumCifCli!=''">NumCli: {{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
 												</li>
@@ -339,7 +338,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</div>
 										</div> 
 									</form>
-									<div align="center"><a class="btn btn-success" href="#/Edit_Datos_Basicos_Clientes/{{vm.response_customer.CodCli}}" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</a></div>
+									
+									<div align="center"><button class="btn btn-success" ng-click="vm.EditarDatosModal(1)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button></div>
+								
 								</div>
 							</div>
 							<br>
@@ -583,7 +584,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-						<h4 class="modal-title">Agregar Nuevo Cliente</h4>
+						<h4 class="modal-title" ng-show="vm.tModalDatosClientes.CodCli==undefined">Agregar Nuevo Cliente</h4>
+						<h4 class="modal-title" ng-show="vm.tModalDatosClientes.CodCli>0">Editar Cliente</h4>
 					</div>
 					<div class="modal-body" style="background-color: white;">
 						<div class="panel">                  

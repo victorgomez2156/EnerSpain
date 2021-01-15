@@ -864,5 +864,34 @@ class Dashboard extends REST_Controller
 	}	
 	////////////////////////////////////// PARA DOCUMENTOS CLIENTES END ////////////////////////////////////////////////////////
 
+	public function BuscarPorCodEditar_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$CodBuscar=$this->get('CodBuscar');	
+		$metodo=$this->get('metodo');		
+	    $this->db->trans_start();
+	    if($metodo==1)
+	    {
+	    	$response= $this->Dashboard_model->Funcion_Verificadora($CodBuscar,'T_Cliente','CodCli','*');
+	    	if(!empty($response-> FecIniCli))
+	    	{
+	    		$Fecha_Final=explode('-', $response-> FecIniCli);
+	    		$response-> FecIniCli=$Fecha_Final[2]."/".$Fecha_Final[1]."/".$Fecha_Final[0];
+	    	}
+	    	$T_ProSoc= $this->Dashboard_model->Funcion_Verificadora($response-> CodLocSoc,'T_Localidad','CodLoc','*');
+	    	$T_ProFis= $this->Dashboard_model->Funcion_Verificadora($response-> CodLocFis,'T_Localidad','CodLoc','*');
+	    	$response-> CodProSoc = $T_ProSoc-> CodPro;
+	    	$response-> CodProFis = $T_ProFis-> CodPro;
+	    }
+
+
+
+	    $this->db->trans_complete();
+		$this->response($response);
+	}
 }
 ?>

@@ -20,7 +20,6 @@
    var fecha = dd + '/' + mm + '/' + yyyy;
      ////////////////////////////////////////////////// PARA EL DASHBOARD START ////////////////////////////////////////////////////////
      //console.log($route.current.$$route.originalPath);
-
      scope.showDatosGenerales = true;
      scope.showContactosRepresentante = true;
      scope.showPuntosSuministros = true;
@@ -32,9 +31,6 @@
      scope.response_customer.Puntos_Suministros = [];
      scope.response_customer.All_CUPs=[];
      scope.tContacto_data_modal={};
-     //console.log(scope.response_customer.Contactos);
-     //console.log(scope.response_customer.Cuentas_Bancarias);
-     //console.log(scope.response_customer.documentos);
      scope.showDetails = function(menu) {
        if (menu == 1) {
            if (scope.showDatosGenerales == true) {
@@ -271,11 +267,6 @@
                          }
                      });
                }
-                 //console.log(result.data.customer);
-                 //console.log(scope.response_customer.Puntos_Suministros);
-                 ///console.log(scope.response_customer.Contactos);
-                 //console.log(scope.response_customer.Cuentas_Bancarias);
-                 //console.log(scope.response_customer.documentos);
              } else {
                Swal.fire({ title: "Error", text: "No existen datos relacionados con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
            }
@@ -297,8 +288,6 @@
        });
 }
 scope.filter_DirPumSum = function(CodPunSum) {
-         //console.log(CodPunSum);
-         //scope.response_customer.DirPumSum=undefined;
          scope.response_customer.EscPlaPuerPumSum = undefined;
          scope.response_customer.DesLocPumSum = undefined;
          scope.response_customer.DesProPumSum = undefined;
@@ -319,13 +308,11 @@ scope.filter_DirPumSum = function(CodPunSum) {
          var url = base_urlHome() + "api/Dashboard/Search_CUPs_Customer/CodPumSum/" + CodPunSum;
          $http.get(url).then(function(result) {
            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             //console.log(result);
              scope.response_customer.CUPs_Electrico = result.data.CUPs_Electricos;
              scope.response_customer.CUPs_Gas = result.data.CUPs_Gas;
 
          }, function(error) {
            $("#Buscando_Informacion").removeClass("loader loader-default is-active").addClass("loader loader-default");
-             //console.log(error);
              if (error.status == 404 && error.statusText == "Not Found") {
                Swal.fire({ title: "Error 404", text: "El método que está intentando usar no puede ser localizado", type: "error", confirmButtonColor: "#188ae2" });
            }
@@ -1015,11 +1002,109 @@ scope.filter_DirPumSum = function(CodPunSum) {
 
 
 
-/////////////////////////////////////////////////////////////// PARA AGREGAR DATOS EN EL MODAL DASHBOARD START //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////// PARA AGREGAR DATOS EN EL MODALES DASHBOARD START //////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD START///////////////////////////////////////////////////////////
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////// PARA editar DATOS EN LOS MODALES DASHBOARD START //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////// PARA editar DATOS EN LOS MODALES DASHBOARD END //////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+scope.EditarDatosModal=function(metodo)
+{
+    if(metodo==1)
+    {
+        ServiceAddClientes.getAll().then(function(dato) {
+         scope.Fecha_Server = dato.Fecha_Server;         
+         scope.FecIniCli = dato.Fecha_Server;
+         scope.tProvidencias = dato.Provincias;
+         scope.tTipoCliente = dato.Tipo_Cliente;
+         scope.tComerciales = dato.Comerciales;
+         scope.tSectores = dato.Sector_Cliente;
+         scope.tColaboradores = dato.Colaborador;
+         scope.tTiposVias = dato.Tipo_Vias;
+      }).catch(function(err) { console.log(err); });
+        
+    }
+    scope.FuncionEditarDatos(scope.response_customer.CodCli,metodo);
+}
+
+scope.FuncionEditarDatos=function(CodBuscar,metodo)
+{
+    var url=base_urlHome()+"api/Dashboard/BuscarPorCodEditar/CodBuscar/"+CodBuscar+"/metodo/"+metodo;
+    $http.get(url).then(function(result)
+    {
+      if(result.data!=false)
+      {
+        if(metodo==1)
+        {
+          scope.tModalDatosClientes=result.data;
+          scope.FecIniCli = undefined;
+                 if (result.data.CodLocSoc == result.data.CodLocFis) {
+                    scope.tModalDatosClientes.distinto_a_social = false;
+                    scope.BuscarLocalidad(1,result.data.CodProSoc);
+                    scope.BuscarLocalidad(2,result.data.CodProFis);
+
+                 } else {
+                     scope.tModalDatosClientes.distinto_a_social = true;
+                     scope.BuscarLocalidad(1,result.data.CodProSoc);
+                     scope.BuscarLocalidad(2,result.data.CodProFis);
+                 }
+                scope.tModalDatosClientes.CodLocSoc=result.data.CodLocSoc;
+                scope.tModalDatosClientes.CodLocFis=result.data.CodLocFis;
+                 if (result.data.RazSocCli == result.data.NomComCli) {
+                     scope.tModalDatosClientes.misma_razon = false;
+                 } else {
+                     scope.tModalDatosClientes.misma_razon = true;
+                 }
+                 scope.FecIniCli = result.data.FecIniCli;
+                 $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
+                $('#modal_agregarNuevoCliente').modal('show');
+        }
+      }
+      else
+      {
+
+      }
+    },function(error)
+    {
+       if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+    });
+}
+
+
+
+////////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD START ///////////////////////////////////////////////////////////
 scope.asignar_a_nombre_comercial = function() {
          scope.tModalDatosClientes.NomComCli = scope.tModalDatosClientes.RazSocCli;
      }
