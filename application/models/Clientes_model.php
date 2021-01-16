@@ -206,7 +206,7 @@ public function get_data_cliente_cuentas($CodCli)
 }
 public function get_data_cliente_documentos($CodCli)
 {
-    $this->db->select('a.CodTipDocAI,b.DesTipDoc,a.DesDoc,a.ArcDoc');
+    $this->db->select('a.CodTipDocAI,b.DesTipDoc,a.DesDoc,a.ArcDoc,a.CodTipDoc');
     $this->db->from('T_Documentos a');
     $this->db->join('T_TipoDocumento b','a.CodTipDoc=b.CodTipDoc','left');
     $this->db->where('CodCli',$CodCli);        

@@ -263,10 +263,11 @@
                              //console.log(Fichero);
                              var Fichero_Final = Fichero[1];
                              //console.log(Fichero_Final);
-                             scope.response_customer.documentos.push({ ArcDoc: Contactos.DocNIF, DesDoc: Fichero_Final, DesTipDoc: Contactos.TipRepr });
+                             scope.response_customer.documentos.push({ ArcDoc: Contactos.DocNIF, DesDoc: Fichero_Final, DesTipDoc: Contactos.TipRepr, CodTipDoc: null });
                          }
                      });
                }
+               console.log(scope.response_customer.documentos);
              } else {
                Swal.fire({ title: "Error", text: "No existen datos relacionados con este cliente.", type: "error", confirmButtonColor: "#188ae2" });
            }
@@ -1030,24 +1031,130 @@ scope.filter_DirPumSum = function(CodPunSum) {
 
 /////////////////////////////////////////////////////////////// PARA editar DATOS EN LOS MODALES DASHBOARD END //////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+scope.agregar_datos_dashboard=function(metodo)
+{
+        if(metodo==1)
+        {
+            scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];     
+            scope.tContacto_data_modal={};
+            scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
+            scope.tContacto_data_modal.TipRepr='1';
+            scope.tContacto_data_modal.ConPrin=false;
+            scope.tContacto_data_modal.CanMinRep='1';
+            document.getElementById('filenameDocNIF').value = '';
+            document.getElementById('DocPod').value = '';
+            var namefileDocNIF = '';
+            $('#filenameDocNIF1').html(namefileDocNIF);
+            var filenameDocPod = '';
+            $('#filenameDocPod').html(filenameDocPod);
+            scope.cargar_tiposContactos(9);
+            scope.cargar_tiposContactos(3);
+            scope.cargar_tiposContactos(12);
+            scope.DirCliente();
+            $('#modal_agregarContactos').modal('show');  
+        }
+        else if(metodo==2)
+        {
+          scope.fdatos_cups={};
+          scope.fdatos_cups.TipServ = 0;
+          scope.fdatos_cups.CodCli=scope.response_customer.CodCli;
+          scope.fdatos_cups.cups='ES';
+          scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+          scope.fdatos_cups.AgregarNueva=true;
+          scope.fdatos_cups.TipRegDir='1';
+          scope.search_PunSum();
+          $('#modal_agregarCUPs').modal('show');  
+        }
+        else if(metodo==3)
+        {
+            scope.tgribBancos={};
+            scope.tgribBancos.CodCli=scope.response_customer.CodCli;
+            scope.CodEur='ES';
+            $('#modal_agregarCuentasBancarias').modal('show');  
+        }
+        else if(metodo==4)
+        {
+          scope.cargar_tiposContactos(11);
+          scope.fagregar_documentos={};
+          scope.fagregar_documentos.CodCli=scope.response_customer.CodCli;
+          scope.fagregar_documentos.TieVen=0;
+          scope.FecVenDocAco=null;
+          document.getElementById('DocCliDoc').value = '';
+          var filenameDocCli = '';
+          $('#filenameDocCli').html(filenameDocCli);
+          $('#modal_agregarDocumentos').modal('show');  
+        }
+        else if(metodo==5)
+        {
+           scope.tModalDatosClientes={};
+           scope.index = 0;
+           scope.tProvidencias = [];
+           scope.tTipoCliente = [];
+           scope.tLocalidades = [];
+           scope.tComerciales = [];
+           scope.tSectores = [];
+           scope.tColaboradores = [];
+           scope.tTiposVias = [];
+           scope.TtiposInmuebles = [];
+           scope.tModalDatosClientes.misma_razon = false;
+           scope.tModalDatosClientes.distinto_a_social = false;
+           scope.tModalDatosClientes.CodCli=undefined;
+           scope.validate_cif=false;
+           scope.validate_info==undefined;
+           ServiceAddClientes.getAll().then(function(dato) {
+           scope.Fecha_Server = dato.Fecha_Server;         
+           scope.FecIniCli = dato.Fecha_Server;
+           scope.tProvidencias = dato.Provincias;
+           scope.tTipoCliente = dato.Tipo_Cliente;
+           scope.tComerciales = dato.Comerciales;
+           scope.tSectores = dato.Sector_Cliente;
+           scope.tColaboradores = dato.Colaborador;
+           scope.tTiposVias = dato.Tipo_Vias;
+       }).catch(function(err) { console.log(err); });
+          $('#modal_agregarNuevoCliente').modal('show');  
+        }
+        else
+        {
 
-scope.EditarDatosModal=function(metodo)
+        }
+}
+scope.EditarDatosModal=function(variable,metodo)
 {
     if(metodo==1)
     {
-        ServiceAddClientes.getAll().then(function(dato) {
-         scope.Fecha_Server = dato.Fecha_Server;         
-         scope.FecIniCli = dato.Fecha_Server;
-         scope.tProvidencias = dato.Provincias;
-         scope.tTipoCliente = dato.Tipo_Cliente;
-         scope.tComerciales = dato.Comerciales;
-         scope.tSectores = dato.Sector_Cliente;
-         scope.tColaboradores = dato.Colaborador;
-         scope.tTiposVias = dato.Tipo_Vias;
-      }).catch(function(err) { console.log(err); });
-        
+        ServiceAddClientes.getAll().then(function(dato) 
+        {
+	         scope.Fecha_Server = dato.Fecha_Server;         
+	         scope.FecIniCli = dato.Fecha_Server;
+	         scope.tProvidencias = dato.Provincias;
+	         scope.tTipoCliente = dato.Tipo_Cliente;
+	         scope.tComerciales = dato.Comerciales;
+	         scope.tSectores = dato.Sector_Cliente;
+	         scope.tColaboradores = dato.Colaborador;
+	         scope.tTiposVias = dato.Tipo_Vias;
+      	}).catch(function(err) { console.log(err); });
+             
     }
-    scope.FuncionEditarDatos(scope.response_customer.CodCli,metodo);
+    else if(metodo==2)
+    {
+        scope.tModalDatosClientes= {};
+        scope.tContacto_data_modal={};
+        scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
+        scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];
+        document.getElementById('filenameDocNIF').value = '';
+        document.getElementById('DocPod').value = '';
+        var namefileDocNIF = '';
+        $('#filenameDocNIF1').html(namefileDocNIF);
+        var filenameDocPod = '';
+        $('#filenameDocPod').html(filenameDocPod);
+        scope.cargar_tiposContactos(9);
+        scope.cargar_tiposContactos(3);
+        scope.cargar_tiposContactos(12);
+        scope.tModalDatosClientes.distinto_a_social= false;        
+        $('#modal_agregarContactos').modal('show');
+    }
+    scope.FuncionEditarDatos(variable,metodo); 
+    
 }
 
 scope.FuncionEditarDatos=function(CodBuscar,metodo)
@@ -1059,8 +1166,8 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo)
       {
         if(metodo==1)
         {
-          scope.tModalDatosClientes=result.data;
-          scope.FecIniCli = undefined;
+            scope.tModalDatosClientes=result.data;
+            scope.FecIniCli = undefined;
                  if (result.data.CodLocSoc == result.data.CodLocFis) {
                     scope.tModalDatosClientes.distinto_a_social = false;
                     scope.BuscarLocalidad(1,result.data.CodProSoc);
@@ -1082,10 +1189,24 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo)
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
                 $('#modal_agregarNuevoCliente').modal('show');
         }
+        else if(metodo==2)
+        { 
+          scope.tContacto_data_modal=result.data;
+          scope.CodCliContacto=result.data.NumCifCli;  
+          if(result.data.ConPrin==null ||result.data.ConPrin==0)
+          {
+            scope.tContacto_data_modal.ConPrin=false;
+          }
+          else
+          {
+            scope.tContacto_data_modal.ConPrin=true;
+          }
+          scope.DirCliente();
+        }
       }
       else
       {
-
+         scope.toast('error','Disculpe, error en el procedimiento intente nuevamente','Error');
       }
     },function(error)
     {
@@ -1575,93 +1696,7 @@ scope.misma_razon = function(opcion) {
 
 
 
-     scope.agregar_datos_dashboard=function(metodo)
-     {
-        if(metodo==1)
-        {
-            scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];     
-            scope.tContacto_data_modal={};
-            scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
-            scope.tContacto_data_modal.TipRepr='1';
-            scope.tContacto_data_modal.ConPrin=false;
-            scope.tContacto_data_modal.CanMinRep='1';
-            document.getElementById('filenameDocNIF').value = '';
-            document.getElementById('DocPod').value = '';
-            var namefileDocNIF = '';
-            $('#filenameDocNIF1').html(namefileDocNIF);
-            var filenameDocPod = '';
-            $('#filenameDocPod').html(filenameDocPod);
-            scope.cargar_tiposContactos(9);
-            scope.cargar_tiposContactos(3);
-            scope.cargar_tiposContactos(12);
-            scope.DirCliente();
-            $('#modal_agregarContactos').modal('show');  
-        }
-        else if(metodo==2)
-        {
-          scope.fdatos_cups={};
-          scope.fdatos_cups.TipServ = 0;
-          scope.fdatos_cups.CodCli=scope.response_customer.CodCli;
-          scope.fdatos_cups.cups='ES';
-          scope.T_PuntoSuministrosVistaNuevaDireccion=false;
-          scope.fdatos_cups.AgregarNueva=true;
-          scope.fdatos_cups.TipRegDir='1';
-          scope.search_PunSum();
-          $('#modal_agregarCUPs').modal('show');  
-        }
-     else if(metodo==3)
-     {
-         scope.tgribBancos={};
-         scope.tgribBancos.CodCli=scope.response_customer.CodCli;
-        scope.CodEur='ES';
-        $('#modal_agregarCuentasBancarias').modal('show');  
-     }
-     else if(metodo==4)
-     {
-        scope.cargar_tiposContactos(11);
-        scope.fagregar_documentos={};
-        scope.fagregar_documentos.CodCli=scope.response_customer.CodCli;
-        scope.fagregar_documentos.TieVen=0;
-        scope.FecVenDocAco=null;
-        document.getElementById('DocCliDoc').value = '';
-        var filenameDocCli = '';
-        $('#filenameDocCli').html(filenameDocCli);
-        $('#modal_agregarDocumentos').modal('show');  
-     }
-     else if(metodo==5)
-     {
-        scope.tModalDatosClientes={};
-        scope.index = 0;
-         scope.tProvidencias = [];
-         scope.tTipoCliente = [];
-         scope.tLocalidades = [];
-         scope.tComerciales = [];
-         scope.tSectores = [];
-         scope.tColaboradores = [];
-         scope.tTiposVias = [];
-         scope.TtiposInmuebles = [];
-         scope.tModalDatosClientes.misma_razon = false;
-         scope.tModalDatosClientes.distinto_a_social = false;
-         scope.tModalDatosClientes.CodCli=undefined;
-         scope.validate_cif=false;
-         scope.validate_info==undefined;
-         ServiceAddClientes.getAll().then(function(dato) {
-         scope.Fecha_Server = dato.Fecha_Server;         
-         scope.FecIniCli = dato.Fecha_Server;
-         scope.tProvidencias = dato.Provincias;
-         scope.tTipoCliente = dato.Tipo_Cliente;
-         scope.tComerciales = dato.Comerciales;
-         scope.tSectores = dato.Sector_Cliente;
-         scope.tColaboradores = dato.Colaborador;
-         scope.tTiposVias = dato.Tipo_Vias;
-     }).catch(function(err) { console.log(err); });
-        $('#modal_agregarNuevoCliente').modal('show');  
-     }
-     else
-     {
-
-     }
- }
+     
 
     scope.LocalidadCodigoPostal=function(metodo)
     {
@@ -2388,11 +2423,11 @@ $scope.submitFormRegistroContacto = function(event)
        }
        //console.log(scope.tContacto_data_modal);
        
-       if (scope.tContacto_data_modal.CodConCliModalDashboard > 0) {
+       if (scope.tContacto_data_modal.CodConCli > 0) {
            var title = 'Actualizando';
            var text = '¿Seguro que desea actualizar la información del Contacto?';
        }
-       if (scope.tContacto_data_modal.CodConCliModalDashboard == undefined) {
+       if (scope.tContacto_data_modal.CodConCli == undefined) {
            var title = 'Guardando';
            var text = '¿Seguro que desea registrar el Contacto?';
        }

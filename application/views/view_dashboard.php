@@ -339,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</div> 
 									</form>
 									
-									<div align="center"><button class="btn btn-success" ng-click="vm.EditarDatosModal(1)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button></div>
+									<div align="center"><button class="btn btn-success" ng-click="vm.EditarDatosModal(scope.response_customer.CodCli,1)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button></div>
 								
 								</div>
 							</div>
@@ -396,7 +396,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<div class="form">                          
 											<div class="form-group">   
 												<label class="font-weight-bold nexa-dark" style="color:white;">Acción </label>
-												<a class="btn btn-success" href="#/Edit_Contactos/{{vm.response_customer.Contactos[$index].CodConCli}}" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i></a>   
+												<button class="btn btn-success" ng-click="vm.EditarDatosModal(dato.CodConCli,2)"  ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i></button>   
 											</div>
 										</div>
 									</div>
@@ -537,7 +537,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<label class="font-weight-bold nexa-dark" style="color:black;">Acción </label>    
 												<a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a>     
 
-												<a class="btn btn-success" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a> 
+												<a class="btn btn-success" ng-show="dato.CodTipDoc!=null" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a> 
 											</div>
 										</div>
 									</div>
@@ -995,13 +995,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-<!-- modal container section start -->
+<!-- modal container section start --> 
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_agregarContactos" class="modal fade">
 <div class="modal-dialog" style="width: auto;">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-			<h4 class="modal-title">Agregar Contacto</h4>
+			<h4 class="modal-title" ng-show="vm.tContacto_data_modal.CodConCli==undefined">Agregar Contacto</h4>
+			<h4 class="modal-title" ng-show="vm.tContacto_data_modal.CodConCli>0">Editar Contacto</h4>
 		</div>
 		<div class="modal-body" style="background-color: white;">
 			<div class="panel">                  
@@ -1272,7 +1273,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 
 <button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli==undefined && vm.no_editable==undefined" ng-disabled="form_contacto2.$invalid">Registrar</button>
-
+<button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli>0" ng-disabled="form_contacto2.$invalid">Actualizar</button>
+<input type="hidden" name="CodConCliModal" ng-model="vm.tContacto_data_modal.CodConCli">
 </form>
 </div>
 </div></div>
