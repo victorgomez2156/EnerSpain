@@ -490,7 +490,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<div class="form">                          
 											<div class="form-group">    
 												<label class="font-weight-bold nexa-dark" style="color:black;">Acción </label><br>         
-												<a class="btn btn-success" href="#/Edit_Cuenta_Bancaria/{{vm.response_customer.Cuentas_Bancarias[$index].CodCueBan}}"><i class="fa fa-edit"></i></a>     
+												<!--a class="btn btn-success" href="#/Edit_Cuenta_Bancaria/{{vm.response_customer.Cuentas_Bancarias[$index].CodCueBan}}"><i class="fa fa-edit"></i></a-->  
+												<button class="btn btn-success" ng-click="vm.EditarDatosModal(dato.CodCueBan,4)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button>   
 											</div>
 										</div>
 									</div> 
@@ -535,9 +536,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<div class="form">                          
 											<div class="form-group"> 
 												<label class="font-weight-bold nexa-dark" style="color:black;">Acción </label>    
-												<a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a>     
-
-												<a class="btn btn-success" ng-show="dato.CodTipDoc!=null" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a> 
+												<a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a> 
+												<!--a class="btn btn-success" ng-show="dato.CodTipDoc!=null" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a-->
+												<button class="btn btn-success" ng-click="vm.EditarDatosModal(dato.CodTipDocAI,5)" ng-show="dato.CodTipDoc!=null"><i class="fa fa-edit"></i></button> 
 											</div>
 										</div>
 									</div>
@@ -1287,7 +1288,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- modal container section start -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_agregarCUPs" class="modal fade">
-<div class="modal-dialog" style="width: auto;">
+	<div class="modal-dialog" style="width: auto;">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
@@ -1838,21 +1839,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div><!--FINAL ROW -->
 							</form>
 
-<script type="text/javascript">
-	$('.FecAltCup').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
-	 $('#FecAltCup').on('changeDate', function() 
-        {
-          var FecAltCup=document.getElementById("FecAltCup").value;
-          console.log("FecAltCup: "+FecAltCup);
-        });
-</script>
+				<script type="text/javascript">
+					$('.FecAltCup').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+					 $('#FecAltCup').on('changeDate', function() 
+				        {
+				          var FecAltCup=document.getElementById("FecAltCup").value;
+				          console.log("FecAltCup: "+FecAltCup);
+				        });
+				</script>
 
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!--modal container section end -->
+</div>
+<!--modal container section end -->
 
 
 
@@ -1862,7 +1863,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-						<h4 class="modal-title">Agregar Cuenta Bancaria</h4>
+						<h4 class="modal-title" ng-show="vm.tgribBancos.CodCueBan==undefined">Agregar Cuenta Bancaria</h4>
+						<h4 class="modal-title" ng-show="vm.tgribBancos.CodCueBan>0">Editar Cuenta Bancaria</h4>
 					</div>
 					<div class="modal-body" style="background-color: white;">
 						<div class="panel">                  
@@ -1919,7 +1921,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 
 								<button class="btn btn-info" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan==undefined">REGISTRAR</button> 
-
+								<button class="btn btn-success" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan>0">ACTUALIZAR</button>
 								<input type="hidden" class="form-control" ng-model="vm.tgribBancos.CodCueBan"/>    
 							</form>
 
@@ -1943,7 +1945,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<div class="modal-body" style="background-color: white;">
 						<div class="panel">                  
 							<form class="form-validate" id="form_documentos" name="form_documentos" ng-submit="submitFormRegistroDocumentos($event)">                 
-							
 								<div class="col-12 col-sm-12">
 									<div class="form">                          
 										<div class="form-group">
@@ -2000,9 +2001,10 @@ ss="col-12 col-sm-12">
 </div>
 </div>
 
-<input type="hidden" class="form-control datepicker" ng-model="vm.fagregar_documentos.CodTipDocAI" name="CodTipDocAI" id="CodTipDocAI"/>  
+<input type="hidden" class="form-control" ng-model="vm.fagregar_documentos.CodTipDocAI" name="CodTipDocAI" id="CodTipDocAI"/>  
 
 <button class="btn btn-info" type="submit" ng-disabled="form_documentos.$invalid" ng-show="vm.fagregar_documentos.CodTipDocAI==undefined">REGISTRAR</button>
+<button class="btn btn-info" type="submit" ng-disabled="form_documentos.$invalid" ng-show="vm.fagregar_documentos.CodTipDocAI>0">ACTUALIZAR</button>
 </form>
 </div>
 </div>
@@ -2404,7 +2406,7 @@ ss="col-12 col-sm-12">
 <div id="Guardando" class="loader loader-default"  data-text="Actualizando Información"></div>
 <script>    
   $('.FecVenDocAco').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
- 
+ 	$('.datepicker').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
 </script>
 
 <script language="JavaScript">

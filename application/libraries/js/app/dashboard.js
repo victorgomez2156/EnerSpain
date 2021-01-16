@@ -1153,6 +1153,28 @@ scope.EditarDatosModal=function(variable,metodo)
         scope.tModalDatosClientes.distinto_a_social= false;        
         $('#modal_agregarContactos').modal('show');
     }
+    else if(metodo==3)
+    {
+    	
+    }
+    else if(metodo==4)
+    {
+    	scope.tgribBancos={};
+        scope.tgribBancos.CodCli=scope.response_customer.CodCli;
+        scope.tgribBancos.CodBan=null;
+        scope.numIBanValidado = true;
+        $('#modal_agregarCuentasBancarias').modal('show');  
+    }
+    else if(metodo==5)
+    {
+    	scope.fagregar_documentos={};
+    	scope.cargar_tiposContactos(11);
+    	$('#modal_agregarDocumentos').modal('show');  
+    }
+    else
+    {
+
+    }
     scope.FuncionEditarDatos(variable,metodo); 
     
 }
@@ -1202,6 +1224,32 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo)
             scope.tContacto_data_modal.ConPrin=true;
           }
           scope.DirCliente();
+        }
+
+
+        else if(metodo==4)
+        { 
+          	scope.tgribBancos.CodCli = result.data.CodCli;
+            scope.tgribBancos.CodBan = result.data.CodBan;
+            scope.tgribBancos.CodCueBan = result.data.CodCueBan;
+            scope.CodEur = result.data.CodEur;
+            scope.IBAN1 = result.data.IBAN1;
+            scope.IBAN2 = result.data.IBAN2;
+            scope.IBAN3 = result.data.IBAN3;
+            scope.IBAN4 = result.data.IBAN4;
+            scope.IBAN5 = result.data.IBAN5;
+            //scope.NumCifCliSearch=result.data.NumCifCli;         
+        }
+        else if(metodo==5)
+        { 
+          	scope.fagregar_documentos = result.data;
+            scope.FecVenDocAco = result.data.FecVenDoc;
+            $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenDocAco);
+            console.log(result.data);         
+        }
+        else
+        {
+        	scope.toast('error','Disculpe, error en el procedimiento intente nuevamente o el metodo de busqueda no existe.','Error');
         }
       }
       else
@@ -3669,7 +3717,7 @@ scope.search_PunSum = function()
          }
      }
      $scope.submitFormRegistroCuentaBanca = function(event) {
-         scope.tgribBancos.CodBan=null;
+         //scope.tgribBancos.CodBan=null;
          scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
          var url = base_urlHome() + "api/Dashboard/Comprobar_Cuenta_Bancaria/";
          $http.post(url, scope.tgribBancos).then(function(result) {

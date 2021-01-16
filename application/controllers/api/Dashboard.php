@@ -886,10 +886,29 @@ class Dashboard extends REST_Controller
 	    	$T_ProFis= $this->Dashboard_model->Funcion_Verificadora($response-> CodLocFis,'T_Localidad','CodLoc','*');
 	    	$response-> CodProSoc = $T_ProSoc-> CodPro;
 	    	$response-> CodProFis = $T_ProFis-> CodPro;
+	    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información del Cliente Dashboard');
+	    }
+	    elseif($metodo==2)
+	    {
+	    	$response= $this->Dashboard_model->Funcion_Verificadora($CodBuscar,'T_ContactoCliente','CodConCli','*');
+	    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información del Contacto Dashboard');
 	    }
 
+	    elseif($metodo==4)
+	    {
+	    	$response= $this->Clientes_model->get_xID_CuentaBancaria($CodBuscar);
+	    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_CuentaBancaria','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información de la Cuenta Bancaria Dashboard');//$this->Dashboard_model->Funcion_Verificadora($CodBuscar,'T_CuentaBancaria','CodCueBan','*');
+	    }
+	    elseif ($metodo==5) {
 
+	    	$response = $this->Clientes_model->get_xID_Documentos($CodBuscar);        
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Documentos','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información del Documento Dashboard' );
+	    }
+	    else
+	    {
+	    	$response=false;
 
+	    }
 	    $this->db->trans_complete();
 		$this->response($response);
 	}
