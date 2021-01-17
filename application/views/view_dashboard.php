@@ -339,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</div> 
 									</form>
 									
-									<div align="center"><button class="btn btn-success" ng-click="vm.EditarDatosModal(scope.response_customer.CodCli,1)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button></div>
+									<div align="center"><button class="btn btn-success" ng-click="vm.EditarDatosModal(vm.response_customer.CodCli,1)" ng-disabled="vm.disabled_button==true"><i class="fa fa-edit"></i> Editar</button></div>
 								
 								</div>
 							</div>
@@ -450,7 +450,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<td> 
 													<button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
 
-													<a class="btn btn-success" href="#/Edit_Cups/{{vm.response_customer.All_CUPs[$index].CodCups}}/{{vm.response_customer.All_CUPs[$index].TipServLetra}}"><i class="fa fa-edit"></i></a> 
+													<!--a class="btn btn-success" href="#/Edit_Cups/{{vm.response_customer.All_CUPs[$index].CodCups}}/{{vm.response_customer.All_CUPs[$index].TipServLetra}}"><i class="fa fa-edit"></i></a--> 
+													<button class="btn btn-success" ng-click="vm.EditarDatosModal(dato.CodCups,3,dato.TipServ)"><i class="fa fa-edit"></i></button> 
 												</td>
 											</tr>
 										</tbody>
@@ -679,7 +680,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                     <div class="form">                          
 	                       <div class="form-group">
 	                         <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;">(*)</b></label>
-	                         <select class="form-control" id="CodTipViaSoc" name="CodTipViaSoc"  placeholder="* Tipo de Via" ng-model="vm.tModalDatosClientes.CodTipViaSoc" ng-change="vm.asignar_tipo_via()" ng-disabled="vm.validate_info!=undefined">
+	                         <select class="form-control" id="CodTipViaSocModalClientes" name="CodTipViaSocModalClientes"  placeholder="* Tipo de Via" ng-model="vm.tModalDatosClientes.CodTipViaSoc" ng-change="vm.asignar_tipo_via()" ng-disabled="vm.validate_info!=undefined">
 	                           <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
 	                         </select>
 	                       </div>
@@ -759,7 +760,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                               <div class="form">                          
 	                                 <div class="form-group">
 	                                   <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-	                                   <select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.tModalDatosClientes.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.tModalDatosClientes.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
+	                                   <select class="form-control" id="CodProModalCliente" name="CodProModalCliente"  ng-model="vm.tModalDatosClientes.CodProSoc" ng-change="vm.BuscarLocalidad(1,vm.tModalDatosClientes.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
 	                                    <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
 	                                  </select>
 	                                </div>
@@ -770,7 +771,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                             <div class="form">                          
 	                               <div class="form-group">
 	                                 <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-	                                 <select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.tModalDatosClientes.CodLocSoc" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_LocalidadFis()">
+	                                 <select class="form-control" id="CodLocModalCliente" name="CodLocModalCliente" ng-model="vm.tModalDatosClientes.CodLocSoc" ng-disabled="vm.validate_info!=undefined" ng-change="vm.asignar_LocalidadFis()">
 	                                  <option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
 	                                </select>
 	                              </div>
@@ -909,7 +910,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                     <div class="form">                          
 	                       <div class="form-group">
 	                         <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b> <span id="emailOK" style="color:red;"></span></label>
-	                         <input type="text" class="form-control" id="EmaCli" ng-model="vm.tModalDatosClientes.EmaCli"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(1)"/>
+	                         <input type="text" class="form-control" id="EmaCliCliente" ng-model="vm.tModalDatosClientes.EmaCli"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(1)"/>
 	                         
 	                       </div>
 	                     </div>
@@ -919,7 +920,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                     <div class="form">                          
 	                       <div class="form-group">
 	                         <label class="font-weight-bold nexa-dark" style="color:black;">Email Opcional <span id="emailOKOpc" style="color:red;"></span></label>
-	                         <input type="text" class="form-control" id="EmaCliOpc" ng-model="vm.tModalDatosClientes.EmaCliOpc"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(2)"/>
+	                         <input type="text" class="form-control" id="EmaCliOpcCliente" ng-model="vm.tModalDatosClientes.EmaCliOpc"  placeholder="* Correo Electrónico del Cliente" maxlength="150"ng-disabled="vm.validate_info!=undefined" ng-change="vm.validar_email(2)"/>
 	                         
 	                       </div>
 	                     </div>
@@ -1114,7 +1115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<div class="form">                          
 			<div class="form-group">
 				<label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-				<select class="form-control" id="CodPro" name="CodPro"  ng-model="vm.tContacto_data_modal.CodProSoc" ng-change="vm.BuscarLocalidad(3,vm.tContacto_data_modal.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
+				<select class="form-control" id="CodProContacto" name="CodProContacto"  ng-model="vm.tContacto_data_modal.CodProSoc" ng-change="vm.BuscarLocalidad(3,vm.tContacto_data_modal.CodProSoc)" ng-disabled="vm.validate_info!=undefined">
 					<option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
 				</select>
 			</div>
@@ -1125,7 +1126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<div class="form">                          
 			<div class="form-group">
 				<label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-				<select class="form-control" id="CodLoc" name="CodLoc" ng-model="vm.tContacto_data_modal.CodLocSoc" ng-disabled="vm.validate_info!=undefined" >
+				<select class="form-control" id="CodLocContacto" name="CodLocContacto" ng-model="vm.tContacto_data_modal.CodLocSoc" ng-disabled="vm.validate_info!=undefined" >
 					<option ng-repeat="dato in vm.TLocalidadesfiltrada" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
 				</select>
 			</div>
@@ -1292,13 +1293,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<div class="modal-content">
 		<div class="modal-header">
 			<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-			<h4 class="modal-title">Agregar CUPs</h4>
+			<h4 class="modal-title" ng-show="vm.fdatos_cups.CodCup==undefined">Agregar CUPs</h4>
+			<h4 class="modal-title" ng-show="vm.fdatos_cups.CodCup>0">Editar CUPs</h4>
 		</div>
 		<div class="modal-body" style="background-color: white;">
 			<div class="panel">                  
-				<form id="register_form" name="register_form" ng-submit="submitFormCups($event)"> 
+				<form id="register_formCUPs" name="register_formCUPs" ng-submit="submitFormCups($event)"> 
 					<div class='row'>              
-
 						
 
 						<div class="col-12 col-sm-12">
@@ -1803,7 +1804,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<div class="form">                          
 											<div class="form-group">         
 												<label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta</label>
-												<input type="text" class="form-control FecAltCup" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup"  placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
+												<input type="text" class="form-control FecAltCup" ng-model="vm.FecAltCup" name="FecAltCup" id="FecAltCup"  placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.FecAltCup)" maxlength="10" />
 											</div>
 										</div>
 									</div>

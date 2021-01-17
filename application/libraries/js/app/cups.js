@@ -1265,7 +1265,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         var FecAltCup = document.getElementById("FecAltCup").value;
         scope.fdatos_cups.FecAltCup = FecAltCup;
         if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
-            scope.fdatos_cups.FecAltCup == null;
+            scope.fdatos_cups.FecAltCup = null;
         } else {
             var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
             if (FecAltCup.length < 3) {

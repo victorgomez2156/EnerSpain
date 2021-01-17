@@ -1110,15 +1110,15 @@ scope.agregar_datos_dashboard=function(metodo)
            scope.tSectores = dato.Sector_Cliente;
            scope.tColaboradores = dato.Colaborador;
            scope.tTiposVias = dato.Tipo_Vias;
-       }).catch(function(err) { console.log(err); });
-          $('#modal_agregarNuevoCliente').modal('show');  
+            }).catch(function(err) { console.log(err); });
+            $('#modal_agregarNuevoCliente').modal('show');  
         }
         else
         {
 
         }
 }
-scope.EditarDatosModal=function(variable,metodo)
+scope.EditarDatosModal=function(variable,metodo,TipServ)
 {
     if(metodo==1)
     {
@@ -1133,7 +1133,7 @@ scope.EditarDatosModal=function(variable,metodo)
 	         scope.tColaboradores = dato.Colaborador;
 	         scope.tTiposVias = dato.Tipo_Vias;
       	}).catch(function(err) { console.log(err); });
-             
+      	scope.FuncionEditarDatos(variable,metodo,TipServ); 
     }
     else if(metodo==2)
     {
@@ -1152,10 +1152,89 @@ scope.EditarDatosModal=function(variable,metodo)
         scope.cargar_tiposContactos(12);
         scope.tModalDatosClientes.distinto_a_social= false;        
         $('#modal_agregarContactos').modal('show');
+        scope.FuncionEditarDatos(variable,metodo,TipServ); 
     }
     else if(metodo==3)
     {
-    	
+    	scope.fdatos_cups={};
+      scope.FecAltCup=null;
+        scope.fdatos_cups.CodCli=scope.response_customer.CodCli;
+        scope.T_PuntoSuministrosVistaNuevaDireccion=false;
+        scope.fdatos_cups.AgregarNueva=true;
+        console.log(variable,metodo,TipServ);
+        if (TipServ == "E") {
+            $("#cargandos_cups").removeClass("loader loader-defaul").addClass("loader loader-default is-active");
+            var url = base_urlHome() + "api/Dashboard/Buscar_XID_Servicio/TipServ/" + 1 + "/CodCup/" + variable;
+            $http.get(url).then(function(result) {
+                $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                if (result.data != false) {
+                    scope.fdatos_cups = result.data;
+                    scope.Cups_Cif = result.data.NumCifCli + " - " + result.data.RazSocCli;
+                    scope.FecAltCup=result.data.FecAltCup;
+                    $('.FecAltCup').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
+                    //$('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecUltLec);
+                    //scope.TVistaCups=false;
+                    scope.por_servicios(1);
+                    console.log(result.data);
+                    scope.search_PunSum();
+                    scope.totalPot = result.data.CanPerTar;
+                    scope.fdatos_cups.AgregarNueva=true;
+                } else {
+                    scope.toast('error','No existen datos intente nuevamente.','Error');
+                    scope.fdatos_cups = {};
+                }
+            }, function(error) {
+                $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+            });
+        }
+        else if(TipServ == "G")
+        {
+           $("#cargandos_cups").removeClass("loader loader-defaul").addClass("loader loader-default is-active");
+            var url = base_urlHome() + "api/Cups/Buscar_XID_Servicio/TipServ/" + 2 + "/CodCup/" + variable;
+            $http.get(url).then(function(result) {
+                $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                if (result.data != false) {
+                    scope.fdatos_cups = result.data;
+                    scope.Cups_Cif = result.data.NumCifCli + " - " + result.data.RazSocCli;
+                    scope.FecAltCup=result.data.FecAltCup;
+                    $('.FecAltCup').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
+                     scope.por_servicios(2);
+                    console.log(result.data);
+                    scope.search_PunSum();
+                    scope.fdatos_cups.AgregarNueva=true;
+                } else {
+                    scope.toast('error','No existen datos intente nuevamente.','Error');
+                    scope.fdatos_cups = {};
+                    //scope.TVistaCups=true;
+                }
+            }, function(error) {
+                $("#cargandos_cups").removeClass("loader loader-defaul is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+            });
+        }
+        
+        else
+        {
+
+        }
+        $('#modal_agregarCUPs').modal('show');
     }
     else if(metodo==4)
     {
@@ -1163,23 +1242,25 @@ scope.EditarDatosModal=function(variable,metodo)
         scope.tgribBancos.CodCli=scope.response_customer.CodCli;
         scope.tgribBancos.CodBan=null;
         scope.numIBanValidado = true;
-        $('#modal_agregarCuentasBancarias').modal('show');  
+        $('#modal_agregarCuentasBancarias').modal('show');
+        scope.FuncionEditarDatos(variable,metodo,TipServ);   
     }
     else if(metodo==5)
     {
     	scope.fagregar_documentos={};
     	scope.cargar_tiposContactos(11);
     	$('#modal_agregarDocumentos').modal('show');  
+    	scope.FuncionEditarDatos(variable,metodo,TipServ); 
     }
     else
     {
 
     }
-    scope.FuncionEditarDatos(variable,metodo); 
+    
     
 }
 
-scope.FuncionEditarDatos=function(CodBuscar,metodo)
+scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
 {
     var url=base_urlHome()+"api/Dashboard/BuscarPorCodEditar/CodBuscar/"+CodBuscar+"/metodo/"+metodo;
     $http.get(url).then(function(result)
@@ -1225,8 +1306,20 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo)
           }
           scope.DirCliente();
         }
-
-
+        else if(metodo==3)
+        {
+        	scope.fdatos_cups = result.data;
+            
+           // scope.Cups_Cif = result.data.NumCifCli + " - " + result.data.RazSocCli;
+            $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
+            $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecUltLec);
+            //scope.TVistaCups=false;
+            //scope.por_servicios(1);
+            //console.log(result.data);
+            //scope.search_PunSum();
+            //scope.totalPot = result.data.CanPerTar;
+            //scope.fdatos_cups.AgregarNueva=true;
+        }
         else if(metodo==4)
         { 
           	scope.tgribBancos.CodCli = result.data.CodCli;
@@ -1691,7 +1784,7 @@ scope.misma_razon = function(opcion) {
          
          if(metodo==1)
          {
-            document.getElementById('EmaCli').addEventListener('input', function() {
+            document.getElementById('EmaCliCliente').addEventListener('input', function() {
              campo = event.target;
              valido = document.getElementById('emailOK');
              emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -1707,7 +1800,7 @@ scope.misma_razon = function(opcion) {
          }
          if(metodo==2)
          {
-            document.getElementById('EmaCliOpc').addEventListener('input', function() {
+            document.getElementById('EmaCliOpcCliente').addEventListener('input', function() {
              campo = event.target;
              valido = document.getElementById('emailOKOpc');
              emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -3012,7 +3105,7 @@ scope.search_PunSum = function()
             if (object != undefined) {
                 numero = object;
                 if (!/^([/0-9])*$/.test(numero))
-                    scope.fdatos_cups.FecAltCup = numero.substring(0, numero.length - 1);
+                    scope.FecAltCup = numero.substring(0, numero.length - 1);
             }
         }
         if (metodo == 2) {
@@ -3111,10 +3204,11 @@ scope.search_PunSum = function()
     }
      $scope.submitFormCups = function(event) {
         //scope.fdatos_cups.CodPunSum=scope.CodPunSum;
-        console.log(scope.fdatos_cups);
+       // console.log(scope.fdatos_cups);
         if (!scope.validar_campos_cups()) {
             return false;
         }
+        console.log(scope.fdatos_cups);
         if (scope.fdatos_cups.CodCup > 0) {
             var title = 'Actualizando';
             var text = '¿Seguro que desea modificar la información del CUPs?';
@@ -3482,34 +3576,39 @@ scope.search_PunSum = function()
             scope.fdatos_cups.PotMaxBie = null;
 
         }
-        var FecAltCup = document.getElementById("FecAltCup").value;
-        scope.fdatos_cups.FecAltCup = FecAltCup;
-        if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
-            scope.fdatos_cups.FecAltCup == null;
-        } else {
-            var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
-            if (FecAltCup.length < 3) {
+        var FecAltCup = document.getElementById("FecAltCup").value;        
+        scope.FecAltCup = FecAltCup;
+        if (scope.FecAltCup == null || scope.FecAltCup == undefined || scope.FecAltCup == '') {
+            scope.fdatos_cups.FecAltCup = null;
+        } 
+        else 
+        {
+          //alert('para hacer validacion de fecha.');
+            var FecAltCupTransfor = (scope.FecAltCup).split("/");
+            if (FecAltCupTransfor.length < 3) {
                 scope.toast('error','El formato Fecha de Alta correcto es DD/MM/YYYY','');
                 return false;
             } else {
-                if (FecAltCup[0].length > 2 || FecAltCup[0].length < 2) {
+
+              //console.log(FecAltCupTransfor);
+                if (FecAltCupTransfor[0].length > 2 || FecAltCupTransfor[0].length < 2) {
                     scope.toast('error','Error en Día, debe introducir dos números','');
                     return false;
 
                 }
-                if (FecAltCup[1].length > 2 || FecAltCup[1].length < 2) {
+                if (FecAltCupTransfor[1].length > 2 || FecAltCupTransfor[1].length < 2) {
                     scope.toast('error','Error en Mes, debe introducir dos números','');
                     return false;
                 }
-                if (FecAltCup[2].length < 4 || FecAltCup[2].length > 4) {
+                if (FecAltCupTransfor[2].length < 4 || FecAltCupTransfor[2].length > 4) {
                     scope.toast('error','Error en Año, debe introducir cuatro números','');
                     return false;
                 }
                 var h1 = new Date();
-                var final = FecAltCup[0] + "/" + FecAltCup[1] + "/" + FecAltCup[2];
+                var final = FecAltCupTransfor[2] + "/" + FecAltCupTransfor[1] + "/" + FecAltCupTransfor[0];
                 scope.fdatos_cups.FecAltCup = final;
+                console.log(scope.fdatos_cups.FecAltCup);
             }
-
         }
         scope.fdatos_cups.FecUltLec = null;        
         var CUPS = scope.fdatos_cups.cups+""+scope.fdatos_cups.cups1;
