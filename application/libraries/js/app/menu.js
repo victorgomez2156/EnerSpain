@@ -19,6 +19,7 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	scope.Clientes_Documentos=false;
 	scope.Gestion_Comercial_ProCom=false;
 	scope.Gestion_Comercial_Contrato=false;
+	scope.Gestion_Comercial_Activaciones=false;
 	scope.Gestion_Comercial_RenMas=false;
 	scope.Gestion_Comercial_OtrasGestiones=false;
 	scope.Gestion_Comercial_Seguimientos=false;
@@ -113,6 +114,10 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	            else if(menu.titulo=="Contratos" && menu.id==17)
 	            {
 	            	scope.Gestion_Comercial_Contrato=true;
+	            }
+	            else if(menu.titulo=="Activaciones" && menu.id==37)
+	            {
+	            	scope.Gestion_Comercial_Activaciones=true;
 	            }
 	            else if(menu.titulo=="Renovación Masiva" && menu.id==18)
 	            {

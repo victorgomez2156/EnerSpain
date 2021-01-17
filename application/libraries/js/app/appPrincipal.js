@@ -92,12 +92,14 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             .when('/Renovar_Propuesta_Comercial_MulCliente_MultiPunto/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_propuestas_comerciales_MulCliente.php' })    
 
 
-            .when('/Contratos/', { templateUrl: 'application/views/view_grib_contratos.php' })
+            .when('/Contratos/', { templateUrl: 'application/views/view_grib_contratos.php' })            
             .when('/Add_Contrato/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Add_Contrato/:CodCli/:Tipo/:TipProCom', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Ver_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
             .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo/:TipProCom', { templateUrl: 'application/views/view_add_contratos.php' })
+
+            .when('/Activaciones/', { templateUrl: 'application/views/view_grib_activaciones.php' })
 
             .when('/Otras_Gestiones/', { templateUrl: 'application/views/view_grib_gestiones.php' })
             .when('/Add_Gestion_Comercial/:CodCli/:Tipo', { templateUrl: 'application/views/view_add_gestion_comercial.php' })

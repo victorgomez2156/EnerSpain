@@ -93,6 +93,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'add_propuesta_comerciales_MulCliente.js'?>"></script>
   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'Activaciones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'renovacion_masiva.js'?>"></script>   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'otras_gestiones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'seguimientos.js'?>"></script>  

@@ -184,6 +184,7 @@
             <ul class="sub">
               <li ng-show="Menu.Gestion_Comercial_ProCom==true"><a href="#/Propuesta_Comercial"> Propuesta Comercial</a></li>
               <li ng-show="Menu.Gestion_Comercial_Contrato==true"><a href="#/Contratos"> Contratos</a></li>
+              <li ng-show="Menu.Gestion_Comercial_Activaciones==true"><a href="#/Activaciones"> Activaciones</a></li>
               <li ng-show="Menu.Gestion_Comercial_RenMas==true"><a href="#/Renovacion_Masiva"> Renovación Masiva</a></li>
               <li ng-show="Menu.Gestion_Comercial_OtrasGestiones==true"><a href="#/Otras_Gestiones"> Otras Gestiones</a></li>
               <li ng-show="Menu.Gestion_Comercial_Seguimientos==true"><a href="#/Seguimientos"> Seguimientos</a></li>

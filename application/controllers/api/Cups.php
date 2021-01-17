@@ -148,7 +148,7 @@ class Cups extends REST_Controller
 						$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 						$objSalida->CodPunSum=(string)$CodPunSum;
 					}		
-					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 					$objSalida->TipServAnt=$objSalida->TipServ;	
 					$objSalida->CodCup=$id;	
 					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -177,7 +177,7 @@ class Cups extends REST_Controller
 							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 							$objSalida->CodPunSum=(string)$CodPunSum;
 						}
-						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
 						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs Eléctrico');
 						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 					}
@@ -192,7 +192,7 @@ class Cups extends REST_Controller
 							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 							$objSalida->CodPunSum=(string)$CodPunSum;
 						}
-						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupsEle',$objSalida->DerAccKW);	
 						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 					}
@@ -218,7 +218,7 @@ class Cups extends REST_Controller
 					$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 					$objSalida->CodPunSum=(string)$CodPunSum;
 				}
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;	
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -252,7 +252,7 @@ class Cups extends REST_Controller
 							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 							$objSalida->CodPunSum=(string)$CodPunSum;
 						}
-					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+					$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 					$objSalida->TipServAnt=$objSalida->TipServ;	
 					$objSalida->CodCup=$id;	
 					$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
@@ -280,7 +280,7 @@ class Cups extends REST_Controller
 							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 							$objSalida->CodPunSum=(string)$CodPunSum;
 						}
-						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
 						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 					}
@@ -295,7 +295,7 @@ class Cups extends REST_Controller
 							$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 							$objSalida->CodPunSum=(string)$CodPunSum;
 						}
-						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
+						$this->Cups_model->actualizar_CUPs($Tabla,$objSalida->CodCup,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,'CodCupGas',$objSalida->DerAccKW);		
 						$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'UPDATE',$objSalida->CodCup,$this->input->ip_address(),'Actualizando Datos Del CUPs');
 						$response = array('status' =>200 ,'response' =>'CUPs actualizado de forma correcta.','statusText'=>'OK','objSalida'=>$objSalida );
 					}				
@@ -321,7 +321,7 @@ class Cups extends REST_Controller
 					$CodPunSum=$this->Clientes_model->agregar_punto_suministro_cliente($objSalida->CodCli,$objSalida->TipRegDir,$objSalida->CodTipVia,$objSalida->NomViaPunSum,$objSalida->NumViaPunSum,$objSalida->BloPunSum,$objSalida->EscPunSum,$objSalida->PlaPunSum,$objSalida->PuePunSum,$objSalida->CodProPunSum,$objSalida->CodLocPunSum,null,null,null,null,$objSalida->ObsPunSum,null,$objSalida->CPLocSoc);
 					$objSalida->CodPunSum=(string)$CodPunSum;
 				}	
-				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecUltLec,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
+				$id = $this->Cups_model->agregar_CUPs($Tabla,$objSalida->TipServ,$objSalida->cups.''.$objSalida->cups1,$objSalida->CodDis,$objSalida->CodTar,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->PotMaxBie,$objSalida->FecAltCup,$objSalida->FecUltLec,$objSalida->ConAnuCup,$CodPunSum,$objSalida->DerAccKW);
 				$objSalida->TipServAnt=$objSalida->TipServ;
 				$objSalida->CodCup=$id;	
 				$this->Auditoria_model->agregar($this->session->userdata('id'),$Tabla,'INSERT',$objSalida->CodCup,$this->input->ip_address(),'Creando Cups');
