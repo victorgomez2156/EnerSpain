@@ -42,7 +42,22 @@ class Activaciones extends REST_Controller
 				return false;
 			}
 			$arrayName = array('status'=>200,'menssage'=>'Se encontraron contratos registrados.','statusText'=>'Contratos','ListContratos'=>$dataCUPS);
-		}		
+		}
+		elseif ($data-> TipServ=='G' || $data-> TipServ=='Gas') 
+		{
+			
+			$dataCUPS=$this->Activaciones_model->GetInformacionCUPsGas($data-> CodCupGas);
+			if (empty($dataCUPS))
+			{
+				$this->response(array('status'=>400,'menssage'=>'No se encontraron contratos asignados a este CUPs.','statusText'=>'CUPs Sin Contrato'));
+				return false;
+			}
+			$arrayName = array('status'=>200,'menssage'=>'Se encontraron contratos registrados.','statusText'=>'Contratos','ListContratos'=>$dataCUPS);
+		}	
+		else
+		{
+			$arrayName = array('status'=>305,'menssage'=>'Error en Tipo de Servicio del CUPs.','statusText'=>'CUPs');
+		}	
 		$this->response($arrayName);		
     }
      public function UpdateInformationContratos_post()
@@ -57,6 +72,7 @@ class Activaciones extends REST_Controller
 		$respose=$this->Activaciones_model->UpdateInformationContratos($objSalida->CodConCom,$objSalida->CodCups,$objSalida->CodProCom,$objSalida->CodProComCli,$objSalida->CodProComCup,$objSalida->ConCup,$objSalida->FecActCUPs,$objSalida->FecVenCUPs,$objSalida->TipCups);
 		if($respose==false)
 		{
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$objSalida->CodProComCup,$this->input->ip_address(),'Error Actualizando Desde Activiciones');
 			$this->response(false);
 			return false;
 		}		
