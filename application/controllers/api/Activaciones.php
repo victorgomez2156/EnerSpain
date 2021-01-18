@@ -27,13 +27,42 @@ class Activaciones extends REST_Controller
 		}
 		$CUPs=$this->get('CUPsName');		
         $data = $this->Activaciones_model->GetDatosCUPsForActivaciones($CUPs);
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'V_CupsGrib','GET',null,$this->input->ip_address(),'Buscando CUPs Para Agregar Activación');
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'V_CupsGrib','GET',null,$this->input->ip_address(),'Buscando CUPs Para Activación');
 		if (empty($data))
 		{
 			$this->response(false);
 			return false;
+		}
+		if($data-> TipServ=='E' || $data-> TipServ=='Eléctrico')
+		{
+			$dataCUPS=$this->Activaciones_model->GetInformacionCUPsElectrico($data-> CodCupGas);
+			if (empty($dataCUPS))
+			{
+				$this->response(array('status'=>400,'menssage'=>'No se encontraron contratos asignados a este CUPs.','statusText'=>'CUPs Sin Contrato'));
+				return false;
+			}
+			$arrayName = array('status'=>200,'menssage'=>'Se encontraron contratos registrados.','statusText'=>'Contratos','ListContratos'=>$dataCUPS);
 		}		
-		$this->response($data);		
+		$this->response($arrayName);		
+    }
+     public function UpdateInformationContratos_post()
+    {
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$objSalida = json_decode(file_get_contents("php://input"));				
+		$this->db->trans_start();
+		$respose=$this->Activaciones_model->UpdateInformationContratos($objSalida->CodConCom,$objSalida->CodCups,$objSalida->CodProCom,$objSalida->CodProComCli,$objSalida->CodProComCup,$objSalida->ConCup,$objSalida->FecActCUPs,$objSalida->FecVenCUPs,$objSalida->TipCups);
+		if($respose==false)
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$objSalida->CodProComCup,$this->input->ip_address(),'Actualizando Propuesta Comercial FecActCUPs,FecVenCUPs,ConCup Desde Activiciones');	
+		$this->db->trans_complete();
+		$this->response($respose);
     }
 	
 }

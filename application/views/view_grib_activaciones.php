@@ -106,23 +106,182 @@
                 <div class="panel-body">
 
 
-  <form id="form_activaciones" name="form_activaciones" ng-submit="submitFormCUPsActivaciones($event)"> 
+  <form id="form_buscar_cups" name="form_buscar_cups"> 
     <div class='row'>              
       
       <div class="col-12 col-sm-12">
         <div class="form">                          
           <div class="form-group">
             <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
-            <input type="text" class="form-control " name="CUPsName" id="CUPsName" ng-model="vm.CUPsName" placeholder="ES0306000018000121QK" maxlength="30" ng-change="vm.buscarCUPsActivaciones()"/>
+            <input type="text" class="form-control " name="CUPsName" id="CUPsName" ng-model="vm.CUPsName" placeholder="ES0306000018000121QK" maxlength="30" />
           </div>
         </div>
       </div>
-
-         
-            
+      <div class="form-group" >
+          <div class="col-12 col-sm-4">
+            <button class="btn btn-info" type="submit" ng-disabled="vm.CUPsName.length<=0" ng-click="vm.buscarCUPsActivaciones()">Buscar</button>
+          </div>
+        </div>           
 
     </div><!--FINAL ROW -->
   </form>
+
+      <div ng-show="vm.VistaResponse==true">
+      <form id="form_update_fechas" name="form_update_fechas" ng-submit="submitFormCUPsActivacionesFechas($event)"> 
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Cliente</label>
+                <input type="text" class="form-control " name="RazSocCli" id="RazSocCli" ng-model="vm.RazSocCli" readonly/>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">CUPs</label>
+                <input type="text" class="form-control " name="CUPsNameResponse" id="CUPsNameResponse" ng-model="vm.CUPsName" readonly/>
+              </div>
+            </div>
+          </div>
+
+            <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tárifa</label>
+                <input type="text" class="form-control " name="NomTar" id="NomTar" ng-model="vm.NomTar" readonly/>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Producto</label>
+                <input type="text" class="form-control " name="DesPro" id="DesPro" ng-model="vm.DesPro" readonly/>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
+                <input type="text" class="form-control FecActCUPs" name="FecActCUPs" id="FecActCUPs" ng-model="vm.FecActCUPs" />
+              </div>
+            </div>
+          </div>
+
+            <div class="col-12 col-sm-4">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
+                <input type="text" class="form-control FecVenCUPs" name="FecVenCUPs" id="FecVenCUPs" ng-model="vm.FecVenCUPs" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Consumo</label>
+                <input type="text" class="form-control " name="ConCup" id="ConCup" ng-model="vm.ConCup" />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group" >
+          <div class="col-12 col-sm-4">
+            <button class="btn btn-info" type="submit">Actualizar</button>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+  </form>
+
+         </div>
+
+
+
+
+<!-- modal container section start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_lista_contratos" class="modal fade">
+      <div class="modal-dialog" style="width: auto;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Listado de Contratos</h4>
+          </div>
+          <div class="modal-body" style="background-color: white;">
+            <div class="panel">                  
+
+  <div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive">
+                <tbody>
+                  <tr>
+                  <th >Cliente</th>
+                  <th >CUPs</th>
+                  <th >Tárifa</th>
+                  <th >Tipo de producto</th>
+                  <th >Fecha de activación</th>
+                  <th >Fecha de Vencimiento</th>
+                  <th >CONSUMO</th>           
+                  <th >Acción</th>
+                  </tr>
+                  <tr ng-show="vm.T_Contratos.length==0"> 
+                    <td colspan="8" align="center">
+                      <div class="td-usuario-table"><i class="fa fa-close"></i> No existe información.</div>
+                    </td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.T_Contratos | filter:paginate" ng-class-odd="odd">                    
+                    <td >{{dato.RazSocCli}}</td>
+                    <td >{{dato.CUPsName}}</td>
+                    <td >{{dato.NomTar}}</td>
+                    <td >{{dato.DesPro}}</td>
+                    <td >{{dato.FecActCUPs}}</td>
+                    <td >{{dato.FecVenCUPs}}</td>
+                    <td >{{dato.ConCup}}</td>                    
+                    <td>
+                        <a style="cursor:pointer;" ng-click="vm.asignarcontrato($index,dato,true)" data-dismiss="modal"><i class="fa fa-check" title="Seleccionar"></i></a>
+                    </td >
+
+                  </tr>
+                </tbody>
+                <tfoot>                 
+                 <th >Cliente</th>
+                  <th >CUPs</th>
+                  <th >Tárifa</th>
+                  <th >Tipo de producto</th>
+                  <th >Fecha de activación</th>
+                  <th >Fecha de Vencimiento</th>
+                  <th >CONSUMO</th>  
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.buscarCUPsActivaciones()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--modal container section end -->
+
 
               </section>
             </div>
@@ -144,22 +303,23 @@
       </div>
     </section>
   </div>
+
   <script>
-
-   /* $('.FecDesde').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
-    $('#FecDesde').on('changeDate', function() 
+    
+    $('.FecActCUPs').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+    $('#FecActCUPs').on('changeDate', function() 
     {
-       var FecDesde=document.getElementById("FecDesde").value;
-       console.log("FecDesde: "+FecDesde);
+       var FecActCUPs=document.getElementById("FecActCUPs").value;
+       console.log("FecActCUPs: "+FecActCUPs);
     });
-    $('.FecHasta').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
-    $('#FecHasta').on('changeDate', function() 
+   
+    $('.FecVenCUPs').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
+    $('#FecVenCUPs').on('changeDate', function() 
     {
-       var FecHasta=document.getElementById("FecHasta").value;
-       console.log("FecHasta: "+FecHasta);
+       var FecVenCUPs=document.getElementById("FecVenCUPs").value;
+       console.log("FecVenCUPs: "+FecVenCUPs);
     });
-     $('.FecProCom').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); */ 
-
+    
   </script>
   <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
     <!-- custom form validation script for this page-->
@@ -167,5 +327,5 @@
     <!--custome script for all page-->
     <!--script src="application/libraries/estilos/js/scripts.js"></script-->
   </body>
-  <div id="Rueda" class="loader loader-default"  data-text="Generando Reporte Rueda"></div>
+  <div id="buscando" class="loader loader-default"  data-text="Buscando CUPs Contratos"></div>
   </html>
