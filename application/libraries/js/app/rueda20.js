@@ -235,6 +235,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
             else
             {
+                scope.toast('error','No se encontraron contratos para esta rueda','Contratos');
                 scope.Table_Contratos=[];
                 return false;
             }

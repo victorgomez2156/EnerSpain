@@ -1556,6 +1556,68 @@ class Reportes_model extends CI_Model
     }
     public function Contratos_Para_Rueda20($Desde,$Hasta)
     {
+        
+        $sql = $this->db->query("SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+FROM T_Propuesta_Comercial_CUPs a 
+JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom 
+UNION ALL
+SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+FROM T_Propuesta_Comercial_CUPs a 
+JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+
+UNION ALL
+
+SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+FROM T_Propuesta_Comercial_CUPs a 
+JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+
+UNION ALL
+
+SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+FROM T_Propuesta_Comercial_CUPs a 
+JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+
+
+
+ORDER BY FecVenCUPs DESC");
+            if ($sql->num_rows() > 0)
+              return $sql->result();
+            else  
+            return false;      
+    
+        /*$this->db->select('*',false);
+        $this->db->from('T_Propuesta_Comercial_CUPs a');
+        //$this->db->where('a.FecVenCUPs BETWEEN "'. $Desde. '" AND "'.$Hasta.'"');
+        $this->db->order_by('DATE_FORMAT(a.FecVenCUPs,"%Y/%m/%d") ASC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        return $query->result();
+        else
+        return false;*/
         /*$this->db->select("d.CodProComCli,(SELECT CodCup FROM T_Propuesta_Comercial_CUPs h WHERE h.CodProComCli=d.CodProComCli AND h.TipCups=1) AS CodCupEle,(SELECT CodTar FROM T_Propuesta_Comercial_CUPs k WHERE k.CodProComCli=d.CodProComCli AND k.TipCups=1 AND CodCupEle=CodCup) AS CodTar,(SELECT CUPsEle FROM T_CUPsElectrico WHERE CodCupsEle=CodCupEle) AS CUPsEle,(SELECT NomTarEle FROM T_TarifaElectrica WHERE CodTarEle=CodTar) AS NomTarEle,(SELECT ConCup FROM T_Propuesta_Comercial_CUPs j WHERE j.CodProComCli=d.CodProComCli AND j.TipCups=1 AND j.CodCup=CodCupEle) AS ConCupEle,(SELECT CodCup FROM T_Propuesta_Comercial_CUPs i WHERE i.CodProComCli=d.CodProComCli AND i.TipCups=2 ) AS CodCupsGas,(SELECT CodTar FROM T_Propuesta_Comercial_CUPs l WHERE l.CodProComCli=d.CodProComCli AND l.TipCups=2 AND CodCupsGas=CodCup) AS CodTarGasID,(SELECT CupsGas FROM T_CUPsGas WHERE CodCupGas=CodCupsGas) AS CupsGas,(SELECT NomTarGas FROM T_TarifaGas WHERE CodTarGas=CodTarGasID) AS NomTarGas,(SELECT ConCup FROM T_Propuesta_Comercial_CUPs m WHERE m.CodProComCli=d.CodProComCli AND m.TipCups=2 AND m.CodCup=CodCupsGas) AS ConCupGas,DATE_FORMAT(a.FecVenCon,'%d/%m/%Y') as FecVenCon,SUBSTRING(c.RefProCom,9,12) AS RefProCom,a.CodCli,a.EstBajCon,a.CodConCom,a.CodProCom,DATE_FORMAT(a.FecConCom,'%d/%m/%Y') as FecConCom,a.DurCon,DATE_FORMAT(a.FecIniCon,'%d/%m/%Y') as FecIniCon,b.RazSocCli,b.NumCifCli,e.RazSocCom,e.NumCifCom,f.DesAnePro as Anexo,g.DesPro,b.EmaCli,c.TipProCom",false);  
         $this->db->from('T_Contrato a');
         $this->db->join('T_Cliente b','a.CodCli=b.CodCli');

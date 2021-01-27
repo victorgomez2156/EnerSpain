@@ -140,8 +140,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </form>
 <div ng-show="vm.Table_Contratos.length>0">
  <div ng-show="vm.Nivel==1 || vm.Nivel==2"> 
-<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
-<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
+<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_PDF20/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver PDF</a> 
+<a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Reporte_Rueda_Excel20/{{vm.FecDesde}}/{{vm.FecHasta}}" style="margin-top: 0px;" target="_black" >Ver Excel</a>
 </div>
 
 <label style="margin-top: 0px;">Total: {{vm.Table_Contratos.length}}</label>
@@ -159,15 +159,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th>Fecha Inicio</th>
+                  <th>Fecha Activación</th>
                   <th>CodCli</th>
                   <th>NIF</th>
-                  <th>Cliente</th>                  
+                  <th>Cliente</th> 
+                  <th>CUPs</th> 
+                  <th>Tipo CUPs</th>
+                  <th>Tárifa</th>                 
+                  <th>Consumo</th>                                     
                   <th>Comercializadora</th>
-                  <th>Anexo</th> 
-                  <th>Duración</th>  
-                  <th>Vencimiento</th>
-                  <th>Estatus</th>              
+                  <th>Estatus</th>
+                  <th>Vencimiento</th>                                
                   <th>Acción</th>
                   </tr>
                   <tr ng-show="vm.Table_Contratos.length==0"> 
@@ -176,26 +178,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Table_Contratos | filter:paginate" ng-class-odd="odd">                    
-                    <td >{{dato.FecIniCon}}</td>
+                    <td >{{dato.FecActCUPs}}</td>
                     <td >{{dato.CodCli}}</td>
                     <td >{{dato.NumCifCli}}</td>
-                    <td >{{dato.RazSocCli}}</td>                    
+                    <td >{{dato.RazSocCli}}</td> 
+                    <td >{{dato.CUPsName}}</td> 
+                    <td > 
+                      <span class="label label-success" ng-show="dato.TipCups==1"><i class="fa fa-check-circle"></i> Eléctrico</span>
+                      <span class="label label-primary" ng-show="dato.TipCups==2"><i class="fa fa-ban"></i> Gas</span>
+                    </td>
+                    <td >{{dato.NomTar}}</td> 
+                    <td >{{dato.ConCup}}</td> 
                     <td >{{dato.RazSocCom}}</td>
-                    <td >{{dato.Anexo}}</td> 
-                    <td >{{dato.DurCon}} Meses</td> 
-                    <td >{{dato.FecVenCon}}</td>
                     <td >
-                      <span class="label label-success" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
-                      <span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
-                      <span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
-                      <span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
-                      <span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
-						<span class="label label-danger" ng-show="dato.CodProCom==null"><i class="fa fa-ban"></i> S/P/C</span>
-                      
-                   </td>
+                      <span class="label label-danger" ng-show="dato.CodProCom==null" style="color:black;"><i class="fa fa-ban"></i> S/P/C</span>
+                      <span class="label label-success" ng-show="dato.EstBajCon==0" style="color:black;"><i class="fa fa-check-circle"></i> Activo</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==1" style="color:black;"><i class="fa fa-ban"></i> Dado de Baja</span>
+                      <span class="label label-info" ng-show="dato.EstBajCon==2" style="color:black;"><i class="fa fa-close"></i> Vencido</span>
+                      <span class="label label-primary" ng-show="dato.EstBajCon==3" style="color:black;"><i class="fa fa-check-circle"></i> Renovado</span>
+                      <span class="label label-warning" ng-show="dato.EstBajCon==4" style="color:black;"><i class="fa fa-refresh"></i> En Renovación</span>
+                      <span class="label label-danger" ng-show="dato.EstBajCon==5" style="color:black;"><i class="fa fa-user"></i> Huérfano</span>
+                      <span class="label label-danger" style="background-color: #079354;" ng-show="dato.EstBajCon==6" style="color:black;"><i class="fa fa-adjust"></i> Implícita</span>
+                      <span class="label label-danger" style="background-color: #09b61d;" ng-show="dato.EstBajCon==7" style="color:black;"><i class="fa fa-handshake-o"></i> Redactado</span>
+                      <span class="label label-danger" style="background-color: #092cb6;" ng-show="dato.EstBajCon==8" style="color:black;"><i class="fa fa-envelope-open"></i> Enviado</span>
+                   </td>                   
+                    <td >{{dato.FecVenCUPs}}</td> 
                     <td >
-                      <div class="btn-group">
-                        <select class="form-control" id="opcion_select" style="width: auto;" name="opcion_select" ng-model="vm.opcion_select[$index]" ng-change="vm.validar_opcion_rueda($index,vm.opcion_select[$index],dato)">
+                      <div class="btn-group"><!--ng-change="vm.validar_opcion_rueda($index,vm.opcion_select[$index],dato)"-->
+                        <select class="form-control" id="opcion_select" style="width: auto;" name="opcion_select" ng-model="vm.opcion_select[$index]" >
                           <option ng-repeat="opcion in vm.opcion_rueda" value="{{opcion.id}}">{{opcion.nombre}}</option>
                         </select>
                       </div>
@@ -204,15 +214,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th>Fecha Inicio</th>
+                  <th>Fecha Activación</th>
                   <th>CodCli</th>
                   <th>NIF</th>
-                  <th>Cliente</th>                  
+                  <th>Cliente</th> 
+                  <th>CUPs</th> 
+                  <th>Tipo CUPs</th>
+                  <th>Tárifa</th>                 
+                  <th>Consumo</th>                                     
                   <th>Comercializadora</th>
-                  <th>Anexo</th> 
-                  <th>Duración</th>  
-                  <th>Vencimiento</th>
-                  <th>Estatus</th>              
+                  <th>Estatus</th>
+                  <th>Vencimiento</th>                                
                   <th>Acción</th>
                 </tfoot>
               </table>
