@@ -81,10 +81,11 @@ class Clientes extends REST_Controller
 		$Tipo_Cliente = $this->Clientes_model->get_list_tipo_Cliente();
 		$Sector_Cliente = $this->Clientes_model->get_list_sector_cliente();		
 		$Tipo_Vias = $this->Clientes_model->get_list_tipos_vias();
-		$Provincias = $this->Clientes_model->get_list_providencias();
-		$Comerciales = $this->Clientes_model->get_list_comerciales();
-		$Colaborador = $this->Clientes_model->get_list_colaboradores();
-		$arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Cliente'=>$Tipo_Cliente,'Sector_Cliente'=>$Sector_Cliente,'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'Comerciales'=>$Comerciales,'Colaborador'=>$Colaborador );
+		$Provincias = $this->Clientes_model->get_list_providencias();		
+		$TipoContactos=$this->Clientes_model->get_list_tipo_contacto();
+		//$Comerciales = $this->Clientes_model->get_list_comerciales();
+		//$Colaborador = $this->Clientes_model->get_list_colaboradores();
+		$arrayName = array('Fecha_Server' =>date('d/m/Y'),'Tipo_Cliente'=>$Tipo_Cliente,'Sector_Cliente'=>$Sector_Cliente,'Tipo_Vias'=>$Tipo_Vias,'Provincias'=>$Provincias,'TipoContactos'=>$TipoContactos/*,'Comerciales'=>$Comerciales,'Colaborador'=>$Colaborador*/ );
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_VariasConsultas','GET',null,$this->input->ip_address(),'Generando ServiceAddClientes');
 		$this->response($arrayName);		
 	}
@@ -267,13 +268,15 @@ class Clientes extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$huser=$this->get('huser');		
-		$data = $this->Clientes_model->get_clientes_data($huser);
+		$data = $this->Clientes_model->get_clientes_data($huser);		
+		$ContactoPrincipal=$this->Clientes_model->GetContactoPrincipal($huser);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$huser,$this->input->ip_address(),'Consultando datos del Cliente');
 		if (empty($data))
 		{
 			$this->response(false);
 			return false;
 		}	
+		$data->tContacto_data_modal=$ContactoPrincipal;
 		$this->response($data);		
 	} 
 	public function crear_clientes_post()
@@ -287,7 +290,54 @@ class Clientes extends REST_Controller
 		$this->db->trans_start();		
 		if (isset($objSalida->CodCli))
 		{		
-			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);		
+			
+			$this->Clientes_model->actualizar($objSalida->CodCli,$objSalida->BloDomFis,$objSalida->BloDomSoc,$objSalida->CodCol,$objSalida->CodCom,$objSalida->CodLocFis,$objSalida->CodLocSoc,$objSalida->CodProFis,$objSalida->CodProSoc,$objSalida->CodSecCli,$objSalida->CodTipCli,$objSalida->CodTipViaFis,$objSalida->CodTipViaSoc,$objSalida->EmaCli,$objSalida->EscDomFis,$objSalida->EscDomSoc,$objSalida->NomComCli,$objSalida->NomViaDomFis,$objSalida->NomViaDomSoc,$objSalida->NumViaDomFis,$objSalida->NumViaDomSoc,$objSalida->ObsCli,$objSalida->PlaDomFis,$objSalida->PlaDomSoc,$objSalida->PueDomFis,$objSalida->PueDomSoc,$objSalida->RazSocCli,$objSalida->TelFijCli,$objSalida->WebCli,$objSalida->FecIniCli,$objSalida->CPLocSoc,$objSalida->CPLocFis,$objSalida->TelMovCli,$objSalida->EmaCliOpc);
+
+			if($objSalida->tContacto_data_modal!=false)
+			{
+				if(isset($objSalida->tContacto_data_modal->CodConCli))
+				{
+					$validar_contacto=$this->Clientes_model->validar_CIF_NIF_Existente_UPDATE($objSalida->tContacto_data_modal->CodConCli);
+					if($objSalida->CodCli!=$validar_contacto->CodCli && $objSalida->tContacto_data_modal->NIFConCli==$validar_contacto->NIFConCli)
+					{
+						$validar_contacto1=$this->Clientes_model->validar_CIF_NIF_Existente($objSalida->tContacto_data_modal->NIFConCli,$objSalida->CodCli);
+						if (!empty($validar_contacto1))
+						{
+							$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',null,$this->input->ip_address(),'El Contacto ya se encuentra asignado');
+							$arrayName = array('status' =>400 ,'menssage'=>'El número de documento ya se encuentra asignado a este Cliente','statusText'=>'Error');
+							$this->db->trans_complete();
+							$this->response($arrayName);
+						}
+						else
+						{
+							$this->Clientes_model->actualizar_contacto($objSalida->tContacto_data_modal->CodConCli,$objSalida->tContacto_data_modal->NIFConCli,$objSalida->tContacto_data_modal->EsRepLeg,$objSalida->tContacto_data_modal->TieFacEsc,$objSalida->tContacto_data_modal->CanMinRep,$objSalida->tContacto_data_modal->CodCli,$objSalida->tContacto_data_modal->CodTipCon,$objSalida->tContacto_data_modal->CarConCli,$objSalida->tContacto_data_modal->NomConCli,$objSalida->tContacto_data_modal->TelFijConCli,$objSalida->tContacto_data_modal->TelCelConCli,$objSalida->tContacto_data_modal->EmaConCli,$objSalida->tContacto_data_modal->TipRepr,$objSalida->tContacto_data_modal->DocNIF,$objSalida->tContacto_data_modal->ObsConC,$objSalida->tContacto_data_modal->DocPod,$objSalida->tContacto_data_modal->NumColeCon,$objSalida->tContacto_data_modal->ConPrin);
+							$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->tContacto_data_modal->CodConCli,$this->input->ip_address(),'Actualizando registro del Contacto desde Clientes');
+						}
+					}
+					else
+					{
+						$this->Clientes_model->actualizar_contacto($objSalida->tContacto_data_modal->CodConCli,$objSalida->tContacto_data_modal->NIFConCli,$objSalida->tContacto_data_modal->EsRepLeg,$objSalida->tContacto_data_modal->TieFacEsc,$objSalida->tContacto_data_modal->CanMinRep,$objSalida->tContacto_data_modal->CodCli,$objSalida->tContacto_data_modal->CodTipCon,$objSalida->tContacto_data_modal->CarConCli,$objSalida->tContacto_data_modal->NomConCli,$objSalida->tContacto_data_modal->TelFijConCli,$objSalida->tContacto_data_modal->TelCelConCli,$objSalida->tContacto_data_modal->EmaConCli,$objSalida->tContacto_data_modal->TipRepr,$objSalida->tContacto_data_modal->DocNIF,$objSalida->tContacto_data_modal->ObsConC,$objSalida->tContacto_data_modal->DocPod,$objSalida->tContacto_data_modal->NumColeCon,$objSalida->tContacto_data_modal->ConPrin);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->tContacto_data_modal->CodConCli,$this->input->ip_address(),'Actualizando registro del Contacto desde Clientes');
+					}										
+				}
+				else
+				{
+					$validar_contacto=$this->Clientes_model->validar_CIF_NIF_Existente($objSalida->tContacto_data_modal->NIFConCli,$objSalida->CodCli);
+					if (!empty($validar_contacto))
+					{
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',null,$this->input->ip_address(),'El Contacto ya se encuentra asignado');
+						$arrayName = array('status' =>false ,'menssage'=>'El Número de Documento Ya Se Encuentra Registrado y Asignado ha Este Cliente.','objSalida'=>$objSalida,'response'=>false);
+						$this->db->trans_complete();
+						$this->response($arrayName);
+					}
+					else
+					{
+						$id = $this->Clientes_model->agregar_contacto($objSalida->tContacto_data_modal->NIFConCli,$objSalida->tContacto_data_modal->EsRepLeg,$objSalida->tContacto_data_modal->TieFacEsc,$objSalida->tContacto_data_modal->CanMinRep,$objSalida->tContacto_data_modal->CodCli,$objSalida->tContacto_data_modal->CodTipCon,$objSalida->tContacto_data_modal->CarConCli,$objSalida->tContacto_data_modal->NomConCli,$objSalida->tContacto_data_modal->TelFijConCli,$objSalida->tContacto_data_modal->TelCelConCli,$objSalida->tContacto_data_modal->EmaConCli,$objSalida->tContacto_data_modal->TipRepr,$objSalida->tContacto_data_modal->DocNIF,$objSalida->tContacto_data_modal->ObsConC,$objSalida->tContacto_data_modal->DocPod,$objSalida->tContacto_data_modal->NumColeCon,$objSalida->tContacto_data_modal->ConPrin);
+						$objSalida->CodConCli=$id;	
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto desde Clientes.');
+					}
+				}
+			}
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','UPDATE',$objSalida->CodCli,$this->input->ip_address(),'Actualizando Datos Del Clientes');
 		}
 		else
@@ -695,6 +745,70 @@ class Clientes extends REST_Controller
 		}		
 		$this->response($data);		
 	}
+	public function search_contact_Filter_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$NIFConCli=$this->get('NIFConCli');
+		$CodCli=$this->get('CodCli');
+		$select="a.*";		
+		$data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Información del Contacto');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}
+		$detalleFinal = Array();
+		$detalleFinali = Array();
+		foreach ($data as $key => $value):
+		{
+			if($value-> CodCli == $CodCli)
+			{
+				//array_push($detalleFinal, $value);
+				//break;
+				$data = $value;
+				//$this->response($value);
+			}
+			//$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
+			//array_push($detalleFinal, $detalleG);
+		}
+		endforeach;
+		$this->response($data);
+		/*$detalleFinal = Array();
+		foreach ($data as $key => $value):
+		{
+			if($value-> CodCli == $CodCli)
+			{
+				array_push($detalleFinal, $value);
+				break;
+				//$this->response($value);
+			}
+			else
+			{
+				$this->response($data);
+			}
+			//$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
+			//array_push($detalleFinal, $detalleG);
+		}
+		endforeach;
+
+		$this->response($detalleFinal);*/
+		/*foreach ($data as $key => $value): 
+		{
+			if($value-> CodCli == $CodCli)
+			{
+				$this->response($value);
+			}
+			else
+			{
+				$this->response($data);
+			}
+		}
+		endforeach;	*/	
+	}
 	public function comprobar_cif_contacto_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -862,6 +976,37 @@ class Clientes extends REST_Controller
 			return false;
 		}		
 		$this->response($data);		
+	}
+	public function agregar_documento_contactoClientes_post()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$metodo=$_POST['metodo'];
+		$this->load->helper("file");
+		if($metodo==1 ||$metodo==2)
+		{
+			$config['upload_path']          = './documentos/';
+			$config['allowed_types']        = '*';
+			$config['encrypt_name']        = false;		
+			
+		}
+		$this->load->library('upload', $config);
+		$this->db->trans_start();
+		$data = $this->upload->do_upload('file');
+		if (!$data)
+		{
+			$error = array('status'=>0,'nombre'=>$this->upload->display_errors());	
+			return 	$this->response($error);
+		}
+		else
+		{
+			$data = array($this->upload->data());
+			$this->db->trans_complete();	
+			$this->response(array('file_ext'=>$data[0]['file_ext'],'metodo'=>$metodo,'file_name'=>$data[0]['raw_name'],'DocName'=>'documentos/'.$data[0]['file_name'],'status' =>200,'statusText' =>'OK','menssage'=>'Archivo cargado correctamente.'));
+		}		
 	}
 
 	////////////////////////////////////// PARA CONTACTOS CLIENTES END ////////////////////////////////////////////////////

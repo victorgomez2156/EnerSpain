@@ -70,6 +70,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
             
             .when('/Reporte_Cups_Colaboradores', { templateUrl: 'application/views/view_reporte_cups_colaboradores.php' })
             .when('/Rueda', { templateUrl: 'application/views/view_reporte_rueda.php' })
+            .when('/Rueda20', { templateUrl: 'application/views/view_reporte_rueda20.php' })
             .when('/Proyeccion_Ingresos', { templateUrl: 'application/views/view_reporte_proyeccion_ingresos.php' })
             .when('/Ingresos_Reales', { templateUrl: 'application/views/view_reporte_ingresos_reales.php' })
             .when('/Ingresos_Vs_Proyectado', { templateUrl: 'application/views/view_reporte_ingreso_vs_proyectado.php' })

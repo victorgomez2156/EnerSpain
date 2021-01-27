@@ -102,6 +102,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'ingresos_reales.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'ingresos_vs_proyectado.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'rueda.js'?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'rueda20.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'ReporteConsumoCUPS.js'?>"></script> 
   
   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'provincia.js'?>"></script>

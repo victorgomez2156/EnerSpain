@@ -1525,6 +1525,26 @@ class Reportes extends REST_Controller
         $this->db->trans_complete();
         $this->response($ContratoComercial);
     }
+    public function Generar_Rueda20_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();
+        $ContratoComercial = $this->Reportes_model->Contratos_Para_Rueda20($objSalida->FecDesde,$objSalida->FecHasta);
+        if(empty($ContratoComercial))
+        {
+            $this->db->trans_complete();
+            $this->response(false);
+            return false;
+        }
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','POST',null,$this->input->ip_address(),'Consultando Contratos Para Reporte Rueda.');
+        $this->db->trans_complete();
+        $this->response($ContratoComercial);
+    }
     public function getContratosFilterRueda_post()
     {
         $datausuario=$this->session->all_userdata();    

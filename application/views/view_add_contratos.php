@@ -414,11 +414,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
            
         </div>
+         
          <div class="col-12 col-sm-2">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark">Consumo</label>
              <input type="text"  class="form-control" ng-model="vm.ConCups" placeholder="Consumo CUPs" readonly="readonly"/>
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark">Fecha Vencimiento</label>
+             <input type="text"  class="form-control FecVenCUPs_Ele" id="FecVenCUPs_Ele" ng-model="vm.FecVenCUPs_Ele" placeholder="DD/MM/YYYY"/>
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark">Fecha Activación</label>
+             <input type="text"  class="form-control FecActCUPs_Ele" id="FecActCUPs_Ele"  ng-model="vm.FecActCUPs_Ele" placeholder="DD/MM/YYYY"/>
              </div>
              </div>
           </div>
@@ -470,6 +489,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div class="form-group">    
               <label class="font-weight-bold nexa-dark" style="color:black;">Caudal Diario </label>         
              <input type="text"  class="form-control" ng-model="vm.CauDia" placeholder="Caudal Diario" readonly="readonly"/>     
+             </div>
+             </div>
+          </div>
+
+            <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark">Fecha Vencimiento</label>
+             <input type="text"  class="form-control FecVenCUPs_Gas" id="FecVenCUPs_Gas"  ng-model="vm.FecVenCUPs_Gas" placeholder="DD/MM/YYYY"/>
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">
+             <label class="font-weight-bold nexa-dark">Fecha Activación</label>
+             <input type="text"  class="form-control FecActCUPs_Gas" id="FecActCUPs_Gas"  ng-model="vm.FecActCUPs_Gas" placeholder="DD/MM/YYYY"/>
              </div>
              </div>
           </div>
@@ -875,7 +912,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('.datepicker_Inicio').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
   $('.datepicker_Vencimiento').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
   $('.FecFirmCon').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});
-  $('.FecAct').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});   
+  $('.FecAct').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true});  
+
+  $('.FecVenCUPs_Ele').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('.FecActCUPs_Ele').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('.FecVenCUPs_Gas').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+  $('.FecActCUPs_Gas').datepicker({format: 'dd/mm/yyyy',autoclose:true,todayHighlight: true}); 
+
 </script>
 <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
   <script src="application/libraries/estilos/js/form-validation-script.js"></script>

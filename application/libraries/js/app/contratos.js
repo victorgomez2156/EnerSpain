@@ -574,6 +574,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         }
                         if(CUPs.TipServ==1)
                         {                            
+                            scope.CodCupsEleNum=CUPs.CodCups;
+                            scope.CodProComCli=CUPs.CodProComCli;
+                            scope.CodProComCup=CUPs.CodProComCup;
                             scope.CodCupSEle=CUPs.CUPsName;
                             scope.CodTarEle=CUPs.NomTar;
                             scope.PotConP1 = CUPs.PotConP1;
@@ -583,13 +586,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                             scope.PotConP5 = CUPs.PotConP5;
                             scope.PotConP6 = CUPs.PotConP6;
                             scope.ConCups=CUPs.ConCUPs;
+                            scope.FecVenCUPs_Ele=CUPs.FecVenCUPs;
+                            scope.FecActCUPs_Ele=CUPs.FecActCUPs;
+                            $('.FecVenCUPs_Ele').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenCUPs_Ele);
+                            $('.FecActCUPs_Ele').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecActCUPs_Ele);
+                            scope.TipServ=CUPs.TipServ;
+                            
                         }
                         if(CUPs.TipServ==2)
                         {
+                            scope.CodCupsGasNum=CUPs.CodCups;
+                            scope.CodProComCli=CUPs.CodProComCli;
+                            scope.CodProComCup=CUPs.CodProComCup;
                             scope.CodCupGas = CUPs.CUPsName;
                             scope.CodTarGas = CUPs.NomTar;
                             scope.Consumo = CUPs.ConCUPs;
                             scope.CauDia = CUPs.CauDia;
+                            scope.FecVenCUPs_Gas=CUPs.FecVenCUPs;
+                            scope.FecActCUPs_Gas=CUPs.FecActCUPs;
+                            $('.FecVenCUPs_Gas').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenCUPs_Ele);
+                            $('.FecActCUPs_Gas').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecActCUPs_Ele);
+                            scope.TipServ=CUPs.TipServ;
                         }
                         scope.DirPunSum = CUPs.DirPunSum+" "+CUPs.NomViaPunSum+" "+CUPs.NumViaPunSum+" "+CUPs.BloPunSum;
                         scope.DesLocPunSum=CUPs.DesLoc;
@@ -744,7 +761,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
            // }
 
        // }
-        //console.log(scope.fdatos);
+        console.log(scope.fdatos);
         Swal.fire({
             title: titulo,
             text: texto,
@@ -964,6 +981,27 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 				//resultado = true;
 			}						
 		}*/
+        if(scope.fdatos.TipProCom==1)
+        {
+            scope.fdatos.detalleCUPs = []; 
+            if(scope.CodCupsEleNum!=null || scope.CodCupsEleNum!=undefined)
+            {
+                var FecActCUPs_Ele = document.getElementById("FecActCUPs_Ele").value;
+                var FecVenCUPs_Ele = document.getElementById("FecVenCUPs_Ele").value;
+//FecActCUPs_Ele
+
+                scope.fdatos.detalleCUPs.push({CodProComCup: scope.CodProComCup,CodCups:scope.CodCupsEleNum,CodProComCli: scope.CodProComCli,
+                FecActCUPs:FecActCUPs_Ele,FecVenCUPs:FecVenCUPs_Ele,TipServ:scope.TipServ});
+            }
+            if(scope.CodCupsGasNum!=null || scope.CodCupsGasNum!=undefined)
+            {                
+                var FecVenCUPs_Gas = document.getElementById("FecVenCUPs_Gas").value;
+                var FecActCUPs_Gas = document.getElementById("FecActCUPs_Gas").value;
+                scope.fdatos.detalleCUPs.push({CodProComCup: scope.CodProComCup,CodCups:scope.CodCupsGasNum,CodProComCli: scope.CodProComCli,
+                FecActCUPs:FecActCUPs_Gas,FecVenCUPs:FecVenCUPs_Gas,TipServ:scope.TipServ});               
+            }
+        }
+
 		for(var i=0; i<scope.fdatos.detalleCUPs.length; i++) 
 		{
 			

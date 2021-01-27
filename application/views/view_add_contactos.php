@@ -163,12 +163,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-         <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumViaDomSoc"  min="1" placeholder="* Numero del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined"/>       
+         <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumViaDomSoc"  min="1" placeholder="* Numero del Domicilio" ng-disabled="vm.validate_info!=undefined"/>       
          </div>
          </div>
        </div>
 
-      <div class="col-12 col-sm-3">
+      <!--div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -202,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PueDomSoc"  placeholder="* Puerta del Domicilio" maxlength="4" ng-disabled="vm.validate_info!=undefined"/>
        </div>
        </div>
-      </div>
+      </div-->
 
 
       <div class="col-12 col-sm-4" ng-click="vm.containerClicked()">

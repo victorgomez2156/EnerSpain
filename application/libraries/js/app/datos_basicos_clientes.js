@@ -54,6 +54,7 @@
      //testCtrl1ViewModel.cargar_lista_clientes();
      var scope = this;
      scope.fdatos = {};
+     scope.tContacto_data_modal = {};
      scope.nID = $route.current.params.ID;
      scope.validate_info = $route.current.params.INF;
      scope.Nivel = $cookies.get('nivel');
@@ -77,17 +78,24 @@
      scope.tColaboradores = [];
      scope.tTiposVias = [];
      scope.TtiposInmuebles = [];
+     scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];    
      scope.fdatos.misma_razon = false;
      scope.fdatos.distinto_a_social = false;
      console.log($route.current.$$route.originalPath);
-     if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") {
-         scope.CIF_NEW_CLIENTE = $cookies.get('CIF');
-         console.log(scope.CIF_NEW_CLIENTE);
-         if (scope.CIF_NEW_CLIENTE != undefined) {
-             scope.fdatos.NumCifCli = scope.CIF_NEW_CLIENTE;
-         } else {
-             location.href = "#/Clientes/";
-         }
+     if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") 
+     {
+        scope.CIF_NEW_CLIENTE = $cookies.get('CIF');
+        console.log(scope.CIF_NEW_CLIENTE);
+        if (scope.CIF_NEW_CLIENTE != undefined) {
+            scope.fdatos.NumCifCli = scope.CIF_NEW_CLIENTE;
+            scope.tContacto_data_modal.EsRepLeg = undefined;
+            scope.tContacto_data_modal.TieFacEsc = undefined;
+            scope.tContacto_data_modal.CanMinRep = 1;
+            scope.tContacto_data_modal.TipRepr = "1";
+            scope.tContacto_data_modal.ConPrin=false;
+        } else {
+            location.href = "#/Clientes/";
+        }
      }
      ////////////////////////////////////////////////// PARA LA LISTA Y CONFIGURACIONES DE SERVICIOS ESPECIALES START ////////////////////////////////////////////////////////
      ServiceAddClientes.getAll().then(function(dato) {
@@ -98,9 +106,10 @@
          }         
          scope.tProvidencias = dato.Provincias;
          scope.tTipoCliente = dato.Tipo_Cliente;
-         scope.tComerciales = dato.Comerciales;
+         //scope.tComerciales = dato.Comerciales;
          scope.tSectores = dato.Sector_Cliente;
-         scope.tColaboradores = dato.Colaborador;
+         scope.tListaContactos=dato.TipoContactos;
+         //scope.tColaboradores = dato.Colaborador;
          scope.tTiposVias = dato.Tipo_Vias;
      }).catch(function(err) { console.log(err); });
 
@@ -373,15 +382,26 @@
 
      }
 
-     $scope.submitForm = function(event) {
-         console.log(scope.fdatos);
+     $scope.submitForm = function(event) {         
          if (scope.nID > 0 && scope.Nivel == 3) {
              scope.toast('error','No tiene permisos para realizar esta operación','Usuario no Autorizado');
              return false;
          }
          if (!scope.validar_campos_datos_basicos()) {
              return false;
+         }         
+         if(scope.tContacto_data_modal.NIFConCli==undefined||scope.tContacto_data_modal.NIFConCli==false)
+         {
+            scope.fdatos.tContacto_data_modal=false;
          }
+         else
+         {
+            if (!scope.validar_campos_contactos()) {
+             return false;
+            }
+            scope.fdatos.tContacto_data_modal=scope.tContacto_data_modal;
+         }        
+         console.log(scope.fdatos);
          if (scope.fdatos.CodCli > 0) {
              var title = 'Actualizando';
              var text = '¿Seguro que desea modificar la información del Cliente?';
@@ -649,9 +669,9 @@
                 if (scope.CIF_NEW_CLIENTE != undefined) {
                      $cookies.remove('CIF');
                      document.getElementById("NumCifCliRe").setAttribute("readonly", "readonly");
-                }
-                
+                }                
                 scope.toast('success',response,title);
+                scope.buscarXID();
                 if ($route.current.$$route.originalPath == "/Datos_Basicos_Clientes/") 
                 {
                    location.href = "#/Add_Puntos_Suministros/" + scope.nID;
@@ -719,7 +739,7 @@
              $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
              if (result.data != false) {
                  scope.fdatos = result.data;
-                 
+
                  scope.FecIniCli = undefined;
                  if (result.data.CodLocSoc == result.data.CodLocFis) {
                     scope.fdatos.distinto_a_social = false;
@@ -728,8 +748,6 @@
                  } else {
                      scope.fdatos.distinto_a_social = true;
                  }
-
-
                 scope.fdatos.CodLocSoc=result.data.CodLocSoc;
                 scope.fdatos.CodLocFis=result.data.CodLocFis;
                  if (result.data.RazSocCli == result.data.NomComCli) {
@@ -739,7 +757,37 @@
                  }
                  scope.FecIniCli = result.data.FecIniCli;
                  $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
-
+                
+                ////// control de contactos start ////////
+                scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                scope.tContacto_data_modal.EsRepLeg = undefined;
+                scope.tContacto_data_modal.TieFacEsc = undefined;
+                scope.tContacto_data_modal.CanMinRep = 1;
+                scope.tContacto_data_modal.TipRepr = "1";
+                scope.tContacto_data_modal.ConPrin=false;
+                if(scope.fdatos.tContacto_data_modal!=false)
+                {
+                    scope.tContacto_data_modal=scope.fdatos.tContacto_data_modal;
+                    if(scope.fdatos.tContacto_data_modal.ConPrin==0)
+                    {
+                        scope.tContacto_data_modal.ConPrin=false;
+                    }
+                    else
+                    {
+                        scope.tContacto_data_modal.ConPrin=true;
+                    }
+                }
+                else
+                {
+                    scope.tContacto_data_modal={};
+                    scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                    scope.tContacto_data_modal.EsRepLeg = undefined;
+                    scope.tContacto_data_modal.TieFacEsc = undefined;
+                    scope.tContacto_data_modal.CanMinRep = 1;
+                    scope.tContacto_data_modal.TipRepr = "1";
+                    scope.tContacto_data_modal.ConPrin=false;
+                }
+                ////// control de contactos end ////////
              } else {
                  scope.toast('error','No hay información.','Error');
                  $interval.cancel(promise);
@@ -889,6 +937,521 @@
             $event.stopPropagation();
         }
     }
+
+    ////////////////////////////////////////// PARA Contactos START ////////////////////////////////////////////////////////////////////////
+
+
+    scope.Consultar_CIF=function()
+    {
+        console.log(scope.tContacto_data_modal.NIFConCli.length);
+        console.log(scope.tContacto_data_modal.NIFConCli);
+
+        if(scope.tContacto_data_modal.NIFConCli.length>=9)
+        {
+            if (!scope.validarNIFDNI()) {
+               return false;
+            }
+            var url = base_urlHome()+"api/Clientes/search_contact_Filter/NIFConCli/"+scope.tContacto_data_modal.NIFConCli+"/CodCli/"+scope.fdatos.CodCli;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    if(result.data.length>1)
+                    {
+                        scope.tContacto_data_modal.CodConCli=undefined;
+                        scope.tContacto_data_modal.NIFConCli=result.data[0].NIFConCli;
+                        scope.tContacto_data_modal.CodTipCon=result.data[0].CodTipCon;
+                        if(result.data[0].ConPrin==null || result.data[0].ConPrin==0)
+                        {
+                            scope.tContacto_data_modal.ConPrin=false;
+                        }
+                        else
+                        {
+                            scope.tContacto_data_modal.ConPrin=true;
+                        }                        
+                        scope.tContacto_data_modal.CarConCli=result.data[0].CarConCli;
+                        scope.tContacto_data_modal.NomConCli=result.data[0].NomConCli;
+                        scope.tContacto_data_modal.NumColeCon=result.data[0].NumColeCon;
+                        scope.tContacto_data_modal.TelFijConCli=result.data[0].TelFijConCli;
+                        scope.tContacto_data_modal.TelCelConCli=result.data[0].TelCelConCli;
+                        scope.tContacto_data_modal.EmaConCli=result.data[0].EmaConCli;
+                        scope.tContacto_data_modal.TipRepr='1';
+                        scope.tContacto_data_modal.CanMinRep='1';
+                        scope.tContacto_data_modal.EsRepLeg = undefined;
+                        scope.tContacto_data_modal.TieFacEsc = undefined;
+                        scope.tContacto_data_modal.DocNIF= undefined;
+                        scope.tContacto_data_modal.DocPod= undefined;
+                        scope.tContacto_data_modal.ObsConC=result.data[0].ObsConC;
+
+                    }
+                    else
+                    {
+                        scope.tContacto_data_modal=result.data; 
+                        if(scope.tContacto_data_modal.ConPrin==null ||scope.tContacto_data_modal.ConPrin==0)
+                        {
+                            scope.tContacto_data_modal.ConPrin=false;
+                        }
+                        else
+                        {
+                            scope.tContacto_data_modal.ConPrin=true;
+                        } 
+                    }
+                }
+                else
+                {
+                    var NIFConCli=scope.tContacto_data_modal.NIFConCli;
+                    scope.tContacto_data_modal={};
+                    scope.tContacto_data_modal.NIFConCli=NIFConCli;
+                    scope.tContacto_data_modal.TipRepr='1';
+                    scope.tContacto_data_modal.CanMinRep='1';
+                    scope.toast('info','El Contacto no esta registrado ni asignado a ningun cliente','Contacto Disponible');
+                } 
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+        }
+
+
+
+    }
+
+    scope.validarNIFDNI = function() 
+    {
+           var letter = scope.validar_dni_nie($("#NIFConCli1").parent(), $("#NIFConCli1").val());
+           console.log(letter[0]);
+           if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="DNI")
+           {
+            scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter[0].letter;
+            if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
+            {
+             scope.toast('error',"El Número de DNI/NIE es Invalido Intente Nuevamente.",'');
+             return false;
+             }
+             else
+             {
+                return true;
+            } 
+            }
+            else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="CIF")
+            {
+                scope.dni_nie_validar = scope.tContacto_data_modal.NIFConCli.substring(0,8)+letter[0].letter;
+                if(scope.dni_nie_validar!=scope.tContacto_data_modal.NIFConCli)
+                {
+                 scope.toast('error',"El Número de CIF es Invalido Intente Nuevamente.",'');
+                 return false;
+             }
+             else
+             {
+                return true;
+            } 
+            }
+            else if(letter[0].status==200&&letter[0].statusText=='OK'&&letter[0].menssage=="No CIF/DNI")
+            {
+             return true;
+            }
+            else
+            {
+            scope.toast('error',"Error en Calculo de CIF/DNI/NIF/NIE.",'');
+            return false;
+            }  
+    }
+
+function isNumeric(expression) {
+    return (String(expression).search(/^\d+$/) != -1);
+}
+function calculateLetterForDni(dni)
+{
+        // Letras en funcion del modulo de 23
+        string = "TRWAGMYFPDXBNJZSQVHLCKE"
+        // se obtiene la posiciÃ³n de la cadena anterior
+        position = dni % 23
+        // se extrae dicha posiciÃ³n de la cadena
+        letter = string.substring(position, position + 1)
+        return letter
+    }
+    scope.validar_dni_nie=function(field, txt)
+    {
+        var letter = ""
+        // Si es un dni extrangero, es decir, empieza por X, Y, Z
+        // Si la longitud es 8 longitud total de los dni nacionales)
+        if (txt.length == 9) 
+        {
+
+            var first = txt.substring(0, 1)
+            var last = txt.substring(8,9)
+            if (first == 'X' || first == 'Y' || first == 'Z') 
+            {               
+                // Si la longitud es 9(longitud total de los dni extrangeros)
+                // Se calcula la letra para el numero de dni
+                var number = txt.substring(1, 8);
+                if (first == 'X') {
+                    number = '0' + number
+                    //final = first + number
+                }
+                if (first == 'Y') {
+                    number = '1' + number
+                    //final = first + number
+                }
+                if (first == 'Z') {
+                    number = '2' + number
+                    //final = first + number
+                }
+                if (isNumeric(number)){
+                    letter = calculateLetterForDni(number)
+                }
+                var response = [{ status: 200, menssage: 'DNI',statusText:'OK',letter:letter}];               
+                return response;
+            }
+            else if(first == 'A' || first == 'B' || first == 'C'||first == 'D' || first == 'E' || first == 'F'||first == 'G' || first == 'H' || first == 'J'||first == 'P' || first == 'Q' || first == 'R'||first == 'S' || first == 'U' || first == 'V'||first == 'N' || first == 'W')
+            {
+                var response = [{ status: 200, menssage: 'No CIF/DNI',statusText:'OK'}];               
+                return response;
+            } 
+            else 
+            {
+                letter = calculateLetterForDni(txt.substring(0, 8))                
+                var response = [{ status: 200, menssage: 'CIF',statusText:'OK',letter:letter}];               
+                return response;
+            }
+        }
+        else
+        {
+            return false
+        }
+
+    } 
+    scope.validarsinuermoContactos = function(object, metodo) {
+       if (object != undefined && metodo == 1) {
+           numero = object;
+           if (!/^([0-9])*$/.test(numero))
+               scope.tContacto_data_modal.TelFijConCli = numero.substring(0, numero.length - 1);
+       }
+       if (object != undefined && metodo == 2) {
+           numero = object;
+           if (!/^([0-9])*$/.test(numero))
+               scope.tContacto_data_modal.TelCelConCli = numero.substring(0, numero.length - 1);
+       }
+       if (object != undefined && metodo == 3) {
+           numero = object;
+           if (!/^([0-9])*$/.test(numero))
+               scope.tContacto_data_modal.CanMinRep = numero.substring(0, numero.length - 1);
+       }
+
+   }
+    scope.validar_campos_contactos = function() {
+       resultado = true;              
+       if (!scope.tContacto_data_modal.CodTipCon > 0) {
+           scope.toast('error','Seleccione un Tipo de Contacto','');
+           return false;
+       }
+       if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
+           scope.toast('error','El Cargo del Contacto es requerido','');
+           return false;
+       }
+       if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
+           scope.toast('error','El Nombre del Contacto es requerido','');
+           return false;
+       }
+       if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
+           scope.toast('error','El Teléfono Fijo del Contato es requerido','');
+           return false;
+       }
+       if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
+           scope.tContacto_data_modal.TelCelConCli=null;             
+       }
+       else
+           {scope.tContacto_data_modal.TelCelConCli=scope.tContacto_data_modal.TelCelConCli;
+
+           }
+           if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
+               scope.toast('error','El Email del Contacto es requerido','');
+               return false;
+           }
+           if (scope.tContacto_data_modal.CanMinRep <= 0) {
+               scope.toast('error','El Cliente debe tener al menos un Firmante','');
+               return false;
+           }
+           if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
+               scope.tContacto_data_modal.ObsConC = null;
+           } else {
+               scope.tContacto_data_modal.ObsConC = scope.tContacto_data_modal.ObsConC;
+           }
+           if (scope.tContacto_data_modal.EsRepLeg == 1) {
+               if (!scope.tContacto_data_modal.TipRepr > 0) {
+                   scope.toast('error','Seleccione el Tipo de Representación','');
+                   return false;
+               }
+               if (scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == null) {
+                scope.tContacto_data_modal.DocNIF=null;
+            }
+            else
+            {
+                scope.tContacto_data_modal.DocNIF=scope.tContacto_data_modal.DocNIF;
+            }
+
+        }
+        if (scope.tContacto_data_modal.EsRepLeg == undefined) {
+           scope.toast('error','Indique si el Firmante es o no Representante Legal','');
+           return false;
+       }
+
+       if (scope.tContacto_data_modal.TieFacEsc == undefined||scope.tContacto_data_modal.TieFacEsc == null) {
+           scope.tContacto_data_modal.TieFacEsc =null;
+             //scope.toast('error','Indique si el Firmante tiene o no falcutad en Escrituras','');
+             //return false;
+         }
+         else
+         {
+            scope.tContacto_data_modal.TieFacEsc=scope.tContacto_data_modal.TieFacEsc;
+        } 
+        if (scope.tContacto_data_modal.NumColeCon == undefined||scope.tContacto_data_modal.NumColeCon == null||scope.tContacto_data_modal.NumColeCon == '') {
+           scope.tContacto_data_modal.NumColeCon =null;
+             //scope.toast('error','Indique si el Firmante tiene o no falcutad en Escrituras','');
+             //return false;
+         }
+         else
+         {
+            scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
+        }         
+        if (scope.tContacto_data_modal.TieFacEsc == 0) {
+
+           if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
+               scope.toast('error','Adjunte el documento Poder del Representante Legal','');
+               return false;
+           }
+       }
+       if (scope.tContacto_data_modal.DocPod == null || scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == '') {
+           scope.tContacto_data_modal.DocPod = null;
+       } else {
+           scope.tContacto_data_modal.DocPod = scope.tContacto_data_modal.DocPod;
+       }
+       if (scope.tContacto_data_modal.DocNIF == null || scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == '') {
+           scope.tContacto_data_modal.DocNIF = null;
+       } else {
+           scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
+       }
+
+       if (scope.tContacto_data_modal.BloDomSoc == null || scope.tContacto_data_modal.BloDomSoc == undefined || scope.tContacto_data_modal.BloDomSoc == '') {
+           scope.tContacto_data_modal.BloDomSoc = null;
+       } else {
+           scope.tContacto_data_modal.BloDomSoc = scope.tContacto_data_modal.BloDomSoc;
+       }
+       if (scope.tContacto_data_modal.EscDomSoc == null || scope.tContacto_data_modal.EscDomSoc == undefined || scope.tContacto_data_modal.EscDomSoc == '') {
+           scope.tContacto_data_modal.EscDomSoc = null;
+       } else {
+           scope.tContacto_data_modal.EscDomSoc = scope.tContacto_data_modal.EscDomSoc;
+       }
+
+       if (scope.tContacto_data_modal.PlaDomSoc == null || scope.tContacto_data_modal.PlaDomSoc == undefined || scope.tContacto_data_modal.PlaDomSoc == '') {
+           scope.tContacto_data_modal.PlaDomSoc = null;
+       } else {
+           scope.tContacto_data_modal.PlaDomSoc = scope.tContacto_data_modal.PlaDomSoc;
+       }
+       if (scope.tContacto_data_modal.PueDomSoc == null || scope.tContacto_data_modal.PueDomSoc == undefined || scope.tContacto_data_modal.PueDomSoc == '') {
+           scope.tContacto_data_modal.PueDomSoc = null;
+       } else {
+           scope.tContacto_data_modal.PueDomSoc = scope.tContacto_data_modal.PueDomSoc;
+       }
+       if (scope.tContacto_data_modal.CPLocSoc == null || scope.tContacto_data_modal.CPLocSoc == undefined || scope.tContacto_data_modal.CPLocSoc == '') {
+           scope.tContacto_data_modal.CPLocSoc = null;
+       } else {
+           scope.tContacto_data_modal.CPLocSoc = scope.tContacto_data_modal.CPLocSoc;
+       }
+       if (resultado == false) {
+           return false;
+       }
+       return true;
+   }
+   scope.verificar_representante_legal = function() {
+
+       if (scope.tContacto_data_modal.EsRepLeg == 0) {
+           scope.tContacto_data_modal.TipRepr = "1";
+           scope.tContacto_data_modal.CanMinRep = 1;
+           document.getElementById('DocNIF').value = '';
+           scope.tContacto_data_modal.DocNIF = null;
+       }
+   }
+   scope.verificar_facultad_escrituras = function() {
+       if (scope.tContacto_data_modal.TieFacEsc == 1) {
+           document.getElementById('DocPod').value = '';
+           scope.tContacto_data_modal.DocPod = null;
+       }
+   }
+   scope.ComprobarContactoPrincipal=function(ConPri)
+{
+    if(ConPri==true && scope.tContacto_data_modal.CodCli!=undefined)
+    {
+        scope.tContacto_data_modal.ConPrin=false;
+        $("#Principal").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url = base_urlHome()+"api/Clientes/ValidarContactoPrincipal/CodCli/"+scope.tContacto_data_modal.CodCli+"/ConPri/"+1;
+        $http.get(url).then(function(result)
+        {
+            $("#Principal").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            if(result.data!=false)
+            {
+                Swal.fire({ title: 'Contacto Principal',text: '¿Este Cliente ya tiene un contacto asignado como principal quiere establecer este como principal?',
+                   type: "question",
+                   showCancelButton: !0,
+                   confirmButtonColor: "#31ce77",
+                   cancelButtonColor: "#f34943",
+                   confirmButtonText: "Confirmar"
+               }).then(function(t) {
+                if (t.value == true)
+                {
+                    scope.tContacto_data_modal.ConPrin=true;                        
+                    var url=base_urlHome()+"api/Clientes/UpdateOldContacto/CodConCli/"+result.data.CodConCli;
+                    $http.get(url).then(function(result)
+                    {
+                        if(result.data!=false)
+                        {
+                            scope.toast('info','El Contacto anterior ya no es principal guarde los datos para establecer este como principal.','');
+                        }
+                        else
+                        {
+                            scope.toast('error','Ha ocurrido un error al intenta actualizar el contacto.','');
+                        }
+                    },function(error)
+                    {
+                        if (error.status == 404 && error.statusText == "Not Found"){
+                          scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                      }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+
+                });
+                } 
+                else 
+                {
+                    scope.tContacto_data_modal.ConPrin=false;
+                    scope.toast('error','Contacto no establecido como principal','Contacto No Principal');
+                    console.log('cancelando ando...');
+                }
+            });                    //scope.toast('error','Este Cliente ya tiene un contacto como principal','Error 404');
+                }
+                else
+                {
+                    scope.tContacto_data_modal.ConPrin=true;
+                    scope.toast('success','Contacto Seleccionado como Principal.','Contacto Principal');
+                }
+
+            },function(error)
+            {
+                $("#Principal").removeClass("loader loader-default is-active").addClass("loader loader-default");
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+    }        
+}
+    $scope.SelectFile = function (e,metodo) 
+    {
+      scope.AddImagen(e.target.files[0],metodo);
+    };
+    scope.AddImagen = function(archivo,metodo)
+    {
+        //$("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");        
+        /*if(scope.fdatos.CodConCom==null || scope.fdatos.CodConCom==undefined|| scope.fdatos.CodConCom=='')
+        {
+            scope.toast('error','Debe generar primero el contrato para poder agregar un documento.','Error');
+            return false;
+        }*/
+        if (archivo==null){
+            $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");   
+            scope.toast('error','Seleccione otro archivo','Error');
+        }
+        else
+        {
+            $("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            formData = new FormData();
+            formData.append('file', archivo);
+            formData.append('x-api-key', $cookies.get('ApiKey'));
+            formData.append('metodo', metodo);             
+            $.ajax({
+                url : base_urlHome()+"api/Clientes/agregar_documento_contactoClientes/",
+                type: "POST",
+                data : formData,
+                processData: false,
+                contentType: false,
+                async:false,
+                success:function(data,textStatus,jqXHR)
+                { 
+                    $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
+                    if(metodo==1)
+                    {
+                        if(data.status==404 && data.statusText=="Error")
+                        {
+                            scope.toast('error',data.menssage,data.statusText);
+                            return false; 
+                        }
+                        if(data.status==200 && data.statusText=="OK")
+                        {
+                            scope.toast('success',data.menssage,data.statusText);
+                            scope.imagen = null;
+                            document.getElementById('filenameDocNIF').value = '';
+                            scope.tContacto_data_modal.DocNIF=data.DocName;
+                            $scope.$apply();
+                            return false; 
+                        }
+                    }
+                    else if(metodo==2)
+                    {
+                        if(data.status==404 && data.statusText=="Error")
+                        {
+                            scope.toast('error',data.menssage,data.statusText);
+                            return false; 
+                        }
+                        if(data.status==200 && data.statusText=="OK")
+                        {
+                            scope.toast('success',data.menssage,data.statusText);
+                            scope.imagen = null;
+                            document.getElementById('filenameDocPod').value = '';
+                            scope.tContacto_data_modal.DocPod=data.DocName;
+                            $scope.$apply();
+                            return false; 
+                        }
+                    }   
+
+
+                       
+                },              
+                error: function(jqXHR, textStatus, errorThrown){
+                        $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        scope.toast('error','Error Subiendo archivo.','Error');
+                    }
+            });
+        }
+            
+    }
+
+
+
+
+
+    ////////////////////////////////////////// PARA Contactos END ////////////////////////////////////////////////////////////////////////
+
+
+
         var i = -1;
         var toastCount = 0;
         var $toastlast;

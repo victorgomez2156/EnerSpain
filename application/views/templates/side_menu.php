@@ -201,6 +201,7 @@
             <ul class="sub">
               <li ng-show="Menu.Reportes_Colaboradores==true"><a href="#/Reporte_Cups_Colaboradores">Colaboradores</a></li>
               <li ng-show="Menu.Reportes_Rueda==true"><a href="#/Rueda">Rueda</a></li>
+              <li><a href="#/Rueda20">Rueda 2.0</a></li>
               <li ng-show="Menu.Reportes_ProyeccionIngresos==true"><a href="#/Proyeccion_Ingresos">Proyección de Ingresos</a></li>
               <li ng-show="Menu.Reportes_IngresosReales==true"><a href="#/Ingresos_Reales">Ingresos Reales </a></li>
               <li ng-show="Menu.Reportes_IngVsProyec==true"><a href="#/Ingresos_Vs_Proyectado">Ing. Reales Vs Proyectado</a></li>

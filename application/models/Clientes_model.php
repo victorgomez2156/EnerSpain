@@ -995,7 +995,7 @@ public function agregar_motivo_bloqueo($hcliente,$fecha,$CodMotBloCli,$ObsBloCli
 
 public function get_clientes_data($huser)
 {
-    $this->db->select(  'a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,
+    $this->db->select('a.CodCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.CodTipViaSoc,a.NomViaDomSoc,a.NumViaDomSoc,
         a.BloDomSoc,a.EscDomSoc,a.PlaDomSoc,a.PueDomSoc,a.CodLocSoc as CodLocSoc,a.TelFijCli,a.EmaCli,
         a.WebCli,a.CodTipCli,DATE_FORMAT(a.FecIniCli,"%d/%m/%Y") as FecIniCli,a.CodCom,a.ObsCli,a.EstCli,
         a.CPLocSoc,b.CodPro as CodProSoc,a.CodTipViaFis,a.NomViaDomFis,a.NumViaDomFis,a.BloDomFis,
@@ -1006,6 +1006,22 @@ public function get_clientes_data($huser)
     $this->db->join('T_Localidad c','a.CodLocFis=c.CodLoc','left');         
     $this->db->where('a.CodCli',$huser);     
     $this->db->order_by('a.RazSocCli DESC');              
+    $query = $this->db->get(); 
+    if($query->num_rows()==1)
+    {
+        return $query->row();
+    }
+    else
+    {
+        return false;
+    }       
+}
+public function GetContactoPrincipal($CodCli)
+{
+    $this->db->select('*',false);
+    $this->db->from('T_ContactoCliente a');     
+    $this->db->where('a.CodCli',$CodCli);     
+    $this->db->where('a.ConPrin',1);           
     $query = $this->db->get(); 
     if($query->num_rows()==1)
     {
