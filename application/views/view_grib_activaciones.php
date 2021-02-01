@@ -120,15 +120,18 @@
       <div class="form-group" >
           <div class="col-12 col-sm-4">
             <button class="btn btn-info" type="submit" ng-disabled="vm.CUPsName.length<=0" ng-click="vm.buscarCUPsActivaciones()">Buscar</button>
+             <button class="btn btn-primary" type="button" ng-show="vm.T_Contratos.length>0" ng-click="vm.GenerarContratoRapido()">Generar Contrato Rapido</button>
           </div>
         </div>           
 
     </div><!--FINAL ROW -->
   </form>
 
-      <div ng-show="vm.VistaResponse==true">
+    <div ng-show="vm.VistaResponse==true">
+      
       <form id="form_update_fechas" name="form_update_fechas" ng-submit="submitFormCUPsActivacionesFechas($event)"> 
-          <div class="col-12 col-sm-6">
+          
+                <div class="col-12 col-sm-6">
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Cliente</label>
@@ -149,17 +152,236 @@
             <div class="col-12 col-sm-6">
             <div class="form">                          
               <div class="form-group">
-                <label class="font-weight-bold nexa-dark" style="color:black;">Tárifa</label>
-                <input type="text" class="form-control " name="NomTar" id="NomTar" ng-model="vm.NomTar" readonly/>
+                <label class="font-weight-bold nexa-dark" style="color:black;">Nro Contrato</label>
+                <input type="text" class="form-control " name="CodConCom" id="CodConCom" ng-model="vm.CodConCom" readonly/>
               </div>
             </div>
           </div>
 
+            <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tárifa</label>                
+                <select class="form-control" name="NomTar" required ng-model="vm.NomTar" ng-change="vm.filtrerCanPeriodos(vm.NomTar)">
+                  <option ng-repeat="dato in vm.ListTar" value="{{dato.CodTar}}" >{{dato.NomTar}}</option>                  
+                </select> 
+              </div>
+            </div>
+          </div>
+
+        <div ng-show="vm.CanPerEle==6">
+          
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP2" placeholder="P2" ng-change="vm.validar_formatos_input(2,vm.PotEleConP2)"/>     
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP3" placeholder="P3" ng-change="vm.validar_formatos_input(3,vm.PotEleConP3)"/>     
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP4" placeholder="P4" ng-change="vm.validar_formatos_input(4,vm.PotEleConP4)"/>     
+             </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP5" placeholder="P5" ng-change="vm.validar_formatos_input(5,vm.PotEleConP5)"/>
+           </div>
+             </div>
+          </div>
+
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P6 </label>         
+             <input type="text"  class="form-control" ng-model="vm.PotEleConP6" placeholder="P6" ng-change="vm.validar_formatos_input(6,vm.PotEleConP6)"/>     
+             </div>
+             </div>
+          </div>
+           
+        </div>
+
+        <div ng-show="vm.CanPerEle==1"> 
+
+          <div class="col-12 col-sm-11">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text" class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+               </div>
+               </div>
+            </div>
+        </div>
+
+        <div ng-show="vm.CanPerEle==2">
+
           <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+             </div>
+             </div>
+          </div>
+
+            <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP2" placeholder="P2" ng-change="vm.validar_formatos_input(2,vm.PotEleConP2)"/>     
+             </div>
+             </div>
+          </div>         
+
+        </div>
+
+        <div ng-show="vm.CanPerEle==3">
+          
+          <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP2" placeholder="P2" ng-change="vm.validar_formatos_input(2,vm.PotEleConP2)"/>     
+             </div>
+             </div>
+          </div>
+
+           <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP3" placeholder="P3" ng-change="vm.validar_formatos_input(3,vm.PotEleConP3)"/>     
+             </div>
+             </div>
+          </div>
+        </div>
+
+        <div ng-show="vm.CanPerEle==4">          
+          
+          <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP2" placeholder="P2" ng-change="vm.validar_formatos_input(2,vm.PotEleConP2)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP3" placeholder="P3" ng-change="vm.validar_formatos_input(3,vm.PotEleConP3)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-3">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP4" placeholder="P4" ng-change="vm.validar_formatos_input(4,vm.PotEleConP4)"/>     
+             </div>
+             </div>
+          </div>         
+        </div>
+
+        <div ng-show="vm.CanPerEle==5">
+          
+          <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP1" placeholder="P1" ng-change="vm.validar_formatos_input(1,vm.PotEleConP1)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP2" placeholder="P2" ng-change="vm.validar_formatos_input(2,vm.PotEleConP2)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP3" placeholder="P3" ng-change="vm.validar_formatos_input(3,vm.PotEleConP3)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-2">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP4" placeholder="P4" ng-change="vm.validar_formatos_input(4,vm.PotEleConP4)"/>     
+             </div>
+             </div>
+          </div>
+           <div class="col-12 col-sm-4">
+            <div class="form">                          
+             <div class="form-group">    
+              <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+             <input type="text" class="form-control" ng-model="vm.PotEleConP5" placeholder="P5" ng-change="vm.validar_formatos_input(5,vm.PotEleConP5)"/>     
+             </div>
+             </div>
+          </div>
+
+        </div>
+
+
+
+          <div class="col-12 col-sm-4">
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Producto</label>
-                <input type="text" class="form-control " name="DesPro" id="DesPro" ng-model="vm.DesPro" readonly/>
+                <select class="form-control" name="DesPro" required ng-model="vm.DesPro">
+                  <option ng-repeat="dato in vm.ListProducts" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                  
+                </select> 
+
               </div>
             </div>
           </div>
@@ -182,7 +404,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-4">
+          <div class="col-12 col-sm-6">
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Consumo</label>
@@ -191,23 +413,28 @@
             </div>
           </div>
 
+           <div class="col-12 col-sm-6">
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Estado</label>
+                <select class="form-control" name="EstConCups" required ng-model="vm.EstConCups">
+                  <option ng-repeat="dato in vm.ListNuevosEstadosContrato" value="{{dato.EstConCups}}">{{dato.nombre}}</option>                  
+                </select> 
+
+
+                <!--input type="text" class="form-control " name="EstConCups" id="EstConCups" ng-model="vm.EstConCups" /-->
+              </div>
+            </div>
+          </div>
+
 
           <div class="form-group" >
-          <div class="col-12 col-sm-4">
-            <button class="btn btn-info" type="submit">Actualizar</button>
+            <div class="col-12 col-sm-4">
+              <button class="btn btn-info" type="submit">Actualizar</button>
+            </div>
           </div>
-        </div>
-
-
-
-
-
-
-
-
-  </form>
-
-         </div>
+      </form>
+    </div>
 
 
 
@@ -227,13 +454,15 @@
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
+                  <th >Nro Contrato</th>
                   <th >Cliente</th>
                   <th >CUPs</th>
                   <th >Tárifa</th>
                   <th >Tipo de producto</th>
                   <th >Fecha de activación</th>
                   <th >Fecha de Vencimiento</th>
-                  <th >CONSUMO</th>           
+                  <th >Consumo</th> 
+                  <th >Estado</th>          
                   <th >Acción</th>
                   </tr>
                   <tr ng-show="vm.T_Contratos.length==0"> 
@@ -242,13 +471,21 @@
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.T_Contratos | filter:paginate" ng-class-odd="odd">                    
+                    <td >{{dato.CodConCom}}</td>
                     <td >{{dato.RazSocCli}}</td>
                     <td >{{dato.CUPsName}}</td>
                     <td >{{dato.NomTar}}</td>
                     <td >{{dato.DesPro}}</td>
                     <td >{{dato.FecActCUPs}}</td>
                     <td >{{dato.FecVenCUPs}}</td>
-                    <td >{{dato.ConCup}}</td>                    
+                    <td >{{dato.ConCup}}</td> 
+                    <td >
+                      <span class="label label-danger" ng-show="dato.CodProCom==null" style="color:black;"><i class="fa fa-ban"></i> S/P/C</span>
+                      <span class="label label-success" ng-show="dato.EstConCups==1" style="color:black;"><i class="fa fa-check-circle"></i> Contrato</span>
+                      <span class="label label-danger" ng-show="dato.EstConCups==2" style="color:black;"><i class="fa fa-ban"></i> Implícita</span>
+                      <span class="label label-info" ng-show="dato.EstConCups==3" style="color:black;"><i class="fa fa-close"></i> Baja Rescatable</span>
+                      <span class="label label-danger" ng-show="dato.EstConCups==4" style="color:black;"><i class="fa fa-ban"></i> Baja Definitiva</span>
+                      </td>                   
                     <td>
                         <a style="cursor:pointer;" ng-click="vm.asignarcontrato($index,dato,true)" data-dismiss="modal"><i class="fa fa-check" title="Seleccionar"></i></a>
                     </td >
@@ -256,13 +493,16 @@
                   </tr>
                 </tbody>
                 <tfoot>                 
-                 <th >Cliente</th>
+                 <th >Nro Contrato</th>
+                  <th >Cliente</th>
                   <th >CUPs</th>
                   <th >Tárifa</th>
                   <th >Tipo de producto</th>
                   <th >Fecha de activación</th>
                   <th >Fecha de Vencimiento</th>
-                  <th >CONSUMO</th>  
+                  <th >Consumo</th> 
+                  <th >Estado</th>          
+                  <th >Acción</th> 
                 </tfoot>
               </table>
         </div> 

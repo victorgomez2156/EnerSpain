@@ -866,12 +866,15 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         }*/
         scope.fdatos.FecIniCon =null;
-        if (!scope.fdatos.DurCon > 0) {
+        scope.fdatos.DurCon=null;
+        scope.fdatos.FecVenCon =null;
+        /*if (!scope.fdatos.DurCon > 0) {
           scope.toast('error','La Duración del Contrato es requerida','');
             return false;
         }
         var FecVenCon1 = document.getElementById("FecVenCon").value;
         scope.FecVenCon = FecVenCon1;
+        
         if (scope.FecVenCon == null || scope.FecVenCon == undefined || scope.FecVenCon == '') {
           scope.toast('error','La Fecha de Vencimiento es requerida','');
             return false;
@@ -900,7 +903,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 valuesStart = scope.FecVenCon.split("/");
                 scope.fdatos.FecVenCon = FecVenCon[2] + "-" + FecVenCon[1] + "-" + FecVenCon[0];
             }
-        }
+        }*/
         if(scope.fdatos.tipo=='editar')
         {
             var FecFirmCon1 = document.getElementById("FecFirmCon").value;

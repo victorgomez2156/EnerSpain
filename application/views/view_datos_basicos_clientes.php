@@ -224,7 +224,7 @@
                                    <div class="form">                          
                                      <div class="form-group">
                                        <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-                                       <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.fdatos.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>       
+                                       <input type="text" class="form-control" ng-model="vm.fdatos.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.fdatos.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="100" ng-disabled="vm.validate_info!=undefined"/>       
                                      </div>
                                    </div>
                                  </div>
@@ -367,9 +367,9 @@
                               <input type="checkbox" ng-model="vm.fdatos.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.fdatos.CodTipViaSoc==undefined|| vm.fdatos.NomViaDomSoc==undefined|| vm.fdatos.NumViaDomSoc==undefined|| vm.fdatos.CodProSoc==undefined|| vm.fdatos.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
                             </div>
 
-        <div ng-show="vm.fdatos.CodCli!=undefined">
-        <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly /> 
-             <div class="col-12 col-sm-5">
+    <div ng-show="vm.fdatos.CodCli!=undefined">
+        <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly /> 
+            <div class="col-12 col-sm-5">
               <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Número de Documento <b style="color:red;">(*)</b></label>
@@ -387,7 +387,7 @@
                </div>
                </div>
             </div>
-              <div class="col-12 col-sm-2">
+          <div class="col-12 col-sm-2">
               <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Es Principal </label>             
@@ -430,7 +430,7 @@
                </div>
                </div>
             </div>
-             <div class="col-12 col-sm-4">
+            <div class="col-12 col-sm-4">
               <div class="form">                          
                <div class="form-group">    
                 <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil </label>         
@@ -438,7 +438,7 @@
                </div>
                </div>
             </div>
-             <div class="col-12 col-sm-4">
+            <div class="col-12 col-sm-4">
               <div class="form">                          
                <div class="form-group">  
                 <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>           
@@ -446,10 +446,8 @@
                </div>
                </div>
             </div>
-             
-             
 
-             <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-3">
               <div class="form">                          
                <div class="form-group">
               <label class="font-weight-bold nexa-dark" style="color:black;">Es Representante Legal <b style="color:red;">(*)</b></label>             
@@ -465,7 +463,7 @@
                </div>
                </div>
             </div>
-             <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-3">
               <div class="form">                          
                <div class="form-group">  
                 <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Representación <b style="color:red;">(*)</b></label> 
@@ -475,7 +473,7 @@
                </div>
                </div>
             </div>
-             <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-3">
               <div class="form">                          
                <div class="form-group">  
                 <label class="font-weight-bold nexa-dark" style="color:black;">Firmantes <b style="color:red;">(*)</b></label>           
@@ -484,7 +482,7 @@
                </div>
                </div>
             </div>
-             <div class="col-12 col-sm-3">
+            <div class="col-12 col-sm-3">
               <div class="form">                          
                <div class="form-group">  
                 <label class="font-weight-bold nexa-dark" style="color:black;">Facultad de Escrituras </label>           
@@ -498,8 +496,8 @@
                </div>
                </div>
             </div>
-        <div style="margin-top: 8px;">
-         <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>.</b></label></div></div>
+          <div style="margin-top: 8px;">
+          <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>.</b></label></div></div>
           
 
         <div class="form">                          
@@ -517,8 +515,8 @@
 
             </div>
 
-        </div>
-         </div>
+            </div>
+          </div>
          
          <div class="form">                          
          <div class="form-group">
@@ -534,31 +532,32 @@
             <div id="filenameDocPod"></div>
             </div>
 
-  <script>
-            
-        $('#DocNIF').on('change', function() 
-        { const $Archivo_DocNIF = document.querySelector("#DocNIF");         
-          let Archivo_DocNIF = $Archivo_DocNIF.files;                      
-          namefileDocNIF = '<i class="fa fa-file"> '+$Archivo_DocNIF.files[0].name+'</i>';
-            $('#filenameDocNIF').html(namefileDocNIF);
-        });
-            
-        $('#DocPod').on('change', function() 
-        {
-          const $Archivo_DocPod = document.querySelector("#DocPod");           
-          let Archivo_DocPod = $Archivo_DocPod.files;                      
-          namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
-            $('#filenameDocPod').html(namefile);
-        });
-  </script>
+        <script>
+                  
+              $('#DocNIF').on('change', function() 
+              { const $Archivo_DocNIF = document.querySelector("#DocNIF");         
+                let Archivo_DocNIF = $Archivo_DocNIF.files;                      
+                namefileDocNIF = '<i class="fa fa-file"> '+$Archivo_DocNIF.files[0].name+'</i>';
+                  $('#filenameDocNIF').html(namefileDocNIF);
+              });
+                  
+              $('#DocPod').on('change', function() 
+              {
+                const $Archivo_DocPod = document.querySelector("#DocPod");           
+                let Archivo_DocPod = $Archivo_DocPod.files;                      
+                namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
+                  $('#filenameDocPod').html(namefile);
+              });
+        </script>
          </div>
          </div>
-    <div class="form">                          
-       <div class="form-group">
-       <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
-       <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
-       </div>
-       </div></div>
+        <div class="form">                          
+           <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+           <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
+           </div>
+           </div>
+     </div>
 
 
                             <div class="col-12 col-sm-3">

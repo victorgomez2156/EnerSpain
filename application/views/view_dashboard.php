@@ -700,12 +700,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                                 <div class="form">                          
 	                                   <div class="form-group">
 	                                     <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-	                                     <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.tModalDatosClientes.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>       
+	                                     <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NumViaDomSoc"  min="1" ng-change="vm.asignar_num_domicilio(vm.tModalDatosClientes.NumViaDomSoc)" placeholder="* Numero del Domicilio" maxlength="100" ng-disabled="vm.validate_info!=undefined"/>       
 	                                   </div>
 	                                 </div>
 	                               </div>
 
-	                               <div class="col-12 col-sm-3">
+	                               <!--div class="col-12 col-sm-3">
 	                                 <div class="form">                          
 	                                   <div class="form-group">
 	                                     <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -739,7 +739,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                                     <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.PueDomSoc"  placeholder="* Puerta del Domicilio" ng-change="vm.asignar_puer_domicilio()" maxlength="50" ng-disabled="vm.validate_info!=undefined"/>
 	                                   </div>
 	                                 </div>
-	                               </div>
+	                               </div-->
 
 	                               <div class="col-12 col-sm-4" ng-click="vm.containerClickedCliente($event)">
 	                                 <div class="form">                          
@@ -777,118 +777,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                              </div>
 	                            </div>
 	                          </div>
-	                          
-	                          
-	                          <div style="margin-top: 8px;">
-	                           <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label></div></div>
-	                           <div align="left">
-	                            <input type="checkbox" ng-model="vm.tModalDatosClientes.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.tModalDatosClientes.CodTipViaSoc==undefined|| vm.tModalDatosClientes.NomViaDomSoc==undefined|| vm.tModalDatosClientes.NumViaDomSoc==undefined|| vm.tModalDatosClientes.CodProSoc==undefined|| vm.tModalDatosClientes.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
-	                          </div>
 
-	                          <div class="col-12 col-sm-3">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;" >(*)</b></label>
-	                               <select class="form-control" id="CodTipViaFis" name="CodTipViaFis"  placeholder="* Tipo de Via" ng-model="vm.tModalDatosClientes.CodTipViaFis" ng-disabled="vm.validate_info!=undefined ||vm.tModalDatosClientes.distinto_a_social==false">
-	                                 <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
-	                               </select>
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-5">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NomViaDomFis"  placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30"  ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>       
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-4">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NumViaDomFis"   min="1" placeholder="* Numero del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false" ng-change="vm.validar_fecha_blo(3,vm.tModalDatosClientes.NumViaDomFis)"/>       
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-3">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.BloDomFis"  placeholder="* Bloque del Domicilio" maxlength="3" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-3">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Escalera</label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.EscDomFis"  placeholder="* Escalera del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-3">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Planta</label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.PlaDomFis"  placeholder="* Planta del Domicilio" maxlength="2" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-3">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Puerta</label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.PueDomFis"  placeholder="* Puerta del Domicilio" maxlength="50" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>
-	                             </div>
-	                           </div>
-	                         </div>
-
-	                         <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
-	                           <div class="form">                          
-	                             <div class="form-group">
-	                               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.tModalDatosClientes.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
-	                               <ul id='searchResult'>
-	                                <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
-	                                  {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
-	                                </li>
-	                              </ul>
-	                            </div>
-	                          </div>
-	                        </div>
-
-	                        <div class="col-12 col-sm-4">
-	                         <div class="form">                          
-	                           <div class="form-group">
-	                             <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
-	                             <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.tModalDatosClientes.CodProFis" ng-change="vm.BuscarLocalidad(2,vm.tModalDatosClientes.CodProFis)"  ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false">
-	                              <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
-	                            </select>
-	                          </div>
-	                        </div>
-	                      </div>
-
-	                      <div class="col-12 col-sm-4">
-	                       <div class="form">                          
-	                         <div class="form-group">
-	                           <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
-	                           <select class="form-control" id="CodLocFis" name="CodLocFis" ng-model="vm.tModalDatosClientes.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false">
-	                            <option ng-repeat="dato in vm.TLocalidadesfiltradaFisc" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
-	                          </select>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    
-
-
-	                    <div class="col-12 col-sm-4">
+	                          <div class="col-12 col-sm-4">
 	                     <div class="form">                          
 	                       <div class="form-group">
 	                         <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo</label>
@@ -934,28 +824,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                       </div>
 	                     </div>
 	                   </div>
-
-	                   <div class="col-12 col-sm-6">
-	                     <div class="form">                          
-	                       <div class="form-group">
-	                         <label class="font-weight-bold nexa-dark" style="color:black;">Comercial </label>
-	                         <select class="form-control" id="CodCom" name="CodCom"  ng-model="vm.tModalDatosClientes.CodCom" ng-disabled="vm.validate_info!=undefined"> 
-	                          <option ng-repeat="dato in vm.tComerciales" value="{{dato.CodCom}}">NIF: {{dato.NIFCom}} - {{dato.NomCom}}</option>                          
-	                        </select>       
-	                      </div>
-	                    </div>
-	                  </div>
-
-	                  <div class="col-12 col-sm-6">
-	                   <div class="form">                          
-	                     <div class="form-group">
-	                       <label class="font-weight-bold nexa-dark" style="color:black;">Colaborador</label>
-	                       <select class="form-control" id="CodCol" name="CodCol"  ng-model="vm.tModalDatosClientes.CodCol" ng-disabled="vm.validate_info!=undefined"> 
-	                        <option ng-repeat="dato in vm.tColaboradores" value="{{dato.CodCol}}">{{dato.NomCol}}</option>                          
-	                      </select>       
-	                    </div>
-	                  </div>
-	                </div>
+	                  
 
 	                <div class="form">                          
 	                 <div class="form-group">
@@ -968,6 +837,276 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                  <input class="form-control" id="CodCli" name="CodCli" type="hidden" ng-model="vm.tModalDatosClientes.CodCli" readonly/>
 	                </div>
 	                </div>
+	                          
+	                          
+	                          <div style="margin-top: 8px;">
+	                           <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Datos de contacto / Envío de facturas.</b></label></div></div>
+	                           <div align="left">
+	                            <input type="checkbox" ng-model="vm.tModalDatosClientes.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.tModalDatosClientes.CodTipViaSoc==undefined|| vm.tModalDatosClientes.NomViaDomSoc==undefined|| vm.tModalDatosClientes.NumViaDomSoc==undefined|| vm.tModalDatosClientes.CodProSoc==undefined|| vm.tModalDatosClientes.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Social</b></label> 
+	                          </div>
+
+	                          <div ng-show="vm.fdatos.CodCli!=undefined">
+        <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly /> 
+            <div class="col-12 col-sm-5">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Número de Documento <b style="color:red;">(*)</b></label>
+               <input type="text" class="form-control" id="NIFConCli1" ng-model="vm.tContacto_data_modal.NIFConCli" onkeyup="this.value=this.value.toUpperCase();" maxlength="9" ng-disabled="vm.no_editable!=undefined" ng-blur="vm.Consultar_CIF()"/>     
+               </div>
+               </div>
+            </div>                
+            <div class="col-12 col-sm-5">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Contacto <b style="color:red;">(*)</b></label>
+               <select class="form-control" id="CodTipCon" name="CodTipCon" ng-model="vm.tContacto_data_modal.CodTipCon"  ng-disabled="vm.no_editable!=undefined">
+                 <option ng-repeat="dato in vm.tListaContactos" value="{{dato.CodTipCon}}">{{dato.DesTipCon}}</option>
+              </select>     
+               </div>
+               </div>
+            </div>
+          <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Es Principal </label>             
+               <input type="checkbox" class="form-control" ng-model="vm.tContacto_data_modal.ConPrin" ng-click="vm.ComprobarContactoPrincipal(vm.tContacto_data_modal.ConPrin)" ng-disabled="vm.no_editable!=undefined || vm.tContacto_data_modal.CodCli==undefined"/> 
+
+               </div>
+               </div>
+          </div>
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Cargo <b style="color:red;">(*)</b></label>
+               <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CarConCli"  maxlength="50"  ng-disabled="vm.no_editable!=undefined"/>     
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Nombre <b style="color:red;">(*)</b></label>
+               <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NomConCli"  maxlength="50"  ng-disabled="vm.no_editable!=undefined"/>  
+               </div>
+               </div>
+            </div>    
+
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Número de Colegiado </label>
+               <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.NumColeCon" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
+               </div>
+               </div>
+            </div>
+           
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Fijo <b style="color:red;">(*)</b></label>          
+               <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.TelFijConCli"  ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.TelFijConCli,1)" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">Teléfono Móvil </label>         
+               <input type="text"  class="form-control" ng-model="vm.tContacto_data_modal.TelCelConCli"  ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.TelCelConCli,2)" maxlength="9" ng-disabled="vm.no_editable!=undefined"/>     
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">  
+                <label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>           
+               <input type="email" class="form-control" ng-model="vm.tContacto_data_modal.EmaConCli"  maxlength="50" ng-disabled="vm.no_editable!=undefined"/>     
+               </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Es Representante Legal <b style="color:red;">(*)</b></label>             
+               
+              <br>
+               <input type="radio" name="tipo_cliente" value="1" ng-model="vm.tContacto_data_modal.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+               <input type="radio" name="tipo_cliente" value="0" ng-model="vm.tContacto_data_modal.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
+               <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">  
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Representación <b style="color:red;">(*)</b></label> 
+                <select class="form-control" id="TipRepr" name="TipRepr" ng-model="vm.tContacto_data_modal.TipRepr" ng-disabled="vm.tContacto_data_modal.EsRepLeg==undefined||vm.tContacto_data_modal.EsRepLeg==0 || vm.no_editable!=undefined" >
+                 <option ng-repeat="dato in vm.tListaRepre" value="{{dato.id}}">{{dato.DesTipRepr}}</option>
+              </select>     
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">  
+                <label class="font-weight-bold nexa-dark" style="color:black;">Firmantes <b style="color:red;">(*)</b></label>           
+               
+               <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CanMinRep" ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.CanMinRep,3)" min="1" maxlength="4" ng-disabled="vm.no_editable!=undefined || vm.tContacto_data_modal.TipRepr!=='2'"/>     
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">  
+                <label class="font-weight-bold nexa-dark" style="color:black;">Facultad de Escrituras </label>           
+               <br>
+               <input type="radio" name="TieFacEsc" value="1" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined" ng-click="vm.verificar_facultad_escrituras()">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+               <input type="radio" name="TieFacEsc" value="0" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined">
+               <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+               </div>
+               </div>
+            </div>
+          <div style="margin-top: 8px;">
+          <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>.</b></label></div></div>
+          
+
+        <div class="form">                          
+         <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del DNI/NIE <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocNIF!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocNIF}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>
+           
+           <div id="file-wrap">
+              <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
+              
+              <!--input type="file" id="DocNIF" class="file_b" uploader-model="DocNIF" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined" draggable="true">
+              <div id="filenameDocNIF"></div-->
+
+              <input type="file" id="DocNIF"  name="DocNIF" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,1)" draggable="true" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined">
+            <div id="filenameDocNIF"></div>
+
+            </div>
+
+            </div>
+          </div>
+         
+         <div class="form">                          
+         <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
+
+            <div id="file-wrap">
+              <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
+              
+              <!--input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true">
+              <div id="filenameDocPod"></div-->
+
+              <input type="file" id="DocPod"  name="DocPod" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,2)" draggable="true" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined">
+            <div id="filenameDocPod"></div>
+            </div>
+
+        <script>
+                  
+              $('#DocNIF').on('change', function() 
+              { const $Archivo_DocNIF = document.querySelector("#DocNIF");         
+                let Archivo_DocNIF = $Archivo_DocNIF.files;                      
+                namefileDocNIF = '<i class="fa fa-file"> '+$Archivo_DocNIF.files[0].name+'</i>';
+                  $('#filenameDocNIF').html(namefileDocNIF);
+              });
+                  
+              $('#DocPod').on('change', function() 
+              {
+                const $Archivo_DocPod = document.querySelector("#DocPod");           
+                let Archivo_DocPod = $Archivo_DocPod.files;                      
+                namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
+                  $('#filenameDocPod').html(namefile);
+              });
+        </script>
+         </div>
+         </div>
+        <div class="form">                          
+           <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+           <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
+           </div>
+           </div>
+     </div>
+
+
+
+
+
+
+
+	                          <div class="col-12 col-sm-3">
+	                           <div class="form">                          
+	                             <div class="form-group">
+	                               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;" >(*)</b></label>
+	                               <select class="form-control" id="CodTipViaFis" name="CodTipViaFis"  placeholder="* Tipo de Via" ng-model="vm.tModalDatosClientes.CodTipViaFis" ng-disabled="vm.validate_info!=undefined ||vm.tModalDatosClientes.distinto_a_social==false">
+	                                 <option ng-repeat="dato in vm.tTiposVias" value="{{dato.CodTipVia}}">{{dato.DesTipVia}} - {{dato.IniTipVia}}</option>                        
+	                               </select>
+	                             </div>
+	                           </div>
+	                         </div>
+
+	                         <div class="col-12 col-sm-5">
+	                           <div class="form">                          
+	                             <div class="form-group">
+	                               <label class="font-weight-bold nexa-dark" style="color:black;">Nombre de la Vía <b style="color:red;">(*)</b></label>
+	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NomViaDomFis"  placeholder="* Nombre de la Via del Domicilio del Cliente" maxlength="30"  ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false"/>       
+	                             </div>
+	                           </div>
+	                         </div>
+
+	                         <div class="col-12 col-sm-4">
+	                           <div class="form">                          
+	                             <div class="form-group">
+	                               <label class="font-weight-bold nexa-dark" style="color:black;">Número de la Vía <b style="color:red;">(*)</b></label>
+	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.NumViaDomFis"   min="1" placeholder="* Numero del Domicilio" maxlength="100" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false" ng-change="vm.validar_fecha_blo(3,vm.tModalDatosClientes.NumViaDomFis)"/>       
+	                             </div>
+	                           </div>
+	                         </div>
+	                        
+	                         <div class="col-12 col-sm-4" ng-click="vm.containerClickedFis()">
+	                           <div class="form">                          
+	                             <div class="form-group">
+	                               <label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
+	                               <input type="text" class="form-control" ng-model="vm.tModalDatosClientes.CPLocFis" placeholder="* Zona Postal Fiscal" ng-disabled="vm.validate_info!=undefined || vm.tModalDatosClientes.distinto_a_social==false" ng-click='vm.searchboxClickedFis($event)' ng-keyup='vm.LocalidadCodigoPostal(2)'/>
+	                               <ul id='searchResult'>
+	                                <li ng-click='vm.setValue($index,$event,result,2)' ng-repeat="result in vm.searchResultFis" >
+	                                  {{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
+	                                </li>
+	                              </ul>
+	                            </div>
+	                          </div>
+	                        </div>
+
+	                        <div class="col-12 col-sm-4">
+	                         <div class="form">                          
+	                           <div class="form-group">
+	                             <label class="font-weight-bold nexa-dark" style="color:black;">Provincia <b style="color:red;">(*)</b></label>
+	                             <select class="form-control" id="CodProFisc" name="CodProFisc"  ng-model="vm.tModalDatosClientes.CodProFis" ng-change="vm.BuscarLocalidad(2,vm.tModalDatosClientes.CodProFis)"  ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false">
+	                              <option ng-repeat="dato in vm.tProvidencias" value="{{dato.CodPro}}">{{dato.DesPro}}</option>                          
+	                            </select>
+	                          </div>
+	                        </div>
+	                      </div>
+
+	                      <div class="col-12 col-sm-4">
+	                       <div class="form">                          
+	                         <div class="form-group">
+	                           <label class="font-weight-bold nexa-dark" style="color:black;">Localidad <b style="color:red;">(*)</b></label>
+	                           <select class="form-control" id="CodLocFis" name="CodLocFis" ng-model="vm.tModalDatosClientes.CodLocFis" ng-disabled="vm.validate_info!=undefined||vm.tModalDatosClientes.distinto_a_social==false">
+	                            <option ng-repeat="dato in vm.TLocalidadesfiltradaFisc" value="{{dato.CodLoc}}">{{dato.DesLoc}}</option>                         
+	                          </select>
+	                        </div>
+	                      </div>
+	                    </div>                    
 
 	                <div class="form-group" >
 	                  <div class="col-12 col-sm-6">

@@ -1565,7 +1565,7 @@ JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
 JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
 JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
 JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom 
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 UNION ALL
 SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
 FROM T_Propuesta_Comercial_CUPs a 
@@ -1575,7 +1575,7 @@ JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
 JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
 JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
 JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
 UNION ALL
 
@@ -1587,7 +1587,7 @@ JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
 JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
 JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
 JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
 UNION ALL
 
@@ -1599,7 +1599,7 @@ JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
 JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
 JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
 JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
 
 

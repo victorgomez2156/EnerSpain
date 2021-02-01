@@ -69,7 +69,10 @@ class Activaciones extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-		$respose=$this->Activaciones_model->UpdateInformationContratos($objSalida->CodConCom,$objSalida->CodCups,$objSalida->CodProCom,$objSalida->CodProComCli,$objSalida->CodProComCup,$objSalida->ConCup,$objSalida->FecActCUPs,$objSalida->FecVenCUPs,$objSalida->TipCups);
+		$respose=$this->Activaciones_model->UpdateInformationContratos($objSalida->CodConCom,$objSalida->CodCups,$objSalida->CodProCom,$objSalida->CodProComCli,$objSalida->CodProComCup,$objSalida->ConCup,$objSalida->FecActCUPs,$objSalida->FecVenCUPs,$objSalida->TipCups	
+		,$objSalida->CodTar,$objSalida->EstConCups,$objSalida->PotEleConP1,$objSalida->PotEleConP2,$objSalida->PotEleConP3,$objSalida->PotEleConP4,$objSalida->PotEleConP5,$objSalida->PotEleConP6);
+		$this->Activaciones_model->UpdateInformationContratosPropuesta($objSalida->CodProCom,$objSalida->CodPro);
+		
 		if($respose==false)
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','UPDATE',$objSalida->CodProComCup,$this->input->ip_address(),'Error Actualizando Desde Activiciones');
@@ -80,6 +83,35 @@ class Activaciones extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($respose);
     }
+    public function RealizarConsultaFiltros_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}  
+		$metodo=$this->get('metodo');        
+		if($metodo==1)
+		{
+			$Response = $this->Activaciones_model->list_tarifa_electricas();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaElectrica','GET',null,$this->input->ip_address(),'Cargando lista de Tárifas Eléctricas para Activaciones');
+		}
+		elseif ($metodo==2) {
+			$Response = $this->Activaciones_model->get_list_tarifa_Gas();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',null,$this->input->ip_address(),'Cargando lista de Tárifas Gas para Activaciones');
+		}
+		elseif ($metodo==3) {
+			$Response = $this->Activaciones_model->get_listProductos();
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_TarifaGas','GET',null,$this->input->ip_address(),'Cargando lista de Tárifas Gas para Activaciones');
+		}
+		
+		else
+		{
+			$Response =array('status' =>201 ,'statusText'=>'Error','menssage'=>'Estatus del Clientes');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'Estatus','GET',null,$this->input->ip_address(),'Estatus');
+		}		
+		$this->response($Response);		
+	}
 	
 }
 ?>

@@ -1,4 +1,17 @@
-    app.controller('Controlador_Activaciones', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', Controlador]);
+    app.controller('Controlador_Activaciones', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', Controlador])
+    .directive('stringToNumber', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(value) {
+        return '' + value;
+      });
+      ngModel.$formatters.push(function(value) {
+        return parseFloat(value);
+      });
+    }
+  };
+})
 
     function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies) 
     {
@@ -21,6 +34,8 @@
         }
         var fecha = dd + '/' + mm + '/' + yyyy;
         scope.CUPsName='ES';
+        scope.ListNuevosEstadosContrato = [{ EstConCups: 1, nombre: 'Contrato' }, { EstConCups: 2, nombre: 'Implícita' }, { EstConCups: 3, nombre: 'Baja Rescatable' }, { EstConCups: 4, nombre: 'Baja Definitiva' }];
+     
         
         scope.buscarCUPsActivaciones=function()
         {
@@ -70,33 +85,142 @@
                 });
             }
         }
+        scope.filtrerCanPeriodos = function(CodTarEle) 
+        {
+            console.log(CodTarEle);         
+            for (var i = 0; i < scope.ListTar.length; i++) 
+            {
+                if (scope.ListTar[i].CodTar == CodTarEle) 
+                {
+                    scope.CanPerEle = scope.ListTar[i].CanPerTar;
+                    console.log(scope.CanPerEle);
+                    if(scope.CanPerEle==0||scope.CanPerEle==null)
+                    {
+                       scope.toast('error','Esta Tárifa no tiene cantidad de periodos asignada','Error en Periodos');
+                       scope.CanPerEle=6;
+                    }
+                }
+            }
+        }
         scope.asignarcontrato=function(index,dato,status)
         {
             //console.log(index);
             //console.log(dato);
+            if(dato.TipCups==1)
+            {
+                scope.cargar_tiposFiltros(1);
+            }
+            scope.CanPerEle=null;
             scope.VistaResponse=true;
             scope.RazSocCli=dato.RazSocCli;
             scope.CUPsName=dato.CUPsName;
-            scope.NomTar=dato.NomTar;
-            scope.DesPro=dato.DesPro;
+            scope.NomTar=dato.CodTar;
+            scope.DesPro=dato.CodPro;
+            scope.CodConCom=dato.CodConCom;
             scope.FecActCUPs=dato.FecActCUPs;
+            scope.EstConCups=dato.EstConCups;
             scope.fdatos.CodConCom=dato.CodConCom;
             scope.fdatos.CodCups=dato.CodCups;
             scope.fdatos.TipCups=dato.TipCups;
             scope.fdatos.CodProCom=dato.CodProCom;
             scope.fdatos.CodProComCli=dato.CodProComCli;
             scope.fdatos.CodProComCup=dato.CodProComCup;
+            scope.PotEleConP1=dato.PotEleConP1;
+            scope.PotEleConP2=dato.PotEleConP2;
+            scope.PotEleConP3=dato.PotEleConP3;
+            scope.PotEleConP4=dato.PotEleConP4;
+            scope.PotEleConP5=dato.PotEleConP5;
+            scope.PotEleConP6=dato.PotEleConP6;
             $('.FecActCUPs').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecActCUPs);
             scope.FecVenCUPs=dato.FecVenCUPs;
             $('.FecVenCUPs').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecVenCUPs);
             scope.ConCup=dato.ConCup;
+            if(dato.TipCups==1)
+            {
+                setTimeout(function(){ scope.filtrerCanPeriodos(dato.CodTar);scope.cargar_tiposFiltros(1); }, 2000);
+            }
+            else
+            {
+                scope.cargar_tiposFiltros(2);
+            }
+            scope.cargar_tiposFiltros(3);
+            
         }
+        scope.cargar_tiposFiltros=function(metodo)
+    {
+     var url = base_urlHome()+"api/Activaciones/RealizarConsultaFiltros/metodo/"+metodo;
+     $http.get(url).then(function (result)
+     {
+        if(result.data)
+        {
+            if(metodo==1||metodo==2)
+            {
+                scope.ListTar=result.data;
+            }
+            else if(metodo==3)
+            {
+                scope.ListProducts=result.data;
+            }
+            else
+            {   
+                scope.ListTar=[];
+                scope.ListProducts=[];
+            }                
+        }
+        else
+        {
+           if(metodo==1||metodo==2)
+            {
+                scope.ListTar=[];
+            }
+            else if(metodo==3)
+            {
+                scope.ListProducts=result.data;
+            }
+            else
+            {   
+                scope.ListTar=[];
+                scope.ListProducts=[];
+
+            }  
+        }
+
+    },function(error)
+    {
+        if (error.status == 404 && error.statusText == "Not Found"){
+            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+        }if (error.status == 401 && error.statusText == "Unauthorized"){
+            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+        }if (error.status == 403 && error.statusText == "Forbidden"){
+            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+        }
+
+    });  
+ }
+    
          $scope.submitFormCUPsActivacionesFechas = function(event) {
          
          if (!scope.validar_campos_activaciones()) {
              return false;
          }
+        //var  
+        //nStr += '';
+        /*x = scope.PotConP1.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? ',' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '.' + '$2');
+        }
+        console.log(x1 + x2);*/
+        //return x1 + x2;
+
+
          console.log(scope.fdatos);
+         //console.log(parseFloat(scope.PotConP1.toString()).toFixed(2));
+         //console.log(parseFloat(scope.PotConP1));
             var title = 'Actualizando';
             var text = '¿Seguro que desea modificar la información del contrato?';
             var response = "información modificada correctamente.";
@@ -185,11 +309,217 @@
              }
          }
          if (scope.ConCup == undefined || scope.ConCup == null || scope.ConCup == '') {
-             scope.ConCup = null;
              scope.fdatos.ConCup = null;
          } else {
              scope.fdatos.ConCup = scope.ConCup;
          }
+
+         if(scope.fdatos.TipCups==1)
+         {            
+            scope.fdatos.PotEleConP1=null;
+            scope.fdatos.PotEleConP2=null;
+            scope.fdatos.PotEleConP3=null;
+            scope.fdatos.PotEleConP4=null;
+            scope.fdatos.PotEleConP5=null;
+            scope.fdatos.PotEleConP6=null;
+            if (scope.CanPerEle == 0) {
+                 
+                 scope.toast('error','La Tárifa no posee cantidad de periodos asignados.','');
+                 scope.fdatos.PotEleConP1=null;
+                 scope.fdatos.PotEleConP2=null;
+                 scope.fdatos.PotEleConP3=null;
+                 scope.fdatos.PotEleConP4=null;
+                 scope.fdatos.PotEleConP5=null;
+                 scope.fdatos.PotEleConP6=null;
+            }
+            else if (scope.CanPerEle == 1) {
+                 if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;                    
+                 }
+             }
+            else if (scope.CanPerEle == 2) {
+                 if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;
+                 }
+                 if (scope.PotEleConP2 == null || scope.PotEleConP2 == undefined || scope.PotEleConP2 == '') {
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP2=scope.PotEleConP2;
+                 }
+             }
+            else if (scope.CanPerEle == 3) {
+                 if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;
+                 }
+                 if (scope.PotEleConP2 == null || scope.PotEleConP2 == undefined || scope.PotEleConP2 == '') {
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP2=scope.PotEleConP2;
+                 }
+                 if (scope.PotEleConP3 == null || scope.PotEleConP3 == undefined || scope.PotEleConP3 == '') {
+                     scope.toast('error','Debe indicar la Potencia 3','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP3=scope.PotEleConP3;
+                 }
+             }
+            if (scope.CanPerEle == 4) 
+            {
+                  if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;
+                 }
+                 if (scope.PotEleConP2 == null || scope.PotEleConP2 == undefined || scope.PotEleConP2 == '') {
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP2=scope.PotEleConP2;
+                 }
+                 if (scope.PotEleConP3 == null || scope.PotEleConP3 == undefined || scope.PotEleConP3 == '') {
+                     scope.toast('error','Debe indicar la Potencia 3','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP3=scope.PotEleConP3;
+                 }
+                 if (scope.PotEleConP4 == null || scope.PotEleConP4 == undefined || scope.PotEleConP4 == '') {
+                     scope.toast('error','Debe indicar la Potencia 4','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP4=scope.PotEleConP4;
+                 }
+            }
+            if (scope.CanPerEle == 5) {
+                 if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;
+                 }
+                 if (scope.PotEleConP2 == null || scope.PotEleConP2 == undefined || scope.PotEleConP2 == '') {
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP2=scope.PotEleConP2;
+                 }
+                 if (scope.PotEleConP3 == null || scope.PotEleConP3 == undefined || scope.PotEleConP3 == '') {
+                     scope.toast('error','Debe indicar la Potencia 3','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP3=scope.PotEleConP3;
+                 }
+                 if (scope.PotEleConP4 == null || scope.PotEleConP4 == undefined || scope.PotEleConP4 == '') {
+                     scope.toast('error','Debe indicar la Potencia 4','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP4=scope.PotEleConP4;
+                 }
+                 if (scope.PotEleConP5 == null || scope.PotEleConP5 == undefined || scope.PotEleConP5 == '') {
+                     scope.toast('error','Debe indicar la Potencia 5','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP5=scope.PotEleConP5;
+                 }
+            }
+            if (scope.CanPerEle == 6) 
+            {
+                if (scope.PotEleConP1 == null || scope.PotEleConP1 == undefined || scope.PotEleConP1 == '') {
+                     scope.toast('error','Debe indicar la Potencia 1','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP1=scope.PotEleConP1;
+                 }
+                 if (scope.PotEleConP2 == null || scope.PotEleConP2 == undefined || scope.PotEleConP2 == '') {
+                     scope.toast('error','Debe indicar la Potencia 2','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP2=scope.PotEleConP2;
+                 }
+                 if (scope.PotEleConP3 == null || scope.PotEleConP3 == undefined || scope.PotEleConP3 == '') {
+                     scope.toast('error','Debe indicar la Potencia 3','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP3=scope.PotEleConP3;
+                 }
+                 if (scope.PotEleConP4 == null || scope.PotEleConP4 == undefined || scope.PotEleConP4 == '') {
+                     scope.toast('error','Debe indicar la Potencia 4','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP4=scope.PotEleConP4;
+                 }
+                 if (scope.PotEleConP5 == null || scope.PotEleConP5 == undefined || scope.PotEleConP5 == '') {
+                     scope.toast('error','Debe indicar la Potencia 5','');
+                     return false;
+                 }
+                 else
+                 {
+                    scope.fdatos.PotEleConP5=scope.PotEleConP5;
+                 }
+                if (scope.PotEleConP6 == null || scope.PotEleConP6 == undefined || scope.PotEleConP6 == '') 
+                {
+                    scope.toast('error','Debe indicar la Potencia 6','');
+                    return false;
+                }
+                else
+                {
+                    scope.fdatos.PotEleConP6=scope.PotEleConP6;
+                }
+            }
+         }
+         scope.fdatos.EstConCups=scope.EstConCups;
+         scope.fdatos.CodTar=scope.NomTar;
+         scope.fdatos.CodPro=scope.DesPro;
+
          if (resultado == false) {
              //quiere decir que al menos un renglon no paso la validacion
              return false;
