@@ -39,11 +39,27 @@
         
         scope.buscarCUPsActivaciones=function()
         {
+            
             if(scope.CUPsName.length<20)
             {
                 scope.toast('error','El Campo CUPs debe estar Completo con sus 20 digitos.','Error');
                 return false;
             }
+            scope.VistaResponse=false;
+            scope.RazSocCli=null;
+            scope.CodConCom=null;
+            scope.NomTar=null;
+            scope.PotEleConP1=null;
+            scope.PotEleConP2=null;
+            scope.PotEleConP3=null;
+            scope.PotEleConP4=null;
+            scope.PotEleConP5=null;
+            scope.PotEleConP6=null;
+            scope.DesPro=null;
+            scope.FecActCUPs=null;
+            scope.FecVenCUPs=null;
+            scope.ConCup=null;
+            scope.EstConCups=null;
             console.log(scope.CUPsName.length);
             if(scope.CUPsName.length>=20)
             {
@@ -60,7 +76,7 @@
                         }
                         if(result.data.status==200 && result.data.statusText=='Contratos')
                         {
-                            scope.toast('success',result.data.menssage,result.data.statusText);
+                            //scope.toast('success',result.data.menssage,result.data.statusText);
                             scope.T_Contratos=result.data.ListContratos;
                             $("#modal_lista_contratos").modal('show');
                             return false;
@@ -113,6 +129,7 @@
             scope.CanPerEle=null;
             scope.VistaResponse=true;
             scope.RazSocCli=dato.RazSocCli;
+            scope.NumCifCli=dato.NumCifCli;
             scope.CUPsName=dato.CUPsName;
             scope.NomTar=dato.CodTar;
             scope.DesPro=dato.CodPro;
@@ -557,12 +574,80 @@
                     }
          });
      }
-
-
-
-
-
-
+     scope.validar_formatos_input = function(metodo, object) {
+        
+        if (metodo == 1) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP1 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 2) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP2 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 3) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP3 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 4) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP4 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 5) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP5 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 6) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.PotEleConP6 = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 7) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([/0-9])*$/.test(numero))
+                     scope.FecActCUPs = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 8) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([/0-9])*$/.test(numero))
+                     scope.FecVenCUPs = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 9) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([.0-9])*$/.test(numero))
+                     scope.ConCup = numero.substring(0, numero.length - 1);
+             }
+         }         
+     }
+    scope.GenerarContratoRapido=function()
+    {
+        $("#modal_contrato_rapido").modal('show');        
+        scope.contrato_fdatos={};
+        scope.contrato_fdatos.EstProCom='P';
+        scope.contrato_fdatos.TipCups=scope.fdatos.TipCups;
+        scope.CanPerEleModalContratoRapido=6;
+    }
 
 
 

@@ -120,7 +120,7 @@
       <div class="form-group" >
           <div class="col-12 col-sm-4">
             <button class="btn btn-info" type="submit" ng-disabled="vm.CUPsName.length<=0" ng-click="vm.buscarCUPsActivaciones()">Buscar</button>
-             <button class="btn btn-primary" type="button" ng-show="vm.T_Contratos.length>0" ng-click="vm.GenerarContratoRapido()">Generar Contrato Rapido</button>
+             <button class="btn btn-primary" type="button" ng-show="vm.T_Contratos.length>0 && vm.VistaResponse==true" ng-click="vm.GenerarContratoRapido()">Generar Contrato Rapido</button>
           </div>
         </div>           
 
@@ -169,7 +169,7 @@
             </div>
           </div>
 
-        <div ng-show="vm.CanPerEle==6">
+        <div ng-show="vm.CanPerEleModalContratoRapido==6">
           
           <div class="col-12 col-sm-2">
             <div class="form">                          
@@ -227,7 +227,7 @@
            
         </div>
 
-        <div ng-show="vm.CanPerEle==1"> 
+        <div ng-show="vm.CanPerEleModalContratoRapido==1"> 
 
           <div class="col-12 col-sm-11">
               <div class="form">                          
@@ -239,7 +239,7 @@
             </div>
         </div>
 
-        <div ng-show="vm.CanPerEle==2">
+        <div ng-show="vm.CanPerEleModalContratoRapido==2">
 
           <div class="col-12 col-sm-6">
             <div class="form">                          
@@ -261,7 +261,7 @@
 
         </div>
 
-        <div ng-show="vm.CanPerEle==3">
+        <div ng-show="vm.CanPerEleModalContratoRapido==3">
           
           <div class="col-12 col-sm-4">
             <div class="form">                          
@@ -291,7 +291,7 @@
           </div>
         </div>
 
-        <div ng-show="vm.CanPerEle==4">          
+        <div ng-show="vm.CanPerEleModalContratoRapido==4">          
           
           <div class="col-12 col-sm-3">
             <div class="form">                          
@@ -327,7 +327,7 @@
           </div>         
         </div>
 
-        <div ng-show="vm.CanPerEle==5">
+        <div ng-show="vm.CanPerEleModalContratoRapido==5">
           
           <div class="col-12 col-sm-2">
             <div class="form">                          
@@ -390,7 +390,7 @@
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Activación</label>
-                <input type="text" class="form-control FecActCUPs" name="FecActCUPs" id="FecActCUPs" ng-model="vm.FecActCUPs" />
+                <input type="text" class="form-control FecActCUPs" name="FecActCUPs" id="FecActCUPs" ng-model="vm.FecActCUPs" ng-change="vm.validar_formatos_input(7,vm.FecActCUPs)"/>
               </div>
             </div>
           </div>
@@ -399,7 +399,7 @@
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Vencimiento</label>
-                <input type="text" class="form-control FecVenCUPs" name="FecVenCUPs" id="FecVenCUPs" ng-model="vm.FecVenCUPs" />
+                <input type="text" class="form-control FecVenCUPs" name="FecVenCUPs" id="FecVenCUPs" ng-model="vm.FecVenCUPs" ng-change="vm.validar_formatos_input(8,vm.FecVenCUPs)"/>
               </div>
             </div>
           </div>
@@ -408,7 +408,7 @@
             <div class="form">                          
               <div class="form-group">
                 <label class="font-weight-bold nexa-dark" style="color:black;">Consumo</label>
-                <input type="text" class="form-control " name="ConCup" id="ConCup" ng-model="vm.ConCup" />
+                <input type="text" class="form-control " name="ConCup" id="ConCup" ng-model="vm.ConCup" ng-change="vm.validar_formatos_input(9,vm.ConCup)"/>
               </div>
             </div>
           </div>
@@ -521,6 +521,466 @@
       </div>
     </div>
     <!--modal container section end -->
+
+<!-- modal container section start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_contrato_rapido" class="modal fade">
+      <div class="modal-dialog" style="width: auto;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">Contrato Rapido</h4>
+          </div>
+          <div class="modal-body" style="background-color: white;">
+            <div class="panel">                  
+
+              <form id="register_form_propuesta_comercial" name="register_form_propuesta_comercial" ng-submit="submitFormPropuesta($event)"> 
+       <div class='row'>              
+         
+         <div class="col-12 col-sm-6">
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Razón Social / Apellidos, Nombre {{vm.contrato_fdatos.CodCli}}</label>
+          
+          <input type="text" class="form-control" ng-model="vm.RazSocCli" placeholder="* Razón Social / Apellidos, Nombre" maxlength="50" readonly="readonly"/>
+         
+         </div>
+         </div>
+         </div>
+
+        <div class="col-12 col-sm-6">
+           <div class="form">                          
+           <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Nº Documento Fiscal</label>
+          <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="Nº Documento Fiscal" maxlength="50" readonly="readonly" />
+           </div>
+           </div>
+        </div>
+        
+
+      <div class="foreign-supplier-title clearfix">
+        <h4 class="breadcrumb">     
+          <span class="foreign-supplier-text" style="color:black;"> Puntos de Suministros - CUPs</span><div align="right" style="margin-top: -16px;"></div>
+        </h4>
+      </div>
+
+     <div class="col-12 col-sm-12">       
+         <div class="form">                          
+         <div class="form-group">
+         <label class="font-weight-bold nexa-dark" style="color:black;">Seleccione una Dirección de Suministro</label>
+         <select class="form-control" id="CodPunSum" name="CodPunSum" required ng-model="vm.contrato_fdatos.CodPunSum" ng-change="vm.filter_DirPumSum(vm.contrato_fdatos.CodPunSum)" ng-disabled="vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"> 
+          <option ng-repeat="dato_act in vm.List_Puntos_Suministros" value="{{dato_act.CodPunSum}}">{{dato_act.DirPumSum}} {{dato_act.DesLoc}} {{dato_act.DesPro}} {{dato_act.CPLocSoc}} {{dato_act.EscPunSum}} {{dato_act.PlaPunSum}} {{dato_act.PuePunSum}}</option>
+          </select>       
+         </div>
+         </div>
+      </div>
+
+    
+        <!--- PARA LOS CUPS ELECTRICOS START-->
+        <div ng-show="vm.contrato_fdatos.TipCups==1">
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Eléctrico <i class="fa fa-close" title="Limpiar CUPs Eléctrico" ng-click="vm.LimpiarCUPs(1,vm.contrato_fdatos.CodCupSEle)" ng-show="vm.contrato_fdatos.CodCupSEle>0"></i></label>
+               <select class="form-control" id="CodCupSEle" name="CodCupSEle" required ng-model="vm.contrato_fdatos.CodCupSEle" ng-change="vm.CUPsFilter(1,vm.contrato_fdatos.CodCupSEle)" ng-disabled="vm.contrato_fdatos.CodPunSum==undefined|| vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"> 
+                  <option ng-repeat="dato_act in vm.List_CUPsEle" value="{{dato_act.CodCupsEle}}">{{dato_act.CUPsEle}}</option>
+          </select>     
+               </div>
+               </div>
+            </div>
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;"> Tarifa</label>          
+               <select class="form-control" id="CodTarEle" name="CodTarEle" required ng-model="vm.contrato_fdatos.CodTarEle" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.filtrerCanPeriodos(vm.contrato_fdatos.CodTarEle)"> 
+                  <option ng-repeat="dato_act in vm.List_TarEle" value="{{dato_act.CodTarEle}}">{{dato_act.NomTarEle}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>        
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==6">
+            
+            <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP2" placeholder="P2" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.contrato_fdatos.PotConP2)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP3" placeholder="P3" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.contrato_fdatos.PotConP3)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP4" placeholder="P4" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(5,vm.contrato_fdatos.PotConP4)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP5" placeholder="P5" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(6,vm.contrato_fdatos.PotConP5)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P6 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP6" placeholder="P6" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(7,vm.contrato_fdatos.PotConP6)"/>     
+               </div>
+               </div>
+            </div>
+
+          </div>
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==1">
+            <div class="col-12 col-sm-11">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+          </div>
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==2">
+
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+
+              <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP2" placeholder="P2" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.contrato_fdatos.PotConP2)"/>     
+               </div>
+               </div>
+            </div>
+
+          </div>
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==3">
+            
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP2" placeholder="P2" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.contrato_fdatos.PotConP2)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP3" placeholder="P3" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.contrato_fdatos.PotConP3)"/>     
+               </div>
+               </div>
+            </div>
+
+          </div>
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==4">
+            
+            <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP2" placeholder="P2" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.contrato_fdatos.PotConP2)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP3" placeholder="P3" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.contrato_fdatos.PotConP3)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP4" placeholder="P4" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(5,vm.contrato_fdatos.PotConP4)"/>     
+               </div>
+               </div>
+            </div>
+
+
+          </div>
+
+          <div ng-show="vm.CanPerEleModalContratoRapido==5">
+            
+            <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P1 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP1" placeholder="P1" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(2,vm.contrato_fdatos.PotConP1)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P2 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP2" placeholder="P2" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(3,vm.contrato_fdatos.PotConP2)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-2">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P3 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP3" placeholder="P3" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(4,vm.contrato_fdatos.PotConP3)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P4 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP4" placeholder="P4" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(5,vm.contrato_fdatos.PotConP4)"/>     
+               </div>
+               </div>
+            </div>
+             <div class="col-12 col-sm-3">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">P5 </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.PotConP5" placeholder="P5" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(6,vm.contrato_fdatos.PotConP5)"/>     
+               </div>
+               </div>
+            </div>
+
+           
+          </div>          
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">Consumo (KW/h)</label>         
+               <input type="text"  class="form-control" style="margin-top: -1px;" ng-model="vm.contrato_fdatos.ConCupsEle" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"/>     
+               </div>
+               </div>
+            </div>
+           
+          <div class="col-12 col-sm-6">      
+            <div class="form" >                          
+             <div class="form-group">
+              <textarea class="form-control" style="display: inline-block;" id="ObsAhoEle" name="ObsAhoEle" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.contrato_fdatos.ObsAhoEle" ng-disabled="vm.contrato_fdatos.CodCupSEle==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"></textarea>        
+             </div>
+             </div> 
+          </div> 
+      </div>
+      <!--- PARA LOS CUPS ELECTRICOS END -->
+
+
+      <!--- PARA LOS CUPS GAS START-->
+      <div ng-show="vm.contrato_fdatos.TipCups==2">
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:blue;">CUPs Gas <i class="fa fa-close" title="Limpiar CUPs Eléctrico" ng-click="vm.LimpiarCUPs(2,vm.contrato_fdatos.CodCupGas)" ng-show="vm.contrato_fdatos.CodCupGas>0"></i></label>
+               <select class="form-control" id="CodCupGas" name="CodCupGas" required ng-model="vm.contrato_fdatos.CodCupGas" ng-change="vm.CUPsFilter(2,vm.contrato_fdatos.CodCupGas)" ng-disabled="vm.contrato_fdatos.CodPunSum==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"> 
+                  <option ng-repeat="dato_act in vm.List_CUPs_Gas" value="{{dato_act.CodCupGas}}">{{dato_act.CupsGas}}</option>
+                </select>     
+               </div>
+               </div>
+            </div>
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tarifa </label>          
+               <select class="form-control" id="CodTarGas" name="CodTarGas" required ng-model="vm.contrato_fdatos.CodTarGas" ng-disabled="vm.contrato_fdatos.CodCupGas==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"> 
+                  <option ng-repeat="dato_act in vm.List_TarGas" value="{{dato_act.CodTarGas}}">{{dato_act.NomTarGas}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>        
+
+             <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">Consumo </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.Consumo" placeholder="Consumo" ng-disabled="vm.contrato_fdatos.CodCupGas==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(10,vm.contrato_fdatos.Consumo)"/>     
+               </div>
+               </div>
+            </div>
+
+             <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">Caudal Diario </label>         
+               <input type="text"  class="form-control" ng-model="vm.contrato_fdatos.CauDia" placeholder="Caudal Diario" ng-disabled="vm.contrato_fdatos.CodCupGas==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.validar_formatos_input(11,vm.contrato_fdatos.Caudal_Diario)"/>     
+               </div>
+               </div>
+            </div>
+
+          
+
+
+          <div class="form" >                          
+         <div class="form-group">
+          <textarea class="form-control" style="display: inline-block;"  id="ObsAhoGas" name="ObsAhoGas" minlength="1" maxlength="200" rows="5" placeholder="Comentarios" ng-model="vm.contrato_fdatos.ObsAhoGas" ng-disabled="vm.contrato_fdatos.CodCupGas==undefined || vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"></textarea>        
+         </div>
+         </div>  
+        </div>
+        <!--- PARA LOS CUPS ELECTRICOS END -->
+
+      <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora </label>
+               <select class="form-control" id="CodCom" name="CodCom" required ng-model="vm.contrato_fdatos.CodCom" ng-change="vm.realizar_filtro(1,vm.contrato_fdatos.CodCom)" ng-disabled="vm.contrato_fdatos.tipo=='ver'|| vm.contrato_fdatos.EstProCom=='C'"> 
+                  <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NomComCom}}</option>
+          </select>     
+               </div>
+               </div>
+            </div>
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Producto </label>          
+               <select class="form-control" id="CodPro" name="CodPro" required ng-model="vm.contrato_fdatos.CodPro" ng-disabled="vm.contrato_fdatos.CodCom==undefined || vm.List_Productos.length==0 || vm.contrato_fdatos.tipo=='ver' || vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.realizar_filtro(2,vm.contrato_fdatos.CodPro)"> 
+                  <option ng-repeat="dato_act in vm.List_Productos" value="{{dato_act.CodPro}}">{{dato_act.DesPro}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>  
+
+             <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
+               <select class="form-control" id="CodAnePro" name="CodAnePro" required ng-model="vm.contrato_fdatos.CodAnePro" ng-disabled="vm.contrato_fdatos.CodCom==undefined || vm.contrato_fdatos.CodPro==undefined || vm.contrato_fdatos.tipo=='ver' || vm.contrato_fdatos.EstProCom=='C'" ng-change="vm.realizar_filtro(3,vm.contrato_fdatos.CodAnePro)"> 
+                  <option ng-repeat="dato_act in vm.List_Anexos" value="{{dato_act.CodAnePro}}">{{dato_act.DesAnePro}}</option>
+          </select>     
+               </div>
+               </div>
+            </div>
+            
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
+               <select class="form-control" id="TipPre" name="TipPre" required ng-model="vm.contrato_fdatos.TipPre" ng-disabled="vm.contrato_fdatos.CodAnePro==undefined || vm.contrato_fdatos.tipo=='ver' || vm.contrato_fdatos.EstProCom=='C'"> 
+                  <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>  
+        
+          <!--div class="col-12 col-sm-6">
+              <div class="form">                           
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">Ahorro Total </label>         
+               <input type="text" ng-model="vm.contrato_fdatos.ImpAhoTot" placeholder="123,35 €" readonly />
+               <input type="text" ng-model="vm.contrato_fdatos.PorAhoTot" readonly />
+               <label class="font-weight-bold nexa-dark" style="color:black;">% </label>       
+               </div>
+               </div>
+            </div..>
+
+            <div class="col-12 col-sm-6" ng-show="vm.contrato_fdatos.tipo=='editar' && vm.contrato_fdatos.EstProCom!='C'|| vm.contrato_fdatos.tipo=='ver' && vm.contrato_fdatos.EstProCom!='C'">
+              <div class="form">                          
+               <div class="form-group">
+               <input type="checkbox" ng-model="vm.contrato_fdatos.Apro" ng-disabled="vm.contrato_fdatos.Rech==true"/>
+               <label class="font-weight-bold nexa-dark" style="color:black;">Aprobada </label><br>
+               <input type="checkbox"  ng-model="vm.contrato_fdatos.Rech" ng-disabled="vm.contrato_fdatos.Apro==true"/>
+               <label class="font-weight-bold nexa-dark" style="color:black;">Rechazada </label> <input type="text" ng-model="vm.contrato_fdatos.JusRecProCom" placeholder="Introduzca justificación del rechazo..." ng-disabled="vm.contrato_fdatos.Rech==false"/>       
+               </div>
+               </div>
+            </div>
+      
+
+        <div class="form">                          
+         <div class="form-group">
+          <textarea class="form-control" style="display: inline-block;"  id="ObsProCom" name="ObsProCom" minlength="1" maxlength="200" rows="5" ng-disabled="vm.contrato_fdatos.EstProCom=='C'" placeholder="Comentarios Generales" ng-model="vm.contrato_fdatos.ObsProCom"></textarea>        
+         </div>
+         </div> 
+        <input class="form-control" id="CodProCom" name="CodProCom" type="hidden" ng-model="vm.contrato_fdatos.CodProCom" readonly/>
+           
+
+
+           <div class="form-group" >
+            <div class="col-12 col-sm-6">
+              <button class="btn btn-info" type="submit" ng-show="vm.contrato_fdatos.tipo=='nueva' || vm.contrato_fdatos.tipo=='renovar'" ng-disabled="vm.disabled_button==true">Grabar</button>
+              <button class="btn btn-success" type="submit" ng-show="vm.contrato_fdatos.tipo=='editar' && vm.contrato_fdatos.EstProCom!='C' || vm.contrato_fdatos.tipo=='ver' && vm.contrato_fdatos.EstProCom!='C'">Actualizar</button>
+
+              <button class="btn btn-info" style="background-color: #4e30b9" type="button" ng-show="vm.contrato_fdatos.EstProCom=='A'" ng-click="vm.generar_contrato()">Generar Contrato</button>
+              <a class="btn btn-warning" href="reportes/Exportar_Documentos/Doc_Propuesta_Comercial_Cliente_PDF/{{vm.contrato_fdatos.CodProCom}}" style="margin-top: 0px;" target="_black" ng-show="vm.contrato_fdatos.tipo=='editar' || vm.contrato_fdatos.tipo=='ver'">Generar PDF</a>
+               
+               <button class="btn btn-success" type="button" ng-show="vm.contrato_fdatos.tipo=='editar' || vm.contrato_fdatos.tipo=='ver'" ng-click="vm.enviarcorreopropuesta(1)">Enviar Propuesta</button>
+
+
+
+              <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.regresar()">Volver</button>
+            </div>
+          </div>
+
+    </div><!--FINAL ROW -->
+  </form>
+             
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--modal container section end -->
 
 
               </section>
