@@ -77,7 +77,7 @@ public function get_data_puntos_suministros($CodCli)
 }
 public function get_CUPs_Electricos_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'E' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupsEle,b.CodCli,a.CUPsEle,g.RazSocDis,f.NomTarEle,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,f.CanPerTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,case a.TipServ when 1 then 'E' end as TipServ,(SELECT h.EstConCups FROM T_Propuesta_Comercial_CUPs h WHERE a.CodCupsEle=h.CodCup AND h.TipCups=1 ORDER BY h.CodProComCup DESC LIMIT 1) AS EstConCups
         FROM T_CUPsElectrico a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum 
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -92,7 +92,7 @@ public function get_CUPs_Electricos_Dashboard($CodCli)
 }
 public function get_CUPs_Gas_Dashboard($CodCli)
 {
-    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'G' end as TipServ
+    $sql = $this->db->query("SELECT a.CodCupGas,b.CodCli,a.CupsGas,g.RazSocDis,f.NomTarGas,CONCAT(b.NomViaPunSum,' ',b.NumViaPunSum,' ',d.DesPro,' ',c.DesLoc) AS DirPumSum,CONCAT(b.EscPunSum,' ',b.PlaPunSum,' ',b.PuePunSum) AS EscPlaPue,b.CPLocSoc,case a.TipServ when 2 then 'G' end as TipServ,(SELECT h.EstConCups FROM T_Propuesta_Comercial_CUPs h WHERE a.CodCupGas=h.CodCup AND h.TipCups=2 ORDER BY h.CodProComCup DESC LIMIT 1) AS EstConCups
         FROM T_CUPsGas a 
         LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum
         LEFT JOIN T_Localidad c on c.CodLoc=b.CodLoc
@@ -757,7 +757,7 @@ else
 }
 public function get_xID_CuentaBancaria($CodConCli)
 {
-    $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'SUSPENDIDA' END AS EstaCue,c.NumCifCli,c.RazSocCli from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
+    $sql = $this->db->query("SELECT a.CodCueBan,a.CodBan,b.DesBan,a.CodCli,SUBSTRING(a.NumIBan,1,4)AS CodEur,SUBSTRING(a.NumIBan,5,4)AS IBAN1,SUBSTRING(a.NumIBan,9,4)AS IBAN2,SUBSTRING(a.NumIBan,13,4)AS IBAN3,SUBSTRING(a.NumIBan,17,4)AS IBAN4,SUBSTRING(a.NumIBan,21,4)AS IBAN5,a.EstCue,CASE EstCue WHEN 1 THEN 'ACTIVA' WHEN 2 THEN 'SUSPENDIDA' END AS EstaCue,c.NumCifCli,c.RazSocCli,a.ObserCuenBan from T_CuentaBancaria a LEFT JOIN T_Banco b ON a.CodBan=b.CodBan LEFT JOIN T_Cliente c ON a.CodCli=c.CodCli where a.CodCueBan='$CodConCli'");
     if ($sql->num_rows() > 0)
       return $sql->row();
   else
@@ -775,14 +775,14 @@ public function buscar_NumIBan($NumIBan,$CodBan)
         return false;
 }   
 
-public function actualizar_numero_cuenta($CodCueBan,$CodCli,$NumIBan,$CodBan)
+public function actualizar_numero_cuenta($CodCueBan,$CodCli,$NumIBan,$CodBan,$ObserCuenBan)
 {   
     $this->db->where('CodCueBan', $CodCueBan);
-    return $this->db->update('T_CuentaBancaria',array('NumIBan'=>$NumIBan,'CodBan'=>$CodBan,'CodCli'=>$CodCli));
+    return $this->db->update('T_CuentaBancaria',array('NumIBan'=>$NumIBan,'CodBan'=>$CodBan,'CodCli'=>$CodCli,'ObserCuenBan'=>$ObserCuenBan));
 }
-public function agregar_numero_cuenta($CodCli,$NumIBan,$CodBan)
+public function agregar_numero_cuenta($CodCli,$NumIBan,$CodBan,$ObserCuenBan)
 {
-    $this->db->insert('T_CuentaBancaria',array('CodCli'=>$CodCli,'NumIBan'=>$NumIBan,'CodBan'=>$CodBan));
+    $this->db->insert('T_CuentaBancaria',array('CodCli'=>$CodCli,'NumIBan'=>$NumIBan,'CodBan'=>$CodBan,'ObserCuenBan'=>$ObserCuenBan));
     return $this->db->insert_id();
 }
 public function getCuentasBancariasFilter($SearchText)

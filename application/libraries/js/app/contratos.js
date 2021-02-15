@@ -828,7 +828,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             }
         });
     };
-    scope.validar_campos_contratos = function() {
+    scope.validar_campos_contratos = function() 
+    {
         resultado = true;
         if (!scope.fdatos.CodProCom > 0) {
           scope.toast('error','Debe seleccionar una Propuesta Comercial.','');
@@ -904,7 +905,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.fdatos.FecVenCon = FecVenCon[2] + "-" + FecVenCon[1] + "-" + FecVenCon[0];
             }
         }*/
-        if(scope.fdatos.tipo=='editar')
+        /*if(scope.fdatos.tipo=='editar')
         {
             var FecFirmCon1 = document.getElementById("FecFirmCon").value;
             scope.FecFirmCon = FecFirmCon1;
@@ -967,8 +968,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     valuesStart = scope.FecAct.split("/");
                     scope.fdatos.FecAct = FecAct[2] + "-" + FecAct[1] + "-" + FecAct[0];
                 }
-            }
-        
+            }*/
+        scope.fdatos.FecFirmCon=null;
+        scope.fdatos.FecAct=null;
         if (scope.fdatos.ObsCon == null || scope.fdatos.ObsCon == undefined || scope.fdatos.ObsCon == '') {
             scope.fdatos.ObsCon = null;
         } else {
@@ -991,7 +993,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             {
                 var FecActCUPs_Ele = document.getElementById("FecActCUPs_Ele").value;
                 var FecVenCUPs_Ele = document.getElementById("FecVenCUPs_Ele").value;
-//FecActCUPs_Ele
+        //FecActCUPs_Ele
 
                 scope.fdatos.detalleCUPs.push({CodProComCup: scope.CodProComCup,CodCups:scope.CodCupsEleNum,CodProComCli: scope.CodProComCli,
                 FecActCUPs:FecActCUPs_Ele,FecVenCUPs:FecVenCUPs_Ele,TipServ:scope.TipServ});

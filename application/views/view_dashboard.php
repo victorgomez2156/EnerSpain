@@ -432,6 +432,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<tr>
 												<th style="width: 207px;">CUPS</th>
 												<th>Dirección de Suministro</th>
+												<th>Estado</th>
 												<th style="width: 50px; text-align: center;">E/G</th>
 												<th style="width: 100px;">Acción</th> 
 											</tr>
@@ -441,12 +442,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												</td>           
 											</tr>
 											<tr ng-repeat="dato in vm.response_customer.All_CUPs | filter:paginate" ng-class-odd="odd">                    
-												<td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].CUPsName" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="CUPs_{{$index}}" name="CUPs_{{$index}}" ng-click="vm.copyTextArray(5,$index)"> </td>
+												<td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].CUPsName" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].CUPsName}}" readonly id="CUPs_{{$index}}" name="CUPs_{{$index}}" ng-click="vm.copyTextArray(5,$index)"> </td>
 
-												<td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].DirPunSum" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="DirPunSum_{{$index}}" name="DirPunSum_{{$index}}" ng-click="vm.copyTextArray(6,$index)">
+												<td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].DirPunSum" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].DirPunSum}}" readonly id="DirPunSum_{{$index}}" name="DirPunSum_{{$index}}" ng-click="vm.copyTextArray(6,$index)">
 
 												</td>
-												<td><input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)"> </td>                     
+												<td>
+														<span class="label label-success" ng-show="dato.EstConCups==null" style="color:black;"><i class="fa fa-ban"></i> Sin Estado</span>
+													 <span class="label label-success" ng-show="dato.EstConCups==1" style="color:black;"><i class="fa fa-check-circle"></i> Contrato</span>
+								                      <span class="label label-danger" ng-show="dato.EstConCups==2" style="color:black;"><i class="fa fa-ban"></i> Implícita</span>
+								                      <span class="label label-info" ng-show="dato.EstConCups==3" style="color:black;"><i class="fa fa-close"></i> Baja Rescatable</span>
+								                      <span class="label label-danger" ng-show="dato.EstConCups==4" style="color:black;"><i class="fa fa-ban"></i> Baja Definitiva</span></td>
+												<td>
+													<input type="text" class="form-control" ng-model="vm.response_customer.All_CUPs[$index].TipServ" placeholder="CUPs {{vm.response_customer.All_CUPs[$index].TipServ}}" readonly id="TipServ_{{$index}}" name="TipServ_{{$index}}" ng-click="vm.copyTextArray(7,$index)"> </td>                     
 												<td> 
 													<button title="Ver Detalles" class="btn btn-info" type="button" ng-click="vm.VerDetallesCUPs($index,dato,dato.TipServ)" ><i class="fa fa-eye"></i></button>
 
@@ -456,10 +464,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</tbody>
 										<tfoot>                 
-											<th>CUPS</th>
-											<th>Dirección de Suministro</th>
-											<th style="text-align: center;">E/G</th>
-											<th>Acción</th> 
+											<th style="width: 207px;">CUPS</th>
+												<th>Dirección de Suministro</th>
+												<th>Estado</th>
+												<th style="width: 50px; text-align: center;">E/G</th>
+												<th style="width: 100px;">Acción</th> 
 										</tfoot>
 									</table>
 								</div>
@@ -478,11 +487,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 
 								<div class="row" ng-repeat="dato in vm.response_customer.Cuentas_Bancarias">
-									<div class="col-12 col-sm-8">
+									
+									<div class="col-12 col-sm-5">
 										<div class="form">                          
 											<div class="form-group">
 												<label class="font-weight-bold nexa-dark" style="color:black;">Cuenta Bancaria </label>
 												<input type="text" class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].NumIBan" readonly placeholder="Cuenta Bancaria" id="NumIBan_{{$index}}" name="NumIBan_{{$index}}" ng-click="vm.copyTextArray(17,$index)"/>     
+											</div>
+										</div>
+									</div>
+
+									<div class="col-12 col-sm-3">
+										<div class="form">                          
+											<div class="form-group">
+												<label class="font-weight-bold nexa-dark" style="color:black;">Observaciones </label>
+												<input type="text" class="form-control" ng-model="vm.response_customer.Cuentas_Bancarias[$index].ObserCuenBan" placeholder="Observación" id="ObserCuenBan_{{$index}}" name="ObserCuenBan_{{$index}}" readonly ng-click="vm.copyTextArray(17,$index)"/>     
 											</div>
 										</div>
 									</div> 
@@ -567,11 +586,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>
 </section>
-
-
-
-
-
 
 
 
@@ -2060,6 +2074,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</div>
 								</div>
 
+
+								<div class="col-12 col-sm-12">
+								<div class="form">                          
+								<div class="form-group">
+									<label class="font-weight-bold nexa-dark" style="color:black;">Observaciones</label>
+									<textarea class="form-control" rows="5" ng-model="vm.ObserCuenBan"></textarea>   
+								</div>
+								</div>
+								</div>
+
 								<button class="btn btn-info" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan==undefined">REGISTRAR</button> 
 								<button class="btn btn-success" type="submit" ng-disabled="form_cuenta_bancaria.$invalid || vm.numIBanValidado==false" ng-show="vm.tgribBancos.CodCueBan>0">ACTUALIZAR</button>
 								<input type="hidden" class="form-control" ng-model="vm.tgribBancos.CodCueBan"/>    
@@ -2131,8 +2155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</div>
 </div>
 </div>
-<div cla
-ss="col-12 col-sm-12">
+<div class="col-12 col-sm-12">
 <div class="form">                          
 <div class="form-group">
 	<label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>

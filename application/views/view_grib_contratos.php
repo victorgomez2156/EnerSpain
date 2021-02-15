@@ -287,16 +287,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Representante</h4>
+                        <h4 class="modal-title">Cliente/Firmante</h4>
                       </div>
                       <div class="modal-body">
                         <form class="form-horizontal" role="form" id="cif_consulta_form" name="cif_consulta_form" ng-submit="Consultar_CIF($event)" ng-click="vm.containerClicked()"> 
                           <div class="form-group">
-                            <label for="inputEmail1" class="col-lg-2 control-label">Representante:</label>
+                            <label for="inputEmail1" class="col-lg-2 control-label">Cliente/Firmante:</label>
                             <div class="col-lg-10">
                               
                               <!--input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'  /-->                                
-                             <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Representante" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' name="NumCifCli1" id="NumCifCli1" >
+                             <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Cliente/Firmante" ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)' name="NumCifCli1" id="NumCifCli1" >
                              
                              <ul id='searchResult'>
                               <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >

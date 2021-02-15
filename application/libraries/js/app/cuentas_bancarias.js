@@ -385,6 +385,7 @@
      }
      $scope.submitFormRegistroCuentaBanca = function(event) {
          scope.tgribBancos.CodBan=null;
+         scope.tgribBancos.ObserCuenBan=null;
          scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
          var url = base_urlHome() + "api/Clientes/Comprobar_Cuenta_Bancaria/";
          $http.post(url, scope.tgribBancos).then(function(result) {

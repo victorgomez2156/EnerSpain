@@ -376,7 +376,7 @@
         }
         
      }
-     scope.crear_array_cups=function()
+    scope.crear_array_cups=function()
      {
         scope.fdatos.detalleCUPs = [];
         if(scope.fdatos.CodCupSEle>0 && scope.fdatos.CodCupGas==null)
@@ -468,7 +468,9 @@
                  scope.toast('error','El Formato de Fecha de la Propuesta debe Ser EJ: DD/MM/YYYY.','');
                  event.preventDefault();
                  return false;
-             } else {
+             } 
+            else 
+            {
                  if (FecProCom[0].length > 2 || FecProCom[0].length < 2) {
                      scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha de la Propuesta deben ser 2 números solamente. EJ: 01','');
                      event.preventDefault();
@@ -497,7 +499,7 @@
                      return false;
                  }
                  scope.fdatos.FecProCom = FecProCom[2] + "-" + FecProCom[1] + "-" + FecProCom[0];
-             }
+            }
          }
          if (scope.fdatos.RefProCom == null || scope.fdatos.RefProCom == undefined || scope.fdatos.RefProCom == '') {
              scope.toast('error','El número de la propuesta es requerido.','');

@@ -215,8 +215,7 @@
                         ,PotConP2:CUPs_Electricos.PotConP2,PotConP3:CUPs_Electricos.PotConP3,PotConP4:CUPs_Electricos.PotConP4
                         ,PotConP5:CUPs_Electricos.PotConP5,PotConP6:CUPs_Electricos.PotConP6,NomTar:CUPs_Electricos.NomTarEle,
                         RazSocDis:CUPs_Electricos.RazSocDis
-
-                        ,TipServ:CUPs_Electricos.TipServ,CodCups:CUPs_Electricos.CodCupsEle,TipServLetra:'Eléctrico'
+                        ,TipServ:CUPs_Electricos.TipServ,CodCups:CUPs_Electricos.CodCupsEle,TipServLetra:'Eléctrico',EstConCups:CUPs_Electricos.EstConCups
                     });
 
                 });
@@ -227,7 +226,7 @@
                 {
                     scope.response_customer.All_CUPs.push({CUPsName:CUPs_Gas.CupsGas,DirPunSum:CUPs_Gas.DirPumSum+" "+CUPs_Gas.CPLocSoc+" "+CUPs_Gas.EscPlaPue
                         ,NomTar:CUPs_Gas.NomTarGas,RazSocDis:CUPs_Gas.RazSocDis
-                        ,TipServ:CUPs_Gas.TipServ,CodCups:CUPs_Gas.CodCupGas,TipServLetra:'Gas'
+                        ,TipServ:CUPs_Gas.TipServ,CodCups:CUPs_Gas.CodCupGas,TipServLetra:'Gas',EstConCups:CUPs_Gas.EstConCups
                     });
 
 
@@ -1331,6 +1330,7 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
             scope.IBAN3 = result.data.IBAN3;
             scope.IBAN4 = result.data.IBAN4;
             scope.IBAN5 = result.data.IBAN5;
+            scope.ObserCuenBan=result.data.ObserCuenBan;
             //scope.NumCifCliSearch=result.data.NumCifCli;         
         }
         else if(metodo==5)
@@ -3818,13 +3818,22 @@ scope.search_PunSum = function()
      $scope.submitFormRegistroCuentaBanca = function(event) {
          //scope.tgribBancos.CodBan=null;
          scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
-         var url = base_urlHome() + "api/Dashboard/Comprobar_Cuenta_Bancaria/";
-         $http.post(url, scope.tgribBancos).then(function(result) {
+          if(scope.tgribBancos.ObserCuenBan==null||scope.tgribBancos.ObserCuenBan==undefined||scope.tgribBancos.ObserCuenBan=="")
+          {
+            scope.tgribBancos.ObserCuenBan=null;
+          }
+          else
+          {
+            scope.tgribBancos.ObserCuenBan=scope.tgribBancos.ObserCuenBan;
+          }
+            /*var url = base_urlHome() + "api/Dashboard/Comprobar_Cuenta_Bancaria/";
+            $http.post(url, scope.tgribBancos).then(function(result) {
              if (result.data == true) {
                  scope.toast('error','La Cuenta Bancaria ya se encuentra registrada','Error');
                  scope.numIBanValidado = false;
                  return false;
-             } else {
+             } else {*/
+                 
                  if (scope.tgribBancos.CodCueBan > 0) {
                      var title = 'Actualizando';
                      var text = '¿Seguro que desea modificar la información de la Cuenta Bancaria?';
@@ -3884,8 +3893,8 @@ scope.search_PunSum = function()
                          console.log('Cancelando ando...');
                      }
                  });
-             } //end else////
-         }, function(error) {
+            // } //end else////
+            /*}, function(error) {
              if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                     }if (error.status == 401 && error.statusText == "Unauthorized"){
@@ -3895,7 +3904,7 @@ scope.search_PunSum = function()
                     }if (error.status == 500 && error.statusText == "Internal Server Error") {
                     scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }
-         });
+            });*/
      };
 
 

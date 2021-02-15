@@ -40,7 +40,7 @@ class PropuestaComercial extends REST_Controller
 			return false;
 		}
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');		
-		$tabla="T_PropuestaComercial a";
+		/*$tabla="T_PropuestaComercial a";
 		$where="b.CodCli";
 		$BuscarPropuesta=$this->Propuesta_model->Buscar_Propuesta($Cliente->CodCli,$tabla,$where);
 		if($BuscarPropuesta!=false)
@@ -48,7 +48,7 @@ class PropuestaComercial extends REST_Controller
 			$response = array('status' =>false ,'menssage' =>'El Cliente tiene una Propuesta Comercial con estatus pendiente con número de referencia: '.$BuscarPropuesta->RefProCom,'statusText'=>'Error');
 			$this->response($response);	
 			return false;
-		}	
+		}*/	
 		$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($Cliente->CodCli);
 		if($BuscarContrato==false)
 		{
@@ -350,7 +350,7 @@ class PropuestaComercial extends REST_Controller
 		if($objSalida->tipo=='nueva')
 		{
 			$this->db->trans_start();
-			$tabla="T_PropuestaComercial a";
+			/*$tabla="T_PropuestaComercial a";
 			$where="b.CodCli";
 			$BuscarPropuesta=$this->Propuesta_model->Buscar_Propuesta($objSalida->CodCli,$tabla,$where);
 			if($BuscarPropuesta!=false)
@@ -358,7 +358,7 @@ class PropuestaComercial extends REST_Controller
 				$response = array('status' =>false ,'menssage' =>'El Cliente tiene una Propuesta Comercial con estatus pendiente con número de referencia: '.$BuscarPropuesta->RefProCom,'statusText'=>'Error','objSalida'=>$objSalida);
 				$this->response($response);	
 				return false;
-			}
+			}*/
 			//$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($objSalida->CodCli);
 			//if($BuscarContrato==false)
 			//{
