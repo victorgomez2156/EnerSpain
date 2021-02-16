@@ -1558,52 +1558,52 @@ class Reportes_model extends CI_Model
     {
         
         $sql = $this->db->query("SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
-FROM T_Propuesta_Comercial_CUPs a 
-JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
-JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
-JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
-JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
-JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
-UNION ALL
-SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
-FROM T_Propuesta_Comercial_CUPs a 
-JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
-JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
-JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
-JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
-JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+        JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+        JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
+        UNION ALL
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+        JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+        JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
-UNION ALL
+        UNION ALL
 
-SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
-FROM T_Propuesta_Comercial_CUPs a 
-JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
-JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
-JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
-JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
-JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+        JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+        JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
-UNION ALL
+        UNION ALL
 
-SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
-FROM T_Propuesta_Comercial_CUPs a 
-JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
-JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
-JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
-JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
-JOIN T_Comercializadora g ON c.CodCom=g.CodCom
-JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+        JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+        JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
 
 
-ORDER BY FecVenCUPs DESC");
+        ORDER BY FecVenCUPs DESC");
             if ($sql->num_rows() > 0)
               return $sql->result();
             else  
@@ -1780,6 +1780,47 @@ ORDER BY FecVenCUPs DESC");
         {
             return false;
         } 
+    }
+    public function CountTotalCodPunSum($CodCom,$FecDesde,$FecHasta)
+    {
+        $sql = $this->db->query("SELECT COUNT(c.CodPunSum) AS total FROM T_PropuestaComercial a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProCom=b.CodProCom 
+        JOIN T_Propuesta_Comercial_CUPs c ON b.CodProComCli=c.CodProComCli
+        JOIN T_PuntoSuministro d ON d.CodPunSum=c.CodPunSum
+        WHERE a.CodCom='$CodCom' AND d.EstPunSum=1
+        ");
+        if ($sql->num_rows() > 0)
+            return $sql->row();
+        else  
+        return false;
+    }
+    public function ConsumoTotalElectrico($CodCom,$FecDesde,$FecHasta)
+    {
+        $sql = $this->db->query("SELECT SUM(e.ConCup) AS totalConsumoEle FROM T_PropuestaComercial a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProCom=b.CodProCom 
+        JOIN T_Propuesta_Comercial_CUPs c ON b.CodProComCli=c.CodProComCli
+        JOIN T_PuntoSuministro d ON d.CodPunSum=c.CodPunSum
+        JOIN T_HistorialCUPsElectrico e ON e.CodCupEle=c.CodCup AND c.TipCups=1
+        WHERE a.CodCom='$CodCom' AND d.EstPunSum=1 AND c.TipCups=1 AND e.FecIniCon BETWEEN '$FecDesde' AND '$FecHasta'
+        ");
+        if ($sql->num_rows() > 0)
+            return $sql->row();
+        else  
+        return false;
+    }
+    public function ConsumoTotalGas($CodCom,$FecDesde,$FecHasta)
+    {
+        $sql = $this->db->query("SELECT SUM(e.ConCup) AS totalConsumoGas FROM T_PropuestaComercial a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProCom=b.CodProCom 
+        JOIN T_Propuesta_Comercial_CUPs c ON b.CodProComCli=c.CodProComCli
+        JOIN T_PuntoSuministro d ON d.CodPunSum=c.CodPunSum
+        JOIN T_HistorialCUPsGas e ON e.CodCupGas=c.CodCup AND c.TipCups=2
+        WHERE a.CodCom='$CodCom' AND d.EstPunSum=1 AND c.TipCups=2 AND e.FecIniCon BETWEEN '$FecDesde' AND '$FecHasta'
+        ");
+        if ($sql->num_rows() > 0)
+            return $sql->row();
+        else  
+        return false;
     }
 
  

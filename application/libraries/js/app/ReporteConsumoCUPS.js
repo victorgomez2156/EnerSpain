@@ -9,6 +9,9 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
     var yyyy = fecha.getFullYear();
+    scope.MostrarDatos=false;
+    scope.totalCount=0;
+    scope.ConsumoTotalFinal=0;
     if (dd < 10) {
         dd = '0' + dd
     }
@@ -18,25 +21,190 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     var fecha = dd + '/' + mm + '/' + yyyy;
      ////////////////////////////////////////////////// PARA EL REPORTE CONSUMO CUPS START /////////////////////////////////////////////////////////////
     console.log($route.current.$$route.originalPath);
-    
+    scope.List_Comercializadora=[];
  
     
+    scope.ComercializadorasActivas=function()
+    {
+        var url = base_urlHome()+"api/Reportes/ComActivas/";
+        $http.get(url).then(function(result)
+        {
+            if(result.data!=false)
+            {
+                scope.List_Comercializadora=result.data;
+            }
+            else
+            {
+                scope.List_Comercializadora=[];
+            }
+        },function(error)
+        {
+            if (error.status == 404 && error.statusText == "Not Found"){
+                scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+            }if (error.status == 403 && error.statusText == "Forbidden"){
+                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+            }
+        });
+    }
+    $scope.submitFormConsumo = function(event) {
+         
+         if (!scope.validar_camposConsumos()) {
+             return false;
+         }        
+            var url = base_urlHome() + "api/Reportes/Generar_ConsumoCUPS/";
+            $http.post(url, scope.fdatos).then(function(result) 
+            {
+                if (result.data != false) 
+                {
+                    //var datax = JSON.parse(result.data);
+                    console.log(result.data);
+                    scope.totalCount=result.data.CountRegistro.total;
+                    if(result.data.ConsumoElectrico.totalConsumoEle!=null && result.data.ConsumoElectrico.totalConsumoGas==null)
+                    {
+                        scope.ConsumoTotalFinal=result.data.ConsumoElectrico.totalConsumoEle;
+                    }
+                    else if(result.data.ConsumoElectrico.totalConsumoGas!=null && result.data.ConsumoElectrico.totalConsumoEle==null)
+                    {
+                        scope.ConsumoTotalFinal=result.data.ConsumoElectrico.totalConsumoGas;
+                    }
+                    else
+                    {
+                        scope.ConsumoTotalFinal=result.data.ConsumoElectrico.totalConsumoEle+result.data.ConsumoElectrico.totalConsumoGas;
+                    }
+                    scope.MostrarDatos=true;
+                } 
+                else 
+                {
+                    scope.toast('error','No se encontraton datos con la busqueda.','Error');
+                }
+            }, function(error) 
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+         
+     };
+
+     scope.validar_camposConsumos = function() {
+        resultado = true;
+        
+        if(!scope.fdatos.CodCom>0)
+        {
+            scope.toast('error','Debe Seleccionar una Comercializadora','Comercializadoras');
+            return false;
+        }
+        var FecDesde1 = document.getElementById("FecDesde").value;
+        scope.FecDesde = FecDesde1;
+        if (scope.FecDesde == null || scope.FecDesde == undefined || scope.FecDesde == '') {
+             scope.toast('error','La Fecha Desde es requerida','');
+             return false;
+        } 
+        else 
+        {
+            var FecDesde = (scope.FecDesde).split("/");
+            if (FecDesde.length < 3) {
+                 scope.toast('error','El Formato de Fecha Desde debe Ser EJ: DD/MM/YYYY.','');
+                 event.preventDefault();
+                 return false;
+            } 
+            else 
+            {
+                 if (FecDesde[0].length > 2 || FecDesde[0].length < 2) {
+                     scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha Desde deben ser 2 números solamente. EJ: 01','');
+                     event.preventDefault();
+                     return false;
+                 }
+                 if (FecDesde[1].length > 2 || FecDesde[1].length < 2) {
+                    scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha Desde deben ser 2 números solamente. EJ: 01','');
+                   
+                    event.preventDefault();
+                    return false;
+                 }
+                 if (FecDesde[2].length < 4 || FecDesde[2].length > 4) {
+                     scope.toast('error','Por Favor Corrija el Formato del ano en la Fecha Desde Ya que deben ser 4 números solamente.','');
+                     
+                     event.preventDefault();
+                     return false;
+                 }                
+                 scope.fdatos.FecDesde = FecDesde[2] + "-" + FecDesde[1] + "-" + FecDesde[0];
+            }
+        }
+        var FecHasta1 = document.getElementById("FecHasta").value;
+        scope.FecHasta = FecHasta1;
+        if (scope.FecHasta == null || scope.FecHasta == undefined || scope.FecHasta == '') {
+             scope.toast('error','La Fecha Hasta es requerida','');
+             return false;
+        } 
+        else 
+        {
+            var FecHasta = (scope.FecHasta).split("/");
+            if (FecHasta.length < 3) {
+                 scope.toast('error','El Formato de Fecha Hasta debe Ser EJ: DD/MM/YYYY.','');
+                 event.preventDefault();
+                 return false;
+            } 
+            else 
+            {
+                 if (FecHasta[0].length > 2 || FecHasta[0].length < 2) {
+                     scope.toast('error','Por Favor Corrija el Formato del dia en la Fecha Hasta deben ser 2 números solamente. EJ: 01','');
+                     event.preventDefault();
+                     return false;
+                 }
+                 if (FecHasta[1].length > 2 || FecHasta[1].length < 2) {
+                    scope.toast('error','Por Favor Corrija el Formato del mes de la Fecha Hasta deben ser 2 números solamente. EJ: 01','');
+                   
+                    event.preventDefault();
+                    return false;
+                 }
+                 if (FecHasta[2].length < 4 || FecHasta[2].length > 4) {
+                     scope.toast('error','Por Favor Corrija el Formato del ano en la Fecha Hasta Ya que deben ser 4 números solamente.','');
+                     
+                     event.preventDefault();
+                     return false;
+                 }                
+                 scope.fdatos.FecHasta = FecHasta[2] + "-" + FecHasta[1] + "-" + FecHasta[0];
+            }
+        }
+         if (resultado == false) {
+             //quiere decir que al menos un renglon no paso la validacion
+             return false;
+         }
+         return true;
+     }
+     scope.validar_formatos_input = function(metodo, object) {
+         console.log(object);
+         console.log(metodo);
+         if (metodo == 1) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([/0-9])*$/.test(numero))
+                     scope.FecDesde = numero.substring(0, numero.length - 1);
+             }
+         }
+         if (metodo == 2) {
+             if (object != undefined) {
+                 numero = object;
+                 if (!/^([/0-9])*$/.test(numero))
+                     scope.FecHasta = numero.substring(0, numero.length - 1);
+             }
+         }        
+     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    scope.ComercializadorasActivas();
      var i = -1;
         var toastCount = 0;
         var $toastlast;

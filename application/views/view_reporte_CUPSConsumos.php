@@ -106,15 +106,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="panel-body">
 
 
-<form id="form_rueda" name="form_rueda" ng-submit="submitFormRueda($event)"> 
+<form id="form_rueda" name="form_rueda" ng-submit="submitFormConsumo($event)"> 
      <div class='row'>              
       
       <div class="col-12 col-sm-12">
             <div class="form">                          
              <div class="form-group">
              <label class="font-weight-bold nexa-dark" style="color:black;">Comercializadora </label>
-             <select class="form-control" id="CodCom" name="CodCom" ng-model="vm.fdatos.CodCom" ng-change="vm.realizar_filtro(1,vm.fdatos.CodCom)" ng-disabled="vm.fdatos.tipo=='ver'|| vm.fdatos.EstProCom=='C'"> 
-                <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NumCifCom}} - {{dato_act.NomComCom}}</option>
+             <select class="form-control" id="CodCom" name="CodCom" ng-model="vm.fdatos.CodCom"> 
+                <option ng-repeat="dato_act in vm.List_Comercializadora" value="{{dato_act.CodCom}}">{{dato_act.NomComCom}}</option>
         </select>     
              </div>
              </div>
@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <div class="form">                          
          <div class="form-group">
          <label class="font-weight-bold nexa-dark" style="color:black;">Fecha Hasta</label>
-       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) " ng-disabled="vm.Nivel==3" />
+       <input type="text" class="form-control FecHasta" name="FecHasta" id="FecHasta" ng-model="vm.FecHasta" placeholder="DD/MM/YYYY" maxlength="10" ng-change="vm.validar_formatos_input(2,vm.FecHasta) "/>
          
          </div>
          </div>
@@ -149,6 +149,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   </div><!--FINAL ROW -->
         </form>
+
+            
+          <div ng-show="vm.MostrarDatos==true">
+
+          <div class="foreign-supplier-title clearfix">
+            <h4 class="breadcrumb">     
+              <span class="foreign-supplier-text" style="color:black;"> Total Puntos Suministro: {{vm.totalCount}} </span>
+            </h4>
+          </div>
+
+          <div class="foreign-supplier-title clearfix">
+            <h4 class="breadcrumb">     
+              <span class="foreign-supplier-text" style="color:black;"> Consumo CUPs: {{vm.ConsumoTotalFinal}} </span>
+            </h4>
+          </div>
+
+
+          </div>
+
+
 
             </section>
           </div>

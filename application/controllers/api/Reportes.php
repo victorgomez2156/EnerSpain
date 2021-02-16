@@ -1764,6 +1764,41 @@ class Reportes extends REST_Controller
         $this->db->trans_complete();
         $this->response($arrayName);
     }
-	
+    public function ComActivas_get()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $Comercializadoras=$this->Propuesta_model->get_Tarifas_Act('T_Comercializadora','*','EstCom','RazSocCom ASC');
+        if (empty($Comercializadoras))
+        {
+           $this->response(false);
+           return false;
+        }
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Comercializadora','GET',null,$this->input->ip_address(),'Cargando Comercializadora Para Reporte Consumo CUPs');
+        $this->response($Comercializadoras);     
+    }
+	public function Generar_ConsumoCUPS_post()
+    {
+        $datausuario=$this->session->all_userdata();    
+        if (!isset($datausuario['sesion_clientes']))
+        {
+            redirect(base_url(), 'location', 301);
+        }
+        $objSalida = json_decode(file_get_contents("php://input"));             
+        $this->db->trans_start();
+        
+        $CountRegistro=$this->Reportes_model->CountTotalCodPunSum($objSalida-> CodCom,$objSalida-> FecDesde,$objSalida-> FecHasta);
+        $ConsumoElectrico=$this->Reportes_model->ConsumoTotalElectrico($objSalida-> CodCom,$objSalida-> FecDesde,$objSalida-> FecHasta);
+        $ConsumoGas=$this->Reportes_model->ConsumoTotalGas($objSalida-> CodCom,$objSalida-> FecDesde,$objSalida-> FecHasta);
+        $jsondata = array();
+        $jsondata['CountRegistro'] = $CountRegistro;
+        $jsondata['ConsumoElectrico'] = $ConsumoElectrico;
+        $jsondata['ConsumoGas'] = $ConsumoGas;
+        $this->db->trans_complete();        
+        $this->response($jsondata);
+    }
 }
 ?>
