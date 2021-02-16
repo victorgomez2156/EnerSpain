@@ -943,9 +943,6 @@
 
     scope.Consultar_CIF=function()
     {
-        console.log(scope.tContacto_data_modal.NIFConCli.length);
-        console.log(scope.tContacto_data_modal.NIFConCli);
-
         if(scope.tContacto_data_modal.NIFConCli.length>=9)
         {
             if (!scope.validarNIFDNI()) {
@@ -956,46 +953,58 @@
             {
                 if(result.data!=false)
                 {
-                    if(result.data.length>1)
-                    {
-                        scope.tContacto_data_modal.CodConCli=undefined;
-                        scope.tContacto_data_modal.NIFConCli=result.data[0].NIFConCli;
-                        scope.tContacto_data_modal.CodTipCon=result.data[0].CodTipCon;
-                        if(result.data[0].ConPrin==null || result.data[0].ConPrin==0)
-                        {
+                       if(result.data.status==200)
+                       {
+                            scope.tContacto_data_modal.CodConCli=result.data.CodConCli;
+                            scope.tContacto_data_modal.NIFConCli=result.data.NIFConCli;
+                            scope.tContacto_data_modal.CodTipCon=result.data.CodTipCon;                                               
+                            scope.tContacto_data_modal.CarConCli=result.data.CarConCli;
+                            scope.tContacto_data_modal.NomConCli=result.data.NomConCli;
+                            scope.tContacto_data_modal.NumColeCon=result.data.NumColeCon;
+                            scope.tContacto_data_modal.TelFijConCli=result.data.TelFijConCli;
+                            scope.tContacto_data_modal.TelCelConCli=result.data.TelCelConCli;
+                            scope.tContacto_data_modal.EmaConCli=result.data.EmaConCli;
+                            scope.tContacto_data_modal.TipRepr=result.data.TipRepr;
+                            scope.tContacto_data_modal.CanMinRep=result.data.CanMinRep;
+                            scope.tContacto_data_modal.EsRepLeg = result.data.EsRepLeg;
+                            scope.tContacto_data_modal.TieFacEsc = result.data.TieFacEsc;
+                            scope.tContacto_data_modal.DocNIF= result.data.DocNIF;
+                            scope.tContacto_data_modal.DocPod= result.data.DocPod;
+                            scope.tContacto_data_modal.ObsConC=result.data.ObsConC;
+                            if(result.data.ConPrin==null || result.data.ConPrin==0)
+                            {
+                                scope.tContacto_data_modal.ConPrin=false;
+                            }
+                            else
+                            {
+                                scope.tContacto_data_modal.ConPrin=true;
+                            } 
+                       }
+                       else if(result.data.status==202)
+                       {
+                            scope.tContacto_data_modal.CodConCli=null;
+                            scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                            scope.tContacto_data_modal.NIFConCli=result.data.NIFConCli;
+                            scope.tContacto_data_modal.CodTipCon=result.data.CodTipCon;
                             scope.tContacto_data_modal.ConPrin=false;
-                        }
-                        else
-                        {
-                            scope.tContacto_data_modal.ConPrin=true;
-                        }                        
-                        scope.tContacto_data_modal.CarConCli=result.data[0].CarConCli;
-                        scope.tContacto_data_modal.NomConCli=result.data[0].NomConCli;
-                        scope.tContacto_data_modal.NumColeCon=result.data[0].NumColeCon;
-                        scope.tContacto_data_modal.TelFijConCli=result.data[0].TelFijConCli;
-                        scope.tContacto_data_modal.TelCelConCli=result.data[0].TelCelConCli;
-                        scope.tContacto_data_modal.EmaConCli=result.data[0].EmaConCli;
-                        scope.tContacto_data_modal.TipRepr='1';
-                        scope.tContacto_data_modal.CanMinRep='1';
-                        scope.tContacto_data_modal.EsRepLeg = undefined;
-                        scope.tContacto_data_modal.TieFacEsc = undefined;
-                        scope.tContacto_data_modal.DocNIF= undefined;
-                        scope.tContacto_data_modal.DocPod= undefined;
-                        scope.tContacto_data_modal.ObsConC=result.data[0].ObsConC;
-
-                    }
-                    else
-                    {
-                        scope.tContacto_data_modal=result.data; 
-                        if(scope.tContacto_data_modal.ConPrin==null ||scope.tContacto_data_modal.ConPrin==0)
-                        {
-                            scope.tContacto_data_modal.ConPrin=false;
-                        }
-                        else
-                        {
-                            scope.tContacto_data_modal.ConPrin=true;
-                        } 
-                    }
+                            scope.tContacto_data_modal.CarConCli=result.data.CarConCli;
+                            scope.tContacto_data_modal.NomConCli=result.data.NomConCli;
+                            scope.tContacto_data_modal.NumColeCon=result.data.NumColeCon;
+                            scope.tContacto_data_modal.TelFijConCli=result.data.TelFijConCli;
+                            scope.tContacto_data_modal.TelCelConCli=result.data.TelCelConCli;
+                            scope.tContacto_data_modal.EmaConCli=result.data.EmaConCli;
+                            scope.tContacto_data_modal.TipRepr='1';
+                            scope.tContacto_data_modal.CanMinRep='1';
+                            scope.tContacto_data_modal.EsRepLeg = null;
+                            scope.tContacto_data_modal.TieFacEsc = null;
+                            scope.tContacto_data_modal.DocNIF= null;
+                            scope.tContacto_data_modal.DocPod= null;
+                            scope.tContacto_data_modal.ObsConC=result.data.ObsConC;
+                       }
+                       else
+                       {
+                            scope.toast('error','Error en el filtro para contacto','Error');
+                       }
                 }
                 else
                 {
@@ -1019,9 +1028,6 @@
                 }
             });
         }
-
-
-
     }
 
     scope.validarNIFDNI = function() 

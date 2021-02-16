@@ -10,6 +10,7 @@ class Clientes extends REST_Controller
 		$this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
 		$this->load->model('Clientes_model');
+		$this->load->model('Propuesta_model');
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
 		if (!isset($datausuario['sesion_clientes']))
@@ -753,61 +754,24 @@ class Clientes extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}
 		$NIFConCli=$this->get('NIFConCli');
-		$CodCli=$this->get('CodCli');
+		$CodCli=$this->get('CodCli');		
+		$contactoCliente=$this->Propuesta_model->Funcion_Verificadora2($NIFConCli,'T_ContactoCliente','NIFConCli','*','CodCli',$CodCli);
+		if (!empty($contactoCliente))
+		{
+			$contactoCliente->status=200;
+			$this->response($contactoCliente);
+			return false;
+		}
 		$select="a.*";		
-		$data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente($NIFConCli,$select);
+		$data = $this->Clientes_model->get_xID_Contactos_Otro_Cliente_Limit($NIFConCli,$select);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$NIFConCli,$this->input->ip_address(),'Cargando Información del Contacto');
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
-		$detalleFinal = Array();
-		$detalleFinali = Array();
-		foreach ($data as $key => $value):
-		{
-			if($value-> CodCli == $CodCli)
-			{
-				//array_push($detalleFinal, $value);
-				//break;
-				$data = $value;
-				//$this->response($value);
-			}
-			//$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
-			//array_push($detalleFinal, $detalleG);
-		}
-		endforeach;
+		$data->CodConCli=null;
+		$data->status=202;		
 		$this->response($data);
-		/*$detalleFinal = Array();
-		foreach ($data as $key => $value):
-		{
-			if($value-> CodCli == $CodCli)
-			{
-				array_push($detalleFinal, $value);
-				break;
-				//$this->response($value);
-			}
-			else
-			{
-				$this->response($data);
-			}
-			//$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
-			//array_push($detalleFinal, $detalleG);
-		}
-		endforeach;
-
-		$this->response($detalleFinal);*/
-		/*foreach ($data as $key => $value): 
-		{
-			if($value-> CodCli == $CodCli)
-			{
-				$this->response($value);
-			}
-			else
-			{
-				$this->response($data);
-			}
-		}
-		endforeach;	*/	
 	}
 	public function comprobar_cif_contacto_post()
 	{

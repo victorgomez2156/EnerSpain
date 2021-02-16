@@ -886,6 +886,7 @@ class Dashboard extends REST_Controller
 	    	$T_ProFis= $this->Dashboard_model->Funcion_Verificadora($response-> CodLocFis,'T_Localidad','CodLoc','*');
 	    	$response-> CodProSoc = $T_ProSoc-> CodPro;
 	    	$response-> CodProFis = $T_ProFis-> CodPro;
+	    	$response->tContacto_data_modal=$this->Clientes_model->GetContactoPrincipal($response-> CodCli);	    	
 	    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información del Cliente Dashboard');
 	    }
 	    elseif($metodo==2)

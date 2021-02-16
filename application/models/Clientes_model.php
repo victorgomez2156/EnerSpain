@@ -627,6 +627,21 @@ public function get_xID_Contactos($CodConCli,$select)
         return false;
     }       
 }
+public function get_xID_Contactos_Otro_Cliente_Limit($NIFConCli,$select)
+{
+    $this->db->select($select,FALSE);
+    $this->db->from('T_ContactoCliente a');
+    $this->db->where('a.NIFConCli',$NIFConCli);             
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->row();
+    }
+    else
+    {
+        return false;
+    }       
+}
 public function get_xID_Contactos_Otro_Cliente($NIFConCli,$select)
 {
     $this->db->select($select,FALSE);
@@ -636,7 +651,7 @@ public function get_xID_Contactos_Otro_Cliente($NIFConCli,$select)
         //$this->db->join('T_Provincia d','c.CodPro=d.CodPro');
         //$this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
     $this->db->where('a.NIFConCli',$NIFConCli);    
-        //$this->db->order_by('b.RazSocCli ASC');              
+    //$this->db->order_by('b.RazSocCli ASC');              
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {

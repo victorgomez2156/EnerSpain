@@ -18,8 +18,8 @@
        mm = '0' + mm;
    }
    var fecha = dd + '/' + mm + '/' + yyyy;
-     ////////////////////////////////////////////////// PARA EL DASHBOARD START ////////////////////////////////////////////////////////
-     //console.log($route.current.$$route.originalPath);
+    ////////////////////////////////////////////////// PARA EL DASHBOARD START ////////////////////////////////////////////////////////
+    //console.log($route.current.$$route.originalPath);
      scope.showDatosGenerales = true;
      scope.showContactosRepresentante = true;
      scope.showPuntosSuministros = true;
@@ -109,23 +109,19 @@
        }
    }
          // Set value to search box
-         scope.setValue = function(index, $event, result) {
-         //console.log(index);
-         //console.log($event);
-         //console.log(result);
-
-         scope.response_customer.CUPs_Electrico = [];
-         scope.response_customer.CUPs_Gas = [];
-         //console.log(scope.searchResult[index].CodCli);
-         scope.fdatos.CodCli = scope.searchResult[index].CodCli;
-         scope.searchText=scope.searchResult[index].CodCli+" - "+scope.searchResult[index].NumCifCli;
-         scope.searchResult = {};
-         $event.stopPropagation();
-         scope.view_information();
-     }
-     scope.searchboxClicked = function($event) {
+    scope.setValue = function(index, $event, result) 
+    {
+        scope.response_customer.CUPs_Electrico = [];
+        scope.response_customer.CUPs_Gas = [];
+        scope.fdatos.CodCli = scope.searchResult[index].CodCli;
+        scope.searchText=scope.searchResult[index].CodCli+" - "+scope.searchResult[index].NumCifCli;
+        scope.searchResult = {};
+        $event.stopPropagation();
+        scope.view_information();
+    }
+    scope.searchboxClicked = function($event) {
        $event.stopPropagation();
-   }
+    }
    scope.containerClicked = function() 
    {
        scope.searchResult = {};
@@ -157,7 +153,8 @@
        }
    });
    }
-   scope.view_information = function() {
+   scope.view_information = function() 
+   {
        scope.response_customer.DirPumSum = undefined;
        scope.response_customer.EscPlaPuerPumSum = undefined;
        scope.response_customer.DesLocPumSum = undefined;
@@ -286,7 +283,7 @@
            }
 
        });
-}
+   }
 scope.filter_DirPumSum = function(CodPunSum) {
          scope.response_customer.EscPlaPuerPumSum = undefined;
          scope.response_customer.DesLocPumSum = undefined;
@@ -1006,26 +1003,8 @@ scope.filter_DirPumSum = function(CodPunSum) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
-
 /////////////////////////////////////////////////////////////// PARA editar DATOS EN LOS MODALES DASHBOARD START //////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /////////////////////////////////////////////////////////////// PARA editar DATOS EN LOS MODALES DASHBOARD END //////////////////////////////////////////////////
@@ -1100,7 +1079,20 @@ scope.agregar_datos_dashboard=function(metodo)
            scope.tModalDatosClientes.CodCli=undefined;
            scope.validate_cif=false;
            scope.validate_info==undefined;
-           ServiceAddClientes.getAll().then(function(dato) {
+           scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];     
+            scope.tContacto_data_modal={};
+            scope.fdatos.CodCli=undefined;
+            scope.tContacto_data_modal.TipRepr='1';
+            scope.tContacto_data_modal.ConPrin=false;
+            scope.tContacto_data_modal.CanMinRep='1';
+            document.getElementById('filenameDocNIF').value = '';
+            document.getElementById('DocPod').value = '';
+            var namefileDocNIF = '';
+            $('#filenameDocNIF1').html(namefileDocNIF);
+            var filenameDocPod = '';
+            $('#filenameDocPod').html(filenameDocPod);
+            scope.cargar_tiposContactos(9);
+            ServiceAddClientes.getAll().then(function(dato) {
            scope.Fecha_Server = dato.Fecha_Server;         
            scope.FecIniCli = dato.Fecha_Server;
            scope.tProvidencias = dato.Provincias;
@@ -1238,11 +1230,11 @@ scope.EditarDatosModal=function(variable,metodo,TipServ)
     else if(metodo==4)
     {
     	scope.tgribBancos={};
-        scope.tgribBancos.CodCli=scope.response_customer.CodCli;
-        scope.tgribBancos.CodBan=null;
-        scope.numIBanValidado = true;
-        $('#modal_agregarCuentasBancarias').modal('show');
-        scope.FuncionEditarDatos(variable,metodo,TipServ);   
+      scope.tgribBancos.CodCli=scope.response_customer.CodCli;
+      scope.tgribBancos.CodBan=null;
+      scope.numIBanValidado = true;
+      $('#modal_agregarCuentasBancarias').modal('show');
+      scope.FuncionEditarDatos(variable,metodo,TipServ);   
     }
     else if(metodo==5)
     {
@@ -1270,6 +1262,7 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
         {
             scope.tModalDatosClientes=result.data;
             scope.FecIniCli = undefined;
+            scope.fdatos.CodCli=result.data.CodCli;
                  if (result.data.CodLocSoc == result.data.CodLocFis) {
                     scope.tModalDatosClientes.distinto_a_social = false;
                     scope.BuscarLocalidad(1,result.data.CodProSoc);
@@ -1287,8 +1280,31 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
                  } else {
                      scope.tModalDatosClientes.misma_razon = true;
                  }
-                 scope.FecIniCli = result.data.FecIniCli;
-                 $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
+                scope.FecIniCli = result.data.FecIniCli;
+                $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", scope.FecIniCli);
+                if(result.data.tContacto_data_modal!=false)
+                {
+                    scope.cargar_tiposContactos(9);
+                    scope.tContacto_data_modal=result.data.tContacto_data_modal;
+                    if(scope.tContacto_data_modal.ConPrin==0 || scope.tContacto_data_modal.ConPrin==null)
+                    {
+                        scope.tContacto_data_modal.ConPrin=false;
+                    }
+                    else
+                    {
+                        scope.tContacto_data_modal.ConPrin=true;
+                    }
+                }
+                else
+                {
+                    scope.tContacto_data_modal={};
+                    scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                    scope.tContacto_data_modal.EsRepLeg = undefined;
+                    scope.tContacto_data_modal.TieFacEsc = undefined;
+                    scope.tContacto_data_modal.CanMinRep = 1;
+                    scope.tContacto_data_modal.TipRepr = "1";
+                    scope.tContacto_data_modal.ConPrin=false;
+                }
                 $('#modal_agregarNuevoCliente').modal('show');
         }
         else if(metodo==2)
@@ -1815,7 +1831,96 @@ scope.misma_razon = function(opcion) {
          });
          }
      }
-     
+     scope.Consultar_CIF=function()
+    {
+        console.log(scope.tContacto_data_modal.NIFConCli.length);
+        console.log(scope.tContacto_data_modal.NIFConCli);
+        if(scope.tContacto_data_modal.NIFConCli.length>=9)
+        {
+            if (!scope.validarNIFDNI()) {
+               return false;
+            }
+            var url = base_urlHome()+"api/Clientes/search_contact_Filter/NIFConCli/"+scope.tContacto_data_modal.NIFConCli+"/CodCli/"+scope.fdatos.CodCli;
+            $http.get(url).then(function(result)
+            {
+                if(result.data!=false)
+                {
+                    if(result.data.status==200)
+                       {
+                            scope.tContacto_data_modal.CodConCli=result.data.CodConCli;
+                            scope.tContacto_data_modal.NIFConCli=result.data.NIFConCli;
+                            scope.tContacto_data_modal.CodTipCon=result.data.CodTipCon;                                               
+                            scope.tContacto_data_modal.CarConCli=result.data.CarConCli;
+                            scope.tContacto_data_modal.NomConCli=result.data.NomConCli;
+                            scope.tContacto_data_modal.NumColeCon=result.data.NumColeCon;
+                            scope.tContacto_data_modal.TelFijConCli=result.data.TelFijConCli;
+                            scope.tContacto_data_modal.TelCelConCli=result.data.TelCelConCli;
+                            scope.tContacto_data_modal.EmaConCli=result.data.EmaConCli;
+                            scope.tContacto_data_modal.TipRepr=result.data.TipRepr;
+                            scope.tContacto_data_modal.CanMinRep=result.data.CanMinRep;
+                            scope.tContacto_data_modal.EsRepLeg = result.data.EsRepLeg;
+                            scope.tContacto_data_modal.TieFacEsc = result.data.TieFacEsc;
+                            scope.tContacto_data_modal.DocNIF= result.data.DocNIF;
+                            scope.tContacto_data_modal.DocPod= result.data.DocPod;
+                            scope.tContacto_data_modal.ObsConC=result.data.ObsConC;
+                            if(result.data.ConPrin==null || result.data.ConPrin==0)
+                            {
+                                scope.tContacto_data_modal.ConPrin=false;
+                            }
+                            else
+                            {
+                                scope.tContacto_data_modal.ConPrin=true;
+                            } 
+                       }
+                       else if(result.data.status==202)
+                       {
+                            scope.tContacto_data_modal.CodConCli=null;
+                            scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                            scope.tContacto_data_modal.NIFConCli=result.data.NIFConCli;
+                            scope.tContacto_data_modal.CodTipCon=result.data.CodTipCon;
+                            scope.tContacto_data_modal.ConPrin=false;
+                            scope.tContacto_data_modal.CarConCli=result.data.CarConCli;
+                            scope.tContacto_data_modal.NomConCli=result.data.NomConCli;
+                            scope.tContacto_data_modal.NumColeCon=result.data.NumColeCon;
+                            scope.tContacto_data_modal.TelFijConCli=result.data.TelFijConCli;
+                            scope.tContacto_data_modal.TelCelConCli=result.data.TelCelConCli;
+                            scope.tContacto_data_modal.EmaConCli=result.data.EmaConCli;
+                            scope.tContacto_data_modal.TipRepr='1';
+                            scope.tContacto_data_modal.CanMinRep='1';
+                            scope.tContacto_data_modal.EsRepLeg = null;
+                            scope.tContacto_data_modal.TieFacEsc = null;
+                            scope.tContacto_data_modal.DocNIF= null;
+                            scope.tContacto_data_modal.DocPod= null;
+                            scope.tContacto_data_modal.ObsConC=result.data.ObsConC;
+                       }
+                       else
+                       {
+                            scope.toast('error','Error en el filtro para contacto','Error');
+                       }
+                }
+                else
+                {
+                    var NIFConCli=scope.tContacto_data_modal.NIFConCli;
+                    scope.tContacto_data_modal={};
+                    scope.tContacto_data_modal.NIFConCli=NIFConCli;
+                    scope.tContacto_data_modal.TipRepr='1';
+                    scope.tContacto_data_modal.CanMinRep='1';
+                    scope.toast('info','El Contacto no esta registrado ni asignado a ningun cliente','Contacto Disponible');
+                } 
+            },function(error)
+            {
+                if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                }if (error.status == 401 && error.statusText == "Unauthorized"){
+                    scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                }if (error.status == 403 && error.statusText == "Forbidden"){
+                    scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                }
+            });
+        }
+    }
 ///////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD END///////////////////////////////////////////////////////////
      
 
