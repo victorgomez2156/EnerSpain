@@ -54,13 +54,14 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
          
          if (!scope.validar_camposConsumos()) {
              return false;
-         }        
+         }   
+            $("#Loading").removeClass("loader loader-default").addClass("loader loader-default is-active");    
             var url = base_urlHome() + "api/Reportes/Generar_ConsumoCUPS/";
             $http.post(url, scope.fdatos).then(function(result) 
             {
+                $("#Loading").removeClass("loader loader-default is-active").addClass("loader loader-default");
                 if (result.data != false) 
                 {
-                    //var datax = JSON.parse(result.data);
                     console.log(result.data);
                     scope.totalCount=result.data.CountRegistro.total;
                     if(result.data.ConsumoElectrico.totalConsumoEle!=null && result.data.ConsumoElectrico.totalConsumoGas==null)
@@ -83,6 +84,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 }
             }, function(error) 
             {
+                $("#Loading").removeClass("loader loader-default is-active").addClass("loader loader-default");                
                 if (error.status == 404 && error.statusText == "Not Found"){
                     scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
                 }if (error.status == 401 && error.statusText == "Unauthorized"){

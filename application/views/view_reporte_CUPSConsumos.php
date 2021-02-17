@@ -213,5 +213,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!--custome script for all page-->
   <!--script src="application/libraries/estilos/js/scripts.js"></script-->
 </body>
-<div id="Rueda" class="loader loader-default"  data-text="Generando Reporte Rueda"></div>
+<div id="Loading" class="loader loader-default"  data-text="Generando Reporte"></div>
 </html>

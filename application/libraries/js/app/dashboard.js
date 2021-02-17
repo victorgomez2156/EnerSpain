@@ -1028,7 +1028,7 @@ scope.agregar_datos_dashboard=function(metodo)
             scope.cargar_tiposContactos(9);
             scope.cargar_tiposContactos(3);
             scope.cargar_tiposContactos(12);
-            scope.DirCliente();
+            scope.DirClienteContactos();
             $('#modal_agregarContactos').modal('show');  
         }
         else if(metodo==2)
@@ -1298,7 +1298,7 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
                 else
                 {
                     scope.tContacto_data_modal={};
-                    scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                    scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
                     scope.tContacto_data_modal.EsRepLeg = undefined;
                     scope.tContacto_data_modal.TieFacEsc = undefined;
                     scope.tContacto_data_modal.CanMinRep = 1;
@@ -1875,7 +1875,7 @@ scope.misma_razon = function(opcion) {
                        else if(result.data.status==202)
                        {
                             scope.tContacto_data_modal.CodConCli=null;
-                            scope.tContacto_data_modal.CodCli=result.data.CodCli;
+                            scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
                             scope.tContacto_data_modal.NIFConCli=result.data.NIFConCli;
                             scope.tContacto_data_modal.CodTipCon=result.data.CodTipCon;
                             scope.tContacto_data_modal.ConPrin=false;
@@ -1923,33 +1923,14 @@ scope.misma_razon = function(opcion) {
     }
 ///////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD END///////////////////////////////////////////////////////////
      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
+    
 
     scope.LocalidadCodigoPostal=function(metodo)
     {
             if(metodo==1)
             { 
-               var searchText_len = scope.tModalDatosClientes.CPLocSoc.trim().length;
-               var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tModalDatosClientes.CPLocSoc;
+              var searchText_len = scope.tModalDatosClientes.CPLocSoc.trim().length;
+              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tModalDatosClientes.CPLocSoc;
             }
             else if(metodo==2)
             {
@@ -1958,8 +1939,8 @@ scope.misma_razon = function(opcion) {
             }
             else if(metodo==3)
             {
-              var searchText_len = scope.tContacto_data_modal.CodProSoc.trim().length;
-              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CodProSoc;
+              var searchText_len = scope.tContacto_data_modal.CPLocSoc.trim().length;
+              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
             }
         if (searchText_len >=3) 
         {
@@ -1986,13 +1967,13 @@ scope.misma_razon = function(opcion) {
                     {
                         scope.searchResult = {};
                         scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
-                        scope.tContacto_data_modal.CPLocSoc=null;
+                        scope.tModalDatosClientes.CPLocSoc=null;
                     }
                     else if(metodo==2)
                     {
                         scope.searchResultFis = {};
                         scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
-                        scope.tContacto_data_modal.CPLocFis=null;
+                        scope.tModalDatosClientes.CPLocFis=null;
                     }
                     else if(metodo==3)
                     {
@@ -2045,6 +2026,11 @@ scope.misma_razon = function(opcion) {
                     scope.TLocalidadesfiltradaFisc=[];
                     scope.TLocalidadesfiltradaFisc=result.data;
                 }
+                else if(metodo==3)
+                {
+                    scope.TLocalidadesfiltrada=[];
+                    scope.TLocalidadesfiltrada=result.data;
+                }
                 else
                 {
 
@@ -2057,6 +2043,10 @@ scope.misma_razon = function(opcion) {
                     scope.tModalDatosClientes.CodLocSoc=undefined;
                     scope.TLocalidadesfiltrada=[];
                     scope.toast('error','No se encontraron Localidades asignada a esta provincia.','Error');                    
+                }
+                else if(metodo==3)
+                {
+                    scope.TLocalidadesfiltradaFisc=[];
                 }
                 else
                 {
@@ -2096,6 +2086,51 @@ scope.misma_razon = function(opcion) {
             scope.tContacto_data_modal.PueDomSoc=result.data.PueDomSoc;
             scope.tContacto_data_modal.CPLocSoc=result.data.CPLocSoc;
             scope.BuscarLocalidad(1,result.data.CodProSoc);
+            scope.tContacto_data_modal.CodProSoc=result.data.CodProSoc;
+            scope.tContacto_data_modal.CodLocSoc=result.data.CodLocSoc;
+        }
+        else
+        {
+            scope.tContacto_data_modal.CodTipViaSoc=null;
+            scope.tContacto_data_modal.NomViaDomSoc=null;
+            scope.tContacto_data_modal.NumViaDomSoc=null;
+            scope.tContacto_data_modal.BloDomSoc=null;
+            scope.tContacto_data_modal.EscDomSoc=null;
+            scope.tContacto_data_modal.PlaDomSoc=null;
+            scope.tContacto_data_modal.PueDomSoc=null;
+            scope.tContacto_data_modal.CPLocSoc=null;
+            scope.tContacto_data_modal.CodProSoc=null;
+            scope.tContacto_data_modal.CodLocSoc=null;
+        } 
+    },function(error)
+    {
+        if (error.status == 404 && error.statusText == "Not Found"){
+            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+        }if (error.status == 401 && error.statusText == "Unauthorized"){
+            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+        }if (error.status == 403 && error.statusText == "Forbidden"){
+            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+        }
+    });
+ }
+ scope.DirClienteContactos=function()
+ {
+    var url=base_urlHome()+"api/Dashboard/DirCliente/CodCli/"+scope.response_customer.CodCli;
+    $http.get(url).then(function(result)
+    {
+        if(result.data!=false)
+        {
+            scope.tContacto_data_modal.CodTipViaSoc=result.data.CodTipViaSoc;
+            scope.tContacto_data_modal.NomViaDomSoc=result.data.NomViaDomSoc;
+            scope.tContacto_data_modal.NumViaDomSoc=result.data.NumViaDomSoc;
+            scope.tContacto_data_modal.BloDomSoc=result.data.BloDomSoc;
+            scope.tContacto_data_modal.EscDomSoc=result.data.EscDomSoc;
+            scope.tContacto_data_modal.PlaDomSoc=result.data.PlaDomSoc;
+            scope.tContacto_data_modal.PueDomSoc=result.data.PueDomSoc;
+            scope.tContacto_data_modal.CPLocSoc=result.data.CPLocSoc;
+            scope.BuscarLocalidad(3,result.data.CodProSoc);
             scope.tContacto_data_modal.CodProSoc=result.data.CodProSoc;
             scope.tContacto_data_modal.CodLocSoc=result.data.CodLocSoc;
         }
@@ -2212,7 +2247,7 @@ scope.misma_razon = function(opcion) {
             console.log(result);
             console.log(metodo);
             scope.tContacto_data_modal.CodProSoc=scope.searchResultCPLoc[index].CodPro;
-            scope.BuscarLocalidad(1,scope.tContacto_data_modal.CodProSoc);
+            scope.BuscarLocalidad(3,scope.tContacto_data_modal.CodProSoc);
             scope.tContacto_data_modal.CodLocSoc=scope.searchResultCPLoc[index].CodLoc;
             scope.tContacto_data_modal.CPLocSoc= scope.searchResultCPLoc[index].CPLoc;
             scope.searchResultCPLoc = {};
@@ -2560,7 +2595,7 @@ scope.misma_razon = function(opcion) {
                         if(data.metodo==2)
                         {
                             var namefileDocPod = '<i class="fa fa-file"> '+data.file_name+'</i>';
-                            $('#filenameDocPod').html(namefileDocPod);
+                            $('#filenameDocPodModal').html(namefileDocPod);
                              scope.tContacto_data_modal.DocPod=data.DocNIF;
                             scope.toast('success','Archivo subido correctamente no actualice ni cierre la página hasta finalizar el proceso correctamente.','Archivo Cargado');
                         }
@@ -2787,6 +2822,7 @@ $scope.submitFormRegistroContacto = function(event)
                scope.tContacto_data_modal.ObsConC = scope.tContacto_data_modal.ObsConC;
            }
            if (scope.tContacto_data_modal.EsRepLeg == 1) {
+               
                if (!scope.tContacto_data_modal.TipRepr > 0) {
                    scope.toast('error','Seleccione el Tipo de Representación','');
                    return false;
@@ -2825,7 +2861,7 @@ $scope.submitFormRegistroContacto = function(event)
         }         
         if (scope.tContacto_data_modal.TieFacEsc == 0) {
 
-           if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
+           if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null|| scope.tContacto_data_modal.DocPod == '') {
                scope.toast('error','Adjunte el documento Poder del Representante Legal','');
                return false;
            }

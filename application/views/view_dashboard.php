@@ -1161,13 +1161,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		</div>
 		<div class="modal-body" style="background-color: white;">
 			<div class="panel">                  
-				<form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
+		<form class="form-validate" id="form_contacto2" name="form_contacto2" ng-submit="submitFormRegistroContacto($event)">                 
 
    <div class="col-12 col-sm-10">
 	<div class="form">                          
 		<div class="form-group">
 			<label class="font-weight-bold nexa-dark" style="color:black;">Número de Documento DNI/NIE/CIF <b style="color:red;">(*)</b></label>
-			<input type="text" class="form-control" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.tContacto_data_modal.NIFConCli" maxlength="9" required ng-blur="vm.ValidarNumCIFContacto()" id="NIFConCli1"/>     
+			<input type="text" class="form-control" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.tContacto_data_modal.NIFConCli" maxlength="9" ng-blur="vm.ValidarNumCIFContacto()" id="NIFConCli1"/>     
 		</div>
 	</div>
 </div>
@@ -1254,7 +1254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<div class="form">                          
 			<div class="form-group">
 				<label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-				<input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CPLocSoc" placeholder="* Zona Postal Social" ng-disabled="vm.validate_info!=undefined" ng-click='vm.searchboxClicked($event)' ng-keyup='vm.LocalidadCodigoPostal(1)'/>
+				<input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CPLocSoc" placeholder="* Zona Postal Social" ng-disabled="vm.validate_info!=undefined" ng-click='vm.searchboxClicked($event)' ng-keyup='vm.LocalidadCodigoPostal(3)'/>
 				<ul id='searchResult'>
 					<li ng-click='vm.setValueCPLoc($index,$event,result,1)' ng-repeat="result in vm.searchResultCPLoc" >
 						{{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
@@ -1343,7 +1343,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<div class="form">                          
 		<div class="form-group">  
 			<label class="font-weight-bold nexa-dark" style="color:black;">Email <b style="color:red;">(*)</b></label>           
-			<input type="email" class="form-control" ng-model="vm.tContacto_data_modal.EmaConCli"  maxlength="50" ng-disabled="vm.no_editable!=undefined"/>     
+			<input type="email" class="form-control" ng-model="vm.tContacto_data_modal.EmaConCli" maxlength="100" ng-disabled="vm.no_editable!=undefined"/>     
 		</div>
 	</div>
 </div>
@@ -1416,7 +1416,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		</div>
 	</div>
 		
-		<div class="form"> <div class="form-group"> <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label> <div id="file-wrap" style="cursor: pointer"> <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p> <input type="file" id="DocPod_Modal" style="cursor: pointer;"  name="DocPod_Modal" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,2)" draggable="true" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true"> <div id="filenameDocPod"></div> </div> </div> </div>
+		<div class="form"> <div class="form-group"> <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label> <div id="file-wrap" style="cursor: pointer"> <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p> <input type="file" id="DocPod_Modal" style="cursor: pointer;"  name="DocPod_Modal" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,2)" draggable="true" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true"> 
+		<div id="filenameDocPodModal"></div> </div> </div> </div>
 		
 	
 
