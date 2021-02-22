@@ -338,12 +338,17 @@
                       <div class="form-group" >
                           <div class="col-12 col-sm-4">
                             <button class="btn btn-info" type="submit" ng-disabled="vm.CUPsName.length<=0" ng-click="vm.buscarCUPsActivaciones()">Buscar</button>
-                             <button class="btn btn-primary" type="button" ng-show="vm.T_Contratos.length>0 && vm.VistaResponse==true" ng-click="vm.GenerarContratoRapido()">Generar Contrato Rapido</button>
+
+
+                            <button class="btn btn-primary" type="button" ng-show="vm.VistaResponse==true" ng-click="vm.GenerarContratoRapido(2)">Generar Contrato Rapido</button>
+
+                            <button class="btn btn-primary" type="button" ng-show="vm.VistaResponseSinData==true" ng-click="vm.GenerarContratoRapido(1)">Generar Contrato Rapido</button>
+
                           </div>
                         </div> 
                     </div><!--FINAL ROW -->
                   </form>
-                  <div ng-show="vm.VistaResponse==true">
+                  <div ng-show="vm.VistaResponse==true && vm.T_Contratos.length>0">
       
                                         <form id="form_update_fechas" name="form_update_fechas" ng-submit="submitFormCUPsActivacionesFechas($event)"> 
                                             <div class="col-12 col-sm-6">
@@ -741,6 +746,7 @@
               </table>
         </div> 
         <div align="center">
+          <button class="btn btn-primary" type="button" ng-click="vm.GenerarContratoRapido(1)">Generar Contrato Rapido</button>
           <span class="store-qty"> <a ng-click="vm.buscarCUPsActivaciones()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  

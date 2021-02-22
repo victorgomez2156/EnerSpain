@@ -9,6 +9,7 @@ class Activaciones extends REST_Controller
 		$this->load->database('default');
         $this->load->library('form_validation');   	
 		$this->load->model('Auditoria_model');
+		$this->load->model('Propuesta_model');
 		$this->load->model('Activaciones_model');
 		header('Access-Control-Allow-Origin: *');
 		$datausuario=$this->session->all_userdata();	
@@ -238,5 +239,17 @@ class Activaciones extends REST_Controller
 		$this->db->trans_complete();
 		$this->response($response);
     }
+    public function ComprobarDatosCUPs_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}  
+		$CUPsName=$this->get('CUPsName');
+		$Response = $this->Activaciones_model->Funcion_Verificadora($CUPsName,'V_CupsGrib','CupsGas','*');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'V_CupsGrib','GET',null,$this->input->ip_address(),'Cargando Datos de CUPs');				
+		$this->response($Response);		
+	}
 }
 ?>

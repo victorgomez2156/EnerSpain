@@ -70,6 +70,7 @@
                     {                        
                         if(result.data.status==400 && result.data.statusText=='CUPs Sin Contrato')
                         {
+                            scope.VistaResponseSinData=true;
                             scope.toast('error',result.data.menssage,result.data.statusText);
                             return false;
                         }
@@ -249,52 +250,130 @@
                     }
             });  
         }
-        scope.GenerarContratoRapido=function()
+        scope.GenerarContratoRapido=function(metodo)
         {
-            $("#modal_contrato_rapido").modal('show');        
-            scope.contrato_fdatos={};
-            scope.contrato_fdatos.TDocumentosContratos=[];
-            scope.contrato_fdatos.TipCups=scope.fdatos.TipCups;            
-            scope.cargar_tiposFiltros(4);            
-            scope.contrato_fdatos.CodPunSum=scope.fdatos.CodPunSum;
-            scope.contrato_fdatos.CodCom=scope.CodCom;
-            scope.contrato_fdatos.CodCli=scope.fdatos.CodCli;
-            scope.contrato_fdatos.CodAnePro=scope.CodAnePro;
-            scope.contrato_fdatos.TipPre=scope.TipPre;  
-            scope.contrato_fdatos.ObsCup=scope.ObsCup;
-            if(scope.contrato_fdatos.TipCups==1)
+            if(metodo==1)
             {
-                scope.contrato_fdatos.CodTarEle=scope.NomTar;
-                scope.CanPerEleModalContratoRapido=6;
-                scope.realizar_filtro(4,scope.fdatos.CodCups);
-                scope.contrato_fdatos.CodCupSEle=scope.fdatos.CodCups;
-                scope.filtrerCanPeriodosModal(scope.contrato_fdatos.CodTarEle);
-                scope.contrato_fdatos.ConCupsEle=scope.ConCup;                
-                scope.contrato_fdatos.PotEleConP1=scope.PotEleConP1;
-                scope.contrato_fdatos.PotEleConP2=scope.PotEleConP2;
-                scope.contrato_fdatos.PotEleConP3=scope.PotEleConP3;
-                scope.contrato_fdatos.PotEleConP4=scope.PotEleConP4;
-                scope.contrato_fdatos.PotEleConP5=scope.PotEleConP5;
-                scope.contrato_fdatos.PotEleConP6=scope.PotEleConP6;
+                var url = base_urlHome()+"api/Activaciones/ComprobarDatosCUPs/CUPsName/"+scope.CUPsName;
+                $http.get(url).then(function(result)
+                {
+                    if(result.data!=false)
+                    {
+                        $("#modal_lista_contratos").modal('hide');
+                        $("#modal_contrato_rapido").modal('show');
+                        scope.RazSocCli=result.data.Cups_RazSocCli;
+                        scope.NumCifCli=result.data.Cups_Cif;
+                        scope.contrato_fdatos={};
+                        scope.contrato_fdatos.PotEleConP1=null;
+                        scope.contrato_fdatos.PotEleConP2=null;
+                        scope.contrato_fdatos.PotEleConP3=null;
+                        scope.contrato_fdatos.PotEleConP4=null;
+                        scope.contrato_fdatos.PotEleConP5=null;
+                        scope.contrato_fdatos.PotEleConP6=null;
+                        scope.contrato_fdatos.TDocumentosContratos=[];        
+                        if(result.data.TipServ=='Eléctrico')
+                        {
+                           scope.contrato_fdatos.TipCups=1; 
+                           scope.contrato_fdatos.CodCupSEle=result.data.CodCupGas;
+                           scope.cargar_tiposFiltros(1);
+                        }
+                        else if(result.data.TipServ=='Gas')
+                        {
+                            scope.contrato_fdatos.TipCups=2;
+                            scope.contrato_fdatos.CodCupGas=result.data.CodCupGas;
+                            scope.cargar_tiposFiltros(2);
+                            scope.toast('error','no se ha definido que tipo de servicio es el CUPs','Error');
+                        }
+                        else
+                        {
+                            scope.contrato_fdatos.TipCups=null;
+                        }                        
+                        scope.realizar_filtro(4, result.data.CodCupGas)
+                        scope.cargar_tiposFiltros(4);
+                        scope.contrato_fdatos.CodPunSum=result.data.CodPunSum;
+                        scope.realizar_filtro(6,result.data.CodCli);
+                        scope.contrato_fdatos.CodCom=null;
+                        scope.contrato_fdatos.CodCli=result.data.CodCli;
+                        scope.contrato_fdatos.CodAnePro=null;
+                        scope.contrato_fdatos.TipPre=null;  
+                        scope.contrato_fdatos.ObsCup=null;  
+
+                        console.log(scope);
+                    }
+                    else
+                    {
+                        scope.toast('error','Este CUPs no Existe','Error');
+                    }
+                },function(error)
+                {
+                    if (error.status == 404 && error.statusText == "Not Found"){
+                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+                });
+            }
+            else if (metodo==2) 
+            {
+                $("#modal_lista_contratos").modal('hide');
+                $("#modal_contrato_rapido").modal('show');        
+                scope.contrato_fdatos={};
+                scope.contrato_fdatos.TDocumentosContratos=[];
+                scope.contrato_fdatos.TipCups=scope.fdatos.TipCups;            
+                scope.cargar_tiposFiltros(4);            
+                scope.contrato_fdatos.CodPunSum=scope.fdatos.CodPunSum;
+                scope.contrato_fdatos.CodCom=scope.CodCom;
+                scope.contrato_fdatos.CodCli=scope.fdatos.CodCli;
+                scope.contrato_fdatos.CodAnePro=scope.CodAnePro;
+                scope.contrato_fdatos.TipPre=scope.TipPre;  
+                scope.contrato_fdatos.ObsCup=scope.ObsCup;
+                if(scope.contrato_fdatos.TipCups==1)
+                {
+                    scope.contrato_fdatos.CodTarEle=scope.NomTar;
+                    scope.CanPerEleModalContratoRapido=6;
+                    scope.realizar_filtro(4,scope.fdatos.CodCups);
+                    scope.contrato_fdatos.CodCupSEle=scope.fdatos.CodCups;
+                    scope.filtrerCanPeriodosModal(scope.contrato_fdatos.CodTarEle);
+                    scope.contrato_fdatos.ConCupsEle=scope.ConCup;                
+                    scope.contrato_fdatos.PotEleConP1=scope.PotEleConP1;
+                    scope.contrato_fdatos.PotEleConP2=scope.PotEleConP2;
+                    scope.contrato_fdatos.PotEleConP3=scope.PotEleConP3;
+                    scope.contrato_fdatos.PotEleConP4=scope.PotEleConP4;
+                    scope.contrato_fdatos.PotEleConP5=scope.PotEleConP5;
+                    scope.contrato_fdatos.PotEleConP6=scope.PotEleConP6;
+                }
+                else
+                { 
+                    scope.realizar_filtro(5,scope.fdatos.CodCups); 
+                    scope.contrato_fdatos.CodCupGas=scope.fdatos.CodCups;
+                    scope.contrato_fdatos.CodTarGas=scope.NomTar;
+                    scope.contrato_fdatos.Consumo=scope.ConCup;
+                    scope.contrato_fdatos.CauDiaGas=scope.CauDiaGas;
+                }  
+                if(scope.contrato_fdatos.CodCom!=null)
+                {
+                    scope.realizar_filtro(1, scope.contrato_fdatos.CodCom);
+                }
+                scope.contrato_fdatos.CodPro=scope.DesPro;
+                if( scope.DesPro!=null)
+                {
+                    scope.realizar_filtro(2, scope.DesPro);
+                }
+                scope.realizar_filtro(6,scope.fdatos.CodCli);
+            }
+
+            /*if(scope.T_Contratos.length==0)
+            {
+                                
             }
             else
-            { 
-                scope.realizar_filtro(5,scope.fdatos.CodCups); 
-                scope.contrato_fdatos.CodCupGas=scope.fdatos.CodCups;
-                scope.contrato_fdatos.CodTarGas=scope.NomTar;
-                scope.contrato_fdatos.Consumo=scope.ConCup;
-                scope.contrato_fdatos.CauDiaGas=scope.CauDiaGas;
-            }  
-            if(scope.contrato_fdatos.CodCom!=null)
             {
-                scope.realizar_filtro(1, scope.contrato_fdatos.CodCom);
-            }
-            scope.contrato_fdatos.CodPro=scope.DesPro;
-            if( scope.DesPro!=null)
-            {
-                scope.realizar_filtro(2, scope.DesPro);
-            }
-            scope.realizar_filtro(6,scope.fdatos.CodCli);
+                
+            }*/
         }
     
         $scope.submitFormCUPsActivacionesFechas = function(event) 
