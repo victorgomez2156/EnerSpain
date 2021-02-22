@@ -1210,19 +1210,21 @@ public function getColaboradoressearch($SearchText)
 else
     return false;
 }
-public function getclientesColaboradoressearch($SearchText,$CodCli)
+public function getclientesRepresentanteLegalsearch($SearchText,$CodCli,$NIFConCli)
 {
 
- $sql = $this->db->query("SELECT CodCli,RazSocCli,NomComCli,NumCifCli,TelFijCli,EmaCli FROM T_Cliente where RazSocCli like '%$SearchText%' and CodCol='$CodCli' or NomComCli like '%$SearchText%' and CodCol='$CodCli' or NumCifCli like '%$SearchText%' and CodCol='$CodCli' or EmaCli like '%$SearchText%' and CodCol='$CodCli' or CodCli like '%$SearchText%' and CodCol='$CodCli' ORDER BY RazSocCli ASC");
+ $sql = $this->db->query("SELECT a.CodCli,b.NIFConCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.TelFijCli,a.EmaCli FROM T_Cliente a 
+LEFT JOIN T_ContactoCliente b ON a.CodCli=b.CodCli
+WHERE a.RazSocCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.NomComCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.NumCifCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.EmaCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.CodCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' ORDER BY RazSocCli ASC");
  if ($sql->num_rows() > 0)
   return $sql->result();
 else
     return false;
 }
-public function getColaboraresSearch($SearchText)
+public function getRepresentantelLegalSearch($SearchText)
 {
 
- $sql = $this->db->query("SELECT CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli,TelFijCol as TelFijCli,EmaCol as EmaCli FROM T_Colaborador where NomCol like '%$SearchText%' or NumIdeFis like '%$SearchText%' or EmaCol like '%$SearchText%' or CodCol like '%$SearchText%' ORDER BY RazSocCli ASC");
+ $sql = $this->db->query("SELECT CodConCli as CodCli,NomConCli as RazSocCli,NIFConCli as NumCifCli,TelFijConCli as TelFijCli,EmaConCli as EmaCli FROM T_ContactoCliente where NomConCli like '%$SearchText%' or NIFConCli like '%$SearchText%' or EmaConCli like '%$SearchText%' or CodConCli like '%$SearchText%' ORDER BY NomConCli ASC");
  if ($sql->num_rows() > 0)
   return $sql->result();
 else

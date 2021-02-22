@@ -665,7 +665,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>  
 
-<div class="col-12 col-sm-4">
+<div class="col-12 col-sm-6">
   <div class="form">                          
    <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>

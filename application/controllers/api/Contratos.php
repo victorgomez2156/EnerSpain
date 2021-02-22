@@ -75,30 +75,46 @@ class Contratos extends REST_Controller
 		$tabla="T_Cliente";
 		$where="NumCifCli";	
 		$select='CodCli,NumCifCli'; 
-		$Cliente = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);        
+		$Cliente = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);		
 		if (empty($Cliente))
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',null,$this->input->ip_address(),'Número de CIF no Registrado.');
-			$tabla="T_Colaborador";
-			$where="NumIdeFis";	
-			$select='CodCol as CodCli,NumIdeFis as NumCifCli'; 
+			$tabla="T_ContactoCliente";
+			$where="NIFConCli";	
+			$select='CodConCli as CodCli,NIFConCli as NumCifCli'; 
 			$Cliente = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);			
 			if(empty($Cliente))
 			{
-				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Número de CIF Colaborador no Registrado.');
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Número de CIF Colaborador no Registrado.');
 				$this->response(false);
 			    return false;
 			}
+			else
+			{
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');	
+				$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,3); 
+				if($BuscarPropuestaAprobada==false)
+				{
+					$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial MultiCliente con estatus aprobada.','statusText'=>'Error');
+					$this->response($response);				
+					return false;
+				}
+				$response = array('status' =>true ,'menssage' =>'Datos Encontrados','statusText'=>'Contrato','Cliente'=>$Cliente);	
+			}
 		}
-		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');	
-		$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,1); 
-		if($BuscarPropuestaAprobada==false)
+		else
 		{
-			$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial con estatus aprobada.','statusText'=>'Error');
-			$this->response($response);	
-			return false;
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$Cliente->CodCli,$this->input->ip_address(),'Número de CIF Encontrado.');	
+			$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,1); 
+			if($BuscarPropuestaAprobada==false)
+			{
+				$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial Sencilla o Uni Cliente con estatus aprobada.','statusText'=>'Error');
+				$this->response($response);				
+				return false;
+			}
+			$response = array('status' =>true ,'menssage' =>'Datos Encontrados','statusText'=>'Contrato','Cliente'=>$Cliente);	
 		}
-		$response = array('status' =>true ,'menssage' =>'Datos Encontrados','statusText'=>'Contrato','Cliente'=>$Cliente);	
+		
 		/*$tabla="T_PropuestaComercial";
 		$where="CodCli";
 		$BuscarPropuesta=$this->Propuesta_model->Buscar_Propuesta($Cliente->CodCli,$tabla,$where);
@@ -127,6 +143,11 @@ class Contratos extends REST_Controller
     }
     public function BuscarXIDPropuestaContrato_get()
     {
+    	$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
     	$CodCli=$this->get('CodCli');
 		$tabla="T_Cliente";
 		$where="CodCli";	
@@ -134,32 +155,66 @@ class Contratos extends REST_Controller
 		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
 		if(empty($Cliente))
 		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Cliente','GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
-			$this->response(false);
-			return false;
+				$tabla="T_ContactoCliente";
+				$where="CodConCli";	
+				$select='CodConCli as CodCli,NIFConCli as NumCifCli,NomConCli as RazSocCli'; 
+				$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select);	
+				if(empty($Cliente))
+				{
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodCli,$this->input->ip_address(),'Número de Representante Legal no Registrado.');
+					$this->response(false);
+				    return false;
+				}
+				$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,3); 
+				if($BuscarPropuestaAprobada==false)
+				{
+					$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial MultiCliente con estatus aprobada.','statusText'=>'Error');
+					$this->response($response);				
+					return false;
+				}
+				$response = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
+				$this->response($response);
 		}
-		$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,1); 
-		if($BuscarPropuestaAprobada==false)
+		else
 		{
-			$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial con estatus aprobada.','statusText'=>'Error');
-			$this->response($response);	
-			return false;
-		}
-		$ReferenciaContrato=$this->generar_RefProContrato();
-		$Fecha=date('d/m/Y');
-		$arrayName = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
-		$this->response($arrayName);
+			$ReferenciaContrato=$this->generar_RefProContrato();
+			$Fecha=date('d/m/Y');
+			$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,1); 
+			if($BuscarPropuestaAprobada==false)
+			{				
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','GET',$CodCli,$this->input->ip_address(),'No se encontraron propuesta aprobadas para este cliente verificacion Con Representante Legal.');
+				$tabla="T_ContactoCliente";
+				$where="CodConCli";	
+				$select='CodConCli as CodCli,NIFConCli as NumCifCli,NomConCli as RazSocCli'; 
+				$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select);	
+				if(empty($Cliente))
+				{
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodCli,$this->input->ip_address(),'Número de Representante Legal no Registrado.');
+					$this->response(false);
+				    return false;
+				}
+				$BuscarPropuestaAprobada=$this->Contratos_model->BuscarPropuestaAprobadaNewVer($Cliente->CodCli,3); 
+				if($BuscarPropuestaAprobada==false)
+				{
+					$response = array('status' =>false ,'menssage' =>'El Cliente no tiene una Propuesta Comercial MultiCliente con estatus aprobada.','statusText'=>'Error');
+					$this->response($response);				
+					return false;
+				}
+				$response = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
+				$this->response($response);				
+			}
+		}		
 	}
 	public function PropuestaMultiCliente_get()
     {
     	$CodCli=$this->get('CodCol');
-		$tabla="T_Colaborador";
-		$where="CodCol";	
-		$select='CodCol as CodCli,NumIdeFis as NumCifCli,NomCol as RazSocCli'; 
+		$tabla="T_ContactoCliente";
+		$where="CodConCli";	
+		$select='CodConCli as CodCli,NIFConCli as NumCifCli,NomConCli as RazSocCli'; 
 		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
 		if(empty($Cliente))
 		{
-			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
+			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodCli,$this->input->ip_address(),'Número de CIF no Registrado.');
 			$this->response(false);
 			return false;
 		}
@@ -198,9 +253,9 @@ class Contratos extends REST_Controller
 		}
 		else
 		{
-			$tabla="T_Colaborador";
-			$where="CodCol";	
-			$select='CodCol as CodCli,NumIdeFis as NumCifCli,NomCol as RazSocCli';
+			$tabla="T_ContactoCliente";
+			$where="CodConCli";	
+			$select='CodConCli as CodCli,NIFConCli as NumCifCli,NomConCli as RazSocCli';
 		}
 		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
 		if(empty($Cliente)) 

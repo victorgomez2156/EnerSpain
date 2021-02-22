@@ -352,10 +352,10 @@ class Propuesta_model extends CI_Model
     } 
     public function PropuestasMulCliente()
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NumIdeFis as NumCifCli,c.NomCol as RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_Cliente c ON c.CodCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") AS FecProCom,b.CodCli,c.NIFConCli as NumCifCli,c.NomConCli as RazSocCli,a.EstProCom,a.RefProCom,(SELECT COUNT(DISTINCT(c.CodConCli)) FROM T_Propuesta_Comercial_CUPs a LEFT JOIN T_PuntoSuministro b ON a.CodPunSum=b.CodPunSum LEFT JOIN T_ContactoCliente c ON c.CodConCli=b.CodCli WHERE CodProComCli=b.CodProComCli) AS CantCli,(SELECT COUNT(*) FROM T_Propuesta_Comercial_CUPs WHERE CodProComCli=b.CodProComCli) AS CantCups',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom',"left");
-        $this->db->join('T_Colaborador c','b.CodCli=c.CodCol',"left");
+        $this->db->join('T_ContactoCliente c','b.CodCli=c.CodConCli',"left");
         $this->db->where('a.TipProCom=3');        
         $this->db->order_by('DATE_FORMAT(a.FecProCom,"%Y/%m/%d") DESC');              
         $query = $this->db->get(); 

@@ -375,10 +375,11 @@
      {
         var searchText_len = scope.NumCIFCliCUPs.trim().length;
         scope.fdatos.NumCifCli = scope.NumCIFCliCUPs;
+        scope.fdatos.NumCifCliCol=scope.NumCifCli;
         if (searchText_len > 0) 
         {
             console.log(scope.fdatos);
-            var url = base_urlHome() + "api/PropuestaComercial/getclientesColaboradores";
+            var url = base_urlHome() + "api/PropuestaComercial/getclientesRepresentanteLegal";
             $http.post(url, scope.fdatos).then(function(result) 
             {
                 //console.log(result);
@@ -582,11 +583,12 @@
         
      }
      scope.CUPsFilter = function(metodo, CodCUPs) {
+         
          if (metodo == 1) {
              for (var i = 0; i < scope.List_CUPsEle.length; i++) {
                  if (scope.List_CUPsEle[i].CodCupsEle == CodCUPs) {
                      console.log(scope.List_CUPsEle[i]);
-                     scope.DirPunSumCUPsEle=scope.List_CUPsEle[i].DirPumSum;
+                     scope.DirPunSumCUPsEle=scope.List_CUPsEle[i].DirPunSum;
                      scope.fdatos.CodTar = scope.List_CUPsEle[i].CodTarElec;
                     
                      if(scope.List_CUPsEle[i].PotConP1==null)
@@ -660,7 +662,7 @@
          if (metodo == 2) {
              for (var i = 0; i < scope.List_CUPsGas.length; i++) {
                  if (scope.List_CUPsGas[i].CodCupGas == scope.fdatos.CodCupSGas) {
-                     scope.DirPunSumCUPsGas=scope.List_CUPsGas[i].DirPumSum;
+                     scope.DirPunSumCUPsGas=scope.List_CUPsGas[i].DirPunSum;
                      scope.fdatos.CodPunSum= scope.List_CUPsGas[i].CodPunSum;
                      scope.fdatos.CodTar = scope.List_CUPsGas[i].CodTarGas;
                      scope.RazSocCliCups=scope.List_CUPsGas[i].RazSocCli;

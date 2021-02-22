@@ -644,7 +644,7 @@
                 var searchText_len = scope.NumCifCliUniMulCli.trim().length;
                 scope.fdatos.NumCifCli = scope.NumCifCliUniMulCli;
                 if (searchText_len > 0) {
-                    var url = base_urlHome() + "api/PropuestaComercial/getColaboradores";
+                    var url = base_urlHome() + "api/PropuestaComercial/getRepresentanteLegal";
                     $http.post(url, scope.fdatos).then(function(result) {
                     console.log(result);
                     if (result.data != false) 
