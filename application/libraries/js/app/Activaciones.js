@@ -276,19 +276,22 @@
                            scope.contrato_fdatos.TipCups=1; 
                            scope.contrato_fdatos.CodCupSEle=result.data.CodCupGas;
                            scope.cargar_tiposFiltros(1);
+                           scope.realizar_filtro(4, result.data.CodCupGas)
                         }
                         else if(result.data.TipServ=='Gas')
                         {
                             scope.contrato_fdatos.TipCups=2;
                             scope.contrato_fdatos.CodCupGas=result.data.CodCupGas;
                             scope.cargar_tiposFiltros(2);
-                            scope.toast('error','no se ha definido que tipo de servicio es el CUPs','Error');
+                            scope.realizar_filtro(5, result.data.CodCupGas)
+                            
                         }
                         else
                         {
+                            scope.toast('error','no se ha definido que tipo de servicio es el CUPs','Error');
                             scope.contrato_fdatos.TipCups=null;
                         }                        
-                        scope.realizar_filtro(4, result.data.CodCupGas)
+                        
                         scope.cargar_tiposFiltros(4);
                         scope.contrato_fdatos.CodPunSum=result.data.CodPunSum;
                         scope.realizar_filtro(6,result.data.CodCli);
@@ -364,6 +367,12 @@
                     scope.realizar_filtro(2, scope.DesPro);
                 }
                 scope.realizar_filtro(6,scope.fdatos.CodCli);
+            }
+            else
+            {
+                $("#modal_lista_contratos").modal('hide');
+                $("#modal_contrato_rapido").modal('hide');
+                scope.toast('error','Error en Método intente nuevamente','Error');
             }
 
             /*if(scope.T_Contratos.length==0)
