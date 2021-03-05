@@ -27,7 +27,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var searchText_len = scope.NumCifCli.trim().length;
             scope.fdatos.NumCifCli = scope.NumCifCli;
             if (searchText_len > 0) {
-                var url = base_urlHome() + "api/Contratos/getclientes";
+                var url = base_urlHome() + "api/OtrasGestiones/getclientes";
                 $http.post(url, scope.fdatos).then(function(result) {
                     console.log(result);
                     if (result.data != false) {

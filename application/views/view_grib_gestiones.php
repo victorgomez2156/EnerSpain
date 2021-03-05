@@ -333,13 +333,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-lg-10">
                               <input type="text" class="form-control" ng-model="vm.NumCifCli" placeholder="* Introduzca CIF" required ng-keyup='vm.fetchClientes(1)' ng-click='vm.searchboxClicked($event)'/>                                
                              <ul id='searchResult'>
-                              <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult" >
+                              <li ng-click='vm.setValue($index,$event,result,1)' ng-repeat="result in vm.searchResult">
                               {{ result.CodCli }}, {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
-                            </ul> 
-
-
-
+                            </ul>
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid"> Consultar</button>

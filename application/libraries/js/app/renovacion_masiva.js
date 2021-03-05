@@ -423,7 +423,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         }).then(function(t){
         if (t.value == true)
         { 
-            $("#Generando").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            scope.toast('error','Esta Función esta en mantenimiento. mientras se evalua como sera el proceso de renovación.','');
+            /*$("#Generando").removeClass("loader loader-default").addClass("loader loader-default is-active");
             var url = base_urlHome()+"api/RenovacionMasiva/RenovarMasivamenteContratos/";
             $http.post(url,scope.frenovaciones).then(function(result)
             {
@@ -458,7 +459,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                 }
 
-            });
+            });*/
         }else 
         {
             scope.toast('info','Cancelando Proceso.','');

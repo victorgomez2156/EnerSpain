@@ -7,7 +7,8 @@ class Contratos_model extends CI_Model
     {
         $this->db->select("CodConCom,CodProCom,DATE_FORMAT(FecConCom,'%d/%m/%Y') as FecConCom,DurCon,DATE_FORMAT(FecVenCon,'%d/%m/%Y') as FecVenCon,EstBajCon,DATE_FORMAT(FecIniCon,'%d/%m/%Y') as FecIniCon,CodCli,NumCifCli,RazSocCli,CodCom,Anexo,NumCifCom,RefCon,CUPsEle,CupsGas,CodProComCli,TipProCom",false);
         $this->db->from('View_Contratos');
-        $this->db->order_by('DATE_FORMAT(FecVenCon,"%Y/%m/%d") DESC');
+        $this->db->order_by('CodConCom DESC');
+        //$this->db->order_by('DATE_FORMAT(FecVenCon,"%Y/%m/%d") ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
        	return $query->result();
@@ -144,7 +145,8 @@ class Contratos_model extends CI_Model
     {
         $this->db->select('*',false);
         $this->db->from('T_ContactoCliente');       
-        $this->db->where('CodCli',$CodCli);            
+        $this->db->where('CodCli',$CodCli);
+        $this->db->where('EsRepLeg=1');            
         $this->db->order_by('NomConCli ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
@@ -262,12 +264,12 @@ class Contratos_model extends CI_Model
     }
     public function DatosClientesColaboradorAudax($CodCol)
     {
-        $this->db->select("a.NomCol as RazSocCli,a.NumIdeFis as NumCifCli,b.IniTipVia,b.DesTipVia,a.EscDir as EscDomSoc,a.PueDir as PueDomSoc,NULL as EscDomCliEnv,NULL as PueDomCliEnv,c.DesLoc,d.DesPro,a.NomViaDir as NomViaDomSoc,a.NumViaDir as NumViaDomSoc,a.CPLoc as CPLocSoc,a.TelFijCol as TelFijCli,a.TelCelCol as TelMovCli,a.EmaCol as EmaCli",false);
-        $this->db->from('T_Colaborador a');
-        $this->db->join('T_TipoVia b','a.CodTipVia=b.CodTipVia');        
+        $this->db->select("a.NomConCli as RazSocCli,a.NIFConCli as NumCifCli,NULL AS IniTipVia,NULL AS DesTipVia,NULL as EscDomSoc,NULL AS PueDomSoc,NULL as EscDomCliEnv,NULL as PueDomCliEnv,NULL AS DesLoc,NULL AS DesPro,NULL AS  NomViaDomSoc,NULL AS NumViaDomSoc,NULL AS CPLocSoc,a.TelFijConCli as TelFijCli,a.TelCelConCli as TelMovCli,a.EmaConCli as EmaCli",false);
+        $this->db->from('T_ContactoCliente a');
+       /* $this->db->join('T_TipoVia b','a.CodTipVia=b.CodTipVia');        
         $this->db->join('T_Localidad c','c.CodLoc=a.CodLocSoc');
-        $this->db->join('T_Provincia d','d.CodPro=c.CodPro'); 
-        $this->db->where('a.CodCol',$CodCol);
+        $this->db->join('T_Provincia d','d.CodPro=c.CodPro');*/ 
+        $this->db->where('a.CodConCli',$CodCol);
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         return $query->row();

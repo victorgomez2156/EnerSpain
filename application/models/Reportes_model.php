@@ -1566,7 +1566,9 @@ class Reportes_model extends CI_Model
         JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
         JOIN T_Comercializadora g ON c.CodCom=g.CodCom
         JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
+        
         UNION ALL
+        
         SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
@@ -1579,11 +1581,11 @@ class Reportes_model extends CI_Model
 
         UNION ALL
 
-        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-        JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+        JOIN T_ContactoCliente d ON b.CodCli=d.CodConCli AND c.TipProCom=3
         JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
         JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
         JOIN T_Comercializadora g ON c.CodCom=g.CodCom
@@ -1591,16 +1593,17 @@ class Reportes_model extends CI_Model
 
         UNION ALL
 
-        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumIdeFis as NumCifCli,d.NomCol as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
-        JOIN T_Colaborador d ON b.CodCli=d.CodCol AND c.TipProCom=3
+        JOIN T_ContactoCliente d ON b.CodCli=d.CodConCli AND c.TipProCom=3
         JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
         JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
         JOIN T_Comercializadora g ON c.CodCom=g.CodCom
         JOIN T_Contrato h ON c.CodProCom=h.CodProCom where a.FecVenCUPs BETWEEN '$Desde' and '$Hasta'
 
+        
 
 
         ORDER BY FecVenCUPs DESC");

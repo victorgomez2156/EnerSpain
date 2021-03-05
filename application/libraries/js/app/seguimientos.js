@@ -129,6 +129,8 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     }if (error.status == 500 && error.statusText == "Internal Server Error") {
                     scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
                     }});
+                scope.List_Gestiones = [];
+                scope.List_GestionesBack = [];
     }
     $scope.submitFormSeguimientos = function(event) {
         if (scope.fdatos.CodSeg == undefined) {

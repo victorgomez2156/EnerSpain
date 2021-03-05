@@ -153,6 +153,7 @@ class Contratos extends REST_Controller
 		$where="CodCli";	
 		$select='CodCli,NumCifCli,RazSocCli'; 
 		$Cliente = $this->Propuesta_model->Funcion_Verificadora($CodCli,$tabla,$where,$select); 
+		//$this->response($Cliente);
 		if(empty($Cliente))
 		{
 				$tabla="T_ContactoCliente";
@@ -203,6 +204,12 @@ class Contratos extends REST_Controller
 				$response = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
 				$this->response($response);				
 			}
+			else
+			{
+				$response = array('Cliente' =>$Cliente,'List_Propuesta'=>$BuscarPropuestaAprobada,'RefCon'=>$ReferenciaContrato,'FechaServer'=>$Fecha);
+				$this->response($response);	
+			}
+			//$this->response($BuscarPropuestaAprobada);
 		}		
 	}
 	public function PropuestaMultiCliente_get()

@@ -765,12 +765,45 @@ abstract class REST_Controller extends CI_Controller
      */
     protected function _log_request($authorized = false)
     {
+        
+        $logeado = $this->session->userdata('sesion_clientes');
+        if (!isset($logeado))
+        {       
+            redirect(base_url(), 'location', 301);
+        }
+            $this->load->library('user_agent');
+            if ($this->agent->is_browser())
+            {
+                $agent = $this->agent->browser(); 
+                $version= $this->agent->version();
+            }
+            elseif ($this->agent->is_robot())
+            {
+                $agent = $this->agent->robot();
+                $version= $this->agent->version();
+            }
+            elseif ($this->agent->is_mobile())
+            {
+                $agent = $this->agent->mobile();
+                $version= $this->agent->version();
+            }       
+            else
+            {
+                $agent = 'Unidentified User Agent';
+                $version= null;
+            }
+        $this->id_usuario=$this->session->userdata('id');       
+        
+
         $status = $this->rest->db->insert(config_item('rest_logs_table'), array(
                     'uri' => $this->uri->uri_string(),
                     'method' => $this->request->method,
                     'params' => $this->_args ? (config_item('rest_logs_json_params') ? json_encode($this->_args) : serialize($this->_args)) : null,
                     'api_key' => isset($this->rest->key) ? $this->rest->key : '',
                     'ip_address' => $this->input->ip_address(),
+                    'huser' =>$this->id_usuario, 
+                    'navegador' =>$agent,
+                    'version' =>$version,
                     'time' => function_exists('now') ? now() : time(),
                     'authorized' => $authorized
                 ));

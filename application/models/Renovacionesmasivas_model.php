@@ -54,42 +54,199 @@ class Renovacionesmasivas_model extends CI_Model
     }
     public function getContratosFilters($FecDesde,$FecHasta,$CodCom,$CodPro,$CodAnePro)
     {
-        $this->db->distinct();
-        $this->db->select('DATE_FORMAT(a.FecVenCon,"%d/%m%/%Y") as FecVenCon,c.RazSocCli,d.DesPro,e.DesAnePro,a.CodConCom,a.CodProCom,c.CodCli,a.DurCon,b.CodCom,b.CodPro,b.CodAnePro',FALSE);
-        $this->db->from('T_Contrato a');
-        $this->db->join('T_PropuestaComercial b','b.CodProCom=a.CodProCom');
-        $this->db->join('T_Cliente c','c.CodCli=a.CodCli');
-        $this->db->join('T_Producto d','b.CodPro=d.CodPro');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=b.CodAnePro');
-        $this->db->where('a.FecVenCon BETWEEN "'. $FecDesde. '" AND "'.$FecHasta.'"');
-        $this->db->where('b.CodCom',$CodCom);
-        if($CodPro==0)
-        {
-        	$this->db->where('b.CodPro>0');
-        }
-        else
-        {
-        	$this->db->where('b.CodPro',$CodPro);
-        }
-        if($CodAnePro==0)
-        {
-        	$this->db->where('b.CodAnePro>0');
-        }
-        else
-        {
-        	$this->db->where('b.CodAnePro',$CodAnePro);
-        }
-        $this->db->where('a.EstBajCon=0');
-        $this->db->order_by('a.FecVenCon ASC');
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        {
-            return $query->result();
-        }
-        else
-        {
-             return false;
-        }       
+        /*$sql = $this->db->query("SELECT DISTINCT DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli
+        ,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsEle as CUPsName
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+        JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+        JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom 
+        JOIN T_Producto i ON c.CodPro=i.CodPro
+        JOIN T_AnexoProducto j ON j.CodAnePro=c.CodAnePro
+        where a.FecVenCUPs BETWEEN '$FecDesde' AND '$FecHasta' AND c.CodCom='$CodCom' and '$CodProWhere' and '$CodAneProWhere'
+        
+        UNION ALL
+        
+        SELECT DISTINCT DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli
+        ,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsGas as CUPsName
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_Cliente d ON b.CodCli=d.CodCli AND c.TipProCom!=3
+        JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+        JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom         
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom 
+        JOIN T_Producto i ON c.CodPro=i.CodPro
+        JOIN T_AnexoProducto j ON j.CodAnePro=c.CodAnePro
+        where a.FecVenCUPs BETWEEN '$FecDesde' and '$FecHasta' AND c.CodCom='$CodCom' and '$CodProWhere' and '$CodAneProWhere'
+
+        UNION ALL
+
+        SELECT DISTINCT DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.NomConCli as RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli
+        ,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsEle as CUPsName
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_ContactoCliente d ON b.CodCli=d.CodConCli AND c.TipProCom=3
+        JOIN T_CUPsElectrico e ON a.CodCup=e.CodCupsEle AND a.TipCups=1
+        JOIN T_TarifaElectrica f ON a.CodTar=f.CodTarEle
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+        JOIN T_Producto i ON c.CodPro=i.CodPro
+        JOIN T_AnexoProducto j ON j.CodAnePro=c.CodAnePro
+        where a.FecVenCUPs BETWEEN '$FecDesde' and '$FecHasta' AND c.CodCom='$CodCom' and '$CodProWhere' and '$CodAneProWhere'
+
+        UNION ALL
+
+        SELECT DISTINCT DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.NomConCli as RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli
+        ,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsGas as CUPsName
+        FROM T_Propuesta_Comercial_CUPs a 
+        JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
+        JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
+        JOIN T_ContactoCliente d ON b.CodCli=d.CodConCli AND c.TipProCom=3
+        JOIN T_CUPsGas e ON a.CodCup=e.CodCupGas AND a.TipCups=2
+        JOIN T_TarifaGas f ON a.CodTar=f.CodTarGas
+        JOIN T_Comercializadora g ON c.CodCom=g.CodCom
+        JOIN T_Contrato h ON c.CodProCom=h.CodProCom
+        JOIN T_Producto i ON c.CodPro=i.CodPro
+        JOIN T_AnexoProducto j ON j.CodAnePro=c.CodAnePro
+        where a.FecVenCUPs BETWEEN '$FecDesde' and '$FecHasta' AND c.CodCom='$CodCom' and '$CodProWhere' and '$CodAneProWhere'
+
+        ORDER BY FecVenCUPs DESC");
+            if ($sql->num_rows() > 0)
+              return $sql->result();
+            else  
+            return false; */
+
+            $this->db->distinct();
+            $this->db->select("DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsEle as CUPsName,a.EstConCups");
+            $this->db->from('T_Propuesta_Comercial_CUPs as a');
+            $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+            $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom AND c.TipProCom!=3');
+            $this->db->join('T_Cliente d','b.CodCli=d.CodCli');
+            $this->db->join('T_CUPsElectrico e','a.CodCup=e.CodCupsEle AND a.TipCups=1');
+            $this->db->join('T_TarifaElectrica f','a.CodTar=f.CodTarEle');
+            $this->db->join('T_Comercializadora g','c.CodCom=g.CodCom');
+            $this->db->join('T_Contrato h','h.CodProCom=c.CodProCom');
+            $this->db->join('T_Producto i','c.CodPro=i.CodPro');
+            $this->db->join('T_AnexoProducto j','j.CodAnePro=c.CodAnePro');
+            $this->db->where('a.FecVenCUPs BETWEEN "'. $FecDesde. '" AND "'.$FecHasta.'"');
+            $this->db->where('c.CodCom',$CodCom);
+            if($CodPro==0)
+            {
+                $this->db->where('c.CodPro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodPro',$CodPro);
+            }
+            if($CodAnePro==0)
+            {
+                $this->db->where('c.CodAnePro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodAnePro',$CodAnePro);
+            }
+            $query1 = $this->db->get_compiled_select();
+            $this->db->distinct();
+            $this->db->select("DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsGas as CUPsName,a.EstConCups");
+            $this->db->from('T_Propuesta_Comercial_CUPs as a');
+            $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+            $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom AND c.TipProCom!=3');
+            $this->db->join('T_Cliente d','b.CodCli=d.CodCli');
+            $this->db->join('T_CUPsGas e','a.CodCup=e.CodCupGas AND a.TipCups=2');
+            $this->db->join('T_TarifaGas f','a.CodTar=f.CodTarGas');
+            $this->db->join('T_Comercializadora g','c.CodCom=g.CodCom');
+            $this->db->join('T_Contrato h','h.CodProCom=c.CodProCom');
+            $this->db->join('T_Producto i','c.CodPro=i.CodPro');
+            $this->db->join('T_AnexoProducto j','j.CodAnePro=c.CodAnePro');
+            $this->db->where('a.FecVenCUPs BETWEEN "'. $FecDesde. '" AND "'.$FecHasta.'"');
+            $this->db->where('c.CodCom',$CodCom);
+            if($CodPro==0)
+            {
+                $this->db->where('c.CodPro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodPro',$CodPro);
+            }
+            if($CodAnePro==0)
+            {
+                $this->db->where('c.CodAnePro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodAnePro',$CodAnePro);
+            }
+            $query2 = $this->db->get_compiled_select();
+            $this->db->distinct();
+            $this->db->select("DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.NomConCli as RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsEle as CUPsName,a.EstConCups");
+            $this->db->from('T_Propuesta_Comercial_CUPs as a');
+            $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+            $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom AND c.TipProCom=3');
+            $this->db->join('T_ContactoCliente d','b.CodCli=d.CodConCli');
+            $this->db->join('T_CUPsElectrico e','a.CodCup=e.CodCupsEle AND a.TipCups=1');
+            $this->db->join('T_TarifaElectrica f','a.CodTar=f.CodTarEle');
+            $this->db->join('T_Comercializadora g','c.CodCom=g.CodCom');
+            $this->db->join('T_Contrato h','h.CodProCom=c.CodProCom');
+            $this->db->join('T_Producto i','c.CodPro=i.CodPro');
+            $this->db->join('T_AnexoProducto j','j.CodAnePro=c.CodAnePro');
+            $this->db->where('a.FecVenCUPs BETWEEN "'. $FecDesde. '" AND "'.$FecHasta.'"');
+            $this->db->where('c.CodCom',$CodCom);
+            if($CodPro==0)
+            {
+                $this->db->where('c.CodPro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodPro',$CodPro);
+            }
+            if($CodAnePro==0)
+            {
+                $this->db->where('c.CodAnePro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodAnePro',$CodAnePro);
+            }
+            $query3 = $this->db->get_compiled_select();
+            $this->db->distinct();
+            $this->db->select("DATE_FORMAT(a.FecVenCUPs,'%d/%m%/%Y') as FecVenCon,d.NomConCli as RazSocCli,i.DesPro,j.DesAnePro,a.CodProComCup,a.CodProComCli,b.CodProCom,c.CodCom,c.CodPro,c.CodAnePro,b.CodCli,h.CodConCom,a.FecVenCUPs,a.TipCups,e.CUPsGas as CUPsName,a.EstConCups");
+            $this->db->from('T_Propuesta_Comercial_CUPs as a');
+            $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
+            $this->db->join('T_PropuestaComercial c','b.CodProCom=c.CodProCom AND c.TipProCom=3');
+            $this->db->join('T_ContactoCliente d','b.CodCli=d.CodConCli');
+            $this->db->join('T_CUPsGas e','a.CodCup=e.CodCupGas AND a.TipCups=2');
+            $this->db->join('T_TarifaGas f','a.CodTar=f.CodTarGas');
+            $this->db->join('T_Comercializadora g','c.CodCom=g.CodCom');
+            $this->db->join('T_Contrato h','h.CodProCom=c.CodProCom');
+            $this->db->join('T_Producto i','c.CodPro=i.CodPro');
+            $this->db->join('T_AnexoProducto j','j.CodAnePro=c.CodAnePro');
+            $this->db->where('a.FecVenCUPs BETWEEN "'. $FecDesde. '" AND "'.$FecHasta.'"');
+            $this->db->where('c.CodCom',$CodCom);
+            if($CodPro==0)
+            {
+                $this->db->where('c.CodPro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodPro',$CodPro);
+            }
+            if($CodAnePro==0)
+            {
+                $this->db->where('c.CodAnePro>0');
+            }
+            else
+            {
+                $this->db->where('c.CodAnePro',$CodAnePro);
+            }
+            $query4 = $this->db->get_compiled_select();
+            return $this->db->query($query1." UNION ALL ".$query2." UNION ALL ".$query3." UNION ALL ".$query4)->result();
     }
     public function Save_Renovaciones_Contratos($CodProCom,$CodCli,$FecIniCon,$EstRen,$RenMod,$ProRenPen,$FecIniCon,$DurCon,$NewFecVenCon,$FecIniCon,$NewFecVenCon)
     {        

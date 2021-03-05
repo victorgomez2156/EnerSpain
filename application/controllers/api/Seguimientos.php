@@ -77,12 +77,8 @@ class Seguimientos extends REST_Controller
 		
 		if($objSalida->TipSeg=="P")
 		{
-			$tabla="T_PropuestaComercial";			
-			$order_by="FecProCom DESC";
-			$select	="CodProCom as CodRef,CodCli,DATE_FORMAT(FecProCom,'%d/%m/%Y') as FecGes,RefProCom as NumGes,RefProCom as RefGes,UltTipSeg";
-			$where="CodCli";
-
-			$response=$this->Propuesta_model->BuscandoGestiones($tabla,$order_by,$select,$where,$objSalida->CodCli);	
+			$tabla="T_PropuestaComercial";
+			$response=$this->Propuesta_model->BuscandoGestionesPropuestas($objSalida->CodCli);
 		}
 		elseif($objSalida->TipSeg=="C")
 		{
@@ -120,7 +116,7 @@ class Seguimientos extends REST_Controller
 		if($objSalida->TipSeg=="P")
 		{
 			$tabla="T_PropuestaComercial";			
-			$update_PropuestaComercial=$this->Propuesta_model->update_PropuestaComercial($objSalida->CodCli,$objSalida->CodRef,$objSalida->ResSeg);
+			$update_PropuestaComercial=$this->Propuesta_model->update_PropuestaComercial($objSalida->CodRef,$objSalida->ResSeg);
 			$this->Auditoria_model->agregar($this->session->userdata('id'),$tabla,'GET',$objSalida->CodRef,$this->input->ip_address(),'Actualizando UltTipSeg De Propuesta Comercial.');
 					
 		}

@@ -953,7 +953,8 @@
        }
 
    }
-         ///////// PARA CALCULAR DNI/NIE START /////////////////
+    
+    //////// PARA CALCULAR DNI/NIE START /////////////////
     scope.validarNIFDNI = function() 
     {
            var letter = scope.validar_dni_nie($("#NIFConCli1").parent(), $("#NIFConCli1").val());
@@ -995,11 +996,12 @@
             }  
     }
 
-function isNumeric(expression) {
-    return (String(expression).search(/^\d+$/) != -1);
-}
-function calculateLetterForDni(dni)
-{
+    function isNumeric(expression) 
+    {
+        return (String(expression).search(/^\d+$/) != -1);
+    }
+    function calculateLetterForDni(dni)
+    {
         // Letras en funcion del modulo de 23
         string = "TRWAGMYFPDXBNJZSQVHLCKE"
         // se obtiene la posiciÃ³n de la cadena anterior
@@ -1015,9 +1017,8 @@ function calculateLetterForDni(dni)
         // Si la longitud es 8 longitud total de los dni nacionales)
         if (txt.length == 9) 
         {
-
-            var first = txt.substring(0, 1)
-            var last = txt.substring(8,9)
+          var first = txt.substring(0, 1)
+          var last = txt.substring(8,9)
             if (first == 'X' || first == 'Y' || first == 'Z') 
             {               
                 // Si la longitud es 9(longitud total de los dni extrangeros)
@@ -1058,7 +1059,8 @@ function calculateLetterForDni(dni)
             return false
         }
 
-    } 
+    }
+    //////// PARA CALCULAR DNI/NIE END /////////////////
     scope.cargar_tiposContactos=function(metodo)
     {
      var url = base_urlHome()+"api/Clientes/RealizarConsultaFiltros/metodo/"+metodo;

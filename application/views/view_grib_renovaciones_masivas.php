@@ -185,8 +185,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <th></th>
                       <th>Fecha Vencimiento</th>
                       <th>Cliente</th>
+                      <th>CUPs</th>
+                      <th>Tipo CUPs</th>
                       <th>Producto</th> 
                       <th>Anexo</th>  
+                      <th>Estatus</th>
                       <th>Consumo actualizado</th>
                       </tr>
                       <tr ng-show="vm.T_Contratos_Renovaciones.length==0"> 
@@ -203,17 +206,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <!--input type="checkbox" ng-model="vm.SelecContrato[$index]"/--></td>
                         <td>{{dato.FecVenCon}}</td>
                         <td>{{dato.RazSocCli}}</td>
+                        <td>{{dato.CUPsName}}</td>
+                        <td>
+                          <span class="label label-info" ng-show="dato.TipCups==1" style="color:black;"><i class="fa fa-check-circle"></i> Eléctrico</span>
+                          <span class="label label-success" ng-show="dato.TipCups==2" style="color:black;"><i class="fa fa-check-circle"></i> Gas</span></td>
                         <td>{{dato.DesPro}}</td> 
                         <td>{{dato.DesAnePro}}</td>
+                        <td>
+                            <span class="label label-success" ng-show="dato.EstConCups==null" style="color:black;"><i class="fa fa-ban"></i> Sin Estado</span>
+                            <span class="label label-success" ng-show="dato.EstConCups==1" style="color:black;"><i class="fa fa-check-circle"></i> Contrato</span>
+                            <span class="label label-danger" ng-show="dato.EstConCups==2" style="color:black;"><i class="fa fa-ban"></i> Implícita</span>
+                            <span class="label label-info" ng-show="dato.EstConCups==3" style="color:black;"><i class="fa fa-close"></i> Baja Rescatable</span>
+                            <span class="label label-danger" ng-show="dato.EstConCups==4" style="color:black;"><i class="fa fa-ban"></i> Baja Definitiva</span></td></td>
                         <td>no</td>
                       </tr>
                     </tbody>
                     <tfoot>                 
-                      <th></th>
+                     <th></th>
                       <th>Fecha Vencimiento</th>
                       <th>Cliente</th>
+                      <th>CUPs</th>
+                      <th>Tipo CUPs</th>
                       <th>Producto</th> 
                       <th>Anexo</th>  
+                      <th>Estatus</th>
                       <th>Consumo actualizado</th>
                     </tfoot>
                   </table>

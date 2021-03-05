@@ -2317,17 +2317,21 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
      		console.log(result.data);
      		if(result.data!=false)
      		{
-     			if(result.data.Contactos.length==1)
+     			if(result.data.Contactos.length==0)
      			{
-     				if(result.data.Contactos[0].EsRepLeg==1)
-     				{
-                        scope.CodContCli=result.data.Contactos[0].CodConCli;
-     				}
-     				else
-     				{
-     					scope.CodContCli=0;
-     				}     				
+     				scope.CodContCli=0;  				
      			}
+                else if(result.data.Contactos.length==1)
+                {
+                    if(result.data.Contactos[0].EsRepLeg==1)
+                    {
+                        scope.CodContCli=result.data.Contactos[0].CodConCli;
+                    }
+                    else
+                    {
+                        scope.CodContCli=0;
+                    } 
+                }
                 if(result.data.CuentasBancarias.length==0)
                 {
                     scope.CodCuenBan=0;                                      
@@ -2360,7 +2364,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.List_Cuentas=result.data.CuentasBancarias;
                     console.log(scope.List_Cuentas);
      				$("#modal_representante_legal").modal('show');
-     				//return false;
+     				return false;
      			}
                 if(result.data.CuentasBancarias.length>1)
                 {
@@ -2370,6 +2374,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.List_Cuentas=result.data.CuentasBancarias;
                     console.log(scope.List_Cuentas);
                     $("#modal_representante_legal").modal('show');
+                    return false;
                 }
                 if(result.data.Contactos.length>1 && result.data.CuentasBancarias.length<=1)
                 {

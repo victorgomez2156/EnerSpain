@@ -178,22 +178,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div style="margin-top: 8px;">
        <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro Eléctrico</b></label></div></div>
         
-        <div class="col-lg-6">
+        <div class="col-lg-12">
                 <section class="panel">
                   <header class="panel-heading">
                    <div align="center"> <b>Baja Tensión</b> </div>
                   </header>
+
                    <div class="panel-body">
-                    
+                    <div class="row">
                     <div ng-repeat="opcion_tension_baja in vm.Tarifa_Elec_Baja">                      
+                      <div class="col-12 col-sm-3">
+                        <div class="form">                          
+                          <div class="form-group">
+
+                            <button type="button"  ng-click="vm.agregar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.anexos.SerEle==false ||vm.validate_info_anexos!=undefined" ng-show="!vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                        
+ 
+                            <button type="button" ng-show="vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]" ng-click="vm.quitar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_baja.NomTarEle}}" style="color:green;"></i></button>
+
+                            <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_baja.NomTarEle}}</label>
+                          </div>
+                       </div>
+                      </div> 
                         
-                        <button type="button"  ng-click="vm.agregar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" title="Agregar {{opcion_tension_baja.NomTarEle}}" ng-disabled="vm.validate_info==1||vm.disabled_all_baja==1||vm.anexos.SerEle==false ||vm.validate_info_anexos!=undefined" ng-show="!vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>                        
-
-                        <button type="button" ng-show="vm.select_tarifa_Elec_Baj[opcion_tension_baja.CodTarEle]" ng-click="vm.quitar_tarifa_elec_baja($index,opcion_tension_baja.CodTarEle,opcion_tension_baja)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_baja.NomTarEle}}" style="color:green;"></i></button>
-
-                        <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_baja.NomTarEle}}</label>
                     </div>
-                    
+                    </div>
 
                     <div align="center">
                       <label>
@@ -204,32 +212,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </section> 
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <section class="panel">
                   <header class="panel-heading">
                    <div align="center"> <b>Alta Tensión</b> </div>
                   </header>
                    <div class="panel-body">
+                    <div class="row">
                     <div ng-repeat="opcion_tension_alta in vm.Tarifa_Elec_Alt"> 
 
+                       <div class="col-12 col-sm-3">
+                     <div class="form">                          
+                       <div class="form-group">
                         <button type="button" ng-disabled="vm.validate_info==1||vm.disabled_all_alta==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined " ng-show="!vm.select_tarifa_Elec_Alt[opcion_tension_alta.CodTarEle]" ng-click="vm.agregar_tarifa_elec_alta($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" title="Agregar {{opcion_tension_alta.NomTarEle}}"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>
-                        
-
                         <button type="button" ng-show="vm.select_tarifa_Elec_Alt[opcion_tension_alta.CodTarEle]" ng-click="vm.quitar_tarifa_elec_alta($index,opcion_tension_alta.CodTarEle,opcion_tension_alta)" ng-disabled="vm.disabled_all_baja==1||vm.anexos.AggAllBaj==true||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{opcion_tension_alta.NomTarEle}}" style="color:green;"></i></button>
-
-
-
                         <label class="font-weight-bold nexa-dark" style="color:black;">{{opcion_tension_alta.NomTarEle}}</label>
-                    
-
-
-
+                       </div></div></div>
+                       
                     </div>
-                     <div align="center">
+                    
+                  </div>
+                   <div align="center">
                     <label>
                         <input name="sample-checkbox-01" id="checkbox-014" type="checkbox" ng-disabled="vm.validate_info==1||vm.anexos.SerEle==false||vm.validate_info_anexos!=undefined" ng-model="vm.anexos.AggAllAlt" ng-click="vm.agregar_todas_alta_tension(vm.Tarifa_Elec_Alt,vm.anexos.AggAllAlt)"/> <b><i class="fa fa-check-circle"></i> Todas</b>
                       </label></div>
-                  </div>
                 </section> 
               </div>
 
@@ -238,26 +244,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div style="margin-top: 12px;">
       <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Tarifas Suministro de Gas</b></label></div></div>
        
-       <div class="col-12 col-sm-3" ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos">
-       <div class="form">                          
-       <div class="form-group">
+        <div class="col-lg-12">
+                <section class="panel">
+                  <header class="panel-heading">
+                   <div align="center"> <b>Tárifas</b> </div>
+                  </header>
+                   <div class="panel-body">
+                    <div class="row">
+                    <div ng-repeat="tari_gas in vm.Tarifa_Gas_Anexos"> 
 
-       <button type="button" name="tarifa_gas" ng-show="!vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.agregar_tarifa_gas_individual($index,tari_gas,tari_gas.CodTarGas)" ng-disabled="vm.validate_info==1||vm.disabled_all==1||vm.anexos.SerGas==false||vm.validate_info_anexos!=undefined"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>   
+                       <div class="col-12 col-sm-3">
+                     <div class="form">                          
+                       <div class="form-group">
+                        <button type="button" name="tarifa_gas" ng-show="!vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.agregar_tarifa_gas_individual($index,tari_gas,tari_gas.CodTarGas)" ng-disabled="vm.validate_info==1||vm.disabled_all==1||vm.anexos.SerGas==false||vm.validate_info_anexos!=undefined"><i class="fa fa fa-square-o" title="Agregar {{tari_gas.NomTarGas}}" style="color:black;"></i></button>   
        
-       <button type="button" ng-show="vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.quitar_tarifa_gas($index,tari_gas.CodTarGas,tari_gas)" ng-disabled="vm.disabled_all==1||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{tari_gas.NomTarGas}}" style="color:green;"></i></button>
-       <label class="font-weight-bold nexa-dark" style="color:black;"><b>{{tari_gas.NomTarGas}}</b></label> 
-
-       </div>
-       </div>
-       </div>
-        
-        <div align="center">
-                    <label class="label_check" for="checkbox-01">
+                        <button type="button" ng-show="vm.select_tarifa_gas[tari_gas.CodTarGas]" ng-click="vm.quitar_tarifa_gas($index,tari_gas.CodTarGas,tari_gas)" ng-disabled="vm.disabled_all==1||vm.validate_info_anexos!=undefined"><i class="fa fa fa-check-circle" title="Quitar {{tari_gas.NomTarGas}}" style="color:green;"></i></button>
+                        <label class="font-weight-bold nexa-dark" style="color:black;"><b>{{tari_gas.NomTarGas}}</b></label> 
+                       </div></div></div>
+                       
+                    </div>
+                    
+                  </div>
+                   <div align="center">
+                   <label class="label_check" for="checkbox-01">
                         <input name="sample-checkbox-01" id="checkbox-015" type="checkbox" ng-model="vm.Todas_Gas" ng-click="vm.agregar_todas_detalle(vm.Todas_Gas)" ng-disabled="vm.validate_info==1||vm.anexos.SerGas==false||vm.validate_info_anexos!=undefined" /> <b><i class="fa fa-check-circle"></i> Todas</b>
-                      </label></div>
-
-
-       <div class="col-12 col-sm-12">
+          </label></div>
+                </section> 
+              </div>
+      
+      <div class="col-12 col-sm-12">
       <div class="form">                          
         <div class="form-group"><br>
            <label class="font-weight-bold nexa-dark" style="color:black;">PDF del Anexo <a title='Descargar Documento' ng-show="vm.anexos.DocAnePro!=null && vm.anexos.CodAnePro>0" href="{{vm.anexos.DocAnePro}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>         

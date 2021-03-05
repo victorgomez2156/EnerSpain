@@ -263,15 +263,29 @@ class Propuesta_model extends CI_Model
         else
             return false;              
     }
+    public function BuscandoGestionesPropuestas($CodCli)
+    {
+        $this->db->select('a.CodProCom as CodRef,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecGes,a.RefProCom as NumGes,a.RefProCom as RefGes,a.UltTipSeg',false);
+        $this->db->from('T_PropuestaComercial a');
+        $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
+        $this->db->where('b.CodCli',$CodCli); 
+        $this->db->where('a.TipProCom<3'); 
+        $this->db->order_by('a.FecProCom DESC'); 
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+            return $query->result();
+        else
+            return false;               
+    }
 
     public function save_seguimientos($CodCli,$CodRef,$FecSeg,$NumSeg,$ObsSeg,$RefSeg,$ResSeg,$TipSeg,$DesSeg)
     {
         $this->db->insert('T_Seguimiento',array('TipSeg'=>$TipSeg,'CodRef'=>$CodRef,'FecSeg'=>$FecSeg,'RefSeg'=>$RefSeg,'NumSeg'=>$NumSeg,'EstNotSeg'=>false,'ResSeg'=>$ResSeg,'ObsSeg'=>$ObsSeg,'CodCli'=>$CodCli,'DesSeg'=>$DesSeg));
         return $this->db->insert_id();
     }
-    public function update_PropuestaComercial($CodCli,$CodRef,$ResSeg)
+    public function update_PropuestaComercial($CodRef,$ResSeg)
     {   
-        $this->db->where('CodCli', $CodCli); 
+        //$this->db->where('CodCli', $CodCli); 
         $this->db->where('CodProCom', $CodRef);       
         return $this->db->update('T_PropuestaComercial',array('UltTipSeg'=>$ResSeg));
     }

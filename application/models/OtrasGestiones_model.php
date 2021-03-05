@@ -21,7 +21,7 @@ class Otrasgestiones_model extends CI_Model
         $this->db->select($select,false);
         $this->db->from($tabla_PunSum);
         $this->db->join($tabla_cups,$onCUps);
-        $this->db->join($tabla_Dist,$onDist);
+        $this->db->join($tabla_Dist,$onDist,'LEFT');
         $this->db->where($where,$CodCli); 
         $this->db->order_by($orderby); 
         $query = $this->db->get(); 

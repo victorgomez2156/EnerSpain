@@ -895,7 +895,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
      
     <div style="margin-left:15px; ">
-     <button class="btn btn-info" type="submit" ng-disabled="frmRepresentanteLegal.$invalid">{{vm.titulo_modal}}</button>
+     <button class="btn btn-info" type="submit" ng-disabled="frmRepresentanteLegal.$invalid">Confirmar</button>
       <!--a class="btn btn-danger" ng-click="vm.regresar_filtro()">Borrar Filtro</a-->
       </div>
 </form>

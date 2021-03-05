@@ -413,7 +413,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <div class="form-group">
                             <label for="inputEmail1" class="col-lg-2 control-label">Número de CIF:</label>
                             <div class="col-lg-10">
-                              <input type="text" class="form-control" ng-model="vm.fdatos.Clientes_CIF" placeholder="* Introduzca CIF" maxlength="50" required/>   
+                              <input type="text" class="form-control" id="CliDNI" onkeyup="this.value=this.value.toUpperCase();" ng-model="vm.fdatos.Clientes_CIF" placeholder="* Introduzca CIF" maxlength="50" required/>   
                             </div>
                           </div>
                           <button class="btn btn-info" type="submit" ng-disabled="cif_consulta_form.$invalid">CONSULTAR</button>
