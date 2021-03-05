@@ -8,7 +8,10 @@
   <meta name="viewport" content="width=device-width" />
   <meta name="csrf-token" content="35s4o9Bjow5OU2qha7E5cEWHIRif31AHQa44IYEQ">
   <link rel="shortcut icon" href="<?php echo ESTILOS;?>img/logo-big.png" >
-  
+  <meta http-equiv="Expires" content="0"> 
+  <meta http-equiv="Last-Modified" content="0"> 
+  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate"> 
+  <meta http-equiv="Pragma" content="no-cache">
    <!-- Bootstrap CSS -->
   <link href="<?php echo ESTILOS;?>css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
