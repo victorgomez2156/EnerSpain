@@ -16404,6 +16404,320 @@ class Exportar_Documentos extends CI_Controller
         $objWriter->save('php://output');
         exit;   
     }
+    public function Doc_Reporte_Rueda_PDF20()
+    {        
+        $NombreFiltro="Contratos Para Renovaciones";
+        $Tipo_Cliente="";
+        $FecDesdeDia = urldecode($this->uri->segment(4));
+        $FecDesdeMes = urldecode($this->uri->segment(5));
+        $FecDesdeAno = urldecode($this->uri->segment(6));
+        $FecHastaDia = urldecode($this->uri->segment(7));
+        $FecHastaMes = urldecode($this->uri->segment(8));
+        $FecHastaAno = urldecode($this->uri->segment(9));
+        $pdf = new TCPDF ('L','mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetTitle('PDF Rueda Desde: '.$FecDesdeDia.'-'.$FecDesdeMes.'-'.$FecDesdeAno.' Hasta: '.$FecHastaDia.'-'.$FecHastaMes.'-'.$FecHastaAno);
+        $pdf->SetAuthor(TITULO);        
+        $pdf->SetSubject('PDF Rueda Desde: '.$FecDesdeDia.'-'.$FecDesdeMes.'-'.$FecDesdeAno.' Hasta: '.$FecHastaDia.'-'.$FecHastaMes.'-'.$FecHastaAno);
+        $pdf->SetHeaderData(PDF_HEADER_LOGO,80);
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(15 , 30 ,15 ,true);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+
+        $pdf->SetFont('times', ' ', 10, ' ', true);
+        $pdf->AddPage();        
+        $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
+        $html .= '<h4 align="left">'.TITULO.'</h4>';        
+        $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
+            <tr>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE CONTRATOS PARA RENOVACIONES</h4></td>
+                
+                <td border="0"><h4></h4></td>
+                <td border="0" >FECHA: '.date('d/m/Y').'</td>
+            </tr>
+            <tr>
+                <td border="0" align="left" colspan="3">'.$NombreFiltro.'</td>
+                
+                <td border="0" >HORA: '.date('G:i:s').'</td>
+            </tr>'
+            ;           
+        $html .= '</table>' ;
+            
+         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped"  >
+                ';          
+        $html.='
+        <tr bgcolor="#636161">
+            <td style="color:white;">Fecha Activación</td> 
+            <td style="color:white;">CodCli</td>
+            <td style="color:white;">NIF</td>
+            <td style="color:white;">Cliente</td>
+            <td style="color:white;">CUPs</td>
+            <td style="color:white;">Tipo CUPs</td>            
+            <td style="color:white;">Tárifa</td>
+            <td style="color:white;">Consumo (KW/h)</td>
+            <td style="color:white;">Comercializadora</td>
+            <td style="color:white;">Estatus</td>
+            <td style="color:white;">Fecha Vencimiento</td>
+        </tr>';
+        $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
+        $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
+        $Resultado_Renovacion_Contratos=$this->Reportes_model->Contratos_Para_Rueda20($Desde,$Hasta);        
+        if($Resultado_Renovacion_Contratos!=false)
+        {
+            foreach ($Resultado_Renovacion_Contratos as $record): 
+            {
+                if($record->TipCups==1)
+                {$TipCups='Eléctrico';}
+                elseif ($record->TipCups==2) {$TipCups='Gas';}
+                else{$TipCups='Sin Especificar';}
+                if($record->EstConCups==0 || $record->EstConCups==NULL)
+                {$EstConCups='Sin Estado';}elseif($record->EstConCups==1){$EstConCups="Contrato";}elseif ($record->EstConCups==2){$EstConCups="Implícita";}elseif ($record->EstConCups==3){$EstConCups="Baja Rescatable";}elseif ($record->EstConCups==4){$EstConCups="Baja Definitiva";}else{$EstConCups="N/A";}
+               
+                $html.='<tr>
+                        <td>'.$record->FecActCUPs.'</td>
+                        <td>'.$record->CodCli.'</td>
+                        <td>'.$record->NumCifCli.'</td>
+                        <td>'.$record->RazSocCli.'</td>
+                        <td>'.$record->CUPsName.'</td>                        
+                        <td>'.$TipCups.'</td>
+                        <td>'.$record->NomTar.'</td>
+                        <td>'.$record->ConCup.'</td>
+                        <td>'.$record->RazSocCom.'</td>
+                        <td>'.$EstConCups.'</td>
+                        <td>'.$record->FecVenCUPs.'</td>
+                    </tr>';     
+                }
+                endforeach;
+            }
+            else
+            {
+                $html.='
+                <tr>
+                <td align="center" colspan="16"><b>Actualmente no hemos encontrado contratos para renovaciones en este periodo de fecha.</b></td>              
+                </tr>'; 
+            }   
+        $html .= '</table>' ; 
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'Generando Reporte PDF Rueda');
+        $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+        $pdf->lastPage();
+        $pdf->Output('Reporte Rueda'.'.pdf', 'I');
+    }
+    public function Doc_Reporte_Rueda_Excel20()
+    {       
+          
+        $NombreFiltro="Contratos Para Renovaciones";
+        $Tipo_Cliente="";
+        $FecDesdeDia = urldecode($this->uri->segment(4));
+        $FecDesdeMes = urldecode($this->uri->segment(5));
+        $FecDesdeAno = urldecode($this->uri->segment(6));
+        $FecHastaDia = urldecode($this->uri->segment(7));
+        $FecHastaMes = urldecode($this->uri->segment(8));
+        $FecHastaAno = urldecode($this->uri->segment(9));
+        $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+        $cacheSettings = array( 'memoryCacheSize'  => '15MB');
+        PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+        $datausuario=$this->session->all_userdata();    
+        $fecha= date('Y-m-d_H:i:s');        
+        $nombre_reporte='Doc_Excel_Contratos_Rueda_'.$fecha.".xls";
+        $objPHPExcel = new PHPExcel(); //nueva instancia         
+        $objPHPExcel->getProperties()->setCreator("Powered by SomosTuWebMaster.es - 2019"); //autor
+        $objPHPExcel->getProperties()->setTitle("Doc Excel Contratos Rueda"); //titulo 
+        $titulo = new PHPExcel_Style(); //nuevo estilo
+        $titulo2 = new PHPExcel_Style(); //nuevo estilo
+        $titulo3 = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte = new PHPExcel_Style(); //nuevo estilo
+        $titulo_reporte->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 16,
+                'name'=>'Arial',
+                //'color'=>array('rgb'=>'ffffff')
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                //'color' => array('rgb' => '7a7a7a')
+              )
+          ));   
+        $titulo3->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 10,
+                'name'=>'Arial','color'=>array('rgb'=>'ffffff')
+              ),'borders' => array(
+                'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+                'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+              ),'fill' => array( //relleno de color
+                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'color' => array('rgb' => '7a7a7a')
+              )
+          ));
+          $sin_bordes = new PHPExcel_Style(); //nuevo estilo
+          $sin_bordes->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+              ),
+              'font' => array( //fuente               
+                'size' => 12,
+                'name'=>'Arial',
+              )
+          ));
+        $titulo2->applyFromArray(
+            array('alignment' => array( //alineacion
+                'wrap' => false,
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT
+              ),
+              'font' => array( //fuente
+                'bold' => true,
+                'size' => 20,'name'=>'Arial'
+              )
+          ));   
+        $titulo->applyFromArray(
+          array('alignment' => array( //alineacion
+              'wrap' => false,
+              'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+            ),
+            'font' => array( //fuente
+              'bold' => true,
+              'size' => 20,'name'=>'Arial'
+            )
+        ));      
+        $subtitulo = new PHPExcel_Style(); //nuevo estilo        
+        $subtitulo->applyFromArray(
+          array('font' => array( //fuente
+           'name'=>'Arial','size' => 12,
+          ),'fill' => array( //relleno de color
+              'type' => PHPExcel_Style_Fill::FILL_SOLID,
+              //'color' => array('rgb' => '7a7a7a')
+            ),
+            'borders' => array( //bordes
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        )); 
+        $bordes = new PHPExcel_Style(); //nuevo estilo
+        $bordes->applyFromArray(
+          array('borders' => array(
+              'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'right' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'bottom' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
+              'left' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+            )
+        ));
+        //fin estilos        
+        $objPHPExcel->createSheet(0);
+        $objPHPExcel->setActiveSheetIndex(0);
+        $objPHPExcel->getActiveSheet()->setTitle("Doc Excel Contratos Rueda"); 
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToPage(true);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);      
+        $margin = 0.5 / 2.54; 
+        $marginBottom = 1.2 / 2.54;
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setTop($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginBottom);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($margin);
+        $objPHPExcel->getActiveSheet()->getPageMargins()->setRight($margin);
+        $objDrawing = new PHPExcel_Worksheet_Drawing();
+        $objDrawing->setPath('application/libraries/estilos/img/logo_web_desktop.png');
+        $objDrawing->setHeight(75);
+        $objDrawing->setCoordinates('A1');
+        $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+        $objPHPExcel->getActiveSheet()->SetCellValue("A5", TITULO);
+        $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTRATOS RUEDA");
+        $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Fecha Activación");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CodCli");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "NIF");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Cliente");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CUPs");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "Tipo CUPs");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tárifa");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo (Kw/h)");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Comercializadora");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Estatus");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Fecha Vencimiento");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:L9");  
+        $fila=9;
+        $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
+        $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
+        $Resultado_Renovacion_Contratos=$this->Reportes_model->Contratos_Para_Rueda20($Desde,$Hasta);
+        //var_dump($Resultado_Renovacion_Contratos);
+       // return false;
+        if($Resultado_Renovacion_Contratos!=false)
+        {
+            for($i=0; $i<count($Resultado_Renovacion_Contratos); $i++) 
+            {
+                if($Resultado_Renovacion_Contratos[$i]->TipCups==1)
+                {$TipCups='Eléctrico';}
+                elseif ($Resultado_Renovacion_Contratos[$i]->TipCups==2) {$TipCups='Gas';}
+                else{$TipCups='Sin Especificar';}
+                if($Resultado_Renovacion_Contratos[$i]->EstConCups==0 || $Resultado_Renovacion_Contratos[$i]->EstConCups==NULL)
+                {$EstConCups='Sin Estado';
+                }elseif($Resultado_Renovacion_Contratos[$i]->EstConCups==1){$EstConCups="Contrato";}
+                elseif ($Resultado_Renovacion_Contratos[$i]->EstConCups==2){$EstConCups="Implícita";}
+                elseif ($Resultado_Renovacion_Contratos[$i]->EstConCups==3){$EstConCups="Baja Rescatable";}
+                elseif ($Resultado_Renovacion_Contratos[$i]->EstConCups==4){$EstConCups="Baja Definitiva";}
+                else{$EstConCups="N/A";}
+                $fila+=1;
+                $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado_Renovacion_Contratos[$i]-> FecActCUPs);
+                $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Renovacion_Contratos[$i]-> CodCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli); 
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsName);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $TipCups);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]-> NomTar);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Renovacion_Contratos[$i]-> ConCup);
+                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $EstConCups);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]-> FecVenCUPs);               
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:K$fila");                
+            }   
+        }        
+        foreach (range('A', 'K') as $columnID) 
+        {
+          $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
+        }
+        $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F página &P / &N');
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 
+        header("Content-Type: application/vnd.ms-excel");
+        header('Content-Disposition: attachment; filename='.$nombre_reporte.'');        
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Contrato','GET',null,$this->input->ip_address(),'GENERANDO REPORTE EXCEL CONTRATOS RUEDA');
+        $objWriter->save('php://output');
+        exit;   
+    }
     public function Doc_PDF_Tarifa_Electrica()
     {   
         $TipoFiltro = urldecode($this->uri->segment(4));
