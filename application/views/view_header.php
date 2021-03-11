@@ -1,3 +1,8 @@
+  <meta http-equiv="Expires" content="0"> 
+  <meta http-equiv="Last-Modified" content="0"> 
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> 
+  <meta http-equiv="Pragma" content="no-cache">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +13,6 @@
   <meta name="viewport" content="width=device-width" />
   <meta name="csrf-token" content="35s4o9Bjow5OU2qha7E5cEWHIRif31AHQa44IYEQ">
   <link rel="shortcut icon" href="<?php echo ESTILOS;?>img/logo-big.png" >
-  <meta http-equiv="Expires" content="0"> 
-  <meta http-equiv="Last-Modified" content="0"> 
-  <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate"> 
-  <meta http-equiv="Pragma" content="no-cache">
    <!-- Bootstrap CSS -->
   <link href="<?php echo ESTILOS;?>css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
@@ -53,7 +54,7 @@
   <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
   <!--script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script-->
   <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
-  
+   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'required.js'?>"></script-->
   <!--Final de Principales de ANGULARJS-->
   <!--Inicio de Librerias del sistema con ANGULARJS-->
   <script src="<?php echo PATH_ESTILOS_JS_APP.'appPrincipal.js'?>"></script>
@@ -97,7 +98,8 @@
   
   <script src="<?php echo PATH_ESTILOS_JS_APP.'contratos.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'Activaciones.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS_APP.'renovacion_masiva.js'?>"></script>   
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'renovacion_masiva.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS_APP.'sip.js'?>"></script>  
   <script src="<?php echo PATH_ESTILOS_JS_APP.'otras_gestiones.js'?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'seguimientos.js'?>"></script>  
 

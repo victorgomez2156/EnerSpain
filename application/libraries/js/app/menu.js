@@ -21,6 +21,7 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	scope.Gestion_Comercial_Contrato=false;
 	scope.Gestion_Comercial_Activaciones=false;
 	scope.Gestion_Comercial_RenMas=false;
+	scope.Gestion_Comercial_SIP=false;
 	scope.Gestion_Comercial_OtrasGestiones=false;
 	scope.Gestion_Comercial_Seguimientos=false;
 	scope.Reportes=false;
@@ -118,6 +119,10 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	            else if(menu.titulo=="Activaciones" && menu.id==37)
 	            {
 	            	scope.Gestion_Comercial_Activaciones=true;
+	            }
+	            else if(menu.titulo=="SIP" && menu.id==38)
+	            {
+	            	scope.Gestion_Comercial_SIP=true;
 	            }
 	            else if(menu.titulo=="Renovación Masiva" && menu.id==18)
 	            {

@@ -110,7 +110,7 @@ var app = angular.module('appPrincipal', ['checklist-model', 'ngResource', 'ngCo
 
             .when('/Renovacion_Masiva', { templateUrl: 'application/views/view_grib_renovaciones_masivas.php' })
             // .when('/Edit_Contrato/:CodCli/:CodConCom/:CodProCom/:Tipo', { templateUrl: 'application/views/view_add_contratos.php' })
-
+            .when('/SIP', { templateUrl: 'application/views/view_grib_sip.php' })
 
 
 
