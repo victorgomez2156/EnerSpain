@@ -21,239 +21,33 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 
 	scope.Servidor_API_Dynargy=function()
     {
-       var settings = {
-          "url": "https://api.dynargy.com/ConsumosInfo/}",
-          "method": "GET",
-          "timeout": 0,
-          "headers": {
-            "Content-Type": "application/json",
-            "x-api-key": "xx",
-            "User": "1"
-          },
-      "body": JSON.stringify({"filtros":{"listaCups":"ES0022000005447972KH","fechaConsumo":{"desde":"2020-11-01","hasta":"2020-11-30"}},"limite":5,"offset":0}),
-        };
-
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
-      
-       /* var settings = {
-  "url": "https://api.dynargy.com/ConsumosInfo/}",
-  "method": "GET",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json",
-    "x-api-key": "xx",
-    "User": "1"
-  },
-  "data": JSON.stringify({"filtros":{"listaCups":"ES0022000005447972KH","fechaConsumo":{"desde":"2020-11-01","hasta":"2020-11-30"}},"limite":5,"offset":0}),
-};
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});*/
-       /* var url=base_urlHome()+"api/SIP/API_DynargyService/";
+        $("#buscando").removeClass("loader loader-default").addClass("loader loader-default is-active");
+        var url=base_urlHome()+"api/SIP/API_DynargyService/";
         $http.get(url).then(function(result)
         {
-            console.log(result);
+        	$("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");        
+        	if(result.data!=false)
+        	{
+        		console.log(result.data);
+        	}
+        	else
+        	{
+        		scope.toast('error','no se encontraron datos con el CUPs','Error');
+        	}
         },function(error)
         {
+            $("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");
             console.log(error);
-        });*/
-       /*var req = {
- method: 'GET',
- url: 'https://api.dynargy.com/ConsumosInfo/}',
- headers: {
-   'Content-Type': 'application/json',
-   'x-api-key':'xx',
-   'User':'1'
- },
- data: { body: {
-  "filtros": {
-    "listaCups": "ES0022000005447972KH",
-    "fechaConsumo": {
-      "desde": "2020-11-01",
-      "hasta": "2021-01-30"
-    }
-    },
-  "limite": 5,
-  "offset": 0
-} }
-}
-
-$http(req).then(function(result){console.log(result)}, function(error){console.log(error)});*/
-    	/*$http.get("https://api.dynargy.com/ConsumosInfo/}", {
-  "filtros": {
-    "listaCups": "ES0022000005447972KH",
-    "fechaConsumo": {
-      "desde": "2020-11-01",
-      "hasta": "2021-01-30"
-    }
-    },
-  "limite": 5,
-  "offset": 0
-})
-            .success(function(respuesta){
-                console.log(respuesta);
-            });*/
-
-        /*var url=base_urlHome()+"api/SIP/API_DynargyService/";
-    	$http.get(url).then(function(result)
-    	{
-    		console.log(result);
-    	},function(error)
-    	{
-    		console.log(error);
-    	});*/
-
-       		/*var request = require('request');
-var options = {
-  'method': 'GET',
-  'url': 'https://api.dynargy.com/ConsumosInfo/}',
-  'headers': {
-    'Content-Type': 'application/json',
-    'x-api-key': 'xx',
-    'User': '1'
-  },
-  body: JSON.stringify({"filtros":{"listaCups":"ES0781100000000233MN","fechaConsumo":{"desde":"2020-11-01","hasta":"2021-01-30"}},"limite":5,"offset":0})
-
-};
-request(options, function (error, response) {
-  if (error) throw new Error(error);
-  console.log(response.body);
-});*/
-       		//formData = new FormData();
-            //formData.append('x-api-key', 'xx');
-            //formData.append('User', '1');
-            //formData.append('Content-Type', 'application/json');
-            //formData.append('body', JSON.stringify({"filtros":{"listaCups":"ES0781100000000233MN","fechaConsumo":{"desde":"2020-11-01","hasta":"2021-01-30"}},"limite":5,"offset":0}));             
-                /*$.ajax({
-                url : 'https://api.dynargy.com/ConsumosInfo/}',
-                type: "GET",
-                headers: {
-	        	'authorization':'',
-	        	'Content-Type':'application/json',
-	        	'x-api-key':'xx',
-	        	'User':'1',
-	        	},
-                data:{
-  "filtros": {
-    "listaCups": "ES0022000005447972KH",
-    "fechaConsumo": {
-      "desde": "2020-11-01",
-      "hasta": "2021-01-30"
-    }
-    },
-  "limite": 5,
-  "offset": 0
-},
-                processData: false,
-                contentType: false,
-                async:false,
-                success:function(data,textStatus,jqXHR)
-                { 
-                    console.log(data);
-                    console.log(textStatus);
-                    console.log(jqXHR);
-                },              
-                error: function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                    scope.toast('error',jqXHR.responseText,jqXHR.status);
-                }
-            });
-       	/*$.ajax({
-		type: "GET",
-		beforeSend: function(request) {
-			request.setRequestHeader("authorization", '');
-		    request.setRequestHeader("Content-Type", 'application/json');
-		    request.setRequestHeader("x-api-key", 'xx');
-		    request.setRequestHeader("User", '1');
-		    request.setRequestHeader("body", JSON.stringify({"filtros":{"listaCups":"ES0781100000000233MN","fechaConsumo":{"desde":"2020-11-01","hasta":"2021-01-30"}},"limite":5,"offset":0}));
-		  },
-		url: "api/SIP/API_DynargyService",
-		body: JSON.stringify({"filtros":{"listaCups":"ES0781100000000233MN","fechaConsumo":{"desde":"2020-11-01","hasta":"2021-01-30"}},"limite":5,"offset":0}),
-        processData: false,
-		success: function(msg) {
-		  console.log(msg);
-		},error: function (e) {
-			 console.log(e);
-		}
-		});*/
-
-
-
-        
-
-        //$("#enviandoaudax").removeClass("loader loader-default").addClass("loader loader-default is-active");
-        /*var url = 'https://api.dynargy.com/ConsumosInfo/}';
-        var body={"filtros":{"listaCups":CUPs,"fechaConsumo":{"desde":fechadesde,"hasta":fechahasta}},"limite":5,"offset":0};
-	    $.ajax({
-	        url: url,
-	        headers: {
-	        'authorization':'',
-	        'Content-Type':'application/json',
-	        'x-api-key':'xx',
-	        'User':'1',
-	        type: 'GET',
-	        body:body,
-	        accepts: "application/json",
-	        crossDomain: true,
-	        success: function (result) {
-	            // process result
-	            //$('#result').html(result.ip);
-	            console.log(result);
-	        },
-	        error: function (e) {
-	             // log error in browser
-	            console.log(e.message);
-	        }
-	    });*/
-	   /*
-
-	 */
-
-	   /* $.ajax({
-        url: 'https://api.dynargy.com/ConsumosInfo/}',
-        type: 'GET',
-        headers: {'authorization':'',
-	        'Content-Type':'application/json',
-	        'x-api-key':'xx',
-	        'User':'1'},
-        accepts: "application/json",
-        crossDomain: true,
-        dataType: 'json',
-        body:{"filtros":{"listaCups":"ES0781100000000233MN","fechaConsumo":{"desde":"2021-01-01","hasta":"2021-01-31"}},"limite":5,"offset":0},
-        success: function (result) {
-            // process result
-            console.log(result);
-        },
-        error: function (e) {
-             // log error in browser
-            console.log(e);
-        }
-    });*/
-        /*var CUPs=scope.CUPsName;
-        var fechadesde='2021-01-01';
-        var fechahasta='2021-01-31';        
-        var req = {
-        method: 'GET',
-        url: 'https://api.dynargy.com/ConsumosInfo/}',
-            headers: {
-            'Content-Type': 'application/json',
-		    'x-api-key': 'xx',
-		    'User': '1'
-        },
-            body: {"filtros":{"listaCups":CUPs,"fechaConsumo":{"desde":fechadesde,"hasta":fechahasta}},"limite":5,"offset":0}            
-        }
-        $http(req).then(function(result)
-        {
-        	console.log(result);        	
-        },function(error)
-        {	
-        	console.log(error)
-        });*/    
+            if (error.status == 404 && error.statusText == "Not Found"){
+                    scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                    }if (error.status == 401 && error.statusText == "Unauthorized"){
+                        scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                    }if (error.status == 403 && error.statusText == "Forbidden"){
+                        scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                    }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                    scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                    }
+        });         
     }
     var i = -1;
         var toastCount = 0;

@@ -205,5 +205,5 @@
     <!-- custom form validation script for this page-->
     <script src="application/libraries/estilos/js/form-validation-script.js"></script>
   </body>
-  <div id="buscando" class="loader loader-default"  data-text="Buscando CUPs Contratos"></div>
+  <div id="buscando" class="loader loader-default"  data-text="Conectando Con Dynargy, Por favor espere..."></div>
   </html>
