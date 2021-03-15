@@ -43,12 +43,12 @@ class Contratos_model extends CI_Model
     }
     public function BuscarPropuestaAprobadaNewVer($CodCli,$metodo)
     {
-        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,a.TipProCom,c.NumCifCom, c.RazSocCom,d.DesPro as DesProducto,e.DesAnePro,b.CodProComCli',false);
+        $this->db->select('a.CodProCom,b.CodCli,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,case a.TipPre when 0 then "Fijo" when 1 then "Indexado" when 2 then "Ambos" end as TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,a.TipProCom,c.NumCifCom, c.RazSocCom,d.DesPro as DesProducto,e.DesAnePro,b.CodProComCli,a.CorpoGo',false);
         $this->db->from('T_PropuestaComercial a'); 
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom','LEFT');
         $this->db->join('T_Comercializadora c','c.CodCom=a.CodCom');
         $this->db->join('T_Producto d','d.CodPro=a.CodPro');
-        $this->db->join('T_AnexoProducto e','e.CodAnePro=a.CodAnePro');
+        $this->db->join('T_AnexoProducto e','e.CodAnePro=a.CodAnePro','LEFT');
         $this->db->where('b.CodCli',$CodCli);
         if($metodo==1)
         {

@@ -184,9 +184,9 @@ class Propuesta_model extends CI_Model
         else
             return false;              
     }
-    public function agregar_propuesta($FecProCom,$TipProCom,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ObsProCom,$RefProCom)
+    public function agregar_propuesta($FecProCom,$TipProCom,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ObsProCom,$RefProCom,$CorpoGo)
     {
-        $this->db->insert('T_PropuestaComercial',array('FecProCom'=>$FecProCom,'TipProCom'=>$TipProCom,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
+        $this->db->insert('T_PropuestaComercial',array('FecProCom'=>$FecProCom,'TipProCom'=>$TipProCom,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom,'CorpoGo'=>$CorpoGo));
         return $this->db->insert_id();
     }
     public function agregar_propuesta_comercial_clientes($CodProCom,$CodCli)
@@ -245,10 +245,10 @@ class Propuesta_model extends CI_Model
         $this->db->where('CodProCom', $CodProCom);   
         return $this->db->update('T_PropuestaComercial',array('EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom));
     }
-    public function update_edit_propuesta($CodProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ImpAhoTot,$PorAhoTot,$EstProCom,$RefProCom,$JusRecProCom)
+    public function update_edit_propuesta($CodProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$ImpAhoTot,$PorAhoTot,$EstProCom,$RefProCom,$JusRecProCom,$CorpoGo)
     {   
         $this->db->where('CodProCom', $CodProCom); 
-        return $this->db->update('T_PropuestaComercial',array('CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ImpAhoTot'=>$ImpAhoTot,'PorAhoTot'=>$PorAhoTot,'EstProCom'=>$EstProCom,'RefProCom'=>$RefProCom,'JusRecProCom'=>$JusRecProCom));
+        return $this->db->update('T_PropuestaComercial',array('CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'ImpAhoTot'=>$ImpAhoTot,'PorAhoTot'=>$PorAhoTot,'EstProCom'=>$EstProCom,'RefProCom'=>$RefProCom,'JusRecProCom'=>$JusRecProCom,'CorpoGo'=>$CorpoGo));
     }
     
     public function BuscandoGestiones($Tabla,$order_by,$select,$where,$CodCli)
@@ -418,7 +418,7 @@ class Propuesta_model extends CI_Model
     
     public function BuscarProComUniCliente($CodProCom)
     {
-        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.TipProCom,a.CodCon,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,a.TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,b.CodCli,b.CodProComCli,a.ImpAhoTot,a.PorAhoTot',false);
+        $this->db->select('a.CodProCom,DATE_FORMAT(a.FecProCom,"%d/%m/%Y") as FecProCom,a.TipProCom,a.CodCon,a.PorAhoTot,a.ImpAhoTot,a.EstProCom,a.JusRecProCom,a.CodCom,a.CodPro,a.CodAnePro,a.TipPre,a.UltTipSeg,a.ObsProCom,a.RefProCom,b.CodCli,b.CodProComCli,a.ImpAhoTot,a.PorAhoTot,a.CorpoGo',false);
         $this->db->from('T_PropuestaComercial a');
         $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProCom=b.CodProCom');
         $this->db->where('a.CodProCom',$CodProCom);              

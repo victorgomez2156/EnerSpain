@@ -1557,7 +1557,7 @@ class Reportes_model extends CI_Model
     public function Contratos_Para_Rueda20($Desde,$Hasta)
     {
         
-        $sql = $this->db->query("SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups
+        $sql = $this->db->query("SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups,a.CodProComCup,a.FecVenCUPs as FecVenCUPsFormat
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
@@ -1569,7 +1569,7 @@ class Reportes_model extends CI_Model
         
         UNION ALL
         
-        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NumCifCli,d.RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups,a.CodProComCup,a.FecVenCUPs as FecVenCUPsFormat
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
@@ -1581,7 +1581,7 @@ class Reportes_model extends CI_Model
 
         UNION ALL
 
-        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CUPsEle AS CUPsName,a.TipCups,f.NomTarEle AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups,a.CodProComCup,a.FecVenCUPs as FecVenCUPsFormat
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
@@ -1593,7 +1593,7 @@ class Reportes_model extends CI_Model
 
         UNION ALL
 
-        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups
+        SELECT c.CodProCom,date_format(a.FecActCUPs,'%d/%m/%Y') as FecActCUPs,b.CodCli,d.NIFConCli as NumCifCli,d.NomConCli as RazSocCli,e.CupsGas AS CUPsName,a.TipCups,f.NomTarGas AS NomTar,a.ConCup,g.RazSocCom,h.EstBajCon,date_format(a.FecVenCUPs,'%d/%m/%Y' ) as FecVenCUPs,a.EstConCups,a.CodProComCup,a.FecVenCUPs as FecVenCUPsFormat
         FROM T_Propuesta_Comercial_CUPs a 
         JOIN T_Propuesta_Comercial_Clientes b ON a.CodProComCli=b.CodProComCli
         JOIN T_PropuestaComercial c ON b.CodProCom=c.CodProCom
@@ -1606,7 +1606,7 @@ class Reportes_model extends CI_Model
         
 
 
-        ORDER BY FecVenCUPs DESC");
+        ORDER BY FecVenCUPsFormat DESC");
             if ($sql->num_rows() > 0)
               return $sql->result();
             else  

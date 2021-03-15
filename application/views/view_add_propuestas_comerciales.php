@@ -570,6 +570,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                </div>
             </div>  
 
+            <div ng-hide="vm.corporate">
+
              <div class="col-12 col-sm-6">
               <div class="form">                          
                <div class="form-group">
@@ -590,7 +592,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </select>                  
                </div>
                </div>
-            </div>  
+            </div> 
+          </div> 
+          <div ng-show="vm.corporate"><div class="col-12 col-sm-11">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO</label>         
+               <input type="text" class="form-control" ng-model="vm.fdatos.CorpoGo" placeholder="123,35 "/>                    
+               </div>
+               </div>
+            </div></div>
         
           <div class="col-12 col-sm-6">
               <div class="form">                          

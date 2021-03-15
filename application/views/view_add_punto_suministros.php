@@ -146,12 +146,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Número <b style="color:red;">(*)</b></label>
-       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NumViaPunSum"  min="1" placeholder="* Numero del Dirección de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fpuntosuministro.NumViaPunSum,1)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
+       <input type="text" class="form-control" ng-model="vm.fpuntosuministro.NumViaPunSum"  min="1" placeholder="* Numero del Dirección de Suministro" maxlength="100" ng-change="vm.validarsinuermo(vm.fpuntosuministro.NumViaPunSum,1)" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined" required/>       
        </div>
        </div>
        </div>
 
-        <div class="col-12 col-sm-3">
+        <!--div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">
        <label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <input type="text" class="form-control" ng-model="vm.fpuntosuministro.PuePunSum"  placeholder="Puerta del Dirección de Suministro" maxlength="4" ng-disabled="vm.validate_info_PunSum!=undefined|| vm.fpuntosuministro.TipRegDir==undefined"/>
        </div>
        </div>
-       </div>
+       </div-->
         <!--div class="col-12 col-sm-3">
        <div class="form">                          
        <div class="form-group">

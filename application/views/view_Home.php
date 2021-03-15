@@ -94,11 +94,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
      <section id="main-content">
       <section class="wrapper">
         <!--overview start-->
-
+      <br><br>
         <!--Dashboard start -->
-        <div align="center">
-         <img src="application/libraries/estilos/img/enerspain_logotipo_slide.png" align="center">
+        <!-- Form validations -->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+             
+              <div class="panel-body">
+                <div align="center">
+                 <img src="application/libraries/estilos/img/enerspain_logotipo_slide.png" align="center">
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
+
+
+
 
           <div class="text-right">
             <div class="credits">

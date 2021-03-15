@@ -137,11 +137,11 @@ public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
 {
     if($TipCups==1)
     {
-        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarEle AS NomTar,NULL AS Agente,a.ConCup',false);
+        $this->db->select('c.TipProCom,b.CodCli,a.EstConCups,a.FecActCUPs,a.FecVenCUPs,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarEle AS NomTar,NULL AS Agente,a.ConCup,d.CodConCom,c.CodProCom',false);
     }
     else
     {
-        $this->db->select('c.TipProCom,b.CodCli,d.EstBajCon,d.FecFirmCon,d.FecFinCon,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarGas AS NomTar,NULL AS Agente,a.ConCup',false);
+        $this->db->select('c.TipProCom,b.CodCli,a.EstConCups,a.FecActCUPs,a.FecVenCUPs,d.RefCon,e.RazSocCom,NULL AS TipCon,g.NomTarGas AS NomTar,NULL AS Agente,a.ConCup,d.CodConCom,c.CodProCom',false);
     }
     $this->db->from('T_Propuesta_Comercial_CUPs a');
     $this->db->join('T_Propuesta_Comercial_Clientes b','a.CodProComCli=b.CodProComCli');
@@ -159,8 +159,8 @@ public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
         $this->db->join('T_CUPsGas f','f.CodCupGas=a.CodCup');
         $this->db->join('T_TarifaGas g','g.CodTarGas=f.CodTarGas','LEFT');
     }
-    $this->db->where('a.CodCup',$CodCups);
-    $this->db->where('b.CodCli',$CodCli);        
+    $this->db->where('a.CodCup',$CodCups); 
+    //$this->db->where('b.CodCli',$CodCli);        
     $this->db->where('a.TipCups',$TipCups);        
     $query = $this->db->get(); 
     if($query->num_rows()>0)

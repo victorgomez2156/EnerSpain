@@ -1565,12 +1565,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<div class="form">                          
 										<div class="form-group">
 											<label class="font-weight-bold nexa-dark" style="color:black;">Número <b style="color:red;">(*)</b></label>
-											<input type="text" class="form-control" ng-model="vm.fdatos_cups.NumViaPunSum" min="1" placeholder="* Numero del Dirección de Suministro" maxlength="2" ng-change="vm.validarsinuermo(vm.fdatos_cups.NumViaPunSum,1)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" />       
+											<input type="text" class="form-control" ng-model="vm.fdatos_cups.NumViaPunSum" min="1" placeholder="* Numero del Dirección de Suministro" maxlength="100" ng-change="vm.validarsinuermo(vm.fdatos_cups.NumViaPunSum,1)" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" />       
 										</div>
 									</div>
 								</div>
 
-								<div class="col-12 col-sm-3">
+								<!--div class="col-12 col-sm-3">
 									<div class="form">                          
 										<div class="form-group">
 											<label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -1604,15 +1604,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<input type="text" class="form-control" name="PuePunSum" ng-model="vm.fdatos_cups.PuePunSum"  placeholder="Puerta del Dirección de Suministro" maxlength="4" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined"/>
 										</div>
 									</div>
-								</div>
+								</div-->
 
 								<div class="col-12 col-sm-4" ng-click="vm.containerClicked()">
 									<div class="form">                          
 										<div class="form-group">
 											<label class="font-weight-bold nexa-dark" style="color:black;">Código Postal</label>
-											<input type="text" class="form-control" name="CPLocSoc" ng-click='vm.searchboxClicked($event)' ng-model="vm.fdatos_cups.CPLocSoc" placeholder="Zona Postal" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" ng-keyup='vm.LocalidadCodigoPostal(1)'/>
+											<input type="text" class="form-control" name="CPLocSoc" ng-click='vm.searchboxClicked($event)' ng-model="vm.fdatos_cups.CPLocSoc" placeholder="Zona Postal" ng-disabled=" vm.fdatos_cups.TipRegDir==undefined|| vm.validate_info!=undefined" ng-keyup='vm.LocalidadCodigoPostal(4)'/>
 											<ul id='searchResult'>
-												<li ng-click='vm.setValueCPLoc($index,$event,result,1)' ng-repeat="result in vm.searchResultCPLoc" >
+												<li ng-click='vm.setValueCPLoc($index,$event,result,2)' ng-repeat="result in vm.searchResultCPLoc" >
 													{{ result.DesPro }}  / {{ result.DesLoc }} / {{ result.CPLoc }} 
 												</li>
 											</ul>
@@ -2540,8 +2540,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<tr>
 									<th >Nº Cliente</th>
 									<th >Vigente</th>
-									<th >Fecha Firma</th>
-									<th >Fecha Fin</th>
+									<th >Fecha Activación</th>
+									<th >Fecha Vencimiento</th>
 									<th >Nº Contrato</th>
 									<th >Consumo</th>
 									<th >Comercializadora</th> 
@@ -2555,15 +2555,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<tr ng-repeat="dato in vm.ContratosTCups | filter:paginate1" ng-class-odd="odd">
 									<td >{{dato.CodCli}}</td>                    
 									<td >
-										<span class="label label-success" ng-show="dato.EstBajCon==0"><i class="fa fa-check-circle"></i> Activo</span>
-										<span class="label label-danger" ng-show="dato.EstBajCon==1"><i class="fa fa-ban"></i> Dado de Baja</span>
-										<span class="label label-info" ng-show="dato.EstBajCon==2"><i class="fa fa-close"></i> Vencido</span>
-										<span class="label label-primary" ng-show="dato.EstBajCon==3"><i class="fa fa-check-circle"></i> Renovado</span>
-										<span class="label label-warning" ng-show="dato.EstBajCon==4"><i class="fa fa-check-clock-o"></i> En Renovación</span>
+										<span class="label label-danger" ng-show="dato.CodProCom==null" style="color:black;"><i class="fa fa-ban"></i> S/P/C</span>
+					                      <span class="label label-success" ng-show="dato.EstConCups==1" style="color:black;"><i class="fa fa-check-circle"></i> Contrato</span>
+					                      <span class="label label-danger" ng-show="dato.EstConCups==2" style="color:black;"><i class="fa fa-ban"></i> Implícita</span>
+					                      <span class="label label-info" ng-show="dato.EstConCups==3" style="color:black;"><i class="fa fa-close"></i> Baja Rescatable</span>
+					                      <span class="label label-danger" ng-show="dato.EstConCups==4" style="color:black;"><i class="fa fa-ban"></i> Baja Definitiva</span>
 									</td>/
-									<td >{{dato.FecFirmCon}}</td>
-									<td >{{dato.FecFinCon}}</td>
-									<td >{{dato.RefCon}}</td>
+									<td >{{dato.FecActCUPs}}</td>
+									<td >{{dato.FecVenCUPs}}</td>
+									<td >{{dato.CodConCom}}</td>
 									<td >{{dato.ConCup}}</td>
 									<td >{{dato.RazSocCom}}</td>
 									<td >{{dato.NomTar}}</td>  

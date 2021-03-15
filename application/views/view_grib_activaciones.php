@@ -277,6 +277,17 @@
 </div>
 
 
+<div class="col-12 col-sm-6">
+  <div class="form">                          
+   <div class="form-group">
+      <label class="font-weight-bold nexa-dark" style="color:black;">Estado</label>
+        <select class="form-control" name="EstConCups_ModalRapidos" required ng-model="vm.contrato_fdatos.EstConCups">
+          <option ng-repeat="dato in vm.ListNuevosEstadosContrato" value="{{dato.EstConCups}}">{{dato.nombre}}</option>                  
+        </select>
+    </div>
+ </div>
+</div>
+<div class="col-12 col-sm-6">
 
 
 <div class="form">                          
@@ -285,15 +296,17 @@
    <textarea class="form-control" name="ObsCon" id="ObsCon" rows="5" placeholder="Comentarios" ng-model="vm.contrato_fdatos.ObsCon" ></textarea>        
  </div>
 </div>
+</div>
+
+
+
+
+<!--br><br><br><br><br><br><br><br-->
+
+
 <input class="form-control" id="CodConCom_1" name="CodConCom_1" type="hidden" ng-model="vm.contrato_fdatos.CodConCom" readonly/>
 <div class="form-group" >
-  <div class="col-12 col-sm-12">
-    
-    <!--button class="btn btn-info" id="showtoast6" type="button" style="margin-top: 0px;" target="_black"  ng-click="vm.generar_contratos_t(vm.contrato_fdatos,2)">Generar T2</button>
-    <button class="btn btn-info" id="showtoast7" type="button" style="margin-top: 0px;" target="_black"  ng-click="vm.generar_contratos_t(vm.contrato_fdatos,3)">Generar T3</button>
-    <button class="btn btn-info" id="showtoast8" type="button" style="margin-top: 0px;" target="_black"  ng-click="vm.generar_contratos_t(vm.contrato_fdatos,4)">Generar T4</button>
-
-    <a class="btn btn-primary" href="reportes/Exportar_Documentos/Doc_Contrato_Comercial_Cliente_PDF/{{vm.contrato_fdatos.CodConCom}}" style="margin-top: 9px;" target="_black" >Generar PDF</a-->
+  <div class="col-12 col-sm-11">    
 
     <button class="btn btn-primary" type="button" style="margin-top: 10px;" ng-click="vm.anterior_paso_contrato()">Volver</button>
      <button class="btn btn-success" type="submit"  ng-disabled="vm.disabled_button==true">Grabar</button>

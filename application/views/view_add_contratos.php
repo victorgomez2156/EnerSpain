@@ -665,7 +665,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 </div>  
 
-<div class="col-12 col-sm-6">
+
+<div ng-show="vm.CodPro=='CLASICC'">
+  <div class="col-12 col-sm-6">
   <div class="form">                          
    <div class="form-group">
      <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
@@ -684,6 +686,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </div>  
+</div>
+
+<div ng-show ="vm.CodPro=='CORPORATE'">
+  <div class="col-12 col-sm-12" id="TipPreClass">
+  <div class="form">                          
+    <div class="form-group">   
+      <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO </label>
+      <input type="text"  class="form-control" ng-model="vm.CorpoGo" placeholder="CORPORATE GO" readonly="readonly"/>
+    </div>
+  </div>
+</div> 
+</div>
 
     <!--div class="col-12 col-sm-2">
       <div class="form">                          
