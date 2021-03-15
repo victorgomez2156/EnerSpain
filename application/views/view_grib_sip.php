@@ -164,16 +164,136 @@
                         </div> 
                     </div><!--FINAL ROW -->
                   </form>
-                 
 
+                <br>
 
+                <div class="foreign-supplier-title clearfix">
+                <h4 class="breadcrumb">     
+                  <span class="foreign-supplier-text" style="color:black;"> Datos Dynargy </span>
+                </h4>
+                </div>
+                  <div id="tabs_dynargy" class="ui-tabs-nav ui-corner-all">
+                    <ul>
+                      <li>
+                        <a href="#tabs-1">Datos Suministros</a>
+                      </li>       
+                      <li>
+                        <a href="#tabs-2">Consumo Activa</a>
+                      </li> 
+                      <li>
+                        <a href="#tabs-3">Consumo Reactiva</a>
+                      </li>       
+                      <li>
+                        <a href="#tabs-4">Maximetro</a>
+                      </li>    
+                    </ul>
+                    <div id="tabs-1"> 
+                      <div class="foreign-supplier-title clearfix">
+                        <h4 class="breadcrumb">     
+                          <span class="foreign-supplier-text" style="color:black;"> Datos del Punto de Suministro </span>
+                        </h4>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-striped table-advance table-hover table-responsive">
+                          <tbody>
+                            <tr>
+                              <th>Nombre Campo 1</th>
+                              <th>Response Campo 1</th>
+                             <th>Nombre Campo 2</th>
+                              <th>Response Campo 2</th>
+                              <th>Nombre Campo 3</th>
+                              <th>Response Campo 3</th>
+                              <th>Nombre Campo 4</th>
+                              <th>Response Campo 4</th>
+                            </tr>
+                            
+                            <tr>                    
+                              <td>Nombre Campo 1                                
+                              </td>
+                              <td>Response Campo 1                                
+                              </td>
+                              <td>Nombre Campo 2
+                              </td>
+                              <td> Response Campo 2                              
+                              </td>
+                              <td> Nombre Campo 3                               
+                              </td>
+                              <td> Response Campo 3                               
+                              </td>
+                              <td>Nombre Campo 4
+                              </td>
+                              <td>Response Campo 4                               
+                              </td>  
+                            </tr>
+                          </tbody>
+                          <tfoot>                 
+                            <th>Nombre Campo 1</th>
+                              <th>Response Campo 1</th>
+                             <th>Nombre Campo 2</th>
+                              <th>Response Campo 2</th>
+                              <th>Nombre Campo 3</th>
+                              <th>Response Campo 3</th>
+                              <th>Nombre Campo 4</th>
+                              <th>Response Campo 4</th> 
+                          </tfoot>
+                        </table>
+                      </div>
 
+                     
+                    </div>
 
+                    <div id="tabs-2"> 
+                    
+                    </div>
+
+                    <div id="tabs-3"> 
+                    
+                    </div>
+
+                    <div id="tabs-4"> 
+                    
+                    </div>
+                  </div>
 
                 </div><!--panel-body FINAL-->
               </section>
             </div>
           </div>
+
+          <!--div class="row">
+          <div class="col-lg-12">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <section class="panel">
+                  <header class="panel-heading">
+                    Color Pickers & Date Pickers
+                  </header>
+                  <div class="panel-body">
+                    <form class="form-horizontal " action="#">
+                     
+
+                      <div class="form-group">
+                        <label class="control-label col-sm-4">Default Datepicker</label>
+                        <div class="col-sm-6">
+                          <input id="dp1" type="text" value="28-10-2013" size="16" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-sm-4">Default Datepicker</label>
+                        <div class="col-sm-6">
+                          <input id="dp1" type="text" value="28-10-2013" size="16" class="form-control">
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </div-->
+
+
       </section>
     </section>
     <div class="text-right">
@@ -193,13 +313,22 @@
 
 
   </div><!-- FINAL DIV NG-CONTROLLER -->
-    <script type="text/javascript">
-      
+   <script>
+      $(function(){
+        'use strict'
+        jQuery(function($) 
+        {
+          $( "#tabs_dynargy" ).tabs(); 
+          $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            //mixDate: "<?php echo date("m/d/Y")?>"
+            maxDate: "<?php echo date("m/d/Y")?>"
+        });
+      });
 
-      
 
-
-      
+      });
     </script>
   <script type="text/javascript" src="application/libraries/estilos/js/jquery.validate.min.js"></script>
     <!-- custom form validation script for this page-->
