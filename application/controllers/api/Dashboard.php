@@ -957,5 +957,23 @@ class Dashboard extends REST_Controller
 			}		
 			$this->response($Result);		
     }
+    public function BuscarLocalidadAddClientes_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}		
+		$CodPro=$this->get('CodPro');
+    	//$Metodo=$this->get('Metodo');
+		$data = $this->Clientes_model->get_localidadesProvincia($CodPro);
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
+		if (empty($data))
+		{
+			$this->response(false);
+			return false;
+		}		
+		$this->response($data);		
+	}
 }
 ?>

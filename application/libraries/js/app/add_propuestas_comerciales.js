@@ -35,6 +35,7 @@
      scope.fdatos.RenConGas = false;
      scope.fdatos.Rech = false;
      scope.fdatos.Apro = false;
+     scope.corporate=false;
 
      scope.buscar_datos_clientes = function() {
          $("#cargando").removeClass("loader loader-default").addClass("loader loader-default is-active");
@@ -243,7 +244,23 @@
                      scope.List_Productos = result.data;
                  }
                  if (metodo == 2) {
-                     scope.List_Anexos = result.data;
+
+                    scope.List_Anexos = result.data;
+                    for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                  }
                  if (metodo == 3) {
                      scope.fdatos.TipPre = result.data.TipPre;
@@ -253,15 +270,31 @@
                      scope.toast('error','No existen productos asignado a esta Comercializadora.','Comercializadoras');
                      scope.List_Productos = [];
                      scope.List_Anexos = [];
-                     scope.fdatos.CodPro = undefined;
-                     scope.fdatos.CodAnePro = undefined;
-                     scope.fdatos.TipPre = undefined;
+                     scope.fdatos.CodPro = null;
+                     scope.fdatos.CodAnePro = null;
+                     scope.fdatos.TipPre = null;
                  }
-                 if (metodo == 2) {
+                        if (metodo == 2) {
+                        
+                        for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                      scope.toast('error','No existen anexos asignados a este producto.','productos');
                      scope.List_Anexos = [];
-                     scope.fdatos.CodAnePro = undefined;
-                     scope.fdatos.TipPre = undefined;
+                     scope.fdatos.CodAnePro = null;
+                     scope.fdatos.TipPre = null;
                  }
              }
          }, function(error) {
@@ -694,14 +727,30 @@
              scope.toast('error','Debe seleccionar un producto.','');
              return false;
          }
-         if (!scope.fdatos.CodAnePro > 0) {
+         
+         if(scope.corporate==false)
+         {
+            if (!scope.fdatos.CodAnePro > 0) {
              scope.toast('error','Debe seleccionar un Anexo.','');
              return false;
+             }
+             if (!scope.fdatos.TipPre > 0) {
+                 scope.toast('error','Debe seleccionar un Tipo de Precio.','');
+                 return false;
+             }
+            scope.fdatos.CorpoGo = null;
          }
-         if (!scope.fdatos.TipPre > 0) {
-             scope.toast('error','Debe seleccionar un Tipo de Precio.','');
-             return false;
-         }
+         else
+         {
+            scope.fdatos.CodAnePro=null;
+            scope.fdatos.TipPre=null;
+            if (scope.fdatos.CorpoGo == null || scope.fdatos.CorpoGo == undefined || scope.fdatos.CorpoGo == '') {
+                 scope.toast('error','Debe ingresar un valior.','CORPORATE GO');
+                 return false;
+            }
+         }        
+
+
          if (scope.fdatos.ObsProCom == null || scope.fdatos.ObsProCom == undefined || scope.fdatos.ObsProCom == '') {
              scope.fdatos.ObsProCom = null;
          } else {
@@ -880,7 +929,10 @@
                 }
                 if( result.data.Propuesta.CodPro!=null)
                 {
-                    scope.realizar_filtro(2, result.data.Propuesta.CodPro);
+                    
+                    setTimeout(function(){  scope.realizar_filtro(2, result.data.Propuesta.CodPro); }, 2000);
+                   
+                    
                 }   
                 scope.fdatos.CodCli = result.data.CodCli;
                 scope.fdatos.CodProComCli=result.data.CodProComCli;

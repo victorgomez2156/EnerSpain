@@ -28,6 +28,7 @@
          mm = '0' + mm
      }
      scope.disabled_status=true;
+     scope.corporate=false;
      var fecha = dd + '/' + mm + '/' + yyyy;
      scope.CanPerEle = 6;
      ////////////////////////////////////////////////// PARA Las Propuestas START ////////////////////////////////////////////////////////
@@ -175,14 +176,30 @@
              scope.toast('error','Debe Seleccionar un Producto.','Producto');
              return false;
         }
-        if (!scope.fdatos.CodAnePro > 0) {
-             scope.toast('error','Debe Seleccionar un Anexo.','Anexo');
+       
+        if(scope.corporate==false)
+         {
+            if (!scope.fdatos.CodAnePro > 0) {
+             scope.toast('error','Debe seleccionar un Anexo.','');
              return false;
-        }
-        if (!scope.fdatos.TipPre > 0) {
-             scope.toast('error','Debe Seleccionar un Tipo de Precio.','Tipo de Precio');
-             return false;
-        }
+             }
+             if (!scope.fdatos.TipPre > 0) {
+                 scope.toast('error','Debe seleccionar un Tipo de Precio.','');
+                 return false;
+             }
+            scope.fdatos.CorpoGo = null;
+         }
+         else
+         {
+            scope.fdatos.CodAnePro=null;
+            scope.fdatos.TipPre=null;
+            if (scope.fdatos.CorpoGo == null || scope.fdatos.CorpoGo == undefined || scope.fdatos.CorpoGo == '') {
+                 scope.toast('error','Debe ingresar un valior.','CORPORATE GO');
+                 return false;
+            }
+         } 
+
+        
         if (scope.fdatos.ObsProCom==undefined||scope.fdatos.ObsProCom==null||scope.fdatos.ObsProCom=='') {
             scope.fdatos.ObsProCom=null;
         }
@@ -271,8 +288,8 @@
                     scope.realizar_filtro(1, result.data.Propuesta.CodCom);
                  }
                 if( result.data.Propuesta.CodPro!=null)
-                {
-                    scope.realizar_filtro(2, result.data.Propuesta.CodPro);
+                { 
+                    setTimeout(function(){  scope.realizar_filtro(2, result.data.Propuesta.CodPro); }, 2000);
                 }
 
                 if (scope.fdatos.EstProCom == "P") {
@@ -338,6 +355,21 @@
                  }
                  if (metodo == 2) {
                      scope.List_Anexos = result.data;
+                     for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                  }
                  if (metodo == 3) {
                      scope.fdatos.TipPre = result.data.TipPre;
@@ -352,6 +384,21 @@
                      scope.fdatos.TipPre = undefined;
                  }
                  if (metodo == 2) {
+                     for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                      scope.toast('error','No existen anexos asignados a este producto.','productos');
                      scope.List_Anexos = [];
                      scope.fdatos.CodAnePro = undefined;

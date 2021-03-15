@@ -899,6 +899,7 @@
             $.ajax({
                 url : base_urlHome()+"api/Activaciones/agregar_documento_contrato/",
                 type: "POST",
+                headers:{'x-api-key':$cookies.get('ApiKey')},
                 data : formData,
                 processData: false,
                 contentType: false,
@@ -1288,15 +1289,19 @@
                 return false;
             }
        
-        if(scope.contrato_fdatos.ObsCon==null || scope.contrato_fdatos.ObsCon==undefined|| scope.contrato_fdatos.ObsCon=='')
+            if(scope.contrato_fdatos.ObsCon==null || scope.contrato_fdatos.ObsCon==undefined|| scope.contrato_fdatos.ObsCon=='')
             {
                 scope.contrato_fdatos.ObsCon=null;
             }
             else
             {
                 scope.contrato_fdatos.ObsCon=scope.contrato_fdatos.ObsCon;
-            } 
-       
+            }
+            if(!scope.contrato_fdatos.EstConCups>0)
+            {
+                scope.toast('error','Debe seleccionar un Estatus Para este Contrato.','Error');
+                return false;
+            }       
         if (resultado == false) {
             //quiere decir que al menos un renglon no paso la validacion
             return false;

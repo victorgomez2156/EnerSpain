@@ -1942,6 +1942,11 @@ scope.misma_razon = function(opcion) {
               var searchText_len = scope.tContacto_data_modal.CPLocSoc.trim().length;
               var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
             }
+            else if(metodo==4)
+            {
+              var searchText_len = scope.fdatos_cups.CPLocSoc.trim().length;
+              var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.fdatos_cups.CPLocSoc;
+            }
         if (searchText_len >=3) 
         {
             $http.get(url).then(function(result) 
@@ -1957,6 +1962,10 @@ scope.misma_razon = function(opcion) {
                         scope.searchResultFis = result.data;
                     }
                     else if(metodo==3)
+                    {
+                        scope.searchResultCPLoc = result.data;
+                    }
+                     else if(metodo==4)
                     {
                         scope.searchResultCPLoc = result.data;
                     }
@@ -2005,7 +2014,7 @@ scope.misma_razon = function(opcion) {
     {
         console.log(metodo);
         console.log(CodPro);
-        var url = base_urlHome()+"api/Clientes/BuscarLocalidadAddClientes/metodo/"+metodo+"/CodPro/"+CodPro;        
+        var url = base_urlHome()+"api/Dashboard/BuscarLocalidadAddClientes/metodo/"+metodo+"/CodPro/"+CodPro;        
         $http.get(url).then(function(result)
         {
             if(result.data!=false)
@@ -2030,6 +2039,11 @@ scope.misma_razon = function(opcion) {
                 {
                     scope.TLocalidadesfiltrada=[];
                     scope.TLocalidadesfiltrada=result.data;
+                }
+                else if(metodo==4)
+                {
+                  scope.TLocalidadesfiltradaPunSum=[];
+                  scope.TLocalidadesfiltradaPunSum=result.data;
                 }
                 else
                 {
@@ -2250,6 +2264,18 @@ scope.misma_razon = function(opcion) {
             scope.BuscarLocalidad(3,scope.tContacto_data_modal.CodProSoc);
             scope.tContacto_data_modal.CodLocSoc=scope.searchResultCPLoc[index].CodLoc;
             scope.tContacto_data_modal.CPLocSoc= scope.searchResultCPLoc[index].CPLoc;
+            scope.searchResultCPLoc = {};
+            $event.stopPropagation();
+        }
+        else if(metodo == 2)
+        {
+           console.log($event);
+            console.log(result);
+            console.log(metodo);
+            scope.fdatos_cups.CodProPunSum=scope.searchResultCPLoc[index].CodPro;
+            scope.BuscarLocalidad(4,scope.fdatos_cups.CodProPunSum);
+            scope.fdatos_cups.CodLocPunSum=scope.searchResultCPLoc[index].CodLoc;
+            scope.fdatos_cups.CPLocSoc= scope.searchResultCPLoc[index].CPLoc;
             scope.searchResultCPLoc = {};
             $event.stopPropagation();
         }
@@ -3959,13 +3985,13 @@ scope.search_PunSum = function()
      $scope.submitFormRegistroCuentaBanca = function(event) {
          //scope.tgribBancos.CodBan=null;
          scope.tgribBancos.NumIBan = scope.CodEur + '' + scope.IBAN1 + '' + scope.IBAN2 + '' + scope.IBAN3 + '' + scope.IBAN4 + '' + scope.IBAN5;
-          if(scope.tgribBancos.ObserCuenBan==null||scope.tgribBancos.ObserCuenBan==undefined||scope.tgribBancos.ObserCuenBan=="")
+          if(scope.ObserCuenBan==null||scope.ObserCuenBan==undefined||scope.ObserCuenBan=='')
           {
             scope.tgribBancos.ObserCuenBan=null;
           }
           else
           {
-            scope.tgribBancos.ObserCuenBan=scope.tgribBancos.ObserCuenBan;
+            scope.tgribBancos.ObserCuenBan=scope.ObserCuenBan;
           }
             /*var url = base_urlHome() + "api/Dashboard/Comprobar_Cuenta_Bancaria/";
             $http.post(url, scope.tgribBancos).then(function(result) {

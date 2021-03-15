@@ -362,7 +362,7 @@ class PropuestaComercial extends REST_Controller
 			//$BuscarContrato=$this->Propuesta_model->Buscar_Contratos($objSalida->CodCli);
 			//if($BuscarContrato==false)
 			//{
-				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
+				$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom,$objSalida->CorpoGo);
 				$objSalida->CodProCom=$CodProCom;
 				$CodProComCli=$this->Propuesta_model->agregar_propuesta_comercial_clientes($CodProCom,$objSalida->CodCli);
 				foreach ($objSalida->detalleCUPs as $key => $value):
@@ -421,7 +421,7 @@ class PropuestaComercial extends REST_Controller
 			if($objSalida->Apro==true && $objSalida->Rech==false)
 			{
 				//$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida->CauDia,$objSalida->CodAnePro,$objSalida->CodCli,$objSalida->CodCom,$objSalida->CodCupGas,$objSalida->CodCupSEle,$objSalida->CodPro,$objSalida->CodProCom,$objSalida->CodPunSum,$objSalida->CodTarEle,$objSalida->CodTarGas,$objSalida->Consumo,'A',$objSalida->FecProCom,$objSalida->ImpAhoEle,$objSalida->ImpAhoGas,$objSalida->ImpAhoTot,$objSalida->JusRecProCom,$objSalida->ObsAhoEle,$objSalida->ObsAhoGas,$objSalida->ObsProCom,$objSalida->PorAhoEle,$objSalida->PorAhoGas,$objSalida->PorAhoTot,$objSalida->PotConP1,$objSalida->PotConP2,$objSalida->PotConP3,$objSalida->PotConP4,$objSalida->PotConP5,$objSalida->PotConP6,$objSalida->RefProCom,$objSalida->RenConEle,$objSalida->RenConGas,$objSalida->TipPre,$objSalida->ConCupsEle);				
-				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida-> CodProCom,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ImpAhoTot,$objSalida-> PorAhoTot,'A',$objSalida-> RefProCom,null);
+				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida-> CodProCom,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ImpAhoTot,$objSalida-> PorAhoTot,'A',$objSalida-> RefProCom,null,$objSalida->CorpoGo);
 				$SelectCUPsForHistorial=$this->Propuesta_model->SelectHistorialCUPs($objSalida-> CodProComCli);
 				if($SelectCUPsForHistorial!=false)
 				{
@@ -456,7 +456,7 @@ class PropuestaComercial extends REST_Controller
 			}
 			if($objSalida->Rech==true && $objSalida->Apro==false)
 			{
-				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida-> CodProCom,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ImpAhoTot,$objSalida-> PorAhoTot,'R',$objSalida-> RefProCom,$objSalida->JusRecProCom);
+				$updatePropuesta=$this->Propuesta_model->update_edit_propuesta($objSalida-> CodProCom,$objSalida-> CodCom,$objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,$objSalida-> ImpAhoTot,$objSalida-> PorAhoTot,'R',$objSalida-> RefProCom,$objSalida->JusRecProCom,$objSalida->CorpoGo);
 
 
 				if($updatePropuesta==true)
@@ -472,7 +472,7 @@ class PropuestaComercial extends REST_Controller
 		elseif($objSalida->tipo=='renovar')
 		{
 			
-			$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom);
+			$CodProCom=$this->Propuesta_model->agregar_propuesta($objSalida->FecProCom,$objSalida->TipProCom,$objSalida->PorAhoTot,$objSalida->ImpAhoTot,$objSalida->EstProCom,null,$objSalida->CodCom,$objSalida->CodPro,$objSalida->CodAnePro,$objSalida->TipPre,$objSalida->ObsProCom,$objSalida->RefProCom,$objSalida->CorpoGo);
 			$CodProComCli=$this->Propuesta_model->agregar_propuesta_comercial_clientes($CodProCom,$objSalida->CodCli);
 			foreach ($objSalida->detalleCUPs as $key => $value):
 				{					
@@ -512,7 +512,7 @@ class PropuestaComercial extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}			
         $CodProCom=$this->get('CodProCom');
-        $select="CodProCom,date_format(FecProCom,'%d/%m/%Y') as FecProCom,RefProCom,EstProCom,CodCon,PorAhoTot,ImpAhoTot,JusRecProCom,CodCom,CodPro,CodAnePro,TipPre,ObsProCom,TipProCom,UltTipSeg";
+        $select="CodProCom,date_format(FecProCom,'%d/%m/%Y') as FecProCom,RefProCom,EstProCom,CodCon,PorAhoTot,ImpAhoTot,JusRecProCom,CodCom,CodPro,CodAnePro,TipPre,ObsProCom,TipProCom,UltTipSeg,CorpoGo";
         $tabla="T_PropuestaComercial";
 		$where="CodProCom";
 		$BuscarPropuesta=$this->Propuesta_model->Funcion_Verificadora($CodProCom,$tabla,$where,$select);		

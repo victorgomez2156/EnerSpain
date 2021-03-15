@@ -183,7 +183,7 @@ class Clientes extends REST_Controller
 			redirect(base_url(), 'location', 301);
 		}		
 		$CodPro=$this->get('CodPro');
-    //$Metodo=$this->get('Metodo');
+    	//$Metodo=$this->get('Metodo');
 		$data = $this->Clientes_model->get_localidadesProvincia($CodPro);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Provincia','GET',$CodPro,$this->input->ip_address(),'Cargando Lista de Localidades');
 		if (empty($data))

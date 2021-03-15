@@ -513,6 +513,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 scope.CodPro = scope.List_Propuestas_Comerciales[i].DesProducto;
                 scope.CodAnePro = scope.List_Propuestas_Comerciales[i].DesAnePro;
                 scope.TipPre = scope.List_Propuestas_Comerciales[i].TipPre;
+                scope.CorpoGo = scope.List_Propuestas_Comerciales[i].CorpoGo;
                 if(scope.List_Propuestas_Comerciales[i].TipProCom==1)
                 {
                     scope.GetdetallePropuestaContratos(scope.List_Propuestas_Comerciales[i].TipProCom,scope.List_Propuestas_Comerciales[i].CodProComCli);
@@ -3004,6 +3005,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             $.ajax({
                 url : base_urlHome()+"api/Contratos/agregar_documento_contrato/",
                 type: "POST",
+                headers:{'x-api-key':$cookies.get('ApiKey')},
                 data : formData,
                 processData: false,
                 contentType: false,

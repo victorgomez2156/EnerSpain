@@ -216,7 +216,7 @@ class Activaciones extends REST_Controller
 			foreach ($objSalida-> detalleCUPs as $key => $value) {
 				
 				$PropuestaComercialClientesCUPs='';
-				$PropuestaComercialClientesCUPs=$this->Activaciones_model->CrearPropuestaComercialClienteCUPs($PropuestaComercialClientes,$objSalida-> CodPunSum,$value-> CodCups,$value-> CodTar,$value-> PotConP1,$value-> PotConP2,$value-> PotConP3,$value-> PotConP4,$value-> PotConP5,$value-> PotConP6,$value-> FecActCUPs,$value-> FecVenCUPs,0,'0.00','0.00',$value-> ObsCup,$value-> ConCUPs,$value-> CauDia,$value-> TipServ,1);
+				$PropuestaComercialClientesCUPs=$this->Activaciones_model->CrearPropuestaComercialClienteCUPs($PropuestaComercialClientes,$objSalida-> CodPunSum,$value-> CodCups,$value-> CodTar,$value-> PotConP1,$value-> PotConP2,$value-> PotConP3,$value-> PotConP4,$value-> PotConP5,$value-> PotConP6,$value-> FecActCUPs,$value-> FecVenCUPs,0,'0.00','0.00',$value-> ObsCup,$value-> ConCUPs,$value-> CauDia,$value-> TipServ,$objSalida-> EstConCups);
 				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_Propuesta_Comercial_CUPs','INSERT',$PropuestaComercialClientesCUPs,$this->input->ip_address(),'Creando Detalle CUPs desde Activaciones');
 			}						
 		}
