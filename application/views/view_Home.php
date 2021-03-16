@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              
               <div class="panel-body">
                 <div align="center">
-                 <img src="application/libraries/estilos/img/enerspain_logotipo_slide.png" align="center">
+                 <img src="application/libraries/estilos/img/enerspain_logotipo_slide.png" style="border-radius: 15px; display: inline-block; width: 100%; height: 100px; cursor: pointer;" align="center">
                 </div>
               </div>
             </section>
