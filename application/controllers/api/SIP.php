@@ -25,10 +25,10 @@ class SIP extends REST_Controller
 		{
 			redirect(base_url(), 'location', 301);
 		}
-			$CUPsName="ES0022000005447972KH";
+			$CUPsName=$this->get('CUPsName');
 			$curl = curl_init();
 		  	curl_setopt_array($curl, array(
-		  	CURLOPT_URL => 'https://api.dynargy.com/psInfo/%7D',
+		  	CURLOPT_URL => 'https://api.dynargy.com/PuntoSuministro/%7D',
 		  	CURLOPT_RETURNTRANSFER => true,
 		  	CURLOPT_ENCODING => '',
 		  	CURLOPT_MAXREDIRS => 10,
@@ -40,8 +40,8 @@ class SIP extends REST_Controller
 			  "filtros": {
 			    "listaCups": "'.$CUPsName.'",
 			    "fechaConsumo": {
-			      "desde": "2019-01-01",
-			      "hasta": "2021-12-31"
+			      "desde": null,
+			      "hasta": null
 			    }
 			    },
 			  "limite": 5,

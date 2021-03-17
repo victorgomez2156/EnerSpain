@@ -2,7 +2,7 @@ app.controller('Controlador_SIP', ['$http','$scope','$interval','ServiceMenu','$
 function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting,$cookies){
 			//declaramos una variable llamada scope donde tendremos a vm
 	var scope = this;
-	scope.fdatos = [];
+	scope.fdatos = {};
 	
 	/*EL MENU ES EL ESPACIO IDEAL PARA HACER LA SOLICITUD DE DATOS REMOTOS PARA TRAER A LA BD LOCAL**/
 	var fecha = new Date();
@@ -17,18 +17,33 @@ function Controlador ($http,$scope,$interval,ServiceMenu,$cookieStore,netTesting
 	} 
 	var fecha = dd+'/'+mm+'/'+yyyy;	
 
-
+    scope.response_cups={};
 
 	scope.Servidor_API_Dynargy=function()
     {
+        scope.response_cups={};
+        if(scope.CUPsName==null||scope.CUPsName==undefined||scope.CUPsName==''||scope.CUPsName.length<20)
+        {
+            scope.toast('error','Verifique el CUPs ya que no cumple con las condiciones para realizar la busqueda.','Dynargy');
+            return false;
+        }
         $("#buscando").removeClass("loader loader-default").addClass("loader loader-default is-active");
-        var url=base_urlHome()+"api/SIP/API_DynargyService/";
+        var url=base_urlHome()+"api/SIP/API_DynargyService/CUPsName/"+scope.CUPsName;
         $http.get(url).then(function(result)
         {
         	$("#buscando").removeClass("loader loader-default is-active").addClass("loader loader-default");        
         	if(result.data!=false)
-        	{
-        		console.log(result.data);
+        	{        		
+                if(result.data.detail=='Not Found')
+                {
+                    scope.toast('error','No se encontro información del CUPs '+scope.CUPsName,'Error');
+                    scope.response_cups={};
+                }
+                else
+                {
+                    console.log(result.data);
+                    scope.response_cups=result.data[0];
+                }
         	}
         	else
         	{

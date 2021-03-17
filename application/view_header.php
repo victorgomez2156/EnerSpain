@@ -34,27 +34,27 @@
   <link href="<?php echo ESTILOS;?>css/jquery-ui-1.10.4.min.css" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo ESTILOS;?>css/toastr.css" />
 
-  <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>"></script>
+  <script src="<?php echo ESTILOS.'js/jquery-3.2.1.min.js'?>?v=<?php echo(rand()); ?>"></script>
 
-   <script src="<?php echo PATH_ESTILOS_JS.'angular.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.min.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'angular-aria.min.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'angular-material.js'?>"></script>
-   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>"></script>  
+   <script src="<?php echo PATH_ESTILOS_JS.'angular.js'?>?v=<?php echo(rand()); ?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-animate.min.js'?>?v=<?php echo(rand()); ?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-aria.min.js'?>?v=<?php echo(rand()); ?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'angular-material.js'?>?v=<?php echo(rand()); ?>"></script>
+   <script src="<?php echo PATH_ESTILOS_JS.'assets-cache.js'?>?v=<?php echo(rand()); ?>"></script>  
 
 
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>"></script> 
-  <script src="<?php echo PATH_ESTILOS_JS.'checklist-model.js'?>"></script> 
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-resource.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-ping.js'?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-cookies.js'?>?v=<?php echo(rand()); ?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'checklist-model.js'?>?v=<?php echo(rand()); ?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-resource.js'?>?v=<?php echo(rand()); ?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-ping.js'?>?v=<?php echo(rand()); ?>"></script> 
 
-  <script src="<?php echo PATH_ESTILOS_JS.'angular-route.js'?>"></script> 
-  <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>"></script>
-  <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>"></script>
-  <!--script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>"></script-->
-  <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>"></script--> 
-   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'required.js'?>"></script-->
+  <script src="<?php echo PATH_ESTILOS_JS.'angular-route.js'?>?v=<?php echo(rand()); ?>"></script> 
+  <script src="<?php echo PATH_ESTILOS_JS.'ng-files-model.js'?>?v=<?php echo(rand()); ?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'bootstrap-typeahead.js'?>?v=<?php echo(rand()); ?>"></script>
+  <script src="<?php echo PATH_ESTILOS_JS.'ui-bootstrap-tpls-0.11.0.js'?>?v=<?php echo(rand()); ?>"></script>
+  <!--script src="<?php echo PATH_ESTILOS_JS.'angular-translate.min.js'?>?v=<?php echo(rand()); ?>"></script-->
+  <!--script src="<?php echo ESTILOS.'js/jquery.maskedinput.js'?>?v=<?php echo(rand()); ?>"></script--> 
+   <!--script src="<?php echo PATH_ESTILOS_JS_APP.'required.js'?>?v=<?php echo(rand()); ?>"></script-->
   <!--Final de Principales de ANGULARJS-->
   <!--Inicio de Librerias del sistema con ANGULARJS-->
   <script src="<?php echo PATH_ESTILOS_JS_APP.'appPrincipal.js'?>?v=<?php echo(rand()); ?>"></script>
@@ -129,7 +129,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>?v=<?php echo(rand()); ?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>?v=<?php echo(rand()); ?>"></script-->
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    
-  <title>Bienvenido a AGSE: <?php echo $this->usuario;?> | <?php echo TITULO;?>"></title>
+  <title>Bienvenido: <?php echo $this->usuario;?> | <?php echo TITULO;?>"></title>
   <style>
   body { padding-right: 0 !important }
   

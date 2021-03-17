@@ -136,7 +136,7 @@
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header">SIP</h3>
+            <h3 class="page-header">SIPS</h3>
           </div>
         </div>
 
@@ -197,44 +197,252 @@
                         <table class="table table-striped table-advance table-hover table-responsive">
                           <tbody>
                             <tr>
-                              <th>Nombre Campo 1</th>
-                              <th>Response Campo 1</th>
-                             <th>Nombre Campo 2</th>
-                              <th>Response Campo 2</th>
-                              <th>Nombre Campo 3</th>
-                              <th>Response Campo 3</th>
-                              <th>Nombre Campo 4</th>
-                              <th>Response Campo 4</th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>                             
                             </tr>
                             
-                            <tr>                    
-                              <td>Nombre Campo 1                                
+                          <tr>                    
+                            <td style="color: black;"><b style="color:black;">CUPS </b>                               
                               </td>
-                              <td>Response Campo 1                                
+                              <td>{{vm.response_cups.cups}}                                
                               </td>
-                              <td>Nombre Campo 2
+                              <td style="color: black;"><b style="color:black;">Titular del suministro</b>
                               </td>
-                              <td> Response Campo 2                              
+                              <td> Sin Datos Del API                              
                               </td>
-                              <td> Nombre Campo 3                               
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P1 (KW)</b>                               
                               </td>
-                              <td> Response Campo 3                               
+                              <td> {{vm.response_cups.potenciasContratadasEnWP1}}                                  
                               </td>
-                              <td>Nombre Campo 4
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Código distribuidora </b>                               
                               </td>
-                              <td>Response Campo 4                               
-                              </td>  
-                            </tr>
+                              <td>{{vm.response_cups.codigoEmpresaDistribuidora}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">CIF Titular</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P2 (KW)</b>                               
+                              </td>
+                              <td> {{vm.response_cups.potenciasContratadasEnWP2}}                                  
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Distribuidora </b>                               
+                              </td>
+                              <td>{{vm.response_cups.nombreEmpresaDistribuidora}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Dirección del Titular</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P3 (KW)</b>                               
+                              </td>
+                              <td>{{vm.response_cups.potenciasContratadasEnWP3}}                                 
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Tárifa </b>                               
+                              </td>
+                              <td>{{vm.response_cups.tarifaATR}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">C.P. del Titular
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P4 (KW)</b>                               
+                              </td>
+                              <td> {{vm.response_cups.potenciasContratadasEnWP4}}                                 
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Descripción tárifa </b>                               
+                              </td>
+                              <td>Sin Datos del API                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Localidad Titular</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P5 (KW)</b>                               
+                              </td>
+                              <td> {{vm.response_cups.potenciasContratadasEnWP5}}                                  
+                              </td>
+                          </tr>
+                           <tr>                    
+                              <td style="color: black;"><b style="color:black;">Tensión </b>                               
+                              </td>
+                              <td>{{vm.response_cups.Tension}}                                 
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Provincia Titular</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia contratada P6 (KW)</b>                               
+                              </td>
+                              <td> {{vm.response_cups.potenciasContratadasEnWP6}}                                  
+                              </td>
+                          </tr>
+                         
+                           <tr>                    
+                              <td style="color: black;"><b style="color:black;">Dirección suministro </b>                               
+                              </td>
+                              <td>Sin Datos del API                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Código CNAE</b>
+                              </td>
+                              <td> {{vm.response_cups.CNAE}}                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia máxima BIE</b>                               
+                              </td>
+                              <td> {{vm.response_cups.potenciaMaximaBIEW}}                                
+                              </td>
+                          </tr>
+
+
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">C.P. suministro </b>                               
+                              </td>
+                              <td>{{vm.response_cups.codigoPostalPS}}                                 
+                              </td>
+                              <td style="color: black;"><b style="color:black;">CNAE</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Potencia máxima APM</b>                               
+                              </td>
+                              <td>{{vm.response_cups.potenciaMaximaAPMW}}                                  
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Localidad suministro </b>                               
+                              </td>
+                              <td>{{vm.response_cups.nombreMunicipioPS}}                                 
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Teléfono</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Derechos de acceso (kw)</b>                               
+                              </td>
+                              <td> {{vm.response_cups.valorDerechosAccesoW}}                               
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Provincia suministro </b>                               
+                              </td>
+                              <td>{{vm.response_cups.nombreProvinciaPS}}                                  
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Tipo titular</b>
+                              </td>
+                              <td> {{vm.response_cups.docIdentidad}}                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Relación de transformación</b>                               
+                              </td>{{vm.response_cups.relacionTransformacionIntensidad}}
+                              <td>                               
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Indicativo ICP</b>                               
+                              </td>
+                              <td>{{vm.response_cups.codigoPropiedadICP}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Persona de Contacto</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Fecha Cambio Comercializadora</b>                               
+                              </td>
+                              <td> {{vm.response_cups.fechaUltimoCambioComercializador}}                                 
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Propiedad ICP</b>                               
+                              </td>
+                              <td>{{vm.response_cups.propiedadICP}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Cargo del Contacto</b>
+                              </td>
+                              <td> Sin Datos del APi                              
+                              </td>
+
+                              <td style="color: black;"><b style="color:black;"> Fecha de alta</b>                               
+                              </td>
+                              <td>{{vm.response_cups.fechaAltaSuministro}}                                  
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Telegestionado</b>                               
+                              </td>
+                              <td>{{vm.response_cups.codigoTelegestion}} - {{vm.response_cups.tipoTelegestion}}                               
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Primera vivienda</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Fecha ultima lectura</b>                               
+                              </td>
+                              <td>{{vm.response_cups.fechaUltimaLectura}}                                
+                              </td>
+                          </tr>
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Perfil consumo</b>                               
+                              </td>
+                              <td>{{vm.response_cups.perfilConsumo}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Cortes</b>
+                              </td>
+                              <td> Sin Datos Del API                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Fecha caducidad BIE o APM</b>                               
+                              </td>
+                              <td> {{vm.response_cups.fechaCaducidadAPM}}                             
+                              </td>
+                          </tr>
+
+                           <tr>                    
+                              <td style="color: black;"><b style="color:black;">Tipo PM</b>                               
+                              </td>
+                              <td>{{vm.response_cups.codClasificacionPM}}                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Impago</b>
+                              </td>
+                              <td> {{vm.response_cups.informacionImpagos}}                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Suministro contratable</b>                               
+                              </td>
+                              <td> {{vm.response_cups.codigoPSContratable}}                              
+                              </td>
+                          </tr>
+
+                          <tr>                    
+                              <td style="color: black;"><b style="color:black;">Propiedad EM</b>                               
+                              </td>
+                              <td>Sin Datos del API                                
+                              </td>
+                              <td style="color: black;"><b style="color:black;">Depósito garantia</b>
+                              </td>
+                              <td> {{vm.response_cups.importeDepositoGarantiaEuros}}                              
+                              </td>
+                              <td style="color: black;"><b style="color:black;"> Estado no contratable</b>                               
+                              </td>
+                              <td> {{vm.response_cups.motivoEstadoNoContratable}}                              
+                              </td>
+                          </tr>
                           </tbody>
                           <tfoot>                 
-                            <th>Nombre Campo 1</th>
-                              <th>Response Campo 1</th>
-                             <th>Nombre Campo 2</th>
-                              <th>Response Campo 2</th>
-                              <th>Nombre Campo 3</th>
-                              <th>Response Campo 3</th>
-                              <th>Nombre Campo 4</th>
-                              <th>Response Campo 4</th> 
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th> 
                           </tfoot>
                         </table>
                       </div>
