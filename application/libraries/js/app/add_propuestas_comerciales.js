@@ -266,15 +266,17 @@
                      scope.fdatos.TipPre = result.data.TipPre;
                  }
              } else {
-                 if (metodo == 1) {
-                     scope.toast('error','No existen productos asignado a esta Comercializadora.','Comercializadoras');
-                     scope.List_Productos = [];
-                     scope.List_Anexos = [];
-                     scope.fdatos.CodPro = null;
-                     scope.fdatos.CodAnePro = null;
-                     scope.fdatos.TipPre = null;
-                 }
-                        if (metodo == 2) {
+                if (metodo == 1) 
+                {
+                    scope.toast('error','No existen productos asignado a esta Comercializadora.','Comercializadoras');
+                    scope.List_Productos = [];
+                    scope.List_Anexos = [];
+                    scope.fdatos.CodPro = null;
+                    scope.fdatos.CodAnePro = null;
+                    scope.fdatos.TipPre = null;
+                }
+                    if (metodo == 2) 
+                    {
                         
                         for (var i = 0; i < scope.List_Productos.length; i++) 
                         {
@@ -291,11 +293,11 @@
                                 }
                             }
                         }
-                     scope.toast('error','No existen anexos asignados a este producto.','productos');
-                     scope.List_Anexos = [];
-                     scope.fdatos.CodAnePro = null;
-                     scope.fdatos.TipPre = null;
-                 }
+                         scope.toast('error','No existen anexos asignados a este producto.','productos');
+                         scope.List_Anexos = [];
+                         scope.fdatos.CodAnePro = null;
+                         //scope.fdatos.TipPre = null;
+                    }
              }
          }, function(error) {
              console.log(error);
@@ -743,11 +745,14 @@
          else
          {
             scope.fdatos.CodAnePro=null;
-            scope.fdatos.TipPre=null;
             if (scope.fdatos.CorpoGo == null || scope.fdatos.CorpoGo == undefined || scope.fdatos.CorpoGo == '') {
                  scope.toast('error','Debe ingresar un valior.','CORPORATE GO');
                  return false;
             }
+            if (!scope.fdatos.TipPre > 0) {
+                 scope.toast('error','Debe seleccionar un Tipo de Precio.','');
+                 return false;
+             }
          }        
 
 

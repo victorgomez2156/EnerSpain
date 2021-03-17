@@ -845,7 +845,7 @@ class Reportes_model extends CI_Model
         }
         else
         {
-            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.Nomcol as RazSocCli,c.NumIdeFis as NumCifCli,CONCAT(d.IniTipVia,'-',d.DesTipVia) as TipVia,c.NomViaDir as NomViaDomSoc,c.NumViaDir as NumViaDomSoc,c.BloDir as  BloDomSoc,c.EscDir as EscDomSoc,c.PlaDir as PlaDomSoc,c.PueDir as PueDomSoc,e.DesLoc,f.DesPro,c.CPLoc as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot,b.CodCli
+            $this->db->select("a.RefProCom,DATE_FORMAT(a.FecProCom,'%d/%m%Y') as FecProCom,c.NomConCli as RazSocCli,c.NIFConCli as NumCifCli,NULL as TipVia,NULL as NomViaDomSoc,NULL as NumViaDomSoc,NULL as  BloDomSoc,NULL as EscDomSoc,NULL as PlaDomSoc,NULL as PueDomSoc,NULL AS DesLoc,NULL AS DesPro,NULL as CPLocSoc,a.ImpAhoTot,a.ObsProCom,g.NomComCom as CodCom,i.DesAnePro,h.DesPro as DesProNom,(CASE WHEN a.TipPre = 0 THEN 'Fijo' WHEN a.TipPre = 1 THEN 'Indexado' WHEN a.TipPre=2 THEN 'Ambos' ELSE 'N/A' END) AS TipPre,b.CodProComCli,a.PorAhoTot,b.CodCli
             ",false);
         }        
         $this->db->from('T_PropuestaComercial a');
@@ -855,16 +855,15 @@ class Reportes_model extends CI_Model
             $this->db->join('T_Cliente c', 'b.CodCli = c.CodCli','left');
             $this->db->join('T_TipoVia d', 'd.CodTipVia=c.CodTipViaSoc','left');
             $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLocSoc','left');
-            //$this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
+            $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
         }
         else
         {
-            $this->db->join('T_Colaborador c', 'b.CodCli = c.CodCol','left');
-            $this->db->join('T_TipoVia d', 'c.CodTipVia=d.CodTipVia','left');
-            $this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc','left');
+            $this->db->join('T_ContactoCliente  c', 'b.CodCli = c.CodConCli','left');
+            //$this->db->join('T_TipoVia d', 'c.CodTipVia=d.CodTipVia','left');
+            //$this->db->join('T_Localidad e', 'e.CodLoc = c.CodLoc','left');
             //$this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
         }
-        $this->db->join('T_Provincia f', 'f.CodPro = e.CodPro','left');
         $this->db->join('T_Comercializadora g', 'g.CodCom = a.CodCom','left');
         $this->db->join('T_Producto h', 'h.CodPro = a.CodPro','left');
         $this->db->join('T_AnexoProducto i', 'i.CodAnePro = a.CodAnePro','left');

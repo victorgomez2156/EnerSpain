@@ -238,7 +238,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div> 
         </div>
           <div ng-show="vm.corporate">
-            <div class="col-12 col-sm-11">
+            <div class="col-12 col-sm-6">
               <div class="form">                          
                <div class="form-group">    
                 <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO</label>         
@@ -246,6 +246,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                </div>
                </div>
             </div>
+             <div class="col-12 col-sm-6">
+            <div class="form">                          
+             <div class="form-group">   
+              <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
+             <select class="form-control" id="TipPreGo" name="TipPreGo" required ng-model="vm.fdatos.TipPre" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.EstProCom=='C'"> 
+                <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
+        </select>                  
+             </div>
+             </div>
+          </div> 
           </div>  
       
         <div class="col-12 col-sm-6">

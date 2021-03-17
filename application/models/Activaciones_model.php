@@ -208,9 +208,9 @@ class Activaciones_model extends CI_Model
         else
             return false;     
     } 
-    public function CrearPropuestaComercial($FecProCom,$TipProCom,$CodCon,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$UltTipSeg,$ObsProCom,$RefProCom)
+    public function CrearPropuestaComercial($FecProCom,$TipProCom,$CodCon,$PorAhoTot,$ImpAhoTot,$EstProCom,$JusRecProCom,$CodCom,$CodPro,$CodAnePro,$TipPre,$UltTipSeg,$ObsProCom,$RefProCom,$CorpoGo)
     {
-        $this->db->insert('T_PropuestaComercial',array('FecProCom'=>$FecProCom,'TipProCom'=>$TipProCom,'CodCon'=>$CodCon,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'UltTipSeg'=>$UltTipSeg,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom));
+        $this->db->insert('T_PropuestaComercial',array('FecProCom'=>$FecProCom,'TipProCom'=>$TipProCom,'CodCon'=>$CodCon,'PorAhoTot'=>$PorAhoTot,'ImpAhoTot'=>$ImpAhoTot,'EstProCom'=>$EstProCom,'JusRecProCom'=>$JusRecProCom,'CodCom'=>$CodCom,'CodPro'=>$CodPro,'CodAnePro'=>$CodAnePro,'TipPre'=>$TipPre,'UltTipSeg'=>$UltTipSeg,'ObsProCom'=>$ObsProCom,'RefProCom'=>$RefProCom,'CorpoGo'=>$CorpoGo));
         return $this->db->insert_id();
     }
     public function CrearPropuestaComercialCliente($PropuestaComercial,$CodCli)

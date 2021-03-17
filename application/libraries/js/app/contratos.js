@@ -1982,7 +1982,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                 else
                 {
                     scope.fdatos.TDocumentosContratos=[];
-                }
+                }                
             } 
             else {
               scope.toast('error','','');

@@ -205,7 +205,7 @@ class Activaciones extends REST_Controller
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
 
-		$PropuestaComercial=$this->Activaciones_model->CrearPropuestaComercial(date('Y-m-d'),1,0,'0.00','0.00','C',null,$objSalida-> CodCom, $objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,null,null,'0');
+		$PropuestaComercial=$this->Activaciones_model->CrearPropuestaComercial(date('Y-m-d'),1,0,'0.00','0.00','C',null,$objSalida-> CodCom, $objSalida-> CodPro,$objSalida-> CodAnePro,$objSalida-> TipPre,null,null,'0',$objSalida-> CorpoGo);
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_PropuestaComercial','INSERT',$PropuestaComercial,$this->input->ip_address(),'Creando Propuesta Comerciales desde Activaciones');	
 
 		$PropuestaComercialClientes=$this->Activaciones_model->CrearPropuestaComercialCliente($PropuestaComercial,$objSalida-> CodCli);

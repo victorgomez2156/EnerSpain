@@ -36,7 +36,7 @@
         scope.CUPsName='ES';
         scope.ListNuevosEstadosContrato = [{ EstConCups: 1, nombre: 'Contrato' }, { EstConCups: 2, nombre: 'Implícita' }, { EstConCups: 3, nombre: 'Baja Rescatable' }, { EstConCups: 4, nombre: 'Baja Definitiva' }];
         scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
-        
+        scope.corporate=false;
         scope.buscarCUPsActivaciones=function()
         { 
             if(scope.CUPsName.length<20)
@@ -821,6 +821,21 @@
                  }
                  if (metodo == 2) {
                      scope.List_Anexos = result.data;
+                      for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.contrato_fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                  }
                  if (metodo == 3) {
                      scope.contrato_fdatos.TipPre = result.data.TipPre;
@@ -839,15 +854,30 @@
                      scope.toast('error','No existen productos asignado a esta Comercializadora.','Comercializadoras');
                      scope.List_Productos = [];
                      scope.List_Anexos = [];
-                     scope.contrato_fdatos.CodPro = undefined;
-                     scope.contrato_fdatos.CodAnePro = undefined;
-                     scope.contrato_fdatos.TipPre = undefined;
+                     scope.contrato_fdatos.CodPro = null;
+                     scope.contrato_fdatos.CodAnePro = null;
+                     scope.contrato_fdatos.TipPre = null;
                  }
                  if (metodo == 2) {
+                     for (var i = 0; i < scope.List_Productos.length; i++) 
+                        {
+                            if (scope.List_Productos[i].CodPro == scope.contrato_fdatos.CodPro) 
+                            {
+                                console.log(scope.List_Productos[i]);
+                                if(scope.List_Productos[i].DesPro=="CORPORATE")
+                                {
+                                    scope.corporate=true;
+                                }
+                                else
+                                {
+                                    scope.corporate=false;
+                                }
+                            }
+                        }
                      scope.toast('error','No existen anexos asignados a este producto.','productos');
                      scope.List_Anexos = [];
-                     scope.contrato_fdatos.CodAnePro = undefined;
-                     scope.contrato_fdatos.TipPre = undefined;
+                     scope.contrato_fdatos.CodAnePro = null;
+                     //scope.contrato_fdatos.TipPre = null;
                  }
              }
          }, function(error) {
@@ -1278,16 +1308,36 @@
                 scope.toast('error','Debe seleccionar un Producto.','Error');
                 return false;
             }
-            if(!scope.contrato_fdatos.CodAnePro>0)
+            
+            if(scope.corporate==false)
             {
-                scope.toast('error','Debe seleccionar un Anexo.','Error');
-                return false;
+                scope.contrato_fdatos.CorpoGo = null;
+                if(!scope.contrato_fdatos.CodAnePro>0)
+                {
+                    scope.toast('error','Debe seleccionar un Anexo.','Error');
+                    return false;
+                }
+                if(!scope.contrato_fdatos.TipPre>0)
+                {
+                    scope.toast('error','Debe seleccionar un Tipo de Precio.','Error');
+                    return false;
+                }
             }
-            if(!scope.contrato_fdatos.TipPre>0)
+            else
             {
-                scope.toast('error','Debe seleccionar un Tipo de Precio.','Error');
-                return false;
+                scope.contrato_fdatos.CodAnePro=null;
+                if (scope.contrato_fdatos.CorpoGo == null || scope.contrato_fdatos.CorpoGo == undefined || scope.contrato_fdatos.CorpoGo == '') {
+                     scope.toast('error','Debe ingresar un valior.','CORPORATE GO');
+                     return false;
+                }
+                if (!scope.contrato_fdatos.TipPre > 0) {
+                     scope.toast('error','Debe seleccionar un Tipo de Precio.','');
+                     return false;
+                }
+
             }
+
+            
        
             if(scope.contrato_fdatos.ObsCon==null || scope.contrato_fdatos.ObsCon==undefined|| scope.contrato_fdatos.ObsCon=='')
             {

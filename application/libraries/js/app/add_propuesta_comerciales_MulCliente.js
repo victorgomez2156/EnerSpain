@@ -192,11 +192,14 @@
          else
          {
             scope.fdatos.CodAnePro=null;
-            scope.fdatos.TipPre=null;
-            if (scope.fdatos.CorpoGo == null || scope.fdatos.CorpoGo == undefined || scope.fdatos.CorpoGo == '') {
+           if (scope.fdatos.CorpoGo == null || scope.fdatos.CorpoGo == undefined || scope.fdatos.CorpoGo == '') {
                  scope.toast('error','Debe ingresar un valior.','CORPORATE GO');
                  return false;
             }
+            if (!scope.fdatos.TipPre > 0) {
+                 scope.toast('error','Debe seleccionar un Tipo de Precio.','');
+                 return false;
+             }
          } 
 
         
@@ -381,7 +384,7 @@
                      scope.List_Anexos = [];
                      scope.fdatos.CodPro = undefined;
                      scope.fdatos.CodAnePro = undefined;
-                     scope.fdatos.TipPre = undefined;
+                     //scope.fdatos.TipPre = undefined;
                  }
                  if (metodo == 2) {
                      for (var i = 0; i < scope.List_Productos.length; i++) 
@@ -402,7 +405,7 @@
                      scope.toast('error','No existen anexos asignados a este producto.','productos');
                      scope.List_Anexos = [];
                      scope.fdatos.CodAnePro = undefined;
-                     scope.fdatos.TipPre = undefined;
+                     //scope.fdatos.TipPre = undefined;
                  }
              }
          }, function(error) {

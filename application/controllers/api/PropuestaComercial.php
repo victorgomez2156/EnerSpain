@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require(APPPATH. 'libraries/REST_Controller.php');
-//require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
-//require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
+require(APPPATH. 'libraries/Mail-1.4.1/Mail.php');
+require(APPPATH. 'libraries/Mail-1.4.1/mime.php');
 /*ESTA PENDIENTE IMPLEMENTAR EL GUARDADO DEL PADRE DEL NEGOCIO*/
 class PropuestaComercial extends REST_Controller
 {
@@ -650,9 +650,9 @@ class PropuestaComercial extends REST_Controller
 		elseif ($objSalida-> TipProCom==3) {
 			$TipProCom='MultiCliente - MultiPunto.';
 			$url='Doc_Propuesta_Comercial_MulCliente';
-			$tabla="T_Colaborador";
-			$where="CodCol";
-			$select="CodCol as CodCli,NomCol as RazSocCli,NumIdeFis as NumCifCli,EmaCol as EmaCli,EmaCol as EmaCliOpc";
+			$tabla="T_ContactoCliente";
+			$where="CodConCli";
+			$select="CodConCli as CodCli,NomConCli as RazSocCli,NIFConCli as NumCifCli,EmaConCli as EmaCli,EmaConCli as EmaCliOpc";
 			$Cliente=$this->Propuesta_model->Funcion_Verificadora($objSalida->CodCli,$tabla,$where,$select);
 		}
 		else

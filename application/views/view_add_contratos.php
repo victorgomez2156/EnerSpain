@@ -666,30 +666,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>  
 
 
-<div ng-show="vm.CodPro=='CLASICC'">
-  <div class="col-12 col-sm-6">
-  <div class="form">                          
-   <div class="form-group">
-     <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
-     <input type="text"  class="form-control" ng-model="vm.CodAnePro" placeholder="Anexo" readonly="readonly"/>     
+<div ng-show="vm.CodPro!='CORPORATE'">
+    <div class="col-12 col-sm-6">
+    <div class="form">                          
+     <div class="form-group">
+       <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
+       <input type="text"  class="form-control" ng-model="vm.CodAnePro" placeholder="Anexo" readonly="readonly"/>     
+     </div>
    </div>
- </div>
-</div>
-
-
-
-<div class="col-12 col-sm-6" id="TipPreClass">
-  <div class="form">                          
-    <div class="form-group">   
-      <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>
-      <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>
-    </div>
   </div>
-</div>  
+
+
+  <div class="col-12 col-sm-6" id="TipPreClass">
+    <div class="form">                          
+      <div class="form-group">   
+        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>
+        <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>
+      </div>
+    </div>
+  </div>  
 </div>
 
 <div ng-show ="vm.CodPro=='CORPORATE'">
-  <div class="col-12 col-sm-12" id="TipPreClass">
+  <div class="col-12 col-sm-6" id="TipPreClass">
   <div class="form">                          
     <div class="form-group">   
       <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO </label>
@@ -697,6 +696,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </div>
 </div> 
+ <div class="col-12 col-sm-6" id="TipPreClassGO">
+    <div class="form">                          
+      <div class="form-group">   
+        <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>
+        <input type="text"  class="form-control" ng-model="vm.TipPre" placeholder="Tipo Precio" readonly="readonly"/>
+      </div>
+    </div>
+  </div>  
 </div>
 
     <!--div class="col-12 col-sm-2">

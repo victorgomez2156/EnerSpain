@@ -587,21 +587,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="form">                          
                <div class="form-group">   
                 <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
-               <select class="form-control" id="TipPre" name="TipPre" required ng-model="vm.fdatos.TipPre" ng-disabled="vm.fdatos.CodAnePro==undefined || vm.fdatos.tipo=='ver' || vm.fdatos.EstProCom=='C'"> 
+               <select class="form-control" id="TipPre" name="TipPre" ng-model="vm.fdatos.TipPre" ng-disabled="vm.fdatos.CodAnePro==undefined || vm.fdatos.tipo=='ver' || vm.fdatos.EstProCom=='C'"> 
                   <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
           </select>                  
                </div>
                </div>
-            </div> 
+            </div>
+
           </div> 
-          <div ng-show="vm.corporate"><div class="col-12 col-sm-11">
+          
+          <div ng-show="vm.corporate">
+            <div class="col-12 col-sm-6">
               <div class="form">                          
                <div class="form-group">    
                 <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO</label>         
                <input type="text" class="form-control" ng-model="vm.fdatos.CorpoGo" placeholder="123,35 "/>                    
                </div>
                </div>
-            </div></div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
+               <select class="form-control" id="TipPreGO" name="TipPreGO" ng-model="vm.fdatos.TipPre" ng-disabled="vm.fdatos.tipo=='ver' || vm.fdatos.EstProCom=='C'"> 
+                <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>
+
+          </div>
         
           <div class="col-12 col-sm-6">
               <div class="form">                          

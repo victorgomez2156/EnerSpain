@@ -1154,7 +1154,8 @@
                </div>
             </div>  
 
-             <div class="col-12 col-sm-6">
+            <div ng-hide="vm.corporate">
+            <div class="col-12 col-sm-6">
               <div class="form">                          
                <div class="form-group">
                <label class="font-weight-bold nexa-dark" style="color:black;">Anexo </label>
@@ -1175,6 +1176,30 @@
                </div>
                </div>
             </div>  
+            </div>
+
+            <div ng-show="vm.corporate">
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">    
+                <label class="font-weight-bold nexa-dark" style="color:black;">CORPORATE GO</label>         
+               <input type="text" class="form-control" ng-model="vm.contrato_fdatos.CorpoGo" placeholder="123,35 "/>                    
+               </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="form">                          
+               <div class="form-group">   
+                <label class="font-weight-bold nexa-dark" style="color:black;">Tipo Precio </label>          
+               <select class="form-control" id="TipPreGO" name="TipPreGO" ng-model="vm.contrato_fdatos.TipPre"> 
+                <option ng-repeat="dato_act in vm.List_TipPre" value="{{dato_act.TipPre}}">{{dato_act.nombre}}</option>
+          </select>                  
+               </div>
+               </div>
+            </div>
+
+          </div>
+
 
           <div class="form-group" >
             <div class="col-12 col-sm-6">                          
