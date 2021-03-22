@@ -16435,7 +16435,7 @@ class Exportar_Documentos extends CI_Controller
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
         $html.='<table width="100%" border="0"   celpadding="0" cellspacing="0" class="table table-bordered table-striped"  >
             <tr>
-                <td border="0" align="left" colspan="2"><h4>LISTADO DE CONTRATOS PARA RENOVACIONES</h4></td>
+                <td border="0" align="left" colspan="2"><h4>LISTADO DE CONTRATOS PARA RENOVACIONES RUEDA 2.0</h4></td>
                 
                 <td border="0"><h4></h4></td>
                 <td border="0" >FECHA: '.date('d/m/Y').'</td>
@@ -16456,6 +16456,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">CodCli</td>
             <td style="color:white;">NIF</td>
             <td style="color:white;">Cliente</td>
+            <td style="color:white;">Email</td>
             <td style="color:white;">CUPs</td>
             <td style="color:white;">Tipo CUPs</td>            
             <td style="color:white;">Tárifa</td>
@@ -16463,6 +16464,7 @@ class Exportar_Documentos extends CI_Controller
             <td style="color:white;">Comercializadora</td>
             <td style="color:white;">Estatus</td>
             <td style="color:white;">Fecha Vencimiento</td>
+            <td style="color:white;">Email Opc</td>
         </tr>';
         $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
         $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
@@ -16483,6 +16485,7 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->CodCli.'</td>
                         <td>'.$record->NumCifCli.'</td>
                         <td>'.$record->RazSocCli.'</td>
+                        <td>'.$record->EmaCli.'</td>
                         <td>'.$record->CUPsName.'</td>                        
                         <td>'.$TipCups.'</td>
                         <td>'.$record->NomTar.'</td>
@@ -16490,6 +16493,7 @@ class Exportar_Documentos extends CI_Controller
                         <td>'.$record->RazSocCom.'</td>
                         <td>'.$EstConCups.'</td>
                         <td>'.$record->FecVenCUPs.'</td>
+                        <td>'.$record->EmaCliOpc.'</td>
                     </tr>';     
                 }
                 endforeach;
@@ -16644,7 +16648,7 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->mergeCells("A5:C5");
         $objPHPExcel->getActiveSheet()->setSharedStyle($sin_bordes, "A5:C5");
         $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 6);        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTRATOS RUEDA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE CONTRATOS RUEDA 2.0");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
         $objPHPExcel->getActiveSheet()->SetCellValue("A9", "Fecha Activación");
@@ -16655,21 +16659,25 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
         $objPHPExcel->getActiveSheet()->SetCellValue("D9", "Cliente");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CUPs");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "Email");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "Tipo CUPs");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CUPs");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tárifa");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "Tipo CUPs");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Consumo (Kw/h)");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "Tárifa");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Comercializadora");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "Consumo (Kw/h)");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Estatus");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "Comercializadora");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Fecha Vencimiento");
+        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "Estatus");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
-        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:L9");  
+        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "Fecha Vencimiento");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
+         $objPHPExcel->getActiveSheet()->SetCellValue("M9", "Email Opc");
+        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:M9");  
         $fila=9;
         $Desde=$FecDesdeAno.'-'.$FecDesdeMes.'-'.$FecDesdeDia;
         $Hasta=$FecHastaAno.'-'.$FecHastaMes.'-'.$FecHastaDia;
@@ -16696,17 +16704,19 @@ class Exportar_Documentos extends CI_Controller
                 $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado_Renovacion_Contratos[$i]-> CodCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado_Renovacion_Contratos[$i]-> NumCifCli);
                 $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCli); 
-                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsName);
-                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $TipCups);
-                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado_Renovacion_Contratos[$i]-> NomTar);
-                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Renovacion_Contratos[$i]-> ConCup);
-                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCom);
-                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $EstConCups);
-                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado_Renovacion_Contratos[$i]-> FecVenCUPs);               
-                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:K$fila");                
+                $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCli);
+                $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado_Renovacion_Contratos[$i]-> CUPsName);
+                $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $TipCups);
+                $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado_Renovacion_Contratos[$i]-> NomTar);
+                $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado_Renovacion_Contratos[$i]-> ConCup);
+                $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado_Renovacion_Contratos[$i]-> RazSocCom);
+                $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $EstConCups);
+                $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado_Renovacion_Contratos[$i]-> FecVenCUPs);
+                $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado_Renovacion_Contratos[$i]-> EmaCliOpc);               
+                $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:M$fila");                
             }   
         }        
-        foreach (range('A', 'K') as $columnID) 
+        foreach (range('A', 'M') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }

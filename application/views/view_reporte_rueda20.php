@@ -163,13 +163,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <th>CodCli</th>
                   <th>NIF</th>
                   <th>Cliente</th> 
+                  <th>Email</th>
                   <th>CUPs</th> 
                   <th>Tipo CUPs</th>
                   <th>Tárifa</th>                 
                   <th>Consumo</th>                                     
                   <th>Comercializadora</th>
                   <th>Estatus</th>
-                  <th>Vencimiento</th>                                
+                  <th>Vencimiento</th>                   
+                  <th>Email Opc</th>                                 
                   <th>Acción</th>
                   </tr>
                   <tr ng-show="vm.Table_Contratos.length==0"> 
@@ -180,8 +182,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <tr ng-repeat="dato in vm.Table_Contratos | filter:paginate" ng-class-odd="odd">                    
                     <td >{{dato.FecActCUPs}}</td>
                     <td >{{dato.CodCli}}</td>
-                    <td >{{dato.NumCifCli}}</td>
+                    <td >{{dato.NumCifCli}}</td>                    
                     <td >{{dato.RazSocCli}}</td> 
+                    <td >{{dato.EmaCli}}</td>
                     <td >{{dato.CUPsName}}</td> 
                     <td > 
                       <span class="label label-success" ng-show="dato.TipCups==1"><i class="fa fa-check-circle"></i> Eléctrico</span>
@@ -203,6 +206,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <span class="label label-danger" style="background-color: #092cb6;" ng-show="dato.EstBajCon==8" style="color:black;"><i class="fa fa-envelope-open"></i> Enviado</span>
                    </td>                   
                     <td >{{dato.FecVenCUPs}}</td> 
+                    <td >{{dato.EmaCliOpc}}</td> 
+
                     <td >
                       <div class="btn-group"><!--ng-change="vm.validar_opcion_rueda($index,vm.opcion_select[$index],dato)"-->
                         <select class="form-control" id="opcion_select" style="width: auto;" name="opcion_select" ng-model="vm.opcion_select[$index]" >
@@ -214,17 +219,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                  <th>Fecha Activación</th>
+                 <th>Fecha Activación</th>
                   <th>CodCli</th>
                   <th>NIF</th>
                   <th>Cliente</th> 
+                  <th>Email</th>
                   <th>CUPs</th> 
                   <th>Tipo CUPs</th>
                   <th>Tárifa</th>                 
                   <th>Consumo</th>                                     
                   <th>Comercializadora</th>
                   <th>Estatus</th>
-                  <th>Vencimiento</th>                                
+                  <th>Vencimiento</th>                   
+                  <th>Email Opc</th>                                 
                   <th>Acción</th>
                 </tfoot>
               </table>

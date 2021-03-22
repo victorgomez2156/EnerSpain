@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="col-12 col-sm-4">
                     <div class="form">                          
                       <div class="form-group">  
@@ -171,9 +171,143 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    </div>
                   </div>
                 
+                  <div class="col-12 col-sm-4">
+                  <div class="form">                          
+                   <div class="form-group">
+                  <label class="font-weight-bold nexa-dark" style="color:black;">Es Representante Legal <b style="color:red;">(*)</b></label>             
+                   
+                  <br>
+                   <input type="radio" name="tipo_cliente" value="1" ng-model="vm.tContacto_data_modal.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
+                  <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+                   <input type="radio" name="tipo_cliente" value="0" ng-model="vm.tContacto_data_modal.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
+                   <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+
+                   </div>
+                   </div>
+                </div>
+                 <div class="col-12 col-sm-4">
+                  <div class="form">                          
+                   <div class="form-group">  
+                    <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Representación <b style="color:red;">(*)</b></label> 
+                    <select class="form-control" id="TipRepr" name="TipRepr" ng-model="vm.tContacto_data_modal.TipRepr" ng-disabled="vm.tContacto_data_modal.EsRepLeg==undefined||vm.tContacto_data_modal.EsRepLeg==0 || vm.no_editable!=undefined" >
+                     <option ng-repeat="dato in vm.tListaRepre" value="{{dato.id}}">{{dato.DesTipRepr}}</option>
+                  </select>     
+                   </div>
+                   </div>
+                </div>
+                 <div class="col-12 col-sm-4">
+                  <div class="form">                          
+                   <div class="form-group">  
+                    <label class="font-weight-bold nexa-dark" style="color:black;">Firmantes <b style="color:red;">(*)</b></label>           
+                   
+                   <input type="text" class="form-control" ng-model="vm.tContacto_data_modal.CanMinRep" ng-change="vm.validarsinuermoContactos(vm.tContacto_data_modal.CanMinRep,3)" min="1" maxlength="4" ng-disabled="vm.no_editable!=undefined || vm.tContacto_data_modal.TipRepr!=='2'"/>     
+                   </div>
+                   </div>
+                </div>
+                 <div class="col-12 col-sm-4">
+                  <div class="form">                          
+                   <div class="form-group">  
+                    <label class="font-weight-bold nexa-dark" style="color:black;">Facultad de Escrituras </label>           
+                   <br>
+                   <input type="radio" name="TieFacEsc" value="1" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined" ng-click="vm.verificar_facultad_escrituras()">
+                  <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+                   <input type="radio" name="TieFacEsc" value="0" ng-model="vm.tContacto_data_modal.TieFacEsc" ng-disabled="vm.no_editable!=undefined">
+                   <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+                   </div>
+                   </div>
+                </div>
+
+
+
+             <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Es Colaborador </b></label> 
+              <br>
+               <input type="radio" name="EsCol" value="1" ng-model="vm.tContacto_data_modal.EsColaborador" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_colaborador()">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+               <input type="radio" name="EsCol" value="0" ng-model="vm.tContacto_data_modal.EsColaborador" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_colaborador()">
+               <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+               </div>
+               </div>
+            </div>
+
+            <div class="col-12 col-sm-4">
+              <div class="form">                          
+               <div class="form-group">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Es Prescriptor </b></label>             
                
+              <br>
+               <input type="radio" name="EsPresc" value="1" ng-model="vm.tContacto_data_modal.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_prescristor()">
+              <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
+
+               <input type="radio" name="EsPresc" value="0" ng-model="vm.tContacto_data_modal.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_prescristor()">
+               <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
+
+               </div>
+               </div>
+            </div>
                  
-         
+                   
+            <div style="margin-top: 8px;">
+             <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>.</b></label></div></div>
+        
+
+            <div class="form">                          
+             <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del DNI/NIE <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocNIF!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocNIF}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a>   </label>
+               
+               <div id="file-wrap">
+                  <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
+                  <input type="file" id="DocNIF" class="file_b" uploader-model="DocNIF" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined" draggable="true">
+                  <div id="filenameDocNIF"></div>                       
+                </div>
+
+            </div>
+             </div>
+             
+             <div class="form">                          
+             <div class="form-group">
+               <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.tContacto_data_modal.DocPod!=null && vm.tContacto_data_modal.CodConCli>0" href="{{vm.tContacto_data_modal.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
+
+                <div id="file-wrap">
+                  <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
+                  <input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true">
+                  <div id="filenameDocPod"></div>                       
+                </div>
+
+      <script>
+                
+            $('#DocNIF').on('change', function() 
+            { const $Archivo_DocNIF = document.querySelector("#DocNIF");         
+              let Archivo_DocNIF = $Archivo_DocNIF.files;                      
+              namefileDocNIF = '<i class="fa fa-file"> '+$Archivo_DocNIF.files[0].name+'</i>';
+                $('#filenameDocNIF').html(namefileDocNIF);
+            });
+                
+            $('#DocPod').on('change', function() 
+            {
+              const $Archivo_DocPod = document.querySelector("#DocPod");           
+              let Archivo_DocPod = $Archivo_DocPod.files;                      
+              namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
+                $('#filenameDocPod').html(namefile);
+            });
+      </script>
+             </div>
+             </div>
+
+                  <div class="form">                          
+           <div class="form-group">
+           <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+           <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
+           </div>
+           </div>
 
                 
 
