@@ -747,6 +747,8 @@
 
                  } else {
                      scope.fdatos.distinto_a_social = true;
+                     scope.BuscarLocalidad(1,result.data.CodProSoc);
+                     scope.BuscarLocalidad(2,result.data.CodProFis);
                  }
                 scope.fdatos.CodLocSoc=result.data.CodLocSoc;
                 scope.fdatos.CodLocFis=result.data.CodLocFis;

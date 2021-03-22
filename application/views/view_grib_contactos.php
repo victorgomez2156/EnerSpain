@@ -127,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="form-group">
                     <input type="text" class="form-control" ng-model="vm.filtrar_search" ng-keyup="vm.FetchContactos()" minlength="1" placeholder="Escribe para filtrar...">
                   </div> 
-                    <a title="Agregar Contactos" style="margin-right: 5px;" ng-click="vm.asignar_contacto()" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>
+                    <a title="Agregar Contactos" style="margin-right: 5px;" href="#/Add_Contactos/" class="btn btn-info"><div><i class="fa fa-plus-square"></i></div></a>
                 </form> 
                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_cif_cliente_contacto" class="modal fade">
                   <div class="modal-dialog">

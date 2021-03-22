@@ -677,17 +677,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                 </div>      
 	                 <div style="margin-top: 8px;">
 	                  <div align="center">
-	                    <label ng-hide="vm.tModalDatosClientes.DireccionBBDD==null" ng-show="vm.tModalDatosClientes.DireccionBBDD!=null" class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO SOCIAL</b></label>
+	                    <label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>DOMICILIO FISCAL</b></label>
 	                  </div>
 	                  </div>
 	                
 
-	                  <div class="form">                          
-	                   <div class="form-group">
-	                     <label class="font-weight-bold nexa-dark" style="color:black;">DIRECCIÓN BBDD<b style="color:red;">(*)</b></label>
-	                     <input ng-hide="vm.tModalDatosClientes.DireccionBBDD==null" ng-show="vm.tModalDatosClientes.DireccionBBDD!=null" style="border:none; background:transparent" type="text" class="form-control" ng-model="vm.tModalDatosClientes.DireccionBBDD" readonly/>        
-	                   </div>
-	                 </div>
+	                   <div class="form" ng-hide="vm.fdatos.DireccionBBDD==null" ng-show="vm.fdatos.DireccionBBDD!=null">                          
+                     <div class="form-group">
+                       <label class="font-weight-bold nexa-dark" style="color:black;">DIRECCIÓN BBDD<b style="color:red;">(*)</b></label>
+                       <input  style="border:none; background:transparent" type="text" class="form-control" ng-model="vm.fdatos.DireccionBBDD" readonly/>        
+                     </div>
+                   </div>
 
 
 	                   <div class="col-12 col-sm-3">
@@ -859,7 +859,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                            <input type="checkbox" ng-model="vm.tModalDatosClientes.distinto_a_social" ng-disabled="vm.validate_info!=undefined || vm.tModalDatosClientes.CodTipViaSoc==undefined|| vm.tModalDatosClientes.NomViaDomSoc==undefined|| vm.tModalDatosClientes.NumViaDomSoc==undefined|| vm.tModalDatosClientes.CodProSoc==undefined|| vm.tModalDatosClientes.CodLocSoc==undefined" ng-click="vm.distinto_a_social()"/><label class="font-weight-bold nexa-dark" style="color:black;">&nbsp;<b>Distinto a Domicilio Fiscal</b></label> 
 	                          </div>
 
-	   <div class="col-12 col-sm-3">
+	   						<div class="col-12 col-sm-3">
 	                           <div class="form">                          
 	                             <div class="form-group">
 	                               <label class="font-weight-bold nexa-dark" style="color:black;">Tipo de Via <b style="color:red;" >(*)</b></label>
@@ -922,8 +922,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                          </select>
 	                        </div>
 	                      </div>
-	                    </div>    
-	   <div ng-show="vm.fdatos.CodCli!=undefined">
+	                    </div>  
+
+
+
+	   <!--div ng-show="vm.fdatos.CodCli!=undefined">
         <input type="hidden" class="form-control" ng-model="vm.tContacto_data_modal.CodConCli" readonly /> 
                <div class="col-12 col-sm-6">
               <div class="form">                          
@@ -1113,10 +1116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <div id="file-wrap">
               <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
               
-              <!--input type="file" id="DocNIF" class="file_b" uploader-model="DocNIF" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined" draggable="true">
-              <div id="filenameDocNIF"></div-->
-
-              <input type="file" id="DocNIF"  name="DocNIF" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,1)" draggable="true" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined">
+            <input type="file" id="DocNIF"  name="DocNIF" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,1)" draggable="true" ng-disabled="vm.tContacto_data_modal.EsRepLeg==0||vm.tContacto_data_modal.EsRepLeg==undefined||vm.no_editable!=undefined">
             <div id="filenameDocNIF"></div>
 
             </div>
@@ -1131,9 +1131,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div id="file-wrap">
               <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
               
-              <!--input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined" draggable="true">
-              <div id="filenameDocPod"></div-->
-
               <input type="file" id="DocPod"  name="DocPod" class="file_b" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event,2)" draggable="true" ng-disabled="vm.tContacto_data_modal.TieFacEsc==1 || vm.tContacto_data_modal.TieFacEsc==undefined ||vm.no_editable!=undefined">
             <div id="filenameDocPod"></div>
             </div>
@@ -1163,7 +1160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
            </div>
            </div>
-     </div>
+     </div-->
 
            <div class="form-group" >
 	                  <div class="col-12 col-sm-6">
@@ -1256,7 +1253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		</div>
 	</div>
 
-	<div class="col-12 col-sm-3">
+	<!--div class="col-12 col-sm-3">
 		<div class="form">                          
 			<div class="form-group">
 				<label class="font-weight-bold nexa-dark" style="color:black;">Bloque</label>
@@ -1290,7 +1287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<input type="text" class="form-control" ng-model="vm.tContacto_data_modal.PueDomSoc"  placeholder="* Puerta del Domicilio" maxlength="4" ng-disabled="vm.validate_info!=undefined"/>
 			</div>
 		</div>
-	</div>
+	</div-->
 
 
 	<div class="col-12 col-sm-4" ng-click="vm.containerClicked()">

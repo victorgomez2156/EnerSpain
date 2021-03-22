@@ -1020,11 +1020,11 @@ scope.agregar_datos_dashboard=function(metodo)
             scope.tContacto_data_modal.ConPrin=false;
             scope.tContacto_data_modal.CanMinRep='1';
             document.getElementById('filenameDocNIF').value = '';
-            document.getElementById('DocPod').value = '';
+            document.getElementById('DocPod_Modal').value = '';
             var namefileDocNIF = '';
             $('#filenameDocNIF1').html(namefileDocNIF);
             var filenameDocPod = '';
-            $('#filenameDocPod').html(filenameDocPod);
+            $('#filenameDocPodModal').html(filenameDocPod);
             scope.cargar_tiposContactos(9);
             scope.cargar_tiposContactos(3);
             scope.cargar_tiposContactos(12);
@@ -1086,11 +1086,11 @@ scope.agregar_datos_dashboard=function(metodo)
             scope.tContacto_data_modal.ConPrin=false;
             scope.tContacto_data_modal.CanMinRep='1';
             document.getElementById('filenameDocNIF').value = '';
-            document.getElementById('DocPod').value = '';
+            document.getElementById('DocPod_Modal').value = '';
             var namefileDocNIF = '';
             $('#filenameDocNIF1').html(namefileDocNIF);
             var filenameDocPod = '';
-            $('#filenameDocPod').html(filenameDocPod);
+            $('#filenameDocPodModal').html(filenameDocPod);
             scope.cargar_tiposContactos(9);
             ServiceAddClientes.getAll().then(function(dato) {
            scope.Fecha_Server = dato.Fecha_Server;         
