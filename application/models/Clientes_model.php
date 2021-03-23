@@ -599,6 +599,53 @@ public function validar_CIF_NIF_Existente_NuevoMetodo($NIFConCli)
         return false;
     }       
 }
+public function agregar_contactoDetalleNuevoMetodo($CodConCli,$CodCli,$EsRepLeg,$TieFacEsc,$EsPrescritor,$EsColaborador,$DocPod,$CanMinRep,$TipRepr)
+{
+    $this->db->insert('T_ContactoDetalleCliente',array('CodConCli'=>$CodConCli,'CodCli'=>$CodCli,'EsRepLeg'=>$EsRepLeg,'TieFacEsc'=>$TieFacEsc,'EsPrescritor'=>$EsPrescritor,'EsColaborador'=>$EsColaborador,'DocPod'=>$DocPod,'CanMinRep'=>$CanMinRep,'TipRepr'=>$TipRepr,'EstCliCol'=>1));
+    return $this->db->insert_id();
+}
+public function EliminarDetalleNuevoMetodo($CodConCli)
+{ 
+    return $this->db->delete('T_ContactoDetalleCliente', array('CodConCli' => $CodConCli));
+}
+public function get_xID_ContactosDetalleNuevoMetodo($CodConCli)
+{
+    $this->db->select('a.*,b.RazSocCli,b.NumCifCli',FALSE);
+    $this->db->from('T_ContactoDetalleCliente a');
+    $this->db->join('T_Cliente b','a.CodCli=b.CodCli');  
+    $this->db->where('a.CodConCli',$CodConCli);    
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

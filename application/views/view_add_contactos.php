@@ -335,7 +335,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $('#DocPod').on('change', function() 
             {
               const $Archivo_DocPod = document.querySelector("#DocPod");           
-              let Archivo_DocPod = $Archivo_DocPod.files;                      
+              let Archivo_DocPod = $Archivo_DocPod.files;
+              console.log(Archivo_DocPod);                      
               namefile = '<i class="fa fa-file"> '+$Archivo_DocPod.files[0].name+'</i>'; //$Archivo_DocPod.files[0].name;
                 $('#filenameDocPod').html(namefile);
             });
@@ -384,8 +385,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>
                     <td>
                       <label ng-show="dato.TipRepr==null">N/A</label>
-                      <label ng-show="dato.TipRepr==1">SI</label>
-                      <label ng-show="dato.TipRepr==0">NO</label>
+                      <label ng-show="dato.TipRepr==1">INDEPENDIENTE</label>
+                      <label ng-show="dato.TipRepr==2">MANCOMUNADA</label>
                     </td>
                     
                     <td >{{dato.CanMinRep}}</td>
@@ -407,11 +408,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     
                     <td>
                       <label ng-show="dato.DocPod==null">N/A</label>
-                      <label ng-show="dato.DocPod!=null">{{dato.DocPod}}</label>
+                      <label ng-show="dato.DocPod!=null"><a class="btn btn-primary" target="_black" href="{{dato.DocPod}}"><i class="fa fa-eye"></i></a></label>
                     </td>
                     <td>
-                       <a class="btn btn-primary" ><i class="fa fa-edit"></i></a> 
-                       <a class="btn btn-danger" ><i class="fa fa-trash"></i></a>
+                       <a class="btn btn-primary" ng-click="vm.editar_Cliente($index,dato)"><i class="fa fa-edit"></i></a> 
+                       <a class="btn btn-danger" ng-click="vm.Eliminar_Cliente($index,dato)"><i class="fa fa-trash"></i></a>
                      </td>
                   </tr>
                 </tbody>
@@ -495,7 +496,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <label class="font-weight-bold nexa-dark" style="color:black;">Representante Legal <b style="color:red;">(*)</b></label>             
                    
                   <br>
-                   <input type="radio" name="tipo_cliente" value="1" ng-model="vm.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
+                   <input type="radio" name="tipo_cliente" value="1" ng-model="vm.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined||vm.EsPrescritor==1" ng-click="vm.verificar_representante_legal()">
                   <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
 
                    <input type="radio" name="tipo_cliente" value="0" ng-model="vm.EsRepLeg" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_representante_legal()">
@@ -546,7 +547,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div class="form-group">
                       <label class="font-weight-bold nexa-dark" style="color:black;">Es Colaborador</label> 
                       <br>
-                      <input type="radio" name="EsCol" value="1" ng-model="vm.EsColaborador" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_colaborador()">
+                      <input type="radio" name="EsCol" value="1" ng-model="vm.EsColaborador" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined||vm.EsPrescritor==1" ng-click="vm.verificar_colaborador()">
                   <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
                    <input type="radio" name="EsCol" value="0" ng-model="vm.EsColaborador" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_colaborador()">
                    <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
@@ -560,10 +561,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <label class="font-weight-bold nexa-dark" style="color:black;">Es Prescriptor</label>             
                
               <br>
-               <input type="radio" name="EsPresc" value="1" ng-model="vm.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_prescristor()">
+               <input type="radio" name="EsPresc" value="1" ng-model="vm.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined || vm.EsRepLeg==1||vm.EsColaborador==1" ng-click="vm.verificar_prescristor()">
               <label class="font-weight-bold nexa-dark" style="color:black;">Si</label>
 
-               <input type="radio" name="EsPresc" value="0" ng-model="vm.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined" ng-click="vm.verificar_prescristor()">
+               <input type="radio" name="EsPresc" value="0" ng-model="vm.EsPrescritor" ng-disabled="vm.validate_info_servicio_especiales==1 || vm.no_editable!=undefined|| vm.EsRepLeg==1" ng-click="vm.verificar_prescristor()" >
                <label class="font-weight-bold nexa-dark" style="color:black;">No</label>
 
                </div>
@@ -573,11 +574,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>Documentos del Cliente</b></label></div></div>
              <div class="form">                          
              <div class="form-group">
-               <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.DocPod!=null && vm.CodConCli>0" href="{{vm.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
+               <label class="font-weight-bold nexa-dark" style="color:black;">Fotocopia del PODER <a title='Descargar Documento' ng-show="vm.DocPod!=null" href="{{vm.DocPod}}" download class="btn btn-info btn-icon mg-r-5"><div><i class="fa fa-download" style="color:white;"></i></div></a></label>
 
                 <div id="file-wrap">
                   <p>Presione para adjuntar el fichero o <strong>arrastrar</strong> el fichero y <strong>soltar</strong> aquí</p>                       
-                  <input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.TieFacEsc==1 ||vm.no_editable!=undefined" draggable="true">
+                  <input  type="file" id="DocPod" class="file_b" uploader-model="DocPod" ng-disabled="vm.TieFacEsc==1 ||vm.no_editable!=undefined" draggable="true" ng-model="vm.imagen" onchange="angular.element(this).scope().SelectFile(event)">
                   <div id="filenameDocPod"></div>                       
                 </div>
              </div>

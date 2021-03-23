@@ -101,6 +101,7 @@ class PropuestaComercial extends REST_Controller
 		$where="NIFConCli";	
 		$select='CodConCli as CodCli,NIFConCli as NumCifCli';	
         $Colaborador = $this->Propuesta_model->Funcion_Verificadora($NumCifCli,$tabla,$where,$select);        
+		//$this->response($Colaborador);
 		if (empty($Colaborador))
 		{
 			$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Número de CIF no Registrado.');

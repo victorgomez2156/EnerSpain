@@ -93,7 +93,7 @@ class Propuesta_model extends CI_Model
     {
         $this->db->select('a.*',false);
         $this->db->from('T_Contrato a');
-        $this->db->from('T_PropuestaComercial b','a.CodProCom=b.CodProCom');       
+        $this->db->join('T_PropuestaComercial b','a.CodProCom=b.CodProCom');       
         $this->db->where('a.CodCli',$Variable); 
         $this->db->where('b.TipProCom=3');         
         $this->db->order_by('FecConCom DESC');   

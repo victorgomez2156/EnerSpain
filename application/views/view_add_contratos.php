@@ -83,10 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
           <div class="col-lg-12">
             <section class="panel">
-             
               <div class="panel-body">
-
-
                 <form id="register_form_contratos" name="register_form_contratos" ng-submit="submitFormContratos($event)"> 
                  <div class='row'>              
                    <div class="col-12 col-sm-6">

@@ -605,7 +605,18 @@
            $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
            if (result.data != false) {
             scope.tContacto_data_modal = result.data; 
-            scope.BuscarLocalidad(1,result.data.CodProFis);
+            if(result.data.Tabla_Contacto!=false)
+            {
+              scope.Tabla_Contacto=result.data.Tabla_Contacto;
+            }
+            else
+            {
+              scope.Tabla_Contacto=[];
+            }            
+            if(result.data.CodProFis!=null)
+            {
+              scope.BuscarLocalidad(1,result.data.CodProFis);
+            }
             if(result.data.ConPrin==null ||result.data.ConPrin==0)
             {
                 scope.tContacto_data_modal.ConPrin=false;
@@ -733,6 +744,13 @@
                        document.getElementById('DocNIF').value = '';
                        $('#filenameDocNIF').html('');
                        location.href = "#/Edit_Contactos/" + result.data.objSalida.CodConCli;
+                   }
+                   if (result.data.status == 200 && result.data.response == 'UPDATE') {
+                       scope.toast('success',result.data.menssage,title);
+                       document.getElementById('DocNIF').value = '';
+                       $('#filenameDocNIF').html('');
+                       //location.href = "#/Edit_Contactos/" + result.data.objSalida.CodConCli;
+                        scope.BuscarXIDContactos();
                    }
                }, function(error) {
                    $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
@@ -870,8 +888,11 @@
        {
             scope.TipRepr = "1";
             scope.CanMinRep = 1;
-            document.getElementById('DocNIF').value = '';
-            
+            document.getElementById('DocNIF').value = '';            
+       }
+       else if(scope.EsRepLeg==1)
+       {
+         scope.EsPrescritor=null;
        }
    }
    scope.verificar_facultad_escrituras = function() {
@@ -880,6 +901,13 @@
            scope.DocPod = null;
        }
    }
+   scope.verificar_prescristor = function() {
+       
+       if (scope.EsPrescritor == 1) {
+           scope.EsColaborador==null;
+       }
+   }
+
    $scope.uploadFile = function(metodo) {
        if (metodo == 1) {
            var file = $scope.DocNIF;
@@ -1524,22 +1552,21 @@ $scope.SubmitFormClienteContactos = function(event)
   {
     return false;
   }
-    //Swal.fire({
-    //title: 'Estás seguro de asignar este cliente a este contacto?',
-    //type: "question",
-    //showCancelButton: !0,
-    //confirmButtonColor: "#31ce77",
-    //cancelButtonColor: "#f34943",
-    //confirmButtonText: "OK"
-   // }).then(function(t) 
-    //{
-      //if (t.value == true) 
-     // {
-        var ObjDetCUPs = new Object();
+    var ObjDetCUPs = new Object();
         if (scope.Tabla_Contacto== undefined || scope.Tabla_Contacto == false) 
         {
           scope.Tabla_Contacto = [];
         }
+        angular.forEach(scope.Tabla_Contacto,function(Tabla_Contacto)
+        {
+          for (var i = 0; i < scope.Tabla_Contacto.length; i++) 
+          {
+            if (scope.Tabla_Contacto[i].CodCli == scope.CodCliInsert)
+            {
+              scope.Tabla_Contacto.splice(i, 1);
+            }
+          }                
+        });
         scope.Tabla_Contacto.push({CodCli:scope.CodCliInsert,NumCifCli:scope.NumCifCli,RazSocCli:scope.RazSocCli,EsRepLeg:scope.EsRepLeg,TipRepr:scope.TipRepr,CanMinRep:scope.CanMinRep,TieFacEsc:scope.TieFacEsc,
         EsColaborador:scope.EsColaborador,EsPrescritor:scope.EsPrescritor,DocPod:scope.DocPod});
         scope.toast('success','Cliente Asignado Correctamente.','');
@@ -1555,19 +1582,13 @@ $scope.SubmitFormClienteContactos = function(event)
         scope.EsColaborador=null;
         scope.EsPrescritor=null;
         scope.DocPod=null;
+        document.getElementById('DocPod').value = '';
         console.log(scope.Tabla_Contacto);
-      //} 
-      //else 
-      //{
-       // console.log('Cancelando ando...');
-      //}
-    //});
-
-};
+  };
 scope.validar_campos_detalles = function() 
     {
         resultado = true;        
-        if(scope.CodCliContacto==null||scope.CodCliContacto==undefined||scope.CodCliContacto=='')
+        if(scope.CodCliInsert==null||scope.CodCliInsert==undefined||scope.CodCliInsert=='')
         {
           scope.toast('error','Debe Seleccionar un Cliente.','Error');
           return false;
@@ -1581,7 +1602,14 @@ scope.validar_campos_detalles = function()
         {
           if(scope.EsRepLeg==0)
           {
-            scope.DocPod=null;
+            if(scope.DocPod==null||scope.DocPod==undefined)
+            {
+              scope.DocPod=null;
+            }
+            else
+            {
+              scope.DocPod=scope.DocPod;
+            }
           }
           else if(scope.EsRepLeg==1)
           {
@@ -1611,6 +1639,85 @@ scope.validar_campos_detalles = function()
         }
         return true;
      }
+$scope.SelectFile = function (e) 
+{
+        scope.AddImagen(e.target.files[0]);
+};
+    scope.AddImagen = function(archivo)
+    {
+        if (archivo==null){
+            $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");   
+            scope.toast('error','Seleccione otro archivo','Error');
+        }
+        else
+        {
+            $("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            formData = new FormData();
+            formData.append('file', archivo);
+            formData.append('x-api-key', $cookies.get('ApiKey'));
+            formData.append('metodo', 1);             
+            $.ajax({
+                url : base_urlHome()+"api/Clientes/agregar_documento_contactoClientes/",
+                type: "POST",
+                headers:{'x-api-key':$cookies.get('ApiKey')},
+                data : formData,
+                processData: false,
+                contentType: false,
+                async:false,
+                success:function(data,textStatus,jqXHR)
+                { 
+                   console.log(data);
+                   console.log(textStatus);
+                   console.log(jqXHR);
+                    $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
+                        if(data.status==404 && data.statusText=="Error")
+                        {
+                            scope.toast('error',data.menssage,data.statusText);
+                            return false; 
+                        }
+                        if(data.status==200 && data.statusText=="OK")
+                        {
+                            scope.toast('success',data.menssage,data.statusText);
+                            scope.imagen = null;
+                            document.getElementById('DocPod').value = '';
+                            scope.DocPod=data.DocName;
+                            console.log(scope.DocPod);
+                            //scope.fdatos.TDocumentosContratos.push({CodDetDocCon:data.CodDetDocCon,file_ext:data.file_ext,CodConCom:data.CodConCom,DocGenCom:data.DocGenCom,DocConRut:data.DocConRut}); 
+                            $scope.$apply();
+                            return false; 
+                        }
+                },              
+                error: function(jqXHR, textStatus, errorThrown){
+                        $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        scope.toast('error','Error Subiendo archivo.','Error');
+                    }
+            });
+        }
+            
+    }
+    scope.editar_Cliente=function(index,dato)
+    {
+      console.log(index);
+      console.log(dato);
+      scope.CodCliContacto=dato.NumCifCli;
+      scope.CodCliInsert=dato.CodCli;
+      scope.EsRepLeg=dato.EsRepLeg;
+      scope.TipRepr=dato.TipRepr;
+      scope.CanMinRep=dato.CanMinRep;
+      scope.TieFacEsc=dato.TieFacEsc;
+      scope.EsColaborador=dato.EsColaborador;
+      scope.EsPrescritor=dato.EsPrescritor;
+      scope.DocPod=dato.DocPod;
+      scope.NumCifCli=dato.NumCifCli;
+      scope.RazSocCli=dato.RazSocCli;
+      $("#modal_agregar_clientes").modal('show');
+    }
+    scope.Eliminar_Cliente=function(index,dato)
+    {
+       scope.Tabla_Contacto.splice(index,1);
+    }
 var i = -1;
 var toastCount = 0;
 var $toastlast;

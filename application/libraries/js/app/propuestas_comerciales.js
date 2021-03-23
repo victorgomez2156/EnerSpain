@@ -371,6 +371,7 @@
                     }
                     if (result.data.status == 200 && result.data.statusText == 'OK') 
                     {
+                        //console.log(result.data);
                         scope.fdatos.ContratosSinProPenRen = [];
                         scope.fdatos.ContratosProRenPen = []; 
                         angular.forEach(result.data.Contratos, function(Contratos)
