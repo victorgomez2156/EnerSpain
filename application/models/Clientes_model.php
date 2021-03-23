@@ -573,6 +573,38 @@ else
 
 
 ///////////////////////////////////////////////////////////// CONTACTOS START ////////////////////////////////////////////
+
+public function agregar_contactoNuevoMetodo($NomConCli,$NumColeCon,$NIFConCli,$CarConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$CodTipViaFis,$NomViaDomFis,$NumViaDomFis,$CPLocFis,$CodLocFis,$DocNIF,$ObsConC,$ConPrin)
+{
+    $this->db->insert('T_ContactoCliente',array('CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'CPLocFis'=>$CPLocFis,'CodLocFis'=>$CodLocFis,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'ConPrin'=>$ConPrin,'NumColeCon'=>$NumColeCon,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC,'EstConCli'=>1));
+    return $this->db->insert_id();
+}
+public function actualizar_contactoNuevoMetodo($CodConCli,$NomConCli,$NumColeCon,$NIFConCli,$CarConCli,$TelFijConCli,$TelCelConCli,$EmaConCli,$CodTipViaFis,$NomViaDomFis,$NumViaDomFis,$CPLocFis,$CodLocFis,$DocNIF,$ObsConC,$ConPrin)
+{   
+    $this->db->where('CodConCli', $CodConCli);        
+    return $this->db->update('T_ContactoCliente',array('CodTipViaFis'=>$CodTipViaFis,'NomViaDomFis'=>$NomViaDomFis,'NumViaDomFis'=>$NumViaDomFis,'CPLocFis'=>$CPLocFis,'CodLocFis'=>$CodLocFis,'NomConCli'=>$NomConCli,'NIFConCli'=>$NIFConCli,'DocNIF'=>$DocNIF,'ConPrin'=>$ConPrin,'NumColeCon'=>$NumColeCon,'TelFijConCli'=>$TelFijConCli,'TelCelConCli'=>$TelCelConCli,'EmaConCli'=>$EmaConCli,'CarConCli'=>$CarConCli,'ObsConC'=>$ObsConC));
+}
+public function validar_CIF_NIF_Existente_NuevoMetodo($NIFConCli)
+{
+    $this->db->select('*',FALSE);
+    $this->db->from('T_ContactoCliente');
+    $this->db->where('NIFConCli',$NIFConCli);
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->row();
+    }
+    else
+    {
+        return false;
+    }       
+}
+
+
+
+
+
+
 public function validar_CIF_NIF_Existente($NIFConCli,$CodCli)
 {
     $this->db->select('*',FALSE);
@@ -601,7 +633,7 @@ else
 
 public function get_lista_contactos()
 {
- $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli");
+ $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a LEFT JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli");
  if ($sql->num_rows() > 0)
   return $sql->result();
 else
@@ -611,12 +643,9 @@ public function get_xID_Contactos($CodConCli,$select)
 {
     $this->db->select($select,FALSE);
     $this->db->from('T_ContactoCliente a');   
-        //$this->db->join('T_Cliente b','a.CodCli=b.CodCli'); 
-       // $this->db->join('T_Localidad b','a.CodLoc=b.CodLoc');
-        //$this->db->join('T_Provincia d','c.CodPro=d.CodPro');
-        //$this->db->join('T_TipoVia e','a.CodTipVia=e.CodTipVia');
-    $this->db->where('a.CodConCli',$CodConCli);    
-        //$this->db->order_by('b.RazSocCli ASC');              
+    $this->db->join('T_Localidad b','a.CodLocFis=b.CodLoc','LEFT');
+    $this->db->join('T_Provincia d','b.CodPro=d.CodPro','LEFT');
+   	$this->db->where('a.CodConCli',$CodConCli);    
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {
@@ -755,6 +784,22 @@ public function UpdateOldContacto($CodConCli)
 {   
     $this->db->where('CodConCli', $CodConCli);              
     return $this->db->update('T_ContactoCliente',array('ConPrin'=>0));
+}
+public function getPorDnioNombre($SearchText,$like)
+{
+    $this->db->select("*",false);
+    $this->db->from('T_ContactoCliente a');
+    $this->db->like($like,$SearchText);
+    $this->db->order_by('a.NomConCli ASC');
+    $query = $this->db->get(); 
+    if($query->num_rows()>0)
+    {
+        return $query->result();
+    }
+    else
+    {
+        return false;
+    }       
 }
 ///////////////////////////////////////////////////////////////////// CONTACTOS END ////////////////////////////////////////
 

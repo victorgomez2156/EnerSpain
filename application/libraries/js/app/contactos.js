@@ -45,11 +45,17 @@
  function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile, ServiceMaster, upload) {
    var scope = this;
    scope.tContacto_data_modal = {};
-   scope.tContacto_data_modal = {};
    scope.nID = $route.current.params.ID;
    scope.no_editable = $route.current.params.INF;
    scope.Nivel = $cookies.get('nivel');
    scope.CIF_Contacto = $cookies.get('CIF_Contacto');
+    scope.EsRepLeg=null;
+    scope.TipRepr='1';
+    scope.CanMinRep='1';
+    scope.TieFacEsc=null;
+    scope.EsColaborador=null;
+    scope.EsPrescritor=null;
+    scope.DocPod=null;
      //const $archivosanexos = document.querySelector("#file_anexo");
      var fecha = new Date();
      var dd = fecha.getDate();
@@ -66,17 +72,19 @@
      console.log($route.current.$$route.originalPath);
      if ($route.current.$$route.originalPath == "/Add_Contactos/") {
        console.log(scope.CIF_Contacto);
-       if (scope.CIF_Contacto == undefined) {
-           scope.toast('error','El Número de CIF del Contacto No Puede Estar Vacio.','Error');
-           location.href = "#/Contactos";
-       } else {
-        scope.tContacto_data_modal.NIFConCli = scope.CIF_Contacto;
-        scope.tContacto_data_modal.EsRepLeg = undefined;
-        scope.tContacto_data_modal.TieFacEsc = undefined;
-        scope.tContacto_data_modal.CanMinRep = 1;
-        scope.tContacto_data_modal.TipRepr = "1";
-        scope.tContacto_data_modal.ConPrin=false;
-    }
+       //if (scope.CIF_Contacto == undefined) {
+           //scope.toast('error','El Número de CIF del Contacto No Puede Estar Vacio.','Error');
+           //location.href = "#/Contactos";
+       //} else {
+        scope.tContacto_data_modal.ConPrin=false;        
+        //scope.tContacto_data_modal.NIFConCli = scope.CIF_Contacto;
+        //scope.tContacto_data_modal.EsRepLeg = null;
+        //scope.tContacto_data_modal.TieFacEsc = null;
+        //scope.tContacto_data_modal.CanMinRep = 1;
+        //scope.tContacto_data_modal.TipRepr = "1";        
+        //scope.tContacto_data_modal.EsColaborador=null;
+        //scope.tContacto_data_modal.EsPrescritor=null;
+    //}
 }
      /*if($route.current.$$route.originalPath=="/Contacto_Otro_Cliente/:NIFConCli")
      {
@@ -103,15 +111,13 @@
      const $Archivo_DocNIF = document.querySelector("#DocNIF");
      const $Archivo_DocPod = document.querySelector("#DocPod");
      scope.topciones = [{ id: 1, nombre: 'VER' }, { id: 2, nombre: 'EDITAR' }, { id: 3, nombre: 'ACTIVAR' }, { id: 4, nombre: 'SUSPENDER' }];
-     scope.Tabla_Contacto = [];
-     scope.Tabla_ContactoBack = [];
      ///////////////////////////// CONTACTOS CLIENTES END ///////////////////////////
      scope.index = 0;
      scope.tListaContactos = [];
      scope.Tabla_Contacto = [];
      scope.Tabla_ContactoBack = [];
      scope.Tclientes = [];
-     
+     scope.tContacto_data_modal.Tabla_Contacto=[];
      /*ServiceMaster.getAll().then(function(dato) {
          scope.tListaContactos = dato.Tipo_Contacto;
          scope.Tclientes = dato.Clientes;
@@ -598,10 +604,8 @@
        $http.get(url).then(function(result) {
            $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
            if (result.data != false) {
-            scope.tContacto_data_modal = result.data;
-            scope.CodCliContacto=result.data.NumCifCli;               
-            scope.BuscarLocalidad(1,result.data.CodProSoc);          
-
+            scope.tContacto_data_modal = result.data; 
+            scope.BuscarLocalidad(1,result.data.CodProFis);
             if(result.data.ConPrin==null ||result.data.ConPrin==0)
             {
                 scope.tContacto_data_modal.ConPrin=false;
@@ -632,7 +636,8 @@
    $scope.uploadImage = function() {
        console.log('Changed');
    }
-   $scope.submitFormRegistroContacto = function(event) {
+   $scope.submitFormRegistroContacto = function(event) 
+   { 
        let Archivo_DocNIF = $Archivo_DocNIF.files;
        if ($Archivo_DocNIF.files.length > 0) {
            if ($Archivo_DocNIF.files[0].type == "application/pdf" || $Archivo_DocNIF.files[0].type == "image/jpeg" || $Archivo_DocNIF.files[0].type == "image/png") {
@@ -659,8 +664,9 @@
                scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
            }
        }
-       let Archivo_DocPod = $Archivo_DocPod.files;
-       if ($Archivo_DocPod.files.length > 0) {
+      /* let Archivo_DocPod = $Archivo_DocPod.files;
+       if ($Archivo_DocPod.files.length > 0) 
+       {
            if ($Archivo_DocPod.files[0].type == "application/pdf" || $Archivo_DocPod.files[0].type == "image/jpeg" || $Archivo_DocPod.files[0].type == "image/png") {
                if ($Archivo_DocPod.files[0].size > 2097152) {
                    scope.toast('error','El tamaño del fichero no debe ser superior a 2 MB','Error');
@@ -677,14 +683,15 @@
                document.getElementById('DocPod').value = '';
                return false;
            }
-       } else {
+       } else 
+       {
            document.getElementById('DocPod').value = '';
            if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
                scope.tContacto_data_modal.DocPod = null;
            } else {
                scope.tContacto_data_modal.DocPod = scope.tContacto_data_modal.DocPod;
            }
-       }
+       }*/
        if (!scope.validar_campos_contactos_null()) {
            return false;
        }
@@ -709,25 +716,22 @@
                if ($Archivo_DocNIF.files.length > 0) {
                    $scope.uploadFile(1);
                }
-               if ($Archivo_DocPod.files.length > 0) {
+               /*if ($Archivo_DocPod.files.length > 0) {
                    $scope.uploadFile(2);
-               }
+               }*/
                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default  is-active");
                var url = base_urlHome() + "api/Clientes/Registro_Contacto";
                $http.post(url, scope.tContacto_data_modal).then(function(result) {
-                   console.log(result);
-                   if (result.data.status == false && result.data.response == false) {
-                       $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
-                       scope.toast('error',result.data.menssage,title);
-                   }
-                   if (result.data.status == true && result.data.response == true) {
-                       $cookies.remove('CIF_Contacto');
-                       $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
+                   //console.log(result);
+                  $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
+                  if(result.data.status == 400 && result.data.response =="Error CIF")
+                  {
+                    scope.toast('error',result.data.menssage,title);
+                  }
+                  if (result.data.status == 200 && result.data.response == 'Exito') {
                        scope.toast('success',result.data.menssage,title);
                        document.getElementById('DocNIF').value = '';
-                       document.getElementById('DocPod').value = '';
                        $('#filenameDocNIF').html('');
-                       $('#filenameDocPod').html('');
                        location.href = "#/Edit_Contactos/" + result.data.objSalida.CodConCli;
                    }
                }, function(error) {
@@ -749,43 +753,32 @@
    };
    scope.validar_campos_contactos_null = function() {
        resultado = true;
-       if (!scope.tContacto_data_modal.CodCli > 0) {
-           scope.toast('error','Seleccione un Cliente','');
-           return false;
-       }
-       if (!scope.tContacto_data_modal.CodTipViaSoc > 0) {
-           scope.toast('error','Seleccione un Tipo de Vía para el Domicilio Social','');
-           return false;
-       }
-       if (scope.tContacto_data_modal.NomViaDomSoc == null || scope.tContacto_data_modal.NomViaDomSoc == undefined || scope.tContacto_data_modal.NomViaDomSoc == '') {
-           scope.toast('error','El Nombre de la Vía es requerido','');
-           return false;
-       }
-       if (scope.tContacto_data_modal.NumViaDomSoc == null || scope.tContacto_data_modal.NumViaDomSoc == undefined || scope.tContacto_data_modal.NumViaDomSoc == '') {
-           scope.toast('error','El Número de la Vía es requerido','');
-           return false;
-       }
-       if (!scope.tContacto_data_modal.CodProSoc > 0) {
-           scope.toast('error','Seleccione una Provincia para el Domicilio Social','');
-           return false;
-       }
-       if (!scope.tContacto_data_modal.CodLocSoc > 0) {
-           scope.toast('error','Seleccione una Localidad para el Domicilio Social','');
-           return false;
-       }
-       if (!scope.tContacto_data_modal.CodTipCon > 0) {
-           scope.toast('error','Seleccione un Tipo de Contacto','');
-           return false;
-       }
-       if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
-           scope.toast('error','El Cargo del Contacto es requerido','');
-           return false;
-       }
+       
+
        if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
            scope.toast('error','El Nombre del Contacto es requerido','');
            return false;
        }
-       if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
+        if (scope.tContacto_data_modal.NumColeCon == null || scope.tContacto_data_modal.NumColeCon == undefined || scope.tContacto_data_modal.NumColeCon == '') {
+           scope.tContacto_data_modal.NumColeCon=null;             
+       }
+       else
+           {scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
+
+           }
+         if (scope.tContacto_data_modal.NIFConCli == null || scope.tContacto_data_modal.NIFConCli == undefined || scope.tContacto_data_modal.NIFConCli == '') {
+           scope.tContacto_data_modal.NIFConCli=null;             
+       }
+       else
+           {scope.tContacto_data_modal.NIFConCli=scope.tContacto_data_modal.NIFConCli;
+
+           }
+
+       if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
+           scope.toast('error','El Cargo del Contacto es requerido','');
+           return false;
+       }
+        if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
            scope.toast('error','El Teléfono Fijo del Contato es requerido','');
            return false;
        }
@@ -796,103 +789,76 @@
            {scope.tContacto_data_modal.TelCelConCli=scope.tContacto_data_modal.TelCelConCli;
 
            }
-           if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
-               scope.toast('error','El Email del Contacto es requerido','');
-               return false;
-           }
-           if (scope.tContacto_data_modal.CanMinRep <= 0) {
-               scope.toast('error','El Cliente debe tener al menos un Firmante','');
-               return false;
-           }
-           if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
-               scope.tContacto_data_modal.ObsConC = null;
-           } else {
-               scope.tContacto_data_modal.ObsConC = scope.tContacto_data_modal.ObsConC;
-           }
-           if (scope.tContacto_data_modal.EsRepLeg == 1) {
-               if (!scope.tContacto_data_modal.TipRepr > 0) {
-                   scope.toast('error','Seleccione el Tipo de Representación','');
-                   return false;
-               }
-               if (scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == null) {
-                scope.tContacto_data_modal.DocNIF=null;
-            }
-            else
-            {
-                scope.tContacto_data_modal.DocNIF=scope.tContacto_data_modal.DocNIF;
-            }
-
+        if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
+           scope.tContacto_data_modal.EmaConCli=null;             
+       }
+       else
+        {
+          scope.tContacto_data_modal.EmaConCli=scope.tContacto_data_modal.EmaConCli;
         }
-        if (scope.tContacto_data_modal.EsRepLeg == undefined) {
-           scope.toast('error','Indique si el Firmante es o no Representante Legal','');
-           return false;
-       }
-
-       if (scope.tContacto_data_modal.TieFacEsc == undefined||scope.tContacto_data_modal.TieFacEsc == null) {
-           scope.tContacto_data_modal.TieFacEsc =null;
-             //scope.toast('error','Indique si el Firmante tiene o no falcutad en Escrituras','');
-             //return false;
-         }
-         else
-         {
-            scope.tContacto_data_modal.TieFacEsc=scope.tContacto_data_modal.TieFacEsc;
-        } 
-        if (scope.tContacto_data_modal.NumColeCon == undefined||scope.tContacto_data_modal.NumColeCon == null||scope.tContacto_data_modal.NumColeCon == '') {
-           scope.tContacto_data_modal.NumColeCon =null;
-             //scope.toast('error','Indique si el Firmante tiene o no falcutad en Escrituras','');
-             //return false;
-         }
-         else
-         {
-            scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
-        }         
-        if (scope.tContacto_data_modal.TieFacEsc == 0) {
-
-           if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null) {
-               scope.toast('error','Adjunte el documento Poder del Representante Legal','');
-               return false;
-           }
-       }
-       if (scope.tContacto_data_modal.DocPod == null || scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == '') {
-           scope.tContacto_data_modal.DocPod = null;
-       } else {
-           scope.tContacto_data_modal.DocPod = scope.tContacto_data_modal.DocPod;
-       }
        if (scope.tContacto_data_modal.DocNIF == null || scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == '') {
            scope.tContacto_data_modal.DocNIF = null;
        } else {
            scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
        }
-
-       if (scope.tContacto_data_modal.BloDomSoc == null || scope.tContacto_data_modal.BloDomSoc == undefined || scope.tContacto_data_modal.BloDomSoc == '') {
-           scope.tContacto_data_modal.BloDomSoc = null;
+         if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
+               scope.tContacto_data_modal.ObsConC = null;
+           } else {
+               scope.tContacto_data_modal.ObsConC = scope.tContacto_data_modal.ObsConC;
+           }
+                
+        if (scope.tContacto_data_modal.CodTipViaFis == null || scope.tContacto_data_modal.CodTipViaFis == undefined || scope.tContacto_data_modal.CodTipViaFis == '') {
+           scope.tContacto_data_modal.CodTipViaFis = null;
        } else {
-           scope.tContacto_data_modal.BloDomSoc = scope.tContacto_data_modal.BloDomSoc;
-       }
-       if (scope.tContacto_data_modal.EscDomSoc == null || scope.tContacto_data_modal.EscDomSoc == undefined || scope.tContacto_data_modal.EscDomSoc == '') {
-           scope.tContacto_data_modal.EscDomSoc = null;
-       } else {
-           scope.tContacto_data_modal.EscDomSoc = scope.tContacto_data_modal.EscDomSoc;
-       }
-
-       if (scope.tContacto_data_modal.PlaDomSoc == null || scope.tContacto_data_modal.PlaDomSoc == undefined || scope.tContacto_data_modal.PlaDomSoc == '') {
-           scope.tContacto_data_modal.PlaDomSoc = null;
-       } else {
-           scope.tContacto_data_modal.PlaDomSoc = scope.tContacto_data_modal.PlaDomSoc;
-       }
-       if (scope.tContacto_data_modal.PueDomSoc == null || scope.tContacto_data_modal.PueDomSoc == undefined || scope.tContacto_data_modal.PueDomSoc == '') {
-           scope.tContacto_data_modal.PueDomSoc = null;
-       } else {
-           scope.tContacto_data_modal.PueDomSoc = scope.tContacto_data_modal.PueDomSoc;
-       }
-       if (scope.tContacto_data_modal.CPLocSoc == null || scope.tContacto_data_modal.CPLocSoc == undefined || scope.tContacto_data_modal.CPLocSoc == '') {
-           scope.tContacto_data_modal.CPLocSoc = null;
-       } else {
-           scope.tContacto_data_modal.CPLocSoc = scope.tContacto_data_modal.CPLocSoc;
+           scope.tContacto_data_modal.CodTipViaFis = scope.tContacto_data_modal.CodTipViaFis;
        }
 
+       if (scope.tContacto_data_modal.NomViaDomFis == null || scope.tContacto_data_modal.NomViaDomFis == undefined || scope.tContacto_data_modal.NomViaDomFis == '') {
+           scope.tContacto_data_modal.NomViaDomFis = null;
+       } else {
+           scope.tContacto_data_modal.NomViaDomFis = scope.tContacto_data_modal.NomViaDomFis;
+       }
+
+       if (scope.tContacto_data_modal.NumViaDomFis == null || scope.tContacto_data_modal.NumViaDomFis == undefined || scope.tContacto_data_modal.NumViaDomFis == '') {
+           scope.tContacto_data_modal.NumViaDomFis = null;
+       } else {
+           scope.tContacto_data_modal.NumViaDomFis = scope.tContacto_data_modal.NumViaDomFis;
+       }
+
+       if (scope.tContacto_data_modal.CPLocFis == null || scope.tContacto_data_modal.CPLocFis == undefined || scope.tContacto_data_modal.CPLocFis == '') {
+           scope.tContacto_data_modal.CPLocFis = null;
+       } else {
+           scope.tContacto_data_modal.CPLocFis = scope.tContacto_data_modal.CPLocFis;
+       }
+
+       if (scope.tContacto_data_modal.CodProFis == null || scope.tContacto_data_modal.CodProFis == undefined || scope.tContacto_data_modal.CodProFis == '') {
+           scope.tContacto_data_modal.CodProFis = null;
+       } else {
+           scope.tContacto_data_modal.CodProFis = scope.tContacto_data_modal.CodProFis;
+       }
+       if (scope.tContacto_data_modal.CodProFis == null || scope.tContacto_data_modal.CodProFis == undefined || scope.tContacto_data_modal.CodProFis == '') {
+           scope.tContacto_data_modal.CodProFis = null;
+       } else {
+           scope.tContacto_data_modal.CodProFis = scope.tContacto_data_modal.CodProFis;
+       }
+       if (scope.tContacto_data_modal.CodLocFis == null || scope.tContacto_data_modal.CodLocFis == undefined || scope.tContacto_data_modal.CodLocFis == '') {
+           scope.tContacto_data_modal.CodLocFis = null;
+          } else {
+           scope.tContacto_data_modal.CodLocFis = scope.tContacto_data_modal.CodLocFis;
+        }
 
 
+
+
+
+       if(scope.Tabla_Contacto.length==0)
+       {
+          scope.tContacto_data_modal.Tabla_Contacto=false;
+       }
+       else
+       {
+          scope.tContacto_data_modal.Tabla_Contacto=scope.Tabla_Contacto;
+       }
        if (resultado == false) {
            return false;
        }
@@ -900,17 +866,18 @@
    }
    scope.verificar_representante_legal = function() {
 
-       if (scope.tContacto_data_modal.EsRepLeg == 0) {
-           scope.tContacto_data_modal.TipRepr = "1";
-           scope.tContacto_data_modal.CanMinRep = 1;
-           document.getElementById('DocNIF').value = '';
-           scope.tContacto_data_modal.DocNIF = null;
+       if (scope.EsRepLeg == 0) 
+       {
+            scope.TipRepr = "1";
+            scope.CanMinRep = 1;
+            document.getElementById('DocNIF').value = '';
+            
        }
    }
    scope.verificar_facultad_escrituras = function() {
-       if (scope.tContacto_data_modal.TieFacEsc == 1) {
+       if (scope.TieFacEsc == 1) {
            document.getElementById('DocPod').value = '';
-           scope.tContacto_data_modal.DocPod = null;
+           scope.DocPod = null;
        }
    }
    $scope.uploadFile = function(metodo) {
@@ -1102,7 +1069,20 @@
     });  
  }
          ///////// PARA CALCULAR DNI/NIE END /////////////////
-         scope.containerClicked = function() {
+        scope.containerClickedNIFNombre=function(metodo)
+        {
+          if(metodo==1)
+          {
+            scope.ResultNombreContacto={};
+          }
+          else if(metodo==2)
+          {
+            scope.ResultNIFContacto={};
+          }
+
+        }
+
+        scope.containerClicked = function() {
             scope.searchResult = {};
         }
         scope.searchboxClicked = function($event) {
@@ -1110,25 +1090,115 @@
        }
        scope.setValue = function(index, $event, result) 
        {
-
-        scope.CodCliContacto = scope.searchResult[index].NumCifCli;
-        scope.tContacto_data_modal.CodCli= scope.searchResult[index].CodCli;
-        scope.tContacto_data_modal.CodTipViaSoc=scope.searchResult[index].CodTipViaSoc1;
-        scope.tContacto_data_modal.NomViaDomSoc=scope.searchResult[index].NomViaDomSoc;
-        scope.tContacto_data_modal.NumViaDomSoc=scope.searchResult[index].NumViaDomSoc;
-        scope.tContacto_data_modal.BloDomSoc=scope.searchResult[index].BloDomSoc;
-        scope.tContacto_data_modal.EscDomSoc=scope.searchResult[index].EscDomSoc;
-        scope.tContacto_data_modal.PlaDomSoc=scope.searchResult[index].PlaDomSoc;
-        scope.tContacto_data_modal.PueDomSoc=scope.searchResult[index].PueDomSoc;
-        scope.BuscarLocalidad(1,scope.searchResult[index].CodProSoc2);
-        scope.tContacto_data_modal.CodProSoc=scope.searchResult[index].CodProSoc2;
-        scope.tContacto_data_modal.CodLocSoc=scope.searchResult[index].CodLocSoc1;
-        scope.tContacto_data_modal.CPLocSoc=scope.searchResult[index].CPLocSoc;
-        scope.searchResult = {};
-        $event.stopPropagation(); 
+          scope.CodCliContacto = scope.searchResult[index].NumCifCli;
+          scope.CodCliInsert=scope.searchResult[index].CodCli;
+          scope.NumCifCli=scope.searchResult[index].NumCifCli;
+          scope.RazSocCli=scope.searchResult[index].RazSocCli;
+          scope.searchResult = {};
+          $event.stopPropagation(); 
 
     }
-    scope.fetchClientes = function() {
+
+
+
+
+    scope.BuscarPorNombreoDni = function(metodo,InputText) 
+    {
+      if(metodo==1)
+      {
+          var searchText_len = InputText.trim().length;
+          if(searchText_len > 0)
+          {
+            var url = base_urlHome() + "api/Clientes/BuscarPorNombreoDni/metodo/"+metodo+"/InputText/"+InputText;
+          }
+      }
+      else if(metodo==2)
+      {
+          var searchText_len = InputText.trim().length;
+          if(searchText_len > 0)
+          {
+            var url = base_urlHome() + "api/Clientes/BuscarPorNombreoDni/metodo/"+metodo+"/InputText/"+InputText;
+          }
+      }
+      $http.get(url).then(function(result) 
+      {
+        if(result.data!=false)
+        {
+            if(metodo==1)
+            {
+              scope.ResultNombreContacto=result.data;                
+            }
+            else if(metodo==2)
+            {
+              scope.ResultNIFContacto=result.data;                
+            }
+        }
+        else
+        {
+            if(metodo==1)
+            {
+              scope.ResultNombreContacto={};
+            }
+            else if(metodo==2)
+            {
+              scope.ResultNIFContacto={};                
+            }
+        }
+      },function(error)
+      {
+                  if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                        }
+
+      });
+       /*var searchText_len = scope.CodCliContacto.trim().length;
+       scope.tContacto_data_modal.filtrar_clientes = scope.CodCliContacto;
+       if (searchText_len > 0) {
+           var url = base_urlHome() + "api/Clientes/getClientesFilter";
+           $http.post(url, scope.tContacto_data_modal).then(function(result) {
+                             //console.log(result);
+                             if (result.data != false) {
+                               scope.searchResult = result.data;
+                                 //console.log(scope.searchResult);
+                             } else {
+
+                               scope.searchResult = {};
+                           }
+                       },
+                       function(error) {
+                           
+                    });
+       } else {
+           scope.searchResult = {};
+       }*/
+    } 
+    scope.setValuePorCliente = function(index, $event, result,metodo) 
+    {
+          if(metodo==1)
+          {
+            location.href="#/Edit_Contactos/"+scope.ResultNombreContacto[index].CodConCli;
+            scope.tContacto_data_modal.NomConCli=scope.ResultNombreContacto[index].NomConCli;
+            scope.ResultNombreContacto = {};
+            $event.stopPropagation();
+            
+          }
+          else if(metodo==2)
+          {
+            location.href="#/Edit_Contactos/"+scope.ResultNIFContacto[index].CodConCli;
+            scope.tContacto_data_modal.NIFConCli=scope.ResultNIFContacto[index].NIFConCli;
+            scope.ResultNIFContacto = {};
+            $event.stopPropagation();            
+          }
+          
+    }
+    scope.fetchClientes = function() 
+    {
 
        var searchText_len = scope.CodCliContacto.trim().length;
        scope.tContacto_data_modal.filtrar_clientes = scope.CodCliContacto;
@@ -1158,9 +1228,6 @@
        } else {
            scope.searchResult = {};
        }
-
-
-
    } 
    scope.FetchContactos = function() {
 
@@ -1356,32 +1423,44 @@ scope.searchboxClicked = function($event)
 }
 scope.LocalidadCodigoPostal=function(metodo)
 {
+  if(metodo==1)
+  {
     var searchText_len = scope.tContacto_data_modal.CPLocSoc.trim().length;
-    if (searchText_len >=3) 
+    var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
+  }
+  else if(metodo==2)
+  {
+    var searchText_len = scope.tContacto_data_modal.CPLocFis.trim().length;
+    var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocFis;
+  } 
+  $http.get(url).then(function(result) 
+  {
+    if (result.data != false) 
     {
-        if(metodo==1)
-        {
-         var url= base_urlHome()+"api/Clientes/LocalidadCodigoPostal/CPLoc/"+scope.tContacto_data_modal.CPLocSoc;
-     }
-     $http.get(url).then(function(result) 
-     {
-        if (result.data != false) 
-        {
-            if(metodo==1)
-            {
-                scope.searchResultCPLoc = result.data;
-            }
-        } 
-        else
-        {                    
-            if(metodo==1)
-            {
-                scope.searchResultCPLoc = {};
-                scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
-                scope.fpuntosuministro.CPLocSoc=null;
-            }                   
-        }
-    },function(error) 
+      if(metodo==1)
+      {
+        scope.searchResultCPLoc = result.data;
+      }
+      else if (metodo==2)
+      {
+        scope.searchResultFis=result.data;
+      }
+    }
+    else
+    {                    
+      if(metodo==1)
+      {
+          scope.searchResultCPLoc = {};
+          scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
+          scope.fpuntosuministro.CPLocSoc=null;
+      }
+      else if(metodo==2)
+      {
+        scope.searchResultFis = {};
+        scope.toast('error','No se Encontraron Provincias & Localidades Registradas con este código postal','Error');
+      }                   
+    }
+  },function(error) 
     {
         if (error.status == 404 && error.statusText == "Not Found"){
             scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
@@ -1392,12 +1471,21 @@ scope.LocalidadCodigoPostal=function(metodo)
         }if (error.status == 500 && error.statusText == "Internal Server Error") {
             scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
         }
-    });
+    });  
+
+    /*
+    if (searchText_len >=3) 
+    {
+    if(metodo==1)
+    {
+      
+    }
+     
  } 
  else 
  {
     scope.searchResultCPLoc = {};
-}
+}*/
 }
 scope.setValueCPLoc = function(index, $event, result, metodo) 
 {
@@ -1414,7 +1502,115 @@ scope.setValueCPLoc = function(index, $event, result, metodo)
         scope.searchResultCPLoc = {};
         $event.stopPropagation();
     }
+    if (metodo == 2) 
+    {
+        console.log(index);
+        console.log($event);
+        console.log(result);
+        console.log(metodo);
+        scope.tContacto_data_modal.CodProFis=scope.searchResultFis[index].CodPro;
+        scope.BuscarLocalidad(2,scope.tContacto_data_modal.CodProFis);
+        scope.tContacto_data_modal.CodLocFis=scope.searchResultFis[index].CodLoc;
+        scope.tContacto_data_modal.CPLocFis= scope.searchResultFis[index].CPLoc;
+        scope.searchResultFis = {};
+        $event.stopPropagation();
+    }
+    
 }
+
+$scope.SubmitFormClienteContactos = function(event) 
+{
+  if (!scope.validar_campos_detalles()) 
+  {
+    return false;
+  }
+    //Swal.fire({
+    //title: 'Estás seguro de asignar este cliente a este contacto?',
+    //type: "question",
+    //showCancelButton: !0,
+    //confirmButtonColor: "#31ce77",
+    //cancelButtonColor: "#f34943",
+    //confirmButtonText: "OK"
+   // }).then(function(t) 
+    //{
+      //if (t.value == true) 
+     // {
+        var ObjDetCUPs = new Object();
+        if (scope.Tabla_Contacto== undefined || scope.Tabla_Contacto == false) 
+        {
+          scope.Tabla_Contacto = [];
+        }
+        scope.Tabla_Contacto.push({CodCli:scope.CodCliInsert,NumCifCli:scope.NumCifCli,RazSocCli:scope.RazSocCli,EsRepLeg:scope.EsRepLeg,TipRepr:scope.TipRepr,CanMinRep:scope.CanMinRep,TieFacEsc:scope.TieFacEsc,
+        EsColaborador:scope.EsColaborador,EsPrescritor:scope.EsPrescritor,DocPod:scope.DocPod});
+        scope.toast('success','Cliente Asignado Correctamente.','');
+        $("#modal_agregar_clientes").modal('hide');
+        scope.CodCliContacto=null;
+        scope.CodCliInsert=null;
+        scope.NumCifCli=null;
+        scope.RazSocCli=null;
+        scope.EsRepLeg=null;
+        scope.TipRepr='1';
+        scope.CanMinRep='1';
+        scope.TieFacEsc=null;
+        scope.EsColaborador=null;
+        scope.EsPrescritor=null;
+        scope.DocPod=null;
+        console.log(scope.Tabla_Contacto);
+      //} 
+      //else 
+      //{
+       // console.log('Cancelando ando...');
+      //}
+    //});
+
+};
+scope.validar_campos_detalles = function() 
+    {
+        resultado = true;        
+        if(scope.CodCliContacto==null||scope.CodCliContacto==undefined||scope.CodCliContacto=='')
+        {
+          scope.toast('error','Debe Seleccionar un Cliente.','Error');
+          return false;
+        }
+        if(scope.EsRepLeg==null||scope.EsRepLeg==undefined)
+        {
+          scope.toast('error','Debe indicar si es representante legal o no.','Error');
+          return false;
+        }
+        else
+        {
+          if(scope.EsRepLeg==0)
+          {
+            scope.DocPod=null;
+          }
+          else if(scope.EsRepLeg==1)
+          {
+            if(!scope.TipRepr>0)
+            {
+              scope.toast('error','Debe seleccionar un tipo de representación','Error');
+              return false;
+            }
+            if(scope.CanMinRep<0)
+            {
+              scope.toast('error','La cantidad de firmantes debe ser mayor a 0.','Error');
+              return false;
+            }
+            if(scope.DocPod==null||scope.DocPod==undefined)
+            {
+              scope.DocPod=null;
+            }
+            else
+            {
+              scope.DocPod=scope.DocPod;
+            }
+          }
+        }
+        if (resultado == false) 
+        {
+          return false;
+        }
+        return true;
+     }
 var i = -1;
 var toastCount = 0;
 var $toastlast;

@@ -490,8 +490,9 @@
         }
         console.log(scope.fdatos.detalleCUPs);
      }
-    scope.validar_campos_propuestas = function() {
-         resultado = true;
+    scope.validar_campos_propuestas = function() 
+    {
+        resultado = true;
          var FecProCom1 = document.getElementById("FecProCom").value;
          scope.FecProCom = FecProCom1;
          if (scope.FecProCom == null || scope.FecProCom == undefined || scope.FecProCom == '') {
