@@ -1641,17 +1641,23 @@ scope.validar_campos_detalles = function()
      }
 $scope.SelectFile = function (e) 
 {
-        scope.AddImagen(e.target.files[0]);
+  $("#cargando_I").removeClass("loader loader-default").addClass("loader loader-default is-active");
+  scope.AddImagen(e.target.files[0]);
 };
     scope.AddImagen = function(archivo)
     {
-        if (archivo==null){
-            $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default");   
-            scope.toast('error','Seleccione otro archivo','Error');
+        if (archivo==null)
+        {
+          $("#cargando_I").removeClass("loader loader-default is-active").addClass("loader loader-default");
+          scope.toast('error','Seleccione otro archivo','Error');
+          document.getElementById('DocPod').value = '';
+          $('#filenameDocPod').html('');
+          scope.imagen=null;
         }
         else
         {
-            $("#subiendo_archivo").removeClass("loader loader-default").addClass("loader loader-default is-active");
+            scope.toast('info','Subiendo Archivo, Por favor espere este proceso puede tardar segun el peso del archivo y tu conexión a internet','Enviando Archivo');
+            $("#cargando_I").removeClass("loader loader-default").addClass("loader loader-default is-active");
             formData = new FormData();
             formData.append('file', archivo);
             formData.append('x-api-key', $cookies.get('ApiKey'));
@@ -1669,7 +1675,7 @@ $scope.SelectFile = function (e)
                    console.log(data);
                    console.log(textStatus);
                    console.log(jqXHR);
-                    $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
+                    $("#cargando_I").removeClass( "loader loader-default is-active" ).addClass("loader loader-default")                          
                         if(data.status==404 && data.statusText=="Error")
                         {
                             scope.toast('error',data.menssage,data.statusText);
@@ -1688,7 +1694,7 @@ $scope.SelectFile = function (e)
                         }
                 },              
                 error: function(jqXHR, textStatus, errorThrown){
-                        $("#subiendo_archivo").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
+                        $("#cargando_I").removeClass( "loader loader-default is-active" ).addClass( "loader loader-default" );  
                         console.log(jqXHR);
                         console.log(textStatus);
                         scope.toast('error','Error Subiendo archivo.','Error');

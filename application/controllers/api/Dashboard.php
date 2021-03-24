@@ -261,6 +261,33 @@ class Dashboard extends REST_Controller
 			$this->response(array('status' =>201 ,'menssage' =>'Registrar Contacto','statusText'=>'OK'));
 		}
 	}
+	public function BuscarPorNombreoDni_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$this->db->trans_start();
+		$metodo=$this->get('metodo');
+		$InputText=$this->get('InputText');
+		if($metodo==1)
+		{	
+			$response=$this->Clientes_model->getPorDnioNombre($InputText,'a.NomConCli');
+
+		}
+		elseif ($metodo==2) {
+			$response=$this->Clientes_model->getPorDnioNombre($InputText,'a.NIFConCli');
+		}
+		else
+		{
+			$response=false;
+		}
+		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Buscando Contacto');
+		$this->db->trans_complete();
+		$this->response($response);		
+	}
 	public function agregar_documento_dashboard_post()
 	{
 		$datausuario=$this->session->all_userdata();	
@@ -270,7 +297,7 @@ class Dashboard extends REST_Controller
 		}
 		$metodo=$_POST['metodo'];
 		$this->load->helper("file");
-		if($metodo==1 ||$metodo==2 || $metodo==4)
+		if($metodo==1 ||$metodo==2 || $metodo==4||$metodo==5)
 		{
 			$config['upload_path']          = './documentos/';
 			$config['allowed_types']        = '*';

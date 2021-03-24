@@ -173,10 +173,11 @@ public function GetCUPsContratosElectricosGas($CodCups,$CodCli,$TipCups)
     }       
 }
 public function get_data_cliente_contactos($CodCli)
-{
-    $this->db->select('CodConCli,NomConCli,NIFConCli,CarConCli,case TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,EsRepLeg,DocNIF,DocPod',false);
-    $this->db->from('T_ContactoCliente');
-    $this->db->where('CodCli',$CodCli);
+{/*CodConCli,NomConCli,NIFConCli,CarConCli,case TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,EsRepLeg,DocNIF,DocPod*/
+    $this->db->select('b.CodConCli,b.NomConCli,b.NIFConCli,b.CarConCli,case a.TipRepr when 1 then "INDEPENDIENTE" when 2 then "MANCOMUNADA" end as TipRepr,a.EsRepLeg,b.DocNIF,a.DocPod',false);    
+    $this->db->from('T_ContactoDetalleCliente a');
+    $this->db->join('T_ContactoCliente b','a.CodConCli=b.CodConCli');
+    $this->db->where('a.CodCli',$CodCli);
     //$this->db->where('EsRepLeg=1');         
     $query = $this->db->get(); 
     if($query->num_rows()>0)

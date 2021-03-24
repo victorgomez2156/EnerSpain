@@ -174,7 +174,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                      </div>
                   </div>
 
-                  <div class="col-12 col-sm-6" ng-click="vm.containerClickedNIFNombre(1)">
+                  <div class="col-12 col-sm-6" ng-click="vm.containerClickedNIFNombre(2)">
                     <div class="form">                          
                       <div class="form-group">
                         <label class="font-weight-bold nexa-dark" style="color:black;">Número de Documento </label>
@@ -205,6 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       </div>
                     </div>
                   </div>
+
                   <div class="col-12 col-sm-4">
                     <div class="form">                          
                       <div class="form-group">    
@@ -228,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-             <div style="margin-top: 8px;">
+                            <div style="margin-top: 8px;">
                              <div align="center"><label class="font-weight-bold nexa-dark" style="color:#6d6e71;"><b>Datos Envío de facturas.</b></label></div></div>
 
                              <div class="col-12 col-sm-3">
@@ -342,11 +343,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
       </script>
 
-           <div class="form">                          
-           <div class="form-group">
-           <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
-           <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
-           </div>
+            <div class="form">                          
+              <div class="form-group">
+                <label class="font-weight-bold nexa-dark" style="color:black;">Comentarios</label>
+                <textarea type="text" class="form-control" ng-model="vm.tContacto_data_modal.ObsConC"  rows="5" maxlength="200" ng-disabled="vm.no_editable!=undefined"/></textarea>
+              </div>
            </div>
 
                        
@@ -354,7 +355,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
              <div align="center"><label class="font-weight-bold nexa-dark" style="color:gray;"><b>Datos del Cliente</b>  <a data-toggle="modal" title='Asignar Cliente al Contacto' data-target="#modal_agregar_clientes" class="btn btn-default"><div><i class="fa fa-plus-square"></i></div></a></label></div></div>
               
               <div class="table-responsive">
-          <table class="table table-striped table-advance table-hover table-responsive">
+               <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
                   <th>CodCli</th>
@@ -462,7 +463,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
 
 
-        <!-- modal container section end -->
+<!-- modal container section end -->
    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modal_agregar_clientes" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
