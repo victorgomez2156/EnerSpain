@@ -243,7 +243,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             if (object != undefined) {
                 numero = object;
                 if (!/^([/0-9])*$/.test(numero))
-                    scope.fdatos_cups.FecAltCup = numero.substring(0, numero.length - 1);
+                    scope.FecAltCup = numero.substring(0, numero.length - 1);
             }
         }
         if (metodo == 2) {
@@ -439,7 +439,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos_cups.PotMaxBie = null;
             scope.fdatos_cups.CodDis = null;
             scope.fdatos_cups.CodTar = null;
-            scope.fdatos_cups.FecAltCup = null;
+            scope.FecAltCup = null;
             scope.fdatos_cups.FecUltLec = null;
             scope.fdatos_cups.ConAnuCup = null;
         }
@@ -453,7 +453,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             scope.fdatos_cups.PotMaxBie = null;
             scope.fdatos_cups.CodDis = null;
             scope.fdatos_cups.CodTar = null;
-            scope.fdatos_cups.FecAltCup = null;
+            scope.FecAltCup = null;
             scope.fdatos_cups.FecUltLec = null;
             scope.fdatos_cups.ConAnuCup = null;
         }
@@ -519,6 +519,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     scope.Cups_Cif = result.data.NumCifCli + " - " + result.data.RazSocCli;
                     $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecAltCup);
                     $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.FecUltLec);
+                    scope.FecAltCup=result.data.FecAltCup;
                     //scope.TVistaCups=false;
                     scope.por_servicios(1);
                     console.log(result.data);
@@ -892,6 +893,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
             var text = '¿Seguro que desea registrar el CUPs?';
             var response = "CUPs creado de forma correcta";
         }
+        console.log(scope.fdatos_cups);
         Swal.fire({
             title: title,
             text: text,
@@ -921,6 +923,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                         console.log(scope.fdatos_cups);
                         $('.datepicker').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecAltCup);
                         $('.datepicker2').datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayHighlight: true }).datepicker("setDate", result.data.objSalida.FecUltLec);
+                        scope.FecAltCup=result.data.objSalida.FecAltCup;
                         scope.toast('success',result.data.response,title);
                         if(scope.fdatos_cups.AgregarNueva==false && scope.fdatos_cups.CodCup!=undefined)                            
                         { 
@@ -1263,11 +1266,11 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
 
         }
         var FecAltCup = document.getElementById("FecAltCup").value;
-        scope.fdatos_cups.FecAltCup = FecAltCup;
-        if (scope.fdatos_cups.FecAltCup == null || scope.fdatos_cups.FecAltCup == undefined || scope.fdatos_cups.FecAltCup == '') {
+        scope.FecAltCup = FecAltCup;
+        if (scope.FecAltCup == null || scope.FecAltCup == undefined || scope.FecAltCup == '') {
             scope.fdatos_cups.FecAltCup = null;
         } else {
-            var FecAltCup = (scope.fdatos_cups.FecAltCup).split("/");
+            var FecAltCup = (scope.FecAltCup).split("/");
             if (FecAltCup.length < 3) {
                 scope.toast('error','El formato Fecha de Alta correcto es DD/MM/YYYY','');
                 return false;
@@ -1286,7 +1289,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
                     return false;
                 }
                 var h1 = new Date();
-                var final = FecAltCup[0] + "/" + FecAltCup[1] + "/" + FecAltCup[2];
+                var final = FecAltCup[2] + "/" + FecAltCup[1] + "/" + FecAltCup[0];
                 scope.fdatos_cups.FecAltCup = final;
             }
 

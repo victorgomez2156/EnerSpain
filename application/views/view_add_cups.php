@@ -648,7 +648,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
        <div class="form">                          
        <div class="form-group">         
         <label class="font-weight-bold nexa-dark" style="color:black;">Fecha de Alta</label>
-        <input type="text" class="form-control datepicker" ng-model="vm.fdatos_cups.FecAltCup" name="FecAltCup" id="FecAltCup"  placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.fdatos_cups.FecAltCup)"/>
+        <input type="text" class="form-control datepicker" ng-model="vm.FecAltCup" name="FecAltCup" id="FecAltCup"  placeholder="DD/MM/YYYY" ng-disabled=" vm.validate_info!=undefined" ng-change="vm.validar_fecha_inputs(1,vm.FecAltCup)"/>
        </div>
        </div>
        </div>

@@ -1584,9 +1584,9 @@ $scope.SubmitFormClienteContactos = function(event)
         scope.DocPod=null;
         document.getElementById('DocPod').value = '';
         console.log(scope.Tabla_Contacto);
-  };
+};
 scope.validar_campos_detalles = function() 
-    {
+{
         resultado = true;        
         if(scope.CodCliInsert==null||scope.CodCliInsert==undefined||scope.CodCliInsert=='')
         {
@@ -1638,7 +1638,8 @@ scope.validar_campos_detalles = function()
           return false;
         }
         return true;
-     }
+}
+
 $scope.SelectFile = function (e) 
 {
   $("#cargando_I").removeClass("loader loader-default").addClass("loader loader-default is-active");

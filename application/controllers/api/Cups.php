@@ -367,7 +367,7 @@ public function Buscar_XID_Servicio_get()
        	 	$CodCup=$this->get('CodCup');
        	 	if($TipServ==1)
        	 	{
-       	 		$Select="a.CodCupsEle as CodCup,a.CodPunSum,SUBSTRING(a.CUPsEle,1,2)AS cups,SUBSTRING(a.CUPsEle,3,20)AS cups1,a.CodTarElec as CodTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.PotMaxBie,a.CodDis,DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli,d.CanPerTar";
+       	 		$Select="a.CodCupsEle as CodCup,a.CodPunSum,SUBSTRING(a.CUPsEle,1,2)AS cups,SUBSTRING(a.CUPsEle,3,20)AS cups1,a.CodTarElec as CodTar,a.PotConP1,a.PotConP2,a.PotConP3,a.PotConP4,a.PotConP5,a.PotConP6,a.PotMaxBie,a.CodDis,DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli,d.CanPerTar,a.DerAccKW";
        	 		$Tabla="T_CUPsElectrico a";
        	 		$Where="a.CodCupsEle";
        	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ); 
@@ -375,7 +375,7 @@ public function Buscar_XID_Servicio_get()
        	 	elseif ($TipServ==2) // T_TarifaElectrica
        	 	{
        	 		$Select="a.CodCupGas as CodCup,a.CodPunSum,SUBSTRING(a.CupsGas,1,2)AS cups,SUBSTRING(a.CupsGas,3,20)AS cups1,a.CodTarGas as CodTar,a.CodDis,
-				DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli";
+				DATE_FORMAT(a.FecAltCup,'%d/%m/%Y') as FecAltCup,DATE_FORMAT(a.FecUltLec,'%d/%m/%Y') as FecUltLec,a.TipServ,a.ConAnuCup,a.TipServ AS TipServAnt,b.CodCli,c.RazSocCli,c.NumCifCli,a.DerAccKW";
        	 		$Tabla="T_CUPsGas a";
        	 		$Where="a.CodCupGas";
        	 		$Result = $this->Cups_model->get_data_Cups($Select,$Tabla,$Where,$CodCup,$TipServ);
