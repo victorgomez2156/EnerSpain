@@ -1024,6 +1024,9 @@ class Dashboard extends REST_Controller
 	    elseif($metodo==2)
 	    {
 	    	$response= $this->Dashboard_model->Funcion_Verificadora($CodBuscar,'T_ContactoCliente','CodConCli','*');
+	    	$T_ProFis= $this->Dashboard_model->Funcion_Verificadora($response-> CodLocFis,'T_Localidad','CodLoc','*');
+			$response-> CodProFis = $T_ProFis-> CodPro;
+	    	$response->Tabla_Contacto=$this->Clientes_model->get_xID_ContactosDetalleNuevoMetodo($response-> CodConCli);	
 	    	$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',$CodBuscar,$this->input->ip_address(),'Cargando Información del Contacto Dashboard');
 	    }
 

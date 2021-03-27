@@ -1184,11 +1184,8 @@ scope.EditarDatosModal=function(variable,metodo,TipServ)
         scope.tContacto_data_modal.CodCli=scope.response_customer.CodCli;
         scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];
         document.getElementById('filenameDocNIF').value = '';
-        document.getElementById('DocPod_Modal').value = '';
         var namefileDocNIF = '';
-        $('#filenameDocNIF1').html(namefileDocNIF);
-        var filenameDocPod = '';
-        $('#filenameDocPod').html(filenameDocPod);
+        $('#filenameDocNIF1').html(namefileDocNIF);       
         scope.cargar_tiposContactos(9);
         scope.cargar_tiposContactos(3);
         scope.cargar_tiposContactos(12);
@@ -1361,6 +1358,10 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
         else if(metodo==2)
         { 
           scope.tContacto_data_modal=result.data;
+          if(result.data.Tabla_Contacto!=false)
+          {
+            scope.Tabla_Contacto=result.data.Tabla_Contacto;
+          }
           scope.CodCliContacto=result.data.NumCifCli;  
           if(result.data.ConPrin==null ||result.data.ConPrin==0)
           {
@@ -1370,7 +1371,12 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
           {
             scope.tContacto_data_modal.ConPrin=true;
           }
-          scope.DirCliente();
+          if(scope.tContacto_data_modal.CodProFis!=null)
+          {
+              scope.BuscarLocalidad(5,scope.tContacto_data_modal.CodProFis);
+          }
+
+          //scope.DirCliente();
         }
         else if(metodo==3)
         {

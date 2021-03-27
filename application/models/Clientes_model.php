@@ -681,7 +681,7 @@ else
 
 public function get_lista_contactos()
 {
- $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a LEFT JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli");
+ $sql = $this->db->query("SELECT a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli FROM T_ContactoCliente a LEFT JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon JOIN T_Cliente c on a.CodCli=c.CodCli ORDER BY a.NomConCli ASC");
  if ($sql->num_rows() > 0)
   return $sql->result();
 else
