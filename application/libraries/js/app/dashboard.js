@@ -286,12 +286,20 @@
                    angular.forEach(result.data.Contactos, function(Contactos) {
                        
                        if (Contactos.EsRepLeg == 1) {
-                             //Contactos.DocNIF
+                             
+                             //console.log(Contactos);
                              if(Contactos.DocNIF!=null)
                              {
-                                var Fichero = (Contactos.DocNIF).split("/");
-                                 //console.log(Fichero);
-                                 var Fichero_Final = Fichero[1];
+                                var Fichero = (Contactos.DocNIF).split("/");                                 
+                                 console.log(Fichero);                                 
+                                 if(Fichero.length==1)
+                                 {
+                                    var Fichero_Final = 'No se puedo identificar la ruta del archivo.';
+                                 }
+                                 else
+                                 {
+                                    var Fichero_Final = Fichero[1];
+                                 }
                                  //console.log(Fichero_Final);
                                  scope.response_customer.documentos.push({ ArcDoc: Contactos.DocNIF, DesDoc: Fichero_Final, DesTipDoc: Contactos.TipRepr, CodTipDoc: null });
                          

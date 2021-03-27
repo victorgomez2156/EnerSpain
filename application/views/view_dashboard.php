@@ -556,7 +556,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<div class="form">                          
 											<div class="form-group"> 
 												<label class="font-weight-bold nexa-dark" style="color:black;">Acción </label>    
-												<a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" download="Documento"  type="button"><i class="fa fa-download"></i></a> 
+												<a class="btn btn-info" href="{{vm.response_customer.documentos[$index].ArcDoc}}" title="Descargar Documento {{vm.response_customer.documentos[$index].ArcDoc}}" download="{{vm.response_customer.documentos[$index].DesDoc}}"  type="button"><i class="fa fa-download"></i></a> 
 												<!--a class="btn btn-success" ng-show="dato.CodTipDoc!=null" href="#/Edit_Documentos/{{vm.response_customer.documentos[$index].CodTipDocAI}}"><i class="fa fa-edit"></i></a-->
 												<button class="btn btn-success" ng-click="vm.EditarDatosModal(dato.CodTipDocAI,5)" ng-show="dato.CodTipDoc!=null"><i class="fa fa-edit"></i></button> 
 											</div>
