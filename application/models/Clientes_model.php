@@ -835,8 +835,9 @@ public function UpdateOldContacto($CodConCli)
 }
 public function getPorDnioNombre($SearchText,$like)
 {
-    $this->db->select("*",false);
+    $this->db->select("a.*,b.CodPro",false);
     $this->db->from('T_ContactoCliente a');
+    $this->db->JOIN('T_Localidad b','a.CodLocFis=b.CodLoc','LEFT');
     $this->db->like($like,$SearchText);
     $this->db->order_by('a.NomConCli ASC');
     $query = $this->db->get(); 

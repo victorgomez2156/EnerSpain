@@ -273,8 +273,7 @@ class Dashboard extends REST_Controller
 		$InputText=$this->get('InputText');
 		if($metodo==1)
 		{	
-			$response=$this->Clientes_model->getPorDnioNombre($InputText,'a.NomConCli');
-
+			$response=$this->Clientes_model->getPorDnioNombre($InputText,'a.NomConCli');			
 		}
 		elseif ($metodo==2) {
 			$response=$this->Clientes_model->getPorDnioNombre($InputText,'a.NIFConCli');
@@ -287,6 +286,20 @@ class Dashboard extends REST_Controller
 		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Buscando Contacto');
 		$this->db->trans_complete();
 		$this->response($response);		
+	}
+	public function getDetalleContactosClientes_get()
+	{
+		$datausuario=$this->session->all_userdata();	
+		if (!isset($datausuario['sesion_clientes']))
+		{
+			redirect(base_url(), 'location', 301);
+		}
+		$this->db->trans_start();
+		$CodConCli=$this->get('CodConCli');
+		$Tabla_Contacto=$this->Clientes_model->get_xID_ContactosDetalleNuevoMetodo($CodConCli);		
+		$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoClienteDetalle','GET',null,$this->input->ip_address(),'Buscando Detalle del Contacto en Dashboard');
+		$this->db->trans_complete();
+		$this->response($Tabla_Contacto);		
 	}
 	public function agregar_documento_dashboard_post()
 	{
@@ -364,6 +377,94 @@ class Dashboard extends REST_Controller
 		if (isset($objSalida->CodConCli))
 		{					
 			$validar_contacto=$this->Clientes_model->validar_CIF_NIF_Existente_UPDATE($objSalida->CodConCli);
+			if($objSalida->NIFConCli!=null)
+			{
+				if($objSalida->NIFConCli!=$validar_contacto->NIFConCli)
+				{
+					$validar_contacto1=$this->Clientes_model->validar_CIF_NIF_Existente_NuevoMetodo($objSalida->NIFConCli);
+					if (!empty($validar_contacto1))
+					{
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',null,$this->input->ip_address(),'Número de CIF ya Existe');
+						$arrayName = array('status' =>400 ,'menssage'=>'Este número de CIF Ya se encuentra registado','objSalida'=>$objSalida,'response'=>'Error CIF');
+						$this->db->trans_complete();
+						$this->response($arrayName);
+					}
+					else
+					{
+						$this->Clientes_model->actualizar_contactoNuevoMetodo($objSalida->CodConCli,$objSalida->NomConCli,$objSalida->NumColeCon,$objSalida->NIFConCli,$objSalida->CarConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->CodTipViaFis,$objSalida->NomViaDomFis,$objSalida->NumViaDomFis,$objSalida->CPLocFis,$objSalida->CodLocFis,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->ConPrin);
+						$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');					
+						$arrayName = array('status' =>200 ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>'Exito');
+					}
+				}
+				else
+				{
+					$this->Clientes_model->actualizar_contactoNuevoMetodo($objSalida->CodConCli,$objSalida->NomConCli,$objSalida->NumColeCon,$objSalida->NIFConCli,$objSalida->CarConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->CodTipViaFis,$objSalida->NomViaDomFis,$objSalida->NumViaDomFis,$objSalida->CPLocFis,$objSalida->CodLocFis,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->ConPrin);
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
+					$arrayName = array('status' =>200 ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>'Exito');
+				}				
+			}
+			else
+			{
+				$this->Clientes_model->actualizar_contactoNuevoMetodo($objSalida->CodConCli,$objSalida->NomConCli,$objSalida->NumColeCon,$objSalida->NIFConCli,$objSalida->CarConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->CodTipViaFis,$objSalida->NomViaDomFis,$objSalida->NumViaDomFis,$objSalida->CPLocFis,$objSalida->CodLocFis,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->ConPrin);
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','UPDATE',$objSalida->CodConCli,$this->input->ip_address(),'Actualizando registro del Contrato');
+				$arrayName = array('status' =>200 ,'menssage'=>'Contacto modificado de forma correcta','objSalida'=>$objSalida,'response'=>'UPDATE');				
+			}
+			$this->Clientes_model->EliminarDetalleNuevoMetodo($objSalida->CodConCli);
+			if($objSalida-> Tabla_Contacto!=false)
+			{
+				foreach ($objSalida-> Tabla_Contacto as $key => $value): 
+				{					
+					$this->Clientes_model->agregar_contactoDetalleNuevoMetodo($objSalida->CodConCli,$value-> CodCli,$value-> EsRepLeg,$value-> TieFacEsc,$value-> EsPrescritor,$value-> EsColaborador,$value-> DocPod,$value-> CanMinRep,$value-> TipRepr);
+				}
+				endforeach;
+			}
+
+			$this->db->trans_complete();
+			$this->response($arrayName);			
+		}
+		else
+		{
+			if($objSalida->NIFConCli!=null)
+			{
+				$validar_contacto=$this->Clientes_model->validar_CIF_NIF_Existente_NuevoMetodo($objSalida->NIFConCli);
+				if(!empty($validar_contacto))
+				{
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',null,$this->input->ip_address(),'Número de CIF ya se encuentra registrado');
+					$arrayName = array('status' =>400 ,'menssage'=>'El Número de Documento Ya Se Encuentra Registrado.','objSalida'=>$objSalida,'response'=>'Error CIF');
+					$this->db->trans_complete();
+					$this->response($arrayName);
+				}
+				else
+				{
+					$id = $this->Clientes_model->agregar_contactoNuevoMetodo($objSalida->NomConCli,$objSalida->NumColeCon,$objSalida->NIFConCli,$objSalida->CarConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->CodTipViaFis,$objSalida->NomViaDomFis,$objSalida->NumViaDomFis,$objSalida->CPLocFis,$objSalida->CodLocFis,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->ConPrin);
+					$objSalida->CodConCli=$id;	
+					$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto.');
+					$arrayName = array('status' =>200 ,'menssage'=>'Contacto creado de forma correcta','response'=>'UPDATE','objSalida'=>$objSalida);				
+				}
+
+			}
+			else
+			{
+				$id = $this->Clientes_model->agregar_contactoNuevoMetodo($objSalida->NomConCli,$objSalida->NumColeCon,$objSalida->NIFConCli,$objSalida->CarConCli,$objSalida->TelFijConCli,$objSalida->TelCelConCli,$objSalida->EmaConCli,$objSalida->CodTipViaFis,$objSalida->NomViaDomFis,$objSalida->NumViaDomFis,$objSalida->CPLocFis,$objSalida->CodLocFis,$objSalida->DocNIF,$objSalida->ObsConC,$objSalida->ConPrin);
+				$objSalida->CodConCli=$id;	
+				$this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','INSERT',$objSalida->CodConCli,$this->input->ip_address(),'Creando Contacto.');
+				$arrayName = array('status' =>200 ,'menssage'=>'Contacto creado de forma correcta','response'=>'UPDATE','objSalida'=>$objSalida);				
+			}
+			$this->Clientes_model->EliminarDetalleNuevoMetodo($id);
+			if($objSalida-> Tabla_Contacto!=false)
+			{
+				foreach ($objSalida-> Tabla_Contacto as $key => $value): 
+				{					
+					$this->Clientes_model->agregar_contactoDetalleNuevoMetodo($id,$value-> CodCli,$value-> EsRepLeg,$value-> TieFacEsc,$value-> EsPrescritor,$value-> EsColaborador,$value-> DocPod,$value-> CanMinRep,$value-> TipRepr);
+				}
+				endforeach;
+			}
+			$this->db->trans_complete();
+			$this->response($arrayName);
+		}
+		/*if (isset($objSalida->CodConCli))
+		{					
+			$validar_contacto=$this->Clientes_model->validar_CIF_NIF_Existente_UPDATE($objSalida->CodConCli);
 			if($objSalida->CodCli!=$validar_contacto->CodCli && $objSalida->NIFConCli==$validar_contacto->NIFConCli)
 			{
 				$validar_contacto1=$this->Clientes_model->validar_CIF_NIF_Existente($objSalida->NIFConCli,$objSalida->CodCli);
@@ -418,7 +519,11 @@ class Dashboard extends REST_Controller
 				$this->db->trans_complete();
 				$this->response($arrayName);	
 			}		
-		}		
+		}*/
+		$arrayName = array('status' =>200 ,'menssage'=>'Verificando Proceso','objSalida'=>$objSalida,'response'=>true);
+		$this->db->trans_complete();
+		$this->response($arrayName);
+
 	}
 	////////////////////////////////////// PARA CONTACTOS CLIENTES END ////////////////////////////////////////////////////////
 

@@ -1,6 +1,37 @@
- app.controller('Controlador_Dashbord', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile','ServiceAddClientes', Controlador]);
+ app.controller('Controlador_Dashbord', ['$http', '$scope', '$filter', '$route', '$interval', '$controller', '$cookies', '$compile','ServiceAddClientes','upload', Controlador])
+  .directive('uploaderModel', ["$parse", function($parse) {
+   return {
+       restrict: 'A',
+       link: function(scope, iElement, iAttrs) {
+           iElement.on("change", function(e) {
+               $parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+           });
+       }
+   };
+}])
+ .service('upload', ["$http", "$q", function($http, $q) {
+   this.uploadFile = function(file, name) {
+       var deferred = $q.defer();
+       var formData = new FormData();
+             //formData.append("name", name);
+             formData.append("file", file);
+             return $http.post("server.php", formData, {
+               headers: {
+                   "Content-type": undefined
+               },
+               transformRequest: angular.identity
+           })
+             .success(function(res) {
+               deferred.resolve(res);
+           })
+             .error(function(msg, code) {
+               deferred.reject(msg);
+           })
+             return deferred.promise;
+         }
+     }])
 
- function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile,ServiceAddClientes) {
+ function Controlador($http, $scope, $filter, $route, $interval, $controller, $cookies, $compile,ServiceAddClientes,upload) {
    var scope = this;
    scope.fdatos = {};
    scope.searchResult = {};
@@ -18,6 +49,7 @@
        mm = '0' + mm;
    }
    var fecha = dd + '/' + mm + '/' + yyyy;
+    const $Archivo_DocNIF = document.querySelector("#DocNIF");
     ////////////////////////////////////////////////// PARA EL DASHBOARD START ////////////////////////////////////////////////////////
     //console.log($route.current.$$route.originalPath);
      scope.showDatosGenerales = true;
@@ -1029,6 +1061,8 @@ scope.agregar_datos_dashboard=function(metodo)
             scope.TipRepr='1';
             scope.CanMinRep='1';
             scope.TieFacEsc=null;
+            scope.ResultNombreContacto={};
+            scope.ResultNIFContacto={};
             scope.EsColaborador=null;
             scope.EsPrescritor=null;
             scope.DocPod=null;
@@ -1397,8 +1431,25 @@ scope.FuncionEditarDatos=function(CodBuscar,metodo,TipServ)
     });
 }
 
-
-
+$scope.uploadFile = function(metodo) {
+       if (metodo == 1) {
+           var file = $scope.DocNIF;
+       }
+       if (metodo == 2) {
+           var file = $scope.DocPod;
+       }
+       upload.uploadFile(file, name).then(function(res) {}, function(error) {
+        if (error.status == 404 && error.statusText == "Not Found"){
+            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+        }if (error.status == 401 && error.statusText == "Unauthorized"){
+            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+        }if (error.status == 403 && error.statusText == "Forbidden"){
+            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+        }
+    });
+   }
 ////////////////////////////////////////////////////// PARA AGREGAR CLIENTES DESDE DASHBOARD START ///////////////////////////////////////////////////////////
 scope.asignar_a_nombre_comercial = function() {
          scope.tModalDatosClientes.NomComCli = scope.tModalDatosClientes.RazSocCli;
@@ -2815,12 +2866,37 @@ scope.misma_razon = function(opcion) {
     }        
 }
 $scope.submitFormRegistroContacto = function(event) 
-{
+{ 
+     let Archivo_DocNIF = $Archivo_DocNIF.files;
+       if ($Archivo_DocNIF.files.length > 0) {
+           if ($Archivo_DocNIF.files[0].type == "application/pdf" || $Archivo_DocNIF.files[0].type == "image/jpeg" || $Archivo_DocNIF.files[0].type == "image/png") {
+               if ($Archivo_DocNIF.files[0].size > 2097152) {
+                   scope.toast('error','El tamaño del fichero no debe ser superior a 2 MB','Error');
+                   scope.tContacto_data_modal.DocNIF = null;
+                   document.getElementById('DocNIF').value = '';
+                   return false;
+               } else {
+                   var tipo_file = ($Archivo_DocNIF.files[0].type).split("/");
+                   $Archivo_DocNIF.files[0].type;
+                   scope.tContacto_data_modal.DocNIF = 'documentos/' + $Archivo_DocNIF.files[0].name;
+                   document.getElementById('DocNIF').value = '';
+               }
+           } else {
+               scope.toast('error','Formato de fichero incorrecto, debe ser PDF, JPG o PNG','Error');
+               document.getElementById('DocNIF').value = '';
+               return false;
+           }
+       } else {
+           document.getElementById('DocNIF').value = '';
+           if (scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == null) {
+               scope.tContacto_data_modal.DocNIF = null;
+           } else {
+               scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
+           }
+       }
     if (!scope.validar_campos_contactos_null()) {
            return false;
-       }
-       //console.log(scope.tContacto_data_modal);
-       
+       }       
        if (scope.tContacto_data_modal.CodConCli > 0) {
            var title = 'Actualizando';
            var text = '¿Seguro que desea actualizar la información del Contacto?';
@@ -2828,6 +2904,14 @@ $scope.submitFormRegistroContacto = function(event)
        if (scope.tContacto_data_modal.CodConCli == undefined) {
            var title = 'Guardando';
            var text = '¿Seguro que desea registrar el Contacto?';
+       }
+       if(scope.Tabla_Contacto.length==0)
+       {
+          scope.tContacto_data_modal.Tabla_Contacto=false;
+       }
+       else
+       {
+          scope.tContacto_data_modal.Tabla_Contacto=scope.Tabla_Contacto;
        }
        console.log(scope.tContacto_data_modal);
        Swal.fire({
@@ -2840,24 +2924,26 @@ $scope.submitFormRegistroContacto = function(event)
        }).then(function(t) {
            if (t.value == true) {               
                $("#" + title).removeClass("loader loader-default").addClass("loader loader-default is-active");
+                if ($Archivo_DocNIF.files.length > 0) {
+                   $scope.uploadFile(1);
+               }
                var url = base_urlHome() + "api/Dashboard/Registro_Contacto";
                $http.post(url, scope.tContacto_data_modal).then(function(result) 
                 {
                    $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");                       
                    console.log(result);
-                   if (result.data.status == false && result.data.response == false) {
-                       scope.toast('error',result.data.menssage,title);
+                  if(result.data.status == 400 && result.data.response =="Error CIF")
+                  {
+                    scope.toast('error',result.data.menssage,title);
+                  }
+                  if (result.data.status == 200 && result.data.response == 'Exito') {
+                      $('#modal_agregarContactos').modal('hide');                        
+                      scope.view_information(); 
                    }
-                   if (result.data.status == true && result.data.response == true) {
-                       $('#modal_agregarContactos').modal('hide'); 
-                        /*$('#modal_agregarCUPs').modal('hide');
-                        $('#modal_agregarCuentasBancarias').modal('hide');
-                        $('#modal_agregarDocumentos').modal('hide');
-                        $('#modal_agregarNuevoCliente').modal('hide');*/
-
-                       //$('#modal_agregarContactos').modal('hide');
-                       scope.view_information();                       
-                   }
+                   if (result.data.status == 200 && result.data.response == 'UPDATE') {
+                       $('#modal_agregarContactos').modal('hide');                        
+                      scope.view_information(); 
+                   }                   
                 }, function(error) {
                    $("#" + title).removeClass("loader loader-default  is-active").addClass("loader loader-default");
                    if (error.status == 404 && error.statusText == "Not Found"){
@@ -2878,11 +2964,109 @@ $scope.submitFormRegistroContacto = function(event)
    scope.validar_campos_contactos_null = function() {
        resultado = true;
       
-       if (scope.tContacto_data_modal.NIFConCli == null || scope.tContacto_data_modal.NIFConCli == undefined || scope.tContacto_data_modal.NIFConCli == '') {
-           scope.toast('error','Debe ingresar un número de DNI/NIE/CIF','');
+       if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
+           scope.toast('error','Debe ingresar un nombre para el contacto','');
            return false;
        }
-       if (!scope.tContacto_data_modal.CodTipViaSoc > 0) {
+       if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
+           scope.toast('error','El Cargo del Contacto es requerido','');
+           return false;
+       }
+        if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
+           scope.toast('error','El Teléfono Fijo del Contato es requerido','');
+           return false;
+       }
+       if (scope.tContacto_data_modal.NumColeCon == undefined||scope.tContacto_data_modal.NumColeCon == null||scope.tContacto_data_modal.NumColeCon == '') {
+           scope.tContacto_data_modal.NumColeCon =null;
+         }
+         else
+         {
+            scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
+        } 
+        if (scope.tContacto_data_modal.NIFConCli == undefined||scope.tContacto_data_modal.NIFConCli == null||scope.tContacto_data_modal.NIFConCli == '') {
+           scope.tContacto_data_modal.NIFConCli =null;
+         }
+         else
+         {
+            scope.tContacto_data_modal.NIFConCli=scope.tContacto_data_modal.NIFConCli;
+         }  
+
+         if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
+           scope.tContacto_data_modal.TelCelConCli=null;             
+        }
+        else
+           {scope.tContacto_data_modal.TelCelConCli=scope.tContacto_data_modal.TelCelConCli;
+
+           }
+           if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
+           scope.tContacto_data_modal.EmaConCli=null;             
+        }
+        else
+           {scope.tContacto_data_modal.EmaConCli=scope.tContacto_data_modal.EmaConCli;
+
+           } 
+        if (!scope.tContacto_data_modal.CodTipViaFis > 0) {
+            scope.tContacto_data_modal.CodTipViaFis=null;
+        }
+        else
+        {
+          scope.tContacto_data_modal.CodTipViaFis=scope.tContacto_data_modal.CodTipViaFis;
+        }
+        
+        if (scope.tContacto_data_modal.NomViaDomFis == null || scope.tContacto_data_modal.NomViaDomFis == undefined || scope.tContacto_data_modal.NomViaDomFis == '') {
+           scope.tContacto_data_modal.NomViaDomFis=null;             
+        }
+        else
+           {scope.tContacto_data_modal.NomViaDomFis=scope.tContacto_data_modal.NomViaDomFis;
+
+           } 
+            if (scope.tContacto_data_modal.NumViaDomFis == null || scope.tContacto_data_modal.NumViaDomFis == undefined || scope.tContacto_data_modal.NumViaDomFis == '') {
+           scope.tContacto_data_modal.NumViaDomFis=null;             
+        }
+        else
+           {scope.tContacto_data_modal.NumViaDomFis=scope.tContacto_data_modal.NumViaDomFis;
+
+           } 
+            if (scope.tContacto_data_modal.CPLocFis == null || scope.tContacto_data_modal.CPLocFis == undefined || scope.tContacto_data_modal.CPLocFis == '') {
+           scope.tContacto_data_modal.CPLocFis=null;             
+        }
+        else
+           {scope.tContacto_data_modal.CPLocFis=scope.tContacto_data_modal.CPLocFis;
+
+           } 
+          
+           if (!scope.tContacto_data_modal.CodProFis > 0) {
+            scope.tContacto_data_modal.CodProFis=null;
+        }
+        else
+        {
+          scope.tContacto_data_modal.CodProFis=scope.tContacto_data_modal.CodProFis;
+        }
+        if (!scope.tContacto_data_modal.CodLocFis > 0) {
+            scope.tContacto_data_modal.CodLocFis=null;
+        }
+        else
+        {
+          scope.tContacto_data_modal.CodLocFis=scope.tContacto_data_modal.CodLocFis;
+        }
+
+         if (scope.tContacto_data_modal.DocNIF == null || scope.tContacto_data_modal.DocNIF == undefined || scope.tContacto_data_modal.DocNIF == '') {
+           scope.tContacto_data_modal.DocNIF=null;             
+        }
+        else
+           {scope.tContacto_data_modal.DocNIF=scope.tContacto_data_modal.DocNIF;
+
+           } 
+
+            if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
+           scope.tContacto_data_modal.ObsConC=null;             
+        }
+        else
+           {scope.tContacto_data_modal.ObsConC=scope.tContacto_data_modal.ObsConC;
+
+           } 
+           scope.tContacto_data_modal.ConPrin=null;
+       /*if (!scope.tContacto_data_modal.CodTipViaSoc > 0) {
            scope.toast('error','Seleccione un Tipo de Vía para el Domicilio Social','');
            return false;
        }
@@ -2906,38 +3090,18 @@ $scope.submitFormRegistroContacto = function(event)
            scope.toast('error','Seleccione un Tipo de Contacto','');
            return false;
        }
-       if (scope.tContacto_data_modal.CarConCli == null || scope.tContacto_data_modal.CarConCli == undefined || scope.tContacto_data_modal.CarConCli == '') {
-           scope.toast('error','El Cargo del Contacto es requerido','');
-           return false;
-       }
+       
        if (scope.tContacto_data_modal.NomConCli == null || scope.tContacto_data_modal.NomConCli == undefined || scope.tContacto_data_modal.NomConCli == '') {
            scope.toast('error','El Nombre del Contacto es requerido','');
            return false;
-       }
-       if (scope.tContacto_data_modal.TelFijConCli == null || scope.tContacto_data_modal.TelFijConCli == undefined || scope.tContacto_data_modal.TelFijConCli == '') {
-           scope.toast('error','El Teléfono Fijo del Contato es requerido','');
-           return false;
-       }
-       if (scope.tContacto_data_modal.TelCelConCli == null || scope.tContacto_data_modal.TelCelConCli == undefined || scope.tContacto_data_modal.TelCelConCli == '') {
-           scope.tContacto_data_modal.TelCelConCli=null;             
-       }
-       else
-           {scope.tContacto_data_modal.TelCelConCli=scope.tContacto_data_modal.TelCelConCli;
-
-           }
-           if (scope.tContacto_data_modal.EmaConCli == null || scope.tContacto_data_modal.EmaConCli == undefined || scope.tContacto_data_modal.EmaConCli == '') {
-               scope.toast('error','El Email del Contacto es requerido','');
-               return false;
-           }
+       }      
+      
+           
            if (scope.tContacto_data_modal.CanMinRep <= 0) {
                scope.toast('error','El Cliente debe tener al menos un Firmante','');
                return false;
            }
-           if (scope.tContacto_data_modal.ObsConC == null || scope.tContacto_data_modal.ObsConC == undefined || scope.tContacto_data_modal.ObsConC == '') {
-               scope.tContacto_data_modal.ObsConC = null;
-           } else {
-               scope.tContacto_data_modal.ObsConC = scope.tContacto_data_modal.ObsConC;
-           }
+          
            if (scope.tContacto_data_modal.EsRepLeg == 1) {
                
                if (!scope.tContacto_data_modal.TipRepr > 0) {
@@ -2967,15 +3131,7 @@ $scope.submitFormRegistroContacto = function(event)
          {
             scope.tContacto_data_modal.TieFacEsc=scope.tContacto_data_modal.TieFacEsc;
         } 
-        if (scope.tContacto_data_modal.NumColeCon == undefined||scope.tContacto_data_modal.NumColeCon == null||scope.tContacto_data_modal.NumColeCon == '') {
-           scope.tContacto_data_modal.NumColeCon =null;
-             //scope.toast('error','Indique si el Firmante tiene o no falcutad en Escrituras','');
-             //return false;
-         }
-         else
-         {
-            scope.tContacto_data_modal.NumColeCon=scope.tContacto_data_modal.NumColeCon;
-        }         
+              
         if (scope.tContacto_data_modal.TieFacEsc == 0) {
 
            if (scope.tContacto_data_modal.DocPod == undefined || scope.tContacto_data_modal.DocPod == null|| scope.tContacto_data_modal.DocPod == '') {
@@ -2992,7 +3148,7 @@ $scope.submitFormRegistroContacto = function(event)
            scope.tContacto_data_modal.DocNIF = null;
        } else {
            scope.tContacto_data_modal.DocNIF = scope.tContacto_data_modal.DocNIF;
-       }
+       }*/
 
        if (scope.tContacto_data_modal.BloDomSoc == null || scope.tContacto_data_modal.BloDomSoc == undefined || scope.tContacto_data_modal.BloDomSoc == '') {
            scope.tContacto_data_modal.BloDomSoc = null;
@@ -3200,6 +3356,26 @@ scope.validar_campos_detalles = function()
           {
             /*location.href="#/Edit_Contactos/"+scope.ResultNombreContacto[index].CodConCli;
             scope.tContacto_data_modal.NomConCli=scope.ResultNombreContacto[index].NomConCli;*/
+            console.log(index);
+            console.log($event);
+            console.log(result);
+            console.log(metodo);
+            scope.tContacto_data_modal.CodConCli=scope.ResultNombreContacto[index].CodConCli;
+            scope.tContacto_data_modal.NomConCli=scope.ResultNombreContacto[index].NomConCli;
+            scope.tContacto_data_modal.NumColeCon=scope.ResultNombreContacto[index].NumColeCon;
+            scope.tContacto_data_modal.NIFConCli=scope.ResultNombreContacto[index].NIFConCli;
+            scope.tContacto_data_modal.CarConCli=scope.ResultNombreContacto[index].CarConCli;
+            scope.tContacto_data_modal.TelFijConCli=scope.ResultNombreContacto[index].TelFijConCli;
+            scope.tContacto_data_modal.TelCelConCli=scope.ResultNombreContacto[index].TelCelConCli;
+            scope.tContacto_data_modal.EmaConCli=scope.ResultNombreContacto[index].EmaConCli;
+            scope.tContacto_data_modal.CodTipViaFis=scope.ResultNombreContacto[index].CodTipViaFis;
+            scope.tContacto_data_modal.NomViaDomFis=scope.ResultNombreContacto[index].NomViaDomFis;
+            scope.tContacto_data_modal.NumViaDomFis=scope.ResultNombreContacto[index].NumViaDomFis;
+            scope.tContacto_data_modal.CPLocFis=scope.ResultNombreContacto[index].CPLocFis;
+            scope.tContacto_data_modal.CodProFis=scope.ResultNombreContacto[index].CodPro;
+            scope.tContacto_data_modal.CodLocFis=scope.ResultNombreContacto[index].CodLocFis;
+            scope.tContacto_data_modal.DocNIF=scope.ResultNombreContacto[index].DocNIF;
+            scope.tContacto_data_modal.ObsConC=scope.ResultNombreContacto[index].ObsConC;            
             scope.ResultNombreContacto = {};
             $event.stopPropagation();
             
@@ -3208,10 +3384,81 @@ scope.validar_campos_detalles = function()
           {
             /*location.href="#/Edit_Contactos/"+scope.ResultNIFContacto[index].CodConCli;
             scope.tContacto_data_modal.NIFConCli=scope.ResultNIFContacto[index].NIFConCli;*/
+            console.log(index);
+            console.log($event);
+            console.log(result);
+            console.log(metodo);
+            scope.tContacto_data_modal.CodConCli=scope.ResultNIFContacto[index].CodConCli;
+            scope.tContacto_data_modal.NomConCli=scope.ResultNIFContacto[index].NomConCli;
+            scope.tContacto_data_modal.NumColeCon=scope.ResultNIFContacto[index].NumColeCon;
+            scope.tContacto_data_modal.NIFConCli=scope.ResultNIFContacto[index].NIFConCli;
+            scope.tContacto_data_modal.CarConCli=scope.ResultNIFContacto[index].CarConCli;
+            scope.tContacto_data_modal.TelFijConCli=scope.ResultNIFContacto[index].TelFijConCli;
+            scope.tContacto_data_modal.TelCelConCli=scope.ResultNIFContacto[index].TelCelConCli;
+            scope.tContacto_data_modal.EmaConCli=scope.ResultNIFContacto[index].EmaConCli;
+            scope.tContacto_data_modal.CodTipViaFis=scope.ResultNIFContacto[index].CodTipViaFis;
+            scope.tContacto_data_modal.NomViaDomFis=scope.ResultNIFContacto[index].NomViaDomFis;
+            scope.tContacto_data_modal.NumViaDomFis=scope.ResultNIFContacto[index].NumViaDomFis;
+            scope.tContacto_data_modal.CPLocFis=scope.ResultNIFContacto[index].CPLocFis;
+            scope.tContacto_data_modal.CodProFis=scope.ResultNIFContacto[index].CodPro;
+            scope.tContacto_data_modal.CodLocFis=scope.ResultNIFContacto[index].CodLocFis;
+            scope.tContacto_data_modal.DocNIF=scope.ResultNIFContacto[index].DocNIF;
+            scope.tContacto_data_modal.ObsConC=scope.ResultNIFContacto[index].ObsConC;  
             scope.ResultNIFContacto = {};
             $event.stopPropagation();            
           }
-          
+          if(scope.tContacto_data_modal.CodProFis!=null)
+          {
+            scope.BuscarLocalidad(5,scope.tContacto_data_modal.CodProFis)
+          }
+          scope.BuscarDetalleContactoClientes(scope.tContacto_data_modal.CodConCli);
+    }
+    scope.BuscarDetalleContactoClientes=function(CodConCli)
+    {
+       var url=base_urlHome()+"api/Dashboard/getDetalleContactosClientes/CodConCli/"+CodConCli;
+       $http.get(url).then(function(result)
+       {
+        if(result.data!=false)
+        {
+          $scope.predicate2 = 'id';
+          $scope.reverse2 = true;
+          $scope.currentPage2 = 1;
+          $scope.order2 = function(predicate2) {
+                                   $scope.reverse2 = ($scope.predicate2 === predicate2) ? !$scope.reverse2 : false;
+                                   $scope.predicate2 = predicate2;
+                               };
+                               scope.Tabla_Contacto = result.data;
+                               $scope.totalItems2 = scope.Tabla_Contacto.length;
+                               $scope.numPerPage2 = 50;
+                               $scope.paginate2 = function(value2) {
+                                   var begin2, end2, index2;
+                                   begin2 = ($scope.currentPage2 - 1) * $scope.numPerPage2;
+                                   end2 = begin2 + $scope.numPerPage2;
+                                   index2 = scope.Tabla_Contacto.indexOf(value2);
+                                   return (begin2 <= index2 && index2 < end2);
+                               };
+
+        }
+        else
+        {
+          scope.Tabla_Contacto = [];
+          scope.toast('error','Este Contacto aun no posee clientes asignados','Contacto Sin Cliente');
+        }
+
+       },function(error)
+       {
+          if (error.status == 404 && error.statusText == "Not Found"){
+                            scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                            }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                            }if (error.status == 403 && error.statusText == "Forbidden"){
+                                scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                            }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                            scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                            }
+
+       });
+
     }
    scope.verificar_representante_legal = function() {
 

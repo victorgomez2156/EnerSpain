@@ -1384,7 +1384,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                        
             			<div style="margin-top: 8px;">
              				<div align="center">
-             					<label class="font-weight-bold nexa-dark" style="color:gray;"><b>Datos del Cliente</b>  <a data-toggle="modal" title='Asignar Cliente al Contacto' data-target="#modal_agregar_clientes" class="btn btn-default"><div><i class="fa fa-plus-square"></i></div></a></label>
+             					<label class="font-weight-bold nexa-dark" style="color:gray;"><b>Datos del Cliente</b>  {{vm.Tabla_Contacto.length}} <a data-toggle="modal" title='Asignar Cliente al Contacto' data-target="#modal_agregar_clientes" class="btn btn-default"><div><i class="fa fa-plus-square"></i></div></a></label>
              				</div>
              			</div>
               
@@ -1409,7 +1409,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				                      <div class="td-usuario-table">No Ahi clientes asignados a este contacto</div>
 				                    </td>           
 				                    </tr>
-				                  <tr ng-repeat="dato in vm.Tabla_Contacto" ng-class-odd="odd">
+				                  <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate2" ng-class-odd="odd">
 				                    <td >{{dato.CodCli}}</td>
 				                    <td >{{dato.NumCifCli}}</td>
 				                    <td >{{dato.RazSocCli}}</td>                    
@@ -1466,9 +1466,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				                </tfoot>
 			              	</table>
 			        	</div>
+			        	<div align="center">				               
+				          <div class='btn-group' align="center">
+				            <pagination total-items="totalItems2" ng-model="currentPage2" max-size="5" boundary-links="true" items-per-page="numPerPage2" class="pagination-sm">  
+				            </pagination>
+				          </div>
+				        </div>
 
 						<button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli==undefined && vm.no_editable==undefined" ng-disabled="form_contacto2.$invalid">Registrar</button>
-						<button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli>0" ng-disabled="form_contacto2.$invalid">Actualizar</button>
+						<button class="btn btn-info" type="submit" ng-show="vm.tContacto_data_modal.CodConCli>0">Actualizar</button>
 						<input type="hidden" name="CodConCliModal" ng-model="vm.tContacto_data_modal.CodConCli">
 					</form>
 				</div>

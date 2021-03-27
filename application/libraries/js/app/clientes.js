@@ -129,6 +129,28 @@
      ////////////////////////////////////////////////////////////// MODULO CLIENTES DATOS BASICOS START ////////////////////////////////////////////////////////////////////
 
      scope.cargar_lista_clientes = function() {
+        
+        /*$("#List_Cli").removeClass("loader loader-default").addClass("loader loader-default  is-active");
+         var url = 'http://192.168.1.100:8782/EnerSpain-ws/Clientes';
+         $http.get(url).then(function(result)
+         {$("#List_Cli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+            
+            console.log(result);
+         },function(error)
+         {
+            console.log(error);
+            $("#List_Cli").removeClass("loader loader-default is-active").addClass("loader loader-default");
+              if (error.status == 404 && error.statusText == "Not Found"){
+                                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
+                                        }if (error.status == 401 && error.statusText == "Unauthorized"){
+                                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
+                                        }if (error.status == 403 && error.statusText == "Forbidden"){
+                                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
+                                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
+                                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
+                                        }
+
+         });*/
          $("#List_Cli").removeClass("loader loader-default").addClass("loader loader-default  is-active");
          var url = base_urlHome() + "api/Clientes/list_clientes/";
          $http.get(url).then(function(result) {
