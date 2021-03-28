@@ -102,32 +102,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li><input type="checkbox" ng-model="vm.even"/> <b style="color:black;">Evento</b></li>
                       </ul> 
                     </div>
-                    
-                    <!--div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
-                      <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
-                      <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title="Exportar en PDF" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Distribuidora/{{vm.ruta_reportes_pdf_distribuidora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Distribuidora/{{vm.ruta_reportes_excel_distribuidora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
-                      </ul>
-                    </div>
-                    <div class="btn-group">
-                       <a data-toggle="modal" title='Filtros' data-target="#modal_filtro_distribuidoras" class="btn btn-default"><div><i class="fa fa-filter"></i><span class="caret"></span></div></a>
-                    </div-->
     </div>
   </div>
 </div>
-              
-              <!--div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
-                <-div class="t-0029">
-                  <form class="form-inline" role="form">
-                    <div class="form-group">
-                      <input type="text" class="form-control" ng-model="vm.filter_search" title="Escribe para Filtrar..." minlength="1" id="exampleInputEmail2" placeholder="Escribe para Filtrar..." ng-keyup="vm.FetchDistribuidoras()">
-                    </div>                 
-                    <button style="margin-right: 10px;" class="btn btn-info" title="Agregar Distribuidora" ng-click="vm.modal_cif_distribuidora()"><i class="fa fa-plus-square"></i></button>
-                  </form>                    
-                  </div>
-              </div-->
-</div>  <!--t-0002 end-->    
+           
+</div> 
 <br><br><br><br>
       <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_distribuidoras()">

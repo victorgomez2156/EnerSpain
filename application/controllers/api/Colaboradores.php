@@ -20,22 +20,24 @@ class Colaboradores extends REST_Controller
 	////PARA LAS COLABORADORES START///////
 	public function get_only_colaboradores_get(){
 		
-		$SearchText=$this->get('SearchText');
-		$data = $this->Colaboradores_model->get_clientes_x_colaborador_Filter($SearchText); 
+		$SearchText=$this->get('SearchText');		
 
-        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_Colaborador','GET',null,$this->input->ip_address(),'Obteniendo Lista de Solo Colaboradores');
+		$data = $this->Colaboradores_model->GetNuevoMetodoColaboradorPrescriotor($SearchText);
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoCliente','GET',null,$this->input->ip_address(),'Comprondando Contacto Cliente');
+		$this->response($data);
 		if (empty($data)){
 			$this->response(false);
 			return false;
 		}
-		$detalleFinal = Array();
+		/*$detalleFinal = Array();
 		foreach ($data as $key => $value):
 		{
 			$detalleG = $this->Colaboradores_model->getDataColaboradores($value->CodCol);
 			array_push($detalleFinal, $detalleG);
 		}
 		endforeach;
-		$this->response($detalleFinal);				
+		$this->response($detalleFinal);	*/	
+		$this->response($data);		
 	}
     public function get_all_functions_colaboradores_get()
     {
@@ -208,6 +210,39 @@ class Colaboradores extends REST_Controller
 			return false;
 		}		
 		$this->response($data);		
+	}
+	public function CUPsClientesSearch_get(){
+
+		$TipContacto=$this->get('TipContacto');
+		$CodConCli=$this->get('CodConCli');
+		if($TipContacto==1)
+		{
+			$data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsColaborador');
+		}
+		else
+		{
+			$data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsPrescritor');
+		}				
+        $this->Auditoria_model->agregar($this->session->userdata('id'),'T_ContactoDetalleCliente','GET',$CodConCli,$this->input->ip_address(),'Obteniendo Lista de Clientes Asociados al Contacto.');
+		if (empty($data)){
+			$this->response(false);
+			return false;
+		}
+		$detalleFinal = Array();
+		foreach ($data as $key => $value):
+		{
+			$detalleG = $this->Colaboradores_model->getDataClientes($value-> CodCli);
+			if(!empty($detalleG))
+			{
+				foreach ($detalleG as $key => $valueI): {
+					array_push($detalleFinal, $valueI);
+				}
+				endforeach;
+			}			
+		}
+		endforeach;
+		$this->response($detalleFinal);			
+		//$this->response($data);		
 	}
      ////PARA LAS COLABORADORES END///////
    

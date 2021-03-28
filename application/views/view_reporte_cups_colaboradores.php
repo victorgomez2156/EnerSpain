@@ -80,100 +80,92 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ol>-->
           </div>
     </div>
-
-
-
-
     <div class="row">
             <div class="col-lg-12">
               <!--panel start-->
               <section class="panel">
-             
-          <div id="t-0002"><!--t-0002 start-->   
-          <div style="float:left;margin-left: 0px;padding: 10px;margin-top: 10px;margin-bottom: 2px;" class="removeForMobile"><!--DIV removeformobile start-->                    
-            <div class="t-0029"><!--t-0029 start--> 
-              <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
-                <div class="btn-group">
-                  <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                         <li><input type="checkbox" ng-model="vm.NomComCli"/> <b style="color:black;">Nombre</b></li>
-                         <li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF o NIF</b></li></li>
-                         <li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
-                         <li><input type="checkbox" ng-model="vm.CupsCol"/> <b style="color:black;">Cups</b></li>
-                         <li><input type="checkbox" ng-model="vm.NomVia"/> <b style="color:black;">Dirección Social</b></li>
-                         <li><input type="checkbox" ng-model="vm.NomViaFis"/> <b style="color:black;">Dirección Fiscal</b></li>
-                         <li><input type="checkbox" ng-model="vm.DireccionCol"/> <b style="color:black;">Dirección BBDD</b></li>
-                         <li><input type="checkbox" ng-model="vm.EmailCol"/> <b style="color:black;">Email</b></li>
-                         <li><input type="checkbox" ng-model="vm.TelCol"/> <b style="color:black;">Teléfono</b></li>
-                  </ul> 
-              </div>
-              <div class="btn-group" ng-show="vm.Nivel==1 || vm.Nivel==2">
-                <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
-                <ul class="dropdown-menu">
-                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
-                </ul>
-              </div>
-              
-            </div><!--t-0031 end--> 
-          </div><!--t-0029 end--> 
-        </div><!--DIV removeformobile end-->
-          <div style="float:right;margin-left: 0px;padding: 0px;margin-top: 10px;margin-bottom: 2px; " class="removeForMobile">                   
-              <div class="t-0029">
-                <form class="form-inline" role="form">
-                  <div class="form-group">
-                  
-                  <!--select class="form-control" id="opciones_colaboradores" name="opciones_colaboradores" 
-                      ng-model="vm.vColaboradorSeleccionado"
-                      ng-change="vm.Clientes_x_Colaboradores(vm.vColaboradorSeleccionado)">
-                      <option ng-repeat="opcion in vm.tOnlyColaboradores" value="{{opcion.CodCol}}">{{opcion.NomCol}}</option>                          
-                  </select-->
-                <input type="text" class="form-control" ng-model="vm.ColSearch" placeholder="* Introduzca CIF" ng-keyup='  vm.fetchColaboradoresCUPs()' ng-click='vm.searchboxClicked($event)'>
-                <ul id='searchResult' style="height: 250px; overflow-y: auto;">
-                  <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
-                  {{ result.CodCol }},  {{ result.NumIdeFis }} - {{ result.NomCol }} 
-                  </li>
-                </ul> 
-                <input type="hidden" name="opciones_colaboradores" id="opciones_colaboradores" ng-model="vm.vColaboradorSeleccionado" class="form-control">
 
-
-
-                  </div>  
-                </form>                    
-            </div>
-          </div>
-        </div>  <!--t-0002 end-->
-        
-        <div align="center">
-        	<br>
-        	 <span class="material-input" ng-show="vm.spinner_loader==1" style="margin-left: 235px;"><img src="application/libraries/estilos/img/ajax-loader.gif"> <b style="color:black;">Buscando, por favor espere ...</b> </span>
-            <span class="material-input" ng-show="vm.data_result==1" style="color:green;"><i class="fa fa-check-circle"></i> Datos encontrados...</span>
-            <span class="material-input" ng-show="vm.data_result==2" style="color:red;"><i class="fa fa-close"></i> No existen datos...</span>
-            <br>
-        </div>
-        
-        <div class="row">
-          <br>
-        </div>
-        <br>
+              			              		   
+				     <div class="col-12 col-sm-6">
+				     <div class="form">                          
+				     <div class="form-group">
+				     <label class="font-weight-bold nexa-dark" style="color:black;">Seleccione Tipo de Contacto</label>
+				      <select class="form-control" id="tipo_filtro" name="tipo_filtro" required ng-model="vm.fdatos.tipo_filtro" ng-change="vm.ValidarCambioTipoContacto()">
+				         <option value="1">Colaborador</option> 
+				        <option value="2">Prescriptor</option>
+				        </select>     
+				     </div>
+				     </div>
+				     </div>
+     				<div class="col-12 col-sm-6">
+						<div class="form">                          
+											<div class="form-group">    
+												<label class="font-weight-bold nexa-dark" style="color:black;">Ingrese Nombre o CIF </label>         
+												<input type="text"  class="form-control" ng-model="vm.ColSearch" placeholder="Nombre o CIF del Contacto" id="NombreCIF" name="NombreCIF" ng-disabled="vm.fdatos.tipo_filtro==null" ng-keyup='vm.fetchColaboradoresCUPs()'/>  
+												 <ul id='searchResult' style="height: 250px; overflow-y: auto;">
+								                  <li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult" >
+								                  {{ result.CodConCli }},  {{ result.NIFConCli }} - {{ result.NomConCli }} 
+								                  </li>
+								                </ul>    
+											</div>
+											<input type="hidden" name="vColaboradorSeleccionado" id="vColaboradorSeleccionado" ng-model="vm.vColaboradorSeleccionado">
+						</div>
+						</div> 
+					<div class="t-0029"><!--t-0029 start--> 
+					    <div class="t-0031" style="margin-top: -8px; "><!--t-0031 start-->
+					        <div class="btn-group">
+					            <button data-toggle="dropdown" title="Agregar Columnas" class="btn btn-default" type="button"><i class="fa fa-columns"></i> 
+					                <span class="caret"></span>
+					            </button>
+					            <ul class="dropdown-menu">
+					            	  <li><input type="checkbox" ng-model="vm.NomComCli"/> <b style="color:black;">Nombre</b></li>
+			                         	<li><input type="checkbox" ng-model="vm.NumCifCli"/> <b style="color:black;">CIF o NIF</b></li></li>
+			                         	<li><input type="checkbox" ng-model="vm.RazSocCli"/> <b style="color:black;">Razón Social</b></li>
+			                         <li><input type="checkbox" ng-model="vm.CupsCol"/> <b style="color:black;">Cups</b></li>
+			                         <li><input type="checkbox" ng-model="vm.NomVia"/> <b style="color:black;">Dirección Social</b></li>
+			                         <li><input type="checkbox" ng-model="vm.NomViaFis"/> <b style="color:black;">Dirección Fiscal</b></li>
+			                         <li><input type="checkbox" ng-model="vm.DireccionCol"/> <b style="color:black;">Dirección BBDD</b></li>
+			                         <li><input type="checkbox" ng-model="vm.EmailCol"/> <b style="color:black;">Email</b></li>
+			                         <li><input type="checkbox" ng-model="vm.TelCol"/> <b style="color:black;">Teléfono</b></li>
+					                       
+					            </ul> 
+					        </div>
+					              <div class="btn-group " align="center" ng-show="vm.Nivel==1 || vm.Nivel==2">
+					                <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
+					                <ul class="dropdown-menu">
+					                        <li style="cursor: pointer;"><a title='Exportar PDF' target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}/{{vm.fdatos.tipo_filtro}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
+					                        <li style="cursor: pointer;"><a title='Exportar Excel' target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Clientes_x_Colaboradores/{{vm.vColaboradorSeleccionado}}/{{vm.fdatos.tipo_filtro}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                         
+					                </ul>
+					              </div>
+					              
+					    </div><!--t-0031 end--> 
+         			</div><!--t-0029 end--> 
+              		  <div align="center">
+			        	<br>
+			        	 <span class="material-input" ng-show="vm.spinner_loader==1" style="margin-left: 235px;"><img src="application/libraries/estilos/img/ajax-loader.gif"> <b style="color:black;">Buscando, por favor espere ...</b> </span>
+			            <span class="material-input" ng-show="vm.data_result==1" style="color:green;"><i class="fa fa-check-circle"></i> Datos encontrados...</span>
+			            <span class="material-input" ng-show="vm.data_result==2" style="color:red;"><i class="fa fa-close"></i> No existen datos...</span>
+			            <br>
+			        </div>
+			         <br>
         <!--INICIO DE TABLA-->
         <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>                                       
-                    <th ng-show="vm.NomComCli==true">Nombre</th>
+                    <!--th ng-show="vm.NomComCli==true">Nombre</th-->
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                    <th ng-show="vm.CodCupEle==true">CUPS Eléctrico</th>
+                    <th ng-show="vm.CodCupEle==true">CUPS</th>
                     <th ng-show="vm.TarEle==true">Tárifa</th> 
                     <th ng-show="vm.ConCupEle==true">Consumó</th>
                     <th ng-show="vm.CodProEle==true">Producto</th>
-                    <th ng-show="vm.CupsColGas==true">CUPS Gas</th>
+                    <!--th ng-show="vm.CupsColGas==true">CUPS Gas</th>
                     <th ng-show="vm.TarGas==true">Tárifa</th>                        
-                    <th ng-show="vm.ConCupGas==true">Consumó</th>
-                    <th ng-show="vm.CodProGas==true">Producto</th>
+                    <th ng-show="vm.ConCupGas==true">Consumó</t>
+                    <th ng-show="vm.CodProGas==true">Producto</thh-->
                     <th ng-show="vm.CodCom==true">Comercializadora</th>
-                    <th ng-show="vm.NomVia==true"> Dirección Social</th>
+                    <!--th ng-show="vm.NomVia==true"> Dirección Social</th-->
                     <th ng-show="vm.NomViaFis==true"> Dirección Fiscal</th>
                     <th ng-show="vm.DireccionCol==true"> Dirección BBDD</th>
                     <th ng-show="vm.EmailCol==true"> Email</th>
@@ -182,52 +174,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                      <td colspan="16" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
                   </tr>
                   <tr ng-repeat="dato in vm.tClientes_x_Colaboradores | filter:paginate" ng-class-odd="odd">                    
-                    <td ng-show="vm.NomComCli==true">{{dato.NomCol}}</td>
-                    <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
-                    <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
-                    <td ng-show="vm.CodCupEle==true">{{dato.CUPsEle}}</td>
-                    <td ng-show="vm.TarEle==true">{{dato.NomTarEle}}</td>
-                    <td ng-show="vm.ConCupEle==true">{{dato.ConCupEle}}</td>
+                    <!--td ng-show="vm.NomComCli==true">{{dato.Cups_RazSocCli}}</td-->
+                    <td ng-show="vm.NumCifCli==true">{{dato.Cups_Cif}}</td>
+                    <td ng-show="vm.RazSocCli==true">{{dato.Cups_RazSocCli}}</td>
+                    <td ng-show="vm.CodCupEle==true">{{dato.CupsGas}}</td>
+                    <td ng-show="vm.TarEle==true">{{dato.NomTarGas}}</td>
+                    <td ng-show="vm.ConCupEle==true">{{dato.ConAnuCup}}</td>
                     <td ng-show="vm.CodProEle==true">{{dato.CodProEle}}</td>
-                    <td ng-show="vm.CupsColGas==true">{{dato.CupsGas}}</td>
+                    <!--td ng-show="vm.CupsColGas==true">{{dato.CupsGas}}</td>
                     <td ng-show="vm.TarGas==true">{{dato.NomTarGas}}</td>
                     <td ng-show="vm.ConCupGas==true">{{dato.ConCupGas}}</td>
-                    <td ng-show="vm.CodProGas==true">{{dato.CodProGas}}</td>
+                    <td ng-show="vm.CodProGas==true">{{dato.CodProGas}}</td-->
                     <td ng-show="vm.CodCom==true">{{dato.CodCom}}</td> 
-                    <td ng-show="vm.NomVia==true">{{dato.NomViaDomSoc}} {{dato.NumViaDomSoc}} {{dato.BloDomSoc}} {{dato.EscDomSoc}} {{dato.PlaDomSoc}} {{dato.PueDomSoc}} {{dato.CodPro}} {{dato.CodLoc}}</td>                
+                    <!--td ng-show="vm.NomVia==true">{{dato.NomViaDomSoc}} {{dato.NumViaDomSoc}} {{dato.BloDomSoc}} {{dato.EscDomSoc}} {{dato.PlaDomSoc}} {{dato.PueDomSoc}} {{dato.CodPro}} {{dato.CodLoc}}</td-->                
                     <td ng-show="vm.NomViaFis==true">{{dato.NomViaDomFis}} {{dato.NumViaDomFis}} {{dato.BloDomFis}} {{dato.EscDomFis}} {{dato.PlaDomFis}} {{dato.PueDomFis}} {{dato.CodProFis}} {{dato.CodLocFis}}</td>
                     <td ng-show="vm.DireccionCol==true">{{dato.DireccionBBDD}}</td>
                     <td ng-show="vm.EmailCol==true">{{dato.EmaCli}}</td>
                   </tr>
                 </tbody>
                 <tfoot>                 
-                   <th ng-show="vm.NomComCli==true">Nombre</th>
+                  <!--th ng-show="vm.NomComCli==true">Nombre</th-->
                     <th ng-show="vm.NumCifCli==true">CIF/NIF</th>
                     <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                    <th ng-show="vm.CodCupEle==true">CUPS Eléctrico</th>
+                    <th ng-show="vm.CodCupEle==true">CUPS</th>
                     <th ng-show="vm.TarEle==true">Tárifa</th> 
                     <th ng-show="vm.ConCupEle==true">Consumó</th>
                     <th ng-show="vm.CodProEle==true">Producto</th>
-                    <th ng-show="vm.CupsColGas==true">CUPS Gas</th>
+                    <!--th ng-show="vm.CupsColGas==true">CUPS Gas</th>
                     <th ng-show="vm.TarGas==true">Tárifa</th>                        
-                    <th ng-show="vm.ConCupGas==true">Consumó</th>
-                    <th ng-show="vm.CodProGas==true">Producto</th>
+                    <th ng-show="vm.ConCupGas==true">Consumó</t>
+                    <th ng-show="vm.CodProGas==true">Producto</thh-->
                     <th ng-show="vm.CodCom==true">Comercializadora</th>
-                    <th ng-show="vm.NomVia==true"> Dirección Social</th>
+                    <!--th ng-show="vm.NomVia==true"> Dirección Social</th-->
                     <th ng-show="vm.NomViaFis==true"> Dirección Fiscal</th>
                     <th ng-show="vm.DireccionCol==true"> Dirección BBDD</th>
                     <th ng-show="vm.EmailCol==true"> Email</th>
                 </tfoot>
               </table>
         </div>       
-        <!--FIN DE TABLA-->
-        <div align="center">               
+        <!--FIN DE TABLA--> <div align="center">               
           <div class='btn-group' align="center">
             <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
             </pagination>
           </div>
         </div>
-     </div>
+
+        	</section>
+        </div></div>
 
     <!-- page end-->
     </section>

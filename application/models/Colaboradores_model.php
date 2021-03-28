@@ -170,7 +170,7 @@ class Colaboradores_model extends CI_Model
         $this->db->or_like('NomCol',$SearchText);
         $this->db->or_like('CUPsEle',$SearchText);
         $this->db->or_like('CupsGas',$SearchText);
-        $this->db->order_by('RazSocCli ASC');
+        //$this->db->order_by('RazSocCli ASC');
         $query = $this->db->get();        
 		return $query->result();
     }
@@ -198,6 +198,53 @@ class Colaboradores_model extends CI_Model
         if($query->num_rows()>0)
         {
             return $query->row();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+     public function GetNuevoMetodoColaboradorPrescriotor($SearchText){
+
+        $this->db->select("*",false);
+        $this->db->from('T_ContactoCliente');
+        $this->db->like('NomConCli',$SearchText);
+        $this->db->or_like('NIFConCli',$SearchText);        
+        $query = $this->db->get();        
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }  
+    }
+    public function GetClientesContactosDetalle($CodConCli,$ValorVerdadero,$Where)
+    {
+        $this->db->select('*');
+        $this->db->from('T_ContactoDetalleCliente');
+        $this->db->where('CodConCli',$CodConCli);
+        $this->db->where($Where,$ValorVerdadero);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return false;
+        }       
+    }
+    public function getDataClientes($CodCli)
+    {
+        $this->db->select('*');
+        $this->db->from('V_CupsGrib');
+        $this->db->where('CodCli',$CodCli);
+        $query = $this->db->get(); 
+        if($query->num_rows()>0)
+        {
+            return $query->result();
         }
         else
         {

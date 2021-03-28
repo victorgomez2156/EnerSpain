@@ -13,6 +13,7 @@ class Exportar_Documentos extends CI_Controller
 		parent::__construct(); 
         $this->load->model('Reportes_model'); 
         $this->load->model('Auditoria_model');
+        $this->load->model('Colaboradores_model');
         $this->load->model('Contratos_model');
         $this->load->model('Propuesta_model'); 	
         $this->load->model('Clientes_model');
@@ -11746,19 +11747,45 @@ class Exportar_Documentos extends CI_Controller
     } 
     public function Doc_PDF_Clientes_x_Colaboradores()
     {
-        
-        $CodCol = urldecode($this->uri->segment(4));   
-        if($CodCol==null)
+        $CodConCli = urldecode($this->uri->segment(4)); 
+        $TipContacto = urldecode($this->uri->segment(5));   
+        if($CodConCli==null)
         {
            echo "Debe introducir un nùmero de CIF/NIE/DNI Correcto.";
             return false; 
         }
-        $Resultado=$this->Reportes_model->get_clientes_x_colaborador($CodCol);
-        /*if(empty($Resultado))
+        if($TipContacto==null)
         {
-            echo "No se encontraon datos intente nuevamente.";
-            return false;
-        }*/
+            echo "Debe incluir un tipo de contacto.";
+            return false; 
+        }
+        if($TipContacto==1)
+        {
+            $data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsColaborador');
+        }
+        else
+        {
+            $data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsPrescritor');
+        }
+        if (empty($data)){
+           $Resultado=false;
+        }
+        else
+        {
+            $Resultado = Array();
+            foreach ($data as $key => $value):
+            {
+                $detalleG = $this->Colaboradores_model->getDataClientes($value-> CodCli);
+                if(!empty($detalleG))
+                {
+                    foreach ($detalleG as $key => $valueI): {
+                        array_push($Resultado, $valueI);
+                    }
+                    endforeach;
+                }           
+            }
+            endforeach;
+        }
         $pdf = new TCPDF ('L','mm', 'A4', true, 'UTF-8', false);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetTitle('Lista de Colaboradores PDF '.date('d/m/Y'));
@@ -11776,7 +11803,8 @@ class Exportar_Documentos extends CI_Controller
         $pdf->SetFont('times', ' ', 10, ' ', true);
         $pdf->AddPage();        
         if($Resultado!=false)
-        { $NomCol=$Resultado[0]->NomCol;}else{$NomCol="";}   
+        { 
+            $NomCol='';}else{$NomCol='';}   
         
         $html  = '<style>table{ padding:6px;}.borde{ border:1px solid #4D4D4D; }.edoTable{border-top:1px solid #7F7F7F;border-left:1px solid #7F7F7F;border-right:1px solid #7F7F7F;border-bottom:1px solid #7F7F7F;}br{line-height:5px;}</style>';     
         $html .= '<h4 align="left">'.TITULO.'</h4>';        
@@ -11797,46 +11825,36 @@ class Exportar_Documentos extends CI_Controller
         $html.='<br><br><br><br><br><br><table width="100%" border="1" celpadding="0" cellspacing="0" align="center" class="table table-bordered table-striped">';
         $html.='
         <tr bgcolor="#636161">
-            <td style="color:white;">NOMBRE</td>
             <td style="color:white;">CIF/NIF</td>
             <td style="color:white;">RAZÓN SOCIAL</td>
-            <td style="color:white;">CUPS ELÉCTRICO</td>
-            <td style="color:white;">TÁRIFA</td>
-            <td style="color:white;">CONSUMÓ</td>
-            <td style="color:white;">PRODUCTO</td>
-            <td style="color:white;">CUPS GAS</td>
+            <td style="color:white;">CUPS</td>
             <td style="color:white;">TÁRIFA</td>
             <td style="color:white;">CONSUMÓ</td>
             <td style="color:white;">PRODUCTO</td>
             <td style="color:white;">COMERCIALIZADORA</td>
-            <td style="color:white;">DIRECCION SOCIAL</td>
             <td style="color:white;">DIRECCION FISCAL</td>
+            <td style="color:white;">DIRECCIÓN BBDD</td>
             <td style="color:white;">EMAIL</td>
         </tr>';
         if($Resultado!=false)
         {
             foreach ($Resultado as $record): 
             {
-                $CONCATENADA = $record->NomViaDomFis+' '+$record->NumViaDomFis+' '+$record->BloDomFis+' '
-                +$record->EscDomFis+' '+$record->PlaDomFis+' '+$record->PueDomFis+' '+$record->DesLocFis;
+                //$CONCATENADA = $record->NomViaDomFis+' '+$record->NumViaDomFis+' '+$record->BloDomFis+' '
+                //+$record->EscDomFis+' '+$record->PlaDomFis+' '+$record->PueDomFis+' '+$record->DesLocFis;
                 
-                $DIRECCION = ($record->DireccionBBDD!='') ? $record->DireccionBBDD : $CONCATENADA;
+               //$DIRECCION = ($record->DireccionBBDD!='') ? $record->DireccionBBDD : $CONCATENADA;
                 $html.='<tr>
-                        <td>'.$record->NomCol.'</td>
-                        <td>'.$record->NumCifCli.'</td>
-                        <td>'.$record->RazSocCli.'</td>
-                        <td>'.$record->CUPsEle.'</td>
-                        <td>'.$record->NomTarEle.'</td>
-                        <td>'.$record->ConCupEle.'</td>
-                        <td>'.$record->CodProEle.'</td>
-                        <td>'.$record->CupsGas.'</td>
-                        <td>'.$record->NomTarGas.'</td>
-                        <td>'.$record->ConCupGas.'</td>
-                        <td>'.$record->CodProGas.'</td>
-                        <td>'.$record->CodCom.'</td>                        
-                        <td>'.$record->NomViaDomSoc.' '.$record->NumViaDomSoc.' '.$record->BloDomSoc.' '.$record->EscDomSoc.' '.$record->PlaDomSoc.' '.$record->PueDomSoc.'</td>
-                        <td>'.$record->NomViaDomFis.' '.$record->NumViaDomFis.' '.$record->BloDomFis.' '.$record->EscDomFis.' '.$record->PlaDomFis.' '.$record->PueDomFis.'</td>
-                        <td>'.$record->EmaCol.'</td>
+                        <td>'.$record-> Cups_Cif.'</td>
+                        <td>'.$record-> Cups_RazSocCli.'</td>
+                        <td>'.$record-> CupsGas.'</td>
+                        <td>'.$record-> NomTarGas.'</td>
+                        <td>'.$record-> ConAnuCup.'</td>
+                        <td>N/A</td>
+                        <td>N/A</td> 
+                        <td>N/A</td>                      
+                        <td>'.$record-> DireccionBBDD.'</td>
+                        <td>'.$record-> EmaCli.'</td>
                     </tr>';     
             }
             endforeach;
@@ -11857,10 +11875,45 @@ class Exportar_Documentos extends CI_Controller
 
     public function Doc_Excel_Clientes_x_Colaboradores()
     {       
-        $CodCol = urldecode($this->uri->segment(4));   
-        $Resultado=$this->Reportes_model->get_clientes_x_colaborador($CodCol);
-        
-        
+        $CodConCli = urldecode($this->uri->segment(4)); 
+        $TipContacto = urldecode($this->uri->segment(5));   
+        if($CodConCli==null)
+        {
+           echo "Debe introducir un nùmero de CIF/NIE/DNI Correcto.";
+            return false; 
+        }
+        if($TipContacto==null)
+        {
+            echo "Debe incluir un tipo de contacto.";
+            return false; 
+        }
+        if($TipContacto==1)
+        {
+            $data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsColaborador');
+        }
+        else
+        {
+            $data = $this->Colaboradores_model->GetClientesContactosDetalle($CodConCli,1,'EsPrescritor');
+        }
+        if (empty($data)){
+           $Resultado=false;
+        }
+        else
+        {
+            $Resultado = Array();
+            foreach ($data as $key => $value):
+            {
+                $detalleG = $this->Colaboradores_model->getDataClientes($value-> CodCli);
+                if(!empty($detalleG))
+                {
+                    foreach ($detalleG as $key => $valueI): {
+                        array_push($Resultado, $valueI);
+                    }
+                    endforeach;
+                }           
+            }
+            endforeach;
+        }       
         $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
         $cacheSettings = array( 'memoryCacheSize'  => '15MB');
         PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
@@ -11990,75 +12043,47 @@ class Exportar_Documentos extends CI_Controller
         $objPHPExcel->getActiveSheet()->SetCellValue("A6", "LISTADO DE COLABORADORES");
         $objPHPExcel->getActiveSheet()->mergeCells("A6:C6");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo_reporte, "A6:C6");        
-        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "NOMBRE");
+        $objPHPExcel->getActiveSheet()->SetCellValue("A9", "CIF/NIF");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "A9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "CIF/NIF");
+        $objPHPExcel->getActiveSheet()->SetCellValue("B9", "RAZÓN SOCIAL");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "B9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "RAZÓN SOCIAL");
+        $objPHPExcel->getActiveSheet()->SetCellValue("C9", "CUPS");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "C9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "CUPS ELÉCTRICO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("D9", "TÁRIFA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "D9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "TÁRIFA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("E9", "CONSUMÓ");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "E9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "CONSUMÓ");
+        $objPHPExcel->getActiveSheet()->SetCellValue("F9", "PRODUCTO");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "F9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "PRODUCTO");
+        $objPHPExcel->getActiveSheet()->SetCellValue("G9", "COMERCIALIZADORA");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "G9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "CUPS GAS");
+        $objPHPExcel->getActiveSheet()->SetCellValue("H9", "DIRECCION FISCAL");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "H9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "TÁRIFA");
+        $objPHPExcel->getActiveSheet()->SetCellValue("I9", "DIRECCION BBDD");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "I9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "CONSUMÓ");
+        $objPHPExcel->getActiveSheet()->SetCellValue("J9", "EMAIL");
         $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "J9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("K9", "PRODUCTO");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "K9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("L9", "COMERCIALIZADORA");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "L9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("M9", "DIRECCIÓN SOCIAL");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "M9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("N9", "DIRECCIÓN FISCAL");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "N9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("O9", "DIRECCIÓN BBDD");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "O9");
-        $objPHPExcel->getActiveSheet()->SetCellValue("P9", "EMAIL");
-        $objPHPExcel->getActiveSheet()->setSharedStyle($titulo3, "P9");
-
-        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:P9");
+        $objPHPExcel->getActiveSheet()->setAutoFilter("A9:J9");
         $fila=9;
         for($i=0; $i<count($Resultado); $i++) 
         {
-            $CONCATENADA = $Resultado[$i]->NomViaDomFis+ ' '+$Resultado[$i]->NumViaDomFis+' '+$Resultado[$i]->BloDomFis+' '
-            +$Resultado[$i]->EscDomFis+' '+$Resultado[$i]->PlaDomFis+' '+$Resultado[$i]->PueDomFis+' '+$Resultado[$i]->DesLocFis;
-            
-            $DIRECCION = ($Resultado[$i]->DireccionBBDD!='') ? $Resultado[$i]->DireccionBBDD : $CONCATENADA;
             $fila+=1;
-            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->NomCol);
-            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->NumCifCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->RazSocCli);
-            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->CUPsEle);
-            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->NomTarEle);
-            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", $Resultado[$i]->ConCupEle);            
-            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", $Resultado[$i]->CodProEle);
-            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", $Resultado[$i]->CupsGas);
-            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado[$i]->NomTarGas);
-            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado[$i]->ConCupGas);            
-            $objPHPExcel->getActiveSheet()->SetCellValue("K$fila", $Resultado[$i]->CodProGas); 
-            $objPHPExcel->getActiveSheet()->SetCellValue("L$fila", $Resultado[$i]->CodCom);
-            $objPHPExcel->getActiveSheet()->SetCellValue("M$fila", $Resultado[$i]->NomViaDomSoc.' '.$Resultado[$i]->NumViaDomSoc.' '.$Resultado[$i]->BloDomSoc.' '.$Resultado[$i]->EscDomSoc.' '.$Resultado[$i]->PlaDomSoc.' '.$Resultado[$i]->PueDomSoc);
-            $objPHPExcel->getActiveSheet()->SetCellValue("N$fila", $Resultado[$i]->NomViaDomFis.' '.$Resultado[$i]->NumViaDomFis.' '.$Resultado[$i]->BloDomFis.' '.$Resultado[$i]->EscDomFis.' '.$Resultado[$i]->PlaDomFis.' '.$Resultado[$i]->PueDomFis);
-            $objPHPExcel->getActiveSheet()->SetCellValue("O$fila", $DIRECCION);
-            $objPHPExcel->getActiveSheet()->SetCellValue("P$fila", $Resultado[$i]->EmaCol);
-
-
-
-
-
-            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:P$fila");  
+            $objPHPExcel->getActiveSheet()->SetCellValue("A$fila", $Resultado[$i]->Cups_Cif);
+            $objPHPExcel->getActiveSheet()->SetCellValue("B$fila", $Resultado[$i]->Cups_RazSocCli);
+            $objPHPExcel->getActiveSheet()->SetCellValue("C$fila", $Resultado[$i]->CupsGas);
+            $objPHPExcel->getActiveSheet()->SetCellValue("D$fila", $Resultado[$i]->NomTarGas);
+            $objPHPExcel->getActiveSheet()->SetCellValue("E$fila", $Resultado[$i]->ConAnuCup);
+            $objPHPExcel->getActiveSheet()->SetCellValue("F$fila", 'N/A');            
+            $objPHPExcel->getActiveSheet()->SetCellValue("G$fila", 'N/A');
+            $objPHPExcel->getActiveSheet()->SetCellValue("H$fila", 'N/A');
+            $objPHPExcel->getActiveSheet()->SetCellValue("I$fila", $Resultado[$i]->DireccionBBDD);
+            $objPHPExcel->getActiveSheet()->SetCellValue("J$fila", $Resultado[$i]->EmaCli);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($subtitulo, "A$fila:K$fila");  
         } 
         $objPHPExcel->getActiveSheet()->SetCellValue("A7", "Colaborador Consultado:");
-        $objPHPExcel->getActiveSheet()->SetCellValue("B7", $Resultado[0]->NomCol);
+        $objPHPExcel->getActiveSheet()->SetCellValue("B7", '');
 
-        foreach (range('A', 'P') as $columnID) 
+        foreach (range('A', 'J') as $columnID) 
         {
           $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth(25);
         }
