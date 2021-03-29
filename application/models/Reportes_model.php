@@ -140,28 +140,23 @@ class Reportes_model extends CI_Model
         }       
     } 
      public function get_data_contactos_all()
-    {       
-        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" WHEN 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "SUSPENDIDO" end as EstConCli,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
-        $this->db->from('T_ContactoCliente a');
-        $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
-        $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        $query = $this->db->get(); 
-        if($query->num_rows()>0)
-        {
-            return $query->result();
-        }
+    { 
+        $sql = $this->db->query("SELECT a.*,(SELECT COUNT(*) FROM T_ContactoDetalleCliente c WHERE a.CodConCli=c.CodConCli) AS TotalClientes,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli
+         FROM T_ContactoCliente a
+         LEFT JOIN T_TipoContacto b on a.CodTipCon=b.CodTipCon ORDER BY a.NomConCli ASC /*limit 50*/");
+         if ($sql->num_rows() > 0)
+          return $sql->result();
         else
-        { 
             return false;
-        }       
     }
     public function get_data_contacto_all_filtro($where,$Variable1)
     {       
-        $this->db->select('a.NomConCli,a.NIFConCli,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,b.DesTipCon,a.CarConCli,case a.EsRepLeg when 0 then "NO" when 1 THEN "SI" end as EsRepLeg,case a.TipRepr when 1 then "INDEPENDIENTE" WHEN 2 THEN "MANCOMUNADA" end as TipRepr,case a.EstConCli when 1 then "ACTIVO" WHEN 2 THEN "SUSPENDIDO" end as EstConCli,c.NumCifCli,c.RazSocCli,c.CodCli',FALSE);
+        $this->db->select('a.*,(SELECT COUNT(*) FROM T_ContactoDetalleCliente c WHERE a.CodConCli=c.CodConCli) AS TotalClientes,case a.EstConCli WHEN 1 THEN "ACTIVO" WHEN 2 THEN "SUSPENDIDO" END as EstConCli',FALSE);
         $this->db->from('T_ContactoCliente a');
-        $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
-         $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-        $this->db->where($where,$Variable1);          
+        //$this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
+        //$this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+        $this->db->where($where,$Variable1); 
+        //$this->db->limit(50);         
         $query = $this->db->get(); 
         if($query->num_rows()>0)
         {

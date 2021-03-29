@@ -160,18 +160,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <table class="table table-striped table-advance table-hover table-responsive">
                 <tbody>
                   <tr>
-                  <th ng-show="vm.CodCli==true">CodCli</th>
-                  <th ng-show="vm.NumCifCli==true">NIF</th>
-                  <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                  <th ng-show="vm.NomConCli==true">Nombre</th>
-                  <th ng-show="vm.NIFConCli==true">NIF</th>
-                  <th ng-show="vm.TelFijConCli==true">Teléfono Fijo</th>
-                  <th ng-show="vm.TelCelConCli==true">Teléfono Celular</th> 
-                  <th ng-show="vm.EmaConCli==true">Email</th>
-                  <th ng-show="vm.CodTipCon==true">Tipo de Contacto</th>
-                  <th ng-show="vm.CarConCli==true">Cargo</th>
-                  <th ng-show="vm.EsRepLeg==true">Representante Legal</th>
-                  <th ng-show="vm.representacion==true">Representación</th>
+                 <th>Nombre</th>
+                  <th>CIF</th>
+                  <th>Cargo</th>
+                  <th>Teléfono Fijo</th>
+                  <th>Teléfono Movil</th>
+                  <th>Email</th>
+                  <th>Total Clientes</th>
                   <th ng-show="vm.EstConCli==true">Estatus</th>
                   <th ng-show="vm.ActCont==true">Acción</th>
                   </tr>
@@ -181,18 +176,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </td>           
                     </tr>
                   <tr ng-repeat="dato in vm.Tabla_Contacto | filter:paginate4" ng-class-odd="odd">
-                    <td ng-show="vm.CodCli==true">{{dato.CodCli}}</td>
-                    <td ng-show="vm.NumCifCli==true">{{dato.NumCifCli}}</td>
-                     <td ng-show="vm.RazSocCli==true">{{dato.RazSocCli}}</td>
-                    <td ng-show="vm.NomConCli==true">{{dato.NomConCli}}</td>
-                    <td ng-show="vm.NIFConCli==true">{{dato.NIFConCli}}</td>
-                    <td ng-show="vm.TelFijConCli==true">{{dato.TelFijConCli}}</td>
-                    <td ng-show="vm.TelCelConCli==true">{{dato.TelCelConCli}}</td>
-                    <td ng-show="vm.EmaConCli==true">{{dato.EmaConCli}}</td>
-                    <td ng-show="vm.CodTipCon==true">{{dato.DesTipCon}}</td>
-                    <td ng-show="vm.CarConCli==true">{{dato.CarConCli}}</td>
-                    <td ng-show="vm.EsRepLeg==true">{{dato.EsRepLeg}}</td>
-                    <td ng-show="vm.representacion==true">{{dato.representacion}}</td>
+                   <td>{{dato.NomConCli}}</td>
+                   <td>{{dato.NIFConCli}}</td>
+                   <td>{{dato.CarConCli}}</td>
+                   <td>{{dato.TelFijConCli}}</td>
+                   <td>{{dato.TelCelConCli}}</td>
+                   <td>{{dato.EmaConCli}}</td>
+                   <td>{{dato.TotalClientes}}</td>
                     <td ng-show="vm.EstConCli==true">
                       <span class="label label-info" ng-show="dato.EstConCli=='ACTIVO'"><i class="fa fa-check-circle"></i> {{dato.EstConCli}}</span>
                       <span class="label label-danger" ng-show="dato.EstConCli=='SUSPENDIDO'"><i class="fa fa-ban"></i> {{dato.EstConCli}}</span>
@@ -207,18 +197,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </tr>
                 </tbody>
                 <tfoot>                 
-                 <th ng-show="vm.CodCli==true">CodCli</th>
-                  <th ng-show="vm.NumCifCli==true">NIF</th>
-                  <th ng-show="vm.RazSocCli==true">Razón Social</th>
-                  <th ng-show="vm.NomConCli==true">Nombre</th>
-                  <th ng-show="vm.NIFConCli==true">NIF</th>
-                  <th ng-show="vm.TelFijConCli==true">Teléfono Fijo</th>
-                  <th ng-show="vm.TelCelConCli==true">Teléfono Celular</th> 
-                  <th ng-show="vm.EmaConCli==true">Email</th>
-                  <th ng-show="vm.CodTipCon==true">Tipo de Contacto</th>
-                  <th ng-show="vm.CarConCli==true">Cargo</th>
-                  <th ng-show="vm.EsRepLeg==true">Representante Legal</th>
-                  <th ng-show="vm.representacion==true">Representación</th>
+                 <th>Nombre</th>
+                  <th>CIF</th>
+                  <th>Cargo</th>
+                  <th>Teléfono Fijo</th>
+                  <th>Teléfono Movil</th>
+                  <th>Email</th>
+                  <th>Total Clientes</th>
                   <th ng-show="vm.EstConCli==true">Estatus</th>
                   <th ng-show="vm.ActCont==true">Acción</th>
                 </tfoot>

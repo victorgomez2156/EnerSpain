@@ -105,7 +105,7 @@
      scope.CarConCli = true;
      scope.EstConCli = true;
      scope.ActCont = true;
-     scope.T_Filtro_Contactos = [{ id: 1, nombre: 'Tipo de Contacto' }, { id: 2, nombre: 'Representante Legal' }, { id: 3, nombre: 'Tipo de Representación' }, { id: 4, nombre: 'Estatus' }];
+     scope.T_Filtro_Contactos = [{ id: 4, nombre: 'Estatus' }];
      scope.tListaRepre = [{ id: 1, DesTipRepr: 'INDEPENDIENTE' }, { id: 2, DesTipRepr: 'MANCOMUNADA' }];
      scope.tmodal_contacto = {};
      const $Archivo_DocNIF = document.querySelector("#DocNIF");
