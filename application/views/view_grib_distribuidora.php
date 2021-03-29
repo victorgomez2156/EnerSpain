@@ -107,7 +107,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button data-toggle="dropdown" title="Generar Reportes" class="btn btn-default dropdown-toggle" type="button"><i class="fa fa-cloud-upload"></i><span class="caret"></span> </button>
                       <ul class="dropdown-menu">
                         <li style="cursor: pointer;"><a title="Exportar en PDF" target="_black"  href="reportes/Exportar_Documentos/Doc_PDF_Distribuidora/{{vm.ruta_reportes_pdf_distribuidora}}"><i class="fa fa-file"></i> Exportar en PDF</a></li>
-                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Distribuidora/{{vm.ruta_reportes_excel_distribuidora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>                        
+                        <li style="cursor: pointer;"><a title="Exportar en Excel" target="_black" href="reportes/Exportar_Documentos/Doc_Excel_Distribuidora/{{vm.ruta_reportes_excel_distribuidora}}"><i class="fa fa-file-excel-o"></i> Exportar en Excel</a></li>
+                        <li style="cursor: pointer;"><a title="Validar Api Siente3Web" ng-click="vm.comprobarAPISiente()"><i class="fa fa-file-excel-o"></i> Ver Datos del API</a></li>                        
                       </ul>
                     </div>
                     <div class="btn-group">
@@ -129,6 +130,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
 </div>  <!--t-0002 end-->    
 <br><br><br><br>
+<!--div class="table-responsive">
+          <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_distribuidoras()">
+                <tbody>
+                  <tr>
+                    <th>Objetivo</th> 
+                    <th>Fase</th>                   
+                    <th>Sector</th>
+                    <th>Acts</th>      
+                    <th>Avance Físico</th>
+                    <th>Avance Financiero</th>
+                  </tr>
+                  <tr ng-show="vm.TDistribuidora.length==0"> 
+                     <td colspan="5" align="center"><div class="td-usuario-table">No hay información disponible</div></td>           
+                    </tr>
+                  <tr ng-repeat="dato in vm.TDistribuidora" ng-class-odd="odd">
+                    
+                    <td>{{dato.strnombreobjetivo}}</td>
+                    <td>{{dato.sector}}</td>
+                    <td>{{dato.fase}}</td> 
+                    <td>{{dato.cantidadesActividades}}</td> 
+                    <td>{{dato.poravnfisico}}</td> 
+                    <td>{{dato.valejecutado}}</td>                    
+                  
+                  </tr>
+                </tbody>
+                <tfoot>                   
+                   <th>Objetivo</th> 
+                    <th>Fase</th>                   
+                    <th>Sector</th>
+                    <th>Acts</th>      
+                    <th>Avance Físico</th>
+                    <th>Avance Financiero</th>
+                </tfoot>
+              </table>
+        </div> 
+        <div align="center">
+          <span class="store-qty"> <a ng-click="vm.cargar_lista_distribuidoras()" title='Refrescar' class="btn btn-success"><div><i class="fa fa-refresh" style="color:white;"></i></div></a> </span>       
+          <div class='btn-group' align="center">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm">  
+            </pagination>
+          </div>
+        </div-->
       <div class="table-responsive">
           <table class="table table-striped table-advance table-hover table-responsive" ng-init="vm.cargar_lista_distribuidoras()">
                 <tbody>

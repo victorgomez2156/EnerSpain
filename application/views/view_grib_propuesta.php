@@ -801,6 +801,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                               <li ng-click='vm.setValue($index,$event,result,3)' ng-repeat="result in vm.searchResult" >
                                {{ result.NumCifCli }} - {{ result.RazSocCli }} 
                               </li>
+                              <input type="hidden" name="CodRepLeg" id="CodRepLeg" ng-model="vm.CodRepLeg">
                             </ul> 
                             </div>
                           </div>

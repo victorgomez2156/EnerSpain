@@ -1304,12 +1304,15 @@ public function getColaboradoressearch($SearchText)
 else
     return false;
 }
-public function getclientesRepresentanteLegalsearch($SearchText,$CodCli,$NIFConCli)
+public function getclientesRepresentanteLegalsearch($CodCli,$NIFConCli)
 {
+    /*SELECT  FROM T_ContactoDetalleCliente a 
+JOIN T_Cliente b ON b.CodCli=a.CodCli JOIN T_ContactoCliente c ON a.CodConCli=c.CodConCli WHERE =163*/
 
- $sql = $this->db->query("SELECT a.CodCli,b.NIFConCli,a.RazSocCli,a.NomComCli,a.NumCifCli,a.TelFijCli,a.EmaCli FROM T_Cliente a 
-LEFT JOIN T_ContactoCliente b ON a.CodCli=b.CodCli
-WHERE a.RazSocCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.NomComCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.NumCifCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.EmaCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' or a.CodCli like '%$SearchText%' and b.NIFConCli='$NIFConCli' ORDER BY RazSocCli ASC");
+
+ $sql = $this->db->query("SELECT b.CodCli,c.NIFConCli,b.RazSocCli,c.NomConCli,b.NomComCli,b.NumCifCli,b.TelFijCli,b.EmaCli FROM T_ContactoDetalleCliente a 
+JOIN T_Cliente b ON b.CodCli=a.CodCli JOIN T_ContactoCliente c ON a.CodConCli=c.CodConCli 
+WHERE a.CodConCli='$CodCli' AND b.NumCifCli LIKE '%$NIFConCli%' OR a.CodConCli='$CodCli' AND b.RazSocCli LIKE '%$NIFConCli%' ORDER BY b.RazSocCli ASC");
  if ($sql->num_rows() > 0)
   return $sql->result();
 else

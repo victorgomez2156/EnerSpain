@@ -218,6 +218,18 @@ function Controlador($http, $scope, $filter, $route, $interval, controller, $coo
 
 
     };
+    scope.comprobarAPISiente=function()
+    {
+        var settings = {
+          "url": "http://192.168.1.100:8781/siente3web-ws/ObjetivosPae",
+          "method": "GET",
+          "timeout": 0,
+        };
+        $.ajax(settings).done(function (response) {
+          scope.TDistribuidora=response;
+          console.log(response);
+        });
+    }
     scope.validar_campos_null = function() {
         resultado = true;
 

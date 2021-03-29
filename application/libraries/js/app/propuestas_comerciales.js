@@ -258,7 +258,7 @@
         if(metodo==3)
         {
             $("#NumCifCli").removeClass("loader loader-default").addClass("loader loader-default is-active");
-            var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_Colaborador/NumCifCli/" + scope.NumCifCliUniMulCli;
+            var url = base_urlHome() + "api/PropuestaComercial/get_valida_datos_ColaboradorNuevoMetodo/CodCli/"+scope.CodRepLeg+"/NumCifCli/" + scope.NumCifCliUniMulCli;
         }
         $http.get(url).then(function(result) {
             $("#NumCifCli").removeClass("loader loader-default is-active").addClass("loader loader-default");
@@ -688,6 +688,7 @@
                      }
                      if (metodo == 3) {
                          scope.NumCifCliUniMulCli = scope.searchResult[index].NumCifCli;
+                         scope.CodRepLeg=scope.searchResult[index].CodCli;
                          scope.CodCliFil=scope.searchResult[index].CodCli;
                          scope.searchResult = {};
                          $event.stopPropagation();
@@ -766,7 +767,8 @@
                         }
                         if (scope.tmodal_filtros.tipo_filtro == 3) 
                         {
-                            if (!scope.EstProComFil > 0) {
+                            if (!scope.EstProComFil > 0) 
+                            {
                                 scope.toast('error','Debe seleccionar un estatus para poder aplicar el filtro.','Error');
                                 return false;
                             }
