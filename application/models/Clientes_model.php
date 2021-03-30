@@ -798,17 +798,18 @@ public function get_all_list_contactos()
 }
 public function getContactosFilter($SearchText)
 {
-    $this->db->select("a.CodConCli,a.CodCli,b.CodTipCon,b.DesTipCon,case a.EsRepLeg WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as EsRepLeg,a.CanMinRep,a.NomConCli,a.NIFConCli,a.DocNIF,case a.TieFacEsc WHEN 0 then 'NO' WHEN 1 THEN 'SI' end as TieFacEsc,a.DocPod,a.TelFijConCli,a.TelCelConCli,a.EmaConCli,a.TipRepr,a.CarConCli,a.ObsConC,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli,case a.TipRepr WHEN 1 THEN 'INDEPENDIENTE' WHEN 2 THEN 'MANCOMUNADA' END as representacion,c.NumCifCli,c.RazSocCli",false);
+    $this->db->select("a.*,(SELECT COUNT(*) FROM T_ContactoDetalleCliente c WHERE a.CodConCli=c.CodConCli) AS TotalClientes,case a.EstConCli WHEN 1 THEN 'ACTIVO' WHEN 2 THEN 'SUSPENDIDO' END as EstConCli",false);
     $this->db->from('T_ContactoCliente a');
-    $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon');
-    $this->db->join('T_Cliente c','a.CodCli=c.CodCli');
-    $this->db->like('c.NumCifCli',$SearchText);
-    $this->db->or_like('a.CodCli',$SearchText);
-    $this->db->or_like('a.NomConCli',$SearchText);
+    $this->db->join('T_TipoContacto b','a.CodTipCon=b.CodTipCon','LEFT');
+    //$this->db->join('T_Cliente c','a.CodCli=c.CodCli');
+    //$this->db->like('c.NumCifCli',$SearchText);
+    //$this->db->like('a.CodCli',$SearchText);
+    $this->db->like('a.NomConCli',$SearchText);
     $this->db->or_like('a.NIFConCli',$SearchText);
     $this->db->or_like('a.EmaConCli',$SearchText);
-    $this->db->or_like('c.RazSocCli',$SearchText);
     $this->db->order_by('a.NomConCli ASC');
+    
+
     $query = $this->db->get(); 
     if($query->num_rows()>0)
     {
