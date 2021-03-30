@@ -167,7 +167,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<form class="form-inline" role="form">
 										<div class="form-group">
 											<input type='text' ng-keyup='vm.fetchClientes()' ng-click='vm.searchboxClicked($event)' ng-model='vm.searchText' placeholder='Buscar Cliente...' class="form-control">
-											<ul id='searchResult' style="height: 250px; overflow-y: auto; display: block;">
+											<ul id='searchResult' style="overflow-y: auto; display: block;">
 												<li ng-click='vm.setValue($index,$event,result)' ng-repeat="result in vm.searchResult">
 													<div ng-show="result.NumCifCli!=''">NumCli: {{ result.CodCli }}, {{ result.NumCifCli }} - </div>{{ result.RazSocCli }} 
 												</li>
