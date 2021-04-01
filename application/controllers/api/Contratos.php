@@ -618,7 +618,6 @@ class Contratos extends REST_Controller
 		}
 		$objSalida = json_decode(file_get_contents("php://input"));				
 		$this->db->trans_start();
-		
 		$Contactos=$this->Contratos_model->getaudaxcontactos($objSalida->CodCli,$objSalida->CodConCom,$objSalida->CodProCom);
 		$CuentasBancarias=$this->Contratos_model->getaudaxcuentasbancarias($objSalida->CodCli);	
 		$arrayName = array('Contactos' =>$Contactos ,'CuentasBancarias'=>$CuentasBancarias );

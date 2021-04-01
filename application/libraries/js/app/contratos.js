@@ -48,9 +48,7 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
     scope.fdatos.TDocumentosContratos=[];
     scope.Nivel = $cookies.get('nivel');
     scope.List_TipPre = [{ TipPre: 0, nombre: 'Fijo' }, { TipPre: 1, nombre: 'Indexado' }];
-    //
-    //scope.url_pdf_audax="https://www.systemsmaster.com.ve/AudaxPDFSencillo/";
-    //scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
+    scope.ruta_final="http://10.72.0.16";
     var fecha = new Date();
     var dd = fecha.getDate();
     var mm = fecha.getMonth() + 1; //January is 0!
@@ -2311,179 +2309,83 @@ function Controlador($http, $scope, $filter, $route, $interval, $controller, $co
         scope.CodContCli=0;
         scope.CodCuenBan=0;
 		scope.List_Firmantes=[];
-        console.log(scope.fdatos);
+        //console.log(scope.fdatos);
      	var url=base_urlHome()+"api/Contratos/generar_audax/";
      	$http.post(url,scope.fdatos).then(function(result)
      	{
-     		console.log(result.data);
-     		if(result.data!=false)
-     		{
-     			if(result.data.Contactos.length==0)
-     			{
-     				scope.CodContCli=0;  				
-     			}
-                else if(result.data.Contactos.length==1)
+            if(result.data!=false)
+            {
+                if(result.data.Contactos!=false && result.data.CuentasBancarias==false)
                 {
-                    if(result.data.Contactos[0].EsRepLeg==1)
+                    scope.CodCuenBan=0; 
+                    scope.CodContCli=0;
+                    if(result.data.Contactos.length==1)
                     {
                         scope.CodContCli=result.data.Contactos[0].CodConCli;
+                        return false;
                     }
                     else
                     {
-                        scope.CodContCli=0;
-                    } 
-                }
-                if(result.data.CuentasBancarias.length==0)
-                {
-                    scope.CodCuenBan=0;                                      
-                }
-                else if(result.data.CuentasBancarias.length==1)
-                {
-                    scope.CodCuenBan=result.data.CuentasBancarias[0].CodCueBan
-                }
-                else
-                {                    
-                    scope.List_Cuentas=result.data.CuentasBancarias;
-                    console.log(scope.List_Cuentas);
-                }
-     			if(result.data.Contactos.length>1)
-     			{
-     				angular.forEach(result.data.Contactos,function(RepresentantesLegal)
-					{
-						if(RepresentantesLegal.EsRepLeg==1)
-						{
-							if (scope.List_Firmantes==undefined || scope.List_Firmantes==false)
-							{
-							 scope.List_Firmantes = []; 
-							}
-							scope.List_Firmantes.push({CodConCli:RepresentantesLegal.CodConCli,NomConCli:RepresentantesLegal.NomConCli,NIFConCli:RepresentantesLegal.NIFConCli});
-						}
-					}); 
-                    scope.titulo_modal='Quien Firma';                    
-					//scope.get_list_contratos();
-					console.log(scope.List_Firmantes);
-                    scope.List_Cuentas=result.data.CuentasBancarias;
-                    console.log(scope.List_Cuentas);
-     				$("#modal_representante_legal").modal('show');
-     				return false;
-     			}
-                if(result.data.CuentasBancarias.length>1)
-                {
-                    scope.titulo_modal='Cuentas Bancarias';
-                    //scope.get_list_contratos();
-                    console.log(scope.List_Firmantes);                    
-                    scope.List_Cuentas=result.data.CuentasBancarias;
-                    console.log(scope.List_Cuentas);
+                        angular.forEach(result.data.Contactos,function(RepresentantesLegal)
+                        {
+                            //if(RepresentantesLegal.EsRepLeg==1)
+                            //{
+                                if (scope.List_Firmantes==undefined || scope.List_Firmantes==false)
+                                {
+                                    scope.List_Firmantes = []; 
+                                }
+                                scope.List_Firmantes.push({CodConCli:RepresentantesLegal.CodConCli,NomConCli:RepresentantesLegal.NomConCli,NIFConCli:RepresentantesLegal.NIFConCli});
+                            //}
+                        }); 
+                    }
+                    scope.titulo_modal='Quien Firma el Documento?';                    
                     $("#modal_representante_legal").modal('show');
                     return false;
                 }
-                if(result.data.Contactos.length>1 && result.data.CuentasBancarias.length<=1)
-                {
-                    scope.titulo_modal='Quien Firma';
-                    return false;
-                }
-                else if (result.data.Contactos.length<=1 && result.data.CuentasBancarias.length>1)
+                else if (result.data.Contactos==false && result.data.CuentasBancarias!=false)
                 {
                     scope.titulo_modal='Cuentas Bancarias';
-                    return false;
-                }
-                /*else
-                {
-                    scope.titulo_modal='Quien Firma / Cuentas Bancarias';
-                    return false;
-                }*/
-                if(metodo==1)
-                {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
-                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                }
-                else if(metodo==2)
-                {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
-                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
-                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
-                    var win2 = window.open(url2, '_blank');
-
-                    scope.url_AnexoPunSumGas="http://10.72.0.16/Anexo_Puntos_SumGas/";
-                    var url3=scope.url_AnexoPunSumGas+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
-                    var win3 = window.open(url3, '_blank');
-                }
-                else if(metodo==3)
-                {
-                   
-                   scope.url_pdf_audax_multiCIF="http://10.72.0.16/Contrato_MultiCIF_v1_sinSEPA/";
-                   var url_MultiCIFSinSepa=scope.url_pdf_audax_multiCIF+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
-
-                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
-                   var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                
-                    var url_Sepa =base_urlHome()+"api/Contratos/GenerarSepaClientes/CodCli/"+scope.CodCli+"/CodProCom/"+scope.CodProCom+"/CodConCom/"+scope.CodConCom;
-                    $http.get(url_Sepa).then(function(result)
+                    scope.CodCuenBan=0; 
+                    scope.CodContCli=0;
+                    if(result.data.CuentasBancarias.length==1)
                     {
-                        if(result.data!=false)
-                        {
-                            console.log(result.data);
-                            angular.forEach(result.data, function(data) {
-                                //console.log(data);
-                                scope.url_AnexoPunSumEle="http://10.72.0.16/SepaAudax/";
-                                var url2=scope.url_AnexoPunSumEle+data.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+data.CodCueBan; 
-                                var win2 = window.open(url2, '_blank');
-                            });
-                        }
-                        else
-                        {
-
-                        }
-                    },function(error)
+                        scope.CodCuenBan=result.data.CuentasBancarias[0].CodCueBan
+                    }
+                    else
                     {
-                        if (error.status == 404 && error.statusText == "Not Found"){
-                        scope.toast('error','El método que esté intentando usar no puede ser localizado','Error 404');
-                        }if (error.status == 401 && error.statusText == "Unauthorized"){
-                            scope.toast('error','Disculpe, Usuario no autorizado para acceder a ester módulo','Error 401');
-                        }if (error.status == 403 && error.statusText == "Forbidden"){
-                            scope.toast('error','Está intentando utilizar un APIKEY inválido','Error 403');
-                        }if (error.status == 500 && error.statusText == "Internal Server Error") {
-                        scope.toast('error','Ha ocurrido una falla en el Servidor, intente más tarde','Error 500');
-                        }
-                    });
-                    var win2 = window.open(url_MultiCIFSinSepa, '_blank');
-                    win2.focus();   
+                        scope.List_Cuentas=result.data.CuentasBancarias;
+                        $("#modal_representante_legal").modal('show');
+                        return false;
+                    }
                 }
-     			console.log(url);
-                
-                var win = window.open(url, '_blank');
-                             
-		    }
-     		else
-     		{
-     			scope.CodContCli=0;
-                scope.CodCuenBan=0;
-                if(metodo==1)
+                else if(result.data.Contactos!=false && result.data.CuentasBancarias!=false)
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/AudaxPDFSencillo/";
-                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
+                    scope.toast('info','si ahi datos en ambos.','Validar Datos');
                 }
-                else if(metodo==2)
+                else
                 {
-                    scope.url_pdf_audax="http://10.72.0.16/Contrato_MultiPunto_V14/";
-                    var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                    scope.url_AnexoPunSumEle="http://10.72.0.16/Anexo_Puntos_SumEle/";
-                    var url2=scope.url_AnexoPunSumEle+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom;
-                    var win = window.open(url2, '_blank');
-                    win.focus();
-                            
+                    scope.CodCuenBan=0; 
+                    scope.CodContCli=0;
                 }
-                else if(metodo==3)
-                {
-                   scope.url_pdf_audax="http://10.72.0.16/Anexo_Datos_ClientesPunSum/";
-                   var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;                
-                  
-                }
-                var win = window.open(url, '_blank');
-		        win.focus();
-     		}
+            }
+            else
+            {
+                scope.CodCuenBan=0; 
+                scope.CodContCli=0;
+            }
+            if(metodo==1)
+            {
+                //alert('si esta pasando por aqui');
+                console.log('CodCli: '+scope.CodCli);
+                console.log('CodConCom: '+scope.CodConCom);
+                console.log('CodProCom: '+scope.CodProCom);
+                console.log('CodContCli: '+scope.CodContCli);
+                console.log('CodCuenBan: '+scope.CodCuenBan);
+                scope.url_pdf_audax=scope.ruta_final+"/AudaxPDFSencillo/";
+                var url=scope.url_pdf_audax+scope.CodCli+"/"+scope.CodConCom+"/"+scope.CodProCom+"/"+scope.CodContCli+"/"+scope.CodCuenBan;
+                var win = window.open(url, '_blank');                
+            }
+            console.log(result.data);     		
      	},function(error)
      	{
  			 		if (error.status == 404 && error.statusText == "Not Found"){

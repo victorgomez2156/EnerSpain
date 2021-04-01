@@ -143,10 +143,11 @@ class Contratos_model extends CI_Model
     }
     public function getaudaxcontactos($CodCli,$CodConCom,$CodProCom)
     {
-        $this->db->select('*',false);
-        $this->db->from('T_ContactoCliente');       
-        $this->db->where('CodCli',$CodCli);
-        $this->db->where('EsRepLeg=1');            
+        $this->db->select('b.CodConCli,b.NIFConCli,b.NomConCli,b.CodConCli,a.CodCli,a.EsRepLeg',false);
+        $this->db->from('T_ContactoDetalleCliente a');
+        $this->db->join('T_ContactoCliente b','a.CodConCli=b.CodConCli');       
+        $this->db->where('a.CodCli',$CodCli);
+        //$this->db->where('a.EsRepLeg=1');            
         $this->db->order_by('NomConCli ASC');
         $query = $this->db->get(); 
         if($query->num_rows()>0)
