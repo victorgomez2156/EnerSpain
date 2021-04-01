@@ -55,7 +55,7 @@ class Login extends CI_Controller
 			}
 			$ip=$this->input->ip_address();
 			$os=$this->agent->platform();			
-			$cookie_sesion=$this->input->cookie('EnerSpain');
+			$cookie_sesion=$this->input->cookie('dynargy');
 			$hora_nueva=date('Y-m-d G:i:s');
 			//var_dump($cookie_sesion);				
 			if($cookie_sesion==NULL)

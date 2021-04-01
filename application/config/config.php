@@ -346,7 +346,7 @@ $config['sess_match_ip'] = TRUE;
 $config['sess_time_to_update'] = 20;
 $config['sess_regenerate_destroy'] = FALSE;*/
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'EnerSpain';
+$config['sess_cookie_name'] = 'dynargy';
 $config['sess_expiration'] = 31536000;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = TRUE;
@@ -369,7 +369,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 */
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
-$config['cookie_path']		= '/EnerSpain';
+$config['cookie_path']		= '/dynargy';
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
 /*

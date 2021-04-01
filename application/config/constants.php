@@ -83,7 +83,7 @@ define('EXIT_USER_INPUT', 7); // invalid user input
 define('EXIT_DATABASE', 8); // database error
 define('EXIT__AUTO_MIN', 9);  // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-define('TITULO','Aplicación para la Gestión de Servicios Energéticos - AGSE');
+define('TITULO','Dynargy');
 define('ESTILOS','application/libraries/estilos/');
 define('PATH_ESTILOS_JS','application/libraries/js/');
 define('PATH_ESTILOS_JS_APP','application/libraries/js/app/');

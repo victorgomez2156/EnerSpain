@@ -129,7 +129,7 @@
   <script src="<?php echo PATH_ESTILOS_JS_APP.'bloqueo_comercializadora.js'?>?v=<?php echo(rand()); ?>"></script>
   <script src="<?php echo PATH_ESTILOS_JS_APP.'configuraciones_sistema.js'?>?v=<?php echo(rand()); ?>"></script-->
   <!--script src="<?php echo ESTILOS;?>js/bloqueador.js"></script-->    
-  <title>Bienvenido a AGSE: <?php echo $this->usuario;?> | <?php echo TITULO;?>"></title>
+  <title>Bienvenido a Dynargy: <?php echo $this->usuario;?> | <?php echo TITULO;?>"></title>
   <style>
   body { padding-right: 0 !important }
   
